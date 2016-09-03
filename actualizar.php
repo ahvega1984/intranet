@@ -649,19 +649,6 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
- @descripcion: Campo Telefono del Profesor en tabla departamentos
- @fecha: 10 de Julio de 2016
- */
-
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Telefono del Profesor'");
-if (! mysqli_num_rows($actua)) {
-	
-	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `telefono` INT(11) NULL");
-	
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Telefono del Profesor', NOW())");
-}
-
-/*
  @descripcion: Tabla de accesos para SMS
  @fecha: 25 de Agosto de 2016
  */
@@ -693,3 +680,24 @@ if (! mysqli_num_rows($actua)) {
 }
 
 
+/*
+ @descripcion: Corrección teléfono del profesor en c_profes
+ @fecha: 3 de septiembre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Corrección teléfono del profesor'");
+if (! mysqli_num_rows($actua)) {
+	
+	if ( mysqli_num_rows(mysqli_query($db_con, "SHOW COLUMNS FROM c_profes LIKE 'telefono'")) == 1 ) {
+		mysqli_query($db_con, "ALTER TABLE `c_profes` CHANGE `telefono` `telefono` CHAR(9) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
+	}
+	else {
+		mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `telefono` CHAR(9) NULL");
+	}
+	
+	if ( mysqli_num_rows(mysqli_query($db_con, "SHOW COLUMNS FROM departamentos LIKE 'telefono'")) == 1 ) {
+		mysqli_query($db_con, "ALTER TABLE `departamentos` DROP `telefono`");
+	}
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Corrección teléfono del profesor', NOW())");
+}

@@ -53,8 +53,8 @@ if (isset($_POST['submit'])) {
 					$msg_error = "La dirección de correo electrónico no es válida.";
 					$correo_has_error = 1;
 				}
-				elseif (!(is_numeric($movil) and strlen($movil)==9)) {	
-					$msg_error = "El número de teléfono móvil no parece correcto. Escríbelo de nuevo.";
+				elseif (! is_numeric($movil) || strlen($movil) != 9 || substr($movil, 0, 1) != '6' && substr($movil, 0, 1) != '7') {	
+					$msg_error = "El número de teléfono móvil no es válido.";
 					$movil_has_error = 1;
 				}
 				else {
@@ -138,14 +138,14 @@ include("menu.php");
 						  <div id="form-group-email" class="form-group">
 						    <label for="correo" class="col-sm-4 control-label">Correo electrónico</label>
 						    <div class="col-sm-8">
-						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<?php echo $row['correo'];?>">
+						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<?php echo $row['correo'];?>" maxlength="64">
 						    </div>
 						  </div>
 
 						   <div id="form-group-movil" class="form-group">
 						    <label for="movil" class="col-sm-4 control-label">Teléfono móvil</label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control" id="movil" name="movil" placeholder="Número de móvil" value="<?php echo $row['telefono'];?>">
+						      <input type="text" class="form-control" id="movil" name="movil" placeholder="Número de móvil" value="<?php echo $row['telefono'];?>" maxlength="9">
 						    </div>
 						  </div>
 							
