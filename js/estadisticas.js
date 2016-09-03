@@ -1,7 +1,6 @@
 $( document ).ready(function() {
 	$.post( "estadisticas_dia.php", { "id" : 'accesos' }, null, "json" )
 	    .done(function( data, textStatus, jqXHR ) {
-	       console.log(data);
 	    	
 	       $('#stats-numprof').html(data.num_profesores);
 	       $('#stats-totalprof').html(data.total_profesores);

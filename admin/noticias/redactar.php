@@ -250,13 +250,13 @@ include ("menu.php");
 			
 			onChange: function(content) {
 				var sHTML = $('#content').code();
-		    localStorage['summernote-<?php echo $token; ?>'] = sHTML;
+		    	localStorage['summernote-<?php echo $token; ?>'] = sHTML;
 			}
 		});
 		
-		$('#content').code(localStorage['summernote-<?php echo $token; ?>']);
-		
-		
+		if (localStorage['summernote-<?php echo $token; ?>']) {
+			$('#content').code(localStorage['summernote-<?php echo $token; ?>']);
+		}
 		
 	});
 	

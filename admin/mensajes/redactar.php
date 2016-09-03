@@ -845,11 +845,13 @@ $page_header = "Redactar mensaje";
 			
 			onChange: function(content) {
 				var sHTML = $('#texto').code();
-		    localStorage['summernote-<?php echo $token; ?>'] = sHTML;
+		    	localStorage['summernote-<?php echo $token; ?>'] = sHTML;
 			}
 		});
 		
-		$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
+		if (localStorage['summernote-<?php echo $token; ?>']) {
+			$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
+		}
 	  
 	  	$('#mostrar_grupos').click(function() {
 	  	mostrar_grupos();

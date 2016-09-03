@@ -162,8 +162,9 @@
 
 	<script>
 	$(document).ready(function() {
+		var expired_time = (<?php echo ini_get("session.gc_maxlifetime"); ?> * 60000) - 180000;
 		setTimeout(function() {
 			$("#session_expired").modal('show');
-		},(<?php echo ini_get("session.gc_maxlifetime"); ?>*60000)-180000);
+		}, expired_time);
 	});
 	</script>
