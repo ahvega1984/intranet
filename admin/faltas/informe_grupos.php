@@ -3,12 +3,6 @@ require('../../bootstrap.php');
 
 $PLUGIN_DATATABLES = 1;
 
-?>
-<div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
-</div>
-<?php
-
 include("../../menu.php");
 include("../../faltas/menu.php");
 
@@ -19,13 +13,24 @@ include("../../faltas/menu.php");
   <h2>Informe sobre Faltas de Asistencia <small>Grupos</small></h2>
 </div>
 
-<?php include("menu_informes.php"); ?>
+<div id="status-loading" class="text-center">
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+</div>
 
-  <br>
-  <p class="help-block">** En <mark>negrita</mark> el <EM>NÚMERO TOTAL</EM> de faltas; en <mark>rojo</mark> las faltas <em>NO JUSTIFICADAS</em>; en <mark>verde</mark> las faltas <em>JUSTIFICADAS</em></p>
-  <br>
 
 <div id="wrap" class="row" style="display: none;">
+
+	<?php include("menu_informes.php"); ?>
+
+  <br>
+  
+  <div class="alert alert-info">
+  	En <strong>negrita</strong> el número total de faltas; en <strong>rojo</strong> las faltas no justificadas; en <strong>verde</strong> las faltas justificadas.
+  </div>
+  
+  <br>
+
+
   <div class="col-md-10 col-md-offset-1">
 <?php 
 $nm=0;
@@ -37,7 +42,7 @@ $idcurso=$curs[1];
 
 ?> 
   <h4 class='text-info' align='center'><?php echo $curso;?></h4>
-  <table class='table table-bordered table-vcentered' style="width:auto;margin:auto;min-width:550px;">
+  <table class="table table-bordered table-vcentered">
   <thead><tr>
       <th></th>
       <th>Trimestre 1º</th>

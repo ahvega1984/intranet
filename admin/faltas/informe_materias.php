@@ -3,12 +3,6 @@ require('../../bootstrap.php');
 
 $PLUGIN_DATATABLES = 1;
 
-?>
-<div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
-</div>
-<?php
-
 include("../../menu.php");
 include("../../faltas/menu.php");
 
@@ -19,14 +13,27 @@ include("../../faltas/menu.php");
   <h2>Informe sobre Faltas de Asistencia <small>Materia</small></h2>
 </div>
 
-<?php include("menu_informes.php"); ?>
+<div id="status-loading" class="text-center">
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+</div>
 
-  <br>
-  <p class="help-block">** Entre <mark>paréntesis</mark> el <em>NÚMERO DE ALUMNOS</em> que cursa la asignatura en ese nivel; en <mark>negrita</mark> la <EM>MEDIA POR ALUMNO</EM> de faltas en la Asignatura; en <mark>rojo</mark> las faltas <em>NO JUSTIFICADAS</em>; en <mark>verde</mark> las faltas <em>JUSTIFICADAS</em></p>
-  <br>
+
 
 <div id="wrap" class="row" style="display: none;">
+	
+	<?php include("menu_informes.php"); ?>
+	
+	  <br>
+	  
+	  <div class="alert alert-info">
+	  	Junto al nombre de la asignatura, entre <strong>paréntesis</strong>, el número de alumnos que cursa la asignatura en ese nivel; en <strong>negrita</strong> la media por alumno de faltas en la asignatura; en <strong>rojo</strong> las faltas no justificadas; en <strong>verde</strong> las faltas justificadas.
+	  </div>
+	  
+	  <br>
+
+
   <div class="col-md-10 col-md-offset-1">
+    
 <?php 
 $nm=0;
 $crs = mysqli_query($db_con,"select distinct nomcurso, unidades.idcurso from unidades, cursos where unidades.idcurso=cursos.idcurso order by idunidad");
@@ -37,7 +44,7 @@ $idcurso=$curs[1];
 
 ?> 
   <h3 class='text-info' align='center'><?php echo $curso;?></h3>
-  <table class='table table-bordered table-vcentered datatable' style="width:auto;margin:auto;min-width:550px;">
+  <table class="table table-bordered table-vcentered datatable">
   <thead><tr>
       <th></th>
       <th>Trimestre 1º</th>
