@@ -273,13 +273,22 @@ El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de r
 if (isset($_GET['copia'])) {
 	
 	if ($curso=="4ESO") {
+	$conf = mysqli_query($db_con,"select confirmado from matriculas where id='$id_4' and confirmado='1'");
+	if (mysqli_num_rows($conf)>0) { $confirma = 1; } else{ $confirma = 0; }
+
 	mysqli_query($db_con, "delete from matriculas where id='$id_4'");
 	$curso="1BACH";
 	}
 	else{
+	$conf = mysqli_query($db_con,"select confirmado from matriculas_bach where id='$id' and confirmado='1'");
+	if (mysqli_num_rows($conf)>0) { $confirma = 1; } else{ $confirma = 0; }	
+
 	mysqli_query($db_con, "delete from matriculas_bach where id='$id'");
 	}
 	mysqli_query($db_con, "insert into matriculas_bach(select * from matriculas_bach_backup where id = '$id')");
+
+	mysqli_query($db_con, "update matriculas_bach set confirmado='$confirma' where id='$id'");
+
 	mysqli_query($db_con, "delete from matriculas_bach_backup where id='$id'");
 
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -442,7 +451,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		?>
 		<?php
 		echo '<th class="hidden-print" style="align:center">Sí NO</th>';
-		echo '<th class="hidden-print"></th>';
 		?>
 		<th class="hidden-print">Conv.</th>
 		<th class="hidden-print">Otros</th>
@@ -613,7 +621,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				}
 
 			for ($i=1;$i<3;$i++){
-				echo '<input type="radio" name = "promociona-'. $id .'" value="'.$promociona.'" ';
+				echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 					 if($promociona == $i){echo " checked";}
 						echo " />&nbsp;";
 					}
@@ -624,6 +632,13 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 //		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
 //		if($revisado=="1"){echo " checked";}
 //		echo ' /></td>';
+			echo "<td class='hidden-print'>";
+// Problemas de Convivencia
+if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1'><span class='badge badge-important' target='blank'>$n_fechorias</span></a>";}
+elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
+elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
+// Fin de Convivencia.
+echo "</td>";
 
 		echo '<td class="hidden-print" style="text-align:right">';
 		$contr = mysqli_query($db_con, "select matriculas_bach.apellidos, alma.apellidos, matriculas_bach.nombre, alma.nombre, matriculas_bach.domicilio, alma.domicilio, matriculas_bach.dni, alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, alma.dnitutor, matriculas_bach.telefono1, alma.telefono, matriculas_bach.telefono2, alma.telefonourgencia from matriculas_bach, alma where alma.claveal=matriculas_bach.claveal and id = '$id'");
@@ -644,24 +659,16 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			}
 			//echo "$control[$i] --> ";
 		}
-		echo "<i class='$icon' title='".$text_contr."'> </i>&nbsp;&nbsp;";
+		echo "<i class='$icon' data-bs='tooltip' title='".$text_contr."'> </i>&nbsp;";
 		
 
-		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>";}
+		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>&nbsp;";}
 
 		if ($respaldo=='1') {
-			echo "&nbsp;".$backup."&nbsp;".$rp_cur;
+			echo $backup."&nbsp;".$rp_cur;
 		}
-		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
-		echo "</td>";
-echo "<td class='hidden-print'>";
-// Problemas de Convivencia
-if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1'><span class='badge badge-important' target='blank'>$n_fechorias</span></a>";}
-elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
-elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
-// Fin de Convivencia.
-echo "</td>";
-echo "<td class='hdden-print' nowrap>";
+		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>&nbsp;";
+
 if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
 if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 if(!empty($divorcio)){ 

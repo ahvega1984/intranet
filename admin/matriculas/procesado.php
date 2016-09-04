@@ -18,12 +18,12 @@
 			// Promoción
 			if ($col=='promociona' and date('m')>"06" and $n_curso>1){
 
-				$nivel_a = mysqli_query($db_con,"select curso from alma where claveal like (select claveal from matriculas where id = '$id_submit')");
+				$nivel_a = mysqli_query($db_con,"select curso, claveal from alma where claveal like (select claveal from matriculas where id = '$id_submit')");
 				$nivel_ahora = mysqli_fetch_array($nivel_a);
 				$c_ahora=substr($nivel_ahora[0],0,1);
-
+				$clave_al = $nivel_ahora[1];
 				if ($val=='2' and ($n_curso!==$c_ahora)) {					
-
+					
 				// Resplado de datos modificados
 				mysqli_query($db_con, "insert into matriculas_backup select * from matriculas where id = '$id_submit'");
 				$promo = "select optativa21, optativa22, optativa23, optativa24, optativa25, optativa26, optativa27, act21 from matriculas where id = '$id_submit'";
@@ -40,7 +40,22 @@
 				mysqli_query($db_con, $cambia_datos);
 				}
 				else{
-					mysqli_query($db_con, "update matriculas set promociona='$val' where id  = '$id_submit'");
+
+					if ($val == "1" and $n_curso==$c_ahora and date('m')=="09" and $n_curso<'4') {
+						mysqli_query($db_con, "delete from matriculas where id='$id_submit'");
+						mysqli_query($db_con, "insert into matriculas (select * from matriculas_backup where id = '$id_submit')");
+						mysqli_query($db_con, "update matriculas set promociona='1' where id = '$id_submit'");
+						mysqli_query($db_con, "delete from matriculas_backup where id='$id_submit'");
+					}
+					elseif($val == "1" and $n_curso==$c_ahora and date('m')=="09" and $n_curso=='4'){
+						mysqli_query($db_con, "delete from matriculas where id='$id_submit'");
+						mysqli_query($db_con, "insert into matriculas_bach (select * from matriculas_bach_backup where claveal = '$clave_al')");
+						mysqli_query($db_con, "update matriculas_bach set promociona='1' where claveal = '$clave_al'");
+						mysqli_query($db_con, "delete from matriculas_bach_backup where claveal='$clave_al'");
+					}
+					else{
+						mysqli_query($db_con, "update matriculas set promociona='$val' where id  = '$id_submit'");
+					}
 				}
 			}
 			

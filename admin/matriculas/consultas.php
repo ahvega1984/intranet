@@ -231,8 +231,13 @@ El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de r
 </div></div><br />' ;
 }
 if (isset($_GET['copia'])) {
+	$conf = mysqli_query($db_con,"select confirmado from matriculas where id='$id' and confirmado='1'");
+	if (mysqli_num_rows($conf)>0) { $confirma = 1; } else{ $confirma = 0; }
+
 	mysqli_query($db_con, "delete from matriculas where id='$id'");
 	mysqli_query($db_con, "insert into matriculas (select * from matriculas_backup where id = '$id')");
+	mysqli_query($db_con, "update matriculas set promociona='1' where id = '$id'");
+	mysqli_query($db_con, "update matriculas set confirmado='$confirma' where id='$id'");
 	mysqli_query($db_con, "delete from matriculas_backup where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -584,7 +589,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				}
 				//echo "$control[$i] --> ";
 			}
-			echo "<i class='$icon' data-bs='tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
+			echo "<i class='$icon' data-bs='tooltip' title='$text_contr'> </i>&nbsp;";
 
 			if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>";}
 			
@@ -646,7 +651,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					}
 					
 					for ($i=1;$i<3;$i++){
-						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$promociona.'" ';
+						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 						if($promociona == $i){echo " checked";}
 						echo " />&nbsp;";
 					}

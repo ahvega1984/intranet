@@ -17,6 +17,8 @@
 		
 			//Promocion	
 			if ($col=='promociona' and date('m')>"06"){
+				mysqli_query($db_con,"update matriculas_bach set promociona='$val' where id = '$id_submit'");
+				//echo "update matriculas_bach set promociona='$val' where id = '$id_submit'<br>";
 				$nivel_a = mysqli_query($db_con,"select curso from alma where claveal like (select claveal from matriculas_bach where id = '$id_submit')");
 				$nivel_ahora = mysqli_fetch_array($nivel_a);
 				$c_ahora=substr($nivel_ahora[0],0,1);
@@ -62,7 +64,16 @@
 				}
 				}
 				else{
-					mysqli_query($db_con, "update matriculas_bach set promociona='$val' where id='$id_submit'");
+
+					if ($val == "1" and $n_curso==$c_ahora and date('m')=="09" and $n_curso=='1') {
+						mysqli_query($db_con, "delete from matriculas_bach where id='$id_submit'");
+						mysqli_query($db_con, "insert into matriculas_bach (select * from matriculas_bach_backup where id = '$id_submit')");
+						mysqli_query($db_con, "update matriculas_bach set promociona='1' where id = '$id_submit'");
+						mysqli_query($db_con, "delete from matriculas_bach_backup where id='$id_submit'");
+					}
+					else{
+						mysqli_query($db_con, "update matriculas_bach set promociona='$val' where id  = '$id_submit'");
+					}
 				}
 			}
 			
