@@ -44,8 +44,10 @@ include("menu.php");
 				
 				<?php if (acl_permiso($carg, array('1'))): ?>
 				<h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
+				
 				<div class="row">
-					<div class="col-sm-20">
+				
+					<div class="col-xs-6 col-sm-20">
 						<h5 class="text-center">
 							<a href="#" data-toggle="modal" data-target="#accesos">
 								<span class="lead"><span id="stats-numprof"></span> <span class="text-muted">(<span id="stats-totalprof"></span>)</span></span><br>
@@ -76,7 +78,7 @@ include("menu.php");
 						
 					</div><!-- /.col-sm-2 -->
 						
-					<div class="col-sm-20">
+					<div class="col-xs-6 col-sm-20">
 						
 						<h5 class="text-center">
 							<a href="#" data-toggle="modal" data-target="#fechoria">
@@ -104,7 +106,7 @@ include("menu.php");
 					</div><!-- /.col-sm-2 -->
 						
 						
-					<div class="col-sm-20">
+					<div class="col-xs-6 col-sm-20">
 						
 						<h5 class="text-center">
 							<a href="#" data-toggle="modal" data-target="#expulsiones">
@@ -142,7 +144,7 @@ include("menu.php");
 					</div><!-- /.col-sm-2 -->
 						
 						
-					<div class="col-sm-20">
+					<div class="col-xs-6 col-sm-20">
 						
 						<h5 class="text-center">
 							<a href="#" data-toggle="modal" data-target="#visitas">
@@ -170,7 +172,7 @@ include("menu.php");
 					</div><!-- /.col-sm-2 -->
 						
 						
-					<div class="col-sm-20">
+					<div class="col-xs-6 col-sm-20">
 						
 						<h5 class="text-center">
 							<a href="#" data-toggle="modal" data-target="#noleidos">
@@ -195,7 +197,8 @@ include("menu.php");
 						</div>
 						<!-- FIN MODAL ACCESOS -->
 						
-					</div><!-- /.col-sm-2 -->				
+					</div><!-- /.col-sm-2 -->
+								
 				</div>
 				
 				<br>
