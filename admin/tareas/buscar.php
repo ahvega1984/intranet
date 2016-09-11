@@ -78,7 +78,7 @@ if (mysqli_num_rows($result) > 0)
 			$foto="<span class=\"fa fa-user fa-3x fa-fw\"></span>";
 		}
 		else {
-			$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
+			$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' alt='' />";
 		}
 		echo $foto."&nbsp;&nbsp;";	
    echo stripslashes($row->APELLIDOS)." ".stripslashes($row->NOMBRE)."</TD>

@@ -33,13 +33,18 @@ if ($result) {
   if ($row = mysqli_fetch_array($result))
         {
         echo "<table class='table table-striped' style='width:auto'>\n";
-        echo "<thead><th>Alumno</th><th>Total</th></thead><tbody>";
-                do {
-                echo "<tr><td>";
-        $foto="";
-		$foto = "<img src='../../xml/fotos/$row[0].jpg' width='55' height='64'  />";
-		echo $foto."&nbsp;&nbsp;";
-        echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[3]</a></td><td style='vertical-align:middle'><strong>$row[1]</strong></td></tr>\n"; 
+        echo "<thead><th width=\"60\"></th><th>Alumno</th><th>Total</th></thead><tbody>";
+        do {
+			echo "<tr><td>";
+			$foto = '../../xml/fotos/'.$row[0].'.jpg';
+			if (file_exists($foto)) {
+				echo '<img src="'.$foto.'" width="55" alt="" />';
+			}
+			else {
+				echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+			}
+			echo "</td><td>";
+			echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[3]</a></td><td style='vertical-align:middle'><strong>$row[1]</strong></td></tr>\n"; 
         } while($row = mysqli_fetch_array($result));
         echo "</tbody></table></center>";
         } 

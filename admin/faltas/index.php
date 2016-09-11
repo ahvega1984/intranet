@@ -136,7 +136,7 @@ else
 
 <div class="well well-large">
 
-<legend>Faltas de un Grupo.</legend>
+<legend>Faltas de un grupo</legend>
 <p class="help-block">( Faltas justificadas o no justificadas de un grupo en un mes con posibilidad de elegir un número mínimo de faltas. )</p> 
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 
@@ -151,6 +151,8 @@ else
 </SELECT>
 </div>
 
+<?php 
+$meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'); ?>
 <div class="form-group col-md-6">
 <label class="control-label" for="mes"> Mes </label> 
 <SELECT name='mes' id='mes'
@@ -158,7 +160,7 @@ else
 	<OPTION></OPTION>
 	<?php
 	for($i=1;$i<13;$i++){
-		echo "<OPTION>$i</OPTION>";
+		echo '<option value="'.$i.'">'.$meses[$i].'</option>';
 	}
 	?>
 </SELECT> 
@@ -188,16 +190,13 @@ else
 
 </div>
 
-
-
 </div>
-
 
 <div class="col-md-6">
 
 <div class="well well-large">
 
-<legend>Faltas por Asignatura</legend>
+<legend>Faltas por asignatura</legend>
 <p class="help-block">( Alumnos con faltas de asistencia no justificadas en una asignatura propia de un determinado profesor. )</p> 
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 

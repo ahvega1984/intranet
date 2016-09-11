@@ -47,12 +47,17 @@ $result = mysqli_query($db_con, $SQL);
   if ($row = mysqli_fetch_array($result))
         {
         echo "<table class='table table-striped datatable'>\n";
-        echo "<thead><th>Alumno</th><th>Grupo</th><th>Falta</th><th>Total</th></thead><tbody>";
+        echo "<thead><th width=\"60\"></th><th>Alumno</th><th>Grupo</th><th>Falta</th><th>Total</th></thead><tbody>";
                 do {
-                echo "<tr><td>";
-        $foto="";
-		$foto = "<img src='../../xml/fotos/$row[0].jpg' width='55' height='64' class=''  />";
-		echo $foto."&nbsp;&nbsp;";
+				echo "<tr><td>";
+				$foto = '../../xml/fotos/'.$row[0].'.jpg';
+				if (file_exists($foto)) {
+					echo '<img src="'.$foto.'" width="55" alt="" />';
+				}
+				else {
+					echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+				}
+				echo "</td><td>";
                 echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[1], $row[2]</a></td><td>$row[3]</td><td>$row[4]</td><td style='color:#9d261d'><strong>$row[5]</strong></td></tr>\n"; 
         } while($row = mysqli_fetch_array($result));
         echo "</tbody></table>";

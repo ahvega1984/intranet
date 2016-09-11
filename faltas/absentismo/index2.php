@@ -135,9 +135,14 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
  	$s_sociales=$row0[10];
  	if (strlen($jefatura)>0) {$chj=" checked ";}else{$chj="";}if(strlen($orientacion)>0) {$cho=" checked ";}else{$cho="";}if (strlen($tutoria)>0) {$cht=" checked ";}else{$cht="";} if (strlen($s_sociales)>0) {$chs=" checked ";}else{$chs="";}
 	echo "<tr><td  align='left'>";
-	    $foto="";
-		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64'  />";
-		echo $foto."</td>";
+	$foto = '../../xml/fotos/'.$claveal.'.jpg';
+	if (file_exists($foto)) {
+		echo '<img src="'.$foto.'" width="55" alt="" />';
+	}
+	else {
+		echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+	}
+	echo "</td>";
 	echo "<td>$apellidos, $nombre</td><td>$unidad</td><td>$mes</td><td>$numero</td>";
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
 	echo "<td><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></td>";

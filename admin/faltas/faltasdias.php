@@ -27,7 +27,7 @@ $imprimir_activado = true;
 ';
         echo "<legend align='center' class='text-info'>Alumnos con más de <strong class='text-info'>$numero</strong> faltas de asistencia<br> entre los días <strong class='text-info'>$fechasq1</strong> y <strong class='text-info'>$fechasq3</strong></legend>
 		<table class='table table-striped datatable' style='width:100%;'>";
-        echo "<thead><tr><th>Alumno</th><th>Curso</th>
+        echo "<thead><tr><th width=\"60\"></th><th>Alumno</th><th>Curso</th>
         <th nowrap>Nº faltas</th><th nowrap>Nº días</th></tr></thead><tbody>";
 
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
@@ -53,10 +53,15 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Bucle de Consulta.
   if ($rowF = mysqli_fetch_array($resultF))
         {
-	echo "<tr><td >";
-	$foto="";
-	$foto = "<img src='../../xml/fotos/$rowF[0].jpg' width='55' height='64' class=''  />";
-	echo $foto."&nbsp;&nbsp;";
+	echo "<tr><td>";
+	$foto = '../../xml/fotos/'.$rowF[0].'.jpg';
+	if (file_exists($foto)) {
+		echo '<img src="'.$foto.'" width="55" alt="" />';
+	}
+	else {
+		echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+	}
+	echo "</td><td>";
 	echo "$rowF[2] $rowF[1]</td><td>$rowF[3]</td>
 	<td><strong style='color:#9d261d'>$rowF[6]</strong></td>";
 # Segunda parte.
@@ -90,7 +95,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 	      
 	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
 	  		
-	  		"order": [[ 1, "desc" ]],
+	  		"order": [[ 2, "desc" ]],
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",

@@ -25,6 +25,7 @@ include ("menu.php");
 		echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
 		$fecha1 = (date ( "d" ) . - date ( "m" ) . - date ( "Y" ));
 		echo "<thead>
+		<th width=\"60\"></th>
 		<th>ALUMNO</th>
 		<th>CURSO</th>
 		<th>TOTAL</th>
@@ -67,11 +68,16 @@ include ("menu.php");
 		if ($conv== '0'){$conv='';}
 		if(!(empty($apellidos))){
 			echo "<tr>
-		<td nowrap>";
-		$foto="<span class='fa fa-user fa-4x'></span>";
-		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
-		echo $foto."&nbsp;&nbsp;";			
-		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
+		<td>";
+		$foto = '../../xml/fotos/'.$claveal.'.jpg';
+		if (file_exists($foto)) {
+			echo '<img src="'.$foto.'" width="55" alt="" />';
+		}
+		else {
+			echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+		}
+		echo "</td>";		
+		echo "<td nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td $bgcolor>$rowcurso</td>
 		<td $bgcolor>$rownumero</td>
 		<td $bgcolor>$leve</td>
@@ -104,7 +110,7 @@ include ("menu.php");
          
      		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
      		
-     		"order": [[ 2, "desc" ]],
+     		"order": [[ 3, "desc" ]],
      		
      		"language": {
      		            "lengthMenu": "_MENU_",
