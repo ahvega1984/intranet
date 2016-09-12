@@ -308,6 +308,10 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	}
 }
 
+if (isset($curso)) {
+	$extra=" curso='$curso' ";	
+}
+
 if ($optativ) { 
 	if ($curso=='1BACH') {
 		$extra.=" and optativa".$n_curso." = '".$optativ."'";
@@ -404,11 +408,6 @@ if (!($orden)) {
 
 	$n_cons = mysqli_num_rows($cons);
 	if($n_cons=="0"){
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
-</div></div><br />' ;
 	}
 	else{
 		if ($curso) {
@@ -518,7 +517,22 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if ($curso=="1BACH") {
 		echo '<td> '.$idioma2.'</td>';
 		}
-		echo '<td> '.$bilinguismo.'</td>';
+
+		$an_bd = substr($config['curso_fin'],0,4);
+		$bl="";
+		$extra_bil="";
+		$bl0 = mysqli_query($db_con,"select * from matriculas_bach_".$an_bd." where claveal = '$claveal' and bilinguismo = 'Si' and claveal not like ''");
+		if (mysqli_num_rows($bl0)>0) { 
+			$bl = '1';
+		}
+		echo '<td> <input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
+		if($bilinguismo=="Si"){ echo " checked";} elseif ($bl == '1') { echo " checked";}
+		echo ' />';
+		if ($bilinguismo=="Si" and $bl<>1) {
+			$extra_bil = "<i class='fa fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
+		}
+		echo $extra_bil.'</td>';
+
 		echo '<td>'.${itinerario.$n_curso}.'</td>';
 		//if ($optativa1 == '0') {${optativa.$i}="";}
 		echo "<td align='center'";
@@ -550,7 +564,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 					$promociona="";
-					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene Título" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
+
 
 					$rp_cur="";
 					if ($promociona == "1" and $n_curso==$curs_ant) {
@@ -717,8 +732,6 @@ echo "<br>
 		}
 		$promo = mysqli_query($db_con, "select promociona from matriculas_bach where $extra and promociona = '1'");
 		$num_promo = mysqli_num_rows($promo);
-		$pil = mysqli_query($db_con, "select promociona from matriculas_bach where $extra and promociona = '3'");
-		$num_34 = mysqli_num_rows($pil);
 		$an_bd = substr($config['curso_actual'],0,4);
 		$repit = mysqli_query($db_con, "select promociona from matriculas_bach where $extra and promociona = '2'");
 		$num_repit = mysqli_num_rows($repit);
@@ -772,10 +785,7 @@ echo "<br>
 		<?php
 		echo "<td>$num_rel</td>";
 		echo "<td>$num_promo</td>";
-		echo "<td>$num_repit</td>";		
-		if ($curso=="1BACH"){
-		echo "<th>$num_34</th>";
-		}
+		echo "<td>$num_repit</td>";
 		
 		if ($curso=="1BACH"){
 		echo "<td>$num_it11</td>";

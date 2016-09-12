@@ -256,6 +256,10 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	}
 }
 
+if (isset($curso)) {
+	$extra=" curso='$curso' ";	
+}
+
 $n_curso = substr($curso, 0, 1);
 
 if ($diversificacio=="Si") { $extra.=" and diversificacion = '1'";	}elseif ($diversificacio=="No"){ $extra.=" and diversificacion = '0'"; }
@@ -382,8 +386,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		echo '<th>Rel.</th>';
 		echo '<th>Transprt</th>';
-		echo '<th>Bil.</th>';
-		if ($n_curso==1) {
+		if ($n_curso>2) {
+			echo '<th>Bil.</th>';		
+		}
+		if ($n_curso==1 or $n_curso==4) {
 			echo '<th>Ex.</th>';
 		}
 		if ($n_curso==2 or $n_curso==3) {
@@ -518,19 +524,22 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			echo '<td> '.$trans.'</td>';
 
 			$an_bd = substr($config['curso_fin'],0,4);
-			$bl="";
-			$bl0 = mysqli_query($db_con,"select * from matriculas_".$an_bd." where claveal = '$claveal' and bilinguismo = 'Si'");
-			if (mysqli_num_rows($bl0)>0) { $bl = '1'; }
+			if ($n_curso>"2") {
+				$bl="";
+				$bl0 = mysqli_query($db_con,"select * from matriculas_".$an_bd." where claveal = '$claveal' and bilinguismo = 'Si' and claveal not like ''");
+				if (mysqli_num_rows($bl0)>0 and $n_curso>2) { 
+					$bl = '1'; 
+				}
+				echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
+				if($bilinguismo=="Si"){ echo " checked";} elseif ($bl == '1') { echo " checked";}
+				echo ' /></td>';
+			}
 
-			echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
-			if($bilinguismo=="Si"){echo " checked";}elseif ($bl == '1') { echo " checked";}
-			echo ' /></td>';
-
-			if ($n_curso==1) {
-			 if ($exencion=="0") {$exencion="";}
-			 echo '<td><input name="exencion-'. $id .'" type="checkbox" value="1"';
-			 if($exencion=="1"){echo " checked";}
-			 echo ' /></td>';
+			if ($n_curso=="1" or $n_curso=="4") {
+			 	if ($exencion=="0") {$exencion="";}
+			 	echo '<td><input name="exencion-'. $id .'" type="checkbox" value="1"';
+			 	if($exencion=="1"){echo " checked";}
+			 	echo ' /></td>';
 			}
 
 			if ($n_curso=="2" or $n_curso=="3") {
@@ -606,7 +615,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 					$promociona="";
-					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene T’tulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
 
 					$rp_cur="";
 					if ($promociona == "1" and $n_curso==$curs_ant) {
@@ -625,7 +634,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 
-					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene T’tulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
 					
 					if (date('m')>'05' and date('m')<'09'){
 					foreach ($tr_not as $val_asig) {
@@ -885,7 +894,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<script language="javascript">
 		 if (document.form2.curso.value=="1ESO"){ 
 			 document.form2.itinerari.disabled = true; 
-			 document.form2.matematica4.disabled = true;
 			 document.form2.diversificacio.disabled = true;
 			 document.form2.promocion.disabled = true;
 			 document.form2.actividade.disabled = false;
@@ -893,7 +901,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 		 if (document.form2.curso.value=="2ESO"){ 
 			 document.form2.itinerari.disabled = true; 
-			 document.form2.matematica4.disabled = true;
 			 document.form2.promocion.disabled = false;
 			 document.form2.diversificacio.disabled = false;
 			 document.form2.actividade.disabled = false;
@@ -909,10 +916,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 		 if (document.form2.curso.value=="4ESO"){ 
 			 document.form2.actividade.disabled = true;
-			 document.form2.exencio.disabled = true;
+			 document.form2.exencio.disabled = false;
 			 document.form2.itinerari.disabled = false; 
 			 document.form2.matematica4.disabled = false;
-			 document.form2.diversificacio.disabled = true;
+			 document.form2.diversificacio.disabled = false;
 			 document.form2.promocion.disabled = false;  
 			}
   </script>
