@@ -521,14 +521,16 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		$an_bd = substr($config['curso_fin'],0,4);
 		$bl="";
 		$extra_bil="";
+		if ($curso=='2BACH') {
 		$bl0 = mysqli_query($db_con,"select * from matriculas_bach_".$an_bd." where claveal = '$claveal' and bilinguismo = 'Si' and claveal not like ''");
 		if (mysqli_num_rows($bl0)>0) { 
 			$bl = '1';
 		}
+		}
 		echo '<td> <input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
 		if($bilinguismo=="Si"){ echo " checked";} elseif ($bl == '1') { echo " checked";}
 		echo ' />';
-		if ($bilinguismo=="Si" and $bl<>1) {
+		if ($bilinguismo=="Si" and $bl<>1 and $curso=='2BACH') {
 			$extra_bil = "<i class='fa fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
 		}
 		echo $extra_bil.'</td>';

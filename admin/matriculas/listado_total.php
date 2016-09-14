@@ -58,19 +58,38 @@ if ($datatmp['diversificacion']=="1") {
 		}
 }
 else {
+if ($curso=="2ESO") {
+	// Diversificación
+	if ($datatmp['diversificacion']=="1") {
+			$datatmp['diversificacion']="X";
+		}
+		else{
+			$datatmp['diversificacion']="";
+		}
+}	
 for ($i = 2; $i < 7; $i++) {
-if ($datatmp[$i]=="1") {
+	if ($curso=="4ESO") {
+		if ($datatmp[$i]=="1") {
+			$datatmp[$i]="1";
+		}
+		elseif ($datatmp[$i]=="2") {
+			$datatmp[$i]="2";
+		}
+		else{
+			$datatmp[$i]="";
+		}	
+	}
+	else{
+		if ($datatmp[$i]=="1") {
 			$datatmp[$i]="X";
 		}
 		else{
 			$datatmp[$i]="";
-		}		
+		}	
 	}
 
-	// Diversificación
-if ($datatmp['act1']=="1") {
-			$datatmp['act1']="X";
-		}
+	
+	}
 	
 }
 
@@ -119,14 +138,14 @@ if ($curso=="3ESO") {
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c9'=>'Rel. Cat.',
-				'c2'=>'Opt1',
-				'c3'=>'Opt2',
-				'c4'=>'Opt3',
-				'c5'=>'Opt4',
-				'c6'=>'Opt5',
-				'c7'=>'Opt6',
-				'c8'=>'Opt7',
-				'c11'=>'Div',
+				'c2'=>'O1',
+				'c3'=>'O2',
+				'c4'=>'O3',
+				'c5'=>'O4',
+				'c6'=>'O5',
+				'c7'=>'O6',
+				'c8'=>'O7',
+				'c11'=>'PMAR',
 				'c12'=>'Mat',
 				'c13'=>'Act',
 			);
@@ -150,13 +169,13 @@ if ($curso=="3ESO") {
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c10'=>'Rel. Cat.',
-				'c2'=>'Opt1',
-				'c3'=>'Opt2',
-				'c4'=>'Opt3',
-				'c5'=>'Opt4',
-				'c6'=>'Opt5',
-				'c7'=>'Opt6',
-				'c8'=>'Opt7',
+				'c2'=>'O1',
+				'c3'=>'O2',
+				'c4'=>'O3',
+				'c5'=>'O4',
+				'c6'=>'O5',
+				'c7'=>'O6',
+				'c8'=>'O7',
 				'c9'=>'Mat',
 				'c11'=>'Act',
 			);
@@ -173,10 +192,33 @@ if ($curso=="2ESO") {
 	
 	Optativas:
 	1 => Alemán 2º Idioma, 2 => Cambios Sociales y Género,	3 => Francés 2º Idioma";
-	
-	$data[] = array(
+	if ($div_3 == $grupo_actual) {
+				$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0].$bil,
+				'nombre'=>$datatmp[0],
+				'c7'=>$religion,
+				'c2'=>$datatmp[2],
+				'c3'=>$datatmp[3],
+				'c4'=>$datatmp[4],
+				'c5'=>$datatmp['act1'],
+				'c6'=>$datatmp['diversificacion'],
+				);
+
+	$titles = array(
+				'num'=>'<b>Nº</b>',
+				'nombre'=>'<b>Alumno</b>',
+				'c7'=>'Rel. Cat.',
+				'c2'=>'Opt1',
+				'c3'=>'Opt2',
+				'c4'=>'Opt3',
+				'c5'=>'Act.',
+				'c6'=>'PMAR',
+			);
+	}
+	else{
+			$data[] = array(
+				'num'=>$nc,
+				'nombre'=>$datatmp[0],
 				'c7'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -193,6 +235,8 @@ if ($curso=="2ESO") {
 				'c4'=>'Opt3',
 				'c5'=>'Act.',
 			);
+	}
+
 }
 
 
@@ -252,9 +296,14 @@ else{$extra_itin="";}
 $opt4="";
 if (stristr($datatmp['optativas4'],"Biolog")==TRUE) {$opt4="ByG";}
 if (stristr($datatmp['optativas4'],"Econo")==TRUE) {$opt4="ECO";}
-if (stristr($datatmp['optativas4'],"Profesio")==TRUE) {$opt4="CAAP";}
-if (stristr($datatmp['optativas4'],"Emprendedor")==TRUE) {$opt4="IAEE";}
-
+if (stristr($datatmp['optativas4'],"Aplicadas")==TRUE) {$opt4="CAAP";}
+if (stristr($datatmp['optativas4'],"Iniciaci")==TRUE) {$opt4="IAEE";}
+if ($datatmp['exencion']==1) {
+	$exencion = 'X';
+}
+else{
+	$exencion = '';
+}
 $data[] = array(
 				'num'=>$nc,
 				'nombre'=>$datatmp[0].$bil,
@@ -266,6 +315,7 @@ $data[] = array(
 				'c5'=>$datatmp[5],
 				'c6'=>$datatmp[6],
 				'c7'=>$opt4,
+				'c9'=>$exencion,
 				);
 
 	$titles = array(
@@ -273,12 +323,13 @@ $data[] = array(
 				'nombre'=>'<b>Alumno</b>',
 				'c8'=>'Rel. Cat.',
 				'It.'=>'Itiner.',
-				'c2'=>'Opt1',
-				'c3'=>'Opt2',
-				'c4'=>'Opt3',
-				'c5'=>'Opt4',
-				'c6'=>'Opt5',
+				'c2'=>'O1',
+				'c3'=>'O2',
+				'c4'=>'O3',
+				'c5'=>'O4',
+				'c6'=>'O5',
 				'c7'=>'OptGen',
+				'c9'=>'Ex.',
 			);
 		}
 	}
@@ -302,7 +353,7 @@ $pdf->ezText($opt, '10', $options);
 if ($curso !== "4ESO") {
 	$pdf->ezText($act, '10', $options);
 }
-$pdf->ezText("\n\n\n", 10);
+$pdf->ezText("\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
 	
 $pdf->ezNewPage();

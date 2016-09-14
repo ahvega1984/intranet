@@ -14,6 +14,7 @@
 			if ($col == 'confirmado'){$con.=$id_submit." ";} 
 			//if ($col == 'revisado'){$revis.=$id_submit." ";}
 			if ($col == "grupo_actual"){$val=strtoupper($val);}
+			if ($col == 'bilinguismo'){$bili.=$id_submit." ";}
 		
 			//Promocion	
 			if ($col=='promociona' and date('m')>"06"){
@@ -79,6 +80,7 @@
 			
 			mysqli_query($db_con, "update matriculas_bach set $col = '$val' where id = '$id_submit'");
 			mysqli_query($db_con, "update matriculas_bach set confirmado = '' where id = '$id_submit'");
+			mysqli_query($db_con, "update matriculas_bach set bilinguismo = '' where id = '$id_submit'");
 			mysqli_query($db_con, "update matriculas_bach set revisado = '' where id = '$id_submit'");
 		}
 		
@@ -89,6 +91,10 @@
 		$tr_con5 = explode(" ",$revis);
 		foreach ($tr_con5 as $clave_revis){
 			mysqli_query($db_con, "update matriculas_bach set revisado = '1' where id = '$clave_revis'");
+		}
+		$tr_con3 = explode(" ",$bili);
+		foreach ($tr_con3 as $clave_bili){
+			mysqli_query($db_con, "update matriculas_bach set bilinguismo = 'Si' where id = '$clave_bili'");
 		}
 	}
 	?>

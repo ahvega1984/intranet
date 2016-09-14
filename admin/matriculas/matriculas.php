@@ -1085,14 +1085,14 @@ exit();
 			<!-- Optativas de It. 1 --> <?php if($i == 1): ?>
 			<p class="form-control-static"><?php echo ${it4.$i}[3]; ?></p>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio" id="r1" disabled
+			<div class="radio"><label> <input type="radio" id="r1" 
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Biología y Geología"
 				<?php echo ($optativas4 == 'Biología y Geología') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>
 			</div>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio" id="r1" disabled
+			<div class="radio"><label> <input type="radio" id="r1" 
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Economía"
 				<?php echo ($optativas4 == 'Economía') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[5]; ?>

@@ -28,7 +28,7 @@ $options_left = array(
 		$num_opc = 5;
 		}
 		else{
-		$sqldatos.="itinerario2, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, ";	
+		$sqldatos.="itinerario2, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, idioma1, opt_aut21, opt_aut22, opt_aut23, opt_aut24, opt_aut25, opt_aut26, opt_aut27, ";	
 		$num_opc = 14;
 		}
 		$sqldatos .= "religion, bilinguismo FROM matriculas_bach WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
@@ -56,7 +56,16 @@ for ($i = 3; $i < 11; $i++) {
 		else{
 			$datatmp[$i]="";
 		}
-	}		
+		}
+
+		$opt_2h="";
+
+		for ($z = 12; $z < 20; $z++) {
+		if ($datatmp[$z]=="1") {
+			$opt_2h=$z-11;
+		}
+		}
+
 		if (strstr($datatmp['religion'],"Cat")==TRUE) {
 			$religion ="X";
 		}
@@ -64,11 +73,12 @@ for ($i = 3; $i < 11; $i++) {
 	$opt = '
 	
 	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
-	
-	Optativas Itin. 1: 1 => Tecnología Industrial; 2 => Ciencias de la Tierra y del Medio Ambiente; 3 => Psicología; 4 => Geología; 5 => TIC II; 6 => Alemán 2º Idioma; 7 => Francés 2º Idioma; 8 => Inglés 2º Idioma;
-	Optativas Itin. 2: 1 => Tecnología Industrial; 2 => Ciencias de la Tierra y del Medio Ambiente; 3 => Psicología; 4 => Geología; 5 => TIC; 6 => Alemán 2º Idioma; 7 => Francés 2º Idioma; 8 => Inglés 2º Idioma;
+
+	Optativas Itin. 1 y 2: 1 => Tecnología; 2 => Ciencias de la Tierra; 3 => Psicología; 4 => Geología; 5 => TIC; 6 => Alemán 2º Id; 7 => Francés 2º Id; 8 => Inglés 2º Id;
 	Optativas Itin. 3: 1 => TIC II; 2 => Alemán 2º Idioma; 3 => Francés 2º Idioma; 4 => Inglés 2º Idioma;
 	Optativas Itin. 4: 1 => TIC II; 2 => Fundamentos de Administracción y Gestión; 3 => Alemán 2º Idioma; 4 => Francés 2º Idioma; 5 => Inglés 2º Idioma;
+	
+	Optativas 2 horas: 1 => Ed. Física; 2 => Estadística; 3 => Ciencias de la Salud;
 	';
 	$optas = $datatmp[2];
 	if (stristr($optas, "Econom")==TRUE) { $optas = "ECO"; }elseif(stristr($optas, "Grieg")==TRUE){ $optas = "GRI"; }
@@ -86,11 +96,14 @@ for ($i = 3; $i < 11; $i++) {
 				'c9'=>$datatmp[8],
 				'c10'=>$datatmp[9],
 				'c11'=>$datatmp[10],
+				'c12'=>$opt_2h,
+				'c13'=>$datatmp['idioma1'],
+
 				);
 	$titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c1'=>'Rel.Cat.',
+				'c1'=>'R.Cat.',
 				'c2'=>'It2',
 				'c3'=>'Opt2',
 				'c4'=>'1',
@@ -101,6 +114,8 @@ for ($i = 3; $i < 11; $i++) {
 				'c9'=>'6',
 				'c10'=>'7',
 				'c11'=>'8',
+				'c12'=>'Opt_2H',
+				'c13'=>'Idioma',
 			);
 }
 if ($curso=="1BACH") {
@@ -164,9 +179,6 @@ $txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText($opt, '10', $options);
-
-$pdf->ezText("\n", 10);
-$pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
 
 $pdf->ezNewPage();
 }

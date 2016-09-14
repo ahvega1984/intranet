@@ -75,7 +75,7 @@
 		$tr_con2 = explode(" ",$exen);
 		foreach ($tr_con2 as $clave_exen){
 			mysqli_query($db_con, "insert into matriculas_backup select * from matriculas where id = '$clave_exen'");
-			mysqli_query($db_con, "update matriculas set exencion = '1', optativa1 = '', optativa2 = '', optativa3 = '', optativa4 = '', act1='2' where id = '$clave_exen'");
+			mysqli_query($db_con, "update matriculas set exencion = '1' where id = '$clave_exen'");
 		}
 	
 		$tr_con3 = explode(" ",$bili);
