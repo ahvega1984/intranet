@@ -29,8 +29,20 @@ $lc1b = "
 OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
 ";
 if (isset($_GET['unidad'])) {
-	
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and alma.unidad='".$unidad."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+
+$matr="";
+$crs = mysqli_query($db_con,"select curso from alma where unidad = '".$_GET['unidad']."'");
+$curso_a = mysqli_fetch_array($crs);
+if(stristr($curso_a[0],"Bachill")==TRUE){$matr = 'matriculas_bach';}elseif(stristr($curso_a[0],"E.S.O.")==TRUE){$matr = 'matriculas';}
+
+if ($config['mod_matriculacion']==1) {
+		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, alma.curso, bilinguismo FROM FALUMNOS, alma, $matr WHERE alma.claveal=FALUMNOS.claveal and $matr.claveal=FALUMNOS.claveal and alma.unidad='".$_GET['unidad']."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+	}	
+	else{
+		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and alma.unidad='".$_GET['unidad']."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+	}
+
+// echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos );
 
 $num=0;
@@ -38,6 +50,9 @@ unset($data);
 while($datatmp = mysqli_fetch_array($lista)) { 
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
+	}
+	if ($datatmp['bilinguismo']=='Si') {
+		$datatmp[0]=$datatmp[0]." (Bil)";
 	}
 	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
@@ -76,7 +91,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $unidad\n";
+$txttit = "Lista del Grupo ".$_GET['unidad']."\n";
 $txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
@@ -104,7 +119,7 @@ $hay_alumno = explode(",",$hay_grupo[0]);
 
 if($_POST['asignaturas']==""){
 	
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal ";
 if (strstr($tr_unidad0,"DIV")==TRUE) {
 	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')";
 }
@@ -125,9 +140,19 @@ unset($data);
 		
 
 while($datatmp = mysqli_fetch_array($lista)) { 
+
 	if ($datatmp[2]>1) {
-		$datatmp[0]=$datatmp[0]." (R)";
-	}
+			$datatmp[0]=$datatmp[0]." (R)";
+		}
+
+	if ($config['mod_matriculacion']==1) {
+		$mtr_eso = mysqli_query($db_con,"select bilinguismo from matriculas where bilinguismo = 'Si' and claveal = '".$datatmp['claveal']."'");
+		$mtr_bach = mysqli_query($db_con,"select bilinguismo from matriculas_bach where bilinguismo = 'Si' and claveal = '".$datatmp['claveal']."'");
+		if (mysqli_num_rows($mtr_eso)>0 or mysqli_num_rows($mtr_bach)>0) {
+			$datatmp[0]=$datatmp[0]." (Bil)";
+		}
+	}	
+	
 	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
 	$m_exen = mysqli_query($db_con, $m_ex);
@@ -204,9 +229,19 @@ $lista= mysqli_query($db_con, $sqldatos);
 $num=0;
 unset($data);
 while($datatmp = mysqli_fetch_array($lista)) { 
+
 	if ($datatmp[4]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
-	}
+		}
+
+	if ($config['mod_matriculacion']==1) {
+		$mtr_eso = mysqli_query($db_con,"select bilinguismo from matriculas where bilinguismo = 'Si' and claveal = '".$datatmp['claveal']."'");
+		$mtr_bach = mysqli_query($db_con,"select bilinguismo from matriculas_bach where bilinguismo = 'Si' and claveal = '".$datatmp['claveal']."'");
+		if (mysqli_num_rows($mtr_eso)>0 or mysqli_num_rows($mtr_bach)>0) {
+			$datatmp[0]=$datatmp[0]." (Bil)";
+			}
+		}	
+	
 	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[5]'";
 	$m_exen = mysqli_query($db_con, $m_ex);
