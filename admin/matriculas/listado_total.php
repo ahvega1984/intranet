@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array(1, 8));
 
 require_once('../../pdf/class.ezpdf.php');
 
@@ -243,7 +243,7 @@ if ($curso=="2ESO") {
 if ($curso=="1ESO") {
 	$act = "
 	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro, 6 => Ampliación: Taller de Lenguas Extranjeras";			
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro";			
 		$opt = "
 					
 	Optativas:

@@ -266,7 +266,7 @@ foreach ($pags as $pag_pdf){
 	$nombre_opta="";
 	$nombre_opt="";
 	if ($bilinguismo=="Si") {
-		$opt.="Enseñanazas Bilingue\n";
+		$opt.="Enseñanza Bilingue\n";
 	}
 	if ($n_curso=="1") {
                 foreach($it1 as $num_it=>$nombre_it){
@@ -280,7 +280,7 @@ foreach ($pags as $pag_pdf){
 					foreach(${opt1.$i} as $abrev_opt=>$nombre_opt){ 
                          if($optativa1==$abrev_opt){
                                 $opt = $nombre_opt;
-                         }
+                        }
                     }	
                     $opt=$opta1.$opt;				
                     }
@@ -342,7 +342,15 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 5 );
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	}
-	$MiPDF->Ln ( 3 );
+    if ($n_curso=="1" and $bilinguismo=="Si") {
+    	$MiPDF->Ln ( 3 );
+    	$MiPDF->Cell(165,5,"Alumno con Enseñanzas Bilingües",1,0,"C");
+    	$MiPDF->Ln ( 7 );
+	}
+	else{
+		$MiPDF->Ln ( 5 );
+	}
+	
 	$f_hoy = "        En ".$config['centro_localidad'].", a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";

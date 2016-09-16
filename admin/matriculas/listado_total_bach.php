@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array(1, 8));
 
 require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
@@ -72,7 +72,7 @@ for ($i = 3; $i < 11; $i++) {
 		
 	$opt = '
 	
-	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
+	Itinerarios: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
 
 	Optativas Itin. 1 y 2: 1 => Tecnología; 2 => Ciencias de la Tierra; 3 => Psicología; 4 => Geología; 5 => TIC; 6 => Alemán 2º Id; 7 => Francés 2º Id; 8 => Inglés 2º Id;
 	Optativas Itin. 3: 1 => TIC II; 2 => Alemán 2º Idioma; 3 => Francés 2º Idioma; 4 => Inglés 2º Idioma;
@@ -134,7 +134,7 @@ if ($curso=="1BACH") {
 		}
 		$opt = '
 	
-	Itinerarios de 1º de Bachillerato: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
+	Itinerarios: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
 	
 	Optativas:
 	CC => Cultura Científica; TIC => Tecnologías de la Información y Comunicación; HMC => Historia del Mundo Contemporáneo.; LUN => Literatura Universal;
