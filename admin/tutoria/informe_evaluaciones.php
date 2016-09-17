@@ -73,7 +73,13 @@ $result = mysqli_query($db_con, "INSERT INTO evalua_tutoria (unidad, evaluacion,
 include("../../menu.php");
 include("menu.php");
 ?>
-
+<style type="text/css">
+.tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    width: 350px; 
+}
+</style>
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
@@ -207,7 +213,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 	<tbody>
 	<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, FALUMNOS.nc, fecha, edad FROM alma, FALUMNOS WHERE alma.claveal=FALUMNOS.claveal and FALUMNOS.unidad='$curso' order by nc"); 
 	?>
-	<?php while ($row = mysqli_fetch_array($result)): $claveal = $_POST['claveal'];?>
+	<?php while ($row = mysqli_fetch_array($result)): $claveal = $row['claveal'];?>
 		<tr>
 		<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
 		<?php if (file_exists($foto)): ?>
@@ -218,19 +224,38 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 				<?php else: ?>
 			<td class="text-center"><span class="fa fa-user fa-fw fa-3x"></span></td>
 			<?php endif; ?>
-			
-			
-			<td><?php echo $row['nc'].". ".$row['apellidos'].', '.$row['nombre']; ?></td>
+					
+			<td>
+				<?php 
+				$result_transito = mysqli_query($db_con, "SELECT * FROM transito_datos where claveal='".$claveal."'");
+				?>
+				<a href="http://localhost/intranet/admin/informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo" target="_blank"><?php echo $row['nc'].". ".$row['apellidos'].', '.$row['nombre']; ?></a>
+				<?php				
+				if (mysqli_num_rows($result_transito)>0) {
+				?>
+				<br>
+				<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" target="_blank" class="fa fa-user fa-lg text-info" data-bs="tooltip" data-html="true" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"></a>
+				<?php
+				}
+				?>				
+			</td>
 			
 			<td><?php echo $row['fecha'].'<br><span class="text-success">('.$row['edad'].')</span>'; ?></td>
 			
 			<td>			
 <?php
 $repite = "";
+// Primaria
+$rep_primaria="";
+$result_transito = mysqli_query($db_con, "SELECT dato FROM `transito_datos` WHERE `tipo` LIKE 'repetici%' and claveal='".$claveal."'");
+while ($r_c = mysqli_fetch_array($result_transito)) {
+	$rep_prim = trim($r_c[0]);
+	$rep_primaria="Prim: ".$rep_prim."º; ";
+}
 $chk1 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'rep'");
 if (mysqli_num_rows($chk1)>0) {
 	$rep0 = mysqli_fetch_array($chk1);
-	$repite = $rep0[0];
+	$repite= $rep0[0];
 }
 else{
 $index = substr($config['curso_actual'],0,4)+1;
@@ -253,7 +278,7 @@ $repite=substr($repit_db[1],0,1)."º, ";
 	}
 }
 ?>
-				<textarea class="form-control" name="rep-<?php echo $row['claveal']; ?>" rows="2" cols="8" style="font-size:10px;padding:2px;"><?php echo $repite; ?></textarea>
+				<textarea class="form-control" name="rep-<?php echo $row['claveal']; ?>" rows="2" cols="8" style="font-size:10px;padding:2px;"><?php if (strlen($rep_primaria)>0 and stristr($repite, $rep_primaria)==FALSE) { echo $rep_primaria; } ?><?php echo $repite; ?></textarea>
 			</td>
 			
 			<td>
@@ -337,10 +362,10 @@ echo "<input type='text' class='form-control input-sm' style='width:50px' maxlen
 			<td>
 <?php
 $obs_extra = "";			
-$chk44 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'obs'");
+$chk44 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'obs'");
 if (mysqli_num_rows($chk44)>0) {
 	while($obs00 = mysqli_fetch_array($chk44)){
-	$obs_extra.="<p align=left>$obs00[1]:<br>$obs00[0]<p>";
+	$obs_extra.="<p align=left>$obs00[2]<br>$obs00[1]:<br>$obs00[0]<p>";
 	}
 }
 
@@ -357,10 +382,10 @@ if (mysqli_num_rows($chk4)>0) {
 <td>			
 <?php
 $ori_extra = "";			
-$chk55 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'ori'");
+$chk55 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'ori'");
 if (mysqli_num_rows($chk55)>0) {
 	while($ori00 = mysqli_fetch_array($chk55)){
-	$ori_extra.="<p align=left>$ori00[1]:<br>$ori00[0]<p>";
+	$ori_extra.="<p align=left>$ori00[2]<br>$ori00[1]:<br>$ori00[0]<p>";
 	}
 }
 
@@ -377,10 +402,10 @@ if (mysqli_num_rows($chk5)>0) {
 			<div class="form-group">
 <?php
 $inf_extra = "";			
-$chk66 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'inf'");
+$chk66 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'inf'");
 if (mysqli_num_rows($chk66)>0) {
 	while($inf_extra0 = mysqli_fetch_array($chk66)){
-	$inf_extra.="<p align=left>$inf_extra0[1]: $inf_extra0[0]<p>";
+	$inf_extra.="<p align=left>$inf_extra0[2]<br>$inf_extra0[1]: $inf_extra0[0]<p>";
 	}
 }
 
@@ -402,10 +427,10 @@ if (mysqli_num_rows($chk6)>0) {
 			<div class="form-group">
 <?php
 $aci_extra = "";			
-$chk77 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'aci'");
+$chk77 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'aci'");
 if (mysqli_num_rows($chk77)>0) {
 	while($aci_extra0 = mysqli_fetch_array($chk77)){
-	$aci_extra.="<p align=left>$aci_extra0[1]: $aci_extra0[0]<p>";
+	$aci_extra.="<p align=left>$aci_extra0[2]<br>$aci_extra0[1]: $aci_extra0[0]<p>";
 	}
 }
 
@@ -427,10 +452,10 @@ if (mysqli_num_rows($chk7)>0) {
 			<div class="form-group">
 <?php
 $dct_extra = "";			
-$chk88 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'dct'");
+$chk88 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'dct'");
 if (mysqli_num_rows($chk88)>0) {
 	while($dct_extra0 = mysqli_fetch_array($chk88)){
-	$aci_extra.="<p align=left>$dct_extra0[1]: $dct_extra0[0]<p>";
+	$aci_extra.="<p align=left>$dct_extra0[1]<br>$dct_extra0[1]: $dct_extra0[0]<p>";
 	}
 }
 

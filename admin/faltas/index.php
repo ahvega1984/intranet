@@ -14,6 +14,7 @@ if (isset($_GET['fecha10'])) {$fecha10 = $_GET['fecha10'];}elseif (isset($_POST[
 if (isset($_GET['fecha20'])) {$fecha20 = $_GET['fecha20'];}elseif (isset($_POST['fecha20'])) {$fecha20 = $_POST['fecha20'];}else{$fecha20="";}
 if (isset($_GET['submit4'])) {$submit4 = $_GET['submit4'];}elseif (isset($_POST['submit4'])) {$submit4 = $_POST['submit4'];}else{$submit4="";}
 if (isset($_GET['submit3'])) {$submit3 = $_GET['submit3'];}elseif (isset($_POST['submit3'])) {$submit3 = $_POST['submit3'];}else{$submit3="";}
+if (isset($_GET['submit5'])) {$submit5 = $_GET['submit5'];}elseif (isset($_POST['submit5'])) {$submit5 = $_POST['submit5'];}else{$submit5="";}
 if (isset($_GET['profe'])) {$profe = $_GET['profe'];}elseif (isset($_POST['profe'])) {$profe = $_POST['profe'];}else{$profe="";}
 if (isset($_GET['materia'])) {$materia = $_GET['materia'];}elseif (isset($_POST['materia'])) {$materia = $_POST['materia'];}else{$materia="";}
 
@@ -35,6 +36,11 @@ elseif ($submit3)
 elseif ($submit4)
 {
 	include("faltasdias.php");
+	exit;
+}
+elseif ($submit5)
+{
+	include("faltas_grupo_dia.php");
 	exit;
 }
 else
@@ -190,6 +196,45 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 
 </div>
 
+<br>
+
+<div class="well well-large">
+
+<legend>Faltas de un Grupo en una fecha</legend>
+<p class="help-block">( Faltas justificadas o no justificadas de todos los alumnos de un Grupo en un día concreto del Curso.)</p> 
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
+<fieldset>
+
+<div class="form-group col-md-6">
+<label class="control-label" for="grupo"> Grupo </label> 
+<SELECT
+	id="grupo" name="grupo" class="form-control" required>
+	<option></option>
+	<?php unidad($db_con);?>
+</SELECT>
+</div>
+
+<div class="form-group col-md-6"  id="datetimepicker5" style="display: inline;">
+<label class="control-label"
+	for="fecha4">Fecha </label>
+<div class="input-group">
+<input required name="fecha" type="text"
+	class="form-control" value="" data-date-format="YYYY-MM-DD" id="fecha4"
+	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<div class="form-group col-md-4">
+<input name="submit5" type="submit" id="submit1" value="Enviar Datos"
+	class="btn btn-primary">
+</div>
+
+</fieldset>
+
+</form>
+
+</div>
 </div>
 
 <div class="col-md-6">
@@ -340,6 +385,11 @@ $(function ()
 	});
 	
 	$('#datetimepicker4').datetimepicker({
+		language: 'es',
+		pickTime: false
+	});
+
+	$('#datetimepicker5').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
