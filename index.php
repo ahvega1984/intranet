@@ -232,11 +232,13 @@ include("menu.php");
 				
 				<br><br>
 				
-				<?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
+				<?php if($config['mod_horarios'] and ($n_curso > 0)){ ?>
 				<div id="bs-tour-horario">
 				<?php include("horario.php"); ?>
 				</div>
-				<?php endif; ?>
+				<?php } else { ?>
+				<a class="btn btn-sm btn-default btn-block" href="xml/jefe/horarios/index.php">Crear/Modificar horario</a>
+				<?php } ?>
 				
 			</div><!-- /.col-md-4 -->
 			

@@ -11,7 +11,7 @@
 			 	`NOMBRE` varchar( 64 ) default NULL ,
 			 	`ABREV` varchar( 10 ) default NULL ,
 				`CURSO` varchar( 128 ) default NULL,
-				`GRUPO` varchar( 6 ) default NULL
+				`GRUPO` varchar( 255 ) default NULL
 				)" ;
 				mysqli_query($db_con, $crear);
 				mysqli_query($db_con, "CREATE TABLE if not exists `calificaciones_temp` (
