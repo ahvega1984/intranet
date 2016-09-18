@@ -20,18 +20,23 @@ class Image {
     protected $pathToTempFiles = "";
     protected $Watermark;
     protected $newFileType;
+    protected $expires = 2592000;    // 30 days by default
+    protected $lastModified = 0; 
+    protected $isSourceImage = true;
 
     /**
      * Constructor of this class
      * @param string $image (path to image)
      */
-    public function __construct($image)
+    public function __construct($image, $isSourceImage=true)
     {
         if(function_exists("sys_get_temp_dir")){
             $this->setPathToTempFiles(sys_get_temp_dir());
         }else{
             $this->setPathToTempFiles($_SERVER["DOCUMENT_ROOT"]);
         }
+        
+        $this->isSourceImage = (bool)$isSourceImage;
 
         if(file_exists($image)){
             $this->image  = $image;
@@ -53,6 +58,15 @@ class Image {
     }
 
     /**
+     * Sets response expiry header value
+     * @param integer $expires (seconds)
+     */
+    public function setExpires($expires=0){
+        $this->expires = intval($expires);
+    }//function
+
+
+    /**
      * Read and set some basic info about the image
      * @param string $image (path to image)
      */
@@ -67,7 +81,9 @@ class Image {
         $this->imageInfo["mime"] = $data["mime"];
         $this->imageInfo["channels"] = ( isset($data["channels"]) ? $data["channels"] : NULL );
         $this->imageInfo["bits"] = $data["bits"];
-
+        if($this->isSourceImage && filemtime($this->image)!==time()){
+            $this->lastModified = filemtime($this->image);
+        }
         return true;
     }
 
@@ -138,7 +154,7 @@ class Image {
      *               b = bottom
      *               array( y-coordinate, height)
      */
-    public function resize($max_width, $max_height, $method="fit", $cropAreaLeftRight="c", $cropAreaBottomTop="c", $jpgQuality=75)
+    public function resize($max_width, $max_height, $method="fit", $cropAreaLeftRight="c", $cropAreaBottomTop="c", $jpgQuality=75, $enlarge=false)
     {
         $width  = $this->getWidth();
         $height = $this->getHeight();
@@ -203,8 +219,35 @@ class Image {
             }
         }
 
-        //Let's get it on, create image!
+        if(!$enlarge && ($newImage_width>$width || $newImage_height>$height)){
+                $newImage_width = $width;
+                $max_width = $width;
+                $newImage_height = $height;
+                $max_height = $height;
+        }
+
+	//Let's get it on, create image!
         list($image_create_func, $image_save_func) = $this->getFunctionNames();
+
+		// check if it is a jpg and if there are exif data about Orientation (e.g. on uploading an image from smartphone)
+		if( $this->getMimeType() == "image/jpg" || $this->getMimeType() == "image/jpeg")
+		{
+			$exif = exif_read_data($this->image);
+			if(!empty($exif['Orientation'])) {
+				switch($exif['Orientation']) {
+					case 8:
+						$this->rotate(90, $jpgQuality);
+					break;
+					case 3:
+						$this->rotate(180, $jpgQuality);
+					break;
+					case 6:
+						$this->rotate(-90, $jpgQuality);
+					break;
+				}
+			}
+		}
+
         $imageC = ImageCreateTrueColor($newImage_width, $newImage_height);
         $newImage = $image_create_func($this->image);
 
@@ -240,7 +283,7 @@ class Image {
      */
     public function addWatermark($imageWatermark)
     {
-        $this->Watermark = new self($imageWatermark);
+        $this->Watermark = new self($imageWatermark, false);
         $this->Watermark->setPathToTempFiles($this->pathToTempFiles);
 
         return $this->Watermark;
@@ -359,6 +402,11 @@ class Image {
     {
         $mime = $this->getMimeType();
         header("Content-Type: ".$mime);
+        header("Cache-Control: public");
+        header("Expires: ". date("r",time() + ($this->expires)));
+        if($this->lastModified>0){
+            header("Last-Modified: ".gmdate("D, d M Y H:i:s", $this->lastModified)." GMT");
+        }
         readfile($this->image);
     }
 
