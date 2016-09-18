@@ -4,7 +4,6 @@ function abrevactividad($db_con, $actividad) {
 	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
 	while ($row = mysqli_fetch_array($result)) {
 		$exp_nomactividad = explode('(', $row['nomactividad']);
-		
 		$exp_nomactividad = str_replace(' a ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' al ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' el ', ' ', $exp_nomactividad);
@@ -408,8 +407,9 @@ include("../../../menu.php");
 						  <?php $ocultar_dependencias_seneca = TRUE; ?>
 						  <select class="form-control" id="dependencia" name="dependencia">
 						  	<option value=""></option>
-						  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula <> 'n_aula' ORDER BY n_aula"); ?>
-						  	<?php if(mysqli_num_rows($result)): ?>
+						  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula <> 'n_aula' ORDER BY n_aula"); $aulas_hor = mysqli_num_rows($result);?>
+						  	<?php $result2 = mysqli_query($db_con, "SELECT nomdependencia, descdependencia FROM dependencias ORDER BY nomdependencia ASC"); $aulas_dep = mysqli_num_rows($result2);?>
+						  	<?php if($aulas_hor>=$aulas_dep): ?>
 						  	<?php $ocultar_dependencias_seneca = FALSE; ?>
 						  	<optgroup label="Aulas registradas en Horw">
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>

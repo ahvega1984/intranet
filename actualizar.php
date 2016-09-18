@@ -701,3 +701,19 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Corrección teléfono del profesor', NOW())");
 }
+
+
+/*
+ @descripcion: Longitud abreviatura aula en horario
+ @fecha: 18 de septiembre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Longitud abreviatura aula en horario'");
+if (! mysqli_num_rows($actua)) {
+	
+		mysqli_query($db_con, "ALTER TABLE `horw` CHANGE `a_aula` `a_aula` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+		mysqli_query($db_con, "ALTER TABLE `horw_faltas` CHANGE `a_aula` `a_aula` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+	
+		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud abreviatura aula en horario', NOW())");
+}
+
