@@ -26,25 +26,25 @@ function abrevactividad($db_con, $actividad) {
 		$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
 		
-		$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0]));
+		$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0], 'ISO-8859-1'));
 		
 		$abrev = "";
 		for ($i = 0; $i < strlen($nomactividad); $i++) {
-			if ($nomactividad[$i] == mb_strtoupper($nomactividad[$i], 'ISO-8859-1') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
-				$abrev .= mb_strtoupper($nomactividad[$i], 'ISO-8859-1');
+			if ($nomactividad[$i] == mb_strtoupper($nomactividad[$i], 'UTF-8') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
+				$abrev .= mb_strtoupper($nomactividad[$i], 'UTF-8');
 			}
 		}
 		
 		if (strlen($abrev) < 3) {
 			$exp_nomactividad = explode(' ', $nomactividad);
 			$abrev .= $exp_nomactividad[1][1].$exp_nomactividad[1][2];
-			$abrev = mb_strtoupper($abrev, 'ISO-8859-1');;
+			$abrev = mb_strtoupper($abrev, 'UTF-8');;
 		}
 		
 		if (strlen($abrev) < 2) {
 			$exp_nomactividad = explode(' ', $nomactividad);
 			$abrev .= $exp_nomactividad[0][1].$exp_nomactividad[0][2];
-			$abrev = mb_strtoupper($abrev, 'ISO-8859-1');;
+			$abrev = mb_strtoupper($abrev, 'UTF-8');;
 		}
 	}
 	

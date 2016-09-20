@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_array($result)) {
 	$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
 	$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
 	
-	$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0]));
+	$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0], 'ISO-8859-1'));
 	
 	$abrev = "";
 	for ($i = 0; $i < strlen($nomactividad); $i++) {
