@@ -266,6 +266,7 @@ if ($diversificacio=="Si") { $extra.=" and diversificacion = '1'";	}elseif ($div
 if ($exencio=="Si") { $extra.=" and exencion = '1'";	}elseif ($exencio=="No") { $extra.=" and exencion = '0'"; }
 if ($promocion=="Promociona") { $extra.=" and promociona = '1'";	}elseif($promocion=="Repite"){$extra.=" and promociona = '2'";}
 if ($optativ) { $extra.=" and $optativ = '1'";}
+if ($optativ2) { $extra.=" and $optativ2 = '2'";}
 if ($religio) { $extra.=" and religion = '$religio'";}
 if ($letra_grup) { $extra.=" and letra_grupo = '$letra_grup'";}
 if ($_POST['grupo_actua']) {

@@ -233,7 +233,14 @@ include("cuaderno/menu_cuaderno.php");
 					$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
-							$resul.=" combasi like '%$asignatura:%' or combasi like '%$asignatura2:%'";
+
+						// Bachillerato con dos códigos distintos
+
+							$asig_bach = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$asignatura') and curso like '%Bachillerato%' and codigo not like '%\_%' and codigo not like '$asignatura'");
+							$as_bach=mysqli_fetch_array($asig_bach);
+							$cod_asig_bach2 = $as_bach[0];
+
+							$resul.=" combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach2:%'";
 						}
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
@@ -276,7 +283,7 @@ include("cuaderno/menu_cuaderno.php");
 						if ($foto <> 1) {
 						$foto1="";
 							if (file_exists('xml/fotos/'.$claveal.'.jpg')) {
-								$foto1 = "<img src='xml/fotos/$claveal.jpg' width='40' alt='' />";
+								$foto1 = "<img src='xml/fotos/$claveal.jpg' width='40' style='max-height:54px;' alt='' />";
 							}
 							else {
 								

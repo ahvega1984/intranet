@@ -259,14 +259,14 @@ if (mysqli_num_rows($chk1)>0) {
 }
 else{
 $index = substr($config['curso_actual'],0,4)+1;
-$repi_db=mysqli_query($db_con,"select matriculas, curso from $db.alma where claveal='".$row['claveal']."' and matriculas > '1'");
+$repi_db=mysqli_query($db_con,"select matriculas, curso from ".$config['db_name'].".alma where claveal='".$row['claveal']."' and matriculas > '1'");
 
 if (mysqli_num_rows($repi_db)>0) {
 $repit_db = mysqli_fetch_array($repi_db);
 $repite=substr($repit_db[1],0,1)."º, ";
 }
 	for ($i = 0; $i < 5; $i++) {
-	$ano = $db."".($index-$i);
+	$ano = $config['db_name']."".($index-$i);
 		$repi=mysqli_query($db_con,"select matriculas, curso from $ano.alma where claveal='".$row['claveal']."' and matriculas>'1'");
 		if (mysqli_num_rows($repi)>0) {
 		$repit = mysqli_fetch_array($repi);	

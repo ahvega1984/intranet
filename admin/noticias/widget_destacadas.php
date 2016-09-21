@@ -12,7 +12,7 @@
 <?php while ($row = mysqli_fetch_array($result)): ?>
 	<a class="list-group-item" href="//<?php echo $config['dominio']; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&widget=1">
 		<small class="text-muted pull-right"><?php echo strftime('%e %b',strtotime($row['timestamp'])); ?></small>
-		<span><?php echo $row['slug']; ?></span>
+		<span class="text-info"><?php echo $row['slug']; ?></span>
 	</a>
 <?php endwhile; ?>
 <?php mysqli_free_result($result); ?>

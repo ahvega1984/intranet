@@ -287,7 +287,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input id="bilingue" name="bilingue" type="checkbox" value="1" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesores bilingüe
+              				<input id="bilingue" name="bilingue" type="checkbox" value="1" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesorado bilingüe
               			</label>
               		</div>
               	</div>

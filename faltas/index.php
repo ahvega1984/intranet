@@ -253,7 +253,29 @@ while($hora2 = mysqli_fetch_row($hora0))
 	name="Cursos"><?php
 
 	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
+
+	$curs_bach = mysqli_query($db_con,"select distinct curso from alma where unidad = '$curso'");
+	$curso_bach = mysqli_fetch_array($curs_bach);
+	$curso_asig = substr($curso_bach[0],3,15);
+	if (stristr($curso_bach['curso'],"Bachill")==TRUE) {		
+	// Bachillerato con dos códigos distintos
+	$n_bach = mysqli_query($db_con, "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'");
+	$asig_bch = mysqli_fetch_array($n_bach);
+	$cod_asig_bach = $asig_bch[0];
+	$asig_bach = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$cod_asig_bach') and curso like '%$curso_asig%' and codigo not like '%\_%' and codigo not like '$cod_asig_bach'");
+	$as_bach=mysqli_fetch_array($asig_bach);
+	$cod_asig_bach2 = $as_bach[0];
+	if (strlen($cod_asig_bach2)>0) {
+		$res.="combasi like '%".$cod_asig_bach."%' or combasi like '%".$cod_asig_bach2."%'";
+	}
+	else{
+		$res.="combasi like '%".$cod_asig_bach."%'";
+	}
+		
+	}
+	else{
 	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'";
+	//echo $n_curs1;
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
 	if (strlen($c_a)>0) {}else{
@@ -261,11 +283,12 @@ while($hora2 = mysqli_fetch_row($hora0))
 			if ($nm_asig0[0]=="2" or $nm_asig0[0]=="21") {
 				$c_a.=" 1=1 or ";
 				$c_b.=" 1=1 or ";
-			}
+				}
 			else{
 				$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
 				$c_b.="asignatura = '".$nm_asig0[0]."' or ";	
-			}			
+				}			
+			}
 		}
 	}
 	$cod_asig = substr($c_b,0,strlen($c_b)-3);
