@@ -248,7 +248,7 @@ else {
 	if (mysqli_num_rows($tabla_profes) > 0) {}
 	else{
 		// Recorremos la tabla Profesores bajada de Séneca
-		$pro = mysqli_query($db_con, "select distinct asig, a_grupo, prof from horw where a_grupo in (select distinct nomunidad from unidades) order by prof");
+		$pro = mysqli_query($db_con, "select distinct asig, a_grupo, prof from horw order by prof");
 		while ($prf = mysqli_fetch_array($pro)) {
 			$materia = $prf[0];
 			$grupo = $prf[1];
@@ -264,6 +264,7 @@ else {
 				`profesor`
 				) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
 		}
+		mysqli_query($db_con,"delete from profesores WHERE nivel = ''");
 	}
 
 

@@ -113,11 +113,13 @@ No se ha registrado un código para las asignaturas que aparecen abajo. Esta situ
 // Cambiamos el nombre de los profesores de Horw para ajustarlos a Séneca.
 $hor0 = mysqli_query($db_con, "select distinct c_prof from horw order by prof");
 while($hor_profe0 = mysqli_fetch_array($hor0)){
-	
+	$nombre_profesor="";
 	$nom_prof = mysqli_query($db_con, "select nomprofesor from profesores_seneca where idprofesor = '$hor_profe0[0]'");
 	$nom_profe = mysqli_fetch_row($nom_prof);
 	$nombre_profesor = $nom_profe[0];
-	mysqli_query($db_con,"update horw set prof = '$nom_profe[0]' where c_prof = '$hor_profe0[0]'");
+	if (strlen($nombre_profesor)>0) {
+		mysqli_query($db_con,"update horw set prof = '$nom_profe[0]' where c_prof = '$hor_profe0[0]'");
+	}
 }
 
 // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
@@ -202,7 +204,7 @@ if (mysqli_num_rows($tabla_profes) > 0) {
 }
 else{
 	$nohay_profes=1;
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
+	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where c_asig not like '2' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
 		$grupo = $prf[1];
@@ -218,6 +220,7 @@ else{
 `profesor`
 ) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
 	}
+	mysqli_query($db_con,"delete from profesores WHERE nivel = ''");
 }
 
 mysqli_query($db_con, "OPTIMIZE TABLE `horw`");
@@ -235,7 +238,7 @@ mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 
 
 // Recorremos la tabla Profesores bajada de Séneca
-if ($nohay_profes==1) {
+/*if ($nohay_profes==1) {
         mysqli_query($db_con,"drop table profesores_seg");
         mysqli_query($db_con,"create table profesores_seg select * from profesores");
 	mysqli_query($db_con,"truncate table profesores");
@@ -259,7 +262,7 @@ if ($nohay_profes==1) {
 `profesor`
 ) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
 	}
-}
+}*/
 
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");

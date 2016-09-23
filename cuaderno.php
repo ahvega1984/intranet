@@ -234,13 +234,19 @@ include("cuaderno/menu_cuaderno.php");
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
 
-						// Bachillerato con dos códigos distintos
+							$cod_asig_bach="";
+							// Bachillerato con dos códigos distintos
 
-							$asig_bach = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$asignatura') and curso like '%Bachillerato%' and codigo not like '%\_%' and codigo not like '$asignatura'");
-							$as_bach=mysqli_fetch_array($asig_bach);
-							$cod_asig_bach2 = $as_bach[0];
-
-							$resul.=" combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach2:%'";
+							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+							if (mysqli_num_rows($asig_bach)>0) {							
+								$as_bach=mysqli_fetch_array($asig_bach);
+								$cod_asig_bach = $as_bach[0];							
+								$resul.=" combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach:%'";
+								$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$cod_asig_bach'";
+							}
+							else{								
+								$resul.=" combasi like '%$asignatura:%'";
+							}
 						}
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
@@ -252,6 +258,7 @@ include("cuaderno/menu_cuaderno.php");
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
 					$resul.=") ". $todos ." order by NC ASC";
+					//echo $resul;
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
 					{
@@ -273,9 +280,10 @@ include("cuaderno/menu_cuaderno.php");
 						}
 						if ($n_fila=="10" or $n_fila=="20" or $n_fila=="30" or $n_fila=="40") {
 							echo "<tr><td>
-<div style='width:40px;height:90px;'>
-<div class='Rotate-corto'></div>
-</div> </td></tr>";
+								<div style='width:40px;height:90px;'>
+								<div class='Rotate-corto'></div>
+								</div> 
+								</td></tr>";
 						}
 						?>
 				<tr>
@@ -488,8 +496,20 @@ include("cuaderno/menu_cuaderno.php");
 						$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 						//Alumnos de 2º de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
-							$resul.=" combasi like '%$asignatura1:%' or combasi like '%$asignatura2:%'";
-							$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$asignatura2'";
+							$cod_asig_bach2="";
+							// Bachillerato con dos códigos distintos
+
+							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+							if (mysqli_num_rows($asig_bach)>0) {							
+								$as_bach=mysqli_fetch_array($asig_bach);
+								$cod_asig_bach2 = $as_bach[0];							
+								$resul.=" combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach2:%'";
+								$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$cod_asig_bach2'";
+							}
+							else{								
+								$resul.=" combasi like '%$asignatura:%'";
+								$fal_e =" FALTAS.codasi='$asignatura'";
+							}
 						}
 						elseif($asignatura=="21" or $asignatura=="2"){
 								$resul.= " 1=1 ";

@@ -260,6 +260,10 @@ if ($clave !== "") {
 	hurto</option>
 	<option value="Otras"
 	<?php echo (isset($id) && $causa == 'Otras') ? 'selected' : ''; ?>>Otras</option>
+	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') { ?>
+	<option value="Programa Apréndelo"
+	<?php echo (isset($id) && $causa == 'Programa Apréndelo') ? 'selected' : ''; ?>>Programa Apréndelo</option>
+	<?php } ?>
 </select></div>
 </div>
 
