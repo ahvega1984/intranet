@@ -261,9 +261,11 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$cod_asig_bach = $as_bach[0];							
 			$res.=" combasi like '%$asignat:%' or combasi like '%$cod_asig_bach:%'";
 			$fal_e =" FALTAS.codasi='$asignat' or FALTAS.codasi='$cod_asig_bach'";
+			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
 			$res.="combasi like '%".$asignat."%'";
+			$cod_asig = "asignatura like '$asignat'";
 		}		
 	}
 	else{
@@ -283,9 +285,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 				}			
 			}
 		}
+		$cod_asig = substr($c_b,0,strlen($c_b)-3);
+		$res.=substr($c_a,0,strlen($c_a)-3);
 	}
-	$cod_asig = substr($c_b,0,strlen($c_b)-3);
-	$res.=substr($c_a,0,strlen($c_a)-3);
+	
 	$res.=") order by NC";
 	//echo $res;
 	$result = mysqli_query($db_con, $res);
