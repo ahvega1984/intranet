@@ -4,6 +4,7 @@ function abrevactividad($db_con, $actividad) {
 	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
 	while ($row = mysqli_fetch_array($result)) {
 		$exp_nomactividad = explode('(', $row['nomactividad']);
+		
 		$exp_nomactividad = str_replace(' a ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' al ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' el ', ' ', $exp_nomactividad);
@@ -11,8 +12,12 @@ function abrevactividad($db_con, $actividad) {
 		$exp_nomactividad = str_replace(' las ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' los ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' de ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' En ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' en ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' su ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' del ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' Del ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' con ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' que ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' y ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace('.', ' ', $exp_nomactividad);
@@ -20,31 +25,33 @@ function abrevactividad($db_con, $actividad) {
 		$exp_nomactividad = str_replace('-', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' para ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' cuando ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' caso ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' como ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' no ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' tengan ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' otros ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
 		
-		$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0], 'ISO-8859-1'));
+		$nomactividad = mb_convert_case($exp_nomactividad[0], MB_CASE_TITLE, 'ISO-8859-1');
 		
 		$abrev = "";
 		for ($i = 0; $i < strlen($nomactividad); $i++) {
-			if ($nomactividad[$i] == mb_strtoupper($nomactividad[$i], 'UTF-8') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
-				$abrev .= mb_strtoupper($nomactividad[$i], 'UTF-8');
+			if ($nomactividad[$i] == mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'ISO-8859-1') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
+				$abrev .= mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'ISO-8859-1');
 			}
 		}
 		
 		if (strlen($abrev) < 3) {
 			$exp_nomactividad = explode(' ', $nomactividad);
 			$abrev .= $exp_nomactividad[1][1].$exp_nomactividad[1][2];
-			$abrev = mb_strtoupper($abrev, 'UTF-8');;
+			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'ISO-8859-1');
 		}
 		
 		if (strlen($abrev) < 2) {
 			$exp_nomactividad = explode(' ', $nomactividad);
 			$abrev .= $exp_nomactividad[0][1].$exp_nomactividad[0][2];
-			$abrev = mb_strtoupper($abrev, 'UTF-8');;
+			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'ISO-8859-1');
 		}
 	}
 	
@@ -356,7 +363,7 @@ include("../../../menu.php");
 						  <label for="hora">Hora</label>
 						  <select class="form-control" id="hora" name="hora">
 						  	<option value=""></option>
-						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos WHERE hora < '7' OR hora = 'R'"); ?>
+						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
 								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
 								<option value="<?php echo $horas['hora']; ?>" <?php echo (isset($hora) && $horas['hora'] == $hora) ? 'selected' : ''; ?>><?php echo $horas['hora_inicio'].' - '.$horas['hora_fin'].' ('.$horas['hora'].')'; ?></option>
 								<?php endwhile; ?>
@@ -375,7 +382,7 @@ include("../../../menu.php");
 						</div>
 
 						<div class="form-group">
-						  <label for="asignatura">Asignatura</label>
+						  <label for="asignatura">Asignatura / Actividad</label>
 						  <select class="form-control" id="asignatura" name="asignatura">
 						 	<option value=""></option>
 						 		<?php if ($unidad): ?>
@@ -388,7 +395,7 @@ include("../../../menu.php");
 					  		<?php endif; ?>
 						  	<optgroup label="Actividades">
 						  		<?php if ($unidad): ?>
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='21' OR idactividad='136' OR idactividad='356' OR idactividad='386' OR idactividad='861' ORDER BY nomactividad ASC"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='2' OR idactividad='21' OR idactividad='136' OR idactividad='351' OR idactividad='356' OR idactividad='386' OR idactividad='861' ORDER BY nomactividad ASC"); ?>
 							  	<?php else: ?>
 							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad <> 1 ORDER BY nomactividad ASC"); ?>
 							  	<?php endif; ?>
@@ -407,10 +414,10 @@ include("../../../menu.php");
 						  <?php $ocultar_dependencias_seneca = TRUE; ?>
 						  <select class="form-control" id="dependencia" name="dependencia">
 						  	<option value=""></option>
-						  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula <> 'n_aula' ORDER BY n_aula"); $aulas_hor = mysqli_num_rows($result);?>
+						  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula <> n_aula AND n_aula <> '' ORDER BY n_aula"); $aulas_hor = mysqli_num_rows($result);?>
 						  	<?php $result2 = mysqli_query($db_con, "SELECT nomdependencia, descdependencia FROM dependencias ORDER BY nomdependencia ASC"); $aulas_dep = mysqli_num_rows($result2);?>
-						  	<?php if($aulas_hor>=$aulas_dep): ?>
-						  	<?php $ocultar_dependencias_seneca = FALSE; ?>
+						  	<?php if($aulas_hor): ?>
+						  	<?php if($aulas_hor >= $aulas_dep) $ocultar_dependencias_seneca = FALSE; ?>
 						  	<optgroup label="Aulas registradas en Horw">
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['a_aula']; ?>" <?php echo (isset($dependencia) && $row['a_aula'] == $dependencia) ? 'selected' : ''; ?>><?php echo $row['n_aula']; ?></option>
@@ -468,7 +475,7 @@ include("../../../menu.php");
 					</thead>
 					<tbody>
 					<?php $thoras = ""; ?>
-					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos WHERE hora < 7 OR hora = 'R'"); ?>
+					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos"); ?>
 					<?php while ($row = mysqli_fetch_array($result_horas)): ?>
 					<?php $thoras[] = $row['hora']; ?>
 					<?php endwhile; ?>
@@ -481,7 +488,7 @@ include("../../../menu.php");
 							<td width="20%">
 					 			<?php while($row = mysqli_fetch_array($result)): ?>
 					 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
-					 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != 'NULL') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
+					 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != ' ' || $row['a_aula'] != ' ') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
 					 			<?php echo (!empty($row['a_grupo'])) ? '<span class="text-warning">'.$row['a_grupo'].'</span>' : ''; ?><br>
 					 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $thora; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
 				 				<?php echo '<hr>'; ?>

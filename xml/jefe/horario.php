@@ -396,7 +396,10 @@ es una opci&oacute;n que s&oacute;lo debe ser utilizada si no contamos con el ar
 XML, que es la opci&oacute;n preferida. Se mantiene para aquellos casos en los
 que no tenemos a mano el XML para exportar a S&eacute;neca, o este produce errores en la importaci&oacute;n. Las preferencias de
 generaci&oacute;n del archivo DEL aparecen marcadas en la imagen de abajo.</p>
-<img border="0" src="exporta_horw.jpg"></div>
+<div class="text-center">
+	<img class="img-thumbnail" src="exporta_horw.png" alt="Exportación de Horw" style="max-height: 450px;">
+</div>
+</div>
 <!-- /.col-sm-6 --></div>
 <!-- /.row --></div>
 <!-- /.container -->
