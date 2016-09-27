@@ -107,6 +107,36 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
+
+			<div class="well">
+							
+				<form method="post" action="libros_materias.php">
+					<fieldset>
+						<legend>Consultar relación de Materias y Alumnos</legend>
+						
+						<input type="hidden" name="jefe" value="1">
+
+						<div class="form-group">
+						  <label for="nivel">Curso</label>
+						  <?php $result = mysqli_query($db_con, "SELECT nomcurso FROM cursos WHERE nomcurso LIKE '%E.S.O.' ORDER BY nomcurso ASC"); ?>
+						  <?php if(mysqli_num_rows($result)): ?>
+						  <select class="form-control" name="nivel">
+						  	<?php while($row = mysqli_fetch_array($result)): ?>
+						  	<option value="<?php echo $row['nomcurso']; ?>"><?php echo $row['nomcurso']; ?></option>
+						  	<?php endwhile; ?>
+						  </select>
+						  <?php else: ?>
+						   <select class="form-control" name="nivel" disabled></select>
+						  <?php endif; ?>
+						  <?php mysqli_free_result($result); ?>
+						</div>
+						
+						
+					  <button type="submit" class="btn btn-primary" name="enviar2">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
 				
 	</div>
 	<div class="col-sm-6">

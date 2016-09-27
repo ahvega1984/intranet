@@ -26,7 +26,7 @@ include("../../menu.php");
 					<fieldset>
 						<legend>Depuración de horarios</legend>
 						
-						<p class="help-block">La depuración del horario se debe realizar cuando los horarios de los profesores se encuentran en Séneca y han sido completamente revisados. Si consideras que ya no caben más cambios en los horarios, comienza actualizando los profesores con el archivo RelPerCen.txt de Séneca. Una vez actualizados los profesores, puedes proceder a ejecutar esta función, la cual eliminará los elementos del horario generado por Horw que ya no son necesarios.</p>
+						<p class="help-block">La depuración del horario se debe realizar cuando los horarios de los profesores se encuentran en Séneca y han sido completamente revisados y en perfecto estado de revista. Si consideras que ya no caben más cambios en los horarios, comienza actualizando Profesores y Departamentos (con el archivo RelPerCen.txt de Séneca: <a href="http://<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_departamentos2.php" target="_blank">Actualizar Profesores y Departamentos</a>), y luego los Profesores, Materias y Unidades (con el archivo RelMatProUni.txt de Séneca: <a href="http://<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_profesores.php" target="_blank">Actualizar Profesores, Materias y Unidades</a>). Una vez actualizados los profesores, puedes proceder a ejecutar esta función, la cual eliminará los elementos del horario generado por Horw que ya no son necesarios.</p>
 						
 					  <button type="submit" class="btn btn-primary" name="enviar">Depurar horarios</button>
 					  <a class="btn btn-default" href="../index.php">Volver</a>
