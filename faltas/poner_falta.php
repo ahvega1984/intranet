@@ -172,7 +172,7 @@ Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
 			}
 			else{
 			$r_profe = mb_strtoupper($profesor, "ISO-8859-1");
-			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1')");
+			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
 			if (mysqli_affected_rows($db_con) > 0) {
 			echo '<div class="alert alert-info alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
