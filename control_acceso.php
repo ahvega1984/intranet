@@ -65,7 +65,7 @@ if ($config['mod_notificaciones']) {
 		
 			// Mensaje a Profesores que llevan más de 5 días sin entra en la intranet							
 		
-			$result = mysqli_query($db_con, "SELECT DISTINCT profesor, MAX(fecha) FROM reg_intranet WHERE profesor IN (SELECT idea FROM departamentos) GROUP BY profesor");
+			$result = mysqli_query($db_con, "SELECT DISTINCT profesor, MAX(fecha) FROM reg_intranet WHERE profesor IN (SELECT idea FROM departamentos where departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor");
 											
 			while ($row = mysqli_fetch_array($result)) {
 				$profe_ultima = $row[0];

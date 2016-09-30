@@ -110,7 +110,7 @@ if(!(empty($tareas)))
 $repe = mysqli_query($db_con, "select * from tareas_alumnos where claveal = '$claveal' and fecha = '$inicio_aula'");
 if(mysqli_num_rows($repe)=="0")
 {
-$insertar=mysqli_query($db_con, "INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR, FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$inicio_aula','$convivencia','$tutor', '$fin_aula')") or die ("Error: no se ha podido activar el informe:".mysqli_error($db_con));
+mysqli_query($db_con, "INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR, FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$inicio_aula','$convivencia','$tutor', '$fin_aula')") or die ("Error: no se ha podido activar el informe:".mysqli_error($db_con));
 }
 else
 {

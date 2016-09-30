@@ -143,10 +143,15 @@ $totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 					  
 					  <div class="checkbox">
 					  	<label>
-					    	<input type="checkbox" name="tipo" value="2"> Mostrar asignaturas
+					    	<input type="checkbox" name="asignaturas" value="1"> Mostrar asignaturas
 					    </label>
 					  </div>
-					  
+					  <div class="checkbox">
+					  	<label>
+					    	<input type="checkbox" name="datos" value="1"> Mostrar datos del alumno
+					    </label>
+					  </div>
+					  <br>
 					  <button type="submit" class="btn btn-primary" name="boton1">Exportar</button>
 				  </fieldset>
 				</form>

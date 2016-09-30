@@ -53,7 +53,7 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	{ 
 	foreach($nombre as $idea_profe)
 	{
-	$tel0 = mysqli_query($db_con, "select telefono, nombre from departamentos where idea = '$idea_profe'");
+	$tel0 = mysqli_query($db_con, "select telefono, profesor from c_profes where idea = '$idea_profe'");
 	$tel1 = mysqli_fetch_array($tel0);
 	
 	if (strlen($tel1[0])==9) {

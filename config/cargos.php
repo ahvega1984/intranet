@@ -29,8 +29,9 @@ include ("../menu.php");
 				continue;
 			} 
 			elseif (is_numeric($cargo_profe) and strlen ( $cargo_profe ) == "9") {
-				$dni = substr ( $dni, 0, -2 );
-				$n_profe = mysqli_query($db_con, "update c_profes set telefono = '$cargo_profe' where dni='$dni'" );
+				$dni = substr ( $dni, 1, -2 );
+				$n_profe = mysqli_query($db_con, "update c_profes set telefono = '$cargo_profe' where dni like '%$dni'" );
+				//echo "update c_profes set telefono = '$cargo_profe' where dni like '%$dni'<br>";
 			}
 			elseif (strlen ( $cargo_profe ) > "1" and !(is_numeric($cargo_profe))) {
 				$dni = substr ( $dni, 0, -2 );

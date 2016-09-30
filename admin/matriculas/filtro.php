@@ -431,5 +431,5 @@ echo "".$tipo20[0]."</label></div>";
 </div>
 </div>
 </div>
-<input type="submit" name="consulta" value="Ver matrículas" alt="Introducir" class="btn btn-primary" />
+<input type="submit" name="consulta" value="Ver matrículas" class="btn btn-primary" />
 </form><br />
