@@ -92,9 +92,12 @@ if (isset($_GET['claveal'])) { $claveal = $_GET['claveal'];}elseif (isset($_POST
 
 $notas = $_POST['notas']; $grave = $_POST['grave']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula'];
 
-if (isset($_POST['submit1']))
-{
-	include("fechoria25.php");
+if ($_POST['grave']=="muy grave") {
+?>
+	<script> 
+ 	alert("Has seleccionado un tipo de problema <em>Muy grave</em>. Este tipo de problema debe ser confirmado por la Jefatura de Estudios. Una vez hayas terminado de registrar el problema, ponte en contacto cuanto antes con el jefe de Estudios para completar el proceso y confirmarlo.")
+ 	</script>
+ <?php
 }
 
 // Actualizar datos
@@ -144,6 +147,12 @@ if ($_GET['id'] or $_POST['id']) {
 		$horas = $row[18];
 	}
 }
+
+if (isset($_POST['submit1']))
+{
+	include("fechoria25.php");
+}
+
 ?>
 
 <form method="post" action="infechoria.php" name="Cursos">
@@ -274,6 +283,7 @@ while($tipo2 = mysqli_fetch_array($tipo1))
 	}
 	else
 	{
+		$medidaescr = $tipo2[0];
 		echo '<input  type="hidden"id="medida" name="medida" value="'.$tipo2[0].'">';
 	}
 }

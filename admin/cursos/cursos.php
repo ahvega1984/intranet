@@ -107,37 +107,39 @@ foreach ($_POST['unidad'] as $unida){
 		//echo "$unida<br>";
 $tr_c = explode(" -> ",$unida);
 $tr_unidad0 = $tr_c[0];
-$tr_unidad = str_replace(" DIV","",$tr_unidad0);
 $cod_asig = $tr_c[2];
 $tr_codasi = explode("-",$tr_c[2]);
 $n_uni+=1;
 $cuenta = count($_POST['unidad']);
+
+if ($tr_codasi[0]=="2" or $tr_codasi[0]=="21") {
+}
+else{
 $sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '".$_SESSION['profi']."' and curso = '$tr_unidad0' and asignatura = '$cod_asig'");
 $hay_sel = mysqli_num_rows($sel);
 $hay_grupo = mysqli_fetch_array($sel);
-$hay_alumno = explode(",",$hay_grupo[0]);
+$hay_alumno = explode(",",$hay_grupo[0]);	
+}
 
 if($_POST['asignaturas']==""){
 	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal ";
-if (strstr($tr_unidad0,"DIV")==TRUE) {
-	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')";
-}
 
-if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
-$sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
+if ($tr_codasi[0]=="2" or $tr_codasi[0]=="21") {
+	$sqldatos.=" and (1=1)";
+}
+elseif(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
+	$sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
 	} 
-	else{
-$sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
+else{
+	$sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
 	
-$sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos.=" $text and alma.unidad='".$tr_unidad0."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 //echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos );
 $num=0;
-unset($data);
-
-		
+unset($data);	
 
 while($datatmp = mysqli_fetch_array($lista)) { 
 

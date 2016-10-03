@@ -230,6 +230,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 	else{
 		$curso = $hora2[1];
 	}
+
 	$asignatura = $hora2[2];
 
 	$nivel_curso = substr($curso,0,1);
@@ -246,11 +247,11 @@ while($hora2 = mysqli_fetch_row($hora0))
 	$curso_bach = mysqli_fetch_array($curs_bach);
 	$curso_asig = substr($curso_bach[0],3,15);
 
-	if (stristr($curso_bach['curso'],"Bachiller")==TRUE) {
+	//if (stristr($curso_bach['curso'],"Bachiller")==TRUE) {
 		
 		$asignat="";
 		$cod_asig_bach="";
-		// Bachillerato con dos códigos distintos
+		// Cursos con dos códigos distintos de una misma asignatura o Bachillerato.
 		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'");
 		$asig_bch = mysqli_fetch_array($n_bach);
 		$asignat = $asig_bch[0];
@@ -264,18 +265,24 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
-			$res.="combasi like '%".$asignat."%'";
-			$cod_asig = "asignatura like '$asignat'";
+			if ($asignat=="2" or $asignat=="21") {
+					$res.="1=1 ";
+					$cod_asig = "asignatura like '$asignat'";
+			}
+			else{
+				$res.="combasi like '%".$asignat."%'";
+				$cod_asig = "asignatura like '$asignat'";
+			}
 		}		
-	}
-	else{
+	//}
+	/*else{
 	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'";
-	//echo $n_curs1;
+	echo $n_curs10;
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
 	if (strlen($c_a)>0) {}else{
 		while ($nm_asig0=mysqli_fetch_array($n_curs11)){
-			if ($nm_asig0[0]=="2" or $nm_asig0[0]=="21") {
+			if ($nm_asig0[0]=="21") {
 				$c_a.=" 1=1 or ";
 				$c_b.=" 1=1 or ";
 				}
@@ -287,10 +294,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 		}
 		$cod_asig = substr($c_b,0,strlen($c_b)-3);
 		$res.=substr($c_a,0,strlen($c_a)-3);
-	}
+	}*/
 	
 	$res.=") order by NC";
-	//echo $res;
+	// echo $res;
 	$result = mysqli_query($db_con, $res);
 	if ($result) {
 		$t_grupos = $curs;
