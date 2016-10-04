@@ -801,7 +801,7 @@ CREATE TABLE IF NOT EXISTS `grupos` (
   `id` int(4) NOT NULL auto_increment,
   `profesor` varchar(48) collate latin1_spanish_ci NOT NULL default '',
   `asignatura` int(6) NOT NULL default '0',
-  `curso` varchar(5) collate latin1_spanish_ci NOT NULL default '',
+  `curso` varchar(32) collate latin1_spanish_ci NOT NULL default '',
   `alumnos` varchar(124) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)

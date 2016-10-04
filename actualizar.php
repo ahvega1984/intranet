@@ -717,3 +717,16 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud abreviatura aula en horario', NOW())");
 }
 
+
+/*
+ @descripcion: Longitud unidad en tabla Grupos
+ @fecha: 4 de octubre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Longitud del campo unidad en tabla Grupos'");
+if (! mysqli_num_rows($actua)) {
+	
+		mysqli_query($db_con,"ALTER TABLE `grupos` CHANGE `curso` `curso` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");	
+	
+		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud del campo unidad en tabla Grupos', NOW())");
+}

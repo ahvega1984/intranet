@@ -133,9 +133,26 @@ if (isset($_POST['enviar'])) {
 	
 	// OBTENEMOS DATOS DEL PROFESOR
 	$result = mysqli_query($db_con, "SELECT DISTINCT no_prof, c_prof FROM horw WHERE prof='".$profesor."'");
-	$datos_profesor = mysqli_fetch_array($result);
-	$numprofesor = $datos_profesor['no_prof'];
-	$codprofesor = $datos_profesor['c_prof'];
+	if (mysqli_num_rows($result)>0) {
+		$datos_profesor = mysqli_fetch_array($result);
+		$numprofesor = $datos_profesor['no_prof'];
+		$codprofesor = $datos_profesor['c_prof'];	
+		}
+		else{
+		$result2 = mysqli_query($db_con, "SELECT idprofesor FROM profesores_seneca WHERE nomprofesor='".$profesor."'");
+		$res_prof = mysqli_fetch_array($result2);
+		$codprofesor = $res_prof[0];
+		$result3 = mysqli_query($db_con, "SELECT max(no_prof) FROM horw");
+
+		if (mysqli_num_rows($result3)>0) {
+			$no_profeso = mysqli_fetch_array($result3);
+			$numprofesor=$no_profeso[0]+1;
+		}
+		else{
+			$numprofesor=1;
+			}
+		}
+	
 	
 	// OBTENEMOS DATOS DE LA ASIGNATURA
 	$result = mysqli_query($db_con, "SELECT nombre, abrev, curso FROM asignaturas WHERE codigo='".$_POST['asignatura']."' AND abrev NOT LIKE '%\_%'");
@@ -172,7 +189,7 @@ if ($codasignatura=="25") {
 	
 	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
 	mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
-	
+	$_SESSION['n_cursos']=1;
 	$t_profesores = mysqli_query($db_con,"select * from profesores where nivel='$curso_asignatura' and materia='$nomasignatura' and profesor='$profesor' and grupo='$unidad'");
 	if (mysqli_num_rows($t_profesores)>0) {}
 	else{

@@ -687,7 +687,7 @@ include("cuaderno/menu_cuaderno.php");
 					<td  class='warning'
 						style="vertical-align: middle; text-align: center; height: 74px !important;">
 					<div class="checkbox"><input
-						name="select_<?php echo $row[1]."_".$curso;?>" type="checkbox"
+						name="select#<?php echo $row[1]."#".$curso;?>" type="checkbox"
 						id="selal" <?php if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
 					</td>
 					<?php

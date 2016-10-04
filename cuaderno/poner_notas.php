@@ -11,13 +11,16 @@ foreach($cursos as $unidad)
 	$alumnos = "";
 	foreach ($_POST as $key => $val) {
 		//echo "$key => $val<br>";
-		if (strlen(strstr($key,"select_")) > 0) {
-		$trozos = explode("_",$key);
-		if ($unidad == $trozos[2]) {
+		if (strlen(strstr($key,"select#")) > 0) {
+		$trozos = explode("#",$key);
+		$unid = str_ireplace("_", " ", $trozos[2]);
+		//echo $unidad." : ".$unid."<br>";
+		if ($unidad == $unid) {
 		$alumnos .= $trozos[1].","; 		
 		}
 		}
 		}
+
 
 		$select1 = "select id, curso, alumnos from grupos where profesor = '$profesor' and (asignatura = '$asignatura'  $extra_asig) and curso = '$unidad'";
 		$select0 = mysqli_query($db_con, $select1);
@@ -39,6 +42,7 @@ foreach($cursos as $unidad)
   			}  	
   			else{
   			$insert = "insert into grupos (profesor, asignatura, curso, alumnos) values ('$profesor','$asignatura','$unidad', '$alumnos')";
+  			//echo $insert."<br>";
   			$insert0 = mysqli_query($db_con, $insert);
   			$unidades.=$unidad.", ";	
   			}
