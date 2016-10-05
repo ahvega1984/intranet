@@ -120,7 +120,20 @@ while($i < $total - 2)
 							$hoy = getdate($semana);
 							$nombredia = $hoy[wday];
 
-							// Comprobamos problema de código en Bachillerato
+							// Comprobamos problema de varios códigos en Bachillerato y otro
+							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_asig' limit 1) and grupo like '$trozos[3]' and abrev not like '%\_%'");
+							while($cod_bch = mysqli_fetch_array($asig_bach)){
+							$comb = mysqli_query($db_con,"select * from alma where claveal='$clavealT' and combasi like '%$cod_bch[0]%'");
+							if (mysqli_num_rows($comb)>0) {
+									$codigo_asignatura = $cod_bch[0];
+								}
+							}					
+							if (strlen($codigo_asignatura)>0) {}
+								else{
+									$codigo_asignatura = $cod_asig;
+								}
+
+							/*// Comprobamos problema de código en Bachillerato
 							$bch = mysqli_query($db_con,"select curso from alma where unidad = '$trozos[3]'");
 							$cur_bach = mysqli_fetch_array($bch);
 							$curso_bach = $cur_bach[0];
@@ -131,7 +144,7 @@ while($i < $total - 2)
 							}
 							else{
 								$codigo_asignatura = $cod_asig;
-							}
+							}*/
 
 							// Insertamos las faltas de TODOS los alumnos.
 							$t0 = "insert INTO  FALTAS (CLAVEAL, unidad, NC, FECHA, HORA, DIA, PROFESOR, CODASI, FALTA) VALUES ('$clavealT', '$trozos[3]', '$ncT', '$fecha1', '$trozos[5]', '$nombredia', '$id', '$codigo_asignatura', 'F')";
@@ -224,7 +237,20 @@ while($i < $total - 2)
 									$hoy = getdate($semana);
 									$nombredia = $hoy[wday];
 
-									// Comprobamos problema de código en Bachillerato
+									// Comprobamos problema de varios códigos en Bachillerato y otro
+									$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_asig' limit 1) and grupo like '$trozos[3]' and abrev not like '%\_%'");
+									while($cod_bch = mysqli_fetch_array($asig_bach)){
+									$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
+									if (mysqli_num_rows($comb)>0) {
+											$codigo_asignatura = $cod_bch[0];
+										}
+									}					
+									if (strlen($codigo_asignatura)>0) {}
+										else{
+											$codigo_asignatura = $cod_asig;
+										}
+
+									/*// Comprobamos problema de código en Bachillerato
 									$bch = mysqli_query($db_con,"select curso from alma where unidad = '$trozos[3]'");
 									$cur_bach = mysqli_fetch_array($bch);
 									$curso_bach = $cur_bach[0];
@@ -235,7 +261,7 @@ while($i < $total - 2)
 									}
 									else{
 										$codigo_asignatura = $cod_asig;
-									}
+									}*/
 									
 
 									$insert = "insert INTO  FALTAS (  CLAVEAL , unidad ,   NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]',  '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$codigo_asignatura', 'F')";

@@ -100,23 +100,23 @@ foreach($_POST as $clave => $valor)
 		}
 		else{
 
-			// Comprobamos problema de código en Bachillerato
-			$bch = mysqli_query($db_con,"select curso from alma where unidad = '$unidad'");
-			$cur_bach = mysqli_fetch_array($bch);
-			$curso_bach = $cur_bach[0];
-			if (stristr($curso_bach,"Bach")==TRUE) {
-				$bch_cod = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$codasi') and curso = '$curso_bach' and abrev not like '%\_%'");
-				$cod_bch = mysqli_fetch_array($bch_cod);
-				$codigo_asignatura = $cod_bch[0];
-			}
-			else{
-				$codigo_asignatura = $codasi;
-			}
-									
+			// Comprobamos problema de varios códigos en Bachillerato y otros
+
+				$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
+					while($cod_bch = mysqli_fetch_array($asig_bach)){
+					$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
+					if (mysqli_num_rows($comb)>0) {
+							$codigo_asignatura = $cod_bch[0];
+						}
+					}					
+					if (strlen($codigo_asignatura)>0) {}
+						else{
+							$codigo_asignatura = $codasi;
+						}
+
 			// Insertamos las faltas de TODOS los alumnos.
-			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
-				//echo $t0;
+			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
+			// echo $t0;
 			$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 			$count += mysqli_affected_rows();
 		}
