@@ -26,9 +26,10 @@ $asignatura = $exp_unidad[3];
 		
 		<div class="alert alert-info hidden-print">
 			<h4>Cambio de contraseña</h4>
-			Los alumnos/as podrán cambiar su contraseña de acceso accediendo a la página web <a href="http://c0/gesuser/" class="alert-link" target="_blank">http://c0/gesuser/</a> desde la red local del centro. En caso de olvido deben ponerse en contacto con el Coordinador TIC para restablecer la contraseña.
+			Es conveniente que el alumno cambie la contraseña que el Centro le ha asignado en las Plataformas Moodle o Helvia por una contraseña personal. Sólo entonces el alumno podrá tener la certeza de que el aceso a la Plataforma es realmente privado.
 		</div>
 		
+		<br>
 		
 		<!-- SCAFFOLDING -->
 		<div class="row">
@@ -46,7 +47,26 @@ $asignatura = $exp_unidad[3];
 							</tr>
 						</thead>
 						<tbody>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND combasi LIKE '%$asignatura%'ORDER BY nc ASC"); ?>
+							<?php 
+
+							// Comprobamos problema de varios códigos en Bachillerato y otro
+							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
+							while($cod_bch = mysqli_fetch_array($asig_bach)){
+								$cod_asignatura.= "combasi like '%$cod_bch[0]%' or ";
+								}					
+							
+							if (strlen($cod_asignatura)>1) {
+									$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
+								}
+								else{
+									$codigo_asignatura = "combasi like '%$asignatura%'";
+								}
+
+							$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
+
+						
+							$result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND ($codigo_asignatura) ORDER BY FALUMNOS.apellidos, FALUMNOS.nombre ASC"); 
+							?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
