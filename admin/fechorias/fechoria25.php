@@ -3,6 +3,12 @@
 $dia0 = explode ( "-", $fecha );
 $fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
 
+if (strlen($id)>0 and $grave == "muy grave" and stristr($_SESSION['cargo'],'1') == TRUE) {
+	$confirm = mysqli_query($db_con,"select confirmado from Fechoria where confirmado = '1' and id = '$id'");
+	if (mysqli_num_rows($confirm)>0) {
+		$confirma_db = '1';
+	}
+}
 // Control de errores
 if (! $notas or ! $grave or ! $_POST['nombre'] or ! $asunto or ! $fecha or ! $informa or $fecha=='0000-00-00') {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -18,7 +24,7 @@ elseif (strlen ($notas) < '10' ) {
             La descripci&oacute;n de lo sucedido es demasiado breve. Es necesario que proporciones m&aacute;s detalles de lo ocurrido para que Jefatura de Estudios y Tutor puedan hacerse una idea precisa del suceso.<br />Vuelve atr&aacute;s e int&eacute;ntalo de nuevo.
           </div></div>';
 }
-elseif (isset($_POST['nombre'])) {
+elseif (isset($_POST['nombre'])) {	
 	
 if (is_array($nombre)) {
 	$num_a = count($_POST['nombre']);
@@ -35,7 +41,7 @@ for ($i=0;$i<$num_a;$i++){
 	else{
 	$claveal = $nombre[$i];
 	}
-	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa from Fechoria where claveal = '$claveal' and fecha = '$fecha3' and grave = '$grave' and asunto = '$asunto' and informa = '$informa'");
+	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa, confirmado from Fechoria where claveal = '$claveal' and fecha = '$fecha' and grave = '$grave' and asunto = '$asunto' and informa = '$informa' and confirmado='$confirmado'");
 
 	if (mysqli_num_rows($ya_esta)>0) {
 		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
@@ -56,7 +62,6 @@ for ($i=0;$i<$num_a;$i++){
 
 		// SMS
 		if ($config['mod_sms']) {
-
 			$hora_f = date ( "G" );
 			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
 				$sms_n = mysqli_query($db_con, "select max(id) from sms" );
@@ -71,8 +76,11 @@ for ($i=0;$i<$num_a;$i++){
 				$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$config['dominio'];
 				
 				if(strlen($mobile) == 9) {
-				
-					mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+					}
+					else{
+						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
+					}					
 					
 					// ENVIO DE SMS
 					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
@@ -82,14 +90,23 @@ for ($i=0;$i<$num_a;$i++){
 					$sms->message = $message;
 					$sms->sender = $config['mod_sms_id'];
 					$sms->set_immediate();
-					if ($sms->validate()) $sms->send();
+
+					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+					}
+					else{
+						if ($sms->validate()) $sms->send();
+					}
 	
 					$fecha2 = date ( 'Y-m-d' );
 					$observaciones = $message;
 					$accion = "Env&iacute;o de SMS";
 					$causa = "Problemas de convivencia";
-					mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
-					
+
+					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+					}
+					else{
+						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+					}	
 				}
 				else {
 					echo "
@@ -102,9 +119,20 @@ for ($i=0;$i<$num_a;$i++){
 		}
 
 		// FIN SMS
-		$dia = explode ( "-", $fecha );
-		$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
-		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "')";
+	$dia = explode ( "-", $fecha );
+	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
+
+
+	if ($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db <>1 and isset($id)) {	
+			mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', confirmado='1' where id = '$id'");
+			echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Los datos se han actualizado correctamente.
+          </div></div><br />';
+	}
+	else{
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula, confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
+	}
 	 //echo $query."<br>";
 	 $inserta = mysqli_query($db_con, $query );
 	 if ($inserta) {
@@ -154,8 +182,12 @@ for ($i=0;$i<$num_a;$i++){
 	 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 
 	 	 $mail->AddAddress($correo, $nombre_alumno);
-	 	 $mail->Send();	
-	 	
+	 	 if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+			}
+			else{
+				$mail->Send();	
+			}	
+			
 	 	}
 	}
 }
@@ -166,7 +198,7 @@ unset ($unidad);
 unset($nombre);
 unset ($id);
 unset ($claveal);
-if ($z>0) {
+if ($z>0 and !($_POST['confirmado']=="1" and $confirma_db <>1)) {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Se han registrado correctamente los Problemas de Convivencia de '.$z.' alumnos.

@@ -90,14 +90,33 @@ if (isset($_GET['id'])) { $id = $_GET['id'];}elseif (isset($_POST['id'])) { $id 
 if (isset($_GET['nombre'])) { $nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) { $nombre = $_POST['nombre'];}
 if (isset($_GET['claveal'])) { $claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) { $claveal = $_POST['claveal'];}
 
-$notas = $_POST['notas']; $grave = $_POST['grave']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula'];
-
-if ($_POST['grave']=="muy grave") {
+$notas = $_POST['notas']; $grave = $_POST['grave']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula']; $confirmado = $_POST['confirmado'];
+if ($_POST['grave']=="muy grave" and ($_POST['asunto']=="" or isset($id)) and $_POST['submit1']=="" and $_POST['submit2']=="" and stristr($_SESSION['cargo'],'1') == FALSE) {
 ?>
-	<script> 
- 	alert("Has seleccionado un tipo de problema <em>Muy grave</em>. Este tipo de problema debe ser confirmado por la Jefatura de Estudios. Una vez hayas terminado de registrar el problema, ponte en contacto cuanto antes con el jefe de Estudios para completar el proceso y confirmarlo.")
- 	</script>
+<div id="muy_grave" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-danger">Mensaje de Jefatura de Estudios:</h4>
+      </div>
+      <div class="modal-body">
+        <p>Has seleccionado un tipo de problema <b>Muy grave</b>, y este tipo de problema debe ser confirmado por la Jefatura de Estudios. <br> Una vez hayas terminado de registrar el problema, ponte en contacto cuanto antes con el <b>Jefe de Estudios</b> para confirmar los detalles y completar el proceso.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
  <?php
+}
+?>
+
+<?php
+if (isset($_POST['submit1']))
+{
+	include("fechoria25.php");
 }
 
 // Actualizar datos
@@ -147,14 +166,29 @@ if ($_GET['id'] or $_POST['id']) {
 		$horas = $row[18];
 	}
 }
-
-if (isset($_POST['submit1']))
-{
-	include("fechoria25.php");
-}
-
 ?>
-
+<?php
+if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TRUE) {
+?>
+<div id="muy_grave_dir" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-danger">ATENCIÓN JEFATURA DE ESTUDIOS:</h4>
+      </div>
+      <div class="modal-body">
+        <p>Los miembros del Equipo Directivo deben pulsar en el botón de '<b>Actualizar datos</b>' para completar el proceso de registro de un problema de conducta calificado de '<b>Muy grave</b>'. Al pulsar sobre el botón se enviarán un SMS o email a los padres y finalizará el proceso.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+ <?php
+}
+?>
 <form method="post" action="infechoria.php" name="Cursos">
 <fieldset>
 
@@ -283,7 +317,6 @@ while($tipo2 = mysqli_fetch_array($tipo1))
 	}
 	else
 	{
-		$medidaescr = $tipo2[0];
 		echo '<input  type="hidden"id="medida" name="medida" value="'.$tipo2[0].'">';
 	}
 }
@@ -364,12 +397,21 @@ else{
 
 <hr />
 <?php
-if ($id) {
+if(stristr($_SESSION['cargo'],'1') == TRUE and isset($id) and $grave="muy grave"){	
+	echo '<input type="hidden" name="id" value="'.$id.'">';
+	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
+	echo '<input type="hidden" name="confirmado" value="1">';
+	echo '<input name = "submit1" type="submit" value="Actualizar datos" class="btn btn-warning btn-lg">';
+}
+elseif ($id) {
 	echo '<input type="hidden" name="id" value="'.$id.'">';
 	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
 	echo '<input name = "submit2" type="submit" value="Actualizar datos" class="btn btn-warning btn-lg">';
 }
 else{
+	if(stristr($_SESSION['cargo'],'1') == TRUE and $grave=="muy grave"){
+	echo '<input type="hidden" name="confirmado" value="1">';
+	}
 	echo '<input name=submit1 type=submit value="Registrar" class="btn btn-primary btn-lg">';
 }
 ?></div>
@@ -381,6 +423,16 @@ else{
 	<?php include("../../pie.php"); ?>
 	
 <script>  
+	$(function ()  
+	{ 
+		$('#muy_grave').modal('show')
+	});
+
+	$(function ()  
+	{ 
+		$('#muy_grave_dir').modal('show')
+	});
+
 	$(function ()  
 	{ 
 		$('#datetimepicker1').datetimepicker({

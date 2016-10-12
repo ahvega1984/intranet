@@ -102,7 +102,6 @@ $pdf->ezNewPage();
 	}
 		
 foreach ($_POST['unidad'] as $unida){
-		//echo "$unida<br>";
 $tr_c = explode(" -> ",$unida);
 $tr_unidad = $tr_c[0];
 $cod_asig = $tr_c[2];
@@ -113,7 +112,13 @@ $cuenta = count($_POST['unidad']);
 if ($tr_codasi[0]=="2" or $tr_codasi[0]=="21") {
 }
 else{
-$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '".$_SESSION['profi']."' and curso = '$tr_unidad' and asignatura = '$cod_asig'");
+	if (strlen($tr_codasi[1])>1) {
+		$extra_asig = "or asignatura = '$tr_codasi[1]'";
+	}
+	else{
+		$extra_asig="";
+	}
+$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '".$_SESSION['profi']."' and curso = '$tr_unidad' and (asignatura = '$tr_codasi[0]' $extra_asig)");
 $hay_sel = mysqli_num_rows($sel);
 $hay_grupo = mysqli_fetch_array($sel);
 $hay_alumno = explode(",",$hay_grupo[0]);	

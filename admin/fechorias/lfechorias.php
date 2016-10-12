@@ -192,16 +192,22 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		$tr_f = explode("-",$fecha);
 		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+604800;
         if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){
-        	if ($ahora < $antes) {
-        	echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";	
+        	if (stristr($_SESSION['cargo'],'1') == TRUE) {
+        		echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";	
+        	}
+        	elseif($ahora < $antes){
+        		echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";
         	}
         	echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a>";
         }
 		echo "</td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
-		if (stristr($_SESSION['cargo'],'1')) {
-			echo "<input type='checkbox' name='$id' value='1' $marca onChange='submit()' />";			
+		if (stristr($_SESSION['cargo'],'1') and $grave=="muy grave" and $confirmado=="1") {
+			echo "<input type='checkbox' name='confirmado' value='1' $marca data-bs='tooltip' title='El problema de conducta Muy grave ha sido confirmado por el Jefe de Estudios.' />";			
+		}
+		elseif (stristr($_SESSION['cargo'],'1') and $grave=="muy grave" and $confirmado!=="1") {
+			echo "<input type='checkbox' name='confirmado' value='' $marca data-bs='tooltip' title='El problema de conducta Muy grave está pendiente de confrimación por parte del Jefe de Estudios. Para completar el proceso de registro, pulsa sobre el icono de edición y actualiza los datos en el formulario.'/>";
 		}		
 		echo "</td></tr>";
         }

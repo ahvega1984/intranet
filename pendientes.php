@@ -78,8 +78,18 @@ ORDER BY tareas_alumnos.fecha";
 	while ($row = mysqli_fetch_array($result))
 	{
 
+	$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_asig[0]' limit 1) and grupo like '$unidad' and codigo not like '$cod_asig[0]' and abrev not like '%\_%'");
+		if (mysqli_num_rows($asig_bach)>0) {							
+			$as_bach=mysqli_fetch_array($asig_bach);
+			$cod_asig_bach = $as_bach[0];	
+			$extra_asig = "or asignatura like '$cod_asig_bach'";									
+		}
+		else{
+			$extra_asig = "";
+		}	
+
 		$nc_grupo = $row['nc'];
-		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and asignatura = '$cod_asig[0]'");
+		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and (asignatura = '$cod_asig[0]' $extra_asig)");
 		$hay_grupo = mysqli_num_rows($sel);
 		if ($hay_grupo>0) {
 			$sel_al = mysqli_fetch_array($sel);
@@ -106,7 +116,6 @@ ORDER BY tareas_alumnos.fecha";
 	}
 }
 
-
 // Alumnos expulsados que se van
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
 $resultcurso = mysqli_query($db_con, $SQLcurso);
@@ -126,8 +135,18 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 		while ($row = mysqli_fetch_array($result))
 		{
 
-			$nc_grupo = $row['nc'];
-			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and asignatura = '$cod_mat'");
+		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_mat' limit 1) and grupo like '$unidad' and codigo not like '$cod_mat' and abrev not like '%\_%'");
+		if (mysqli_num_rows($asig_bach)>0) {							
+			$as_bach=mysqli_fetch_array($asig_bach);
+			$cod_asig_bach = $as_bach[0];	
+			$extra_asig = "or asignatura like '$cod_asig_bach'";									
+		}
+		else{
+			$extra_asig = "";
+		}	
+
+		$nc_grupo = $row['nc'];
+		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and (asignatura = '$cod_mat' $extra_asig)");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
 				$sel_al = mysqli_fetch_array($sel);
@@ -139,11 +158,12 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 					}
 				}
 			}
-			if ($hay_al=="1" or $hay_grupo<1) {
-				echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
-				echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
-				echo "<h5>$materia</h5>
-	</div>";
+
+	if ($hay_al=="1" or $hay_grupo<1) {
+		echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
+		echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
+		echo "<h5>$materia</h5>
+		</div>";
 			}
 		}
 	}
@@ -152,7 +172,7 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 
 // Informes de Tareas
 $count0=0;
-$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tutor%'";
+$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tut%'";
 $resultcurso = mysqli_query($db_con, $SQLcurso);
 while($rowcurso = mysqli_fetch_array($resultcurso))
 {
@@ -173,8 +193,20 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 		while($row = mysqli_fetch_array($result))
 		{
 
-			$nc_grupo = $row['nc'];
-			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and asignatura = '$codasi'");
+		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad_t' and codigo not like '$codasi' and abrev not like '%\_%'");
+		if (mysqli_num_rows($asig_bach)>0) {							
+			$as_bach=mysqli_fetch_array($asig_bach);
+			$cod_asig_bach = $as_bach[0];	
+			$extra_asig = "or asignatura like '$cod_asig_bach'";						
+			
+		}
+		else{
+			$extra_asig = "";
+		}	
+
+		$nc_grupo = $row['nc'];
+		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and (asignatura = '$codasi' $extra_asig)");
+
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
 				$sel_al = mysqli_fetch_array($sel);
@@ -225,6 +257,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	if(mysqli_num_rows($asigna13)>1){
 	$texto_asig="";
 	while($asigna23 = mysqli_fetch_array($asigna13)){
+		$codasi1 = $asigna23[0];	
 		$texto_asig3.=" combasi like '%$asigna23[0]:%' or";
 		$c_asig3.=" asignatura = '$asigna23[0]' or";
 	}
@@ -233,6 +266,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	}
 	else{
 		$asigna23 = mysqli_fetch_array($asigna13);
+		$codasi1 = $asigna23[0];	
 		$texto_asig3=" combasi like '%$asigna23[0]:%'";
 		$c_asig3=" asignatura = '$asigna23[0]'";
 	}
@@ -249,9 +283,20 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 		{
 			while($row3 = mysqli_fetch_array($result3))
 			{
+				$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi1' limit 1) and grupo like '$unidad3' and codigo not like '$codasi1' and abrev not like '%\_%'");
+				if (mysqli_num_rows($asig_bach)>0) {							
+					$as_bach=mysqli_fetch_array($asig_bach);
+					$cod_asig_bach = $as_bach[0];	
+					$extra_asig = "or asignatura like '$cod_asig_bach'";						
+					
+				}
+				else{
+					$extra_asig = "";
+				}	
 
 				$nc_grupo = $row3['nc'];
-				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and ($c_asig3)");
+				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and (asignatura = '$codasi1' $extra_asig)");
+				
 				$hay_grupo = mysqli_num_rows($sel);
 				if ($hay_grupo>0) {
 					$sel_al = mysqli_fetch_array($sel);

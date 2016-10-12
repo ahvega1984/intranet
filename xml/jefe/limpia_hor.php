@@ -20,47 +20,6 @@ include("../../menu.php");
 
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?php
-
-// Limpiamos Tabla de Horarios de grupos que no da el profesor
-echo "<p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";
-
-$hor0 = "select id, prof, a_grupo, asig from horw where a_grupo in (select nomunidad from unidades) and asig not like 'OPTATIVA EXENTOS'";
-$hor1 = mysqli_query($db_con, $hor0);
-echo "<ul>";
-while($hor = mysqli_fetch_array($hor1))
-{
-$id = $hor[0];
-$profesor = $hor[1];
-$grupo = $hor[2];
-$materia = $hor[3];
-
-$prof0 = "select * from profesores where profesor = '$profesor' and grupo = '$grupo'";
-$prof1 = mysqli_query($db_con, $prof0);
-if(mysqli_num_rows($prof1) < 1)
-{
-echo "<li>Borrado: $profesor => $materia  => $grupo</li>";
-mysqli_query($db_con, "delete from horw where id = '$id'");
-}
-}
-
-echo "</ul>";
-mysqli_query($db_con, "OPTIMIZE TABLE `horw`");  
-
-// creamos Horw para las Faltas
-$base0 = "DROP TABLE horw_faltas";
-mysqli_query($db_con, $base0);
-	mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
-
-  mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD INDEX (`prof`)");
-  mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD index (`c_asig`)");
-  mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");  
-  
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-<strong>Tablas de Horarios</strong>: los datos se han modificado correctamente.
-</div></div><br />';
-
-
 // Colocar codigos y nombre de asignaturas de Horw de acuerdo con Seneca (tabla Profesores)
 
 $sql = mysqli_query($db_con, "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like '' and c_asig not in (select idactividad from actividades_seneca)");
@@ -102,8 +61,6 @@ while($asigna = mysqli_fetch_array($asig0))
     mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
     mysqli_query($db_con, "update horw_var set clase='Codigo +' where id='$id'");
     mysqli_query($db_con, "update horw set a_asig = '$abrev', asig = '$materia' where id= '$id'");
-    // echo "$id => $prof => $materia => $asig => $abrev => $codigo => $c_asig => $a_asig => $a_grupo => $curs<br>";
-
   }
 
   else
@@ -117,23 +74,49 @@ while($asigna = mysqli_fetch_array($asig0))
       mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
       mysqli_query($db_con, "update horw_var set clase='$percent2' where id='$id'");
       mysqli_query($db_con, "update horw set a_asig = '$abrev', c_asig = '$codigo', asig = '$materia' where id= '$id'");
-      // echo "$id => $prof => $materia => $asig => $abrev => $codigo => $a_asig => $c_asig => $a_grupo => $percent2;<br>";
       $codigo="";
     }
     else
     {
       if (!(empty($a_grupo))) {
-        //$num+=1;
         mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
         mysqli_query($db_con, "update horw_var set clase='Sin corresp' where id='$id'");
-        // echo "Sin correspondencia<br>";
-        // echo "$id => $prof => $materia => $asig => $abrev => $codigo => $a_asig => $c_asig => $a_grupo => $percent2;<br>";
       }
     }
   }
 }
 }
 mysqli_query($db_con, "OPTIMIZE TABLE `horw`");
+
+// Tabla donde recoger los datos eliminados del horario por si es necesario recuperalos
+mysqli_query($db_con,"create table if not exists horw_backup select * from horw where hora='99'");
+
+// Limpiamos Tabla de Horarios de grupos que no da el profesor
+echo "<p class='lead text-important text-danger' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";
+
+$hor0 = "select id, prof, a_grupo, asig from horw where a_grupo in (select nomunidad from unidades) and asig not like 'OPTATIVA EXENTOS'";
+$hor1 = mysqli_query($db_con, $hor0);
+echo "<ul>";
+while($hor = mysqli_fetch_array($hor1))
+{
+$id = $hor[0];
+$profesor = $hor[1];
+$grupo = $hor[2];
+$materia = $hor[3];
+
+$prof0 = "select * from profesores where profesor = '$profesor' and grupo = '$grupo'";
+$prof1 = mysqli_query($db_con, $prof0);
+if(mysqli_num_rows($prof1) < 1)
+{
+echo "<li>Borrado: $profesor => $materia  => $grupo</li>";
+mysqli_query($db_con,"insert into horw_backup select * from horw where id='$id'");
+mysqli_query($db_con, "delete from horw where id = '$id'");
+}
+}
+
+echo "</ul>";
+mysqli_query($db_con, "OPTIMIZE TABLE `horw`");  
+
 // creamos Horw para las Faltas
 $base0 = "DROP TABLE horw_faltas";
 mysqli_query($db_con, $base0);
