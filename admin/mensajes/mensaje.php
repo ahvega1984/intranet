@@ -5,8 +5,14 @@ require('../../bootstrap.php');
 
 $pr = $_SESSION['profi'];
 
-$id = intval($_GET['id']);
-$idprof = intval($_GET['idprof']);
+if (isset($_GET['id_prof'])) {
+	$idprof = $_GET['id_prof'];
+	$id = $_GET['id_text'];
+}
+else{
+	$idprof = intval($_GET['idprof']);
+	$id = intval($_GET['id']);
+}
 
 $result = mysqli_query($db_con, "SELECT asunto, ahora, texto, origen FROM mens_texto where id = '$id'") or die (mysqli_error($db_con));
 $mensaje = mysqli_fetch_array($result);
@@ -16,8 +22,14 @@ if(mysqli_num_rows($result)<1) {
 	exit();
 }
 
-
-mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$idprof'");
+$result_profe = mysqli_query($db_con, "SELECT * from mens_profes WHERE id_profe = '$idprof' and recibidoprofe='1'");
+if (mysqli_num_rows($result_profe)>0 and $_GET['no_leido'] == "1") {
+	$extra_leido = 'disabled';
+	mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '0' WHERE id_profe = '$idprof'");
+}
+else{
+	mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$idprof'");
+}
 
 $page_header = $mensaje['asunto'];
 include("../../menu.php");
@@ -62,6 +74,7 @@ include("menu.php");
 	      	<a href="#" class="btn btn-info" onclick="javascript:print();">Imprimir</a>
 	      	<?php $id !== $idprof ? $buzon='recibidos' : $buzon='enviados'; ?>
 	      	<a href="index.php?inbox=<?php echo $buzon; ?>&delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
+	      	<a href="mensaje.php?no_leido=1&id_prof=<?php echo $idprof; ?>&id_text=<?php echo $id; ?>" class="btn btn-success" <?php echo $extra_leido;?>>Marcar como No Le&iacute;do</a>
 	      </div>
 	      
 	    </div><!-- /.col-sm-12 -->

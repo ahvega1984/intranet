@@ -591,7 +591,7 @@ include('../menu.php');
 							    	
 							    	<div class="form-group">
 							    		<label for="mod_sms_pass">Contraseña</label>
-							    	    <input type="password" class="form-control" id="mod_sms_pass" name="mod_sms_pass" value="<?php echo $config['mod_sms_pass']; ?>">
+							    	    <input type="text" class="form-control" id="mod_sms_pass" name="mod_sms_pass" value="<?php echo $config['mod_sms_pass']; ?>">
 							    	</div>
 							    	
 							    </div>
