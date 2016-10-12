@@ -45,10 +45,11 @@ include("menu.php");
 						Compañero de guardia aparecen en la parte inferior de la página las sustituciones que
 						ha realizado ese profesor. Hay que tener en cuenta que en la selección de profesores
 						a sustituir sólo aparecen los profesores que tienen hora lectiva en ese momento
-						según el horario importado en la Intranet.</p>
+						según el horario importado en la Intranet.</p>	
 						<p>Al registrar una sustitución cualquier compañero de la Guardia, aparece señalada
 						en la parte superior de la página de tal modo que todos los compañeros puedan ver
 						quién ha sustituido a quien en un aula durante esa hora.</p>
+						<p>El archivo de configuración que se encuentra en el directorio intranet/admin/guardias/ permite elegir entre presentar opciones de guardias de media hora o sólo hora completa. La opción por defecto presenta la posibiidad de elegir entre media y hora completa. Edítalo para ocultar el desplegable y forzar las guardias de hora completa.</p>
 						<p>Las sustituciones sólo pueden registrarse hasta dos días después de realizarse.
 						Si nos olvidamos de hacerlo, tendremos que pedir al Equipo Directivo que nos la
 						registren.</p>
@@ -112,7 +113,9 @@ include("menu.php");
 						</div>
 						
 						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?> 
-						
+						<?php if ($guardias['media_hora']==0) { ?>
+						<input	type="hidden" name="turno_guardia" value='1'>
+						<?php } else{ ?>
 						<div class="form-group">
 							<label class="turno_guardia">Turno:</label> 
 							<select	class="form-control" id="turno_guardia" name="turno_guardia" required>
@@ -121,6 +124,7 @@ include("menu.php");
 								<?php endfor; ?>
 							</select>
 						</div>
+						<?php } ?>
 						
 						<button class="btn btn-primary" type="submit" name="submit">Registrar guardia</button>
 						<a href="//<?php echo $config['dominio']; ?>/intranet/index.php" class="btn btn-default">Cancelar</a>
