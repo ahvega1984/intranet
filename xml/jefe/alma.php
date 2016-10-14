@@ -242,8 +242,8 @@ include("../../menu.php");
 			
 				// Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
 				$matr = mysqli_query($db_con, "select * from matriculas");
-				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<11)) {
-					$pro = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
+				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<13)) {
+					$pro = mysqli_query($db_con, "select claveal,	apellidos, nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
 					while ($prf = mysqli_fetch_array($pro)) {
 			
 						$pap = explode(", ",$prf[7]);
@@ -294,6 +294,60 @@ include("../../menu.php");
 			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 				}
 			
+			// Si se ha creado la tabla matriculas_bach y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas_bach.
+				$matr = mysqli_query($db_con, "select * from matriculas_bach");
+				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<13)) {
+					$pro = mysqli_query($db_con, "select claveal,	apellidos, nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas_bach where curso like '%BACH%'");
+					while ($prf = mysqli_fetch_array($pro)) {
+			
+						$pap = explode(", ",$prf[7]);
+						$papa = $pap[1]." ".$pap[0];
+						$papa=trim($papa);
+			
+						$mam = explode(", ",$prf[12]);
+						$nombretutor2 = $mam[1];
+						$apel_mam = explode(" ",$mam[0]);
+						$primerapellidotutor2 = $apel_mam[0];
+						$segundoapellidotutor2 = "$apel_mam[1] $apel_mam[2] $apel_mam[3]";
+						$segundoapellidotutor2=trim($segundoapellidotutor2);
+			
+						$alm = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provinciaresidencia, domicilio, localidad, dni, padre, dnitutor, telefono, telefonourgencia, localidadnacimiento, primerapellidotutor2, segundoapellidotutor2, nombretutor2, dnitutor2 from alma where claveal = '$prf[0]' and (apellidos not like '$prf[1]' or nombre not like '$prf[2]' or provinciaresidencia not like '$prf[3]' or domicilio not like '$prf[4]' or localidad not like '$prf[5]' or dni not like '$prf[6]' or padre not like '$papa'  or telefono not like '$prf[9]' or telefonourgencia not like '$prf[10]' or localidadnacimiento not like '$prf[11]' or dnitutor2 not like '$prf[13]')");
+			
+						if (mysqli_num_rows($alm)>0) {
+			
+							$num+=1;
+							$alma = mysqli_fetch_array($alm);
+			
+							$com = explode(", ",$prf[7]);
+							$nom = trim($com[1]);
+							$apel = explode(" ", $com[0]);
+							$apel1 = $apel[0];
+							$apel2 = $apel[1]." ".$apel[2]." ".$apel[3]." ".$apel[4];
+							$apel2 = trim($apel2);
+			
+							$com2 = explode(", ",$prf[12]);
+							$nom2 = trim($com2[1]);
+							$apel0 = explode(" ", $com2[0]);
+							$apel21 = $apel0[0];
+							$apel22 = $apel0[1]." ".$apel0[2]." ".$apel0[3]." ".$apel0[4];
+							$apel22 = trim($apel22);
+			
+							$padre_alma = ", padre = '$nom $apel1 $apel2'";
+							$padre_completo = ", nombretutor = '$nom', primerapellidotutor = '$apel1', segundoapellidotutor = '$apel2'";
+							$madre_completo = ", nombretutor2 = '$nom2', primerapellidotutor2 = '$apel21', segundoapellidotutor2 = '$apel22', dnitutor2 = '$prf[13]'";
+			
+								
+						 mysqli_query($db_con, "update alma set apellidos = '$prf[1]', nombre = '$prf[2]', provinciaresidencia = '$prf[3]', domicilio = '$prf[4]', localidad = '$prf[5]', dni = '$prf[6]', padre = '$prf[7]', dnitutor = '$prf[8]', telefono = '$prf[9]', telefonourgencia = '$prf[10]', localidadnacimiento = '$prf[11]' $padre_alma $padre_completo $madre_completo where claveal = '$prf[0]'");
+						 $num_filas+=mysqli_affected_rows();
+						}
+					}
+					echo '<br />
+				<div align="center"><div class="alert alert-warning alert-block fade in">
+			            <button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h5>ATENCIÓN:</h5>
+			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
+				}
+				
 				// Caracteristicas propias de cada centro
 				include("alma_centros.php");
 			

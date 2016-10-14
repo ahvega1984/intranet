@@ -732,12 +732,12 @@ while ($ini = mysqli_fetch_array($ini0)){
 </tr>
 <?php
  }
- $borra_temp = mysqli_query($db_con, "drop table `$tabla`");
  echo "</tbody>
 </table>";
  endif;
  echo '<hr style="width:800px">
 <br />';
+mysqli_query($db_con, "drop table `$tabla`");
   }
   ?>
  </div>
