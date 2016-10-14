@@ -7,12 +7,12 @@ include("../../menu.php");
 
 <div class="container">
 
-	<div class="page-header">
-	  <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
-	</div>
-	
+  <div class="page-header">
+    <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
+  </div>
+  
 <div class="text-center" id="t_larga_barra">
-	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando los datos. El proceso puede tardar un poco...</span>
+  <span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando los datos. El proceso puede tardar un poco...</span>
 </div>
  <div id='t_larga' style='display:none' >
 <div>
@@ -23,7 +23,7 @@ include("../../menu.php");
 <?php
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
 {
-echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';	
+echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>'; 
 }
 ?>
 <li><a href="#tab5" data-toggle="tab">Informe por Tipo</a></li>
@@ -687,10 +687,10 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
     <th>Convivencia</th>
     <th>Leves</th>
     <th>Graves</th>
-	<th>Muy Graves</th>
+  <th>Muy Graves</th>
     <th>Expulsiones</th>
     <th>Alumnos Expulsados</th>
-	<th>Expulsi&oacute;n del Aula</th>
+  <th>Expulsi&oacute;n del Aula</th>
     <th>Acciones</th>
     <th>Informes</th>
         <th>Comunicaciones</th>
@@ -706,7 +706,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
     <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?><hr><strong><?php echo $num_expulsadosaula; ?></td>
     <td><span style="color:#abc">1T.</span>  <?php echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?><hr><strong><?php echo $num_acciones; ?></td> 
     <td><span style="color:#abc">1T.</span>  <?php echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_informes3; ?><hr><strong><?php echo $num_informes; ?></td>
-	<td><span style="color:#abc">1T.</span>  <?php echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?><hr><strong><?php echo $num_comunica; ?></td>
+  <td><span style="color:#abc">1T.</span>  <?php echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?><hr><strong><?php echo $num_comunica; ?></td>
 </tr>
 </table>
 <hr>

@@ -104,7 +104,7 @@ if ($config['mod_notificaciones']) {
 			}
 		}	
 	}
-	
+	mysqli_query($db_con,"drop table mens_temp");
 	
 	
 	// INFORMES DE TAREAS A PUNTO DE CUMPLIR
