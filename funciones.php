@@ -139,7 +139,7 @@ function unidad($db_con)
 {
 	// include("opt/e-smith/config.php");
 
-	$tipo = "select distinct unidad from alma, unidades where nomunidad=unidad order by idunidad ASC";
+	$tipo = "select distinct unidad from alma, unidades where nomunidad=unidad order by unidad ASC";
 	$tipo1 = mysqli_query($db_con, $tipo);
 	while($tipo2 = mysqli_fetch_array($tipo1))
 	{

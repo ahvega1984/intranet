@@ -376,7 +376,7 @@ include('../menu.php');
 								<div class="form-group">
 									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
-									  <input type="password" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseña de la base de datos no es válido" required>
+									  <input type="text" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseña de la base de datos no es válido" required>
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
