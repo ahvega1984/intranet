@@ -58,7 +58,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			}
 
 			// Si tiene Horario
-			$cur0 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$profe'" );
+			$cur0 = mysqli_query($db_con, "SELECT distinct profesor FROM profesores where profesor = '$profe'" );
 			$cur1 = mysqli_num_rows ( $cur0 );
 			$_SESSION['n_cursos'] = $cur1;
 
