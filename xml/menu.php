@@ -27,6 +27,7 @@
 	<!-- ACTUALIZACIÓN -->
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
+	<li><a href="jefe/index_xml.php">Actualizar datos del Centro</a></li>
 	<li><a href="jefe/index_departamentos2.php">Actualizar Profesores y Departamentos</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/index_profesores.php">Actualizar Profesores, Unidades y Materias</a></li>

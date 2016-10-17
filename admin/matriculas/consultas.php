@@ -98,9 +98,9 @@ INDEX (  `id_matriculas` )
 		}
 	}
 
-	$camb = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp");
+	$camb = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp, matriculas where id_matriculas=id order by apellidos, nombre");
 	echo '<br><h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
-	echo "<div class='well well-large' style='width:520px;margin:auto;'>";
+	echo "<div class='well well-large' style='width:650px;margin:auto;'>";
 	while ($cam = mysqli_fetch_array($camb)) {
 		$text_n="";
 		$text_t="";
@@ -129,6 +129,8 @@ INDEX (  `id_matriculas` )
 	}
 	echo "</div>";
 	mysqli_query($db_con, "drop table matriculas_temp");
+	include("../../pie.php");
+	echo '</body></html>';
 	exit();
 }
 
