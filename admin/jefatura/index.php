@@ -263,6 +263,8 @@ if ($clave !== "") {
 	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') { ?>
 	<option value="Programa Apréndelo"
 	<?php echo (isset($id) && $causa == 'Programa Apréndelo') ? 'selected' : ''; ?>>Programa Apréndelo</option>
+	<option value="Compromiso de convivencia-asistencia"
+	<?php echo (isset($id) && $causa == 'Compromiso de convivencia-asistencia') ? 'selected' : ''; ?>>Compromiso de convivencia-asistencia</option>
 	<?php } ?>
 </select></div>
 </div>

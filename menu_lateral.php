@@ -371,7 +371,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'admin/faltas/horario_semanal_div.php',
-						'titulo' => 'Partes de faltas (Diversificación)',
+						'titulo' => 'Partes de faltas (PMAR)',
 						'cargos' => array('1'),
 						'target' => '_blank',
 					),

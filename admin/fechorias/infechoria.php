@@ -114,18 +114,9 @@ if ($_POST['grave']=="muy grave" and ($_POST['asunto']=="" or isset($id)) and $_
 ?>
 
 <?php
-if (isset($_POST['submit1']))
+if (isset($_POST['submit1']) or isset($_POST['submit2']))
 {
 	include("fechoria25.php");
-}
-
-// Actualizar datos
-if ($_POST['submit2']) {
-	mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa' where id = '$id'");
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Los datos se han actualizado correctamente.
-          </div></div><br />';
 }
 
 // Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
@@ -397,13 +388,13 @@ else{
 
 <hr />
 <?php
-if(stristr($_SESSION['cargo'],'1') == TRUE and isset($id) and $grave="muy grave"){	
+if(stristr($_SESSION['cargo'],'1') == TRUE and isset($id) and $grave=="muy grave"){	
 	echo '<input type="hidden" name="id" value="'.$id.'">';
 	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
 	echo '<input type="hidden" name="confirmado" value="1">';
 	echo '<input name = "submit1" type="submit" value="Actualizar datos" class="btn btn-warning btn-lg">';
 }
-elseif ($id) {
+elseif (isset($id)) {
 	echo '<input type="hidden" name="id" value="'.$id.'">';
 	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
 	echo '<input name = "submit2" type="submit" value="Actualizar datos" class="btn btn-warning btn-lg">';

@@ -158,7 +158,7 @@
 			</div>'); 
 			
 				// Añadimos excepciones
-				mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TCA', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '4º de E.S.O.'), ('386', 'Tutoría Programa Diversificación Curricular (Orientador/a)', 'TUDIV', '1º de F.P.B. (Informática y Comunicaciones)'), ('386', 'Tutoría Programa Diversificación Curricular (Orientador/a)', 'TUDIV', '2º de F.P.B. (Informática y Comunicaciones)'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.')");
+				mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TCA', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '4º de E.S.O.'), ('386', 'Tutoría Programa Diversificación Curricular (Orientador/a)', 'TUDIV', '1º de F.P.B. (Informática y Comunicaciones)'), ('386', 'Tutoría Programa Diversificación Curricular (Orientador/a)', 'TUDIV', '2º de F.P.B. (Informática y Comunicaciones)'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '4º de E.S.O.')");
 			
 				echo '<br />
 				<div class="alert alert-success alert-block fade in">

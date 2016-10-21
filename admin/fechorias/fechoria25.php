@@ -1,8 +1,5 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
-$dia0 = explode ( "-", $fecha );
-$fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
-
 if (strlen($id)>0 and $grave == "muy grave" and stristr($_SESSION['cargo'],'1') == TRUE) {
 	$confirm = mysqli_query($db_con,"select confirmado from Fechoria where confirmado = '1' and id = '$id'");
 	if (mysqli_num_rows($confirm)>0) {
@@ -33,6 +30,14 @@ else{
 	$num_a=1;
 }
 
+// Actualizar datos
+if ($_POST['submit2']) {
+}
+else{
+	$dia0 = explode ( "-", $fecha );
+	$fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
+}
+
 $z=0;
 for ($i=0;$i<$num_a;$i++){
 	if ($num_a==1 and !is_array($nombre)) {
@@ -41,13 +46,20 @@ for ($i=0;$i<$num_a;$i++){
 	else{
 	$claveal = $nombre[$i];
 	}
-	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa, confirmado from Fechoria where claveal = '$claveal' and fecha = '$fecha' and grave = '$grave' and asunto = '$asunto' and informa = '$informa' and confirmado='$confirmado'");
+	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa, confirmado from Fechoria where claveal = '$claveal' and fecha = '$fecha' and grave = '$grave' and asunto = '$asunto' and informa = '$informa' and notas = '$notas' and confirmado='$confirmado'");
 
 	if (mysqli_num_rows($ya_esta)>0) {
 		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <legend>Atenci&oacute;n:</legend>
             Ya hay un problema de convivencia registrado que contiene los mismos datos que est&aacute;s enviando, y no queremos repetirlos... .
+          </div></div><br />';
+	}
+	elseif ($_POST['submit2'] and !($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db <>1 and isset($id))) {
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa' where id = '$id'");
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
 	else{
@@ -124,14 +136,14 @@ for ($i=0;$i<$num_a;$i++){
 
 
 	if ($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db <>1 and isset($id)) {	
-			mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', confirmado='1' where id = '$id'");
-			echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', confirmado='1' where id = '$id'");
+		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
 	else{
-		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula, confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
 	}
 	 //echo $query."<br>";
 	 $inserta = mysqli_query($db_con, $query );

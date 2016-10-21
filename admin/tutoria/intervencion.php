@@ -302,6 +302,10 @@ include("menu.php");
 						  		  	<option value="Llamada por Enfermedad" <?php echo (isset($causa) && $causa == 'Llamada por Enfermedad') ? 'selected' : ''; ?>>Llamada por Enfermedad</option>
 						  		  	<option value="Robo, hurto" <?php echo (isset($causa) && $causa == 'Robo, hurto') ? 'selected' : ''; ?>>Robo, hurto</option>
 						  		  	<option value="Otras" <?php echo (isset($causa) && $causa == 'Otras') ? 'selected' : ''; ?>>Otras</option>
+						  		  	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') { ?>
+									<option value="Compromiso de convivencia-asistencia"
+									<?php echo (isset($id) && $causa == 'Compromiso de convivencia-asistencia') ? 'selected' : ''; ?>>Compromiso de convivencia-asistencia</option>
+									<?php } ?>
 						  		  </select>
 						  		</div>
 						  	</div>

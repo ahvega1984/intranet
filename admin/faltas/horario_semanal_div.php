@@ -19,7 +19,7 @@ $pdf->AddFont('NewsGotT','B','NewsGotTb.php');
 
 // En el caso de haber seleccionado una unidad, se muestra el listado de alumnos de dicha unidad,
 // en otro caso mostramos el listado de faltas de todas las unidades.
-$query = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%25204%' OR combasi LIKE '%25226%' OR combasi LIKE '%135785%'";
+$query = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%141430%' OR combasi LIKE '%141434%'";
 
 $unidades = mysqli_query($db_con, $query);
 
@@ -76,7 +76,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->SetFillColor(239,240,239);	// Color de sombreado
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysqli_query($db_con, "SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno, claveal FROM FALUMNOS WHERE unidad='$unidad' and claveal in (select claveal from alma where combasi LIKE '%25204%' OR combasi LIKE '%25226%' OR combasi LIKE '%135785%') ORDER BY nc ASC");
+	$result = mysqli_query($db_con, "SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno, claveal FROM FALUMNOS WHERE unidad='$unidad' and claveal in (select claveal from alma where combasi LIKE '%141430%' OR combasi LIKE '%141434%') ORDER BY nc ASC");
 	
 	$i=0;
 	while ($alumno = mysqli_fetch_array($result)) {
