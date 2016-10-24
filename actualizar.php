@@ -710,11 +710,11 @@ if (! mysqli_num_rows($actua)) {
 
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Longitud abreviatura aula en horario'");
 if (! mysqli_num_rows($actua)) {
-	
-		mysqli_query($db_con, "ALTER TABLE `horw` CHANGE `a_aula` `a_aula` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
-		mysqli_query($db_con, "ALTER TABLE `horw_faltas` CHANGE `a_aula` `a_aula` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
-	
-		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud abreviatura aula en horario', NOW())");
+
+	mysqli_query($db_con, "ALTER TABLE `horw` CHANGE `a_aula` `a_aula` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+	mysqli_query($db_con, "ALTER TABLE `horw_faltas` CHANGE `a_aula` `a_aula` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud abreviatura aula en horario', NOW())");
 }
 
 
@@ -726,7 +726,41 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Longitud del campo unidad en tabla Grupos'");
 if (! mysqli_num_rows($actua)) {
 	
-		mysqli_query($db_con,"ALTER TABLE `grupos` CHANGE `curso` `curso` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");	
+	mysqli_query($db_con,"ALTER TABLE `grupos` CHANGE `curso` `curso` VARCHAR(32) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");	
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud del campo unidad en tabla Grupos', NOW())");
+}
+
+/*
+ @descripcion: Nuevo módulo - Pedidos de materiales
+ @fecha: 24 de octubre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo módulo - Pedidos de materiales'");
+if (! mysqli_num_rows($actua)) {
 	
-		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longitud del campo unidad en tabla Grupos', NOW())");
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `depto_pedidos` (
+	  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	  `departamento` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+	  `responsable` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+	  `id_acta` int(10) unsigned NOT NULL,
+	  `justificacion` tinytext COLLATE latin1_spanish_ci,
+	  `incidencias` tinytext COLLATE latin1_spanish_ci,
+	  `condiciones` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	  `fechaRegistro` datetime NOT NULL,
+	  `entregado` tinyint(1) NOT NULL DEFAULT '0',
+	  `vistoSecretaria` tinyint(1) NOT NULL DEFAULT '0',
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;");
+	
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `depto_pedidos_detalles` (
+	  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	  `id_pedido` int(10) unsigned NOT NULL,
+	  `articulo` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+	  `cantidad` tinyint(3) unsigned NOT NULL,
+	  `importe` decimal(10,2) unsigned NOT NULL,
+	  PRIMARY KEY (`id`,`id_pedido`)
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo módulo - Pedidos de materiales', NOW())");
 }

@@ -538,6 +538,11 @@ $menu = array(
 				'ncargos' => array('1','4'),
 			),
 			array(
+				'href'   => 'admin/departamentos/pedidos/index.php',
+				'titulo' => 'Pedidos de material',
+				'cargos' => array('1','4'),
+			),
+			array(
 				'href'   => 'admin/inventario/introducir.php',
 				'titulo' => 'Inventario de material',
 			),

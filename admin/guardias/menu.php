@@ -14,6 +14,11 @@ if (acl_permiso($_SESSION['cargo'], array(1))) {
 	if (strstr($_SERVER['REQUEST_URI'],'hor_guardias.php')==TRUE) {$activo4 = ' class="active" ';}
 ?>
 	<div class="container hidden-print">
+		
+		<?php if (acl_permiso($carg, array('1'))): ?>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+		<?php endif; ?>
+		
 		<ul class="nav nav-tabs">
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/index_admin.php">Registrar guardia</a></li>
 			<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php">Consulta por profesores</a></li>

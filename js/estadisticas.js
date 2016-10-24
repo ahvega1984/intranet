@@ -89,7 +89,7 @@ $( document ).ready(function() {
 	           });
 	       }
 	       else {
-	           $('#stats-mensajes-modal').html('<p class="lead text-center text-muted"><span class="fa fa-thumbs-o-up fa-5x"></span><br>Sin mensajes no leídos</p>');
+	           $('#stats-mensajes-modal').html('<p class="lead text-center text-muted"><span class="fa fa-thumbs-o-up fa-5x"></span><br>Sin mensajes no le&iacute;dos</p>');
 	       }
 	});
 });

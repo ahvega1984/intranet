@@ -3,6 +3,10 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 include("../../menu.php");
 
 if (isset($_POST['profesor'])) $profesor = $_POST['profesor']; else $profesor="";
@@ -145,11 +149,15 @@ include 'menu.php';
 						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?> 
 						
 						<div class="form-group">
-							<label for="turno_guardia">Turno:</label> 
+							<label class="turno_guardia">Turno:</label> 
 							<select	class="form-control" id="turno_guardia" name="turno_guardia" required>
+								<?php if (isset($config['guardias']['media_hora']) && $config['guardias']['media_hora'] == 1): ?>
 								<?php for ($i = 1; $i < count($array_turnos)+1; $i++): ?>
 								<option value="<?php echo $i; ?>"><?php echo $array_turnos[$i]; ?></option>
 								<?php endfor; ?>
+								<?php else: ?>
+								<option value="<?php echo 1; ?>"><?php echo $array_turnos[1]; ?></option>
+								<?php endif; ?>
 							</select>
 						</div>
 						

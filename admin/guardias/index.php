@@ -5,6 +5,10 @@ if (! isset($_GET['diasem']) && ! isset($_GET['hora'])) {
 	exit('No direct script access allowed');
 }
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 // VARIABLES URI
 if (isset($_GET['diasem'])) $diasem = mysqli_real_escape_string($db_con, $_GET['diasem']);
 if (isset($_GET['hora'])) $hora = mysqli_real_escape_string($db_con, $_GET['hora']);
@@ -112,19 +116,20 @@ include("menu.php");
 							</select>
 						</div>
 						
-						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?> 
-						<?php if ($guardias['media_hora']==0) { ?>
-						<input	type="hidden" name="turno_guardia" value='1'>
-						<?php } else{ ?>
+						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?>
+						
 						<div class="form-group">
 							<label class="turno_guardia">Turno:</label> 
 							<select	class="form-control" id="turno_guardia" name="turno_guardia" required>
+								<?php if (isset($config['guardias']['media_hora']) && $config['guardias']['media_hora'] == 1): ?>
 								<?php for ($i = 1; $i < count($array_turnos)+1; $i++): ?>
 								<option value="<?php echo $i; ?>"><?php echo $array_turnos[$i]; ?></option>
 								<?php endfor; ?>
+								<?php else: ?>
+								<option value="<?php echo 1; ?>"><?php echo $array_turnos[1]; ?></option>
+								<?php endif; ?>
 							</select>
 						</div>
-						<?php } ?>
 						
 						<button class="btn btn-primary" type="submit" name="submit">Registrar guardia</button>
 						<a href="//<?php echo $config['dominio']; ?>/intranet/index.php" class="btn btn-default">Cancelar</a>
