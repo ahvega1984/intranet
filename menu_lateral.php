@@ -538,7 +538,7 @@ $menu = array(
 				'ncargos' => array('1','4'),
 			),
 			array(
-				'href'   => 'admin/departamentos/pedidos/index.php',
+				'href'   => 'admin/departamento/pedidos/index.php',
 				'titulo' => 'Pedidos de material',
 				'cargos' => array('1','4'),
 			),
