@@ -59,8 +59,12 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 			// Si tiene Horario
 			$cur0 = mysqli_query($db_con, "SELECT distinct profesor FROM profesores where profesor = '$profe'" );
+			$cur00 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$profe'" );
 			$cur1 = mysqli_num_rows ( $cur0 );
-			$_SESSION['n_cursos'] = $cur1;
+			$cur11 = mysqli_num_rows ( $cur00 );
+			if ($cur1>0 or $cur11>0) {
+				$_SESSION['n_cursos'] = $cur1;
+			}
 
 			// Si tiene tema personalizado
 			$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );

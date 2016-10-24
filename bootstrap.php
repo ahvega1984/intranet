@@ -132,11 +132,15 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 			$_SESSION['mod_tutoria']['tutor'] = $profe;
 			$_SESSION['mod_tutoria']['unidad'] = $row [0];
 		}
-	
+
 		// Si tiene Horario
 		$cur0 = mysqli_query($db_con, "SELECT distinct profesor FROM profesores where profesor = '$profe'" );
+		$cur00 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$profe'" );
 		$cur1 = mysqli_num_rows ( $cur0 );
-		$_SESSION['n_cursos'] = $cur1;
+		$cur11 = mysqli_num_rows ( $cur00 );
+		if ($cur1>'0' or $cur11>'0') {
+			$_SESSION['n_cursos'] = 1;
+		}
 		
 		// Si tiene tema personalizado
 		$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );
