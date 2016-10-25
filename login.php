@@ -197,10 +197,7 @@ include('control_acceso.php');
 
 		  <form id="form-signin" class="form-signin well" method="POST" autocomplete="on">
 		      <div class="text-center text-muted form-signin-heading">
-		        <span class="fa-stack fa-4x">
-		          <i class="fa fa-circle fa-stack-2x"></i>
-		          <i class="fa fa-user fa-stack-1x fa-inverse"></i>
-		        </span>
+		        <span class="fa fa fa-user-circle fa4"></span>
 		      </div>
 
 		      <div id="form-group" class="form-group">

@@ -160,7 +160,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 						
 						<!-- MENÚ DE USUARIO -->
 						<li class="dropdown" id="bs-tour-usermenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<span class="fa fa-user fa-fw"></span> <?php echo $idea; ?> <b class="caret"></b> </a>
+							<span class="fa fa-user-circle-o fa-fw"></span> <?php echo $idea; ?> <b class="caret"></b> </a>
 							
 							<ul class="dropdown-menu" style="min-width: 340px !important;">
 								<li class="hidden-xs">
@@ -196,7 +196,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 									</div>
 								</li>
 								<li class="divider hidden-xs"></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fa fa-key fa-fw"></span> Cambiar contraseña</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fa fa-lock fa-fw"></span> Cambiar contraseña</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fa fa-camera fa-fw"></span> Cambiar fotografía</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="fa fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
 								<li class="divider"></li>

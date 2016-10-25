@@ -242,6 +242,10 @@ div.tour > div.popover-content {
   margin: 30px auto;
 }
 
+.fa4 {
+	font-size: 7em;
+}
+
 @media (max-width: 768px) {
 	#login {
 	  padding-top: 0;
@@ -253,7 +257,8 @@ div.tour > div.popover-content {
 }
 
 .form-signin .form-signin-heading {
-  margin-bottom: 10px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 .form-signin .form-signin-footer {
   margin-top: 10px;
