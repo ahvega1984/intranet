@@ -229,8 +229,9 @@ if ($config['mod_notificaciones']) {
 	
 	
 	// ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES
+
+	$pr_sms = mysqli_query($db_con,"SELECT DISTINCT profesor FROM acceso WHERE DATE( fecha ) =  '$hoy' and profesor not in (select idea from ausencias, departamentos where nombre=profesor and date(inicio)<='$hoy' and date(fin)>='$hoy')");
 	
-	$pr_sms = mysqli_query($db_con,"SELECT DISTINCT profesor FROM acceso WHERE DATE(fecha)='$hoy'");
 	while ($p_sms = mysqli_fetch_array($pr_sms)){
 	
 	$clase="";	

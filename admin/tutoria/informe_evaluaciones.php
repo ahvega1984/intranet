@@ -229,7 +229,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 				<?php 
 				$result_transito = mysqli_query($db_con, "SELECT * FROM transito_datos where claveal='".$claveal."'");
 				?>
-				<a href="http://localhost/intranet/admin/informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo" target="_blank"><?php echo $row['nc'].". ".$row['apellidos'].', '.$row['nombre']; ?></a>
+				<a href="../informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo" target="_blank"><?php echo $row['nc'].". ".$row['apellidos'].', '.$row['nombre']; ?></a>
 				<?php				
 				if (mysqli_num_rows($result_transito)>0) {
 				?>

@@ -542,7 +542,6 @@ if($config['mod_asistencia']=="1" and $n_dia = "1" and $n_hora = "8") {
 			}
 		}
 	}
-	echo $num;
 }
 
 /*

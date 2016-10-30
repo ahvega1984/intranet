@@ -63,7 +63,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$cur1 = mysqli_num_rows ( $cur0 );
 			$cur11 = mysqli_num_rows ( $cur00 );
 			if ($cur1>0 or $cur11>0) {
-				$_SESSION['n_cursos'] = $cur1;
+				$_SESSION['n_cursos'] = 1;
 			}
 
 			// Si tiene tema personalizado
@@ -197,7 +197,10 @@ include('control_acceso.php');
 
 		  <form id="form-signin" class="form-signin well" method="POST" autocomplete="on">
 		      <div class="text-center text-muted form-signin-heading">
-		        <span class="fa fa fa-user-circle fa4"></span>
+		        <span class="fa-stack fa-4x">
+		          <i class="fa fa-circle fa-stack-2x"></i>
+		          <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+		        </span>
 		      </div>
 
 		      <div id="form-group" class="form-group">

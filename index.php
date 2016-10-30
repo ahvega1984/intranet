@@ -232,7 +232,7 @@ include("menu.php");
 				
 				<br><br>
 				
-				<?php if($config['mod_horarios'] and $_SESSION['n_cursos']> 0){ ?>
+				<?php if($config['mod_horarios']){ ?>
 				<div id="bs-tour-horario">
 				<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>	
 				<?php include("horario.php"); ?>
