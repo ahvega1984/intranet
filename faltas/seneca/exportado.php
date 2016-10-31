@@ -18,12 +18,12 @@ $tramos1 = mysqli_query($db_con, $tramos0);
 $tramos2 = mysqli_fetch_array($tramos1) or die("No se ha podido abrir la tabla tramos");
 $tramo = $tramos2[0];
 
-$xml.= "	
-	  <FALTA_ASISTENCIA>
-            <F_FALASI>$fecha</F_FALASI>
-            <X_TRAMO>$tramo</X_TRAMO>
-            <C_TIPFAL>I</C_TIPFAL>
-            <L_DIACOM>N</L_DIACOM>
-          </FALTA_ASISTENCIA>";
+$xml.= "
+\t\t\t\t\t\t\t\t<FALTA_ASISTENCIA>
+\t\t\t\t\t\t\t\t\t<F_FALASI>$fecha</F_FALASI>
+\t\t\t\t\t\t\t\t\t<X_TRAMO>$tramo</X_TRAMO>
+\t\t\t\t\t\t\t\t\t<C_TIPFAL>I</C_TIPFAL>
+\t\t\t\t\t\t\t\t\t<L_DIACOM>N</L_DIACOM>
+\t\t\t\t\t\t\t\t</FALTA_ASISTENCIA>";
 }
 ?>

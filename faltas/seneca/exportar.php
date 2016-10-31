@@ -61,27 +61,27 @@ $n_curso1 = utf8_decode($n_curso);
 $hoy = date('d/m/Y')." 08:00:00"; 
 $ano_curso=substr($config['curso_inicio'],0,4); 
 $xml="<SERVICIO>
-  <DATOS_GENERALES>
-    <MODULO>FALTAS DE ASISTENCIA</MODULO>
-    <TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO> 
-    <AUTOR>SENECA</AUTOR>
-    <FECHA>$hoy</FECHA>
-    <C_ANNO>$ano_curso</C_ANNO>
-    <FECHA_DESDE>$iniciofalta</FECHA_DESDE>
-    <FECHA_HASTA>$finfalta</FECHA_HASTA>
-    <CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>
-    <NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>
-    <LOCALIDAD_CENTRO>".$config['centro_localidad']."</LOCALIDAD_CENTRO>
-  </DATOS_GENERALES>
-  <CURSOS>
-    <CURSO>
-      <X_OFERTAMATRIG>$x_oferta</X_OFERTAMATRIG>
-      <D_OFERTAMATRIG>$n_curso</D_OFERTAMATRIG>
-      <UNIDADES>
-        <UNIDAD>
-          <X_UNIDAD>$x_unidad</X_UNIDAD>
-          <T_NOMBRE>$t_nombre</T_NOMBRE>
-          <ALUMNOS>";
+\t<DATOS_GENERALES>
+\t\t<MODULO>FALTAS DE ASISTENCIA</MODULO>
+\t\t<TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO>
+\t\t<AUTOR>SENECA</AUTOR>
+\t\t<FECHA>$hoy</FECHA>
+\t\t<C_ANNO>$ano_curso</C_ANNO>
+\t\t<FECHA_DESDE>$iniciofalta</FECHA_DESDE>
+\t\t<FECHA_HASTA>$finfalta</FECHA_HASTA>
+\t\t<CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>
+\t\t<NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>
+\t\t<LOCALIDAD_CENTRO>".$config['centro_localidad']."</LOCALIDAD_CENTRO>
+\t</DATOS_GENERALES>
+\t<CURSOS>
+\t\t<CURSO>
+\t\t\t<X_OFERTAMATRIG>$x_oferta</X_OFERTAMATRIG>
+\t\t\t<D_OFERTAMATRIG>$n_curso</D_OFERTAMATRIG>
+\t\t\t<UNIDADES>
+\t\t\t\t<UNIDAD>
+\t\t\t\t\t<X_UNIDAD>$x_unidad</X_UNIDAD>
+\t\t\t\t\t<T_NOMBRE>$t_nombre</T_NOMBRE>
+\t\t\t\t\t<ALUMNOS>";
 $alumn = $doc->getElementsByTagName( "ALUMNO" );
 foreach ($alumn as $alumno){
 	$x_matricul = $alumno->getElementsByTagName( "X_MATRICULA" );
@@ -90,23 +90,23 @@ foreach ($alumn as $alumno){
 	$claveal = $clavea->item(0)->nodeValue;
 
 	$xml.="
-	<ALUMNO>
-       <X_MATRICULA>$x_matricula</X_MATRICULA>
-       <FALTAS_ASISTENCIA>";
+\t\t\t\t\t\t<ALUMNO>
+\t\t\t\t\t\t\t<X_MATRICULA>$x_matricula</X_MATRICULA>
+\t\t\t\t\t\t\t<FALTAS_ASISTENCIA>";
 
-	include 'exportado.php';
+include 'exportado.php';
 	
 	$xml.="
-        </FALTAS_ASISTENCIA>
-       </ALUMNO>";
+\t\t\t\t\t\t\t</FALTAS_ASISTENCIA>
+\t\t\t\t\t\t</ALUMNO>";
 
 }
 $xml.="         
-     </ALUMNOS>
-    </UNIDAD>
-   </UNIDADES>
-  </CURSO>
- </CURSOS>
+\t\t\t\t\t</ALUMNOS>
+\t\t\t\t</UNIDAD>
+\t\t\t</UNIDADES>
+\t\t</CURSO>
+\t</CURSOS>
 </SERVICIO>";
 $fp1=fopen("exportado/".$file."","w");
 $pepito2=fwrite($fp1,$xml);
@@ -117,6 +117,10 @@ if ($ni==0) {
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	Parece que no hay archivos que se puedan procesar en el directorio /faltas/seneca/origen/. Asegúrate de que el directorio contiene los archivos exportados desde Séneca..
 			</div></div><br />';
+include("../../pie.php");
+			
+	echo '</body>
+		</html>';
 exit();
 }
 ?>
@@ -139,3 +143,8 @@ Selecciona las fechas de comienzo y final del registro de faltas en el formulari
 </div>
 </div>
 </div>
+
+<?php include("../../pie.php"); ?>
+
+</body>
+</html>

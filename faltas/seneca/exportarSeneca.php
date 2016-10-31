@@ -45,19 +45,19 @@ $flag_curso="";		// Controla que no imprima el curso por cada unidad.
 // CABECERA DEL DOCUMENTO XML
 $docXML  = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
 $docXML .= "<SERVICIO>\n";
-$docXML .= "  <DATOS_GENERALES>\n";
-$docXML .= "    <MODULO>FALTAS DE ASISTENCIA</MODULO>\n";
-$docXML .= "    <TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO> \n";
-$docXML .= "    <AUTOR>SENECA</AUTOR>\n";
-$docXML .= "    <FECHA>$fechaHoy</FECHA>\n";
-$docXML .= "    <C_ANNO>$anio_curso</C_ANNO>\n";
-$docXML .= "    <FECHA_DESDE>$FECHA_DESDE</FECHA_DESDE>\n";
-$docXML .= "    <FECHA_HASTA>$FECHA_HASTA</FECHA_HASTA>\n";
-$docXML .= "    <CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>\n";
-$docXML .= "    <NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>\n";
-$docXML .= "    <LOCALIDAD_CENTRO>".$config['centro_localidad']." (".$config['centro_provincia'].")</LOCALIDAD_CENTRO>\n";
-$docXML .= "  </DATOS_GENERALES>\n";
-$docXML .= "  <CURSOS>\n";
+$docXML .= "\t<DATOS_GENERALES>\n";
+$docXML .= "\t\t<MODULO>FALTAS DE ASISTENCIA</MODULO>\n";
+$docXML .= "\t\t<TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO> \n";
+$docXML .= "\t\t<AUTOR>SENECA</AUTOR>\n";
+$docXML .= "\t\t<FECHA>$fechaHoy</FECHA>\n";
+$docXML .= "\t\t<C_ANNO>$anio_curso</C_ANNO>\n";
+$docXML .= "\t\t<FECHA_DESDE>$FECHA_DESDE</FECHA_DESDE>\n";
+$docXML .= "\t\t<FECHA_HASTA>$FECHA_HASTA</FECHA_HASTA>\n";
+$docXML .= "\t\t<CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>\n";
+$docXML .= "\t\t<NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>\n";
+$docXML .= "\t\t<LOCALIDAD_CENTRO>".$config['centro_localidad']." (".$config['centro_provincia'].")</LOCALIDAD_CENTRO>\n";
+$docXML .= "\t</DATOS_GENERALES>\n";
+$docXML .= "\t<CURSOS>\n";
 
 
 $directorio = scandir("./origen/");
@@ -83,13 +83,13 @@ foreach ($directorio as $archivo) {
         // COMIENZO/FIN DE UNIDADES Y CURSOS DEL CENTRO
         if ($flag_curso != $X_OFERTAMATRIG) {
         	if ($flag_fincurso) {
-        		$docXML .= "      </UNIDADES>\n";
-        		$docXML .= "    </CURSO>\n";
+        		$docXML .= "\t\t\t</UNIDADES>\n";
+        		$docXML .= "\t\t</CURSO>\n";
         	}
-        	$docXML .= "    <CURSO>\n";
-        	$docXML .= "      <X_OFERTAMATRIG>$X_OFERTAMATRIG</X_OFERTAMATRIG>\n";
-        	$docXML .= "      <D_OFERTAMATRIG>$D_OFERTAMATRIG</D_OFERTAMATRIG>\n";
-        	$docXML .= "      <UNIDADES>\n";
+        	$docXML .= "\t\t<CURSO>\n";
+        	$docXML .= "\t\t\t<X_OFERTAMATRIG>$X_OFERTAMATRIG</X_OFERTAMATRIG>\n";
+        	$docXML .= "\t\t\t<D_OFERTAMATRIG>$D_OFERTAMATRIG</D_OFERTAMATRIG>\n";
+        	$docXML .= "\t\t\t<UNIDADES>\n";
         	
         	$flag_fincurso = 1;
         }
@@ -97,13 +97,13 @@ foreach ($directorio as $archivo) {
         
         
         // COMIENZO DE UNIDAD
-        $docXML .= "        <UNIDAD>\n";
-        $docXML .= "          <X_UNIDAD>$X_UNIDAD</X_UNIDAD>\n";
-        $docXML .= "          <T_NOMBRE>$T_NOMBRE</T_NOMBRE>\n";
+        $docXML .= "\t\t\t\t<UNIDAD>\n";
+        $docXML .= "\t\t\t\t\t<X_UNIDAD>$X_UNIDAD</X_UNIDAD>\n";
+        $docXML .= "\t\t\t\t\t<T_NOMBRE>$T_NOMBRE</T_NOMBRE>\n";
         
         
         // ALUMNOS DE LA UNIDAD
-        $docXML .= "          <ALUMNOS>\n";
+        $docXML .= "\t\t\t\t\t<ALUMNOS>\n";
         
         $tag_alumno = $doc->getElementsByTagName("ALUMNO");
         foreach( $tag_alumno as $alumno ) {
@@ -113,8 +113,8 @@ foreach ($directorio as $archivo) {
         	$C_NUMESCOLAR = $tag_cnumescolar->item(0)->nodeValue;
         	
         	// COMIENZO ALUMNO
-        	$docXML .= "            <ALUMNO>\n";
-        	$docXML .= "              <X_MATRICULA>$X_MATRICULA</X_MATRICULA>\n";
+        	$docXML .= "\t\t\t\t\t\t<ALUMNO>\n";
+        	$docXML .= "\t\t\t\t\t\t\t<X_MATRICULA>$X_MATRICULA</X_MATRICULA>\n";
         	
         	if ($MODO_DEPURACION) {
         		$alumnos[$cont_alum] = $X_MATRICULA;
@@ -123,7 +123,7 @@ foreach ($directorio as $archivo) {
         		
         	
         	// COMIENZO FALTAS DE ASISTENCIA
-        	$docXML .= "              <FALTAS_ASISTENCIA>\n";
+        	$docXML .= "\t\t\t\t\t\t\t<FALTAS_ASISTENCIA>\n";
         	
         	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA, FALTAS.FALTA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND (FALTAS.FALTA='F' OR FALTAS.FALTA='J') AND alma.CLAVEAl1='$X_MATRICULA'");
         	if (!$result) echo mysqli_error($db_con);
@@ -146,12 +146,12 @@ foreach ($directorio as $archivo) {
 	        	$result_tramos = mysqli_query($db_con, "SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
 	        	$tramos = mysqli_fetch_array($result_tramos);
 	        	
-	        	$docXML .= "                <FALTA_ASISTENCIA>\n";
-	        	$docXML .= "                  <F_FALASI>$F_FALASI</F_FALASI>\n";
-	        	$docXML .= "                  <X_TRAMO>$tramos[0]</X_TRAMO>\n";
-	        	$docXML .= "                  <C_TIPFAL>$faltas_tipo</C_TIPFAL>\n";
-	        	$docXML .= "                  <L_DIACOM>N</L_DIACOM>\n";
-	        	$docXML .= "                </FALTA_ASISTENCIA>\n";
+	        	$docXML .= "\t\t\t\t\t\t\t\t<FALTA_ASISTENCIA>\n";
+	        	$docXML .= "\t\t\t\t\t\t\t\t\t<F_FALASI>$F_FALASI</F_FALASI>\n";
+	        	$docXML .= "\t\t\t\t\t\t\t\t\t<X_TRAMO>$tramos[0]</X_TRAMO>\n";
+	        	$docXML .= "\t\t\t\t\t\t\t\t\t<C_TIPFAL>$faltas_tipo</C_TIPFAL>\n";
+	        	$docXML .= "\t\t\t\t\t\t\t\t\t<L_DIACOM>N</L_DIACOM>\n";
+	        	$docXML .= "\t\t\t\t\t\t\t\t</FALTA_ASISTENCIA>\n";
         	}
         	
         	if ($MODO_DEPURACION) {
@@ -161,24 +161,24 @@ foreach ($directorio as $archivo) {
 
         	
         	// FIN FALTAS DE ASISTENCIA
-        	$docXML .= "              </FALTAS_ASISTENCIA>\n";
+        	$docXML .= "\t\t\t\t\t\t\t</FALTAS_ASISTENCIA>\n";
         	
         	// FIN ALUMNO
-        	$docXML .= "            </ALUMNO>\n";
+        	$docXML .= "\t\t\t\t\t\t</ALUMNO>\n";
         }
 		
 		// FIN DE ALUMNOS DE LA UNIDAD
-        $docXML .= "          </ALUMNOS>\n";
+        $docXML .= "\t\t\t\t\t</ALUMNOS>\n";
         
         // FIN DE UNIDAD
-        $docXML .= "        </UNIDAD>\n";
+        $docXML .= "\t\t\t\t</UNIDAD>\n";
     }
 }
 
 // PIE DEL DOCUMENTO
-$docXML .= "      </UNIDADES>\n";
-$docXML .= "    </CURSO>\n";
-$docXML .= "  </CURSOS>\n";
+$docXML .= "\t\t\t</UNIDADES>\n";
+$docXML .= "\t\t</CURSO>\n";
+$docXML .= "\t</CURSOS>\n";
 $docXML .= "</SERVICIO>";
 
 
