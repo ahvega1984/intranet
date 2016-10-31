@@ -51,7 +51,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_temp` (
   `id` int(11) NOT NULL auto_increment,
   `id_tareas` int(11) NOT NULL default '0',
   `asignatura` varchar(32) NOT NULL default '',
-  `profesor` varchar(32) NOT NULL default '',
+  `profesor` varchar(64) NOT NULL default '',
   `alumno` int(8) NOT NULL default '0',
   `curso` varchar(4) NOT NULL default '',
   `fecha` date NOT NULL default '0000-00-00',

@@ -9,20 +9,11 @@ include("../../../menu.php");
 ?>
 	
 	<div class="container">
-	
-	<?php
-	if($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es' || $_SERVER['SERVER_NAME'] == 'iesbahiamarbella.es') {
-		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/alumnos/login.php' ORDER BY claveal ASC");
-	}
-	else {
-		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' ORDER BY claveal ASC");
-	}
-	?>
 		
 		<!-- TITULO DE LA PAGINA -->
 		
 		<div class="page-header">
-			<h2 class="page-title" align="center">Informe de accesos de alumnos a la Intranet</h2>
+			<h2 class="page-title" align="center">Informe de accesos de padres/alumnos a la Página pública del Centro</h2>
 		</div>
 		
 		
@@ -30,7 +21,34 @@ include("../../../menu.php");
 		
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
-			
+
+	<?php
+	if($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es' || $_SERVER['SERVER_NAME'] == 'iesbahiamarbella.es') {
+		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/alumnos/login.php' ORDER BY accesos DESC");
+	}
+	else {
+		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' ORDER BY accesos DESC");
+	}
+	if (!(mysqli_num_rows($query_accesos)>0)) {
+	?>
+	
+	<br>
+	<div align="center">
+		<div class="alert alert-warning alert-block fade in">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<i class="fa fa-exclamation-triangle fa-5x" ></i><br><hr>
+		<p class="text-left">
+		No hay datos de acceso de padres o alumnos. Parece que no has instalado la Página del Centro en tu Servidor. <br>Puedes encontrar más información sobre esta extensión de la Intranet en esta dirección: <a href="https://github.com/IESMonterroso/pagina_centros" target="_blank">https://github.com/IESMonterroso/pagina_centros</a>. 
+		<br>También puedes descargarla e instalarla siguiendo las instrucciones en la misma página.
+		</p>
+		</div>
+	</div>
+
+	<?php
+	}
+	
+	else{
+	?>			
 			    <div class="no_imprimir">
 			      <a href="../../index.php" class="btn btn-default">Volver</a>
 			      <a href="#" class="btn btn-primary" onclick="print()"><i class="fa fa-print"></i> Imprimir</a>
@@ -73,10 +91,11 @@ include("../../../menu.php");
 					  ?>
 					</tbody>
 				</table>
-				
+			<?php
+			}
+			?>  
 			</div><!-- /.col-sm-12 -->
-		</div><!-- /.row -->
-	  
+		</div><!-- /.row -->  
 	</div><!-- /.container -->
 	
 	<br>

@@ -78,7 +78,8 @@ include("menu.php");
 				<hr>
 				<?php include("inc_informes_tareas.php"); ?>
 				<hr>
-				
+				<?php include("inc_informes_accesos.php"); ?>
+				<hr>
 			</div><!-- /.col-sm-4 -->
 			
 			

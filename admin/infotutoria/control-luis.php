@@ -35,7 +35,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_temp` (
   `id` int(11) NOT NULL auto_increment,
   `id_infotut` int(11) NOT NULL default '0',
   `asignatura` varchar(32) NOT NULL default '',
-  `profesor` varchar(32) NOT NULL default '',
+  `profesor` varchar(64) NOT NULL default '',
   `alumno` int(8) NOT NULL default '0',
   `curso` varchar(48) NOT NULL default '',
   `fecha` date NOT NULL default '0000-00-00',
@@ -53,7 +53,6 @@ if (mysqli_num_rows($tut)>0) {
 $luis1 = mysqli_query($db_con, "select distinct grupo from profesores where profesor like '$profes' and grupo not like '$tutoria' order by grupo");
 while ($luis = mysqli_fetch_array($luis1)) {
 	$unidad = $luis[0];
-	echo "<h4 align='left'>Grupo: $luis[0]</h4><br />";
 
 $query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' order by F_ENTREV desc";
 //echo $query;
@@ -105,8 +104,11 @@ $profesores = substr($profesores,0,strlen($profesores) - 2);
 //mysqli_query($db_con, $query2);
 if(strlen($profesores) > 0)
 {
+
 if($detalles == '1')
 {  
+  echo "<h4 align='left'>Grupo: $luis[0]</h4><br />";
+
 echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]</p>";
 ?>
 <ul  class='unstyled'>
