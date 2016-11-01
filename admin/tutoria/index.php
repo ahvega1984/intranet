@@ -79,7 +79,7 @@ include("menu.php");
 				<?php include("inc_informes_tareas.php"); ?>
 				<hr>
 				<?php include("inc_informes_accesos.php"); ?>
-				<hr>
+				
 			</div><!-- /.col-sm-4 -->
 			
 			
@@ -87,8 +87,9 @@ include("menu.php");
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-4">
 				
-				<?php include("inc_mensajes.php"); ?>
+				<?php if($_SESSION['pagina_centro'] == 1){ include("inc_mensajes.php"); ?>
 				<hr>
+				<?php } ?>				
 				
 				<?php include("inc_informes_tutoria.php"); ?>
 				<hr>

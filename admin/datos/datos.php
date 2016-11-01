@@ -174,7 +174,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 
 // Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos
 	$sql_control = mysqli_query($db_con, "select * from control where claveal = '$claveal'");
-	if (mysqli_num_rows($sql_control)>0) {
+	if (mysqli_num_rows($sql_control)>0 and $_SESSION['pagina_centro']==1) {
 		$s_control = '1';
 	}
 

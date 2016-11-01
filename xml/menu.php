@@ -56,8 +56,9 @@
 	<li><a href="../admin/matriculas/index.php">Matriculación de alumnos</a></li>
 	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años</a></li>	
 	<?php endif; ?>
+	<?php if($_SESSION['pagina_centro']==1): ?>	
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
-	
+	<?php endif; ?>
 	<!-- CALIFICACIONES -->
 	<li class="nav-header">Notas de evaluación</li>
 	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>

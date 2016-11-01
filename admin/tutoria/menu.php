@@ -1,6 +1,36 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-<div class="container hidden-print"><?php if (strstr($_SESSION['cargo'],'1') == TRUE || strstr($_SESSION['cargo'],'8') == TRUE): ?>
+<div class="container hidden-print">
+<!-- Button trigger modal -->
+
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-left:25px;">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Las páginas del tutor presentan información específica sobre los alumnos de su tutoría.<br>
+						El menú superior abre las distintas opciones que se le presentan al tutor. 
+						La página principal (<b>Resumen</b>) contiene datos sobre los aspectos más relevantes de la vida escolar de los alumnos: Faltas de Asistencia, Problemas de Conducta, Actividades Extraescolares, Informes de Tutoría y de Tareas por ausencia, intervenciones de tutoría, Devolución de libros a la Biblioteca, etc. También presenta una lista de los mensajes de Padres/Alumnos y acceso a su página de estos si el Centro dispone de ese servicio.</p>						
+						<p>Las <b>Intervenciones de Tutoría</b> permiten mantener un diaro en el que el Tutor registra sus intervenciones sobre alumnos de su grupo o sus padres. La página presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta lista, se visualiza la intervención en el formulario (pudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario. La Intervención va asociada a una <em>causa (Evolución académica, Faltas de asistencia, etc.)</em> y a un <em>tipo (Entrevista telefónica o personal, etc.)</em> y </p>
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<?php if (strstr($_SESSION['cargo'],'1') == TRUE || strstr($_SESSION['cargo'],'8') == TRUE): ?>
+		
 <form method="post" action="">
 <div class="pull-right"><?php $result = mysqli_query($db_con, "SELECT DISTINCT FTUTORES.unidad, tutor, curso FROM FTUTORES, alma where alma.unidad=FTUTORES.unidad ORDER BY FTUTORES.unidad ASC"); ?>
 <?php if(mysqli_num_rows($result)): ?> <select
@@ -62,8 +92,8 @@ $curso_tutor=$query2[0];
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 		<li><a href="../informes/cinforme.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de un alumno/a</a></li>
-		<li><a href="../infotutoria/index.php">Informes de tutoría</a></li>
-		<li><a href="../tareas/index.php">Informes de tareas</a></li>
+		<li><a href="../infotutoria/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tutoría</a></li>
+		<li><a href="../tareas/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tareas</a></li>
 		<li class="divider"></li>
 		
 		<?php 

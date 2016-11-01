@@ -10,22 +10,9 @@
 	else {
 		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' and claveal in (select distinct claveal from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."') ORDER BY accesos DESC");
 	}
-	if (!mysqli_num_rows($query_accesos)>0) {
-	?>
-	<h3 class="text-info">Accesos de Padres/Alumnos</h3>
-	<div align="center">
-		<div class="alert alert-warning alert-block fade in">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<i class="fa fa-exclamation-triangle fa-5x" ></i><br><hr>
-		<p class="text-left">
-		No hay datos de acceso de padres o alumnos para el grupo de tu tutoría.
-		</p>
-		</div>
-	</div>
-
-	<?php	
+	if (!mysqli_num_rows($query_accesos)>0) {	
 	}
-	else
+	elseif($_SESSION['pagina_centro']==1 and mysqli_num_rows($query_accesos)>0)
 	{
 	?>
 			<h3 class="text-info">Accesos de Padres/Alumnos</h3>
@@ -61,6 +48,7 @@
 					  ?>
 					</tbody>
 				</table>
+				<hr>
 				<?php
 				}
 				?>  

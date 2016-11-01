@@ -301,7 +301,7 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
 
-              	<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
+              	<?php if((stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE) and $_SESSION['pagina_centro'] == 1): ?>
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
