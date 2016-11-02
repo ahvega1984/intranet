@@ -69,14 +69,15 @@ include("../../menu.php");
 			 `NOMBRETUTOR2` varchar( 255 ) default NULL ,
 			 `SEXOTUTOR2` varchar( 255 ) default NULL ,
 			 `LOCALIDADNACIMIENTO` varchar( 255 ) default NULL ,
-			  `FECHAMATRICULA` varchar( 255 ) default NULL ,
+			 `ANOMATRICULA` varchar( 4 ) default NULL ,
 			 `MATRICULAS` varchar( 255 ) default NULL ,
 			 `OBSERVACIONES` varchar( 255 ) default NULL,
 			 `PROVINCIANACIMIENTO` varchar( 255 ) default NULL ,
 			 `PAISNACIMIENTO` varchar( 255 ) default NULL ,
 			 `EDAD` varchar( 2 ) default NULL ,
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
-			 `SEXO` varchar( 1 ) default NULL 
+			 `SEXO` varchar( 1 ) default NULL ,
+			 `FECHAMATRICULA` varchar( 255 ) default NULL  
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ";
 			
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -284,7 +285,7 @@ include("../../menu.php");
 			
 								
 						 mysqli_query($db_con, "update alma set apellidos = '$prf[1]', nombre = '$prf[2]', provinciaresidencia = '$prf[3]', domicilio = '$prf[4]', localidad = '$prf[5]', dni = '$prf[6]', padre = '$prf[7]', dnitutor = '$prf[8]', telefono = '$prf[9]', telefonourgencia = '$prf[10]', localidadnacimiento = '$prf[11]' $padre_alma $padre_completo $madre_completo where claveal = '$prf[0]'");
-						 $num_filas+=mysqli_affected_rows();
+						 $num_filas+=mysqli_affected_rows($db_con);
 						}
 					}
 					echo '<br />

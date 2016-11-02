@@ -71,15 +71,16 @@ include '../../menu.php';
 			 `NOMBRETUTOR2` varchar( 255 ) default NULL ,
 			 `SEXOTUTOR2` varchar( 255 ) default NULL ,
 			 `LOCALIDADNACIMIENTO` varchar( 255 ) default NULL ,
-			  `FECHAMATRICULA` varchar( 255 ) default NULL ,
+			 `ANOMATRICULA` varchar( 4 ) default NULL ,
 			 `MATRICULAS` varchar( 255 ) default NULL ,
 			 `OBSERVACIONES` varchar( 255 ) default NULL,
 			 `PROVINCIANACIMIENTO` varchar( 255 ) default NULL ,
 			 `PAISNACIMIENTO` varchar( 255 ) default NULL ,
 			 `EDAD` varchar( 2 ) default NULL ,
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
-			 `SEXO` varchar( 1 ) default NULL 
-			)";
+			 `SEXO` varchar( 1 ) default NULL ,
+			 `FECHAMATRICULA` varchar( 255 ) default NULL  
+			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci";
 			
 					// echo $alumnos;
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
