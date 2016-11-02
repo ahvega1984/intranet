@@ -45,12 +45,12 @@ $resultcurso = mysqli_query($db_con, $SQLcurso);
 	$result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$unidad'" );
 	$row0 = mysqli_fetch_array ( $result0 );	
 	$tuti = $row0[0];
-	if (mysqli_num_rows($result) > 0)
-{
+	if (mysqli_num_rows($result) < 1){ }
+	else{
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
 //$num_informe = mysqli_num_rows($sql1);
 echo "<p class='lead text-info'>$unidad <br /><small class='text-muted'>$n_asig</small></p>";
-echo "<table align=center  class='table'><tr class='active'>";
+echo "<table align=center class='table'><tr class='active'>";
 echo "<th>Alumno</th>
 <th>Fecha Inicio</th>
 <th></th>
@@ -101,19 +101,11 @@ echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='
 	}	
 
 	 echo "</td>
-	  </tr>
-	  </table><br /></form><hr>";
-
-}
-else{
-
-		echo "<p class='lead text-info'>$unidad<br /><small class='text-muted'> $n_asig</small></p>";
-				echo '<div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-No hay Informes de Tareas Activos para t&iacute;</div></div><hr>';
-}
+	 </tr>
+	 </table><br /></form><hr>";
 
 	}
+}
 	   		
 ?>
 </div>

@@ -14,19 +14,18 @@ $options_right = array(
 			);
 $options_left = array(
 				'justification' => 'left'
+
 					);
 $dias = array('1' => 'Lunes','2' => 'Martes','3' => 'Miercoles','4' => 'Jueves','5' => 'Viernes');
 foreach ($dias as $i => $nombre_dia) {
+	unset($data);
 
 $sqldatos = "select distinct prof from horw where dia='$i' order by prof";
 $lista= mysqli_query($db_con, $sqldatos );
 
-
-
-
 while($datatmp = mysqli_fetch_array($lista)) {
 	for ($z=1; $z < 7; $z++) { 
-		unset(${c.$z});
+		${c.$z}="";
 		$asig = mysqli_query($db_con,"select distinct a_asig, a_aula from horw where prof='$datatmp[0]' and dia='$i' and hora='$z'");
 		while($dato_asig = mysqli_fetch_array($asig)){
 			${c.$z}=$dato_asig[0].'
@@ -74,7 +73,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 				'rowGap'=>5
 			);
 
-$txttit= "                           Hoja de Firmas del Profesorado. ".'                              '.strtoupper($nombre_dia)."\n";
+$txttit= "                           Hoja de Firmas del Profesorado. ".'                     '.strtoupper($nombre_dia)."  ....................\n";
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n\n", 10);

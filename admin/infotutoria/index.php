@@ -20,7 +20,7 @@ include("menu.php");
 </div>
 <br>
 
-<div class="col-md-6 col-md-offset-3">	
+<div class="col-md-8 col-md-offset-2">	
     
 <?php
  //Validación del Informe por el Tutor o Directivo
@@ -69,12 +69,12 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$row0 = mysqli_fetch_array ( $result0 );	
 	$tuti = mb_strtoupper($row0[0]);
 	$tuti_grupo = $row0[1];
-	if (mysqli_num_rows($result) > 0)
-{
-	echo "<form name='consulta' method='POST' action='tutoria.php'>";
+	if (mysqli_num_rows($result) < 1){ }
+	else{
+echo "<form name='consulta' method='POST' action='tutoria.php'>";
 //$num_informe = mysqli_num_rows($sql1);
 echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
-echo "<table align=center  class='table'><tr class='active'>";
+echo "<div class='table-responsive'><table align=left class='table' style='width:auto'><tr class='active'>";
 echo "<th>Alumno</th>
 <th>Cita padres</th>
 <th>Fecha alta</th>
@@ -120,20 +120,13 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 
 			}
    echo "</td>
-   </tr>";
-		
+   </tr>";		
 	}	
-	echo "</table>";
+	echo "</table></div>";
 	 
-	 echo "<br /></form><hr>";
-}
-	else{
-		echo "<p class='lead text-info'>$grupo<br /><small class='text-muted'> $n_asig</small></p>";
-			echo '<div align="center"><div class="alert alert-warning alert-block fade in" >
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-No hay Informes de Tutor&iacute;a Activos para t&iacute;</div></div><hr>';
-}
-	}	
+	echo "<br /></form><hr>";
+	}
+}	
 ?>
   </div>  
   </div>
