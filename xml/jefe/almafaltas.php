@@ -36,12 +36,15 @@ include '../../menu.php';
 						include("copia_bd.php");
 					}
 			
-					// Creamos Base de datos y enlazamos con ella.
-					$base0 = "DROP TABLE `alma`";
-					mysqli_query($db_con, $base0);
-			
-					// Creación de la tabla alma
-					$alumnos = "CREATE TABLE  `alma` (
+			// Copia de Seguridad
+			mysqli_query($db_con, "DROP TABLE alma_seg") ;
+			mysqli_query($db_con, "create table alma_seg select * from alma");
+			// Copia de Seguridad 2
+			mysqli_query($db_con, "DROP TABLE FALUMNOS_seg") ;
+			mysqli_query($db_con, "create table FALUMNOS_seg select * from FALUMNOS");
+	
+			// Creación de la tabla alma
+			$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
 			 `CLAVEAL` varchar( 12 ) default NULL ,
@@ -105,6 +108,53 @@ include '../../menu.php';
 			<div align="center">
 			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>'); 
+
+					while (!feof($fp))
+					{
+						$num_linea++;
+						$linea=fgets($fp);
+						$tr=explode("|",$linea);
+						if ($num_linea=="20") {
+							$num_col = count($tr);
+							break;
+						}
+					}
+
+					$n_col_tabla=0;
+					$contar_c = mysqli_query($db_con,"show columns from alma");
+					while($contar_col = mysqli_fetch_array($contar_c)){
+						$n_col_tabla++;
+					}
+
+					if ($n_col_tabla!=$num_col) { 
+
+						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
+						mysqli_query($db_con, "insert into alma select * from alma_seg");
+						mysqli_query($db_con, "insert into FALUMNOS select * from FALUMNOS_seg");
+						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
+			            <button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h5>ATENCIÓN:</h5>
+						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas. 
+						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicación o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
+						</div></div><br />
+						<div align="center">
+						  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+						</div>';
+						?>
+									</div><!-- /.well -->
+	
+							</div><!-- /.col-sm-8 -->
+							
+						</div><!-- /.row -->
+						
+					</div><!-- /.container -->
+
+					<?php include("../../pie.php");	?>
+					
+					<?php
+					exit();
+					}
+
 					$row = 1;
 					while (!feof($fp))
 					{
