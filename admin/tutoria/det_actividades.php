@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 
 if(!$tutor){$tutor = $_SESSION['profi'];}
 
