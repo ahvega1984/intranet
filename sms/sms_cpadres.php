@@ -84,6 +84,7 @@ if ($config['mod_sms']) {
 	$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
 	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 	$message = str_replace('{{titulo}}', 'Comunicación de Faltas de Asistencia', $message);
 	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 	

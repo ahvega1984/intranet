@@ -161,6 +161,7 @@ for ($i=0;$i<$num_a;$i++){
 	 	 $message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
 	 	 $message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	 	 $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+	 	 $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 	 	 $message = str_replace('{{titulo}}', 'Comunicación de Problemas de Convivencia', $message);
 	 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 	 	 

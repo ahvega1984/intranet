@@ -333,6 +333,7 @@ if ($config['mod_notificaciones']) {
 				$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
 				$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 				$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+				$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 				$message = str_replace('{{titulo}}', 'Nuevo mensaje de la '.$profe_envia.' para '.$nombre_profe, $message);
 				$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
 				

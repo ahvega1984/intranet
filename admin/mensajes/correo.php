@@ -32,6 +32,7 @@ if (isset($_POST['enviar'])) {
 	$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
 	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 	$message = str_replace('{{titulo}}', 'Nuevo mensaje', $message);
 	$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
 	
@@ -95,12 +96,6 @@ include("menu.php");
 		
 		<?php if($msg): ?>
 		<div class="alert <?php echo $msg_class; ?> alert-block"><?php echo $msg; ?>
-		</div>
-		<?php endif; ?>
-		
-		<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
-		<div class="alert alert-warning">
-			<strong>Atención:</strong> Si utiliza este medio de comunicación, debe tener en cuenta que los destinatarios no podrán ponerse en contacto directamente con usted a través de su dirección de correo electrónico. Puede incluir una dirección de correo de contacto en su mensaje si desea recibir respuesta.
 		</div>
 		<?php endif; ?>
 		
