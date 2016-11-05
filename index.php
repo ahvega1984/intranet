@@ -232,15 +232,21 @@ include("menu.php");
 				
 				<br><br>
 				
-				<?php if($config['mod_horarios']){ ?>
+				<?php if($config['mod_horarios'] && ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria")): ?>
+				
 				<div id="bs-tour-horario">
-				<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>	
-				<?php include("horario.php"); ?>
+					<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>	
+					<?php include("horario.php"); ?>
 				</div>
-				<?php } elseif($dpto!=="Admin" and $dpto!=="Administracion" and $dpto!=="Conserjeria") { ?>
-				<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>	
-				<a class="btn btn-sm btn-default btn-block" href="xml/jefe/horarios/index.php" style="margin-top:18px;">Crear/Modificar horario</a>
-				<?php } ?>
+				
+				<?php else: ?>
+				
+				<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
+				<div class="text-center">
+					<a class="btn btn-sm btn-default" href="xml/jefe/horarios/index.php" style="margin-top:18px;">Crear/Modificar horario</a>
+				</div>
+				
+				<?php endif; ?>
 				
 			</div><!-- /.col-md-4 -->
 			
