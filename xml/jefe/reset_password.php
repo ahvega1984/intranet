@@ -112,7 +112,7 @@ if (isset($_POST['enviar'])) {
 				</center>
 				<br><br>Para mantener su seguridad utilice una contraseña segura.<br><hr><small>Este es un mensaje automático y no es necesario responder.</small>', $message);
 				
-				$mail->Subject = $config['centro_denominacion'].' - Restablecimiento de contraseña';
+				$mail->Subject = 'Restablecimiento de contraseña';
 				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\nTu contraseña ha sido restablecida por algún miembro del Equipo Directivo. Para acceder a la Intranet haz click en la siguiente dirección http://".$config['dominio']."/intranet/ y utilice la contraseña que aparece a continuación:\n\n".$p_dni."\n\n\nPara mantener su seguridad utilice una contraseña segura.\n\nEste es un mensaje automático y no es necesario responder.";
 			}
 			

@@ -22,6 +22,9 @@ if (isset($_POST['enviar'])) {
 	$mail->Sender = $mail_from;
 	$mail->IsHTML(true);
 	
+	$exp_nomprof = explode(', ', $profe_envia);
+	$nombre_prof = trim($exp_nomprof[1].' '.$exp_nomprof[0]);
+	
 	$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
 	$message = str_replace('{{dominio}}', $config['dominio'], $message);
 	$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
@@ -33,11 +36,11 @@ if (isset($_POST['enviar'])) {
 	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
-	$message = str_replace('{{titulo}}', 'Nuevo mensaje', $message);
-	$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
+	$message = str_replace('{{titulo}}', 'Nuevo mensaje: '.$titulo, $message);
+	$message = str_replace('{{contenido}}', $contenido.'<br><br><br><strong>'.$nombre_prof.'</strong><br>Departamento de '.$dpto.'<br><br>', $message);
 	
 	$mail->msgHTML($message);
-	$mail->Subject = $config['centro_denominacion'].' - Nuevo mensaje';
+	$mail->Subject = 'Nuevo mensaje: '.$titulo;
 	$mail->AltBody = $titulo.' '.$contenido;
 
 
