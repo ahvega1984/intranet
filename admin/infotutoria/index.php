@@ -61,7 +61,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$c_asig = $asigna2[0];	
 	$n_asig = $asigna2[1];
 	$hoy = date('Y-m-d');
-// Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
+// Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en el campo combasi	
 	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, valido FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$hoy' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 	//echo $query."<br>";
 	$result = mysqli_query($db_con, $query);
@@ -71,6 +71,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$tuti_grupo = $row0[1];
 	if (mysqli_num_rows($result) < 1){ }
 	else{
+		$si_al.=1;	
 echo "<form name='consulta' method='POST' action='tutoria.php'>";
 //$num_informe = mysqli_num_rows($sql1);
 echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
@@ -126,7 +127,12 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 	 
 	echo "<br /></form><hr>";
 	}
-}	
+}
+
+if (strstr($si_al,"1")==FALSE) {
+ 			echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o
+'> </i> No hay Informes de Tutoría activos para ti. </p>";
+ 		} 	
 ?>
   </div>  
   </div>

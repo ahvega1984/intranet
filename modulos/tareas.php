@@ -11,15 +11,37 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$n_tareas = $n_tareas+1;
 	$curso = $rowcurs[0];
 	$unidad_t = $curso;
-	$asignatura = str_replace("nbsp;","",$rowcurs[1]);
-	$asignatura = str_replace("&","",$asignatura);
-	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurs[2]' and abrev not like '%\_%'";
-	//echo $asigna0."<br>";
+	$asignatura = $rowcurs[1];
+
+	// Problema con asignaturas comunes de Bachillerato con distinto código
+	if(strlen($rowcurs[2])>15){
+		$rowcurs[2] = substr($rowcurs[2],0,15);
+	}
+
+	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso like '$rowcurs[2]%' and abrev not like '%\_%'";
 	$asigna1 = mysqli_query($db_con, $asigna0);
-	$asigna2 = mysqli_fetch_array($asigna1);
-	$codasi = $asigna2[0];
+
+	if(mysqli_num_rows($asigna1)>1){
+	$texto_asig2="";
+	while($asigna2 = mysqli_fetch_array($asigna1)){
+		$codasi = $asigna2[0];	
+		$texto_asig2.=" combasi like '%$asigna2[0]:%' or";
+		$c_asig2.=" asignatura = '$asigna2[0]' or";
+	}
+	$texto_asig2=substr($texto_asig2,0,-3);
+	$c_asig2=substr($c_asig2,0,-3);
+	}
+	else{
+		$asigna2 = mysqli_fetch_array($asigna1);
+		$codasi = $asigna2[0];	
+		$texto_asig2=" combasi like '%$asigna2[0]:%'";
+		$c_asig2=" asignatura = '$asigna2[0]'";
+	}
+
+	if($c_asig2){
+
 	$hoy = date('Y-m-d');
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION, nc FROM tareas_alumnos, alma, FALUMNOS WHERE tareas_alumnos.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and	date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos.unidad = '$unidad_t' and combasi like '%$codasi%' ORDER BY tareas_alumnos.FECHA asc";
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION, nc FROM tareas_alumnos, alma, FALUMNOS WHERE tareas_alumnos.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and	date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos.unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysqli_query($db_con, $query);
 	if (mysqli_num_rows($result) > 0)
 	{
@@ -90,6 +112,7 @@ else
 </div>
 </div>
 <?php
+					}
 				}
 			}
 		}
