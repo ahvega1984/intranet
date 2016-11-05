@@ -1,6 +1,9 @@
 <?php
 require('../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 include("../menu.php");
 include("menu.php");
@@ -33,7 +36,7 @@ include("menu.php");
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT idea, profesor, dni FROM c_profes where idea in (select idea from departamentos) $sql_where"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
-								<td><?php echo mb_strtoupper($row['profesor']); ?></td>
+								<td><?php echo $row['profesor']; ?></td>
 								<td><?php echo $row['idea']; ?></td>
 								<td><?php echo $row['dni']; ?></td>
 							</tr>

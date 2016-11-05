@@ -1,6 +1,10 @@
 <?php
 require('../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 $get_order = $_GET['order'];
 
 switch ($get_order) {

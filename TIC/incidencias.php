@@ -1,6 +1,9 @@
 <?php
 require('../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 // ELIMINAR INCIDENCIA
 if (isset($_GET['parte']) && isset($_GET['borrar']) && $_GET['borrar'] == 1) {
@@ -71,10 +74,8 @@ include("menu.php");
 								<?php echo ($row['estado'] == 'solucionado' || $row['estado'] == 'Solucionado') ? '<span class="sr-only">Solucionado</span><span class="fa fa-check-circle fa-fw fa-lg" data-bs="tooltip" title="Solucionado"></span>' : ''; ?>
 							</td>
 							<td nowrap>
-								<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+								<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $config['tic']['coordinador'] == $pr || $row['profesor'] == $pr): ?>
 								<a href="index.php?id=<?php echo $row['parte']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
-								<?php endif; ?>
-								<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $row['profesor'] == $pr): ?>
 								<a href="incidencias.php?parte=<?php echo $row['parte']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Eliminar"></span></a>
 								<?php endif; ?>
 							</td>
@@ -83,11 +84,10 @@ include("menu.php");
 						<?php mysqli_free_result($result); ?>
 					</tbody>
 				</table>
-
 				
 				<div class="hidden-print">
 					<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
-					<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+					<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $config['tic']['coordinador'] == $pr): ?>
 					<div class="btn-group">
 					  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    Imprimir PDF <span class="caret"></span>

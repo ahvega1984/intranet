@@ -1,6 +1,10 @@
 <?php
 require('../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 
 // RECOPILACION DE INFORMACION
 $ar = array('ñ'=>'','º'=>'','ª','á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u','Á'=>'A','É'=>'E','Í'=>'I','Ó'=>'O','Ú'=>'U',' '=>'');

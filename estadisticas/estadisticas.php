@@ -174,7 +174,7 @@ if (acl_permiso($carg, array('1'))) {
 if (acl_permiso($carg, array('2'))) {
 	
 	if ($_POST['id'] == 'asistencia') { 		
-		$result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, FALTAS.claveal, FALTAS.profesor, FALTAS.hora FROM FALTAS JOIN alma ON FALTAS.claveal = alma.claveal WHERE FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND FALTAS.fecha = '".date('Y-m-d')."' AND FALTAS.FALTA = 'F'");
+		$result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, FALTAS.claveal, FALTAS.profesor, FALTAS.falta, FALTAS.hora FROM FALTAS JOIN alma ON FALTAS.claveal = alma.claveal WHERE FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND FALTAS.fecha = '".date('Y-m-d')."'");
 		
 		$row = mysqli_num_rows($result);
 		
@@ -184,7 +184,8 @@ if (acl_permiso($carg, array('2'))) {
 				'claveal' => utf8_encode($table_row['claveal']),
 				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
 				'profesor' => utf8_encode($table_row['profesor']),
-				'hora' => utf8_encode($table_row['hora'])
+				'hora' => utf8_encode($table_row['hora']),
+				'falta' => utf8_encode($table_row['falta'])
 			);
 			
 			array_push($table, $table2);

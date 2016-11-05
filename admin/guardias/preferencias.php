@@ -102,14 +102,5 @@ include("menu.php");
 
 <?php include("../../pie.php"); ?>
 
-<script>
-$(document).ready(function() {
-	$('#prefCondiciones').summernote({
-		height: 260,
-		lang: 'es-ES'
-	});
-});
-</script>
-
 </body>
 </html>

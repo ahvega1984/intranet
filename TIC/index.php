@@ -1,18 +1,16 @@
 <?php
 require('../bootstrap.php');
 
-
-// MODIFICAR ESTA VARIABLE POR EL CORREO DEL COORDINADOR TIC
-$correo_coordinador = "admin@".$config['dominio'];
-
-
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 // COMPROBAMOS SI SE EDITA UNA INCIDENCIA
 if(isset($_GET['id'])) {
 	
 	$id = $_GET['id'];
 	
-	if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = '';
+	if (stristr($_SESSION['cargo'],'1') == TRUE || $config['tic']['coordinador'] == $pr) $sql_where = '';
 	else $sql_where = 'AND profesor=\''.$_SESSION['profi'].'\'';
 	
 	$result = mysqli_query($db_con, "SELECT unidad, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM partestic WHERE parte='$id' $sql_where LIMIT 1");
@@ -87,20 +85,34 @@ if(isset($_POST['enviar'])) {
 				$msg_error = 'La incidencia no se ha podido registrar. Error: '.mysqli_error($db_con);
 			}
 			else {
-				$direccion = $correo_coordinador;
-				$tema = "Nuevo parte de incidencia";
-				$texto = "Datos de la incidencia:
-				Grupo --> '$unidad';
-				Recurso --> '$carrito';
-				Nª de Serie --> '$numeroserie';
-				Fecha --> '$fecha_sql';
-				Hora --> '$hora';
-				Alumno --> '$alumno';
-				Profesor --> '$profesor';
-				Descripción --> '$descripcion';
-				Estado --> '$estado';
-				";
-				mail($direccion, $tema, $texto); 
+				
+				if (isset($config['tic']['notificaciones']) && $config['tic']['notificaciones'] == 0) {
+					
+					$correo_coordinador = "admin@".$config['dominio'];
+					
+					if (isset($config['tic']['coordinador']) && $config['tic']['coordinador'] != "") {
+						$result = mysqli_query($db_con, "SELECT correo FROM c_profes WHERE profesor = '".$config['tic']['coordinador']."'");
+						$row = mysqli_fetch_array($result);
+						
+						if ($row['correo'] != "") {
+							echo $correo_coordinador = $row['correo'];
+						}
+					}
+					
+					$tema = "Nuevo parte de incidencia";
+					$texto = "Datos de la incidencia:
+					Grupo --> '$unidad';
+					Recurso --> '$carrito';
+					Nª de Serie --> '$numeroserie';
+					Fecha --> '$fecha_sql';
+					Hora --> '$hora';
+					Alumno --> '$alumno';
+					Profesor --> '$profesor';
+					Descripción --> '$descripcion';
+					Estado --> '$estado';
+					";
+					mail($correo_coordinador, $tema, $texto); 
+				}
 				
 				$msg_success = 'La incidencia ha sido registrada.';
 			}
@@ -245,7 +257,7 @@ include("menu.php");
 						    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Describa brevemente la incidencia del ordenador..." rows="6"><?php echo (isset($descripcion) && $descripcion) ? $descripcion : ''; ?></textarea>
 						  </div>
 						  
-						  <?php if (isset($id)): ?>
+						  <?php if (isset($id) && stristr($_SESSION['cargo'],'1') == TRUE || $config['tic']['coordinador'] == $pr): ?>
 						  <?php $estados = array('activo' => 'Activo', 'solucionado' => 'Solucionado'); ?>
 						  <div class="row">
 						  	

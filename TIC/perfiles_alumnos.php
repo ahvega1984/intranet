@@ -1,6 +1,9 @@
 <?php
 require('../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 if (isset($_POST['profe'])) $profe = $_POST['profe'];
 if (isset($_POST['curso'])) $curso = $_POST['curso'];

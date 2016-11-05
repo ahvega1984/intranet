@@ -8,17 +8,17 @@
 		<h5 class="text-center">
 			<a href="#" data-toggle="modal" data-target="#asistencia">
 				<span class="lead"><span id="stats-numfaltas"></span></span><br>
-				<small class="text-uppercase text-muted">Faltas de Asistencia</small>
+				<small class="text-uppercase text-muted">Asistencias</small>
 			</a>
 		</h5>
 		
 		<!-- MODAL ACCESOS -->
 		<div id="asistencia" class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-						<h4 class="modal-title">Faltas de asistencia</h4>
+						<h4 class="modal-title">Asistencias</h4>
 					</div>
 					
 					<div id="stats-asistencia-modal" class="modal-body">

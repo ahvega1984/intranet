@@ -2,8 +2,12 @@
 
 	<div class="container hidden-print">
 		
+		<?php if (acl_permiso($carg, array('1'))): ?>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+		<?php endif; ?>
+		
 		<!-- Button trigger modal -->
-		<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+		<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-right: 5px;">
 			<span class="fa fa-question fa-lg"></span>
 		</a>
 	
@@ -50,8 +54,13 @@
 		<ul class="nav nav-tabs">
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Nueva incidencia</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'incidencias.php')==TRUE) ? ' class="active"' : ''; ?>><a href="incidencias.php">Listado de incidencias</a></li>
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_alumnos.php')==TRUE) ? ' class="active"' : ''; ?>><a href="perfiles_alumnos.php">Perfiles alumnos</a></li>
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_profesores.php')==TRUE) ? ' class="active"' : ''; ?>><a href="perfiles_profesores.php">Perfiles profesores</a></li>
+			<li	class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_')==TRUE) ? ' active' : ''; ?>">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Perfiles <span class="caret"></span> </a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="perfiles_alumnos.php">Perfiles de alumnos</a></li>
+					<li><a href="perfiles_profesores.php">Perfiles de profesores</a></li>
+				</ul>
+			</li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'protocolo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="protocolo.php">Protocolo de uso</a></li>
 			<li><a href="Guia_Rapida_SDI1.pdf" target="_blank">Manual de la SDI</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'estadisticas.php')==TRUE) ? ' class="active"' : ''; ?>><a href="estadisticas.php">Estadísticas TIC</a></li>

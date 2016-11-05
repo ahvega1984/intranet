@@ -5,14 +5,22 @@ $( document ).ready(function() {
 	       $('#stats-numfaltas').html(data.num_faltas);
 	       
 	       if (data.asistencia_tabla.length > 0) {
-	           $('#stats-asistencia-modal').html('<div style="height: 350px; overflow: scroll;"><table class="table table-condensed table-hover table-striped"><thead><tr><th>Alumno/a</th><th>Profesor/a</th><th>Hora</th></tr></thead><tbody id="accesos_tabla"></tbody></table></div>');
+	           $('#stats-asistencia-modal').html('<div style="height: 350px; overflow: scroll;"><table class="table table-condensed table-hover table-striped"><thead><tr><th>Alumno/a</th><th>Profesor/a</th><th>Hora</th><th>Falta</th></tr></thead><tbody id="accesos_tabla"></tbody></table></div>');
+	           
+	           var texto_falta = "";
 	           
 	           $.each(data.asistencia_tabla, function(i, item) {
-	          	 $('#asistencia_tabla').append('<tr><td>' + item.alumno + '</td><td>' + item.profesor + '</td><td>' + item.hora + '</td></tr>');
+	           	 switch(item.falta) {
+	           	 	case 'F' : texto_falta = "Injustificada";
+	           	 	case 'J' : texto_falta = "Justificada";
+	           	 	case 'R' : texto_falta = 'Restraso';
+	           	 } 	
+	           	 	
+	          	 $('#asistencia_tabla').append('<tr><td>' + item.alumno + '</td><td>' + item.profesor + '</td><td>' + item.hora + 'ª hora</td><td>' + texto_falta + '</td></tr>');
 	           });
 	       }
 	       else {
-	           $('#stats-asistencia-modal').html('<br><p class="lead text-center text-muted">No se han regisistrado faltas de asistencia</p><br>');
+	           $('#stats-asistencia-modal').html('<br><p class="lead text-center text-muted">No se han registrado faltas de asistencia hoy</p><br>');
 	       }
 	});
 	
