@@ -392,7 +392,7 @@ $page_header = "Redactar mensaje";
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="tutor[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['idea']; ?> --> <?php echo $row['unidad']; ?>-"><?php echo $row['unidad']; ?> - <?php echo $row['tutor']; ?></option>
+								<option value="<?php echo $row['idea']; ?> --> <?php echo $row['unidad']; ?>-"><?php echo $row['unidad']; ?> - <?php echo nomprofesor($row['tutor']); ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
