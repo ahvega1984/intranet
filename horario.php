@@ -80,11 +80,16 @@ if ($algo) {
 					if($cont > 1) {
 						if (stristr($grupo, '-') == TRUE) {
 							$exp_grupo = explode('-', $grupo);
-							echo "/".$exp_grupo[1];
+							echo "/".trim($exp_grupo[1]);
 						}
 						elseif (stristr($grupo, 'º') == TRUE) {
 							$exp_grupo = explode('º', $grupo);
-							echo "/".$exp_grupo[1];
+							echo "/".trim($exp_grupo[1]);
+						}
+						elseif (preg_match('/^[0-9][A-Z]+$/', $grupo) == TRUE) {
+							$num_grupo = substr($grupo, 0, 1);
+							$exp_grupo = explode($num_grupo, $grupo);
+							echo "/".trim($exp_grupo[1]);
 						}
 						else {
 							echo $grupo.'<br>';
