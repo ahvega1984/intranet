@@ -11,9 +11,9 @@ $( document ).ready(function() {
 	           
 	           $.each(data.asistencia_tabla, function(i, item) {
 	           	 switch(item.falta) {
-	           	 	case 'F' : texto_falta = "Injustificada";
-	           	 	case 'J' : texto_falta = "Justificada";
-	           	 	case 'R' : texto_falta = 'Restraso';
+	           	 	case 'F' : texto_falta = "Injustificada"; break;
+	           	 	case 'J' : texto_falta = "Justificada"; break;
+	           	 	case 'R' : texto_falta = 'Restraso'; break;
 	           	 } 	
 	           	 	
 	          	 $('#asistencia_tabla').append('<tr><td>' + item.alumno + '</td><td>' + item.hora + 'ª hora</td><td>' + texto_falta + '</td></tr>');
