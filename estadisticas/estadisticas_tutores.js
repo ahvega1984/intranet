@@ -5,7 +5,7 @@ $( document ).ready(function() {
 	       $('#stats-numfaltas').html(data.num_faltas);
 	       
 	       if (data.asistencia_tabla.length > 0) {
-	           $('#stats-asistencia-modal').html('<div style="height: 350px; overflow: scroll;"><table class="table table-condensed table-hover table-striped"><thead><tr><th>Alumno/a</th><th>Profesor/a</th><th>Hora</th><th>Falta</th></tr></thead><tbody id="accesos_tabla"></tbody></table></div>');
+	           $('#stats-asistencia-modal').html('<div style="height: 350px; overflow: scroll;"><table class="table table-condensed table-hover table-striped"><thead><tr><th>Alumno/a</th><th>Profesor/a</th><th>Hora</th><th>Falta</th></tr></thead><tbody id="asistencia_tabla"></tbody></table></div>');
 	           
 	           var texto_falta = "";
 	           
