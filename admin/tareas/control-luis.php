@@ -45,12 +45,12 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_temp` (
 // Control de tutores
 $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$profes'");
 if (mysqli_num_rows($tut)>0) {
-	$tutor = mysqli_fetch_array($tut);
-	$tutoria = "$tutor[0]";
+  $tutor = mysqli_fetch_array($tut);
+  $tutoria = "$tutor[0]";
 }
 $luis1 = mysqli_query($db_con, "select distinct grupo from profesores where profesor like '$profes' and grupo not like '$tutoria' order by grupo");
 while ($luis = mysqli_fetch_array($luis1)) {
-	$unidad = $luis[0];
+  $unidad = $luis[0];
 
 $query = "SELECT id, claveal, unidad, duracion, nombre, apellidos, FECHA FROM tareas_alumnos where unidad = '$unidad' order by FECHA desc";
 $result = mysqli_query($db_con, $query);
@@ -63,7 +63,7 @@ $inf = "select asignatura from tareas_profesor where id_alumno = '$row[0]'";
 $comp = mysqli_query($db_con, $inf);
 while($cadena = mysqli_fetch_array($comp))
 {
-	$todas.=$cadena[0]. ";";
+  $todas.=$cadena[0]. ";";
 }
 //echo $todas."<br>";
 
@@ -92,7 +92,7 @@ $profe0 = "select distinct profesor from profesores where  profesores.grupo = '$
 $profe1 = mysqli_query($db_con, $profe0);
 while($profe2 = mysqli_fetch_array($profe1))
 {
-	
+  
 $query = "insert into tareas_temp (id_tareas, asignatura, profesor, alumno, fecha, curso) values ('$row[0]','$nomasi[0]','$profe2[0]','$row[1]','$row[6]','$row[2]')";
 mysqli_query($db_con, $query);
 $profesores .= $profe2[0]."; ";

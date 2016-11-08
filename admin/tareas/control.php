@@ -28,12 +28,12 @@ $detalles = '1';
         {
         do {
 
-	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
-	      echo "$opcion1";
+        $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
+        echo "$opcion1";
 
-	} while($filaprofe = mysqli_fetch_array($profe));
+  } while($filaprofe = mysqli_fetch_array($profe));
         }
-	?>
+  ?>
   </select>
 </div>
 </FORM>
@@ -75,13 +75,13 @@ $inf = "select asignatura from tareas_profesor where id_alumno = $row[0]";
 $comp = mysqli_query($db_con, $inf);
 while($cadena = mysqli_fetch_array($comp))
 {
-	$todas.=$cadena[0]. ";";
+  $todas.=$cadena[0]. ";";
 }
 //echo $todas."<br>";
 if($detalles == '1')
 { 
-	echo "<p>$row[6] --> <span style='color:#08c'>$row[6] --> $row[4] $row[5] --> $row[2]</p>";
-	
+  echo "<p>$row[6] --> <span style='color:#08c'>$row[6] --> $row[4] $row[5] --> $row[2]</p>";
+  
 } 
 echo "<ul  class='unstyled'>";
 
@@ -121,7 +121,7 @@ if(strlen($profesores) > 0)
 {
 if($detalles == '1')
 { 
-	echo "<li><i class='fa fa-user'> </i> $profesores ==> $nomasi[0]</li>";
+  echo "<li><i class='fa fa-user'> </i> $profesores ==> $nomasi[0]</li>";
 } 
 }
 }
@@ -166,7 +166,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 <?php 
 mysqli_query($db_con, "drop table tareas_temp");
 
-	include("../../pie.php");
+  include("../../pie.php");
 ?>
 </body>
 </html>

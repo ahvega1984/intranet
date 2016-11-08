@@ -246,11 +246,11 @@ if ($config['mod_notificaciones']) {
 		$movil="";
 		$texto="";
 		
-		$text_0 = "La Direccion del Centro te recuerda que";
+		$text_0 = "Te recordamos que";
 		$text_1 = " hace mas de 4 dias que no compruebas el estado de tus tareas en la Intranet y es necesario que lo hagas con regularidad;";
-		$text_2 = " tienes mas de 25 mensajes pendientes que no has leido todavia;";
-		$text_3 = " tienes trabajo pendiente: Informes de Tareas que debes presentar hoy;";
-		$text_4 = " tienes trabajo pendiente: Informes de Tutoria que debes presentar hoy al Tutor.";
+		$text_2 = " tienes mas de 25 mensajes pendientes de lectura;";
+		$text_3 = " tienes que presentar hoy Informes de Tareas;";
+		$text_4 = " tienes que presentar hoy Informes de Tutoría.";
 		$text_5 = " ".$config['centro_denominacion'];
 	
 		$texto = $text_0;

@@ -28,12 +28,12 @@ $detalles = '1';
         {
         do {
 
-	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
-	      echo "$opcion1";
+        $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
+        echo "$opcion1";
 
-	} while($filaprofe = mysqli_fetch_array($profe));
+  } while($filaprofe = mysqli_fetch_array($profe));
         }
-	?>
+  ?>
   </select>
 </div>
 </FORM>
@@ -75,7 +75,7 @@ $inf = "select asignatura from infotut_profesor where id_alumno = $row[0]";
 $comp = mysqli_query($db_con, $inf);
 while($cadena = mysqli_fetch_array($comp))
 {
-	$todas.=$cadena[0]. ";";
+  $todas.=$cadena[0]. ";";
 }
 //echo $todas."<br>";
 if($detalles == '1')

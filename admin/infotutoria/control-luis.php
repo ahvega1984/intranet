@@ -47,12 +47,12 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_temp` (
 // Control de tutores
 $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$profes'");
 if (mysqli_num_rows($tut)>0) {
-	$tutor = mysqli_fetch_array($tut);
-	$tutoria = "$tutor[0]";
+  $tutor = mysqli_fetch_array($tut);
+  $tutoria = "$tutor[0]";
 }
 $luis1 = mysqli_query($db_con, "select distinct grupo from profesores where profesor like '$profes' and grupo not like '$tutoria' order by grupo");
 while ($luis = mysqli_fetch_array($luis1)) {
-	$unidad = $luis[0];
+  $unidad = $luis[0];
 
 $query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' order by F_ENTREV desc";
 //echo $query;
@@ -66,7 +66,7 @@ $inf = "select asignatura from infotut_profesor where id_alumno = '$row[0]'";
 $comp = mysqli_query($db_con, $inf);
 while($cadena = mysqli_fetch_array($comp))
 {
-	$todas.=$cadena[0]. ";";
+  $todas.=$cadena[0]. ";";
 }
 //echo $todas."<br>";
 

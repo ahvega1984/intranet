@@ -48,8 +48,11 @@ for ($i=0;$i<$num_a;$i++){
 	}
 
 	$sms_enviado="";
-
-	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa, confirmado from Fechoria where claveal = '$claveal' and fecha = '$fecha' and grave = '$grave' and asunto = '$asunto' and informa = '$informa' and notas = '$notas' and confirmado='$confirmado'");
+	if ($confirmado=="") {
+		$confirmado="0";
+	}
+	$notas = trim($notas);
+	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa, confirmado from Fechoria where claveal = '$claveal' and fecha = '$fecha3' and grave = '$grave' and asunto = '$asunto' and informa = '$informa' and notas = '$notas' and confirmado='$confirmado'");
 
 	if (mysqli_num_rows($ya_esta)>0) {
 		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
@@ -204,12 +207,12 @@ for ($i=0;$i<$num_a;$i++){
 	}
 	else{
 		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
-	}
-	 // echo $query."<br>";
-	 $inserta = mysqli_query($db_con, $query );
-	 if ($inserta) {
-	 	$z++;
-	 	}
+		 // echo $query."<br>";
+		 $inserta = mysqli_query($db_con, $query );
+		 if ($inserta) {
+		 	$z++;
+		 	}
+		}	 
 	}
 }
 

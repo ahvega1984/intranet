@@ -20,7 +20,7 @@ include("menu.php");
 </div>
 <br>
 
-<div class="col-md-8 col-md-offset-2">	
+<div class="col-md-6 col-md-offset-3">	
     
 <?php
  //Validación del Informe por el Tutor o Directivo
@@ -61,8 +61,11 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$c_asig = $asigna2[0];	
 	$n_asig = $asigna2[1];
 	$hoy = date('Y-m-d');
+	$nuevafecha = strtotime ( '-2 day' , strtotime ( $hoy ) ) ;
+	$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
 // Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en el campo combasi	
-	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, valido FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$hoy' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, valido FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$nuevafecha' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 	//echo $query."<br>";
 	$result = mysqli_query($db_con, $query);
 	$result0 = mysqli_query($db_con, "select tutor, unidad from FTUTORES where unidad = '$grupo'" );
@@ -75,7 +78,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 echo "<form name='consulta' method='POST' action='tutoria.php'>";
 //$num_informe = mysqli_num_rows($sql1);
 echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
-echo "<div class='table-responsive'><table align=left class='table' style='width:auto'><tr class='active'>";
+echo "<div class='table-responsive'><table align=left class='table'><tr class='active'>";
 echo "<th>Alumno</th>
 <th>Cita padres</th>
 <th>Fecha alta</th>
@@ -125,7 +128,7 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 	}	
 	echo "</table></div>";
 	 
-	echo "<br /></form><hr>";
+	echo "</form><hr>";
 	}
 }
 
