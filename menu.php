@@ -76,7 +76,8 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 				<ul class="nav navbar-nav">
 					<li <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')) ? 'class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/index.php">Inicio</a></li>
 					<li <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/upload/')) ? 'class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/upload/">Documentos</a></li>
-					<li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
+					<li class="hidden-xs"><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
+					<li class="visible-xs"><a href="https://www.juntadeandalucia.es/educacion/seneca/seneca/senecamovil" target="_blank">Séneca</a></li>
 				</ul>
 		
 				<div class="navbar-right">
