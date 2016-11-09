@@ -107,7 +107,7 @@ include("../../menu.php");
 						$num_linea++;
 						$linea=fgets($fp);
 						$tr=explode("|",$linea);
-						if ($num_linea=="10") {
+						if ($num_linea=="7") {
 							$num_col = count($tr);
 							break;
 						}
@@ -146,22 +146,30 @@ include("../../menu.php");
 					<?php
 					exit();
 					}
-
+					
+					//echo $num_linea++; // Si todo va bien, el valor de $num_linea en esta línea es 7
+					
 					while (!feof($fp))
 					{
+						$num_linea++;
+						
 						$linea="";
 						$lineasalto="";
 						$dato="";
 						$linea=fgets($fp);
-						$tr=explode("|",$linea);						
-						$lineasalto = "INSERT INTO alma VALUES (";
-							foreach ($tr as $valor){
-								$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
-							}
-						$dato=substr($dato,0,strlen($dato)-2);
-						$lineasalto.=$dato;
-						$lineasalto.=");";
-						mysqli_query($db_con, $lineasalto);
+						
+						// En la línea 9 es donde comienza el listado de alumnos
+						if ($num_linea > 8) {
+							$tr=explode("|",$linea);						
+							$lineasalto = "INSERT INTO alma VALUES (";
+								foreach ($tr as $valor){
+									$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
+								}
+							$dato=substr($dato,0,strlen($dato)-2);
+							$lineasalto.=$dato;
+							$lineasalto.=");";
+							mysqli_query($db_con, $lineasalto);
+						}
 					}
 
 					fclose($fp);
