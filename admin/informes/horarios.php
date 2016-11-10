@@ -37,7 +37,7 @@ $unidad_al = $unid[0];
 		</thead>
 		<tbody>
 			<?php 
-			$hr = mysqli_query($db_con,"select hora_inicio, hora_fin, hora from tramos where hora < 7");
+			$hr = mysqli_query($db_con,"select hora_inicio, hora_fin, hora from tramos where hora < '7'");
 				while ($hor = mysqli_fetch_array($hr)):
 					$desc = $hor[0]." - ".$hor[1];	
 					$hora = $hor[2];
@@ -46,7 +46,12 @@ $unidad_al = $unid[0];
 				<th nowrap class="text-warning"><?php echo $desc; ?></th>
 				<?php for($i = 1; $i < 6; $i++): ?>
 				<td width="20%">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE a_grupo like '$unidad_al%' AND dia='$i' AND hora='$hora' and (c_asig in (select codigo from asig_tmp) or c_asig = '2')");?>
+					<?php 
+					$result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE a_grupo like '$unidad_al%' AND dia='$i' AND hora='$hora' and (c_asig in (select codigo from asig_tmp) or c_asig = '2')");
+					if (mysqli_num_rows($result)>0) { }else{
+					$result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE a_grupo like '$unidad_al%' AND dia='$i' AND hora='$hora'");
+					}
+					?>
 					<?php while($row = mysqli_fetch_array($result)): ?>
 					<?php echo $row[0]."<div class='text-success' data-bs='tooltip' title='".$row[3]."'>".$row[2]."</div>"; ?>
 					<?php endwhile; ?>
