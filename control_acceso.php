@@ -200,7 +200,8 @@ if ($config['mod_notificaciones']) {
 	
 			$profe_asig0 = mysqli_query($db_con,"SELECT * FROM infotut_profesor WHERE id_alumno = '$id' and asignatura = '$asignatura'");
 			if (! mysqli_num_rows($profe_asig0)>0) {
-				$hay_profe = mysqli_query($db_con,"SELECT profesor, idea FROM profesores, departamentos WHERE nombre=profesor and materia = '$asignatura' and grupo = '$grupo'");
+				// Evitamos al Tutor.
+				$hay_profe = mysqli_query($db_con,"SELECT profesor, idea FROM profesores, departamentos WHERE nombre=profesor and materia = '$asignatura' and grupo = '$grupo' and profesor not like (select tutor from FTUTORES where unidad='$grupo')");
 				while ($hay_pr = mysqli_fetch_array($hay_profe)) {
 					$idea = $hay_pr[1];
 					$profeso = $hay_pr[0];
