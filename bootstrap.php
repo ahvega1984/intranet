@@ -3,7 +3,7 @@ if (ini_get('default_charset') != "ISO-8859-1") {
 	ini_set("default_charset", "ISO-8859-1");
 }
 
-if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicación.</p>");
+if (version_compare(phpversion(), '5.5.38', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.5.38 o superior para poder utilizar esta aplicación.</p>");
 
 session_start();
 
