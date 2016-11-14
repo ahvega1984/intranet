@@ -14,6 +14,9 @@ include("../menu.php");
 </div>
 <br />
 <?php
+// Borramos faltas de alumnos que no están matriculados
+mysqli_query($db_con,"delete from FALTAS where claveal not in (select distinct claveal from alma)");
+
 if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}
 if (isset($_GET['finfalta'])) {$finfalta = $_GET['finfalta'];}elseif (isset($_POST['finfalta'])) {$finfalta = $_POST['finfalta'];}
 if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Submit'])) {$Submit = $_POST['Submit'];}
