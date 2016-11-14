@@ -21,6 +21,7 @@ include ("../menu.php");
 	}
 	if (isset($_POST['enviar'])) {
 
+	mysqli_query($db_con, "update c_profes set telefono = ''" );
 	mysqli_query($db_con, "truncate table FTUTORES" );
 	mysqli_query($db_con, "truncate table cargos " );
 		
@@ -118,6 +119,9 @@ include ("../menu.php");
 			$dni = $carg1 [2];
 			$idea = $carg1 [3];
 			$telefono = $carg1 [4];
+			if ($telefono=='0') {
+				$telefono="";
+			}
 			$n_i = $n_i + 10;
 			if ($n_i % 100 == 0) {
 				echo $head;
