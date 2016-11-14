@@ -390,7 +390,7 @@ if (isset($_POST['instalar']))
 				    		
 				    		<dl class="dl-horizontal">
 				    		  <dt>Versión de PHP</dt>
-				    		  <dd><?php echo (phpversion() < '5.3.0') ? '<span class="text-danger">Versión actual: '.phpversion().'. Actualice a la versión 5.3.0 o superior</span>' : '<span class="text-success">'.phpversion().'</span>'; ?></dd>
+				    		  <dd><?php echo (phpversion() < '5.5.38') ? '<span class="text-danger">Versión actual: '.phpversion().'. Actualice a la versión 5.5.38 o superior</span>' : '<span class="text-success">'.phpversion().'</span>'; ?></dd>
 				    		</dl>
 				    		
 				    		<dl class="dl-horizontal">
