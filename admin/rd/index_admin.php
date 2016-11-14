@@ -30,9 +30,23 @@ echo '<div align="center">';
 $n_col=0;
 $n_fila=0;
 $dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from departamentos where departamentos.departamento in (select distinct r_departamento.departamento from r_departamento) order by departamentos.departamento");
+
+$result_etcp = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'ETCP'");
+
+$deptos = array();
+$i = 0;
 while ($dep = mysqli_fetch_array($dep0)) {
-	
-$departamento = $dep[0];
+	$deptos[$i] = $dep[0];
+	$i++;
+}
+
+if (mysqli_num_rows($result_etcp)) {
+	$deptos[$i] = 'ETCP';
+}
+
+foreach ($deptos as $dep) {
+
+$departamento = $dep;
 if (!($pag)) {
 	$pag = "";
 }

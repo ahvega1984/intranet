@@ -406,7 +406,7 @@ $menu = array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Informes',
-				'ncargos' => array('6', '7'),
+				'ncargos' => array('6'),
 				'items' => array(
 					array(
 						'href'   => 'admin/informes/cinforme.php',
@@ -526,6 +526,11 @@ $menu = array(
 				'href'   => 'admin/rd/add.php',
 				'titulo' => 'Actas del Departamento',
 				'ncargos' => array('1'),
+			),
+			array(
+				'href'   => 'admin/rd/add_etcp.php',
+				'titulo' => 'Actas del ETCP',
+				'cargos' => array('1','9'),
 			),
 			array(
 				'href'   => 'admin/textos/intextos.php',

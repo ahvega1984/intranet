@@ -12,11 +12,6 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
 if (isset($_GET['jefedep'])) {$jefedep = $_GET['jefedep'];}elseif (isset($_POST['jefedep'])) {$jefedep = $_POST['jefedep'];}else{$jefedep="";}
 if (isset($_GET['pag'])) {$pag = $_GET['pag'];}elseif (isset($_POST['pag'])) {$pag = $_POST['pag'];}else{$pag="";}
 if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$expresion = $_POST['q'];}else{$expresion="";}
-
-$activo1="";
-$activo2="";
-if (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class="active" ';}
 ?>
 	<div class="container hidden-print">
 		
@@ -77,11 +72,13 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
  		  		 </div><!-- /input-group -->
  		  	</div><!-- /.col-lg-3--> 		 
 		</form>  
- 	
   	 	<ul class="nav nav-tabs">
- 			<li <?php echo $activo1;?>><a href="add.php">Nueva Acta / Lista de Actas</a></li>                 		
- 			<?php if (strstr($_SESSION['cargo'],"1") == TRUE): ?>
-          	<li <?php echo $activo2; ?>><a href="index_admin.php">Todas las Actas</a></li>
+ 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) ? ' class="active"' : ''; ?>><a href="add.php">Nueva Acta / Lista de Actas</a></li>
+ 			<?php if (acl_permiso($_SESSION['cargo'], array('1','9'))): ?>
+ 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'add_etcp.php')==TRUE) ? ' class="active"' : ''; ?>><a href="add_etcp.php">Nueva Acta / Lista de Actas del ETCP</a></li>
+ 			<?php endif; ?>		
+ 			<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
+          	<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index_admin.php">Todas las Actas</a></li>
           	<?php endif; ?>
 		</ul>
 	</div>
