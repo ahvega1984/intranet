@@ -394,6 +394,11 @@ if (isset($_POST['instalar']))
 				    		</dl>
 				    		
 				    		<dl class="dl-horizontal">
+				    		  <dt>Default charset</dt>
+				    		  <dd><?php echo (ini_get('default_charset') != 'ISO-8859-1') ? '<span class="text-danger">'.ini_get('default_charset').'</span>' : '<span class="text-success">ISO-8859-1</span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
 				    		  <dt>Display errors</dt>
 				    		  <dd><?php echo (ini_get('display_errors') == 0) ? '<span class="text-success">Deshabilitado</span>' : '<span class="text-danger">Valor actual: Habilitado. Por seguridad, deshabilite la variable <em>display_errors</em></span>'; ?></dd>
 				    		</dl>
