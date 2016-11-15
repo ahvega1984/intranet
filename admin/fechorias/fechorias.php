@@ -87,7 +87,7 @@ exit();
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.nombre like '$NOMBRE%'";
+    $AUXSQL .= " and FALUMNOS.nombre like '%$NOMBRE%'";
     }
 	  if  (TRIM("$claveal")=="")
     {
@@ -103,7 +103,7 @@ exit();
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.apellidos like '$APELLIDOS%'";
+    $AUXSQL .= " and FALUMNOS.apellidos like '%$APELLIDOS%'";
     }
   #Comprobamos d y mes.
   IF (TRIM("$MES")=="")
@@ -173,10 +173,9 @@ exit();
     
 if (isset($submit1))
 	{			
-mysqli_query($db_con, "create table if not exists Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
-mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
-  $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
-  //echo $query0;
+mysqli_query($db_con, "create table if not exists FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
+$query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
+  // echo $query0;
   $result = mysqli_query($db_con, $query0);
  echo "<br /><center>
  <form action='fechorias.php' method='post' name='cnf'>
@@ -288,7 +287,7 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE or (st
         </form></center>\n";
         
  	}
- 	mysqli_query($db_con, "drop table Fechcaduca");
+ 	mysqli_query($db_con, "drop table FechCaduca");
   ?>
   </div>
   </div>

@@ -729,20 +729,6 @@ CREATE TABLE IF NOT EXISTS `FALUMNOS` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `FechCaduca`
---
-
-DROP TABLE IF EXISTS `FechCaduca`;
-CREATE TABLE IF NOT EXISTS `FechCaduca` (
-  `id` int(11) NOT NULL default '0',
-  `fecha` date NOT NULL default '0000-00-00',
-  `dias` int(7) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `Fechoria`
 --
 
