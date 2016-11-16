@@ -1,8 +1,9 @@
 <?php
 require('../../bootstrap.php');
 
-
-if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+}
 
 include("../../menu.php");
 include("menu.php");
@@ -12,7 +13,7 @@ $query = "SELECT id, contenido, fecha, numero, departamento FROM r_departamento 
 $result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
 if (mysqli_num_rows($result) > 0)
 {
-	$row = mysqli_fetch_object($result);
+	$row = mysqli_fetch_array($result);
 }
  
 if ($row)
@@ -21,20 +22,20 @@ if ($row)
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Actas del Departamento <small>Registro de Reuniones (<?php echo $row->departamento; ?>)</small></h2>
+	  <h2>Actas de departamentos <small><?php echo $row['departamento']; ?></small></h2>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-12">
 			
-			<object type="application/pdf" data="pdf.php?id=<?php echo $row->id; ?>" width="100%" height="500" style="border: 1px solid #dedede;"></object>
+			<object type="application/pdf" data="pdf.php?id=<?php echo $row['id']; ?>" width="100%" height="500" style="border: 1px solid #dedede;"></object>
 			
 			<div class="clearfix"></div>
 			
 			<br>
 			
 			<div class="hidden-print">
-				<a href="pdf.php?id=<?php echo $id; ?>&imprimir=1" class="btn btn-primary">Imprimir</a>
+				<a href="pdf.php?id=<?php echo $row['id']; ?>&imprimir=1" class="btn btn-primary">Imprimir</a>
 				<a href="add.php" class="btn btn-default">Volver</a>
 			</div>
 			
@@ -52,7 +53,7 @@ else
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Actas del Departamento <small> Contenido de la Reunión ( <?php  echo $row->departamento;?> )</small></h2>
+	  <h2>Actas de departamentos <small><?php echo $row['departamento']; ?></small></h2>
 	</div>
 
 	<div class="container">

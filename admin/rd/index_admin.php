@@ -31,6 +31,8 @@ $n_col=0;
 $n_fila=0;
 $dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from departamentos where departamentos.departamento in (select distinct r_departamento.departamento from r_departamento) order by departamentos.departamento");
 
+$result_dfeie = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'DFEIE'");
+$result_ed = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Equipo directivo'");
 $result_etcp = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'ETCP'");
 
 $deptos = array();
@@ -40,9 +42,19 @@ while ($dep = mysqli_fetch_array($dep0)) {
 	$i++;
 }
 
+
+if (mysqli_num_rows($result_dfeie)) {
+	$deptos[$i] = 'DFEIE';
+}
+
+if (mysqli_num_rows($result_ed)) {
+	$deptos[$i] = 'Equipo directivo';
+}
+
 if (mysqli_num_rows($result_etcp)) {
 	$deptos[$i] = 'ETCP';
 }
+
 
 foreach ($deptos as $dep) {
 

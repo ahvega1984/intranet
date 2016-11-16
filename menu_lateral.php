@@ -513,24 +513,62 @@ $menu = array(
 	),
 	
 	array(
+		'menu_id' => 'actas',
+		'nombre'  => 'Actas',
+		'cargos' => array('1'),
+		'items'   => array (
+			array(
+				'href'   => 'admin/rd/registrar.php',
+				'titulo' => 'Actas de los departamentos'
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=DFEIE',
+				'titulo' => 'Actas del DFEIE'
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=ETCP',
+				'titulo' => 'Actas del ETCP'
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=Equipo directivo',
+				'titulo' => 'Actas del Equipo directivo'
+			),
+		),
+	),
+	
+	array(
+		'menu_id' => 'dfeie',
+		'nombre'  => 'DFEIE',
+		'cargos' => array('f'),
+		'items'   => array (
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=DFEIE',
+				'titulo' => 'Actas del DFEIE'
+			)
+		),
+	),
+	
+	array(
+		'menu_id' => 'etcp',
+		'nombre'  => 'ETCP',
+		'cargos' => array('9'),
+		'items'   => array (
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=ETCP',
+				'titulo' => 'Actas del ETCP'
+			)
+		),
+	),
+	
+	array(
 		'menu_id' => 'departamento',
 		'nombre'  => 'Departamento',
 		'ncargos' => array('6', '7'),
 		'items'   => array (
 			array(
-				'href'   => 'admin/rd/index_admin.php',
-				'titulo' => 'Actas de los Departamentos',
-				'cargos' => array('1'),
-			),
-			array(
 				'href'   => 'admin/rd/add.php',
 				'titulo' => 'Actas del Departamento',
 				'ncargos' => array('1'),
-			),
-			array(
-				'href'   => 'admin/rd/add_etcp.php',
-				'titulo' => 'Actas del ETCP',
-				'cargos' => array('1','9'),
 			),
 			array(
 				'href'   => 'admin/textos/intextos.php',

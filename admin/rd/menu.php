@@ -1,22 +1,15 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
-if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
-if (isset($_GET['edicion'])) {$edicion = $_GET['edicion'];}elseif (isset($_POST['edicion'])) {$edicion = $_POST['edicion'];}else{$edicion="";}
-if (isset($_GET['submit'])) {$submit = $_GET['submit'];}elseif (isset($_POST['submit'])) {$submit = $_POST['submit'];}else{$submit="";}
-if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
-if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
-if (isset($_GET['contenido'])) {$contenido = $_GET['contenido'];}elseif (isset($_POST['contenido'])) {$contenido = $_POST['contenido'];}else{$contenido="";}
-if (isset($_GET['fecha'])) {$fecha = $_GET['fecha'];}elseif (isset($_POST['fecha'])) {$fecha = $_POST['fecha'];}else{$fecha="";}
-if (isset($_GET['actualiza'])) {$actualiza = $_GET['actualiza'];}elseif (isset($_POST['actualiza'])) {$actualiza = $_POST['actualiza'];}else{$actualiza="";}
-if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
-if (isset($_GET['jefedep'])) {$jefedep = $_GET['jefedep'];}elseif (isset($_POST['jefedep'])) {$jefedep = $_POST['jefedep'];}else{$jefedep="";}
-if (isset($_GET['pag'])) {$pag = $_GET['pag'];}elseif (isset($_POST['pag'])) {$pag = $_POST['pag'];}else{$pag="";}
 if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$expresion = $_POST['q'];}else{$expresion="";}
 ?>
 	<div class="container hidden-print">
 		
+		<?php if (acl_permiso($carg, array('1'))): ?>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+		<?php endif; ?>
+		
 		<!-- Button trigger modal -->
-		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-right: 5px;">
 			<span class="fa fa-question fa-lg"></span>
 		</a>
 	
@@ -39,9 +32,7 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
 						en ese campo. El formulario contiene un texto prefijado con el esquema 
 						de cualquier Acta: Departamento, Curso escolar, Nº de Acta, Asistentes etc. 
 						El texto comienza con el Orden del día, y continúa con la descripción de 
-						los contenidos tratados en la reunión. No es necesario escribir la fecha 
-						de la misma (FECHA_DE_LA_REUNIÓN) puesto que se coloca posteriormente con 
-						la fecha elegida.</p>
+						los contenidos tratados en la reunión.</p>
 						<p>A la derecha del formulario van apareciendo en su orden las Actas, 
 						visibles para todos los miembros del Departamento. El Jefe del Departamento 
 						puede editar las Actas <strong>hasta el momento en que se impriman</strong> 
@@ -73,10 +64,7 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
  		  	</div><!-- /.col-lg-3--> 		 
 		</form>  
   	 	<ul class="nav nav-tabs">
- 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) ? ' class="active"' : ''; ?>><a href="add.php">Nueva Acta / Lista de Actas</a></li>
- 			<?php if (acl_permiso($_SESSION['cargo'], array('1','9'))): ?>
- 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'add_etcp.php')==TRUE) ? ' class="active"' : ''; ?>><a href="add_etcp.php">Nueva Acta / Lista de Actas del ETCP</a></li>
- 			<?php endif; ?>		
+ 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'registrar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="registrar.php">Registrar acta</a></li>	
  			<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
           	<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index_admin.php">Todas las Actas</a></li>
           	<?php endif; ?>
