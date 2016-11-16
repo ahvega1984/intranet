@@ -14,9 +14,6 @@ if(isset($_GET['hoy'])) {$hoy = $_GET['hoy'];} elseif(isset($_POST['hoy'])) {$ho
 $hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );
 $hoy2 = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );
 $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
-
-$hoy = '2016-11-17';
-$hoy2 = '17-11-2016';
 ?>
 <div class="container">
 
@@ -139,10 +136,6 @@ if (empty ( $hora_dia )) {
 		$hora_dia = "0";
 	}	
 }
-
-$hoy = '2016-11-17';
-$hoy2 = '17-11-2016';
-$hora_dia = 'R';
 
 $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
   FALUMNOS.nc, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
