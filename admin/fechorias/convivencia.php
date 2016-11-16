@@ -14,6 +14,9 @@ if(isset($_GET['hoy'])) {$hoy = $_GET['hoy'];} elseif(isset($_POST['hoy'])) {$ho
 $hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );
 $hoy2 = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );
 $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
+
+$hoy = '2016-11-17';
+$hoy2 = '17-11-2016';
 ?>
 <div class="container">
 
@@ -125,7 +128,7 @@ if (empty ( $hora_dia )) {
 	} elseif (($hora == '10' and $minutos > 15) or ($hora == '11' and $minutos < 15)) {
 		$hora_dia = '3';
 	} elseif (($hora == '11' and $minutos > 15) or ($hora == '11' and $minutos < 45)) {
-		$hora_dia = '9';
+		$hora_dia = 'R';
 	} elseif (($hora == '11' and $minutos > 45) or ($hora == '12' and $minutos < 45)) {
 		$hora_dia = '4';
 	} elseif (($hora == '12' and $minutos > 45) or ($hora == '13' and $minutos < 45)) {
@@ -137,6 +140,10 @@ if (empty ( $hora_dia )) {
 	}	
 }
 
+$hoy = '2016-11-17';
+$hoy2 = '17-11-2016';
+$hora_dia = 'R';
+
 $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
   FALUMNOS.nc, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
@@ -144,7 +151,7 @@ $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.no
 <?php
 echo "<br /><center><table class='table table-striped'>";
 	echo "<thead><th>Alumno</th>
-		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asiste</th><th>Trabaja</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th></thead>";
+		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asiste</th><th>Trabaja</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>R</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th></thead>";
 	echo '<form name="conviv" action="convivencia.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysqli_fetch_array ( $result ) ) {
 	$sel =  mysqli_query($db_con, "select * from convivencia where claveal = '$row[8]' and dia = '$ndia' and hora = '$hora_dia' and fecha = '$hoy'");
@@ -168,9 +175,14 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<textarea name='$row[8]-observaciones' rows='3' cols='25'>$obs_al</textarea>
 		</td>";
 		
-	for ($i = 1; $i < 7; $i++) {
+	for ($i = 1; $i < 8; $i++) {
+		
+		if ($i == 4) $conv_hora = 'R';
+		elseif($i > 4) $conv_hora = $i - 1;
+		else $conv_hora = $i;
+		
 		echo "<td style='vertical-align:middle'>";
-		$asiste0 = "select hora, trabajo, id, observaciones from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$i'";
+		$asiste0 = "select hora, trabajo, id, observaciones from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$conv_hora'";
 		//echo $asiste0;
 		$asiste1 = mysqli_query($db_con, $asiste0);
 			$asiste = mysqli_fetch_array($asiste1);

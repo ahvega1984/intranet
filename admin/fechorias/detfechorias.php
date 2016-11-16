@@ -296,7 +296,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	} elseif (($hora == '10' and $minutos > 15) or ($hora == '11' and $minutos < 15)) {
 		$hora_dia = '3';
 	} elseif (($hora == '11' and $minutos > 15) or ($hora == '11' and $minutos < 45)) {
-		$hora_dia = '9';
+		$hora_dia = 'R';
 	} elseif (($hora == '11' and $minutos > 45) or ($hora == '12' and $minutos < 45)) {
 		$hora_dia = '4';
 	} elseif (($hora == '12' and $minutos > 45) or ($hora == '13' and $minutos < 45)) {
@@ -318,19 +318,20 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       </div>
       
       <div class="form-group">
-      <label >Horas sueltas</label>
-        <input name="horas" type="text" <?php if($horas > 0){echo "value=$horas";}else{ 
+      	<label >Horas sueltas</label>
+        <input name="horas" type="text" <?php if($horas > 0 || $horas == 'R'){echo "value=$horas";}else{ 
           	if (stristr($_SESSION['cargo'],'1') == TRUE) {
-          		echo "value=123456";
+          		echo "value=123R456";
           	}else{
           		echo "value=$hora_dia";
           	}
           	}
+
           	?> size="6" maxlength="6" class="form-control" />
-            </div>
-        <input name="id" type="hidden" value="<?php echo $id;?>" />
-        <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
-     <hr>
+      </div>
+      <input name="id" type="hidden" value="<?php echo $id;?>" />
+      <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
+      <hr>
      
      <div class="form-group"  id="datetimepicker3">
 <label>Inicio:</label>

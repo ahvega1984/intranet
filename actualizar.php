@@ -763,3 +763,17 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo módulo - Pedidos de materiales', NOW())");
 }
+
+/*
+ @descripcion: Cambio en tabla fechorias y convivencia para permitir castigo en recreos.
+ @fecha: 16 de noviembre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Registrar expulsión en hora de recreo'");
+if (! mysqli_num_rows($actua)) {
+	
+	mysqli_query($db_con,"ALTER TABLE `Fechoria` CHANGE `horas` `horas` VARCHAR(10) NULL DEFAULT '123R456'");
+	mysqli_query($db_con,"ALTER TABLE `convivencia` CHANGE `hora` `hora` CHAR(1) NOT NULL DEFAULT '0'");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Registrar expulsión en hora de recreo', NOW())");
+}

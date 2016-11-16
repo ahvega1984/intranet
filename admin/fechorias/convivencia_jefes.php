@@ -159,17 +159,18 @@ echo "$hoy0</legend>";
 </div> 
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<?php $array_horas = array('1','2','3','R','4','5','6'); ?>
 <div class="form-group">	
     <label>
 	<?php
 	echo "  y la Hora &nbsp;</label>";
 	echo "<select name = 'hor' class='form-control'>";
-	if (empty($hor)) {
-	}else{
-		echo "<option>$hor</option>";
+	foreach ($array_horas as $array_hora) {
+		if (! empty($hor) && $hor == $array_hora) $selecciona_hora = ' selected';
+		else $selecciona_hora = '';
+		echo '<option value="'.$array_hora.'"'.$selecciona_hora .'>'.$array_hora.'</option>';
 	}
-	echo "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
-	</select>
+	echo "</select>
 	</div>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type='hidden' name = 'fecha11' value = '$fecha0' />
@@ -178,7 +179,7 @@ echo "$hoy0</legend>";
 if (empty($fecha0)) {$hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else{$hoy = $fecha0;}
 $trf = explode("-", $hoy);
 
-// Horas y dÃŒas segË™n el horario
+// Horas y días según el horario
 
 $minutos = date ( "i" );
 $diames = date ( "j", mktime(0, 0, 0, $trf[1], $trf[2], $trf[0]) );
@@ -199,7 +200,7 @@ $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.no
 <?php
 	echo "<center><table class='table table-striped'>";
 	echo "<thead><th>Alumno</th>
-		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
+		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>R</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
 	echo '<form name="conviv" action="convivencia_jefes.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysqli_fetch_array ( $result ) ) {
 	$obs="";
@@ -226,9 +227,14 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<textarea name='$row[8]-observaciones' rows='3' cols='25'>$obs_al</textarea>
 		</td>";
 		
-	for ($i = 1; $i < 7; $i++) {
+	for ($i = 1; $i < 8; $i++) {
+		
+		if ($i == 4) $conv_hora = 'R';
+		elseif($i > 4) $conv_hora = $i - 1;
+		else $conv_hora = $i;
+		
 		echo "<td>";
-		$asiste0 = "select hora, trabajo, id, observaciones from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$i'";
+		$asiste0 = "select hora, trabajo, id, observaciones from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$conv_hora'";
 		//echo $asiste0;
 		$asiste1 = mysqli_query($db_con, $asiste0);
 			$asiste = mysqli_fetch_array($asiste1);
