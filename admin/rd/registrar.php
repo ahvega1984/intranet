@@ -29,7 +29,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%f%' ORDER BY nombre ASC");
 		$existe_secretario_dfeie = mysqli_num_rows($result);
 		
-		if (! isset($config['actas_depto']['secretario_dfeie']) && ! $existe_secretario_dfeie) {
+		if ((! isset($config['actas_depto']['secretario_dfeie']) || $config['actas_depto']['secretario_dfeie'] == "") && ! $existe_secretario_dfeie) {
 			$msg_alerta = "No se ha definido al secretario del Departamento de Formación, Evaluación e Innovación Educativa en los perfiles de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
@@ -48,7 +48,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. DIRECTIVO
 	if ($departamento == 'Equipo directivo') {
-		if (! isset($config['actas_depto']['secretario_ed']) && !isset($config['directivo_secretaria'])) {
+		if ((! isset($config['actas_depto']['secretario_ed']) || $config['actas_depto']['secretario_ed'] == "") && ! isset($config['directivo_secretaria'])) {
 			$msg_alerta = "No se ha definido al secretario del Equipo directivo en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
@@ -66,7 +66,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ETCP
 	if ($departamento == 'ETCP') {
-		if (! isset($config['actas_depto']['secretario_etcp'])) {
+		if (! isset($config['actas_depto']['secretario_etcp']) || $config['actas_depto']['secretario_etcp'] == "") {
 			$msg_alerta = "No se ha definido al secretario del Equipo directivo en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
@@ -130,6 +130,16 @@ if (isset($_POST['actualizar'])) {
 	else $msg_success = "El acta ha sido registrada correctamente";
 }
 
+// ELIMINAR ACTA
+if (isset($_GET['eliminar_id'])) {
+	
+	$eliminar_id = mysqli_real_escape_string($db_con, $_GET['eliminar_id']);
+	
+	$result = mysqli_query($db_con, "DELETE FROM r_departamento WHERE id = $eliminar_id");
+	if (! $result) $msg_error = "Ha ocurrido un error al eliminar el acta. Error: ".mysqli_error($db_con);
+	else $msg_success = "El acta ha sido eliminada correctamente";
+}
+
 
 
 // URI módulo
@@ -181,9 +191,21 @@ include ("menu.php");
 		
 		</div><!-- /.page-header -->
 		
+		<?php if (isset($msg_error)): ?>
+		<div class="alert alert-danger">
+			<?php echo $msg_error; ?>
+		</div>
+		<?php endif; ?>
+		
 		<?php if (isset($msg_alerta)): ?>
 		<div class="alert alert-warning">
 			<?php echo $msg_alerta; ?>
+		</div>
+		<?php endif; ?>
+		
+		<?php if (isset($msg_success)): ?>
+		<div class="alert alert-success">
+			<?php echo $msg_success; ?>
 		</div>
 		<?php endif; ?>
 		
