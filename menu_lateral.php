@@ -566,7 +566,7 @@ $menu = array(
 		'ncargos' => array('6', '7'),
 		'items'   => array (
 			array(
-				'href'   => 'admin/rd/add.php',
+				'href'   => 'admin/rd/registrar.php',
 				'titulo' => 'Actas del Departamento',
 				'ncargos' => array('1'),
 			),
