@@ -12,7 +12,7 @@ include("../../menu.php");
 <div class="container">
 
 	<div class="page-header">
-		<h2>Administración <small> Actualización de alumnos</small></h2>
+		<h2>AdministraciÃ³n <small> ActualizaciÃ³n de alumnos</small></h2>
 	</div>
 	
 	<div id="status-loading" class="text-center">
@@ -38,7 +38,7 @@ include("../../menu.php");
 					$base0 = "DROP TABLE `alma`";
 					mysqli_query($db_con, $base0);
 			
-					// Creación de la tabla alma
+					// CreaciÃ³n de la tabla alma
 					$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
@@ -82,25 +82,25 @@ include("../../menu.php");
 			
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
+						<h5>ATENCIÃ“N:</h5>
 			No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
 			</div></div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>');
 			
 					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
 					$result6 = mysqli_query($db_con, $SQL6);
 			
-					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma2.
+					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma2.
 			
 					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+						<h5>ATENCIÃ“N:</h5>
+			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
 			</div></div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>'); 
 					while (!feof($fp))
 					{
@@ -121,17 +121,17 @@ include("../../menu.php");
 
 					if ($n_col_tabla!=$num_col) { 
 
-						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
+						// Restauramos Copia de Seguridad porque SÃ©neca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
 						mysqli_query($db_con, "insert into FALUMNOS select * from FALUMNOS_seg");
 						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas. 
-						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicación o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
+						<h5>ATENCIÃ“N:</h5>
+						No se han podido importar los datos de los alumnos porque SÃ©neca ha modificado la estructura del archivo RegAlum.txt, bien porque ha aÃ±adido algÃºn campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas. 
+						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicaciÃ³n o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
 						</div></div><br />
 						<div align="center">
-						  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+						  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 						</div>';
 						?>
 									</div><!-- /.well -->
@@ -147,7 +147,7 @@ include("../../menu.php");
 					exit();
 					}
 					
-					//echo $num_linea++; // Si todo va bien, el valor de $num_linea en esta línea es 7
+					//echo $num_linea++; // Si todo va bien, el valor de $num_linea en esta lÃ­nea es 7
 					
 					while (!feof($fp))
 					{
@@ -158,7 +158,7 @@ include("../../menu.php");
 						$dato="";
 						$linea=fgets($fp);
 						
-						// En la línea 9 es donde comienza el listado de alumnos
+						// En la lÃ­nea 9 es donde comienza el listado de alumnos
 						if ($num_linea > 8) {
 							$tr=explode("|",$linea);						
 							$lineasalto = "INSERT INTO alma VALUES (";
@@ -168,7 +168,11 @@ include("../../menu.php");
 							$dato=substr($dato,0,strlen($dato)-2);
 							$lineasalto.=$dato;
 							$lineasalto.=");";
-							mysqli_query($db_con, $lineasalto);
+							$consulta=explode(',',$lineasalto);
+							//Comprobamos que la matrÃ­cula no haya sido anulada para aÃ±adirla
+							if (!preg_match('*Anulada*', $consulta[2])){
+								mysqli_query($db_con, $lineasalto);
+							}		
 						}
 					}
 
@@ -199,7 +203,7 @@ include("../../menu.php");
 			";
 					mysqli_query($db_con, $crear);
 			
-					// índices
+					// Ã­ndices
 					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
 					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
 					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
@@ -228,7 +232,7 @@ include("../../menu.php");
 						mysqli_query($db_con, $actualiza1P);
 					}
 			
-					// Eliminación de campos innecesarios por repetidos
+					// EliminaciÃ³n de campos innecesarios por repetidos
 					$SQL3 = "ALTER TABLE alma
 			  DROP `apellido1`,
 			  DROP `Alumno/a`,
@@ -237,14 +241,14 @@ include("../../menu.php");
 					$cambiar_nombre = "ALTER TABLE alma MODIFY COLUMN NOMBRE VARCHAR(30) AFTER APELLIDOS";
 					mysqli_query($db_con, $cambiar_nombre);
 			
-					// Eliminación de alumnos dados de baja
+					// EliminaciÃ³n de alumnos dados de baja
 					$SQL4 = "DELETE FROM alma WHERE unidad = ''";
 					$result4 = mysqli_query($db_con, $SQL4);
-					// Eliminación de alumnos dados de baja
+					// EliminaciÃ³n de alumnos dados de baja
 					$SQL5 = "DELETE FROM alma WHERE unidad = 'Unida'";
 					$result5 = mysqli_query($db_con, $SQL5);
 			
-					// Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
+					// Exportamos cÃ³digos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluaciÃ³n
 					include("exportacodigos.php");
 			
 					// Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
@@ -263,7 +267,7 @@ include("../../menu.php");
 			<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
 			</div>';
 			
-					//Caso especial de 2º de Bachillerato en Mayo
+					//Caso especial de 2Âº de Bachillerato en Mayo
 					/*if ((date('m')=='05' and date('d')>'25') OR (date('m')>'5' and date('m')<'9') ) {
 					$ct = mysqli_query($db_con,"select * from alma where curso like '2%' and curso like '%Bach%'");
 					if (mysqli_num_rows($ct)>0) {}
@@ -273,8 +277,8 @@ include("../../menu.php");
 					else{
 					echo '<div align="center"><div class="alert alert-warning alert-block fade in">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<h5>ATENCIÓN:</h5>
-					Ha surgido un problema con la incorporación de alumnos de 2º de Bachillerato. Busca ayuda.
+					<h5>ATENCIÃ“N:</h5>
+					Ha surgido un problema con la incorporaciÃ³n de alumnos de 2Âº de Bachillerato. Busca ayuda.
 					</div></div><br />';
 					}
 					}
@@ -289,8 +293,8 @@ include("../../menu.php");
 				else{
 					echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
+						<h5>ATENCIÃ“N:</h5>
+			Parece que te estÃ¡ olvidando de enviar todos los archivos con los datos de los alumnos. AsegÃºrate de enviar ambos archivos descargados desde SÃ©neca.
 			</div></div><br />';
 				}
 			
@@ -344,8 +348,8 @@ include("../../menu.php");
 					echo '<br />
 				<div align="center"><div class="alert alert-warning alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
+						<h5>ATENCIÃ“N:</h5>
+			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrÃ­culas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en SÃ©neca. </div></div><br />';
 				}
 			
 			// Si se ha creado la tabla matriculas_bach y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas_bach.
@@ -398,8 +402,8 @@ include("../../menu.php");
 					echo '<br />
 				<div align="center"><div class="alert alert-warning alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
+						<h5>ATENCIÃ“N:</h5>
+			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrÃ­culas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en SÃ©neca. </div></div><br />';
 				}
 				
 				// Caracteristicas propias de cada centro
@@ -414,7 +418,7 @@ include("../../menu.php");
 				?>
 				
 				<div class="text-center">
-					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
+					 <a href="../index.php" class="btn btn-primary">Volver a AdministraciÃ³n</a>
 				</div>
 			
 			</div><!-- /.well -->
