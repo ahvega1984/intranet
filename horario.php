@@ -60,7 +60,7 @@ if ($algo) {
 		}
 		elseif ((($rowasignatur1 [0] == "25" and $rowasignatur1 [1]!=="GUCON") or $rowasignatur1 [0] == "44") and $config['mod_asistencia']) {
 			if (strstr($_SESSION ['cargo'],"1")==TRUE and $rowasignatur1 [0] == "44") {
-				echo "<a href='//".$config['dominio']."/intranet/admin/fechorias/admin.php' style='text-decoration: none;'><span class='label label-success' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
+				echo "<a href='//".$config['dominio']."/intranet/admin/fechorias/lfechorias.php' style='text-decoration: none;'><span class='label label-success' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
 			}
 			else{
 				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?diasem=$z&hora=$n_hora' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span></a>";
