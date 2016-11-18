@@ -1,5 +1,5 @@
 <?php
-if (ini_get('default_charset') != "iso-8859-1" && ini_get('default_charset') != "ISO-8859-1") {
+if (ini_get('default_charset') != "iso-8859-1" || ini_get('default_charset') != "ISO-8859-1") {
 	ini_set("default_charset", "iso-8859-1");
 }
 
