@@ -326,6 +326,13 @@ include ("menu.php");
 		
 		<div class="row">
 			
+			<?php if (isset($departmento) || $departamento == ''): ?>
+			<div class="col-sm-12">
+				<br><br><br>
+				<p class="lead text-muted text-center">Seleccione un departamento</p>
+				<br><br><br><br>
+			</div>
+			<?php else: ?>
 			<div class="col-md-9">
 			
 				<div class="well">
@@ -489,6 +496,7 @@ $html_textarea = "<p>".$titulo."</p>
 				<?php endif; ?>
 						
 			</div>
+			<?php endif; ?>
 		
 		</div><!-- /.row -->
 	
