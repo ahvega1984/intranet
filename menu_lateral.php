@@ -613,6 +613,11 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 			'nombre'  => 'Páginas de interés',
 			'items'   => array (
 				array(
+					'href'   => 'varios/Planos_Centro.pdf',
+					'titulo' => 'Planos del Centro',
+					'target' => '_blank',
+				),
+				array(
 					'href'   => '//'.$config['dominio'],
 					'titulo' => 'Página del '.$config['centro_denominacion'],
 					'target' => '_blank',
