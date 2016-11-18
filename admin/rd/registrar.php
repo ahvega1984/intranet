@@ -4,19 +4,20 @@ ini_set("session.gc_maxlifetime","7200");
 
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array('1','4','9','f'));
-
 if (file_exists('config.php')) {
 	include('config.php');
 }
 
-$organos = array('DFEIE', 'Equipo directivo', 'ETCP');
+$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
 
 $bloquea_campos = 0;
 
 if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	
+	$esOrgano = 0;
+	
 	if (isset($_POST['departamento'])) {
+		acl_acceso($_SESSION['cargo'], array('1','4'));
 		$departamento = mysqli_real_escape_string($db_con, $_POST['departamento']);
 	}
 	else {
@@ -26,6 +27,8 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL DFEIE
 	if ($departamento == 'DFEIE') {
+		acl_acceso($_SESSION['cargo'], array('1','f'));
+		
 		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%f%' ORDER BY nombre ASC");
 		$existe_secretario_dfeie = mysqli_num_rows($result);
 		
@@ -44,12 +47,15 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		}
 		
 		$titulo = 'Departamento de Formación, Evaluación e Innovación Educativa';
+		$esOrgano = 1;
 	}
 	
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. DIRECTIVO
 	if ($departamento == 'Equipo directivo') {
+		acl_acceso($_SESSION['cargo'], array('1'));
+		
 		if ((! isset($config['actas_depto']['secretario_ed']) || $config['actas_depto']['secretario_ed'] == "") && ! isset($config['directivo_secretaria'])) {
-			$msg_alerta = "No se ha definido al secretario del Equipo directivo en la configuración de la aplicación ni en las preferencias del módulo.";
+			$msg_alerta = "No se ha definido al secretario del Equipo Directivo en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
 		elseif (isset($config['actas_depto']['secretario_ed'])) {
@@ -61,13 +67,16 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 			$bloquea_campos = 0;
 		}
 		
-		$titulo = 'Equipo directivo';
+		$titulo = 'Equipo Directivo';
+		$esOrgano = 1;
 	}
 	
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ETCP
 	if ($departamento == 'ETCP') {
+		acl_acceso($_SESSION['cargo'], array('1','9'));
+		
 		if (! isset($config['actas_depto']['secretario_etcp']) || $config['actas_depto']['secretario_etcp'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Equipo directivo en la configuración de la aplicación ni en las preferencias del módulo.";
+			$msg_alerta = "No se ha definido al secretario del Equipo Técnico de Coordinación Pedagógica en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -75,7 +84,93 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		}
 		
 		$titulo = 'Equipo Técnico de Coordinación Pedagógica';
+		$esOrgano = 1;
 	}
+	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSEÑANZAS BILINGÜES
+	if ($departamento == 'CEB') {
+		if (! isset($config['actas_depto']['secretario_ceb']) || $config['actas_depto']['secretario_ceb'] == "") {
+			$msg_alerta = "No se ha definido al secretario del Equipo de Coordinación de Enseñanzas Bilingües en la configuración de la aplicación ni en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		else {
+			$jefe_departamento = $config['actas_depto']['secretario_ceb'];
+		}
+		
+		$titulo = 'Equipo de Coordinación de Enseñanzas Bilingües';
+		$esOrgano = 1;
+	}
+	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSEÑANZAS BILINGÜES
+	if ($departamento == 'Coord. Enseñanzas Bilingües') {
+		if (! isset($config['actas_depto']['secretario_ceb']) || $config['actas_depto']['secretario_ceb'] == "") {
+			$msg_alerta = "No se ha definido al secretario del Equipo de Coordinación de Enseñanzas Bilingües en la configuración de la aplicación ni en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		else {
+			$jefe_departamento = $config['actas_depto']['secretario_ceb'];
+		}
+		
+		$titulo = 'Equipo de Coordinación de Enseñanzas Bilingües';
+		$esOrgano = 1;
+	}
+	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE COMPETENCIA ARTÍSTICA
+	if ($departamento == 'Área Artística') {
+		if (! isset($config['actas_depto']['secretario_aca']) || $config['actas_depto']['secretario_aca'] == "") {
+			$msg_alerta = "No se ha definido al secretario del Área de Competencia Artística en la configuración de la aplicación ni en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		else {
+			$jefe_departamento = $config['actas_depto']['secretario_aca'];
+		}
+		
+		$titulo = 'Área de Competencia Artística';
+		$esOrgano = 1;
+	}
+	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE COMPETENCIA CIENTIFICO-TECNOLÓGICA
+	if ($departamento == 'Área Científico-Tecnológica') {
+		if (! isset($config['actas_depto']['secretario_acct']) || $config['actas_depto']['secretario_acct'] == "") {
+			$msg_alerta = "No se ha definido al secretario del Área de Competencia Científico-Tecnológica en la configuración de la aplicación ni en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		else {
+			$jefe_departamento = $config['actas_depto']['secretario_acct'];
+		}
+		
+		$titulo = 'Área de Competencia Científico-Tecnológica';
+		$esOrgano = 1;
+	}
+	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE COMPETENCIA SOCIAL-LINGÜISTICA
+	if ($departamento == 'Área Social-Lingüística') {
+		if (! isset($config['actas_depto']['secretario_acsl']) || $config['actas_depto']['secretario_acsl'] == "") {
+			$msg_alerta = "No se ha definido al secretario del Área de Competencia Social-Lingüistica en la configuración de la aplicación ni en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		else {
+			$jefe_departamento = $config['actas_depto']['secretario_acsl'];
+		}
+		
+		$titulo = 'Área de Competencia Social-Lingüistica';
+		$esOrgano = 1;
+	}
+	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE FORMACIÓN PROFESIONAL
+	if ($departamento == 'Área Formación Profesional') {
+		if (! isset($config['actas_depto']['secretario_afp']) || $config['actas_depto']['secretario_afp'] == "") {
+			$msg_alerta = "No se ha definido al secretario del Área de Formación Profesional en la configuración de la aplicación ni en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		else {
+			$jefe_departamento = $config['actas_depto']['secretario_afp'];
+		}
+		
+		$titulo = 'Área de Formación Profesional';
+		$esOrgano = 1;
+	}
+	
 }
 else {
 	$departamento = $dpto;
@@ -257,7 +352,7 @@ include ("menu.php");
 							<div class="col-sm-6">
 								
 								<div class="form-group">
-									<label for="jefe_departamento">Jefe del departamento</label>
+									<label for="jefe_departamento"><?php echo ($esOrgano) ? 'Secretario' : 'Jefe del departamento'; ?></label>
 									<input type="text" class="form-control" id="jefe_departamento" name="jefe_departamento" value="<?php echo $jefe_departamento; ?>" <?php echo ($bloquea_campos) ? 'disabled' : 'readonly'; ?>>
 								</div>
 								

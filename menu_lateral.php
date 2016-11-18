@@ -496,14 +496,6 @@ $menu = array(
 					),
 				),
 			),
-			/*
-			array(
-				'href'   => 'admin/evaluaciones/index.php',
-				'titulo' => 'Sesiones de evaluación',
-				'modulo' => $mod_eval,
-				'ncargos' => array('6', '7'),
-			),
-			*/
 			array(
 				'href'   => 'admin/ausencias/index.php',
 				'titulo' => 'Registrar ausencia',
@@ -515,47 +507,57 @@ $menu = array(
 	array(
 		'menu_id' => 'actas',
 		'nombre'  => 'Actas',
-		'cargos' => array('1'),
+		'cargos' => array('1','9','a','f'),
 		'items'   => array (
 			array(
 				'href'   => 'admin/rd/registrar.php',
-				'titulo' => 'Actas de los departamentos'
+				'titulo' => 'Actas de los Departamentos',
+				'cargos'  => array('1')
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php',
+				'titulo' => 'Actas del Departamento',
+				'ncargos' => array('1'),
 			),
 			array(
 				'href'   => 'admin/rd/registrar.php?organo=DFEIE',
-				'titulo' => 'Actas del DFEIE'
+				'titulo' => 'Actas del DFEIE',
+				'cargos'  => array('1','f')
 			),
 			array(
 				'href'   => 'admin/rd/registrar.php?organo=ETCP',
-				'titulo' => 'Actas del ETCP'
+				'titulo' => 'Actas del ETCP',
+				'cargos'  => array('1','9')
 			),
 			array(
 				'href'   => 'admin/rd/registrar.php?organo=Equipo directivo',
-				'titulo' => 'Actas del Equipo directivo'
+				'titulo' => 'Actas del Equipo Directivo',
+				'cargos'  => array('1')
 			),
-		),
-	),
-	
-	array(
-		'menu_id' => 'dfeie',
-		'nombre'  => 'DFEIE',
-		'cargos' => array('f'),
-		'items'   => array (
 			array(
-				'href'   => 'admin/rd/registrar.php?organo=DFEIE',
-				'titulo' => 'Actas del DFEIE'
-			)
-		),
-	),
-	
-	array(
-		'menu_id' => 'etcp',
-		'nombre'  => 'ETCP',
-		'cargos' => array('9'),
-		'items'   => array (
+				'href'   => 'admin/rd/registrar.php?organo=Coord. Enseñanzas Bilingües',
+				'titulo' => 'Actas de Ens. Bilingües',
+				'cargos'  => array('1','a')
+			),
 			array(
-				'href'   => 'admin/rd/registrar.php?organo=ETCP',
-				'titulo' => 'Actas del ETCP'
+				'href'   => 'admin/rd/registrar.php?organo=Área Artística',
+				'titulo' => 'Actas del Área Ártística',
+				'cargos'  => array('1')
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=Área Científico-Tecnológica',
+				'titulo' => 'Actas del Área Científico-Tecnológica',
+				'cargos'  => array('1')
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=Área Social-Lingüística',
+				'titulo' => 'Actas del Área Social-Lingüistica',
+				'cargos'  => array('1')
+			),
+			array(
+				'href'   => 'admin/rd/registrar.php?organo=Área Formación Profesional',
+				'titulo' => 'Actas del Área Formación Profesional',
+				'cargos'  => array('1')
 			)
 		),
 	),
@@ -565,11 +567,6 @@ $menu = array(
 		'nombre'  => 'Departamento',
 		'ncargos' => array('6', '7'),
 		'items'   => array (
-			array(
-				'href'   => 'admin/rd/registrar.php',
-				'titulo' => 'Actas del Departamento',
-				'ncargos' => array('1'),
-			),
 			array(
 				'href'   => 'admin/textos/intextos.php',
 				'titulo' => 'Libros de texto',

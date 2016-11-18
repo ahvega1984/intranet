@@ -34,6 +34,11 @@ $dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from d
 $result_dfeie = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'DFEIE'");
 $result_ed = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Equipo directivo'");
 $result_etcp = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'ETCP'");
+$result_ceb = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Coord. Enseñanzas Bilingües'");
+$result_aca = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Área Artística'");
+$result_acct = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Área Científico-Tecnológica'");
+$result_acsl = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Área Social-Lingüística'");
+$result_afp = mysqli_query($db_con, "SELECT * from r_departamento WHERE departamento = 'Área Formación Profesional'");
 
 $deptos = array();
 $i = 0;
@@ -53,6 +58,26 @@ if (mysqli_num_rows($result_ed)) {
 
 if (mysqli_num_rows($result_etcp)) {
 	$deptos[$i] = 'ETCP';
+}
+
+if (mysqli_num_rows($result_ceb)) {
+	$deptos[$i] = 'Coord. Enseñanzas Bilingües';
+}
+
+if (mysqli_num_rows($result_aca)) {
+	$deptos[$i] = 'Área Artística';
+}
+
+if (mysqli_num_rows($result_acct)) {
+	$deptos[$i] = 'Área Científico-Tecnológica';
+}
+
+if (mysqli_num_rows($result_acsl)) {
+	$deptos[$i] = 'Área Social-Lingüística';
+}
+
+if (mysqli_num_rows($result_afp)) {
+	$deptos[$i] = 'Área Formación Profesional';
 }
 
 
