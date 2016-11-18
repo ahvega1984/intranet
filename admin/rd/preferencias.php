@@ -131,7 +131,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioECB" name="prefSecretarioECB">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_ceb']) && $config['actas_depto']['secretario_ceb'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
