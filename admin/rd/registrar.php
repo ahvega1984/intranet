@@ -17,8 +17,11 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	$esOrgano = 0;
 	
 	if (isset($_POST['departamento'])) {
-		acl_acceso($_SESSION['cargo'], array('1','4'));
 		$departamento = mysqli_real_escape_string($db_con, $_POST['departamento']);
+		
+		if (! acl_permiso($_SESSION['cargo'], array('1')) && $dpto != $_POST['departamento']) {
+			acl_acceso();
+		}
 	}
 	else {
 		$departamento = mysqli_real_escape_string($db_con, $_GET['organo']);
@@ -103,6 +106,8 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSEÑANZAS BILINGÜES
 	if ($departamento == 'Coord. Enseñanzas Bilingües') {
+		acl_acceso($_SESSION['cargo'], array('1','a'));
+		
 		if (! isset($config['actas_depto']['secretario_ceb']) || $config['actas_depto']['secretario_ceb'] == "") {
 			$msg_alerta = "No se ha definido al secretario del Equipo de Coordinación de Enseñanzas Bilingües en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
@@ -123,6 +128,10 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_aca'];
+			
+			if (! acl_permiso($_SESSION['cargo'], array('1')) && $pr != $config['actas_depto']['secretario_aca']) {
+				acl_acceso();
+			}
 		}
 		
 		$titulo = 'Área de Competencia Artística';
@@ -137,6 +146,10 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_acct'];
+			
+			if (! acl_permiso($_SESSION['cargo'], array('1')) && $pr != $config['actas_depto']['secretario_acct']) {
+				acl_acceso();
+			}
 		}
 		
 		$titulo = 'Área de Competencia Científico-Tecnológica';
@@ -151,6 +164,10 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_acsl'];
+			
+			if (! acl_permiso($_SESSION['cargo'], array('1')) && $pr != $config['actas_depto']['secretario_acsl']) {
+				acl_acceso();
+			}
 		}
 		
 		$titulo = 'Área de Competencia Social-Lingüistica';
@@ -165,6 +182,10 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_afp'];
+			
+			if (! acl_permiso($_SESSION['cargo'], array('1')) && $pr != $config['actas_depto']['secretario_afp']) {
+				acl_acceso();
+			}
 		}
 		
 		$titulo = 'Área de Formación Profesional';
@@ -234,8 +255,7 @@ if (isset($_GET['eliminar_id'])) {
 	if (! $result) $msg_error = "Ha ocurrido un error al eliminar el acta. Error: ".mysqli_error($db_con);
 	else $msg_success = "El acta ha sido eliminada correctamente";
 }
-
-
+	
 
 // URI módulo
 if (isset($_GET['organo'])) {
@@ -387,9 +407,9 @@ $html_textarea = "<p>".$titulo."</p>
 <p>Curso escolar: ".$config['curso_actual']."</p>
 <p>Acta nº NUMERO_ACTA</p>
 <p><br></p>
-<p style=\"text-align: center;\"><strong style=\"text-decoration: underline;\">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
+<p style=\"text-align: center;\"><strong style=\"text-decoration: underline;\">ACTA DE REUNIÓN DEL ".mb_strtoupper($titulo, 'ISO-8859-1')."</strong></p>
 <p><br></p>
-<p>En ".$config['centro_localidad'].", a las ".$hora_reunion." horas del FECHA_DE_LA_REUNION, se re&uacute;ne el Departamento de ".$departamento." del ".$config['centro_denominacion']." de ".$config['centro_localidad'].", con el siguiente <span style=\"text-decoration: underline;\">orden del d&iacute;a</span>:</p>
+<p>En ".$config['centro_localidad'].", a las ".$hora_reunion." horas del FECHA_DE_LA_REUNION, se re&uacute;ne el ".$titulo." del ".$config['centro_denominacion']." de ".$config['centro_localidad'].", con el siguiente <span style=\"text-decoration: underline;\">orden del d&iacute;a</span>:</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
