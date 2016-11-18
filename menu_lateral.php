@@ -53,8 +53,8 @@ $menu = array(
 					array(
 						'href'   => 'admin/jefatura/profesores.php',
 						'titulo' => 'Intervenciones sobre profesores'
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
@@ -74,7 +74,7 @@ $menu = array(
 				'titulo' => 'Matriculación de alumnos',
 				'modulo'  => $config['mod_matriculacion'],
 				'meses'	 => array(6, 7, 8, 9),
-			),
+			)
 		)
 	),
 	
@@ -90,7 +90,7 @@ $menu = array(
 			array(
 				'href'   => 'calendario/index.php?action=nuevoEvento',
 				'titulo' => 'Introducir actividades'
-			),
+			)
 		)
 	),
 	
@@ -121,7 +121,7 @@ $menu = array(
 				'href'   => 'admin/matriculas/consulta_transito.php',
 				'titulo' => 'Informes de Tránsito',
 				'modulo'  => $config['mod_matriculacion'],
-			),
+			)
 		)
 	),
 	
@@ -141,7 +141,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/tutoria/intervencion.php',
 				'titulo' => 'Intervenciones',
-			),
+			)
 		)
 	),
 	
@@ -170,7 +170,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/biblioteca/index_biblio.php',
 				'titulo' => 'Importar datos de Abies'
-			),
+			)
 		)
 	),
 
@@ -199,8 +199,8 @@ $menu = array(
 					array(
 						'href'   => 'admin/pendientes/index.php',
 						'titulo' => 'Listas de pendientes'
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -213,9 +213,8 @@ $menu = array(
 					array(
 						'href'   => 'admin/fotos/profes.php',
 						'titulo' => 'Fotos de los profesores'
-					),
-				),
-				
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -243,8 +242,8 @@ $menu = array(
 					array(
 						'href'   => 'admin/ausencias/ausencias_profes.php',
 						'titulo' => 'Informe sobre Ausencias de Profesores',
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => 'admin/cursos/calendario_escolar.php',
@@ -260,8 +259,8 @@ $menu = array(
 				'href'   => 'xml/jefe/index_mayores.php',
 				'titulo' => 'Alumnos mayores de 18 años',
 				'cargos' => array('6'),
-			),
-		),
+			)
+		)
 	),
 	
 	array(
@@ -309,8 +308,8 @@ $menu = array(
 						'titulo' => 'Aula de convivencia',
 						'cargos' => array('b'),
 						'ncargos' => array('1'),
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -385,8 +384,8 @@ $menu = array(
 						'href'   => 'admin/cursos/ccursos.php',
 						'titulo' => 'Partes de Faltas de Grupo',
 						'cargos' => array('2'),
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -400,8 +399,8 @@ $menu = array(
 						'href'   => 'calendario/index_unidades.php',
 						'titulo' => 'Calendario de unidades',
 						'ncargos' => array('6'),
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -419,8 +418,8 @@ $menu = array(
 					array(
 						'href'   => 'admin/infotutoria/index.php',
 						'titulo' => 'Informes de Tutoria',
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -455,8 +454,8 @@ $menu = array(
 					array(
 						'href'   => 'TIC/estadisticas.php',
 						'titulo' => 'Estadísticas de las TIC',
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -473,8 +472,8 @@ $menu = array(
 					array(
 						'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
 						'titulo' => 'Aulas y dependencias',
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => '#',
@@ -500,14 +499,54 @@ $menu = array(
 				'href'   => 'admin/ausencias/index.php',
 				'titulo' => 'Registrar ausencia',
 				'ncargos' => array('1', '6', '7'),
-			),
-		),
+			)
+		)
 	),
-	
 	array(
+		'menu_id' => 'departamento',
+		'nombre'  => 'Departamento',
+		'ncargos' => array('6', '7'),
+		'items'   => array (
+			array(
+				'href'   => 'admin/textos/intextos.php',
+				'titulo' => 'Libros de texto',
+				'cargos' => array('1','4'),
+			),
+			array(
+				'href'   => 'admin/textos/consulta.php',
+				'titulo' => 'Libros de texto',
+				'ncargos' => array('1','4'),
+			),
+			array(
+				'href'   => 'admin/departamento/pedidos/index.php',
+				'titulo' => 'Pedidos de material',
+				'cargos' => array('1','4'),
+			),
+			array(
+				'href'   => 'admin/inventario/introducir.php',
+				'titulo' => 'Inventario de material',
+			),
+			array(
+				'href'   => 'admin/actividades/indexextra.php',
+				'titulo' => 'Actividades extraescolares',
+			),
+			array(
+				'href'   => 'admin/departamento/memoria.php',
+				'titulo' => 'Memoria de departamento',
+			),
+			array(
+				'href'   => 'admin/evaluacion_pendientes/index.php',
+				'titulo' => 'Evaluación de Pendientes',
+			),
+		)
+	)
+);
+
+$menu_actas = array(
+		array(
 		'menu_id' => 'actas',
 		'nombre'  => 'Actas',
-		'cargos' => array('1','9','a','f'),
+		'cargos' => array('1','4','9','a','f'),
 		'items'   => array (
 			array(
 				'href'   => 'admin/rd/registrar.php',
@@ -517,7 +556,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/rd/registrar.php',
 				'titulo' => 'Actas del Departamento',
-				'ncargos' => array('1'),
+				'ncargos' => array('1')
 			),
 			array(
 				'href'   => 'admin/rd/registrar.php?organo=DFEIE',
@@ -559,48 +598,54 @@ $menu = array(
 				'titulo' => 'Actas del Área Formación Profesional',
 				'cargos'  => array('1')
 			)
-		),
-	),
-	
-	array(
-		'menu_id' => 'departamento',
-		'nombre'  => 'Departamento',
-		'ncargos' => array('6', '7'),
-		'items'   => array (
-			array(
-				'href'   => 'admin/textos/intextos.php',
-				'titulo' => 'Libros de texto',
-				'cargos' => array('1','4'),
-			),
-			array(
-				'href'   => 'admin/textos/consulta.php',
-				'titulo' => 'Libros de texto',
-				'ncargos' => array('1','4'),
-			),
-			array(
-				'href'   => 'admin/departamento/pedidos/index.php',
-				'titulo' => 'Pedidos de material',
-				'cargos' => array('1','4'),
-			),
-			array(
-				'href'   => 'admin/inventario/introducir.php',
-				'titulo' => 'Inventario de material',
-			),
-			array(
-				'href'   => 'admin/actividades/indexextra.php',
-				'titulo' => 'Actividades extraescolares',
-			),
-			array(
-				'href'   => 'admin/departamento/memoria.php',
-				'titulo' => 'Memoria de departamento',
-			),
-			array(
-				'href'   => 'admin/evaluacion_pendientes/index.php',
-				'titulo' => 'Evaluación de Pendientes',
-			),
-		),
-	),
+		)
+	)
 );
+
+if (file_exists('./admin/rd/config.php')) {
+	include('./admin/rd/config.php');
+	
+	if (isset($config['actas_depto']['secretario_aca']) && $pr == $config['actas_depto']['secretario_aca']) {
+		$menu_actas_aca = array(
+			'href'   => 'admin/rd/registrar.php?organo=Área Artística',
+			'titulo' => 'Actas del Área Ártística',
+			'ncargos'  => array('1')
+		);
+		
+		array_push($menu_actas[0]['items'], $menu_actas_aca);
+	}
+	
+	if (isset($config['actas_depto']['secretario_acct']) && $pr == $config['actas_depto']['secretario_acct']) {
+		$menu_actas_acct = array(
+			'href'   => 'admin/rd/registrar.php?organo=Área Científico-Tecnológica',
+			'titulo' => 'Actas del Área Científico-Tecnológica',
+			'ncargos'  => array('1')
+		);
+		
+		array_push($menu_actas[0]['items'], $menu_actas_acct);
+	}
+	
+	if (isset($config['actas_depto']['secretario_acsl']) && $pr == $config['actas_depto']['secretario_acsl']) {
+		$menu_actas_acsl = array(
+			'href'   => 'admin/rd/registrar.php?organo=Área Social-Lingüística',
+			'titulo' => 'Actas del Área Social-Lingüistica',
+			'ncargos'  => array('1')
+		);
+		
+		array_push($menu_actas[0]['items'], $menu_actas_acsl);
+	}
+	
+	if (isset($config['actas_depto']['secretario_afp']) && $pr == $config['actas_depto']['secretario_afp']) {
+		$menu_actas_afp = array(
+			'href'   => 'admin/rd/registrar.php?organo=Área Formación Profesional',
+			'titulo' => 'Actas del Área Formación Profesional',
+			'ncargos'  => array('1')
+		);
+		
+		array_push($menu_actas[0]['items'], $menu_actas_afp);
+	}
+}
+	
 
 if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
@@ -649,8 +694,8 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 					'titulo' => 'Portal Averroes',
 					'target' => '_blank',
 				)
-			),
-		),
+			)
+		)
 	);
 
 }
@@ -691,13 +736,13 @@ else {
 					'titulo' => 'Portal Averroes',
 					'target' => '_blank',
 				)
-			),
-		),
+			)
+		)
 	);
 	
 }
 
-$menu = array_merge($menu, $paginas_interes);
+$menu = array_merge($menu, $menu_actas, $paginas_interes);
 ?>
 <!-- MENU-LATERAL -->
 
