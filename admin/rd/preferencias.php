@@ -127,9 +127,9 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefSecretarioECB" class="col-sm-4 control-label">Equipo Coord. Enseñanzas Bilingüe</label>
+							<label for="prefSecretarioCEB" class="col-sm-4 control-label">Equipo Coord. Enseñanzas Bilingüe</label>
 							<div class="col-sm-3">
-								<select class="form-control" id="prefSecretarioECB" name="prefSecretarioECB">
+								<select class="form-control" id="prefSecretarioCEB" name="prefSecretarioCEB">
 									<option value=""></option>
 									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
