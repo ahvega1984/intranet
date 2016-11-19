@@ -253,7 +253,7 @@ if (isset($_GET['eliminar_id'])) {
 	
 	$result = mysqli_query($db_con, "DELETE FROM r_departamento WHERE id = $eliminar_id");
 	if (! $result) $msg_error = "Ha ocurrido un error al eliminar el acta. Error: ".mysqli_error($db_con);
-	else $msg_success = "El acta ha sido eliminada correctamente";
+	else $msg_success = "El acta ha sido eliminada correctamente.";
 }
 	
 

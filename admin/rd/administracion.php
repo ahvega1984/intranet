@@ -14,6 +14,16 @@ if (isset($_GET['verTodas']) && $_GET['verTodas'] == 1) {
 
 $organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
 
+// ELIMINAR ACTAS
+if (isset($_GET['eliminar_depto'])) {
+	
+	$eliminar_depto = mysqli_real_escape_string($db_con, $_GET['eliminar_depto']);
+	
+	$result = mysqli_query($db_con, "DELETE FROM r_departamento WHERE departamento = $eliminar_depto");
+	if (! $result) $msg_error = "Ha ocurrido un error al eliminar las actas del departamento. Error: ".mysqli_error($db_con);
+	else $msg_success = "Las actas han sido eliminadas correctamente.";
+}
+
 // URI módulo
 if (isset($_GET['verTodas'])) {
 	$uri = 'index.php?verTodas=1&amp;';
@@ -99,8 +109,8 @@ include ("menu.php");
 							</div>
 						</td>
 						<td>
-							<a href="pdf.php?depto=<?php echo $organo; ?>" data-bs="tooltip" title="Imprimir actas"><span class="fa fa-print fa-fw fa-lg"></span></a>
-							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+							<a href="pdf.php?depto=<?php echo $organo; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fa fa-print fa-fw fa-lg"></span></a>
+							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 						</td>
 					</tr>
 					<?php endforeach; ?>
@@ -180,8 +190,8 @@ include ("menu.php");
 							</div>
 						</td>
 						<td>
-							<a href="pdf.php?depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Imprimir actas"><span class="fa fa-print fa-fw fa-lg"></span></a>
-							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Eliminar actas"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+							<a href="pdf.php?depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fa fa-print fa-fw fa-lg"></span></a>
+							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 						</td>
 					</tr>
 					<?php endwhile; ?>
@@ -205,30 +215,30 @@ include ("menu.php");
 
 	<script>  
 	$(document).ready(function() {
-		var table = $('.datatable').DataTable({
-		"paging":   true,
-	    "ordering": false,
-	    "info":     false,
-	    "searching":   false,
-	    
-			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-			
-			"order": [[ 0, "desc" ]],
-			
-			"language": {
-			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "Sin resultados.",
-			            "info": "Página _PAGE_ de _PAGES_",
-			            "infoEmpty": "No hay resultados disponibles.",
-			            "infoFiltered": "(filtrado de _MAX_ resultados)",
-			            "paginate": {
-			                  "first": "Primera",
-			                  "next": "Última",
-			                  "next": "",
-			                  "previous": "",
-			                }
-			        }
+
+		$(document).on("click", "a[data-bb]", function(e) {
+		    e.preventDefault();
+		    var type = $(this).data("bb");
+				var link = $(this).attr("href");
+				
+				if (type == 'confirm-print') {
+					bootbox.setDefaults({
+					  locale: "es",
+					  show: true,
+					  backdrop: true,
+					  closeButton: true,
+					  animate: true,
+					  title: "Confirmación para imprimir",
+					});
+					
+					bootbox.confirm("Esta acción bloqueará permanentemente la edición de las actas de este departamento ¿Seguro que desea continuar?", function(result) {
+					    if (result) {
+					    	document.location.href = link;
+					    }
+					});
+				}
 		});
+		
 	});
 	</script>
 	
