@@ -141,7 +141,7 @@ include ("menu.php");
 				<tbody>
 					<?php 
 					$mostrar_alerta = 0;
-					$result = mysqli_query($db_con, "SELECT DISTINCT departamento, (SELECT nombre FROM departamentos AS depto WHERE depto.departamento = departamentos.departamento AND depto.cargo LIKE '%4%') AS nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY departamento ASC"); ?>
+					$result = mysqli_query($db_con, "SELECT DISTINCT departamento, (SELECT nombre FROM departamentos AS depto WHERE depto.departamento = departamentos.departamento AND depto.cargo LIKE '%4%' LIMIT 1) AS nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY departamento ASC"); ?>
 					<?php while ($row = mysqli_fetch_array($result)): ?>
 					
 					<?php 
