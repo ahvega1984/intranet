@@ -104,13 +104,19 @@ include ("menu.php");
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<li><a href="pdf.php?id=<?php echo $row['id']; ?>"><?php echo ($row['impreso']) ? '<span class="fa fa-check-circle fa-fw"></span>' : '<span class="fa fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row['numero'].' - '.$row['fecha']; ?></a></li>
 									<?php endwhile; ?>
+									<li class="divider"></li>
+									<?php if (! $verTodas): ?>
+									<li><a href="administracion.php?verTodas=1">Ver todas las actas</a></li>
+									<?php else: ?>
+									<li><a href="administracion.php">Ver actas de este curso</a></li>
+									<?php endif; ?>
 								</ul>
 								<?php endif; ?>
 							</div>
 						</td>
 						<td>
 							<a href="pdf.php?depto=<?php echo $organo; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fa fa-print fa-fw fa-lg"></span></a>
-							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete2"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 						</td>
 					</tr>
 					<?php endforeach; ?>
@@ -161,7 +167,7 @@ include ("menu.php");
 							}
 							else {
 								$mostrar_alerta = 1;
-								echo '<a href="../../config/cargos.php">Asignar perfiles</a>';
+								echo '<a href="../../config/cargos.php">Asignar perfil</a>';
 							}
 							?></td>
 						<td class="text-center"><?php echo $total; ?> / <?php echo $total_impresas; ?></td>
@@ -180,6 +186,7 @@ include ("menu.php");
 									<?php while ($row_actas = mysqli_fetch_array($result_actas_depto)): ?>
 									<li><a href="pdf.php?id=<?php echo $row_actas['id']; ?>"><?php echo ($row_actas['impreso']) ? '<span class="fa fa-check-circle fa-fw"></span>' : '<span class="fa fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row_actas['numero'].' - '.$row_actas['fecha']; ?></a></li>
 									<?php endwhile; ?>
+									<li class="divider"></li>
 									<?php if (! $verTodas): ?>
 									<li><a href="administracion.php?verTodas=1">Ver todas las actas</a></li>
 									<?php else: ?>
@@ -191,7 +198,7 @@ include ("menu.php");
 						</td>
 						<td>
 							<a href="pdf.php?depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fa fa-print fa-fw fa-lg"></span></a>
-							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete2"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 						</td>
 					</tr>
 					<?php endwhile; ?>
@@ -231,7 +238,24 @@ include ("menu.php");
 					  title: "Confirmación para imprimir",
 					});
 					
-					bootbox.confirm("Esta acción bloqueará permanentemente la edición de las actas de este departamento ¿Seguro que desea continuar?", function(result) {
+					bootbox.confirm("Esta acción bloqueará permanentemente la edición de las actas de este departamento. ¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la Administración de la Intranet.", function(result) {
+					    if (result) {
+					    	document.location.href = link;
+					    }
+					});
+				}
+				
+				if (type == 'confirm-delete2') {
+					bootbox.setDefaults({
+					  locale: "es",
+					  show: true,
+					  backdrop: true,
+					  closeButton: true,
+					  animate: true,
+					  title: "Confirmación para eliminar",
+					});
+					
+					bootbox.confirm("Esta acción eliminará permanentemente las actas de este departamento. ¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la Administración de la Intranet.", function(result) {
 					    if (result) {
 					    	document.location.href = link;
 					    }
