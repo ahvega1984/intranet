@@ -64,9 +64,9 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
  		  	</div><!-- /.col-lg-3--> 		 
 		</form>  
   	 	<ul class="nav nav-tabs">
- 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'registrar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="registrar.php">Registrar acta</a></li>	
+ 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Registrar o consultar actas</a></li>	
  			<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
-          	<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index_admin.php">Todas las Actas</a></li>
+          	<li<?php echo (strstr($_SERVER['REQUEST_URI'],'administracion.php')==TRUE) ? ' class="active"' : ''; ?>><a href="administracion.php">Administrar actas</a></li>
           	<?php endif; ?>
 		</ul>
 	</div>

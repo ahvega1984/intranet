@@ -549,53 +549,32 @@ $menu_actas = array(
 		'cargos' => array('1','4','9','a','f'),
 		'items'   => array (
 			array(
-				'href'   => 'admin/rd/registrar.php',
-				'titulo' => 'Actas de los Departamentos',
-				'cargos'  => array('1')
+				'href'   => 'admin/rd/index.php',
+				'titulo' => 'Actas del Departamento'
 			),
 			array(
-				'href'   => 'admin/rd/registrar.php',
-				'titulo' => 'Actas del Departamento',
-				'ncargos' => array('1')
-			),
-			array(
-				'href'   => 'admin/rd/registrar.php?organo=DFEIE',
+				'href'   => 'admin/rd/index.php?organo=DFEIE',
 				'titulo' => 'Actas del DFEIE',
-				'cargos'  => array('1','f')
+				'cargos'  => array('f')
 			),
 			array(
-				'href'   => 'admin/rd/registrar.php?organo=ETCP',
+				'href'   => 'admin/rd/index.php?organo=ETCP',
 				'titulo' => 'Actas del ETCP',
-				'cargos'  => array('1','9')
+				'cargos'  => array('9')
 			),
 			array(
-				'href'   => 'admin/rd/registrar.php?organo=Equipo directivo',
+				'href'   => 'admin/rd/index.php?organo=Equipo directivo',
 				'titulo' => 'Actas del Equipo Directivo',
 				'cargos'  => array('1')
 			),
 			array(
-				'href'   => 'admin/rd/registrar.php?organo=Coord. Enseñanzas Bilingües',
+				'href'   => 'admin/rd/index.php?organo=Coord. Enseñanzas Bilingües',
 				'titulo' => 'Actas de Ens. Bilingües',
-				'cargos'  => array('1','a')
+				'cargos'  => array('a')
 			),
 			array(
-				'href'   => 'admin/rd/registrar.php?organo=Área Artística',
-				'titulo' => 'Actas del Área Ártística',
-				'cargos'  => array('1')
-			),
-			array(
-				'href'   => 'admin/rd/registrar.php?organo=Área Científico-Tecnológica',
-				'titulo' => 'Actas del Área Científico-Tecnológica',
-				'cargos'  => array('1')
-			),
-			array(
-				'href'   => 'admin/rd/registrar.php?organo=Área Social-Lingüística',
-				'titulo' => 'Actas del Área Social-Lingüistica',
-				'cargos'  => array('1')
-			),
-			array(
-				'href'   => 'admin/rd/registrar.php?organo=Área Formación Profesional',
-				'titulo' => 'Actas del Área Formación Profesional',
+				'href'   => 'admin/rd/administracion.php',
+				'titulo' => 'Administrar actas',
 				'cargos'  => array('1')
 			)
 		)
@@ -607,7 +586,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_aca']) && $pr == $config['actas_depto']['secretario_aca']) {
 		$menu_actas_aca = array(
-			'href'   => 'admin/rd/registrar.php?organo=Área Artística',
+			'href'   => 'admin/rd/index.php?organo=Área Artística',
 			'titulo' => 'Actas del Área Ártística',
 			'ncargos'  => array('1')
 		);
@@ -617,7 +596,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_acct']) && $pr == $config['actas_depto']['secretario_acct']) {
 		$menu_actas_acct = array(
-			'href'   => 'admin/rd/registrar.php?organo=Área Científico-Tecnológica',
+			'href'   => 'admin/rd/index.php?organo=Área Científico-Tecnológica',
 			'titulo' => 'Actas del Área Científico-Tecnológica',
 			'ncargos'  => array('1')
 		);
@@ -627,7 +606,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_acsl']) && $pr == $config['actas_depto']['secretario_acsl']) {
 		$menu_actas_acsl = array(
-			'href'   => 'admin/rd/registrar.php?organo=Área Social-Lingüística',
+			'href'   => 'admin/rd/index.php?organo=Área Social-Lingüística',
 			'titulo' => 'Actas del Área Social-Lingüistica',
 			'ncargos'  => array('1')
 		);
@@ -637,7 +616,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_afp']) && $pr == $config['actas_depto']['secretario_afp']) {
 		$menu_actas_afp = array(
-			'href'   => 'admin/rd/registrar.php?organo=Área Formación Profesional',
+			'href'   => 'admin/rd/index.php?organo=Área Formación Profesional',
 			'titulo' => 'Actas del Área Formación Profesional',
 			'ncargos'  => array('1')
 		);
