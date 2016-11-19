@@ -43,7 +43,7 @@ include ("menu.php");
 					<tr>
 						<th class="col-sm-3">Órgano</th>
 						<th class="col-sm-4">Secretario</th>
-						<th class="col-sm-2 text-center">Nº Actas / Imp.</th>
+						<th class="col-sm-2 text-center">Nº Actas / Impresas</th>
 						<th class="col-sm-2">Consultar acta</th>
 						<th class="col-sm-1">Opciones</th>
 					</tr>
@@ -117,7 +117,7 @@ include ("menu.php");
 					<tr>
 						<th class="col-sm-3">Departamento</th>
 						<th class="col-sm-4">Jefe de Departamento</th>
-						<th class="col-sm-2 text-center">Nº Actas / Imp.</th>
+						<th class="col-sm-2 text-center">Nº Actas / Impresas</th>
 						<th class="col-sm-2">Consultar acta</th>
 						<th class="col-sm-1">Opciones</th>
 					</tr>
