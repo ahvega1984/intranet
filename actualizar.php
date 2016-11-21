@@ -779,13 +779,15 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
- @descripcion: Cambio en tabla fechorias y convivencia para permitir castigo en recreos.
- @fecha: 16 de noviembre de 2016
+ @descripcion: Ampliación campos de asignaturas y cursos
+ @fecha: 21 de noviembre de 2016
  */
 
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ampliación campo nombre en tabla materia'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ampliación campos de asignaturas y cursos'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `materias` CHANGE `NOMBRE` `NOMBRE` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
+	mysqli_query($db_con, "ALTER TABLE `asignaturas` CHANGE `NOMBRE` `NOMBRE` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
+	mysqli_query($db_con, "ALTER TABLE `asignaturas` CHANGE `CURSO` `CURSO` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
 	
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ampliación campo nombre en tabla materia', NOW())");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ampliación campos de asignaturas y cursos', NOW())");
 }
