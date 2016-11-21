@@ -52,7 +52,7 @@ include ("menu.php");
 				<thead>
 					<tr>
 						<th class="col-sm-3">Órgano</th>
-						<th class="col-sm-4">Secretario</th>
+						<th class="col-sm-4">Secretario / Coordinador</th>
 						<th class="col-sm-2 text-center">Nº Actas / Impresas</th>
 						<th class="col-sm-2">Consultar acta</th>
 						<th class="col-sm-1">Opciones</th>

@@ -84,7 +84,7 @@ include("menu.php");
 				<div class="well">
 					
 					<fieldset>
-						<legend>Secretarios</legend>
+						<legend>Secretario / Coordinador</legend>
 						
 						<div class="form-group">
 							<label for="prefSecretarioDFEIE" class="col-sm-4 control-label">DFEIE</label>

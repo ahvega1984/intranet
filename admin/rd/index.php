@@ -123,7 +123,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE COMPETENCIA ARTÍSTICA
 	if ($departamento == 'Área Artística') {
 		if (! isset($config['actas_depto']['secretario_aca']) || $config['actas_depto']['secretario_aca'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Área de Competencia Artística en la configuración de la aplicación ni en las preferencias del módulo.";
+			$msg_alerta = "No se ha definido al coordinador del Área de Competencia Artística en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -141,7 +141,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE COMPETENCIA CIENTIFICO-TECNOLÓGICA
 	if ($departamento == 'Área Científico-Tecnológica') {
 		if (! isset($config['actas_depto']['secretario_acct']) || $config['actas_depto']['secretario_acct'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Área de Competencia Científico-Tecnológica en la configuración de la aplicación ni en las preferencias del módulo.";
+			$msg_alerta = "No se ha definido al coordinador del Área de Competencia Científico-Tecnológica en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -159,7 +159,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE COMPETENCIA SOCIAL-LINGÜISTICA
 	if ($departamento == 'Área Social-Lingüística') {
 		if (! isset($config['actas_depto']['secretario_acsl']) || $config['actas_depto']['secretario_acsl'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Área de Competencia Social-Lingüistica en la configuración de la aplicación ni en las preferencias del módulo.";
+			$msg_alerta = "No se ha definido al coordinador del Área de Competencia Social-Lingüistica en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -177,7 +177,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ÁREA DE FORMACIÓN PROFESIONAL
 	if ($departamento == 'Área Formación Profesional') {
 		if (! isset($config['actas_depto']['secretario_afp']) || $config['actas_depto']['secretario_afp'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Área de Formación Profesional en la configuración de la aplicación ni en las preferencias del módulo.";
+			$msg_alerta = "No se ha definido al coordinador del Área de Formación Profesional en la configuración de la aplicación ni en las preferencias del módulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -379,7 +379,7 @@ include ("menu.php");
 							<div class="col-sm-6">
 								
 								<div class="form-group">
-									<label for="jefe_departamento"><?php echo ($esOrgano) ? 'Secretario' : 'Jefe del departamento'; ?></label>
+									<label for="jefe_departamento"><?php echo ($esOrgano) ? 'Secretario / Coordinador' : 'Jefe del departamento'; ?></label>
 									<input type="text" class="form-control" id="jefe_departamento" name="jefe_departamento" value="<?php echo $jefe_departamento; ?>" <?php echo ($bloquea_campos) ? 'disabled' : 'readonly'; ?>>
 								</div>
 								

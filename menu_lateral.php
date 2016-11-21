@@ -261,8 +261,10 @@ $menu = array(
 				'cargos' => array('6'),
 			)
 		)
-	),
+	)
+);
 	
+$menu_trabajo =  array(
 	array(
 		'menu_id' => 'trabajo',
 		'nombre'  => 'Trabajo',
@@ -501,12 +503,19 @@ $menu = array(
 				'ncargos' => array('1', '6', '7'),
 			)
 		)
-	),
+	)
+);
+
+$menu_departamento = array(
 	array(
 		'menu_id' => 'departamento',
 		'nombre'  => 'Departamento',
 		'ncargos' => array('6', '7'),
-		'items'   => array (
+		'items'   => array(
+			array(
+				'href'   => 'admin/rd/index.php',
+				'titulo' => 'Actas del Departamento'
+			),
 			array(
 				'href'   => 'admin/textos/intextos.php',
 				'titulo' => 'Libros de texto',
@@ -543,40 +552,34 @@ $menu = array(
 );
 
 $menu_actas = array(
+	'menu_id' => 'actas',
+	'titulo'  => 'Actas',
+	'cargos' => array('1','4','9','a','f'),
+	'items'   => array (
 		array(
-		'menu_id' => 'actas',
-		'nombre'  => 'Actas',
-		'cargos' => array('1','4','9','a','f'),
-		'items'   => array (
-			array(
-				'href'   => 'admin/rd/index.php',
-				'titulo' => 'Actas del Departamento'
-			),
-			array(
-				'href'   => 'admin/rd/index.php?organo=DFEIE',
-				'titulo' => 'Actas del DFEIE',
-				'cargos'  => array('f')
-			),
-			array(
-				'href'   => 'admin/rd/index.php?organo=ETCP',
-				'titulo' => 'Actas del ETCP',
-				'cargos'  => array('9')
-			),
-			array(
-				'href'   => 'admin/rd/index.php?organo=Equipo directivo',
-				'titulo' => 'Actas del Equipo Directivo',
-				'cargos'  => array('1')
-			),
-			array(
-				'href'   => 'admin/rd/index.php?organo=Coord. Enseñanzas Bilingües',
-				'titulo' => 'Actas de Ens. Bilingües',
-				'cargos'  => array('a')
-			),
-			array(
-				'href'   => 'admin/rd/administracion.php',
-				'titulo' => 'Administrar actas',
-				'cargos'  => array('1')
-			)
+			'href'   => 'admin/rd/index.php?organo=DFEIE',
+			'titulo' => 'Actas del DFEIE',
+			'cargos'  => array('f')
+		),
+		array(
+			'href'   => 'admin/rd/index.php?organo=ETCP',
+			'titulo' => 'Actas del ETCP',
+			'cargos'  => array('9')
+		),
+		array(
+			'href'   => 'admin/rd/index.php?organo=Equipo directivo',
+			'titulo' => 'Actas del Equipo Directivo',
+			'cargos'  => array('1')
+		),
+		array(
+			'href'   => 'admin/rd/index.php?organo=Coord. Enseñanzas Bilingües',
+			'titulo' => 'Actas de Ens. Bilingües',
+			'cargos'  => array('a')
+		),
+		array(
+			'href'   => 'admin/rd/administracion.php',
+			'titulo' => 'Administrar actas',
+			'cargos'  => array('1')
 		)
 	)
 );
@@ -588,7 +591,7 @@ if (file_exists('./admin/rd/config.php')) {
 		$menu_actas_aca = array(
 			'href'   => 'admin/rd/index.php?organo=Área Artística',
 			'titulo' => 'Actas del Área Ártística',
-			'ncargos'  => array('1')
+			'ncargos'  => array('9')
 		);
 		
 		array_push($menu_actas[0]['items'], $menu_actas_aca);
@@ -624,6 +627,8 @@ if (file_exists('./admin/rd/config.php')) {
 		array_push($menu_actas[0]['items'], $menu_actas_afp);
 	}
 }
+
+array_push($menu_trabajo[0]['items'], $menu_actas);
 	
 
 if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
@@ -721,7 +726,7 @@ else {
 	
 }
 
-$menu = array_merge($menu, $menu_actas, $paginas_interes);
+$menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 ?>
 <!-- MENU-LATERAL -->
 
