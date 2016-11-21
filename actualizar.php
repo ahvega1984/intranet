@@ -777,3 +777,15 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Registrar expulsión en hora de recreo', NOW())");
 }
+
+/*
+ @descripcion: Cambio en tabla fechorias y convivencia para permitir castigo en recreos.
+ @fecha: 16 de noviembre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ampliación campo nombre en tabla materia'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `materias` CHANGE `NOMBRE` `NOMBRE` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ampliación campo nombre en tabla materia', NOW())");
+}
