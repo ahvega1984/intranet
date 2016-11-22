@@ -95,7 +95,7 @@ if(isset($_POST['enviar'])) {
 						$row = mysqli_fetch_array($result);
 						
 						if ($row['correo'] != "") {
-							echo $correo_coordinador = $row['correo'];
+							$correo_coordinador = $row['correo'];
 						}
 					}
 					
