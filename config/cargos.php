@@ -26,6 +26,7 @@ include ("../menu.php");
 	mysqli_query($db_con, "truncate table cargos " );
 		
 		foreach ( $_POST as $dni => $cargo_profe ) {
+			// echo "$dni => $cargo_profe<br>";
 			if ($cargo_profe == "Enviar") {
 				continue;
 			} 
@@ -207,7 +208,7 @@ include ("../menu.php");
 			?> /></td>
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
-			?>9"
+			?>15"
 					value="9" 
 					<?php
 			if (stristr ( $car, '9' ) == TRUE) {
