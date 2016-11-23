@@ -369,6 +369,9 @@ include ("menu.php");
 							$hora_fin_reunion = date('H:i', $hora_fin_reunion);
 						}
 					}
+					
+					if (acl_permiso($_SESSION['cargo'], array('1')) || nomprofesor($jefe_departamento) == nomprofesor($pr)) $bloquea_campos = 0;
+					else $bloquea_campos = 1;
 					?>
 					
 					<fieldset>
@@ -443,7 +446,6 @@ $html_textarea = "<p>".$titulo."</p>
 					
 					</fieldset>
 					
-					<?php if (! (acl_permiso($_SESSION['cargo'], array('1')) || $jefe_departamento == $pr)) $bloquea_campos = 1; ?>
 					<?php if (! isset($id_acta)): ?>
 					<button class="btn btn-primary" id="guardar" name="guardar"<?php echo ($bloquea_campos) ? ' disabled' : ''; ?>>Registrar acta</button>
 					<?php else: ?>
@@ -473,7 +475,7 @@ $html_textarea = "<p>".$titulo."</p>
 								<small class="text-muted">Acta nº <?php echo $row['numero']; ?></small>
 							</td>
 							<td>
-								<?php if (! (acl_permiso($_SESSION['cargo'], array('1')) || $jefe_departamento == $pr)): ?>
+								<?php if ($bloquea_campos): ?>
 								<a href="pdf.php?id=<?php echo $row['id']; ?>" target="_blank" data-bs="tooltip" title="Ver acta"><span class="fa fa-eye fa-fw fa-lg"></span></a>
 								<?php else: ?>
 								<?php if (! $row['impreso']): ?>
