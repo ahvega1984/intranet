@@ -334,7 +334,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 
 				if ($hay_al=="1" or $hay_grupo<1) {
 
-					$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row3[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
+					$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row3[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto') and grupo='$unidad3') and abrev like '%\_%'";
 					//echo $asigna_pend;
 					$query_pend = mysqli_query($db_con,$asigna_pend);
 					if (mysqli_num_rows($query_pend)>0) {

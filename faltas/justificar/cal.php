@@ -121,20 +121,22 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 las Horas para Justificar: <span class='text-success'> <?php echo "$zz-$month-$year";?></span></h4>
 </div>
 <div class="modal-body">
+	<a onClick="seleccionar_todo<?php echo "_".$zz;?>()"
+	class="btn btn-success" style="display: inline">Marcar todas</a>
 <form action="index.php" method="POST"
 	name="marcar_falta<?php echo "_".$zz;?>" style="display: inline">&nbsp;&nbsp;
 <div class="checkbox" style="display: inline; align: center;"><label
-	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"1")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"1")==TRUE){ echo "checked"; }?>
 	name="1<?php echo "_".$zz;?>" value="1">1ª</label> <label
-	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"2")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"2")==TRUE){ echo "checked"; }?>
 	name="2<?php echo "_".$zz;?>" value="2">2ª</label> <label
-	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"3")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"3")==TRUE){ echo "checked"; }?>
 	name="3<?php echo "_".$zz;?>" value="3">3ª</label> <label
-	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"4")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"4")==TRUE){ echo "checked"; }?>
 	name="4<?php echo "_".$zz;?>" value="4">4ª</label> <label
-	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"5")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"5")==TRUE){ echo "checked"; }?>
 	name="5<?php echo "_".$zz;?>" value="5">5ª</label> <label
-	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"6")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"6")==TRUE){ echo "checked"; }?>
 	name="6<?php echo "_".$zz;?>" value="6">6ª</label></div>
 
 </div>

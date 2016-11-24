@@ -61,7 +61,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 
 				if ($hay_al=="1" or $hay_grupo<1) {
 			$num_pend="";
-			$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
+			$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto') and grupo='$nivel_i') and abrev like '%\_%'";
 
 				$query_pend = mysqli_query($db_con,$asigna_pend);
 				if (mysqli_num_rows($query_pend) > 0){

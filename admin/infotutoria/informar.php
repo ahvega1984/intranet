@@ -66,8 +66,7 @@ echo "<p class=\"text-info\">".$motivo_reunion."</p>";
 $depto = $_SESSION ['dpt'];
 $extra_dep = "where departamento = '$depto'";
 
-$pend = mysqli_query($db_con, "select distinct materia, abrev from 
-profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos $extra_dep) and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes where pendientes.claveal = '$claveal' order by codigo)");
+$pend = mysqli_query($db_con, "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$claveal' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos $extra_dep) and grupo='$dalumno[3]') and abrev like '%\_%'");
 
 while($pendi = mysqli_fetch_array($pend)){
 	$pendiente.="<option value='$pendi[0] ($pendi[1])'>$pendi[0] ($pendi[1])</option>";
