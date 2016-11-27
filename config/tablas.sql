@@ -701,7 +701,7 @@ CREATE TABLE IF NOT EXISTS `FALTAS` (
   `FECHA` date default NULL,
   `DIA` tinyint(1) NOT NULL default '0',
   `HORA` tinyint(1) default NULL,
-  `PROFESOR` char(2) collate latin1_spanish_ci default NULL,
+  `PROFESOR` char(7) collate latin1_spanish_ci default NULL,
   `CODASI` varchar(10) collate latin1_spanish_ci default NULL,
   `FALTA` char(1) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`id`),

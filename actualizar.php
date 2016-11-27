@@ -791,3 +791,24 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ampliación campos de asignaturas y cursos', NOW())");
 }
+
+
+/*
+ @descripcion: Sustitución de no_prof por c_prof en FALTAS
+ @fecha: 27 de noviembre de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Sustitución de no_prof en FALTAS'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE `FALTAS` CHANGE `PROFESOR` `PROFESOR` INT(7) NULL DEFAULT NULL");
+
+	$hor0 = mysqli_query($db_con, "select distinct no_prof, c_prof from horw");
+	while($hor_profe0 = mysqli_fetch_array($hor0)){
+	mysqli_query($db_con,"update FALTAS set profesor='$hor_profe0[1]' where profesor='$hor_profe0[0]'");
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Sustitución de no_prof en FALTAS', NOW())");
+}
+
+

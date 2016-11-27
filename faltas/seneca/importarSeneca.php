@@ -149,23 +149,23 @@ if (isset($_POST['submit'])) {
 						for ($i=1; $i < 6; $i++) {
 
 							// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
-							$result = mysqli_query($db_con, "SELECT no_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
+							$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
 							$codasig="";
 							$nprofesor="";
 							while ($row = mysqli_fetch_assoc($result)) {
 								$cod_orig=$row['c_asig'];
-								$prof_orig=$row['no_prof'];
+								$prof_orig=$row['c_prof'];
 								
 								if(in_array($row['c_asig'], $asignaturas)) {
-									$nprofesor = $row['no_prof'];
+									$nprofesor = $row['c_prof'];
 									$codasig = $row['c_asig'];
 								}
 								elseif ($row['c_asig']=="2") {
-									$nprofesor = $row['no_prof'];
+									$nprofesor = $row['c_prof'];
 									$codasig = "2";
 								}
 								elseif ($row['c_asig']=="21") {
-									$nprofesor = $row['no_prof'];
+									$nprofesor = $row['c_prof'];
 									$codasig = "21";
 								}
 							}
@@ -183,24 +183,24 @@ if (isset($_POST['submit'])) {
 					}
 					else {
 						// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
-						$result = mysqli_query($db_con, "SELECT no_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$hora_tramo' AND a_grupo like '$T_NOMBRE%'");
+						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$hora_tramo' AND a_grupo like '$T_NOMBRE%'");
 						$codasig="";
 						$nprofesor="";
 						
 						while ($row = mysqli_fetch_assoc($result)) {
 							$cod_orig=$row['c_asig'];
-							$prof_orig=$row['no_prof'];
+							$prof_orig=$row['c_prof'];
 								
 							if(in_array($row['c_asig'], $asignaturas)) {
-								$nprofesor = $row['no_prof'];
+								$nprofesor = $row['c_prof'];
 								$codasig = $row['c_asig'];
 							}
 							elseif ($row['c_asig']=="2") {
-								$nprofesor = $row['no_prof'];
+								$nprofesor = $row['c_prof'];
 								$codasig = "2";
 							}
 							elseif ($row['c_asig']=="21") {
-								$nprofesor = $row['no_prof'];
+								$nprofesor = $row['c_prof'];
 								$codasig = "21";
 							}
 							

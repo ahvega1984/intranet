@@ -8,8 +8,8 @@
 <div class="col-sm-4"><?php
 if(is_numeric($profesor))
 {
-	$nombre_p=mysqli_query($db_con, "select distinct prof from horw where no_prof = '$profesor'");
-	echo "select distinct prof from horw where no_prof = '$profesor'";
+	$nombre_p=mysqli_query($db_con, "select distinct prof from horw where c_prof = '$profesor'");
+	echo "select distinct prof from horw where c_prof = '$profesor'";
 	$nombre_pr = mysqli_fetch_array($nombre_p);
 	$n_profe=$profesor."_ ".$nombre_pr[0];
 }
@@ -39,7 +39,7 @@ if(empty($profesor)){
 	echo "<OPTION>";
 	echo "</OPTION>";
 	// Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-	$profe = mysqli_query($db_con, "SELECT distinct prof, no_prof FROM horw order by prof asc");
+	$profe = mysqli_query($db_con, "SELECT distinct prof, c_prof FROM horw order by prof asc");
 	while($filaprofe = mysqli_fetch_array($profe)) {
 		$n_p+=1;
 		echo '<OPTION value="'.$filaprofe[1].'_ '.$filaprofe[0].'">'.$filaprofe[1].'_ '.nomprofesor($filaprofe[0]).'</OPTION>';

@@ -589,9 +589,9 @@ include("cuaderno/menu_cuaderno.php");
 								?>
 					<?php if ($config['mod_asistencia']) { ?>
 					<td style='vertical-align: middle; height: 74px !important;'><?php 
-					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
+					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
 
-					$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='J'");
+					$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='J'");
 					$f_faltaT = mysqli_num_rows($faltaT_F);
 					$f_justiT = mysqli_num_rows($faltaT_J);
 					?> <span class="label label-danger" data-bs='tooltip'

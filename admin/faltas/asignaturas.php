@@ -24,7 +24,7 @@ $asignatura = $tr[0];
 $grupo = $tr[1];
 $nivel = $tr[2];
 //echo "$asignatura --> $grupo --> $nivel<br>";
-$SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ), FALTAS.nc from FALTAS, FALUMNOS where FALTAS.claveal = FALUMNOS.claveal and codasi like (select distinct codigo from asignaturas where nombre = '$asignatura' and curso = '$nivel' and abrev not like '%\_%') and FALTAS.unidad = '$grupo' and profesor like (select distinct no_prof from horw where prof = '$profe') and falta='F' group by FALTAS.nc order BY FALTAS.nc";
+$SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ), FALTAS.nc from FALTAS, FALUMNOS where FALTAS.claveal = FALUMNOS.claveal and codasi like (select distinct codigo from asignaturas where nombre = '$asignatura' and curso = '$nivel' and abrev not like '%\_%') and FALTAS.unidad = '$grupo' and profesor like (select distinct c_prof from horw where prof = '$profe') and falta='F' group by FALTAS.nc order BY FALTAS.nc";
 
 $result = mysqli_query($db_con, $SQL);
 if ($result) {

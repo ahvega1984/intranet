@@ -129,7 +129,7 @@ else
 								$combasi=rtrim($unica1[0]);
 								$comb_asi=explode(':', $combasi);
 								//echo $combasi."<br>";
-								$codasi10 = "select prof, a_asig, c_asig, no_prof from horw_faltas where a_grupo like '%$unidad%' and dia = '$num_dia' and hora = '$i'";
+								$codasi10 = "select prof, a_asig, c_asig, c_prof from horw_faltas where a_grupo like '%$unidad%' and dia = '$num_dia' and hora = '$i'";
 								$codasi0 = mysqli_query($db_con, $codasi10);
 								while ($codasi1 = mysqli_fetch_row($codasi0)) {
 									$cod_orig = $codasi1[2];

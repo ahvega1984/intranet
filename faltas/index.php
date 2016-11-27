@@ -7,10 +7,10 @@ if (isset($_POST['profe_ausente'])) {$profe_ausente = $_POST['profe_ausente'];}e
 
 $pr = $_SESSION['profi'];
 
-$prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
+$prof1 = "SELECT distinct c_prof FROM horw where prof = '$pr'";
 $prof0 = mysqli_query($db_con, $prof1);
 $filaprof0 = mysqli_fetch_array($prof0);
-$no_prof = $filaprof0[0];
+$c_prof = $filaprof0[0];
 
 if(empty($hora_dia)){
 	$hora = date("G");// hora ahora
@@ -198,17 +198,17 @@ Fuera de horario escolar</h2>
 }
 elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_guardia']){
 	//echo "Tarari";
-	$prof2 = "SELECT distinct no_prof, prof FROM horw where prof = '".$_POST['profe_ausente']."'";
+	$prof2 = "SELECT distinct c_prof, prof FROM horw where prof = '".$_POST['profe_ausente']."'";
 	$prof20 = mysqli_query($db_con, $prof2);
 	$filaprof2 = mysqli_fetch_array($prof20);
-	$no_prof = $filaprof2[0];
+	$c_prof = $filaprof2[0];
 	$profesor_ausente = $filaprof2[1];
-	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 }
 else{
-	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
@@ -252,7 +252,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		$asignat="";
 		$cod_asig_bach="";
 		// Cursos con dos códigos distintos de una misma asignatura o Bachillerato.
-		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'");
+		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'");
 		$asig_bch = mysqli_fetch_array($n_bach);
 		$asignat = $asig_bch[0];
 
@@ -276,7 +276,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		}		
 	//}
 	/*else{
-	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'";
+	$n_curs10 = "select distinct c_asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'";
 	echo $n_curs10;
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
@@ -438,9 +438,9 @@ while($hora2 = mysqli_fetch_row($hora0))
 				echo "</span></label></td>";
 				?>
 <td><?php 
-$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
+$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
 
-$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
+$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
 $f_faltaT = mysqli_num_rows($faltaT_F);
 $f_justiT = mysqli_num_rows($faltaT_J);
 ?>
@@ -461,7 +461,7 @@ echo "</tr>";
 	echo '</table>';
 }
 echo '<input name="nprofe" type="hidden" value="';
-echo $no_prof;
+echo $c_prof;
 echo '" />';
 // Hora escolar
 echo '<input name="hora" type="hidden" value="';

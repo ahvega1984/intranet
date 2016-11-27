@@ -83,7 +83,7 @@ while ($fl = mysqli_fetch_array($prof_flt)) {
       else{
           $dia=date('w', strtotime($nrec[1]));
           $num_profes="";
-              $prf = mysqli_query($db_con, "SELECT distinct no_prof, c_asig FROM horw where dia = '$dia' and hora = '$i' and a_grupo = (select unidad from alma where claveal = '$nrec[0]')");
+              $prf = mysqli_query($db_con, "SELECT distinct c_prof, c_asig FROM horw where dia = '$dia' and hora = '$i' and a_grupo = (select unidad from alma where claveal = '$nrec[0]')");
 
               $num_profes = mysqli_num_rows($prf);
                 while($prfe = mysqli_fetch_array($prf)){
@@ -105,7 +105,7 @@ while ($fl = mysqli_fetch_array($prof_flt)) {
       </thead>
   <tbody>
 <?php 
-$nom_profe = mysqli_query($db_con,"select distinct prof, no_prof from horw order by no_prof");
+$nom_profe = mysqli_query($db_con,"select distinct prof, c_prof from horw order by no_prof");
 while ($nombre_profe=mysqli_fetch_array($nom_profe)) {
 
 $veces="";

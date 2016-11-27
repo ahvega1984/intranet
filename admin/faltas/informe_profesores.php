@@ -61,14 +61,14 @@ include("../../faltas/menu.php");
 			          $extra_total="";
 			          $extra_pr_gr="";
 			
-			          $no_profe = $fprofe[0];
+			          $c_prof = $fprofe[0];
 			          $numero_faltas = $fprofe[1];
 			
-			          $nombre = mysqli_query($db_con, "SELECT prof FROM horw where no_prof = '$no_profe'");
+			          $nombre = mysqli_query($db_con, "SELECT prof FROM horw where c_prof = '$c_prof'");
 			          $nombre_profe = mysqli_fetch_array($nombre);
 			          $nombre_profesor = $nombre_profe[0];
 			
-			          $grupos = mysqli_query($db_con, "SELECT distinct a_grupo, c_asig FROM horw where no_prof = '$no_profe' and a_grupo in (select distinct grupo from profesores where profesor = '$nombre_profesor')");
+			          $grupos = mysqli_query($db_con, "SELECT distinct a_grupo, c_asig FROM horw where c_prof = '$c_prof' and a_grupo in (select distinct grupo from profesores where profesor = '$nombre_profesor')");
 			          $n_grupos = mysqli_num_rows($grupos);
 			          while ($asig_al = mysqli_fetch_array($grupos)) {
 			
@@ -87,7 +87,7 @@ include("../../faltas/menu.php");
 			            $alumnos_profesor+=round($alumno_total/$profesores_asig);
 			            //echo "$asig_al[0] -> $asig_al[1]: $alumno_total - $alumnos_profesor<br>";
 			
-			            $pr_gr = mysqli_query($db_con, "SELECT * FROM FALTAS where profesor = '$no_profe' and unidad = '$asig_al[0]'");
+			            $pr_gr = mysqli_query($db_con, "SELECT * FROM FALTAS where profesor = '$c_prof' and unidad = '$asig_al[0]'");
 			            $extra_pr_gr = mysqli_num_rows($pr_gr);
 			
 			            $extra_profe.="<b>$asig_al[0]</b> ($asignatu[1]) ($alumno_total) => <span class='text-info'>$extra_pr_gr</span><br>";
@@ -107,7 +107,7 @@ include("../../faltas/menu.php");
 			
 			          $media_al = round($numero_faltas/$alumnos_profesor);
 			
-			          echo "<tr><td>$no_profe. $nombre_profesor </td> <td>Faltas: <b>$numero_faltas</b><br>Alumnos: <b>$alumnos_profesor</b><br>Media Alumno/Falta: <b>$media_al</b></td> <td data-bs='tooltip' data-html='true' title='$unidades'>$n_grupos</td><td>$extra_profe</td> <td>$extra_total</td></tr>";
+			          echo "<tr><td>$nombre_profesor </td> <td>Faltas: <b>$numero_faltas</b><br>Alumnos: <b>$alumnos_profesor</b><br>Media Alumno/Falta: <b>$media_al</b></td> <td data-bs='tooltip' data-html='true' title='$unidades'>$n_grupos</td><td>$extra_profe</td> <td>$extra_total</td></tr>";
 			        }
 				?>
 				</tbody>
