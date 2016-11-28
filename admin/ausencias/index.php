@@ -102,10 +102,10 @@ Los datos se han actualizado correctamente.
 		else{
 			$ok = 1;
 			if ($_FILES['userfile']['name'] != '') {
-				$nombre_archivo = md5($_FILES['userfile']['name'].date('Y-m-d'));
 				$tipo_archivo = $_FILES['userfile']['type'];
 				$tamano_archivo = $_FILES['userfile']['size'];
-				#esta es la extension
+				$extension = end(explode(".", $_FILES['userfile']['name']));
+				$nombre_archivo = md5($_FILES['userfile']['name'].date('Y-m-d')).'.'.$extension;
 				
 				$formatos_no_validos = array('text/php','text/javascript','text/html');
 				
