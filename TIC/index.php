@@ -45,16 +45,16 @@ if(isset($_GET['id'])) {
 // ENVIO DEL FORMULARIO
 if(isset($_POST['enviar'])) {
 	
-	$profesor = $_POST['profesor'];
-	$estado = $_POST['estado'];
-	$unidad = $_POST['unidad'];
-	$alumno = $_POST['alumno'];
-	$carrito = $_POST['carrito'];
-	$numeroserie = $_POST['numeroserie'];
+	$profesor = mysqli_real_escape_string($db_con, $_POST['profesor']);
+	$estado = mysqli_real_escape_string($db_con, $_POST['estado']);
+	$unidad = mysqli_real_escape_string($db_con, $_POST['unidad']);
+	$alumno = mysqli_real_escape_string($db_con, $_POST['alumno']);
+	$carrito = mysqli_real_escape_string($db_con, $_POST['carrito']);
+	$numeroserie = mysqli_real_escape_string($db_con, $_POST['numeroserie']);
 	$exp_fecha = explode('-', $_POST['fecha_inc']);
 	$fecha_sql = $exp_fecha[2].'-'.$exp_fecha[1].'-'.$exp_fecha[0];
-	$hora = $_POST['hora'];
-	$descripcion = $_POST['descripcion'];
+	$hora = mysqli_real_escape_string($db_con, $_POST['hora']);
+	$descripcion = mysqli_real_escape_string($db_con, $_POST['descripcion']);
 	
 	if(empty($descripcion) || strlen(trim($descripcion))<8) { 
 		$msg_error = 'El campo de descripción de la incidencia es obligatorio.';
