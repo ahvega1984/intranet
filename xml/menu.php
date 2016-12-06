@@ -2,11 +2,11 @@
 
 <ul class="nav nav-pills nav-stacked">
 	
-	<? if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE): ?>
+	<?php if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE): ?>
 	<!-- CONFIGURACIÓN -->
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
-	<? endif;?>
+	<?php endif;?>
 	
 	<!-- A PRINCIPIO DE CURSO -->
 	<li class="nav-header">A principio de curso...</li>
@@ -85,7 +85,7 @@
 	<li class="nav-header">Sistema de Reservas</li> 
 	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li>
 	
-	<? if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE):?>
+	<?php if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE):?>
 	<li class="nav-header">Bases de datos</li>
 	<li><a href="../config/config_datos.php">Bases de datos de cursos anteriores</a></li>
 	<li><a href="jefe/copia_db/index.php">Copias de seguridad</a></li>

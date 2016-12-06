@@ -39,10 +39,12 @@ include '../../menu.php';
 			// Copia de Seguridad
 			mysqli_query($db_con, "DROP TABLE alma_seg") ;
 			mysqli_query($db_con, "create table alma_seg select * from alma");
+			mysqli_query($db_con,"drop table alma");
+			
 			// Copia de Seguridad 2
 			mysqli_query($db_con, "DROP TABLE FALUMNOS_seg") ;
 			mysqli_query($db_con, "create table FALUMNOS_seg select * from FALUMNOS");
-	
+			
 			// Creación de la tabla alma
 			$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,

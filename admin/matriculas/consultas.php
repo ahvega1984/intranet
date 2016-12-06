@@ -366,14 +366,14 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	else{
 		if ($curso) {
 			?>
-<h3 align=center><? if($_POST['grupo_actua']){ 
+<h3 align=center><?php if($_POST['grupo_actua']){ 
 	echo $curso." ";
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 		echo $grup_actua." ";
 	}
 } else{ echo $curso;}?></h3>
 <br />
-<form action="consultas.php?curso=<? echo $curso;?>&consulta=1"
+<form action="consultas.php?curso=<?php echo $curso;?>&consulta=1"
 	name="form1" method="post">
 <table class="table table-striped table-condensed" align="center"
 	style="width: auto">
@@ -893,7 +893,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	}
 	?>
 		</div>
-		<? include("../../pie.php"); ?>
+		<?php include("../../pie.php"); ?>
 		<script language="javascript">
 		 if (document.form2.curso.value=="1ESO"){ 
 			 document.form2.itinerari.disabled = true; 

@@ -156,9 +156,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
           <div class="col-sm-3">
             
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'F' AND FALUMNOS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'F' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'F' AND FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'F' AND FALTAS.claveal = '$claveal'"); ?>
             <?php endif; ?>
 
             <?php $total = 0; ?>
@@ -177,9 +177,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
           
           <div class="col-sm-3">
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'J' AND FALUMNOS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'J' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'J' AND  FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'J' AND  FALTAS.claveal = '$claveal'"); ?>
             <?php endif; ?>
 
             <?php $total = 0; ?>
@@ -198,9 +198,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
 
           <div class="col-sm-3">
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'R' AND FALUMNOS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'R' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'R' AND FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'R' AND FALTAS.claveal = '$claveal'"); ?>
             <?php endif; ?>
 
             <?php $total = 0; ?>
@@ -219,9 +219,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
           
           <div class="col-sm-3">
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where FALTAS.falta = 'F' and  FALTAS.claveal = $claveal AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' group by FALTAS.fecha"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where  FALTAS.falta = 'F' and  FALTAS.claveal = $claveal group by FALTAS.fecha"); ?>
             <?php endif; ?>
             <?php $total = 0; ?>
             <?php $total = mysqli_num_rows($result); ?>

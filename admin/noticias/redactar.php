@@ -32,7 +32,7 @@ if (isset($_POST['enviar'])) {
 		}
 		else {
 			
-			if ($ndias == 0) $fechafin = '0000-00-00';
+			if ($ndias == 0) $fechafin = '2100-01-01';
 			else $fechafin = date("Y-m-d", strtotime("$fecha_pub +$ndias days"));
 			
 			if(empty($intranet) && empty($principal)) {

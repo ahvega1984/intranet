@@ -17,7 +17,7 @@ include("../../menu.php");
 		<h2 style="display: inline;"><?php echo $aula; ?> <small>Consulta de horario</small></h2>
 		
 		<form class="pull-right col-sm-2" method="post" action="">
-			<?php $result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY a_aula ASC"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
 			<select class="form-control" id="aula" name="aula" onChange="submit()">
 				<?php while($row = mysqli_fetch_array($result)): ?>
 				<option value="<?php echo $row['n_aula']; ?>" <?php echo ($row['n_aula'] == $aula) ? 'selected' : ''; ?>><?php echo $row['n_aula']; ?></option>

@@ -302,7 +302,7 @@ include ("../menu.php");
 			?> /></td>
 
 			<td class="text-center">
-			<input type="tel" class="form-control input-sm" name="<?php echo $dni; ?>14" value="<? echo $telefono; ?>" style="width:100px" min="9" max="9"/>
+			<input type="tel" class="form-control input-sm" name="<?php echo $dni; ?>14" value="<?php echo $telefono; ?>" style="width:100px" min="9" max="9"/>
 			</td>
 
 			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?php echo $dni;?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-lg fa-fw"></span></a></td>

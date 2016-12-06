@@ -30,55 +30,32 @@ $imprimir_activado = true;
         echo "<thead><tr><th width=\"60\"></th><th>Alumno</th><th>Curso</th>
         <th nowrap>Nº faltas</th><th nowrap>Nº días</th></tr></thead><tbody>";
 
-// Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
-  $SQLTEMP = "create table temp SELECT CLAVEAL, falta, (count(*)) AS numero, unidad, nc FROM FALTAS where falta = 'F' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'  group by claveal";
-  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
-  mysqli_query($db_con, "ALTER TABLE temp ADD INDEX (CLAVEAL)");
-  $SQL0 = "SELECT CLAVEAL  FROM  temp WHERE falta = 'F' and numero > '$numero' order by unidad";
-  //echo $SQL0;
-  $result0 = mysqli_query($db_con, $SQL0);
- while  ($row0 = mysqli_fetch_array($result0)){
-$claveal = $row0[0];
-// No justificadas
-  $SQLF = "select temp.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
-  FALTAS.falta,  temp.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD  
-  from temp, FALTAS, alma where alma.claveal = FALTAS.claveal  
-  and temp.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
-  and FALTAS.falta = 'F' GROUP BY alma.apellidos";
-  //echo $SQLF;
-  $resultF = mysqli_query($db_con, $SQLF);	
+//inicio codigo
+  $SQLTEMP2 = "select CLAVEAL, nombre, apellidos, unidad, count(*) AS dias, sum(numero) as faltas from (SELECT FALTAS.CLAVEAL, nombre, apellidos, FALTAS.unidad, FALTAS.fecha, (count(*)) AS numero FROM FALTAS, alma where alma.claveal = FALTAS.claveal and falta = 'F' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'  group by FALTAS.claveal, FALTAS.unidad, FALTAS.fecha, nombre, apellidos) as p group by CLAVEAL, unidad, nombre, apellidos  having faltas > $numero";  
+  $resultTEMP= mysqli_query($db_con, $SQLTEMP2);
+
 //Fecha del día
 $fhoy=getdate();
 $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
-// Bucle de Consulta.
-  if ($rowF = mysqli_fetch_array($resultF))
-        {
-	echo "<tr><td>";
-	$foto = '../../xml/fotos/'.$rowF[0].'.jpg';
-	if (file_exists($foto)) {
-		echo '<img src="'.$foto.'" width="55" alt="" />';
-	}
-	else {
-		echo '<span class="fa fa-user fa-fw fa-3x"></span>';
-	}
-	echo "</td><td>";
-	echo "$rowF[2] $rowF[1]</td><td>$rowF[3]</td>
-	<td><strong style='color:#9d261d'>$rowF[6]</strong></td>";
-# Segunda parte.
 
-  $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL like '$claveal' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'";
- // print $SQL2;
-  $result2 = mysqli_query($db_con, $SQL2);
-  $rowsql = mysqli_num_rows($result2);
-//  print $rowsql;
-  echo "<td><strong style='color:#46a546'>$rowsql</strong></td></tr>";
-//  	endwhile;
-	}     
-	}
-       
-// Eliminar Tabla temporal
- mysqli_query($db_con, "DROP table `temp`");
-  ?>
+while  ($row0 = mysqli_fetch_array($resultTEMP)){
+    $claveal = $row0[0];
+    echo "<tr><td>";
+    $foto = '../../xml/fotos/'.$row0[0].'.jpg';
+    if (file_exists($foto)) {
+        echo '<img src="'.$foto.'" width="55" alt="" />';
+    }
+    else {
+        echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+    }
+    echo "</td><td>";
+    echo "$row0[1] $row0[2]</td><td>$row0[3]</td>
+    <td><strong style='color:#9d261d'>$row0[5]</strong></td>";
+    echo "<td><strong style='color:#46a546'>$row0[4]</strong></td></tr>";
+    }
+//fin codigo a modificar
+
+?>
 </tbody>
 </table>
 </div>

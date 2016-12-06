@@ -1222,7 +1222,7 @@ CREATE TABLE IF NOT EXISTS `materias` (
   `ABREV` varchar(10) collate latin1_spanish_ci default NULL,
   `CURSO` varchar(128) collate latin1_spanish_ci default NULL,
   `GRUPO` varchar(6) collate latin1_spanish_ci default NULL,
-  `id` int(11) NOT NULL default '0',
+  `id` int(11) NOT NULL,
   PRIMARY KEY (`CODIGO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -2119,7 +2119,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 DROP TABLE IF EXISTS `usuarioalumno`;
 CREATE TABLE IF NOT EXISTS `usuarioalumno` (
-  `usuario` varchar(18) collate latin1_spanish_ci default NULL,
+  `usuario` varchar(18) collate latin1_spanish_ci NOT NULL,
   `pass` varchar(16) collate latin1_spanish_ci NOT NULL default '',
   `nombre` varchar(48) collate latin1_spanish_ci default NULL,
   `perfil` char(1) collate latin1_spanish_ci NOT NULL default '',
@@ -2137,7 +2137,7 @@ CREATE TABLE IF NOT EXISTS `usuarioalumno` (
 
 DROP TABLE IF EXISTS `usuarioprofesor`;
 CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
-  `usuario` varchar(16) default NULL,
+  `usuario` varchar(16) NOT NULL,
   `nombre` varchar(64) default NULL,
   `perfil` varchar(10) default NULL,
   PRIMARY KEY (`usuario`)

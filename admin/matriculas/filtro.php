@@ -16,7 +16,7 @@ if ($n>2) {
 <div class="form-group" align="left">
 <label>Selecciona Nivel&nbsp;</label>
 <select class="form-control" name="curso" id="curso" onChange="submit()">
-	<option><? echo $curso;?></option>
+	<option><?php echo $curso;?></option>
 	<option>1ESO</option>
 	<option>2ESO</option>
 	<option>3ESO</option>
@@ -63,7 +63,7 @@ echo "".$tipo20[0]."</label></div>";
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="avanzado" class="panel-collapse collapse<? echo $mostrar_filtro;?>">
+			    <div id="avanzado" class="panel-collapse collapse<?php echo $mostrar_filtro;?>">
 			      <div class="panel-body">
 <div class="row">
 <div class="col-sm-3">
@@ -99,7 +99,7 @@ echo "".$tipo20[0]."</label></div>";
 </div>
 <div class="col-sm-3">
 <div class="form-group"><label>Bilinguismo </label><select name="bilinguism" class="form-control" >
-		<? if ($bilinguism) {
+		<?php if ($bilinguism) {
 			echo "<option>$bilinguism</option>";
 		}
 		?>
@@ -347,7 +347,7 @@ echo "".$tipo20[0]."</label></div>";
 </div>
 <div class="col-sm-3">
 <div class="form-group"><label align=center>Problemas de Convivencia </label><select name="fechori" class="form-control" >
-		<? if ($fechori) {
+		<?php if ($fechori) {
 			echo "<option>$fechori</option>";
 		}
 		?>

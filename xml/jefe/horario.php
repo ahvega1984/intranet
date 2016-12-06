@@ -91,7 +91,7 @@ else {
 					  `prof` varchar(50) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `no_prof` tinyint(4) DEFAULT NULL,
 					  `c_prof` varchar(30) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
-					  `a_aula` varchar(5) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+					  `a_aula` varchar(32) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `n_aula` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `a_grupo` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `clase` varchar(16) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',

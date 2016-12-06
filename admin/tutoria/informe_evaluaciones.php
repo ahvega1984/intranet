@@ -352,24 +352,46 @@ echo "<input type='text' class='form-control input-sm' style='width:50px' maxlen
 <?php
 }
 ?>						
-			<td>
-			<?php
-			$pendiente="";
-			$pend = mysqli_query($db_con,"select distinct pendientes.codigo, abrev from pendientes, asignaturas where pendientes.codigo=asignaturas.codigo and abrev like '%\_%' and claveal = '".$row['claveal']."'");
-			while ($pendi = mysqli_fetch_row($pend)) {
-				$pendiente.= $pendi[1]." ";
-			}
-			echo "<span class='text-danger'><small>$pendiente</small></span>";
-			?>
-			</td>
-			
-			<td>
+	<td>
+	<?php
+	$pendiente="";
+	$pend = mysqli_query($db_con,"select distinct pendientes.codigo, abrev from pendientes, asignaturas where pendientes.codigo=asignaturas.codigo and abrev like '%\_%' and claveal = '".$row['claveal']."'");
+	while ($pendi = mysqli_fetch_row($pend)) {
+		$pendiente.= $pendi[1]." ";
+	}
+	echo "<span class='text-danger'><small>$pendiente</small></span>";
+	?>
+	</td>
+	
+	<td>
 <?php
 $obs_extra = "";			
-$chk44 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'obs'");
+$chk44 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'obs' order by id asc");
 if (mysqli_num_rows($chk44)>0) {
+	
+	$actual0 ="";
+	$anterior0 ="";
+
 	while($obs00 = mysqli_fetch_array($chk44)){
-	$obs_extra.="<p align=left>$obs00[2]<br>$obs00[1]:<br>$obs00[0]<p>";
+
+		if ($obs00[2] == $curso) {
+			if ($actual0 <> '1') {
+				$actual0 = '1';
+				$obs_extra.="<h4>Curso actual</h4><p align=left><b>$obs00[2]</b><br><em>$obs00[1]</em>:<br>$obs00[0]<p>";
+				}
+			else{
+				$obs_extra.="<p align=left><b>$obs00[2]</b><br><em>$obs00[1]</em>:<br>$obs00[0]<p>";
+				}
+		}
+		else{
+			if ($anterior0 <> '1'){
+				$anterior0 = '1';
+				$obs_extra.="<hr><h4 class='text-muted'>Cursos anteriores</h4><p align=left class='text-muted'><b>$obs00[2]</b><br><em>$obs00[1]</em>:<br>$obs00[0]<p>";
+			}	
+			else{
+				$obs_extra.="<p align=left class='text-muted'><b>$obs00[2]</b><br><em>$obs00[1]</em>:<br>$obs00[0]<p>";
+			}
+		}
 	}
 }
 
@@ -380,18 +402,40 @@ if (mysqli_num_rows($chk4)>0) {
 	$obs = $obs0[0];
 }
 ?>
-			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<?php echo $obs_extra;?>"><?php echo $obs; ?></textarea>
-			</td>
+	<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-placement="left" data-html="true" title="<?php echo $obs_extra;?>"><?php echo $obs; ?></textarea>
+	</td>
+
 <?php if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 <td>			
 <?php
 $ori_extra = "";			
-$chk55 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'ori'");
+$chk55 = mysqli_query($db_con, "select valor, evaluacion, unidad from evalua_tutoria where alumno = '".$row['claveal']."' and campo = 'ori' order by id asc");
 if (mysqli_num_rows($chk55)>0) {
+	$actual ="";
+	$anterior ="";
 	while($ori00 = mysqli_fetch_array($chk55)){
-	$ori_extra.="<p align=left>$ori00[2]<br>$ori00[1]:<br>$ori00[0]<p>";
+		if ($ori00[2] == $curso) {
+			if ($actual <> '1') {
+				$actual = '1';
+				$ori_extra.="<h4>Curso actual</h4><p align=left><b>$ori00[2]</b><br><em>$ori00[1]</em>:<br>$ori00[0]<p>";
+				}
+			else{
+				$ori_extra.="<p align=left><b>$ori00[2]</b><br><em>$ori00[1]</em>:<br>$ori00[0]<p>";
+				}
+		}
+		else{
+			if ($anterior <> '1'){
+				$anterior = '1';
+				$ori_extra.="<hr><h4 class='text-muted'>Cursos anteriores</h4><p align=left class='text-muted'><b>$ori00[2]</b><br><em>$ori00[1]</em>:<br>$ori00[0]<p>";
+			}	
+			else{
+				$ori_extra.="<p align=left class='text-muted'><b>$ori00[2]</b><br><em>$ori00[1]</em>:<br>$ori00[0]<p>";
+			}
+		}
+	
 	}
 }
+
 
 $ori = "";			
 $chk5 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'ori'");
@@ -400,7 +444,7 @@ if (mysqli_num_rows($chk5)>0) {
 	$ori = $ori0[0];
 }
 ?>			
-			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<?php echo $ori_extra;?>"><?php echo $ori; ?></textarea>
+			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-placement="left" data-html="true" title="<?php echo $ori_extra;?>"><?php echo $ori; ?></textarea>
 			</td>
 			<td nowrap>
 			<div class="form-group">
@@ -487,7 +531,7 @@ if (mysqli_num_rows($chk8)>0) {
 		<?php endwhile; ?>
 		<tr>
 			<td colspan='2'>
-				<b>Observaciones generales sobre la <? echo $evaluacion; ?></b>
+				<b>Observaciones generales sobre la <?php echo $evaluacion; ?></b>
 			</td>
 			<td colspan='9'>
 

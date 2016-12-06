@@ -364,7 +364,7 @@ $page_header = "Redactar mensaje";
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profeso[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['idea']; ?>;<? echo $row['nombre']; ?>" <?php echo (isset($origen) && mb_strtoupper($origen) == mb_strtoupper($row['idea'])) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+								<option value="<?php echo $row['idea']; ?>;<?php echo $row['nombre']; ?>" <?php echo (isset($origen) && mb_strtoupper($origen) == mb_strtoupper($row['idea'])) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
