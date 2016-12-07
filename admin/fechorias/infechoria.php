@@ -91,7 +91,7 @@ if (isset($_GET['nombre'])) { $nombre = $_GET['nombre'];}elseif (isset($_POST['n
 if (isset($_GET['claveal'])) { $claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) { $claveal = $_POST['claveal'];}
 
 $notas = $_POST['notas']; $grave = $_POST['grave']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula']; $confirmado = $_POST['confirmado'];
-
+if ($expulsionaula == ''){ $expulsionaula = 0;}
 if ($_POST['grave']=="muy grave" and ($_POST['asunto']=="" or isset($id)) and $_POST['submit1']=="" and $_POST['submit2']=="" and stristr($_SESSION['cargo'],'1') == FALSE) {
 ?>
 <div id="muy_grave" class="modal fade" tabindex="-1" role="dialog">

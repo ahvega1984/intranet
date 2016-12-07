@@ -60,7 +60,7 @@
 	
 	<div class="col-sm-3">
 		
-		<?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+		<?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where FALTAS.falta = 'F' and  FALTAS.claveal = $claveal order by FALTAS.fecha"); ?>
 		<?php $total = 0; ?>
 		<?php $total = mysqli_num_rows($result); ?>
 		

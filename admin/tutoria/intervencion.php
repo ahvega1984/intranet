@@ -260,7 +260,7 @@ include("menu.php");
 								<div class="col-sm-7">
 									<div class="form-group">
 									  <label for="alumno">Alumno/a</label>
-									  <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY NC ASC"); ?>
+									  <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal, NC FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY NC ASC"); ?>
 									  <?php if(mysqli_num_rows($result)): ?>
 									  <select class="form-control" id="alumno" name="alumno" onchange="submit()">
 									  	<option value="Todos, todos">Todos los Alumnos</option>

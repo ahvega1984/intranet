@@ -34,7 +34,7 @@ include("../../faltas/menu.php");
   <div class="col-md-10 col-md-offset-1">
 <?php 
 $nm=0;
-$crs = mysqli_query($db_con,"select distinct nomcurso, unidades.idcurso from unidades, cursos where unidades.idcurso=cursos.idcurso order by idunidad");
+$crs = mysqli_query($db_con,"select distinct nomcurso, unidades.idcurso from unidades, cursos where unidades.idcurso=cursos.idcurso order by idcurso");
 while ($curs = mysqli_fetch_array($crs)) {
 
 $curso=$curs[0];
@@ -52,7 +52,7 @@ $idcurso=$curs[1];
   <tbody>
 <?php
 
-$unidades = mysqli_query($db_con, "select nomunidad from unidades where idcurso = '$idcurso' order by idunidad");
+$unidades = mysqli_query($db_con, "select nomunidad from unidades where idcurso = '$idcurso' order by idcurso");
 while ($grp = mysqli_fetch_array($unidades)) {
 
   $unidad = $grp[0];
