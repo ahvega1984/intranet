@@ -100,8 +100,8 @@ $n = count($asignaturas1);
     }
    
 // Buscamos las faltas del profesor en esa semana y las clavamos en los campos de NC.
-    $faltas10 = "select NC from FALTAS where FECHA = '$fechanc0' and FALTA = 'F' and HORA = '$n_hora' and unidad = '$curso_con' and codasi='$rowasignaturas1[0]' order by NC asc";	
-    //echo $faltas10;
+    $faltas10 = "select NC from FALTAS where FECHA = '$fechanc0' and PROFESOR = '$id' and FALTA = 'F' and HORA = '$n_hora' and unidad = '$curso_con' and codasi='$rowasignaturas1[0]' order by NC asc";	
+    // echo $faltas10;
     $faltas11 = mysqli_query($db_con, $faltas10);
     $faltas13 = "";
     while($faltas12 = mysqli_fetch_array($faltas11))
