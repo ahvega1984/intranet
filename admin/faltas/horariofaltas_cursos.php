@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4');
+$pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $options_center = array(
