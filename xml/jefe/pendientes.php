@@ -24,7 +24,7 @@ $trozos1 = explode(":", $combasi);
 $nombreasig = "select NOMBRE, ABREV, CURSO, CODIGO from asignaturas where CODIGO = '" . $asig . "' and curso = '$curso' and abrev like '%\_%'";
 $asig2 = mysqli_query($db_con, $nombreasig);
 if (mysqli_num_rows($asig2)>0) {
-	$cod = "INSERT INTO pendientes VALUES ('', '$claveal', '$asig', '$unidad')";	
+	$cod = "INSERT INTO pendientes (claveal, codigo, grupo) VALUES ('$claveal', '$asig', '$unidad')";	
 	mysqli_query($db_con, $cod);
 }
   }	
