@@ -303,11 +303,13 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'admin/fechorias/convivencia_jefes.php',
 						'titulo' => 'Aula de convivencia',
+						'modulo' => $config['mod_convivencia'],
 						'cargos' => array('1'),
 					),
 					array(
 						'href'   => 'admin/fechorias/convivencia.php',
 						'titulo' => 'Aula de convivencia',
+						'modulo' => $config['mod_convivencia'],
 						'cargos' => array('b'),
 						'ncargos' => array('1'),
 					)

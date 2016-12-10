@@ -84,6 +84,8 @@ if (isset($_POST['config']))
 	
 	(isset($_POST['mod_horarios'])) ? $modulo_horarios = 1 : $modulo_horarios = 0;
 	
+	(isset($_POST['mod_convivencia'])) ? $modulo_convivencia = 1 : $modulo_convivencia = 0;
+
 	(isset($_POST['mod_matriculacion'])) ? $modulo_matriculacion = 1 : $modulo_matriculacion = 0;
 	(isset($_POST['mod_transporte_escolar'])) ? $modulo_transporte_escolar = 1 : $modulo_transporte_escolar = 0;
 	
@@ -156,6 +158,9 @@ if (isset($_POST['config']))
 		
 		fwrite($file, "\r\n// MÓDULO: HORARIOS\r\n");
 		fwrite($file, "\$config['mod_horarios']\t\t\t= $modulo_horarios;\r\n");
+
+		fwrite($file, "\r\n// MÓDULO: AULA DE CONVIVENCIA\r\n");
+		fwrite($file, "\$config['mod_convivencia']\t\t\t= $modulo_convivencia;\r\n");
 		
 		fwrite($file, "\r\n// MÓDULO: MATRICULACIÓN\r\n");
 		fwrite($file, "\$config['mod_matriculacion']\t\t= $modulo_matriculacion;\r\n");
@@ -456,6 +461,7 @@ include('../menu.php');
 									<li><a href="#mod_notificaciones" aria-controls="mod_notificaciones" role="tab" data-toggle="tab">Notificaciones</a></li>
 									<li><a href="#mod_asistencia" aria-controls="mod_asistencia" role="tab" data-toggle="tab">Faltas de Asistencia</a></li>
 									<li><a href="#mod_horarios" aria-controls="mod_horarios" role="tab" data-toggle="tab">Horarios</a></li>
+									<li><a href="#mod_convivencia" aria-controls="mod_convivencia" role="tab" data-toggle="tab">Aula de Convivencia</a></li>
 									<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
 								</ul>
 							</div>
@@ -639,6 +645,22 @@ include('../menu.php');
 								    			<input type="checkbox" id="check_horarios" name="mod_horarios" value="1" <?php echo (isset($config['mod_horarios']) && $config['mod_horarios']) ? 'checked' : ''; ?>>
 								    			<strong>Horarios</strong>
 								    			<p class="help-block">Si disponemos de un archivo de Horario en formato XML (como el que se utiliza para subir a Séneca) o DEL (como el que genera el programa Horw) para importar sus datos a la Intranet. Aunque no obligatoria, esta opción es necesaria si queremos hacernos una idea de todo lo que la aplicación puede ofrecer.</p>
+								    		</label>
+								    	</div>
+								    </div>
+							    	
+							    </div>
+
+
+							    <!-- MÓDULO: AULA DE CONVIVENCIA -->
+							    <div role="tabpanel" class="tab-pane" id="mod_convivencia">
+							    	
+							    	<div class="form-group">
+								    	<div class="checkbox">
+								    		<label>
+								    			<input type="checkbox" id="check_convivencia" name="mod_convivencia" value="1" <?php echo (isset($config['mod_convivencia']) && $config['mod_convivencia']) ? 'checked' : ''; ?>>
+								    			<strong>Aula de Convivencia</strong>
+								    			<p class="help-block">Si el Centro dispone de un <em>Aula de Convivencia</em> donde son enviados los alumnos cuando un profesor los expulsa de clase, o bien donde realizan sus tareas los alumnos con determinados problemas de conducta que han sido seleccionados por la Jefatura de Estudios. Este módulo supone que em módulo de horarios ha sido marcao y los datos del horario del Centro se han incorporado a la aplicación</p>
 								    		</label>
 								    	</div>
 								    </div>

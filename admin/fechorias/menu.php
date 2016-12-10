@@ -44,7 +44,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	$pr_conv = $_SESSION['profi'];
 	$conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr_conv'");
 	// echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
-	if (mysqli_num_rows($conv) > '0') {
+	if (mysqli_num_rows($conv) > '0' and $config['mod_convivencia']==1) {
 		?>
 	<li <?php echo $activo5;?>><a
 		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia.php">Aula
@@ -53,7 +53,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	}
 	?>
 	<?php
-	if(stristr($_SESSION['cargo'],'1') == TRUE){
+	if(stristr($_SESSION['cargo'],'1') == TRUE and $config['mod_convivencia']==1){
 		?>
 	<li <?php echo $activo5;?>><a
 		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula

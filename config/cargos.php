@@ -92,7 +92,10 @@ include ("../menu.php");
 				<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
 				<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
 		if($config['mod_bilingue']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
+
+		if ($config['mod_convivencia']==1) { 
 		$head .= '<th><span data-bs="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
+		}
 		if($config['mod_biblioteca']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
 		$head .= '<th><span data-bs="tooltip" title="Profesor encargado de las Relaciones de Género">Género</span></th>
 				  <th><span data-bs="tooltip" title="Departamento de Formacción, Innovación y Evaluación">DFEIE</span></th>
@@ -262,6 +265,7 @@ include ("../menu.php");
 			}
 			?> /></td>
 			<?php } ?>
+			<?php if ($config['mod_convivencia']==1) { ?>
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>10"
@@ -271,6 +275,8 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?> /></td>
+			<?php } ?>
+
 			<?php if($config['mod_biblioteca']) { ?>
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;

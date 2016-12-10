@@ -307,6 +307,8 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 		$hora_dia = "0";
 	}	
  ?>
+
+ <?php if ($config['mod_convivencia']==1) { ?>
  <div class="well">
     <h4>Expulsión al Aula de convivencia </h4><br>
     <form id="form2" name="form2" method="post" action="detfechorias.php" >
@@ -382,9 +384,8 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         
     </form>
     </div>
-    <?php
-}
-   ?>
+    <?php } ?>
+    <?php } ?>
    <div>
    <div class="well">
     <h4>Impresión de partes</h4><br>
@@ -402,6 +403,8 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
         <input type="submit" name="imprimir" value="Expulsi&oacute;n del Centro" class="btn btn-danger"/>
       
     </form>
+
+     <?php if ($config['mod_convivencia']==1) { ?>
     <h6>EXPULSI&Oacute;N AL AULA DE CONVIVENCIA</h6>
     
       <form id="form3" name="form3" method="post" action="imprimir/convivencia.php">
@@ -412,6 +415,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
         <input name="horas" type="hidden" value="<?php echo $horas;?>" />
         <input type="submit" name="imprimir5" value="Aula de Convivencia"  class="btn btn-danger" />
       </form>
+      <?php } ?>
         <?php
 }
    ?>
