@@ -375,7 +375,7 @@ if (mysqli_num_rows($chk44)>0) {
 	while($obs00 = mysqli_fetch_array($chk44)){
 
 		if ($obs00[2] == $curso) {
-			if ($actual0 <> '1') {
+			if ($actual0 != '1') {
 				$actual0 = '1';
 				$obs_extra.="<h4>Curso actual</h4><p align=left><b>$obs00[2]</b><br><em>$obs00[1]</em>:<br>$obs00[0]<p>";
 				}
@@ -384,7 +384,7 @@ if (mysqli_num_rows($chk44)>0) {
 				}
 		}
 		else{
-			if ($anterior0 <> '1'){
+			if ($anterior0 != '1'){
 				$anterior0 = '1';
 				$obs_extra.="<hr><h4 class='text-muted'>Cursos anteriores</h4><p align=left class='text-muted'><b>$obs00[2]</b><br><em>$obs00[1]</em>:<br>$obs00[0]<p>";
 			}	
@@ -415,7 +415,7 @@ if (mysqli_num_rows($chk55)>0) {
 	$anterior ="";
 	while($ori00 = mysqli_fetch_array($chk55)){
 		if ($ori00[2] == $curso) {
-			if ($actual <> '1') {
+			if ($actual != '1') {
 				$actual = '1';
 				$ori_extra.="<h4>Curso actual</h4><p align=left><b>$ori00[2]</b><br><em>$ori00[1]</em>:<br>$ori00[0]<p>";
 				}
@@ -424,7 +424,7 @@ if (mysqli_num_rows($chk55)>0) {
 				}
 		}
 		else{
-			if ($anterior <> '1'){
+			if ($anterior != '1'){
 				$anterior = '1';
 				$ori_extra.="<hr><h4 class='text-muted'>Cursos anteriores</h4><p align=left class='text-muted'><b>$ori00[2]</b><br><em>$ori00[1]</em>:<br>$ori00[0]<p>";
 			}	

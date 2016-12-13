@@ -7,7 +7,7 @@ if(isset($_POST["word"]))
 {
 
 	if($_POST["word"]{0}=="*"){
-		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE CONCAT(apellidos,' ',nombre) LIKE '%".substr($_POST["word"],1)."%' and CONCAT(apellidos,' ',nombre)<>'".$_POST["word"]."' OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");}
+		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE CONCAT(apellidos,' ',nombre) LIKE '%".substr($_POST["word"],1)."%' and CONCAT(apellidos,' ',nombre) <>'".$_POST["word"]."' OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");}
 	else{
 		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE (CONCAT(apellidos,' ',nombre) LIKE '%".$_POST["word"]."%' and CONCAT(apellidos,' ',nombre) like '%".$_POST["word"]."%') or (CONCAT(nombre,' ',apellidos) LIKE '%".$_POST["word"]."%' and CONCAT(nombre,' ',apellidos) like '%".$_POST["word"]."%') OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");
 	}

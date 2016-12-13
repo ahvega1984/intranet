@@ -77,9 +77,9 @@ if (isset($_POST['listOfItems'])){
 
 
 // OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
-$result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' limit 1");
+$result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' LIMIT 1");
 
-if (mysqli_num_rows($result)<>1) {
+if (! mysqli_num_rows($result)) {
 	mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
 	
 	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);

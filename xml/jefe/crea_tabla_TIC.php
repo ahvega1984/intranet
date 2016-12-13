@@ -14,7 +14,7 @@ $borrar = mysqli_query($db_con, "truncate table AsignacionMesasTIC") ;
 $profe=mysqli_query($db_con, "select distinct profesor from profesores");
 while ($profer=mysqli_fetch_array($profe)){
 	//// echo$profer[0];
-	$diahora=mysqli_query($db_con, "select distinct dia,hora,c_asig from horw where prof = '$profer[0]' and c_asig<>''") or die ("fallo al tomar dia hora del profe");
+	$diahora=mysqli_query($db_con, "select distinct dia,hora,c_asig from horw where prof = '$profer[0]' and c_asig <> ''") or die ("fallo al tomar dia hora del profe");
 
 	while ($diahorar=mysqli_fetch_array($diahora))
 	{

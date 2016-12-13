@@ -252,7 +252,7 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	 }
 	 $media = $suma / $sum;
 	 $mediatotal+=$media;
-	 if ($media<>0){
+	 if ($media != 0){
 	 	if($media < 5 ){$mediasuspensos+=1;}
 	 	else{$mediaaprobados+=1; }
 	 }

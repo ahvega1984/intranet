@@ -288,7 +288,7 @@ include("cuaderno/menu_cuaderno.php");
 						?>
 				<tr>
 					<td nowrap style="vertical-align: middle; height: 74px;"><a href="<?php echo $inf;?>" style="text-decoration: none;"><?php
-						if ($foto <> 1) {
+						if ($foto != 1) {
 						$foto1="";
 							if (file_exists('xml/fotos/'.$claveal.'.jpg')) {
 								$foto1 = "<img src='xml/fotos/$claveal.jpg' width='40' style='max-height:54px;' alt='' />";

@@ -592,7 +592,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					else{
 						$text_contr="";
 						if ($control[$i]==$control[$i-1]) {$icon="";}else{
-							if ($control[$i-1]<>0) {
+							if ($control[$i-1] != 0) {
 								$icon="fa fa-info-circle";
 								$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";
 							}

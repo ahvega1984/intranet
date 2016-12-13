@@ -22,7 +22,7 @@ if(isset($_POST['borrar'])){
 	$j=0;
 	foreach ($_POST as $ide => $valor)
 	{
-		if(($ide<>'borrar') and (!empty( $valor))){
+		if(($ide != 'borrar') and (!empty( $valor))){
 			for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
 			$bor = mysqli_query($db_con, "delete from morosos where id='$valor[$i]'") or die("No se ha podido borrar");
 			}
@@ -66,7 +66,7 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 	$accion='Envío de SMS';
 
 	foreach ($_POST as $ide => $valor) {      
-		if(($ide<>'registro') and (!empty( $valor)))
+		if(($ide != 'registro') and (!empty( $valor)))
 		{ 
 $envio='';
 for($i=0; $i <= count($valor)-1; $i++)

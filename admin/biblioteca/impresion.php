@@ -10,7 +10,7 @@ if(isset($_POST['impreso'])){
 	
 	$j=0;
 	foreach ($_POST as $ide => $valor) {
-		if(($ide<>'impreso') and (!empty( $valor))){
+		if(($ide != 'impreso') and (!empty( $valor))){
 			include ("../../pdf/fpdf.php");
 			define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 			// Variables globales para el encabezado y pie de pagina

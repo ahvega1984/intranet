@@ -40,7 +40,7 @@ foreach($contents as $linea){
 	$campo = str_replace('"','',$campo);
 	$num_col = count($campo);
 	
-	if ($num_col<>11) {
+	if ($num_col != 11) {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>

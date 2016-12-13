@@ -7,7 +7,7 @@ if($borrar){
 	include ("../menu.php");
 	$i=0;
 	$j=0;
-	foreach ($_POST as $ide => $valor) {       if(($ide<>'borrar') and (!empty( $valor))){
+	foreach ($_POST as $ide => $valor) {       if(($ide != 'borrar') and (!empty( $valor))){
 		for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
 		$bor = mysqli_query($db_con, "delete from morosos where id=$valor[$i]") or die("No se ha podido borrar");
 		}
@@ -46,7 +46,7 @@ elseif ($registro){
 	$causa='Otras';
 	$accion='Env&iacute;o de SMS';
 
-	foreach ($_POST as $ide => $valor) {      if(($ide<>'registro') and (!empty( $valor))){
+	foreach ($_POST as $ide => $valor) {      if(($ide != 'registro') and (!empty( $valor))){
 			
 		include ("../pdf/fpdf.php");
 		define ( 'FPDF_FONTPATH', '../pdf/font/' );

@@ -530,7 +530,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		echo '<td> <input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
 		if($bilinguismo=="Si"){ echo " checked";} elseif ($bl == '1') { echo " checked";}
 		echo ' />';
-		if ($bilinguismo=="Si" and $bl<>1 and $curso=='2BACH') {
+		if ($bilinguismo=="Si" and $bl != 1 and $curso=='2BACH') {
 			$extra_bil = "<i class='fa fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
 		}
 		echo $extra_bil.'</td>';
@@ -667,7 +667,7 @@ echo "</td>";
 				if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
 		else{
 		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
-			if ($control[$i-1]<>0) {
+			if ($control[$i-1] != 0) {
 						$icon="fa fa-info-circle";
 						$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";					
 				}	

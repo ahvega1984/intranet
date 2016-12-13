@@ -258,7 +258,7 @@ if(isset($_POST['enviar'])){
 		$vacios.= "religion, ";
 		$num+=1;
 	}
-	if ($religion1b == "" and $curso=="2BACH" and $repetidor<>1) {
+	if ($religion1b == "" and $curso=="2BACH" and $repetidor != 1) {
 		$vacios.= "religion o alternativa de 1BACH, ";
 		$num+=1;
 	}
@@ -891,7 +891,7 @@ if ($dni or $claveal or $id) {
 				<option value="<?php echo $row1['nombre']; ?>"><?php echo $row1['nombre']; ?></option>
 				<?php endif; ?>
 				<?php endforeach; ?>
-				<?php if ($idio<>1 || $cargo=="1"): ?>
+				<?php if ($idio1 || $cargo=="1"): ?>
 				<option value="Inglés"
 				<?php echo (isset($idioma1) && $idioma1 == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
 				<option value="Francés"
@@ -1120,7 +1120,7 @@ if ($dni or $claveal or $id) {
 			</td>
 		</tr>
 
-		<?php if ($repetidor <> 1): ?>
+		<?php if ($repetidor != 1): ?>
 
 		<!-- ASIGNATURAS OPTATIVAS DE PRIMERO DE BACHILLERATO -->
 		

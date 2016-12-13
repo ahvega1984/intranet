@@ -61,7 +61,7 @@ if ($config['mod_notificaciones']) {
 			}
 		}
 		
-		if ($fiesta<>1 and $fiesta2<>1) {
+		if ($fiesta != 1 and $fiesta2 != 1) {
 		
 			// Mensaje a Profesores que llevan más de 5 días sin entra en la intranet							
 		
@@ -84,7 +84,7 @@ if ($config['mod_notificaciones']) {
 		}	
 		
 		
-		if ($fiesta<>1) {
+		if ($fiesta != 1) {
 		
 		// Mensajes sin leer de los profesores 
 		

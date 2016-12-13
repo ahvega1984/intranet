@@ -144,7 +144,7 @@ for ($i=0;$i<$num_a;$i++){
 	 	$correo2=mysqli_fetch_array($cor_control);
 	 	$correo = $correo2[0];
 	 }
-	 if (strlen($correo)>0 and $sms_enviado<>1) {
+	 if (strlen($correo)>0 and $sms_enviado != 1) {
 	 	
 	 	 include_once(INTRANET_DIRECTORY."/lib/class.phpmailer.php");
 	 	 $mail = new PHPMailer();
@@ -191,14 +191,14 @@ for ($i=0;$i<$num_a;$i++){
 	$dia = explode ( "-", $fecha );
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 
-	if ($_POST['submit2'] and !($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db <>1 and isset($id))) {
+	if ($_POST['submit2'] and !($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db != 1 and isset($id))) {
 		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa' where id = '$id'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
-	elseif ($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db <>1 and isset($id)) {	
+	elseif ($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db != 1 and isset($id)) {	
 		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', confirmado='1' where id = '$id'");
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -220,7 +220,7 @@ unset ($unidad);
 unset($nombre);
 unset ($id);
 unset ($claveal);
-if ($z>0 and !($_POST['confirmado']=="1" and $confirma_db <>1)) {
+if ($z>0 and !($_POST['confirmado']=="1" and $confirma_db != 1)) {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Se han registrado correctamente los Problemas de Convivencia de '.$z.' alumnos.

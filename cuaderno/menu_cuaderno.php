@@ -67,7 +67,7 @@ function enviar(){
 		$h=0;
 		while($colum00=mysqli_fetch_array($colum0)){
 
-			$otra=mysqli_query($db_con, "select distinct ponderacion from datos where id='$colum00[0]' and ponderacion<>'1' ");
+			$otra=mysqli_query($db_con, "select distinct ponderacion from datos where id='$colum00[0]' and ponderacion <> '1' ");
 			if ($otra){$h+=1;}											}
 			echo "<table class='table table-striped table-condensed table-hover' style='width:100%;'>";
 

@@ -30,7 +30,7 @@
 				$n_promo = mysqli_query($db_con, "select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");
 				$n_prom = mysqli_fetch_array($n_promo);
 
-				if ($n_prom[1]<>1) {
+				if ($n_prom[1] != 1) {
 				
 
 				if ($curso == "2BACH") {
