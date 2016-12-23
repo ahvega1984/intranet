@@ -109,7 +109,7 @@ include("menu.php");
 							<label for="fecha">Profesor/a ausente</label>
 							<select class="form-control" id="ausente" name="ausente">
 								<option value=""></option>
-								<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE dia = '$diasem' AND hora = '$hora' AND c_asig <> '25' AND a_grupo NOT LIKE '' OR a_grupo LIKE 'GCON%' ORDER BY prof ASC"); ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE dia = '$diasem' AND hora = '$hora' AND (c_asig <> '25' OR a_grupo LIKE 'GUCON%') AND a_grupo NOT LIKE '' ORDER BY prof ASC");?>
 								<?php while ($row = mysqli_fetch_array($result)): ?>
 								<option value="<?php echo nomprofesor($row['prof']); ?>" <?php echo ($row['prof'] == $ausente) ? 'selected' : ''; ?>><?php echo nomprofesor($row['prof']); ?></option>
 								<?php endwhile; ?>

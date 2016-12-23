@@ -1,6 +1,5 @@
 <?php
 require('../bootstrap.php');
-
 include("../menu.php");
 if (isset($_GET['menu_cuaderno'])) {
 	include("../cuaderno/menu.php");
@@ -11,7 +10,7 @@ else {
 	include("menu.php");
 }
 // nprofe hora ndia hoy codasi profesor clave
-if (isset($_POST['nprofe'])) {$nprofe = $_POST['nprofe'];} else{$nprofe="";}
+if (isset($_POST['nprofe'])) {$nprofe = $_POST['nprofe'];} else{$nprofe = $_SESSION['nprofe'];}
 if (isset($_POST['hora'])) {$hora = $_POST['hora'];} else{$hora="";}
 if (isset($_POST['ndia'])) {$ndia = $_POST['ndia'];} else{$ndia="";}
 if (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];} else{$hoy="";}
@@ -27,9 +26,10 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_
 <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 
-<div class="row"><?		
+<div class="row">
+<?php		
 // Borramos faltas para luego colocarlas de nuevo.
-$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and (profesor = '$n_profe' or codasi = '$codasi') and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
+$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and (profesor = '$nprofe' or codasi = '$codasi') and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
 $db_pass = trim($clave);
 foreach($_POST as $clave => $valor)
 {
@@ -195,7 +195,7 @@ else{
 }
 
 if (empty($tiempo)) {
-	$tiempo="2000";
+	$tiempo="5000";
 }
 ?> 
 

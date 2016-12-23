@@ -115,8 +115,8 @@ if($mensaje){
 	class="fa fa-calendar"></span></span></div>
 </div>
 
-<div class="form-group"><label for="grupo">Grupo</label> <select
-	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
+<div class="form-group"><label for="grupo">Grupo</label> 
+	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 	for ($i = 1; $i < 7; $i++) {
 		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_grupo not like '' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25')");
@@ -201,15 +201,14 @@ elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_gua
 	$prof2 = "SELECT distinct c_prof, prof FROM horw where prof = '".$_POST['profe_ausente']."'";
 	$prof20 = mysqli_query($db_con, $prof2);
 	$filaprof2 = mysqli_fetch_array($prof20);
-	$c_prof = $filaprof2[0];
+	$c_profe = $filaprof2[0];
 	$profesor_ausente = $filaprof2[1];
-	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where c_prof = '$c_profe' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 }
 else{
 	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
-	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
 		?>
