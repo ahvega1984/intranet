@@ -68,12 +68,12 @@ $nota.=";";
 $cod.=$codigo.$nota;
 }
 if ($directorio=="../exporta1") {
-$cod.="', '', '', '')";
+$cod.="', '', '', '', '')";
 	}
 	else{
 $cod.="' where claveal = '$clave3'";
 	}
-// echo $cod."<br>";
+ echo $cod.";<br>";
 mysqli_query($db_con, $cod);
 }   	       
   }
