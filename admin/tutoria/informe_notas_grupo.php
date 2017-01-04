@@ -38,7 +38,6 @@ else{
 }
 ?>
 
-
 <?php
 $unidad = $_GET['unidad'];
 $titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
