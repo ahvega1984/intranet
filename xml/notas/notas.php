@@ -21,7 +21,7 @@ include("../../menu.php");
 <?php
 $directorio = $_GET['directorio'];
 //echo $directorio."<br>";
-if ($directorio=="../exporta1") {
+if ($directorio=="../exporta0") {
 	mysqli_query($db_con, "TRUNCATE TABLE notas");
 }
 
@@ -45,8 +45,11 @@ $clave2 = $clave->getElementsByTagName( "X_MATRICULA" );
 $clave3 = $clave2->item(0)->nodeValue;
 //$codigo = "";
 $materias = $clave->getElementsByTagName( "MATERIA_ALUMNO" );
+if ($directorio=="../exporta0") {
+$cod = "INSERT INTO notas (claveal,notas0,notas1,notas2,notas3,notas4,promociona) VALUES ('$clave3', '";
+}
 if ($directorio=="../exporta1") {
-$cod = "INSERT INTO notas VALUES ('$clave3', '";
+$cod = "update notas set notas1 = '";
 }
 if ($directorio=="../exporta2") {
 	$cod = "update notas set notas2 = '";
@@ -67,8 +70,8 @@ $codigo.=":";
 $nota.=";";
 $cod.=$codigo.$nota;
 }
-if ($directorio=="../exporta1") {
-$cod.="', '', '', '', '')";
+if ($directorio=="../exporta0") {
+$cod.="', '', '', '', '', '')";
 	}
 	else{
 $cod.="' where claveal = '$clave3'";
@@ -76,9 +79,14 @@ $cod.="' where claveal = '$clave3'";
 // echo $cod.";<br>";
 mysqli_query($db_con, $cod);
 }   	       
-  }
-   }
+}
+}
    closedir($handle);
+
+   if ($directorio=="../exporta0") {
+  mysqli_query($db_con, "insert into notas (claveal) select claveal1 from alma where claveal1 not in (select claveal from notas)");
+  }
+
    echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las Notas de Evaluación se han importado correctamente en la base de datos.

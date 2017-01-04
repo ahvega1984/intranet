@@ -5,9 +5,11 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
 
+
 if (isset($_POST['eval']) and !empty($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 
 if (strlen($eval)>1) {	
+	if (substr($eval,0,1)=='0') {$exporta='../exporta0';}
 	if (substr($eval,0,1)=='1') {$exporta='../exporta1';}
 	if (substr($eval,0,1)=='2') {$exporta='../exporta2';}
 	if (substr($eval,0,1)=='J') {$exporta='../exportaO';}
@@ -71,6 +73,7 @@ include("../../menu.php");
 							<label for="eval"><span class="text-info">Evaluación</span></label>
 							<select class="form-control" id="eval" name="eval" required>
 								<option value=""></option>
+								<option value="0ª Evaluación">Evaluación Inicial</option>
 								<option value="1ª Evaluación">1ª Evaluación</option>
 								<option value="2ª Evaluación">2ª Evaluación</option>
 								<option value="Junio">Junio (Ordinaria)</option>

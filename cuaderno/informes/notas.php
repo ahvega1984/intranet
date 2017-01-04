@@ -3,10 +3,10 @@
 echo "<h4 class='text-info'>Evaluaciones del Alumno</h4><br />";
 
  echo "<table class='table table-striped' style='width:auto'>
-		<TR><Th nowrap>Asignatura</th><th>1ª </th><th>2ª </th><th>Jun. </th><th>Sept. </th></tr>";
+		<TR><Th nowrap>Asignatura</th><th>Ev. Inicial </th><th>1ª Eval.</th><th>2ª Eval.</th><th>Eval. Ord. </th><th>Eval. Extra.</th></tr>";
 
 // Evaluaciones  
-$notas1 = "select notas1, notas2, notas3, notas4 from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL like '%" . $claveal . "%'";
+$notas1 = "select notas1, notas2, notas3, notas4, notas0 from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL like '%" . $claveal . "%'";
 //echo $notas1;
 $result1 = mysqli_query($db_con, $notas1);
 $row1 = mysqli_fetch_array($result1);
@@ -31,6 +31,21 @@ else{$nombre_asig = $rowasig[0];}
 $califica1 = "select nombre from calificaciones where codigo = '" . $bloque[1] . "'";
 $numero1 = mysqli_query($db_con, $califica1);
 $rown1 = mysqli_fetch_array($numero1);
+
+$asignatura0 = substr($row1[4], 0, strlen($row1[4])-1);
+$trozos0 = explode(";", $asignatura0);
+	foreach($trozos0 as $codi)
+	{
+	$bloque0 = explode(":", $codi);
+	if($bloque0[0] == $bloque[0])
+	{
+$califica0 = "select nombre from calificaciones where codigo = '" . $bloque0[1]. "'";
+$numero0 = mysqli_query($db_con, $califica0);
+$rown0 = mysqli_fetch_array($numero0);
+	}
+	}
+
+
 
 $asignatura2 = substr($row1[1], 0, strlen($row1[1])-1);
 $trozos2 = explode(";", $asignatura2);
@@ -79,6 +94,8 @@ if($rown1[0] == "" and $rown2[0] == "" and $rown3[0] == "" and $rown4[0] == "")
 	echo "<tr><td>";
 	if ($nombre_asig == "Asignatura sin código")  $asig_pend = "Consultar con Administración";
 	echo $nombre_asig . "</td>"; 
+	echo "<td>";
+	echo $rown0[0] ."</td>";
 	echo "<td>";
 	echo $rown1[0] ."</td>";
 		echo "<td>";

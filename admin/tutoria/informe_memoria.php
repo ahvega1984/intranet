@@ -347,7 +347,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 
 <?php 
 // Comprobamos datos de evaluaciones
-$n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
+$n1 = mysqli_query($db_con, "select * from notas where notas3 not like ''");
 if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">

@@ -315,20 +315,38 @@ include("cuaderno/menu_cuaderno.php");
 				<?php } ?>	
 					<?php
 					// Notas de las Evaluaciones de Séneca
+					$ev_sen0 = mysqli_query($db_con,"select notas0 from notas where notas0 != ''");
 					$ev_sen1 = mysqli_query($db_con,"select notas1 from notas where notas1 != ''");
 					$ev_sen2 = mysqli_query($db_con,"select notas2 from notas where notas2 != ''");
 					$ev_sen3 = mysqli_query($db_con,"select notas3 from notas where notas3 != ''");
+					$num_ev0 = mysqli_num_rows($ev_sen0);
 					$num_ev1 = mysqli_num_rows($ev_sen1);
 					$num_ev2 = mysqli_num_rows($ev_sen2);
 					$num_ev3 = mysqli_num_rows($ev_sen3);
-
-					for ($i=1; $i < 4; $i++) { 
+					
+					if ($num_ev0 > 0) {
+						$n_columnas = 0;
+					}
+					else{
+						$n_columnas = 1;
+					}
+					for ($i=$n_columnas; $i < 4; $i++) { 
 									if (${num_ev.$i}>0 and $asignatura!=="2") {
-									echo "<td nowrap>
+									if ($i == 0) {
+										echo "<td nowrap>
+									<div style='width:40px;height:104px;'>
+									<div class='Rotate-90'><span style='font-weight:bold'>Eval. Inic. Séneca</span></div>
+									</div> </td>";	
+										}	
+									else{
+										echo "<td nowrap>
 									<div style='width:40px;height:104px;'>
 									<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
 									</div> </td>";
+										}
+									
 									${extra_sen.$i} = "1";
+									
 									}
 								}
 					if ($num_ev3>0) {
@@ -418,6 +436,7 @@ include("cuaderno/menu_cuaderno.php");
 					{
 						if ($num_cursos>1) {
 							$col_total=$cols+1;
+							if ($extra_sen0==1) {$col_total+=1;}
 							if ($extra_sen1==1) {$col_total+=1;}
 							if ($extra_sen2==1) {$col_total+=1;}
 							if ($extra_sen3==1) {$col_total+=2;}
@@ -515,14 +534,23 @@ include("cuaderno/menu_cuaderno.php");
 								</div> </td>";
 								}
 
-								for ($i=1; $i < 4; $i++) { 
+								for ($i=$n_columnas; $i < 4; $i++) { 
 									if (${num_ev.$i}>0) {
-									echo "<td nowrap>
+										if ($i == 0) {
+										echo "<td nowrap>
+									<div style='width:40px;height:90px;'>
+									<div class='Rotate-corto'>Ev. Inic. Séneca</div>
+									</div> </td>";
+										}	
+									else{
+										echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
 									<div class='Rotate-corto'>".$i."ª Ev. Séneca</div>
 									</div> </td>";
+										}
 									}
 								}
+
 								if ($num_ev3>0) {
 									echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
@@ -586,7 +614,7 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?php } ?>
 					<?php
-						for ($i=1; $i < 4; $i++) { 
+						for ($i=$n_columnas; $i < 4; $i++) { 
 							if (${num_ev.$i}>0 and $asignatura!=="2") {
 								${califica_seneca.$i}="";
 									?>

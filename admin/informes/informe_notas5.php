@@ -55,16 +55,18 @@ else {
 <?php endif; ?>
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
-<li class="active"><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
+<li class="active"><a href="#tab0" data-toggle="tab">Eval. Inicial</a></li>	
+<li><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
 <li><a href="#tab2" data-toggle="tab">2ª Evaluación</a></li>
 <li><a href="#tab3" data-toggle="tab">Evaluación Ordinaria</a></li>
+<li><a href="#tab4" data-toggle="tab">Evaluación Extraordinaria</a></li>
 </ul>
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-<br>
+
 <?php 
 // Comprobamos datos de evaluaciones
-$n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
+$n1 = mysqli_query($db_con, "select * from notas where notas0 not like ''");
 if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
@@ -77,7 +79,7 @@ else{
 
 
 <?php
-$titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
+$titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
@@ -90,7 +92,7 @@ INDEX (  `claveal` )
 ) ENGINE = MyISAM";
  mysqli_query($db_con, $crea_tabla2); 
  mysqli_query($db_con, "ALTER TABLE  `temp3` ADD INDEX (  `asignatura` )");
-	$key == '1' ? $activ=" active" : $activ='';
+	$key == '0' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <?php
