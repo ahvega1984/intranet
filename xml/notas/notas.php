@@ -46,7 +46,7 @@ $clave3 = $clave2->item(0)->nodeValue;
 //$codigo = "";
 $materias = $clave->getElementsByTagName( "MATERIA_ALUMNO" );
 if ($directorio=="../exporta0") {
-$cod = "INSERT INTO notas (claveal,notas0,notas1,notas2,notas3,notas4,promociona) VALUES ('$clave3', '";
+$cod = "INSERT INTO notas (claveal,notas0) VALUES ('$clave3', '";
 }
 if ($directorio=="../exporta1") {
 $cod = "update notas set notas1 = '";
@@ -71,7 +71,7 @@ $nota.=";";
 $cod.=$codigo.$nota;
 }
 if ($directorio=="../exporta0") {
-$cod.="', '', '', '', '', '')";
+$cod.="')";
 	}
 	else{
 $cod.="' where claveal = '$clave3'";
