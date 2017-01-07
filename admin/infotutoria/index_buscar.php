@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 
 $pr = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];

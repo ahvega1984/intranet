@@ -25,8 +25,12 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 ?>
 		<div class="container hidden-print">
 			
+			<?php if (acl_permiso($carg, array('1'))): ?>
+			<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+			<?php endif; ?>
+			
 			<!-- Button trigger modal -->
-			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-right: 5px;">
 				<span class="fa fa-question fa-lg"></span>
 			</a>
 		
@@ -70,8 +74,14 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 			<ul class="nav nav-tabs">
 				<li <?php echo $activo1;?>> <a href="index.php">Página de Informes de Tutoría</a></li>
 				
-				<?php if (stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') == TRUE): ?>
+				<?php if (isset($config['informe_tutoria']['activa_administrativo']) && $config['informe_tutoria']['activa_administrativo'] == 1): ?>
+				<?php if (acl_permiso($carg, array('1', '2', '7'))): ?>
 				<li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION['mod_tutoria']['unidad'])) {echo  "unidad=".$_SESSION['mod_tutoria']['unidad'];}?>">Activar Nuevo Informe</a></li>
+				<?php endif; ?>
+				<?php else: ?>
+				<?php if (acl_permiso($carg, array('1', '2'))): ?>
+				<li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION['mod_tutoria']['unidad'])) {echo  "unidad=".$_SESSION['mod_tutoria']['unidad'];}?>">Activar Nuevo Informe</a></li>
+				<?php endif; ?>
 				<?php endif; ?>
 				
 				<li <?php echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>

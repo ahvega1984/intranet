@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 
 $pr = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
@@ -14,13 +18,14 @@ include("../../menu.php");
 include("menu.php"); 
 ?>
 <div class="container">
-<div class="row">
-<div class="page-header">
-<h2>Informes de Tutoría <small> Informes activos</small></h2>
-</div>
-<br>
+	
+	<div class="page-header">
+		<h2>Informes de Tutoría <small> Informes activos</small></h2>
+	</div>
+	
+	<div class="row">
 
-<div class="col-md-6 col-md-offset-3">	
+		<div class="col-md-6 col-md-offset-3">	
     
 <?php
  //Validación del Informe por el Tutor o Directivo
@@ -137,7 +142,8 @@ if (strstr($si_al,"1")==FALSE) {
 '> </i> No hay Informes de Tutoría activos para ti. </p>";
  		} 	
 ?>
-  </div>  
+  	</div>  
+  </div>
   </div>
   </div>
 <?php include("../../pie.php");?>

@@ -16,6 +16,10 @@ exit;
 
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 
 $profesor = $_SESSION['profi'];
 

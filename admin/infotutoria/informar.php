@@ -6,6 +6,10 @@ if (isset($_POST['submit1']) and $_POST['submit1']=="Enviar Datos") {
 
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 $pr = $_SESSION['profi'];
 
 include("../../menu.php");

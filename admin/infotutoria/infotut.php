@@ -1,7 +1,16 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 2));
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
+if (isset($config['informe_tutoria']['activa_administrativo']) && $config['informe_tutoria']['activa_administrativo'] == 1) {
+	acl_acceso($_SESSION['cargo'], array(1, 2, 7));
+}
+else {
+	acl_acceso($_SESSION['cargo'], array(1, 2));
+}
 
 include("../../menu.php");
 include("menu.php");
@@ -86,9 +95,15 @@ else
 	<textarea class="form-control" id="motivo" name="motivo" rows="3"></textarea>
 </div>
 
- <?php
-echo '<input type=submit value="Activar informe" class="btn btn-primary btn-block">';
-?>
+<?php if (acl_permiso($carg, array('1', '7'))): ?>
+<input type=submit value="Activar informe" class="btn btn-primary">
+<?php if (isset($_GET['unidad']) || isset($_POST['unidad'])): ?>
+<a class="btn btn-default" href="infotut.php">Seleccionar otra unidad</a>
+<?php endif; ?>
+<?php else: ?>
+<input type=submit value="Activar informe" class="btn btn-primary btn-block">
+<?php endif; ?>
+
 </form>
 </div>
 </div>

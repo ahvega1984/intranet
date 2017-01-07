@@ -1,6 +1,17 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
+if (isset($config['informe_tutoria']['activa_administrativo']) && $config['informe_tutoria']['activa_administrativo'] == 1) {
+	acl_acceso($_SESSION['cargo'], array(1, 2, 7));
+}
+else {
+	acl_acceso($_SESSION['cargo'], array(1, 2));
+}
+
 
 include("../../menu.php");
 include("menu.php");
