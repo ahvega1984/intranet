@@ -19,13 +19,13 @@ elseif(strlen($inicial) > 0) {
 
 <?php
 if (strlen($inicial) > 0) {
-	$titulo_extra = "<th>Ev. Inic.</th>";
+	$titulo_extra = '<th data-bs="tooltip" title="Evaluación inicial">EVI.</th>';
 	$col_extra = 1;
 }
 ?>
 <h3>Evaluaciones</h3><br>
 <div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
-		<thead><tr><th>Asignatura / Materia</th><?php echo $titulo_extra; ?><th>1Ev.</th><th>2Ev.</th><th>Ord.</th><th>Ext.</th></tr></thead>
+		<thead><tr><th>Asignatura / Materia</th><?php echo $titulo_extra; ?><th data-bs="tooltip" title="1ª Evaluación">1Ev.</th><th data-bs="tooltip" title="2ª Evaluación">2Ev.</th><th data-bs="tooltip" title="Evaluación ordinaria">Ord.</th><th data-bs="tooltip" title="Evaluación extraordinaria">Ext.</th></tr></thead>
 
 <?php 
 
