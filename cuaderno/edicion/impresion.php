@@ -98,7 +98,7 @@ while($n_cur = mysqli_fetch_array($n_cursos))
 }
 $curs0 = substr($curs,0,(strlen($curs)-1));
 $curso_sin = substr($curs0,0,(strlen($curs0)-1));
-$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso%' and oculto = '0' and ($celdas)  order by orden asc";
+$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso_sin%' and oculto = '0' and ($celdas)  order by orden asc";
 $col0 = mysqli_query($db_con, $col);
 $curso_sin = substr($curso,0,strlen($curso) - 1);
 $html.="<h2 align='center'>$asigna_col</h2><h4 align='center'>$nombre_curso</h4><br>";
@@ -111,10 +111,10 @@ while($col20 = mysqli_fetch_array($col0)){
 if (strlen($nombre_col)>12) {
 	$nombre_col=str_replace( ".", "",$nombre_col);
 	$tr_col = explode(" ",$nombre_col);
-	$col_vert = substr($tr_col[0],0,2).". ".substr($tr_col[1],0,2).". ".substr($tr_col[2],0,2).".";						}
+	$col_vert = substr($tr_col[0],0,3).". ".substr($tr_col[1],0,3).". ".substr($tr_col[2],0,3).".";						}
 else {
 	$col_vert = "".$nombre_col;
-						}
+}
 	$html.="<th nowrap style='text-align:left;'>
 <div style='width:30px;height:40px;'>
 <div class='Rotate-90'>$col_vert</div>
