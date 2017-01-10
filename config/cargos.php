@@ -42,7 +42,7 @@ include ("../menu.php");
 				$unidad = $cargo_profe;
 				$n_tutor = mb_strtoupper ( $n_prof [0], 'iso-8859-1' );
 				
-				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor`, 'observaciones1', 'observaciones2' ) VALUES ('$unidad', '$n_tutor', '', '')" );
+				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor`, `observaciones1`, `observaciones2` ) VALUES ('$unidad', '$n_tutor', '', '')" ) or die (mysqli_error($db_con));
 			
 			} elseif (strlen ( $cargo_profe ) < "2") {
 				$dni=trim($dni);
