@@ -105,7 +105,7 @@ if($pr and $dia and $hora)
 		$curs .= $n_cur[0].", ";
 	}
 
-	$num_asig0 = mysqli_query($db_con, "SELECT distinct c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY c_asig");
+	/*$num_asig0 = mysqli_query($db_con, "SELECT distinct c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY c_asig");
 	while ($num_asig1=mysqli_fetch_array($num_asig0)) {	
 		$num_codigos++;
 		$codigos.= $num_asig1[0]." ";
@@ -119,7 +119,19 @@ if($pr and $dia and $hora)
 	else{
 			$asignatura2=$asignatura1;
 			$extra_asig = "";
-	}	
+	}	*/
+
+	$doble_asig = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+	if (mysqli_num_rows($doble_asig)>0) {							
+		$as_bach0=mysqli_fetch_array($doble_asig);
+		$asignatura2 = $as_bach0[0];							
+		$extra_asig = " or asignatura = '$asignatura2'";
+	}
+	else{								
+		$asignatura2=$asignatura;
+		$extra_asig = "";
+	}
+
 	?>
 <div class='container'>
 <div class='row'>
@@ -155,7 +167,7 @@ $curso_sin = substr($curs0,0,(strlen($curs0)-1));
 $curso_asignatura = substr($curso_sin, 0, 8);
 //Número de columnas
 $col = "select distinct id, nombre, orden, visible_nota, Tipo, texto_pond from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig) and oculto = '0' order by orden asc";
-//echo $col;
+// echo $col;
 $col0 = mysqli_query($db_con, $col);
 $cols = mysqli_num_rows($col0);
 $sin_coma=$curso;

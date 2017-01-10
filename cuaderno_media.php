@@ -105,22 +105,18 @@ if($pr and $dia and $hora)
 		$curs .= $n_cur[0].", ";
 	}
 
-	$num_asig0 = mysqli_query($db_con, "SELECT distinct c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY c_asig");
-	while ($num_asig1=mysqli_fetch_array($num_asig0)) {	
-		$num_codigos++;
-		$codigos.= $num_asig1[0]." ";
-		${asignatura.$num_codigos}=$num_asig1[0];
-		$nom_asig = $num_asig1[1];
+	$doble_asig = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+	if (mysqli_num_rows($doble_asig)>0) {							
+		$as_bach0=mysqli_fetch_array($doble_asig);
+		$asignatura2 = $as_bach0[0];							
+		$extra_asig = " or asignatura = '$asignatura2'";
+	}
+	else{								
+		$asignatura2=$asignatura;
+		$extra_asig = "";
 	}
 
-	if (strlen($asignatura2)>1) {
-			$extra_asig = " or asignatura = '$asignatura2'";
-	}
-	else{
-			$asignatura2=$asignatura1;
-			$extra_asig = "";
-	}	
-	?>
+?>
 <div class='container'>
 <div class='row'>
 <div class='page-header hidden-print'>
