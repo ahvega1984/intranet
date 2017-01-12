@@ -316,7 +316,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       <div class="form-group">
       <label >N&uacute;mero de D&iacute;as</label>
         <input name="convivencia" type="text" id="expulsion" <?php if($convivencia > 0){echo "value=$convivencia";}else{ if ($gucon == '1') {
-          	echo "value=";}}?> size="2" maxlength="2" class="form-control" />
+          	echo "value=''";}}?> size="2" maxlength="2" class="form-control" />
       </div>
       
       <div class="form-group">

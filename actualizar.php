@@ -828,3 +828,28 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Calificaciones de Inicial en tabla notas', NOW())");
 
+/*
+ @descripcion: Calificaciones de la Evaluación Inicialde Cursos anteriores (evita errores en estadísticas de evaluación)
+ @fecha: 12 de enero de 2017
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Campo de Inicial en BD anteriores'");
+if (! mysqli_num_rows($actua)) {
+
+	for ($i=0; $i <= 6; $i++) { 
+
+		if ($config['db_name_c201'.$i]!="") {
+	
+			mysqli_query($db_con,"RENAME TABLE ".$config['db_name_c201'.$i].".`notas_seg` TO ".$config['db_name_c201'.$i].".`notas_seg_old`");
+			mysqli_query($db_con,"create table ".$config['db_name_c201'.$i].".`notas_seg` select * from ".$config['db_name_c201'.$i].".`notas`");
+			mysqli_query($db_con,"ALTER TABLE ".$config['db_name_c201'.$i].".`notas` ADD `notas0` VARCHAR(200) NULL AFTER `claveal`");
+		
+		}
+
+	}
+	
+}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campo de Inicial en BD anteriores', NOW())");
+
+

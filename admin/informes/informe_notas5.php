@@ -66,7 +66,7 @@ else {
 
 <?php 
 // Comprobamos datos de evaluaciones
-$n1 = mysqli_query($db_con, "select * from notas where notas0 not like ''");
+$n1 = mysqli_query($db_con, "select * from notas where notas0 not like '' or notas1 not like ''");
 if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">

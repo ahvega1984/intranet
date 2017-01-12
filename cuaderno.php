@@ -95,14 +95,16 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 
 if($pr and $dia and $hora)
 {
-	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
+	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
 	// Todos los Grupos juntos
 	$curs = "";
 	$codigos = "";
-	$nom_asig="";
+	$codigos="";
 	while($n_cur = mysqli_fetch_array($num_cursos0))
 	{
 		$curs .= $n_cur[0].", ";
+		$codigos = $n_cur[1];
+		$nom_asig = $n_cur[2];
 	}
 
 	/*$num_asig0 = mysqli_query($db_con, "SELECT distinct c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY c_asig");
