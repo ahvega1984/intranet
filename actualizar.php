@@ -823,10 +823,12 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con,"RENAME TABLE `notas_seg` TO `notas_seg_old`");
 	mysqli_query($db_con,"create table `notas_seg` select * from `notas`");
 	mysqli_query($db_con,"ALTER TABLE `notas` ADD `notas0` VARCHAR(200) NULL AFTER `claveal`");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Calificaciones de Inicial en tabla notas', NOW())");
 	
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Calificaciones de Inicial en tabla notas', NOW())");
+	
 
 /*
  @descripcion: Calificaciones de la Evaluación Inicialde Cursos anteriores (evita errores en estadísticas de evaluación)
@@ -847,9 +849,9 @@ if (! mysqli_num_rows($actua)) {
 		}
 
 	}
-	
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campo de Inicial en BD anteriores', NOW())");	
 }
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campo de Inicial en BD anteriores', NOW())");
 
 
