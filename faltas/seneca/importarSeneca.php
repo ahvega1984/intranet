@@ -120,7 +120,7 @@ if (isset($_POST['submit'])) {
 				$asignaturas = explode(':', $combasi);
 
 				$tag_faltas = $alumno->getElementsByTagName("FALTA_ASISTENCIA");
-				foreach( $tag_faltas as $falta ) {
+				foreach ($tag_faltas as $falta) {
 					$tag_ffalasi = $falta->getElementsByTagName("F_FALASI");
 					$tag_xtramo = $falta->getElementsByTagName("X_TRAMO");
 					$tag_ctipfal = $falta->getElementsByTagName("C_TIPFAL");
@@ -146,51 +146,25 @@ if (isset($_POST['submit'])) {
 					}
 
 					if ($L_DIACOM == 'S') {
-						for ($i=1; $i < 6; $i++) {
-
-							// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
-							$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
-							$codasig="";
-							$nprofesor="";
-							while ($row = mysqli_fetch_assoc($result)) {
-								$cod_orig=$row['c_asig'];
-								$prof_orig=$row['c_prof'];
-								
-								if(in_array($row['c_asig'], $asignaturas)) {
-									$nprofesor = $row['c_prof'];
-									$codasig = $row['c_asig'];
-								}
-								elseif ($row['c_asig']=="2") {
-									$nprofesor = $row['c_prof'];
-									$codasig = "2";
-								}
-								elseif ($row['c_asig']=="21") {
-									$nprofesor = $row['c_prof'];
-									$codasig = "21";
-								}
-							}
-							
-							mysqli_free_result($result);
-							
-							if ($codasig=="") {
-								$nprofesor = $prof_orig;
-								$codasig = $cod_orig;
-							}
-							
-							$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, NC, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '$nc_alumno', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')");
-						}
-
+						$inicio = 1;
+						$fin = 7;
 					}
 					else {
+						$inicio = $hora_tramo;
+						$fin = $hora_tramo + 1;
+					}
+					
+					for ($i = $inicio; $i < $fin; $i++) {
 						// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
-						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$hora_tramo' AND a_grupo like '$T_NOMBRE%'");
+						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
+						
 						$codasig="";
 						$nprofesor="";
 						
 						while ($row = mysqli_fetch_assoc($result)) {
-							$cod_orig=$row['c_asig'];
-							$prof_orig=$row['c_prof'];
-								
+							$cod_orig = $row['c_asig'];
+							$prof_orig = $row['c_prof'];
+							
 							if(in_array($row['c_asig'], $asignaturas)) {
 								$nprofesor = $row['c_prof'];
 								$codasig = $row['c_asig'];
@@ -203,16 +177,16 @@ if (isset($_POST['submit'])) {
 								$nprofesor = $row['c_prof'];
 								$codasig = "21";
 							}
-							
 						}
+						
 						mysqli_free_result($result);
 						
-					if ($codasig=="") {
-								$nprofesor = $prof_orig;
-								$codasig = $cod_orig;
-							}
-
-						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, NC, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '$nc_alumno', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$hora_tramo', '$nprofesor', '$codasig', '$tipo_falta')");
+						if ($codasig == "") {
+							$nprofesor = $prof_orig;
+							$codasig = $cod_orig;
+						}
+						
+						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, NC, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '$nc_alumno', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')");
 					}
 
 					unset($nprofesor);

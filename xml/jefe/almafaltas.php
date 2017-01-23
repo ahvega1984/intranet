@@ -100,7 +100,7 @@ include '../../menu.php';
 					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
 					$result6 = mysqli_query($db_con, $SQL6);
 			
-					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
+					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabla alma.
 			
 					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -116,7 +116,7 @@ include '../../menu.php';
 						$num_linea++;
 						$linea=fgets($fp);
 						$tr=explode("|",$linea);
-						if ($num_linea=="20") {
+						if ($num_linea == 7) {
 							$num_col = count($tr);
 							break;
 						}
@@ -157,23 +157,27 @@ include '../../menu.php';
 					exit();
 					}
 
-					$row = 1;
 					while (!feof($fp))
 					{
+						$num_linea++;
+						
 						$linea="";
 						$lineasalto="";
 						$dato="";
 						$linea=fgets($fp);
-						$lineasalto = "INSERT INTO alma VALUES (";
-						$tr=explode("|",$linea);
-			
-						foreach ($tr as $valor){
-							$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
+						
+						if ($num_linea > 8) {
+							$lineasalto = "INSERT INTO alma VALUES (";
+							$tr=explode("|",$linea);
+				
+							foreach ($tr as $valor){
+								$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
+							}
+							$dato=substr($dato,0,strlen($dato)-2);
+							$lineasalto.=$dato;
+							$lineasalto.=");";
+							mysqli_query($db_con, $lineasalto);
 						}
-						$dato=substr($dato,0,strlen($dato)-2);
-						$lineasalto.=$dato;
-						$lineasalto.=");";
-						mysqli_query($db_con, $lineasalto);
 					}
 					fclose($fp);
 			

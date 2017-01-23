@@ -107,7 +107,7 @@ include("../../menu.php");
 						$num_linea++;
 						$linea=fgets($fp);
 						$tr=explode("|",$linea);
-						if ($num_linea=="7") {
+						if ($num_linea == 7) {
 							$num_col = count($tr);
 							break;
 						}
