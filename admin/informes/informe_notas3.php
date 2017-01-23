@@ -82,6 +82,8 @@ else{
 
 
 <?php
+mysqli_query($db_con, "drop table temp IF EXISTS");
+
 $titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 
 foreach ($titulos as $key=>$val){
@@ -92,6 +94,7 @@ foreach ($titulos as $key=>$val){
 `claveal` VARCHAR( 12 ) NOT NULL ,
 `asignatura` INT( 8 ) NOT NULL ,
 `nota` TINYINT( 2 ) NOT NULL ,
+`curso` VARCHAR( 80 ) NOT NULL ,
 INDEX (  `claveal` )
 )";
  mysqli_query($db_con, $crea_tabla2); 
@@ -144,7 +147,9 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+		if (strlen($bloque[0])>0 and strlen($cali[0])>0) {
+			mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]', '$curso')");
+		}
 	}
 	}
 
@@ -176,17 +181,16 @@ while ($asi = mysqli_fetch_array($as)) {
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
-	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[0]'");
-	$cod_apro = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[0]'");
-	
+	$cod_nota = mysqli_query($db_con, "select id from temp where asignatura = '$codasi' and nota < '5' and curso = '$orden_nivel[0]'");
+	$cod_apro = mysqli_query($db_con, "select id from temp where asignatura = '$codasi' and nota > '4' and curso = '$orden_nivel[0]'");
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
-	$combas = mysqli_query($db_con, "select distinct temp.claveal from temp where claveal in (select claveal1 from alma where combasi like '%$codasi%' and curso = '$orden_nivel[0]')");
+	$combas = mysqli_query($db_con, "select distinct claveal from temp where asignatura = '$codasi' and curso = '$orden_nivel[0]'");
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
-	
+
 	$porcient_asig = ($num_susp*100)/$num_matr;
 	$porciento_asig='';
 if ($porcient_asig>49) {
@@ -221,7 +225,7 @@ if ($num_matr>0 and stristr($nomasi,"Tutor")==FALSE) {
 ?>
 </div>
 <?php
-mysqli_query($db_con, "drop table temp");
+ mysqli_query($db_con, "drop table temp");
 }
 ?>
 </div>

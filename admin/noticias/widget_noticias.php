@@ -3,7 +3,6 @@
 <!-- MODULO DE NOTICIAS -->
 
 <h4><span class="fa fa-th-list fa-fw"></span> Noticias</h4><hr>
-
 <?php $result = mysqli_query($db_con, "SELECT id, slug, contact, timestamp, clase FROM noticias WHERE timestamp <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' ORDER BY timestamp DESC LIMIT 8"); ?>
 <?php if (mysqli_num_rows($result)): ?>
 	

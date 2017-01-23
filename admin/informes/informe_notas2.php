@@ -82,6 +82,8 @@ else{
 
 
 <?php
+mysqli_query($db_con, "drop table suspensos2 IF EXISTS");
+
 $titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 foreach ($titulos as $key=>$val){
 	
@@ -230,7 +232,7 @@ $total=mysqli_num_rows($tota);
 	if ($promo1==0) { $promo1=""; }
 
 	$extra2 = " and suspensos < '3'";
-	$prom2 = mysqli_query($db_con, "select distinct suspensos2.claveal, suspensos2.grupo from suspensos2, alma where suspensos2.nivel = curso and suspensos2.grupo = '$grupo' and (curso not like '4%' and curso not like '2º de bach%')  $extra2");
+	$prom2 = mysqli_query($db_con, "select distinct suspensos2.claveal, suspensos2.grupo from suspensos2, alma where BINARY suspensos2.nivel = BINARY curso and suspensos2.grupo = '$grupo' and (curso not like '4%' and curso not like '2º de bach%')  $extra2");
 	$promo2=mysqli_num_rows($prom2);
 	if ($promo2==0) { $promo2=""; }
 

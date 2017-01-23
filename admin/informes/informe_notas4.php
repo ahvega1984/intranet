@@ -79,6 +79,8 @@ else{
 
 
 <?php
+mysqli_query($db_con, "drop table temp2 IF EXISTS");
+
 $titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 foreach ($titulos as $key=>$val){
 
@@ -88,6 +90,8 @@ foreach ($titulos as $key=>$val){
 `claveal` VARCHAR( 12 ) NOT NULL ,
 `asignatura` INT( 8 ) NOT NULL ,
 `nota` TINYINT( 2 ) NOT NULL ,
+`curso` VARCHAR( 80 ) NOT NULL ,
+`unidad` VARCHAR( 80 ) NOT NULL ,
 INDEX (  `claveal` )
 ) ENGINE = MyISAM";
  mysqli_query($db_con, $crea_tabla2); 
@@ -139,8 +143,10 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp2 values('','$claveal','$bloque[0]','$cali[0]')");
-	}
+			if (strlen($bloque[0])>0 and strlen($cali[0])>0) {
+				mysqli_query($db_con, "insert into temp2 values('','$claveal','$bloque[0]','$cali[0]','$nivel_curso','$grupo')");
+			}
+		}
 	}
 }
 }
@@ -180,9 +186,9 @@ $sql_asig = "select distinct unidad from alma where curso = '$orden_nivel[0]' or
 $query_asig = mysqli_query($db_con, $sql_asig);
 while ($a_asig = mysqli_fetch_array($query_asig)) {	
 	$unidad = $a_asig[0];
-	$cod_nota = mysqli_query($db_con, "select id from temp2, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp2.claveal and unidad = '$unidad'");
+	$cod_nota = mysqli_query($db_con, "select id from temp2 where asignatura = '$codasi' and nota < '5' and unidad = '$unidad'");
 	//echo "select id from temp2, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'";
-	$cod_apro = mysqli_query($db_con, "select id from temp2, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp2.claveal and unidad = '$unidad'");
+	$cod_apro = mysqli_query($db_con, "select id from temp2 where asignatura = '$codasi' and nota > '4' and unidad = '$unidad'");
 	
 	//echo "select id from temp2 where asignatura = '$codasi'<br>";
 	$num_susp='';
@@ -191,7 +197,7 @@ while ($a_asig = mysqli_fetch_array($query_asig)) {
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
 	
-	$combas = mysqli_query($db_con, "select distinct temp2.claveal from temp2 where claveal in (select claveal1 from alma where combasi like '%$codasi%' and unidad = '$unidad')");
+	$combas = mysqli_query($db_con, "select distinct temp2.claveal from temp2 where asignatura = '$codasi' and unidad = '$unidad'");
 	//echo "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'<br>";
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);

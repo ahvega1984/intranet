@@ -79,6 +79,8 @@ else{
 
 
 <?php
+mysqli_query($db_con, "drop table suspensos IF EXISTS");
+
 $titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 foreach ($titulos as $key=>$val){
 	
@@ -173,7 +175,7 @@ mysqli_query($db_con, "insert into suspensos  (
 `nivel`
 )
 VALUES (
-'$claveal',  '$susp',  '$pil', '$grupo', '$curso'
+'$claveal', '$susp',  '$pil', '$grupo', '$curso'
 )");
 	}
 

@@ -36,6 +36,8 @@ else{
 
 
 <?php
+mysqli_query($db_con, "drop table temp4 IF EXISTS");
+
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 	

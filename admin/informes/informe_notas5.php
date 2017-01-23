@@ -79,6 +79,8 @@ else{
 
 
 <?php
+mysqli_query($db_con, "drop table temp3 IF EXISTS");
+
 $titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 foreach ($titulos as $key=>$val){
 
@@ -140,8 +142,10 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp3 values('','$claveal','$bloque[0]','$cali[0]')");
-	}
+		if (strlen($bloque[0])>0 and strlen($cali[0])>0) {
+			mysqli_query($db_con, "insert into temp3 values('','$claveal','$bloque[0]','$cali[0]')");
+			}
+		}
 	}
 }
 }
@@ -189,15 +193,15 @@ while ($asi = mysqli_fetch_array($as)) {
 	}
 	if (!($codasi=="")) {
 		
-	$cod_nota = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp3.claveal and unidad = '$unidad'");
-	$cod_apro = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp3.claveal and unidad = '$unidad'");
+	$cod_nota = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota < '5' and BINARY alma.claveal1 = BINARY temp3.claveal and unidad = '$unidad'");
+	$cod_apro = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota > '4' and BINARY alma.claveal1 = BINARY temp3.claveal and unidad = '$unidad'");
 	
 	//echo "select id from temp3 where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
-	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
+	$combas = mysqli_query($db_con, "select BINARY claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
 	
