@@ -17,17 +17,18 @@ include("../../menu.php");
  <div id='t_larga' style='display:none' >
 <div>
 <ul class="nav nav-tabs">
-<li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
-<li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
-<li><a href="#tab3" data-toggle="tab">Resumen por Grupo</a></li>
-<?php
-if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
-{
-echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>'; 
-}
-?>
-<li><a href="#tab5" data-toggle="tab">Informe por Tipo</a></li>
+	<li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
+	<li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
+	<li><a href="#tab3" data-toggle="tab">Resumen por Grupo</a></li>
+	<?php
+	if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
+	{
+	echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>'; 
+	}
+	?>
+	<li><a href="#tab5" data-toggle="tab">Informe por Tipo</a></li>
 </ul>
+
 <div class="tab-content" style="padding-bottom: 9px;">
 <div class="tab-pane fade in active" id="tab1">
 <br /><h3>Resumen General</h3><br />
@@ -843,13 +844,9 @@ mysqli_query($db_con, "drop table fech_temp");
 </div>
 <?php
 }
-?>
- </div>
-
-</div>
-<?php
 }
 ?>
+
 <div class="tab-pane fade in" id="tab5">
 <br /><h3>Informe por Tipo de problema</h3><br />
 
