@@ -136,11 +136,11 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(75, 5, 'Fecha:  '.date('d.m.Y'), 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $alumno[2], 0, 1, 'L', 0 );
-	$MiPDF->Cell(75, 12, 'Ref.:     Act/'.$id, 0, 0, 'L', 0 );
+	$MiPDF->Cell(75, 8, 'Ref.:     Act/'.$id, 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $alumno[3], 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $alumno[4].' '.mb_strtoupper($alumno[6], 'iso-8859-1'), 0, 1, 'L', 0 );
-	$MiPDF->Cell(0, 12, 'Asunto: '.$actividad, 0, 1, 'L', 0 );
+	$MiPDF->Cell(0, 0, 'Asunto: '.$actividad, 0, 1, 'L', 0 );
 	$MiPDF->Ln(7);
 	
 	$MiPDF->Multicell(0, 5, $autorizacion, 0, 'L', 0);
@@ -148,30 +148,30 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	
 	#Cuerpo.
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(30, 8, 'Fecha: ', 0, 0, 'L');
+	$MiPDF->Cell(30, 5, 'Fecha: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->Cell(130, 8, $fecha_act, 0, 1, 'L');
+	$MiPDF->Cell(130, 5, $fecha_act, 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(30, 8, 'Horario: ', 0, 0, 'L');
+	$MiPDF->Cell(30, 5, 'Horario: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->Cell(130, 8, $horario_act, 0, 1, 'L');
+	$MiPDF->Cell(130, 5, $horario_act, 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(30, 8, 'Actividad: ', 0, 0, 'L');
+	$MiPDF->Cell(30, 5, 'Actividad: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->Cell(130, 8, $actividad, 0, 1, 'L');
+	$MiPDF->Cell(130, 5, $actividad, 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(30, 8, 'Descripción: ', 0, 0, 'L');
+	$MiPDF->Cell(30, 5, 'Descripción: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
 	$MiPDF->SetY($MiPDF->GetY()+1);
 	$MiPDF->SetX($MiPDF->GetX()+30);
-	$MiPDF->MultiCell(130, 8, $descripcion, 0, 'L' , 0);
+	$MiPDF->MultiCell(130, 5, $descripcion, 0, 'L' , 0);
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(30, 8, 'Observaciones: ', 0, 0, 'L');
@@ -179,7 +179,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->SetFont('NewsGotT','',10);
 	$MiPDF->SetY($MiPDF->GetY()+1);
 	$MiPDF->SetX($MiPDF->GetX()+30);
-	$MiPDF->MultiCell(130, 8, $observaciones, 0, 'L' , 0);
+	$MiPDF->MultiCell(130, 5, $observaciones, 0, 'L' , 0);
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(30, 8, 'Profesor/es: ', 0, 0, 'L');
@@ -232,7 +232,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	$MiPDF->Cell (90, 5, '', 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.$alumno[2], 0, 1, 'C', 0 );
+	$MiPDF->Cell (55, 0, 'Fdo. '.$alumno[2], 0, 1, 'C', 0 );
 	
 	
 	

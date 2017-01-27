@@ -267,11 +267,11 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	$asignatura3 = trim($rowcurso3[1]);
 
 	// Problema con asignaturas comunes de Bachillerato con distinto código
-	if(strlen($rowcurso3[2])>15){
+	/*if(strlen($rowcurso3[2])>15){
 		$rowcurso3[2] = substr($rowcurso3[2],0,15);
-	}
+	}*/
 
-	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso like '$rowcurso3[2]%' and abrev not like '%\_%'";
+	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso like '$rowcurso3[2]' and abrev not like '%\_%'";
 	//echo $asigna03."<br>";
 	$texto_asig3="";
 	$c_asig3="";

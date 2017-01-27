@@ -153,7 +153,8 @@ $menu = array(
 		'items'   => array (
 			array(
 				'href'   => 'http://'.$config['mod_biblioteca_web'],
-				'titulo' => 'Página de la Biblioteca'
+				'titulo' => 'Página de la Biblioteca',
+				'target' => '_blank'
 			),
 			array(
 				'href'   => 'admin/cursos/hor_aulas.php?aula=Biblioteca',
