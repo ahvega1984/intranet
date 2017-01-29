@@ -90,6 +90,7 @@ foreach ($titulos as $key=>$val){
 `claveal` VARCHAR( 12 ) NOT NULL ,
 `asignatura` INT( 8 ) NOT NULL ,
 `nota` TINYINT( 2 ) NOT NULL ,
+`unidad` VARCHAR( 80 ) NOT NULL ,
 INDEX (  `claveal` )
 ) ENGINE = MyISAM";
  mysqli_query($db_con, $crea_tabla2); 
@@ -143,7 +144,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
 		if (strlen($bloque[0])>0 and strlen($cali[0])>0) {
-			mysqli_query($db_con, "insert into temp3 values('','$claveal','$bloque[0]','$cali[0]')");
+			mysqli_query($db_con, "insert into temp3 values('','$claveal','$bloque[0]','$cali[0]','$grupo')");
 			}
 		}
 	}
@@ -172,9 +173,7 @@ while ($ni = mysqli_fetch_array($niv)) {
 </thead>
 <tbody>	
 	<?php
-$sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
- and asignaturas.curso = '$orden_nivel[0]' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.codigo not in 
-(select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Refuerz%')";
+$sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre and asignaturas.curso = '$orden_nivel[0]' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.nombre not like 'Refuerz%'";
 //echo $sql;	
 $as = mysqli_query($db_con, $sql);
 while ($asi = mysqli_fetch_array($as)) {
@@ -193,15 +192,15 @@ while ($asi = mysqli_fetch_array($as)) {
 	}
 	if (!($codasi=="")) {
 		
-	$cod_nota = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota < '5' and BINARY alma.claveal1 = BINARY temp3.claveal and unidad = '$unidad'");
-	$cod_apro = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota > '4' and BINARY alma.claveal1 = BINARY temp3.claveal and unidad = '$unidad'");
+	$cod_nota = mysqli_query($db_con, "select id from temp3 where asignatura = '$codasi' and nota < '5' and unidad = '$unidad'");
+	$cod_apro = mysqli_query($db_con, "select id from temp3 where asignatura = '$codasi' and nota > '4' and unidad = '$unidad'");
 	
 	//echo "select id from temp3 where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
-	$combas = mysqli_query($db_con, "select BINARY claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
+	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
 	
