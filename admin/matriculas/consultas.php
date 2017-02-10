@@ -83,7 +83,7 @@ if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
 	mysqli_query($db_con, "drop table if exists matriculas_temp");
-	mysqli_query($db_con, "CREATE TABLE  `matriculas_temp` (
+	mysqli_query($db_con, "CREATE TABLE `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -105,7 +105,7 @@ INDEX (  `id_matriculas` )
 		$text_n="";
 		$text_t="";
 		$id_cambios = $cam[0];
-		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma_primera";}
+		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
 		$contr = mysqli_query($db_con, "select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id_cambios'");
 		//$col_datos = array()
 		$control = mysqli_fetch_array($contr);

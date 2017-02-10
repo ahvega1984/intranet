@@ -294,9 +294,7 @@ Los datos se han actualizado correctamente.
 							<th>Inicio</th>
 							<th>Fin</th>
 							<th>Horas</th>
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<th>&nbsp;</th>
-							<?php endif; ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -316,7 +314,7 @@ Los datos se han actualizado correctamente.
 							</td>
 							
 							
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>							
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE or $_SESSION['profi'] == $row['profesor']): ?>							
 								<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
 									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
