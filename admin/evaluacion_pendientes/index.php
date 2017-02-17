@@ -51,7 +51,7 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Evaluación de Pendientes <small>Listado de pendientes por asignatura</small></h2>
+		<h2 style="display:inline;">EvaluaciÃ³n de Pendientes <small>Listado de pendientes por asignatura</small></h2>
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -67,7 +67,7 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Este módulo permite poner y consultar las notas de las distintas Evaluaciones de los alumnos con 
+						<p>Este mÃ³dulo permite poner y consultar las notas de las distintas Evaluaciones de los alumnos con 
 						Asignaturas pendientes de otros Cursos.</p>
 						<p>El formulario para colocar las calificaciones nos presenta los Niveles en los que impartimos la 
 						asignatura. Al seleccionar un Nivel nos encontramos con los alumnos pendientes de alguno de nuestros 
@@ -171,13 +171,13 @@ echo "<option></option>";
 						</div>
 						
 						<div class="form-group">
-						<label>Evaluación</label>
+						<label>EvaluaciÃ³n</label>
 						  <select class="form-control" name="evaluacion">
 
-    <option value='1'>1ª Evaluación</option>
-     <option value='2'>2ª Evaluación</option>
-      <option value='3'>Evaluación Ordinaria</option>
-       <option value='4'>Evaluación Extraordinaria</option>
+    <option value='1'>1Âª EvaluaciÃ³n</option>
+     <option value='2'>2Âª EvaluaciÃ³n</option>
+      <option value='3'>EvaluaciÃ³n Ordinaria</option>
+       <option value='4'>EvaluaciÃ³n Extraordinaria</option>
 
 						  </select>
 						</div>

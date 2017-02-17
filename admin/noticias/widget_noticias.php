@@ -21,7 +21,7 @@
 		<small>
 			<span class="fa fa-user fa-fw"></span> <?php echo nomprofesor($profesor); ?> &nbsp;&nbsp;&middot;&nbsp;&nbsp;
 			<span class="fa fa-clock-o fa-fw"></span> <?php echo strftime('%e %b, %H:%M',strtotime($row['timestamp'])); ?>h &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-			<span class="fa fa-tag fa-fw"></span> <?php echo ($row['clase']) ? $row['clase'] : 'Sin categoría'; ?>
+			<span class="fa fa-tag fa-fw"></span> <?php echo ($row['clase']) ? $row['clase'] : 'Sin categorÃ­a'; ?>
 		</small>
 	</p>
 </div>

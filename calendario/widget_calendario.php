@@ -42,7 +42,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 		$anio_sig = $anio + 1;
 	}
 	
-	// Corrección en mes
+	// CorrecciÃ³n en mes
 	($mes < 10) ? $mes = '0'.$mes : $mes = $mes;
 	
 	echo '<div class"table-responsive">';
@@ -91,7 +91,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 
 				echo '				<p class="text-right" style="margin-bottom: 2px;">'.$dias[$i].'</p>';
 				
-				// Corrección en día
+				// CorrecciÃ³n en dÃ­a
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				
 				
@@ -109,7 +109,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				}
 				mysqli_free_result($result_calendarios);
 				
-				// Consultamos los calendarios públicos
+				// Consultamos los calendarios pÃºblicos
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
@@ -129,7 +129,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				while ($festivo = mysqli_fetch_assoc($result)) {
 					
 					if ($festivo['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
-						echo '<span class="fa fa-circle" style="color: #e14939;  margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="Día festivo - '.stripslashes(str_replace('"', '\'', $festivo['nombre'])).'"></span>';
+						echo '<span class="fa fa-circle" style="color: #e14939;  margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="DÃ­a festivo - '.stripslashes(str_replace('"', '\'', $festivo['nombre'])).'"></span>';
 					}
 				}
 				mysqli_free_result($result);
@@ -170,9 +170,9 @@ if (mysqli_num_rows($result_calendarios)) {
 		
 			while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 				if ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] != $eventos['horafin']) $hora_evento = substr($eventos['horaini'], 0, -3).' - '.substr($eventos['horafin'], 0, -3);
-				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el día";
+				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el dÃ­a";
 				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
-				else $hora_evento = "Todo el día";
+				else $hora_evento = "Todo el dÃ­a";
 				
 				echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'</a>';
 				$profesor_libre=0;
@@ -186,7 +186,7 @@ if (mysqli_num_rows($result_calendarios)) {
 	mysqli_free_result($result_calendarios);
 }
 
-// Consultamos los calendarios públicos
+// Consultamos los calendarios pÃºblicos
 $result_calendarios = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1");
 
 while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
@@ -197,9 +197,9 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 		if (mysqli_num_rows($result_eventos)) {
 			
 			if ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] != $eventos['horafin']) $hora_evento = substr($eventos['horaini'], 0, -3).' - '.substr($eventos['horafin'], 0, -3);
-			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el día";
+			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el dÃ­a";
 			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
-			else $hora_evento = "Todo el día";
+			else $hora_evento = "Todo el dÃ­a";
 			
 			if ($calendario['id'] == 2):
 				$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = '".$eventos['id']."' LIMIT 1");
@@ -247,7 +247,7 @@ mysqli_free_result($result_calendarios);
 $result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos AND YEAR(fecha)='$anio_actual' AND MONTH(fecha)='$mes_actual' AND DAY(fecha)='$dia_actual'");
 while ($festivo = mysqli_fetch_assoc($result)) {
 	if (mysqli_num_rows($result_eventos)) {
-		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el día</span><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="Día festivo"></span>&nbsp;'.stripslashes($festivo['nombre']).'</a>';
+		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el dÃ­a</span><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="DÃ­a festivo"></span>&nbsp;'.stripslashes($festivo['nombre']).'</a>';
 		$profesor_libre=0;
 	}
 	else {

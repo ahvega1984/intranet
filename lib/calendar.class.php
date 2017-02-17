@@ -5,7 +5,7 @@ class calendar {
 	// Events array
 	private $events = array();
 	// Defaults for day and month names
-	private $dayNames = array ( 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do');
+	private $dayNames = array ( 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'SÃ¡', 'Do');
 	private $monthNames = array ( 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' );
 	// Defaults for prev and next links
 	private $prevMonthNavTxt = '<i class="fa fa-arrow-circle-left fa-lg"></i>';
@@ -15,7 +15,7 @@ class calendar {
 	public function __construct($name='calendar') {
 		// Assign name to calendar
 		if (strpos($name, ' ') || strpos($name, '_') || is_numeric(substr($name, 0, 1)))
-			throw new exception('El calendario debe tener un nombre CSS válido');
+			throw new exception('El calendario debe tener un nombre CSS vÃ¡lido');
 		$this->calendarName = $name;
 
 		// Names for special cases
@@ -60,7 +60,7 @@ class calendar {
 		if (count($array) == 7)
 			$this->dayNames = $array;
 		else
-			throw new exception ('Valor no válido para setDayNames()');
+			throw new exception ('Valor no vÃ¡lido para setDayNames()');
 	}
 	// Get the names of the days
 	public function getDayNames($array) {
@@ -72,7 +72,7 @@ class calendar {
 		if (count($array) == 12)
 			$this->monthNames = $array;
 		else
-			throw new exception ('Valor no válido para setMonthNames()');
+			throw new exception ('Valor no vÃ¡lido para setMonthNames()');
 	}
 	// Set the names of the months
 	public function getMonthNames($array) {
@@ -87,7 +87,7 @@ class calendar {
 			array_unshift($this->dayNames, array_pop($this->dayNames));
 		}
 		else
-			throw new exception('Valor no válido para setStartDay()');
+			throw new exception('Valor no vÃ¡lido para setStartDay()');
 	}
 	// Gets the calendar start day
 	public function getStartDay($day) {
@@ -181,9 +181,9 @@ class calendar {
 
 		// Check for valid input	
 		if (!preg_match('~[0-9]{4}~', $this->year))
-			throw new exception('Año no válido');
+			throw new exception('AÃ±o no vÃ¡lido');
 		if (!is_numeric($this->month) || $this->month < 0 || $this->month > 13)
-			throw new exception('Mes no válido');
+			throw new exception('Mes no vÃ¡lido');
 
 		// Set the current timestamp
 		$this->timeStamp = mktime(1,1,1,$this->month, $this->day, $this->year);

@@ -9,34 +9,34 @@ while ($sqlprof0 = mysqli_fetch_array($sqlal)) {
 	$nombreorig = $sqlprof0[2] . " " . $sqlprof0[1];
 	$nombre = $sqlprof0[2];
 	$claveal = $sqlprof0[0];
-	if (substr($nombre,0,1) == "¡") {$nombre = str_replace("¡","A",$nombre);}
-	if (substr($nombre,0,1) == "…") {$nombre = str_replace("…","E",$nombre);}
-	if (substr($nombre,0,1) == "Õ") {$nombre = str_replace("Õ","I",$nombre);}
-	if (substr($nombre,0,1) == "”") {$nombre = str_replace("”","O",$nombre);}
-	if (substr($nombre,0,1) == "⁄") {$nombre = str_replace("⁄","U",$nombre);}
+	if (substr($nombre,0,1) == "√Å") {$nombre = str_replace("√Å","A",$nombre);}
+	if (substr($nombre,0,1) == "√â") {$nombre = str_replace("√â","E",$nombre);}
+	if (substr($nombre,0,1) == "√ç") {$nombre = str_replace("√ç","I",$nombre);}
+	if (substr($nombre,0,1) == "√ì") {$nombre = str_replace("√ì","O",$nombre);}
+	if (substr($nombre,0,1) == "√ö") {$nombre = str_replace("√ö","U",$nombre);}
 	
-	$apellido[0] = str_replace("¡","A",$apellido[0]);
-	$apellido[0] = str_replace("…","E",$apellido[0]);
-	$apellido[0] = str_replace("Õ","I",$apellido[0]);
-	$apellido[0] = str_replace("”","O",$apellido[0]);
-	$apellido[0] = str_replace("⁄","U",$apellido[0]);
-	$apellido[0] = str_replace("·","a",$apellido[0]);
-	$apellido[0] = str_replace("È","e",$apellido[0]);
-	$apellido[0] = str_replace("Ì","i",$apellido[0]);
-	$apellido[0] = str_replace("Û","o",$apellido[0]);
-	$apellido[0] = str_replace("˙","u",$apellido[0]);
-	$apellido[0] = str_replace("¸","u",$apellido[0]);
-	$apellido[0] = str_replace("ˆ","o",$apellido[0]);
+	$apellido[0] = str_replace("√Å","A",$apellido[0]);
+	$apellido[0] = str_replace("√â","E",$apellido[0]);
+	$apellido[0] = str_replace("√ç","I",$apellido[0]);
+	$apellido[0] = str_replace("√ì","O",$apellido[0]);
+	$apellido[0] = str_replace("√ö","U",$apellido[0]);
+	$apellido[0] = str_replace("√°","a",$apellido[0]);
+	$apellido[0] = str_replace("√©","e",$apellido[0]);
+	$apellido[0] = str_replace("√≠","i",$apellido[0]);
+	$apellido[0] = str_replace("√≥","o",$apellido[0]);
+	$apellido[0] = str_replace("√∫","u",$apellido[0]);
+	$apellido[0] = str_replace("√º","u",$apellido[0]);
+	$apellido[0] = str_replace("√∂","o",$apellido[0]);
 	$apellido[0] = str_replace("'","",$apellido[0]);
 
 	
 	$userpass = "a".strtolower(substr($nombre,0,1)).strtolower($apellido[0]);
-	$userpass = str_replace("™","",$userpass);
-	$userpass = str_replace("Ò","n",$userpass);
+	$userpass = str_replace("¬™","",$userpass);
+	$userpass = str_replace("√±","n",$userpass);
 	$userpass = str_replace("-","",$userpass);
 	$userpass = str_replace("-","",$userpass);
 	$userpass = str_replace("'","",$userpass);
-	$userpass = str_replace("∫","",$userpass);
+	$userpass = str_replace("¬∫","",$userpass);
 	
 	$usuario  = $userpass;
 	$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
@@ -68,7 +68,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 Los datos de los alumnos se han importado correctamente en la tabla "usuarioalumno".<br> Se ha generado un fichero (alumnos.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
 </div></div><br />';
 
-// CÛdigo y abreviatura de la asignatura.
+// C√≥digo y abreviatura de la asignatura.
 $codigo = "select  usuario, nombre, perfil from usuarioalumno";
 //echo $codigo . "<br>";
 $sqlcod = mysqli_query($db_con, $codigo);
@@ -107,11 +107,11 @@ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
  {
  $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>
+			<h5>ATENCI√ìN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso de escritura en ese directorio?
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr√°s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><br />'); 
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
@@ -119,7 +119,7 @@ No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso
  echo '<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h5>MOODLE:</h5>
- Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en cualquier Plataforma Moodle distinta a la de la Red TIC de la Junta de AndalucÌa.
+ Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en cualquier Plataforma Moodle distinta a la de la Red TIC de la Junta de Andaluc√≠a.
 </div><br />'; 
  
  ?>

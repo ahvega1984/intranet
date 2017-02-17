@@ -47,8 +47,8 @@ $fecha_t = $dalumno[5];
 if (empty ( $dalumno [0] )) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo<br><br />
+			<legend>ATENCIÃ“N:</legend>
+Debes seleccionar un alumno en primer lugar.<br>Vuelve atrÃ¡s e intÃ©ntalo de nuevo<br><br />
 <input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
 	exit();
@@ -67,8 +67,8 @@ if (file_exists($foto)) {
 echo '
 	<div class="media-body">
     <h2>'.$dalumno[0].', '.$dalumno[1].' <small>Unidad: '.$dalumno[2].'</small></h2>
-    <h4 class="text-warning">Fecha de la ausencia: '.strftime('%e de %B de %Y',strtotime($dalumno[5])).' ('.$dalumno[6].' días)</h4>
-    <h4 class="text-info">Tutor/a: '.mb_convert_case($dalumno[4], MB_CASE_TITLE, "iso-8859-1").'</h4>
+    <h4 class="text-warning">Fecha de la ausencia: '.strftime('%e de %B de %Y',strtotime($dalumno[5])).' ('.$dalumno[6].' dÃ­as)</h4>
+    <h4 class="text-info">Tutor/a: '.mb_convert_case($dalumno[4], MB_CASE_TITLE, "UTF-8").'</h4>
   </div>
 </div>
 <br>';
@@ -116,8 +116,8 @@ while($informe1 = mysqli_fetch_array($datos1))
 } else {
 	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Los Profesores no han rellenado aún su Informe de tareas.<br /><br />
+			<legend>ATENCIÃ“N:</legend>
+Los Profesores no han rellenado aÃºn su Informe de tareas.<br /><br />
 <input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
 }

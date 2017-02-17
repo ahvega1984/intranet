@@ -29,8 +29,8 @@
         		<?php if (stristr($_SESSION['cargo'],'1')): ?>
         		<div class="checkbox">
         		   <label>
-        		     <input type="checkbox" id="cmp_calendario_publico" name="cmp_calendario_publico"> Hacer p˙blico este calendario.<br>
-        		     <small class="text-muted">Ser· visible por todos los profesores del centro. Solo el Equipo directivo puede crear y editar eventos en este calendario.</small>
+        		     <input type="checkbox" id="cmp_calendario_publico" name="cmp_calendario_publico"> Hacer p√∫blico este calendario.<br>
+        		     <small class="text-muted">Ser√° visible por todos los profesores del centro. Solo el Equipo directivo puede crear y editar eventos en este calendario.</small>
         		   </label>
         		</div>
         		<?php endif; ?>
@@ -74,7 +74,7 @@
 	    					<div class="checkbox">
 		    					<label>
 		    						<input type="checkbox" id="cmp_fecha_diacomp" name="cmp_fecha_diacomp" value="1">
-		    						<strong>Todo el dÌa</strong>
+		    						<strong>Todo el d√≠a</strong>
 		    					</label>
 		    				</div>
 	    				</div>
@@ -120,7 +120,7 @@
         		</div>
         		
         		<div class="form-group">
-        			<label for="cmp_descripcion">DescripciÛn</label>
+        			<label for="cmp_descripcion">Descripci√≥n</label>
         			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3"></textarea>
         		</div>
         		
@@ -179,7 +179,7 @@
         				<div class="checkbox">
         					<label for="cmp_cuaderno">
         						<input type="checkbox" id="cmp_cuaderno" name="cmp_cuaderno" value="1"> Crear columna en mi cuaderno de notas<br>
-        						<small class="text-muted">Se crear· una columna de tipo numÈrico y no visible para las familias. Puede modificar estos valores en el cuaderno de notas.</small><br>
+        						<small class="text-muted">Se crear√° una columna de tipo num√©rico y no visible para las familias. Puede modificar estos valores en el cuaderno de notas.</small><br>
         						<small class="text-danger">Importante: Si la asignatura tiene desdoble de unidades, debe marcar todas las unidades afectadas. Deben ser del mismo curso y tener el mismo nombre de asignatura.</small>
         					</label>
         				</div>
@@ -196,7 +196,7 @@
 		        			<label for="cmp_departamento">Departamento que lo organiza</label>
 		        			<select class="form-control" id="cmp_departamento" name="cmp_departamento">
 		        				<?php if (stristr($_SESSION['cargo'],'2') == TRUE and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)){ ?>
-		        				<option value="OrientaciÛn">OrientaciÛn</option>
+		        				<option value="Orientaci√≥n">Orientaci√≥n</option>
 		        				<?php } else{ ?>
 		        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)): ?>
 		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC"); ?>
@@ -205,11 +205,11 @@
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
 		        				<?php elseif (stristr($_SESSION['cargo'],'d') == TRUE): ?>
-		        				<option value="Relaciones de GÈnero">Relaciones de GÈnero</option>
+		        				<option value="Relaciones de G√©nero">Relaciones de G√©nero</option>
 		        				<?php else: ?>
-		        				<option value="M˙ltiples Departamentos">M˙ltiples Departamentos</option>
+		        				<option value="M√∫ltiples Departamentos">M√∫ltiples Departamentos</option>
 		        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
-		        				<option value="Relaciones de GÈnero">Relaciones de GÈnero</option>
+		        				<option value="Relaciones de G√©nero">Relaciones de G√©nero</option>
 		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
@@ -221,7 +221,7 @@
 		        		</div>
 		        		
 		        		<div class="form-group">
-		        			<label for="cmp_profesores">Profesores que asistir·n a la actividad</label>
+		        			<label for="cmp_profesores">Profesores que asistir√°n a la actividad</label>
 		        			<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>
 		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -233,7 +233,7 @@
 		        				</optgroup>
 		        				<?php endwhile; ?>
 		        			</select>
-		        			<p class="help-block">Para seleccionar varios profesores, mantÈn apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el ratÛn.</p>
+		        			<p class="help-block">Para seleccionar varios profesores, mant√©n apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el rat√≥n.</p>
 		        		</div>
 		        		<div class="form-group">
 		        		<label for="cmp_descripcion">Observaciones (Precio de la Actividad, Recomendaciones para la misma, etc.)</label>
@@ -244,7 +244,7 @@
 		        	<div class="col-sm-6">
 		        		
 		        		<div class="form-group">
-		        			<label for="">Unidades que asistir·n a la actividad</label>
+		        			<label for="">Unidades que asistir√°n a la actividad</label>
 		        			<?php 	if (stristr($_SESSION['cargo'],'2') and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
 			        		<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
 			        		<?php while($row = mysqli_fetch_assoc($result)): ?>

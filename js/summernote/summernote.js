@@ -5147,7 +5147,7 @@
       }
 
       if (agent.isMac) {
-        shortcut = shortcut.replace('CMD', '⌘').replace('SHIFT', '⇧');
+        shortcut = shortcut.replace('CMD', 'â').replace('SHIFT', 'â§');
       }
 
       shortcut = shortcut.replace('BACKSLASH', '\\')

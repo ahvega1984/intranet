@@ -12,7 +12,7 @@ include("./menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Matriculación de alumnos <small>Alumnado de ESO</small></h2>
+		<h2>MatriculaciÃ³n de alumnos <small>Alumnado de ESO</small></h2>
 	</div>
 	
 	
@@ -26,23 +26,23 @@ include("./menu.php");
 				
 				<form method="post" action="">
 					<fieldset>
-						<legend>Información del alumno/a</legend>
+						<legend>InformaciÃ³n del alumno/a</legend>
 						
 						<div class="form-group">
 					    <label for="curso">Curso</label>
 					    <select class="form-control" id="curso" name="curso" onchange="submit()">
 					    	<option value=""></option>
-					    	<option value="1ESO" <?php echo (isset($curso) && $curso == "1ESO") ? 'selected' : ''; ?>>1º de ESO</option>
-					    	<option value="2ESO" <?php echo (isset($curso) && $curso == "2ESO") ? 'selected' : ''; ?>>2º de ESO</option>
-					    	<option value="3ESO" <?php echo (isset($curso) && $curso == "3ESO") ? 'selected' : ''; ?>>3º de ESO</option>
-					    	<option value="4ESO" <?php echo (isset($curso) && $curso == "4ESO") ? 'selected' : ''; ?>>4º de ESO</option>
+					    	<option value="1ESO" <?php echo (isset($curso) && $curso == "1ESO") ? 'selected' : ''; ?>>1Âº de ESO</option>
+					    	<option value="2ESO" <?php echo (isset($curso) && $curso == "2ESO") ? 'selected' : ''; ?>>2Âº de ESO</option>
+					    	<option value="3ESO" <?php echo (isset($curso) && $curso == "3ESO") ? 'selected' : ''; ?>>3Âº de ESO</option>
+					    	<option value="4ESO" <?php echo (isset($curso) && $curso == "4ESO") ? 'selected' : ''; ?>>4Âº de ESO</option>
 					    </select>
 					    <p class="help-block">No es necesario si el alumno/a pertenece a nuestro centro o colegio adscrito.</p>
 					  </div>
 					  
 					  <div class="form-group">
-					    <label for="claveal">Número de Identificación Escolar</label>
-					    <input type="text" class="form-control" name="claveal" id="claveal" placeholder="Número de Identificación Escolar" maxlength="12">
+					    <label for="claveal">NÃºmero de IdentificaciÃ³n Escolar</label>
+					    <input type="text" class="form-control" name="claveal" id="claveal" placeholder="NÃºmero de IdentificaciÃ³n Escolar" maxlength="12">
 					  </div>
 					  
 					  <div class="form-group">

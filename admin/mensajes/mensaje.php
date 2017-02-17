@@ -63,7 +63,7 @@ include("menu.php");
 	    	
 	    	<br>
 	    	
-	      <?php echo stripslashes(html_entity_decode($mensaje['texto'], ENT_QUOTES, 'ISO-8859-1')); ?>
+	      <?php echo stripslashes(html_entity_decode($mensaje['texto'], ENT_QUOTES, 'UTF-8')); ?>
 	      
 				<br>
 				<br>

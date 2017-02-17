@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 if (isset($_POST['btnGuardar'])) {
@@ -14,17 +14,17 @@ if (isset($_POST['btnGuardar'])) {
 	$prefImpAmonestacion	= limpiar_string($_POST['prefImpAmonestacion']);
 	$prefAmonReiteracion	= limpiar_string($_POST['prefAmonReiteracion']);
 
-	// CREACI覰 DEL ARCHIVO DE CONFIGURACI覰
+	// CREACI脫N DEL ARCHIVO DE CONFIGURACI脫N
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACI覰 M覦ULO DE TUTOR虯\r\n");
+		fwrite($file, "\r\n// CONFIGURACI脫N M脫DULO DE TUTOR脥A\r\n");
 		fwrite($file, "\$config['tutoria']['impresion_expulsion_aula']\t= $prefImpExpulsionAula;\r\n");
 		fwrite($file, "\$config['tutoria']['impresion_amonestacion']\t= $prefImpAmonestacion;\r\n");
 		fwrite($file, "\$config['tutoria']['amonestacion_reiteracion']\t= $prefAmonReiteracion;\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuraci髇");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraci贸n");
 		
 		fclose($file);
 		
@@ -45,7 +45,7 @@ include("menu.php");
 <div class="container">
 
 	<div class="page-header">
-		<h2>Control de tutor韆s <small>Preferencias</small></h2>
+		<h2>Control de tutor铆as <small>Preferencias</small></h2>
 	</div>
 	
 	<!-- MENSAJES -->
@@ -74,7 +74,7 @@ include("menu.php");
 						<legend>Preferencias</legend>
 						
 						<div class="form-group">
-							<label for="prefImpExpulsionAula" class="col-sm-4 control-label">Imprimir parte de expulsi髇 del aula</label>
+							<label for="prefImpExpulsionAula" class="col-sm-4 control-label">Imprimir parte de expulsi贸n del aula</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefImpExpulsionAula" name="prefImpExpulsionAula">
 									<option value="0" <?php echo (isset($config['tutoria']['impresion_expulsion_aula']) && $config['tutoria']['impresion_expulsion_aula'] == 0) ? 'selected' : ''; ?>>Habilitado</option>
@@ -94,7 +94,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefAmonReiteracion" class="col-sm-4 control-label">Amonestaci髇 escrita autom醫ica por reiteraci髇 en el mismo trimestre de cinco o m醩 faltas leves</label>
+							<label for="prefAmonReiteracion" class="col-sm-4 control-label">Amonestaci贸n escrita autom谩tica por reiteraci贸n en el mismo trimestre de cinco o m谩s faltas leves</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefAmonReiteracion" name="prefAmonReiteracion">
 									<option value="0" <?php echo (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria']['amonestacion_reiteracion'] == 0) ? 'selected' : ''; ?>>Habilitado</option>

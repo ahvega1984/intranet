@@ -113,7 +113,7 @@ include("../../menu.php");
 						<legend>Aulas libres</legend>
 						
 						<div class="form-group">
-							<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
+							<?php $dias = array('Lunes','Martes','MiÃ©rcoles','Jueves','Viernes'); ?>
 					    <select class="form-control" id="n_dia" name="n_dia" onChange="submit()">
 					    	<?php for($i = 0; $i < count($dias); $i++): ?>
 					    	<option value="<?php echo $dias[$i]; ?>"><?php echo $dias[$i]; ?></option>
@@ -135,7 +135,7 @@ include("../../menu.php");
 						<legend>Horario de Guardias</legend>
 						
 						<div class="form-group">
-							<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
+							<?php $dias = array('Lunes','Martes','MiÃ©rcoles','Jueves','Viernes'); ?>
 					    <select class="form-control" id="n_dia" name="n_dia" onChange="submit()">
 					    	<?php for($i = 0; $i < count($dias); $i++): ?>
 					    	<option value="<?php echo $dias[$i]; ?>"><?php echo $dias[$i]; ?></option>

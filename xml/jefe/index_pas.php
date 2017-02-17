@@ -11,13 +11,13 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>AdministraciÛn <small>ImportaciÛn de Personal de AdministraciÛn y Servicios</small></h2>
+		<h2>Administraci√≥n <small>Importaci√≥n de Personal de Administraci√≥n y Servicios</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos WHERE DEPARTAMENTO='Administracion' OR DEPARTAMENTO='Auxiliar de Conversacion' OR DEPARTAMENTO='Conserjeria' OR DEPARTAMENTO='Educador'"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe informaciÛn en la base de datos. Este proceso actualizar· la informaciÛn de los departamentos. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.
+		Ya existe informaci√≥n en la base de datos. Este proceso actualizar√° la informaci√≥n de los departamentos. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -32,7 +32,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="pas.php">
 					<fieldset>
-						<legend>ImportaciÛn de Personal no docente</legend>
+						<legend>Importaci√≥n de Personal no docente</legend>
 						
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">RelPerCen.txt</span></label>
@@ -53,11 +53,11 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>InformaciÛn sobre la importaciÛn</h3>
+			<h3>Informaci√≥n sobre la importaci√≥n</h3>
 			
 			<p>Este apartado se encarga de importar el <strong>Personal no docente</strong> que trabaja en el Centro.</p>
 			
-			<p>Para obtener el archivo de exportaciÛn del personal no docente debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Seleccione <strong>Personal no docente</strong> y haga clic en el botÛn <strong>Exportar datos</strong>. El formato de exportaciÛn debe ser <strong>Texto plano</strong>.</p>
+			<p>Para obtener el archivo de exportaci√≥n del personal no docente debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Seleccione <strong>Personal no docente</strong> y haga clic en el bot√≥n <strong>Exportar datos</strong>. El formato de exportaci√≥n debe ser <strong>Texto plano</strong>.</p>
 						
 		</div>
 		

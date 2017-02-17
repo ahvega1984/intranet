@@ -31,104 +31,104 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 				</div>
 				<div class="modal-body">
-					<p>El mÛdulo de <b><em>Faltas de Asistencia</em></b> incluye estas funciones: poner faltas; 
-					justificarlas (si el cargo es Tutor); consultar las faltas de m˙ltiples maneras; hacer un 
-					seguimiento de los Alumnos Absentistas (Tutores, Jefatura, OrientaciÛn y Servicios Sociales 
-					municipales); subir las faltas de asistencia registradas a SÈneca (si utilizamos la 
-					aplicaciÛn para poner las faltas, una vez al mes se suben a SÈneca); y descargar las faltas 
-					de asistencia desde SÈneca (si no utilizamos la aplicaciÛn para poner las faltas pero 
-					queremos incorporar las faltas a la Intranet para incluirlas en otros mÛdulos -Informes de 
-					alumnos, envÌo de SMS a las familias, Memoria de TutorÌa, Cuaderno del Profesor, etc.).</p>
+					<p>El m√≥dulo de <b><em>Faltas de Asistencia</em></b> incluye estas funciones: poner faltas; 
+					justificarlas (si el cargo es Tutor); consultar las faltas de m√∫ltiples maneras; hacer un 
+					seguimiento de los Alumnos Absentistas (Tutores, Jefatura, Orientaci√≥n y Servicios Sociales 
+					municipales); subir las faltas de asistencia registradas a S√©neca (si utilizamos la 
+					aplicaci√≥n para poner las faltas, una vez al mes se suben a S√©neca); y descargar las faltas 
+					de asistencia desde S√©neca (si no utilizamos la aplicaci√≥n para poner las faltas pero 
+					queremos incorporar las faltas a la Intranet para incluirlas en otros m√≥dulos -Informes de 
+					alumnos, env√≠o de SMS a las familias, Memoria de Tutor√≠a, Cuaderno del Profesor, etc.).</p>
 					
 					<h5 style="font-weight: 600;">Poner faltas a los alumnos</h5>
-					<p>La p·gina por defecto para poner las faltas es un formulario muy simple (similar a la 
-					aplicaciÛn <em>iSÈneca</em> de la ConsejerÌa), pensado para ser utilizado en el tiempo real 
-					de trabajo en el aula, pero que tambiÈn puede ser utilizado en cualquier momento posterior. 
+					<p>La p√°gina por defecto para poner las faltas es un formulario muy simple (similar a la 
+					aplicaci√≥n <em>iS√©neca</em> de la Consejer√≠a), pensado para ser utilizado en el tiempo real 
+					de trabajo en el aula, pero que tambi√©n puede ser utilizado en cualquier momento posterior. 
 					Se ofrecen tres opciones: Falta No Justificada (F), Falta Justificada (J) o Retraso (R). 
-					Est· tambiÈn adaptada para su uso en dispositivos mÛviles, y aparece en el Men˙ de iconos 
-					especÌficos de estos dispositivos en la p·gina de inicio de la Intranet.</p>
+					Est√° tambi√©n adaptada para su uso en dispositivos m√≥viles, y aparece en el Men√∫ de iconos 
+					espec√≠ficos de estos dispositivos en la p√°gina de inicio de la Intranet.</p>
 					
-					<p>Si estamos en una aula con alumnos impartiendo una asignatura, el mÛdulo detecta el 
+					<p>Si estamos en una aula con alumnos impartiendo una asignatura, el m√≥dulo detecta el 
 					Grupo(s)/Asignatura y presenta una lista de los alumnos; de lo contrario, selecciona la 
-					fecha y luego el Grupo o Grupos de una de tus asignaturas. Aparecer· la lista de tus 
-					alumnos y podr·s marcar las faltas. EnvÌa las Faltas para guardarlas en la Base de datos. 
-					Si el alumno est· registrado en ese momento en una Actividad Complementaria o el Tutor 
+					fecha y luego el Grupo o Grupos de una de tus asignaturas. Aparecer√° la lista de tus 
+					alumnos y podr√°s marcar las faltas. Env√≠a las Faltas para guardarlas en la Base de datos. 
+					Si el alumno est√° registrado en ese momento en una Actividad Complementaria o el Tutor 
 					del mismo ya ha justificado de antemano la falta de esa hora, no podremos marcar la falta.</p>
 					
-					<p>Hay un mÈtodo alternativo para registrar las faltas semanalmente. Si quieres utilizarlo, 
-					pulsa en el Men˙ superior sobre <em><strong>Poner</strong></em> y se abrir· la p·gina. Esta 
-					p·gina te presenta un cuadrante con la estructura de tu horario semanal. En cada dÌa y hora 
-					en que das clase aparecen los Grupos afectados. Selecciona en primer lugar un dÌa de la 
-					semana en la que quieres marcar las faltas. A continuaciÛn, escribe el n˙mero de aula de los 
+					<p>Hay un m√©todo alternativo para registrar las faltas semanalmente. Si quieres utilizarlo, 
+					pulsa en el Men√∫ superior sobre <em><strong>Poner</strong></em> y se abrir√° la p√°gina. Esta 
+					p√°gina te presenta un cuadrante con la estructura de tu horario semanal. En cada d√≠a y hora 
+					en que das clase aparecen los Grupos afectados. Selecciona en primer lugar un d√≠a de la 
+					semana en la que quieres marcar las faltas. A continuaci√≥n, escribe el n√∫mero de aula de los 
 					alumnos ausentes seguido de un punto (por ejemplo: 3.12.27.31.) en el campo de texto que 
-					se abre bajo cada Grupo. Cuando hayas terminado con una semana envÌa los datos con el 
-					botÛn (<strong><em>Registrar las faltas de asistencia</em></strong>). Selecciona otra semana 
+					se abre bajo cada Grupo. Cuando hayas terminado con una semana env√≠a los datos con el 
+					bot√≥n (<strong><em>Registrar las faltas de asistencia</em></strong>). Selecciona otra semana 
 					y repite el procedimiento.</p>
 					
 					<h5 style="font-weight: 600;">Consultas</h5>
-					<p>El mÛdulo incluye un conjunto de diferentes tipos de consulta que podemos hacer sobre las 
-					faltas de asistencia: Faltas de un alumnos, de un Grupo, de una Asignatura, asÌ como consultar 
-					que alumnos tienen un determinado n˙mero mÌnimo de faltas en un rango de fechas. Cada 
-					formulario de consulta contiene una descripciÛn de su funciÛn especÌfica.</p>
+					<p>El m√≥dulo incluye un conjunto de diferentes tipos de consulta que podemos hacer sobre las 
+					faltas de asistencia: Faltas de un alumnos, de un Grupo, de una Asignatura, as√≠ como consultar 
+					que alumnos tienen un determinado n√∫mero m√≠nimo de faltas en un rango de fechas. Cada 
+					formulario de consulta contiene una descripci√≥n de su funci√≥n espec√≠fica.</p>
 					
 					<?php if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'2') == TRUE): ?>
 					<h5 style="font-weight: 600;">Justificar faltas a los Alumnos</h5>
 					<p>Para justificar como Tutor una falta de tu Grupo selecciona en primer lugar un alumno en 
 					la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. 
-					Aparecer·n en rojo las faltas de asistencia del alumno y en verde las faltas justificadas.</p>
+					Aparecer√°n en rojo las faltas de asistencia del alumno y en verde las faltas justificadas.</p>
 					
-					<p>Al hacer click sobre una celda del calendario cambiamos su estado: si est· vacÌa se pone 
-					roja, si est· roja se pone verde, y si est· verde la dejamos a cero.</p>
+					<p>Al hacer click sobre una celda del calendario cambiamos su estado: si est√° vac√≠a se pone 
+					roja, si est√° roja se pone verde, y si est√° verde la dejamos a cero.</p>
 					
-					<p>Si la falta no ha sido registrada todavÌa (el dÌa del calendario no es verde ni rojo), 
-					aparecer· un cuadro de di·logo en el que deber·s seleccionar las horas en que el alumno ha 
-					estado ausente. Una vez marcadas las horas de la falta podr·s justificarlas haciendo click 
-					de nuevo sobre el dÌa elegido.</p>
+					<p>Si la falta no ha sido registrada todav√≠a (el d√≠a del calendario no es verde ni rojo), 
+					aparecer√° un cuadro de di√°logo en el que deber√°s seleccionar las horas en que el alumno ha 
+					estado ausente. Una vez marcadas las horas de la falta podr√°s justificarlas haciendo click 
+					de nuevo sobre el d√≠a elegido.</p>
 					<?php endif; ?> 
 					
 					<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 					<h5 style="font-weight: 600;">Absentismo</h5>
-					<p>El mÛdulo de alumnos absentistas permite hacer un seguimiento de los alumnos con faltas de 
-					asistencia frecuentes (SÈneca habla de 25 faltas no justificadas al mes). El Equipo directivo 
-					selecciona utiliza en primer lugar la Consulta para seleccionar a los alumnos con m·s de 25
-					faltas de asistencia. Los marca de la lista y envÌa los datos. Una vez registrados, los Tutores 
-					de los alumnos, OrientaciÛn y Equipo directivo reciben una notificaciÛn en la p·gina de entrada 
-					de la aplicaciÛn, invit·ndoles a informar sobre el alumno y las razones (o ausencia de las 
-					mismas) por las que este falta a sus clases. El Equipo directivo puede aÒadir tambiÈn 
-					informaciÛn proporcionada por los Servicio de Asistencia Social del Ayuntamiento.</p>
+					<p>El m√≥dulo de alumnos absentistas permite hacer un seguimiento de los alumnos con faltas de 
+					asistencia frecuentes (S√©neca habla de 25 faltas no justificadas al mes). El Equipo directivo 
+					selecciona utiliza en primer lugar la Consulta para seleccionar a los alumnos con m√°s de 25
+					faltas de asistencia. Los marca de la lista y env√≠a los datos. Una vez registrados, los Tutores 
+					de los alumnos, Orientaci√≥n y Equipo directivo reciben una notificaci√≥n en la p√°gina de entrada 
+					de la aplicaci√≥n, invit√°ndoles a informar sobre el alumno y las razones (o ausencia de las 
+					mismas) por las que este falta a sus clases. El Equipo directivo puede a√±adir tambi√©n 
+					informaci√≥n proporcionada por los Servicio de Asistencia Social del Ayuntamiento.</p>
 					
-					<h5 style="font-weight: 600;">AdministraciÛn</h5>
-					<p>Las Faltas de asistencia registradas en la Intranet pueden subirse a SÈneca. El enlace nos 
-					lleva a una p·gina desde la que procedemos a generar el archivo que posteriormente importamos 
-					a SÈneca. La p·gina contiene informaciÛn sobre la forma de hacerlo.</p>
+					<h5 style="font-weight: 600;">Administraci√≥n</h5>
+					<p>Las Faltas de asistencia registradas en la Intranet pueden subirse a S√©neca. El enlace nos 
+					lleva a una p√°gina desde la que procedemos a generar el archivo que posteriormente importamos 
+					a S√©neca. La p√°gina contiene informaci√≥n sobre la forma de hacerlo.</p>
 					
-					<p>Si no utilizamos la Intranet para poner las faltas, todavÌa podemos beneficiarnos de contar 
-					con las faltas descarg·ndolas desde SÈneca e incorpor·ndolas a la aplicaciÛn. Son muchos los 
-					mÛdulos que incluyen informaciÛn sobre las faltas de asistencia, y de este modo podemos 
-					suministrarles los datos necesarios. El enlace nos presenta una p·gina para importar las faltas 
-					de SÈneca con la informaciÛn necesaria para proceder.</p>
+					<p>Si no utilizamos la Intranet para poner las faltas, todav√≠a podemos beneficiarnos de contar 
+					con las faltas descarg√°ndolas desde S√©neca e incorpor√°ndolas a la aplicaci√≥n. Son muchos los 
+					m√≥dulos que incluyen informaci√≥n sobre las faltas de asistencia, y de este modo podemos 
+					suministrarles los datos necesarios. El enlace nos presenta una p√°gina para importar las faltas 
+					de S√©neca con la informaci√≥n necesaria para proceder.</p>
 					
 					<p>El <strong><em>Informe de Faltas para Padres</em></strong> presenta las cartas en formato 
-					PDF que se envÌan a las familias con las faltas del alumno, preparadas para imprimir, cuando 
-					proceda y por la razÛn que proceda. Presenta informaciÛn sobre los dÌas en que el alumno ha 
-					faltado al Centro, asÌ como la normativa correspondiente.</p>
+					PDF que se env√≠an a las familias con las faltas del alumno, preparadas para imprimir, cuando 
+					proceda y por la raz√≥n que proceda. Presenta informaci√≥n sobre los d√≠as en que el alumno ha 
+					faltado al Centro, as√≠ como la normativa correspondiente.</p>
 					
-					<p>Si utilizamos el servicio de SMS interno de la aplicaciÛn aparecer· tambiÈn 
-					<strong><em>SMS de Faltas para Padres</em></strong>. Nos permite hacer un envÌo masivo de SMS 
-					a los padres de los alumnos de un determinado Nivel. Un alumno entra en la lista de envÌo cuando 
-					tiene m·s de 5 faltas de asistencia sin justificar en el periodo seleccionado.</p>
+					<p>Si utilizamos el servicio de SMS interno de la aplicaci√≥n aparecer√° tambi√©n 
+					<strong><em>SMS de Faltas para Padres</em></strong>. Nos permite hacer un env√≠o masivo de SMS 
+					a los padres de los alumnos de un determinado Nivel. Un alumno entra en la lista de env√≠o cuando 
+					tiene m√°s de 5 faltas de asistencia sin justificar en el periodo seleccionado.</p>
 					
 					<p>Los <strong><em>Partes de Faltas</em></strong> ofrecen una lista completa de los partes de 
 					asistencia que se dejan en el aula para que firme y registre las faltas el profesor, si se 
-					sigue este mÈtodo de control de la asistencia de los alumnos. El documento PDF se presenta 
+					sigue este m√©todo de control de la asistencia de los alumnos. El documento PDF se presenta 
 					en formato diario o semanal.</p>
 					
 					<?php endif; ?> 					
 
 					<p><strong><em>Horario de faltas para profesores</em></strong> crea los horarios que los 
 					profesores necesitan para registrar las faltas de asistencia de los alumnos. Cada profesor 
-					marca en su horario el n˙mero de clase de los alumnos ausentes en una semana, y, o bien las 
-					registra posteriormente en el mÛdulo de <strong><em>Poner faltas</em></strong>, o bien lo 
+					marca en su horario el n√∫mero de clase de los alumnos ausentes en una semana, y, o bien las 
+					registra posteriormente en el m√≥dulo de <strong><em>Poner faltas</em></strong>, o bien lo 
 					entrega para quelos Tutores de Faltas lo hagan.</p>
 
 				</div>
@@ -190,14 +190,14 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		Alumnos Absentistas</a></li>
 	
 		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
-			href="#"> AdministraciÛn <span class="caret"></span> </a>
+			href="#"> Administraci√≥n <span class="caret"></span> </a>
 		<ul class="dropdown-menu" role="menu">
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/index.php"> Subir Faltas a S&eacute;neca</a></li>
-			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar Faltas de SÈneca</a></li>
+			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar Faltas de S√©neca</a></li>
 			<li class="divider"></li>
-			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por dÌas)</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por d√≠as)</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
-			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo DiversificaciÛn</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificaci√≥n</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php">Horario de Faltas para Profesores</a></li>
 			<li class="divider"></li>
 			<?php if ($config['mod_sms']) {?>
@@ -222,7 +222,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 </div>
 
 <?php
-// ComprobaciÛn de Festivos
+// Comprobaci√≥n de Festivos
 $festivos="";
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 {
@@ -241,7 +241,7 @@ if($festivos == 'actualizar'){
 	echo '<br /><div align="center"><a href="../xml/jefe/index_festivos.php"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
 		<legend>Atenci&oacute;n:</legend>
-No se han importado los <strong>DÌas festivos </strong>de este Curso Escolar en la Base de datos.</span> Hazlo antes de comenzar a utilizar la aplicaciÛn de Faltas de asistencia, o tendr·s problemas para exportar posteriormente los datos a SÈneca. Haz click para proceder a la importaciÛn de las fechas.
+No se han importado los <strong>D√≠as festivos </strong>de este Curso Escolar en la Base de datos.</span> Hazlo antes de comenzar a utilizar la aplicaci√≥n de Faltas de asistencia, o tendr√°s problemas para exportar posteriormente los datos a S√©neca. Haz click para proceder a la importaci√≥n de las fechas.
 	</div></a></div>';	
 }
 ?>

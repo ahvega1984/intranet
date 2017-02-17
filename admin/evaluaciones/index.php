@@ -20,20 +20,20 @@ if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {
 }
 else {
 	$evaluaciones = array(
-		'1EV' => '1ª Evaluación',
-		'2EV' => '2ª Evaluación',
-		'3EV' => '3ª Evaluación',
+		'1EV' => '1Âª EvaluaciÃ³n',
+		'2EV' => '2Âª EvaluaciÃ³n',
+		'3EV' => '3Âª EvaluaciÃ³n',
 		'Ord' => 'Ordinaria',
 		'FFP' => 'Final FP',
 		'Ext' => 'Extraordinaria',
-		'FE1' => 'Final Excepcional 1ª Convocatoria',
-		'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
-		'OT1' => 'Obtención título ESO (Primer año)',
-		'FE2' => 'Final Excepcional 2ª Convocatoria',
-		'OT2' => 'Obtención título ESO (Segundo año)',
-		'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
-		'EVI' => 'Evaluación inicial',
-		'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
+		'FE1' => 'Final Excepcional 1Âª Convocatoria',
+		'5CV' => '5Âº Convocatoria Extraordinaria de EvaluaciÃ³n',
+		'OT1' => 'ObtenciÃ³n tÃ­tulo ESO (Primer aÃ±o)',
+		'FE2' => 'Final Excepcional 2Âª Convocatoria',
+		'OT2' => 'ObtenciÃ³n tÃ­tulo ESO (Segundo aÃ±o)',
+		'EP1' => 'EvaluaciÃ³n de pendientes 1Âª Convovatoria',
+		'EVI' => 'EvaluaciÃ³n inicial',
+		'EP2' => 'EvaluaciÃ³n de pendientes 2Âª Convovatoria',
 	);
 }
 
@@ -147,7 +147,7 @@ include("menu.php");
 				<div class="well">
 				
 				<fieldset>
-					<legend>Seleccione unidad y evaluación</legend>
+					<legend>Seleccione unidad y evaluaciÃ³n</legend>
 				
 					<div class="row">
 					
@@ -158,7 +158,7 @@ include("menu.php");
 								<select class="form-control" id="curso" name="curso" onchange="submit()">
 									<option value=""></option>
 									<optgroup label="Unidades donde imparto clase">
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND a_grupo <> '' AND c_asig not in (select distinct idactividad from actividades_seneca) ORDER BY a_grupo ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' AND a_grupo <> '' AND c_asig not in (select distinct idactividad from actividades_seneca) ORDER BY a_grupo ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 										<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>"
 										<?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?>
@@ -183,7 +183,7 @@ include("menu.php");
 						<div class="col-sm-6">
 						
 							<div class="form-group">
-								<label for="evaluacion">Evaluación</label>
+								<label for="evaluacion">EvaluaciÃ³n</label>
 								<select class="form-control" id="evaluacion" name="evaluacion" onchange="submit()">
 									<option value=""></option>
 									<?php foreach ($evaluaciones as $eval => $desc): ?>

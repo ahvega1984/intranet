@@ -2,7 +2,7 @@
 
 <!-- MENSAJES DE TUTORIA -->
 
-<h3 class="text-info">Mensajes de tutoría</h3>
+<h3 class="text-info">Mensajes de tutorÃ­a</h3>
 
 <?php setlocale(LC_ALL, 'es_ES'); ?>
 <?php $result = mysqli_query($db_con, "SELECT id, ahora, apellidos, nombre, asunto, texto FROM alma, mensajes WHERE alma.claveal = mensajes.claveal AND mensajes.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(ahora) > '".$config['curso_inicio']."' ORDER BY ahora desc"); ?>
@@ -36,7 +36,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title"><?php echo $row['asunto']; ?><br /><small>Enviado por <?php echo $row['nombre'].' '.$row['apellidos']; ?> el <?php         echo mb_convert_encoding(strftime('%A, %e de %B',strtotime($row['ahora'])), 'ISO-8859-1', 'UTF-8'); ?>.</small></h4>
+        <h4 class="modal-title"><?php echo $row['asunto']; ?><br /><small>Enviado por <?php echo $row['nombre'].' '.$row['apellidos']; ?> el <?php         echo mb_convert_encoding(strftime('%A, %e de %B',strtotime($row['ahora'])), 'UTF-8', 'UTF-8'); ?>.</small></h4>
       </div>
       <div class="modal-body">
         <p><?php echo html_entity_decode($row['texto']); ?></p>

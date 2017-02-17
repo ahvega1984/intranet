@@ -76,7 +76,7 @@ if (isset($_POST['enviar'])) {
 	} else {
 		if (!($numcor>0)) {	
 		$msg_class = "alert-danger";	
-		$msg = '<strong>Atenci髇:</strong> No has seleccionado <em>destinatario</em> para enviar el correo. Procede a a hacerlo para completar la operaci髇.';			
+		$msg = '<strong>Atenci贸n:</strong> No has seleccionado <em>destinatario</em> para enviar el correo. Procede a a hacerlo para completar la operaci贸n.';			
 	}
 	else{
 		$msg_class = "alert-success";
@@ -86,7 +86,7 @@ if (isset($_POST['enviar'])) {
 }
 
 
-$page_header = "Enviar correo electr髇ico";
+$page_header = "Enviar correo electr贸nico";
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -148,7 +148,7 @@ include("menu.php");
 					<a href="javascript:seleccionar_tutor()" class="btn btn-sm btn-info">Tutores</a>&nbsp;
 					<a href="javascript:seleccionar_jd()" class="btn btn-sm btn-info">Jefes Deptos.</a>&nbsp;
 					<a href="javascript:seleccionar_ca()" class="btn btn-sm btn-info">C. de Areas</a>&nbsp;
-					<a href="javascript:seleccionar_ed()" class="btn btn-sm btn-info">Direcci髇</a>
+					<a href="javascript:seleccionar_ed()" class="btn btn-sm btn-info">Direcci贸n</a>
 				</div>
 			
 				<br>
@@ -187,7 +187,7 @@ include("menu.php");
 							<?php endwhile; ?>
 							
 							<?php else: ?>
-     						<p class="muted">No hay profesores en este departamento con correo electr髇ico</p>
+     						<p class="muted">No hay profesores en este departamento con correo electr贸nico</p>
 							<?php endif; ?>
 
 							</div>

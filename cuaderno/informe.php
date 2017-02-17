@@ -90,7 +90,7 @@ if($siguiente == '1'){
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">Notas del alumno</a></li>
 <li><a href="#tab2" data-toggle="tab">Datos generales</a></li>
-<li><a href="#tab3" data-toggle="tab">Datos académicos </a></li>
+<li><a href="#tab3" data-toggle="tab">Datos acadÃ©micos </a></li>
 </ul>
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 <div class="tab-pane fade in active" id="tab1">
@@ -116,7 +116,7 @@ echo "</table>";
 		{
 echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 El alumno no tiene notas registradas.
 </div></div>';		
 		}

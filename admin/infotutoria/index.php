@@ -20,7 +20,7 @@ include("menu.php");
 <div class="container">
 	
 	<div class="page-header">
-		<h2>Informes de TutorÌa <small> Informes activos</small></h2>
+		<h2>Informes de Tutor√≠a <small> Informes activos</small></h2>
 	</div>
 	
 	<div class="row">
@@ -28,7 +28,7 @@ include("menu.php");
 		<div class="col-md-6 col-md-offset-3">	
     
 <?php
- //ValidaciÛn del Informe por el Tutor o Directivo
+ //Validaci√≥n del Informe por el Tutor o Directivo
 if (isset($_GET['validar'])) {
 	$validar = $_GET['validar'];
 	
@@ -36,14 +36,14 @@ if ($validar=='1') {
 	mysqli_query($db_con, "update infotut_alumno set valido='0' where id = '$id'");
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido marcado como <b>NO VALIDADO</b> por el Tutor. Esto significa que el Informe no podr· ser visto por los Padres del Alumno desde la p·gina p˙blica del Centro
+El Informe ha sido marcado como <b>NO VALIDADO</b> por el Tutor. Esto significa que el Informe no podr√° ser visto por los Padres del Alumno desde la p√°gina p√∫blica del Centro
 		</div></div>';
 }
 elseif ($validar=='0') {
 	mysqli_query($db_con, "update infotut_alumno set valido='1' where id = '$id'");
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que el Informe podr· ser visto por los Padres del Alumno desde la p·gina p˙blica del Centro
+El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que el Informe podr√° ser visto por los Padres del Alumno desde la p√°gina p√∫blica del Centro
 		</div></div>';
 }
 }
@@ -58,7 +58,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$asignatura = trim($rowcurso[1]);
 	
 
-// Buscamos el cÛdigo de la asignatura (materia) de cada grupo al que da el profesor
+// Buscamos el c√≥digo de la asignatura (materia) de cada grupo al que da el profesor
 	$asigna0 = "select codigo, nombre from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
 	//echo "$asigna0<br>";
 	$asigna1 = mysqli_query($db_con, $asigna0);
@@ -69,7 +69,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$nuevafecha = strtotime ( '-2 day' , strtotime ( $hoy ) ) ;
 	$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 
-// Buscamos los alumnos de esos grupos que tienen informes de TutorÌa activos y adem·s tienen esa asignatura en el campo combasi	
+// Buscamos los alumnos de esos grupos que tienen informes de Tutor√≠a activos y adem√°s tienen esa asignatura en el campo combasi	
 	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, valido FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$nuevafecha' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 	//echo $query."<br>";
 	$result = mysqli_query($db_con, $query);
@@ -139,7 +139,7 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 
 if (strstr($si_al,"1")==FALSE) {
  			echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o
-'> </i> No hay Informes de TutorÌa activos para ti. </p>";
+'> </i> No hay Informes de Tutor√≠a activos para ti. </p>";
  		} 	
 ?>
   	</div>  

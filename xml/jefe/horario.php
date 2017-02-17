@@ -101,11 +101,11 @@ else {
 					) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci";
 	mysqli_query($db_con, $crea) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 					            <button type="button" class="close" data-dismiss="alert">&times;</button>
-								<h5>ATENCIÃ“N:</h5>
+								<h5>ATENCIÃâN:</h5>
 					No se ha podido crear la tabla <strong>Horw</strong>. Ponte en contacto con quien pueda resolver el problema.
 					</div></div><br />
 					<div align="center">
-					  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+					  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 					</div>');
 
 
@@ -164,7 +164,7 @@ else {
 				$nombre_asigna = str_replace(" de "," ",$nombre_asigna);
 				$nombre_asigna = str_replace("/","",$nombre_asigna);
 				$nombre_asigna = str_replace(" y "," ",$nombre_asigna);
-				$nombre_asigna = str_replace(" á"," a",$nombre_asigna);
+				$nombre_asigna = str_replace(" Ã¡"," a",$nombre_asigna);
 				$nombre_asigna = str_replace(" a "," ",$nombre_asigna);
 				$nombre_asigna = str_replace(" la "," ",$nombre_asigna);
 				$nombre_asigna = str_replace("(","",$nombre_asigna);
@@ -223,7 +223,7 @@ else {
 	}
 
 
-	// Actualizamos nombre de las materias / actividades para hacerlas más intuitivas
+	// Actualizamos nombre de las materias / actividades para hacerlas mÃ¡s intuitivas
 	mysqli_query($db_con, "update horw set a_asig = 'TCA' where c_asig = '2'");
 	mysqli_query($db_con, "update asignaturas set abrev = 'TCA' where codigo = '2'");	
 	mysqli_query($db_con, "update horw set a_asig = 'TCF' where c_asig = '279'");
@@ -243,11 +243,11 @@ else {
 	mysqli_query($db_con, $hora6);
 	mysqli_query($db_con, "OPTIMIZE TABLE  `horw`");
 
-	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
+	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a SÃ©neca y consigamos los datos reales de los mismos
 	$tabla_profes = mysqli_query($db_con, "select * from profesores");
 	if (mysqli_num_rows($tabla_profes) > 0) {}
 	else{
-		// Recorremos la tabla Profesores bajada de Séneca
+		// Recorremos la tabla Profesores bajada de SÃ©neca
 		$pro = mysqli_query($db_con, "select distinct asig, a_grupo, prof from horw order by prof");
 		while ($prf = mysqli_fetch_array($pro)) {
 			$materia = $prf[0];
@@ -332,7 +332,7 @@ else {
 
 	mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
-	// Cambiamos los numeros de Horw para dejarlos en orden alfabético.
+	// Cambiamos los numeros de Horw para dejarlos en orden alfabÃ©tico.
 	$hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
 	while($hor_profe = mysqli_fetch_array($hor)){
 		$np+=1;
@@ -397,7 +397,7 @@ XML, que es la opci&oacute;n preferida. Se mantiene para aquellos casos en los
 que no tenemos a mano el XML para exportar a S&eacute;neca, o este produce errores en la importaci&oacute;n. Las preferencias de
 generaci&oacute;n del archivo DEL aparecen marcadas en la imagen de abajo.</p>
 <div class="text-center">
-	<img class="img-thumbnail" src="exporta_horw.png" alt="Exportación de Horw" style="max-height: 450px;">
+	<img class="img-thumbnail" src="exporta_horw.png" alt="ExportaciÃ³n de Horw" style="max-height: 450px;">
 </div>
 </div>
 <!-- /.col-sm-6 --></div>

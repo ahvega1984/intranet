@@ -16,41 +16,41 @@
 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 				</div>
 				<div class="modal-body">
-					<p>Hay dos tipos de textos (y documentos) que pueden enviarse a través de
-					la Intranet: la mensajería interna permite enviar un mensaje a un
-					profesor o grupo de profesores y es accesible sólo dentro de la
-					aplicación; también es posible enviar un correo electrónico (con
-					archivos adjuntos) si el servidor donde está instalada la aplicación
-					tiene configurado un Servidor de correo (algo habitual en estos días).</p>
-					<p>La redacción de un mensaje interno comienza con la selección de un
+					<p>Hay dos tipos de textos (y documentos) que pueden enviarse a travÃ©s de
+					la Intranet: la mensajerÃ­a interna permite enviar un mensaje a un
+					profesor o grupo de profesores y es accesible sÃ³lo dentro de la
+					aplicaciÃ³n; tambiÃ©n es posible enviar un correo electrÃ³nico (con
+					archivos adjuntos) si el servidor donde estÃ¡ instalada la aplicaciÃ³n
+					tiene configurado un Servidor de correo (algo habitual en estos dÃ­as).</p>
+					<p>La redacciÃ³n de un mensaje interno comienza con la selecciÃ³n de un
 					profesor o grupo de profesores. Los grupos de profesores pueden, a su
-					vez, admitir una selección múltiple (puedo marcar varios elementos
+					vez, admitir una selecciÃ³n mÃºltiple (puedo marcar varios elementos
 					manteniendo apretada la tecla <kbd>Ctrl</kbd>) o pueden ser grupos cerrados. 
 					Si, por ejemplo, selecciono Profesores, Departamentos o Equipos educativos
-					puedo elegir qué profesores, Departamentos o Equipos son los
+					puedo elegir quÃ© profesores, Departamentos o Equipos son los
 					destinatarios del mensaje. En los grupos cerrados (Equipo directivo,
-					Jefes de Departamento, Orientación, Claustro, etc.) reciben el mensaje
+					Jefes de Departamento, OrientaciÃ³n, Claustro, etc.) reciben el mensaje
 					todos sus miembros y no podemos seleccionar entre ellos.</p>
-					<p>Una vez elegido el destinatario del mensaje escribimos el título (corto 
-					y explicativo, ya que es la cabecera que veremos en la página de entrada
+					<p>Una vez elegido el destinatario del mensaje escribimos el tÃ­tulo (corto 
+					y explicativo, ya que es la cabecera que veremos en la pÃ¡gina de entrada
 					de la Intranet) y contenido del mismo. El texto admite enlaces,
-					imágenes, etc.</p>
-					<p>Los mensajes enviados y recibidos presentan los últimos 500 mensajes de
+					imÃ¡genes, etc.</p>
+					<p>Los mensajes enviados y recibidos presentan los Ãºltimos 500 mensajes de
 					nuestra lista. Si necesitamos ver un mensaje antiguo que no aparece en
-					la lista utilizamos el sistema de búsqueda que aparece en la parte
-					superior derecha del menú. Podemos borrar mensajes de esta lista así
-					como también de la lista de mensajes enviados.</p>
-					<p>Si queremos enviar un correo electrónico, elegimos los destinatarios de
+					la lista utilizamos el sistema de bÃºsqueda que aparece en la parte
+					superior derecha del menÃº. Podemos borrar mensajes de esta lista asÃ­
+					como tambiÃ©n de la lista de mensajes enviados.</p>
+					<p>Si queremos enviar un correo electrÃ³nico, elegimos los destinatarios de
 					forma individual o en grupo, adjuntamos uno o varios documentos si
 					procede y enviamos el mensaje.</p>
-					<p>Si el Centro tiene contratado un sistema de envío de SMS (la aplicación
-					está preparada para funcionar con Trendoo) y el profesor
+					<p>Si el Centro tiene contratado un sistema de envÃ­o de SMS (la aplicaciÃ³n
+					estÃ¡ preparada para funcionar con Trendoo) y el profesor
 					pertenece a un perfil autorizado para utilizar el sistema (Equipo
-					directivo, Tutores, DACE, Orientación, etc.) se puede enviar un SMS con
-					un máximo de 160 caracteres a los teléfonos registrados en Séneca por la
-					familia del alumno durante la matriculación. Si necesitamos seleccionar
-					múltiples alumnos de nuevo mantenemos presionada la tecla <kbd>Ctrl</kbd> 
-					mientras los marcamos con el ratón.</p>
+					directivo, Tutores, DACE, OrientaciÃ³n, etc.) se puede enviar un SMS con
+					un mÃ¡ximo de 160 caracteres a los telÃ©fonos registrados en SÃ©neca por la
+					familia del alumno durante la matriculaciÃ³n. Si necesitamos seleccionar
+					mÃºltiples alumnos de nuevo mantenemos presionada la tecla <kbd>Ctrl</kbd> 
+					mientras los marcamos con el ratÃ³n.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>

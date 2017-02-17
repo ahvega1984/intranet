@@ -33,7 +33,7 @@ define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
-# ajustamos al 100% la visualizaciÃ³n
+# ajustamos al 100% la visualizaciÃƒÂ³n
 $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
 if (substr($curso, 0, 1) == '1') {
@@ -61,8 +61,8 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $dnitutor= "DNI: ".$row['dnitutor'];
 	 $madre= "Apellidos y nombre del Tutor legal 2: ".$row['madre'];
 	 $dnitutor2= "DNI: ".$row['dnitutor2'];
-	 $telefono1= "Teléfono Casa: ".$row['telefono1'];
-	 $telefono2= "Teléfono Móvil: ".$row['telefono2'];
+	 $telefono1= "TelÃ©fono Casa: ".$row['telefono1'];
+	 $telefono2= "TelÃ©fono MÃ³vil: ".$row['telefono2'];
 	 $telefonos="$telefono1\n   $telefono2";
 	 $idioma = $row['idioma'];
 	 $religion = $row['religion'];
@@ -72,38 +72,38 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $ciencias4 = $row['ciencias4'];
 
 	 if ($row['colegio'] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row['otrocolegio']; }else{	 $colegio= "Centro de procedencia:  ".$row['colegio']; }
-	 $correo= "Correo electrónico de padre o madre: ".$row['correo'];
+	 $correo= "Correo electrÃ³nico de padre o madre: ".$row['correo'];
 
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
 
 	 if ($n_curso == '1') {
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras");
+	$opt1 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","TecnologÃ­a Aplicada");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C.", "AmpliaciÃ³n: MatemÃ¡ticas Recreativas", "AmpliaciÃ³n: Taller de Teatro", "AmpliaciÃ³n: Taller de Lenguas Extranjeras");
 	 }
 
 	 if ($n_curso == '2') {
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
-	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$a21 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras (Se debe elegir Alemán o Francés como Optativa)");
+	$opt1 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C. II", "AmpliaciÃ³n: Taller de Teatro II");
+	$opt21 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","TecnologÃ­a Aplicada");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C.", "AmpliaciÃ³n: MatemÃ¡ticas Recreativas", "AmpliaciÃ³n: Taller de Teatro", "AmpliaciÃ³n: Taller de Lenguas Extranjeras (Se debe elegir AlemÃ¡n o FrancÃ©s como Optativa)");
 	 }
 
 	 if ($n_curso == '3') {
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
-	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
-	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
+	$opt1 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","Cultura ClÃ¡sica", "Taller T.I.C. III", "Taller de CerÃ¡mica", "Taller de Teatro");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Lengua", "AmpliaciÃ³n: MatemÃ¡ticas", "AmpliaciÃ³n: InglÃ©s");
+	$opt21 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C. II", "AmpliaciÃ³n: Taller de Teatro II");
 	 }
 
 if ($n_curso == '4') {
-	$it41 = array("(Bachillerato de Ciencias)", "Matemáticas Académicas", "Tecnología (Sólo Ingeniería y Arquitectura)", "Física y Química", "Biología y Geología", "Economía");
-	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matemáticas Académicas", "Latín", "Economía");
-	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
-	$opt1=array("Alemán 2º Idioma", "Francés 2º Idioma", "TIC", "Ed. Plástica y Visual", "Música");
-	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
+	$it41 = array("(Bachillerato de Ciencias)", "MatemÃ¡ticas AcadÃ©micas", "TecnologÃ­a (SÃ³lo IngenierÃ­a y Arquitectura)", "FÃ­sica y QuÃ­mica", "BiologÃ­a y GeologÃ­a", "EconomÃ­a");
+	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "MatemÃ¡ticas AcadÃ©micas", "LatÃ­n", "EconomÃ­a");
+	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "MatemÃ¡ticas Aplicadas", "TecnologÃ­a", "Ciencias Aplicadas a la Actividad Profesional", "IniciaciÃ³n a la Actividad Emprendedora y Empresarial");
+	$opt1=array("AlemÃ¡n 2Âº Idioma", "FrancÃ©s 2Âº Idioma", "TIC", "Ed. PlÃ¡stica y Visual", "MÃºsica");
+	$opt21 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","Cultura ClÃ¡sica", "Taller T.I.C. III", "Taller de CerÃ¡mica", "Taller de Teatro");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Lengua", "AmpliaciÃ³n: MatemÃ¡ticas", "AmpliaciÃ³n: InglÃ©s");
 }
 
 if ($n_curso < '4'){
@@ -168,7 +168,7 @@ else{
 	}
 
 	 $observaciones= "OBSERVACIONES: ".$row['observaciones'];
-	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
+	 $texto_exencion= "El alumno solicita la exenciÃ³n de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
 	 $curso = $row['curso'];
 	 $fecha_total = $row['fecha'];
@@ -185,19 +185,19 @@ else{
 }
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
-$titulo1 = "SOLICITUD DE MATRÍCULA EN ".$n_curso."º DE E.S.O.";
+$titulo1 = "SOLICITUD DE MATRÃCULA EN ".$n_curso."Âº DE E.S.O.";
 $an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $hoy = formatea_fecha(date('Y-m-d'));
 $cuerpo3 = "En ".$config['centro_localidad'].", a $hoy
-Firma del Padre/Madre/Representante legal D/Dª
+Firma del Padre/Madre/Representante legal D/DÂª
 
 
 
-Fdo. D/Dª ---------------------------------------------
+Fdo. D/DÂª ---------------------------------------------
 que asegura la veracidad de los datos registrados en el formulario.
 ";
-$datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, el ".$config['centro_denominacion']." le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, a nuestra base de datos, con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en nuestro Centro, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría del Instituto en ".$config['centro_direccion'].", ".$config['centro_codpostal']." ".$config['centro_localidad'].", Málaga";
+$datos_centro = "PROTECCIÃ“N DE DATOS.\n En cumplimiento de lo dispuesto en la Ley OrgÃ¡nica 15/1999, de 13 de Diciembre, de ProtecciÃ³n de Datos de CarÃ¡cter Personal, el ".$config['centro_denominacion']." le informa que los datos personales obtenidos mediante la cumplimentaciÃ³n de este formulario y demÃ¡s documentaciÃ³n que se adjunta van a ser incorporados, para su tratamiento, a nuestra base de datos, con la finalidad de recoger los datos personales y acadÃ©micos del alumnado que cursa estudios en nuestro Centro, asÃ­ como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificaciÃ³n, cancelaciÃ³n y oposiciÃ³n dirigiendo un escrito a la SecretarÃ­a del Instituto en ".$config['centro_direccion'].", ".$config['centro_codpostal']." ".$config['centro_localidad'].", MÃ¡laga";
 
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage ();
@@ -206,7 +206,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->SetFillColor(230,230,230);
 	
 	
-	// Formulario de matrícula
+	// Formulario de matrÃ­cula
 
 	#Cuerpo.
 	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
@@ -247,7 +247,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	}
 	$MiPDF->Ln ( 10 );
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",1,0,'L',1);
-	$MiPDF->Cell(84,6,"ENSEÑANZA DE RELIGIÓN O ALTERNATIVA",1,0,'L',1);
+	$MiPDF->Cell(84,6,"ENSEÃ‘ANZA DE RELIGIÃ“N O ALTERNATIVA",1,0,'L',1);
 	$MiPDF->Ln ( 6);
 	$MiPDF->Cell(84,8,$idioma,0);
 	$MiPDF->Cell(84,8,$religion,0);
@@ -277,7 +277,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	}
 	if($n_curso=='3'){
 	if ($matematicas3=="A") {
-		$mat_3="Matemáticas Académicas (Bachillerato)";}elseif($matematicas3=="B"){$mat_3="Matemáticas Aplicadas (Formación Profesional)";
+		$mat_3="MatemÃ¡ticas AcadÃ©micas (Bachillerato)";}elseif($matematicas3=="B"){$mat_3="MatemÃ¡ticas Aplicadas (FormaciÃ³n Profesional)";
 		}
 	$MiPDF->Cell(168,6,$mat_3,1,0,'C',0);
 	$MiPDF->Ln ( 5 );
@@ -345,7 +345,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 
 	if (substr($curso, 0, 1) == 2 or substr($curso, 0, 1) == 3 or substr($curso, 0, 1) == 4){
 	$MiPDF->Ln ( 7 );
-	$MiPDF->Cell(168,6,"ASIGNATURAS DE ".$n_curso2."º DE ESO",1,0,'C',1);
+	$MiPDF->Cell(168,6,"ASIGNATURAS DE ".$n_curso2."Âº DE ESO",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
 	$MiPDF->Cell(84,6,"ASIGNATURA OPTATIVA",1,0,'L',1);
 	$MiPDF->Cell(84,6,"PROGRAMA DE REFUERZO O ALTERNATIVO",1,0,'L',1);

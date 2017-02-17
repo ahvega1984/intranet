@@ -38,7 +38,7 @@ if(empty($profesor)){
 <SELECT name='profesor' id='idprofe' onChange='submit()' class='form-control'>";
 	echo "<OPTION>";
 	echo "</OPTION>";
-	// Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
+	// Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
 	$profe = mysqli_query($db_con, "SELECT distinct prof, c_prof FROM horw order by prof asc");
 	while($filaprofe = mysqli_fetch_array($profe)) {
 		$n_p+=1;

@@ -19,7 +19,7 @@ function acl_permiso($cargo_usuario, $cargo_requerido) {
 	else {
 		if(is_array($cargo_requerido)) {
 			for($i = 0; $i < strlen($cargo_usuario); $i++) {
-				// Si alguno de los permisos coincide, prevalecerá el valor del flag 'permitido'.
+				// Si alguno de los permisos coincide, prevalecerÃ¡ el valor del flag 'permitido'.
 				if(! in_array($cargo_usuario[$i], $cargo_requerido)) {
 					$nopermitido = 1;
 				}
@@ -38,7 +38,7 @@ function acl_permiso($cargo_usuario, $cargo_requerido) {
 		}	
 	}
 	
-	// Si se activó el flag 'permitido' se permite el acceso a la página
+	// Si se activÃ³ el flag 'permitido' se permite el acceso a la pÃ¡gina
 	if ($permitido) {
 		$nopermitido = 0;
 	}
@@ -60,11 +60,11 @@ function acl_acceso($cargo_usuario, $cargo_requerido) {
 		echo "\t\t\t\t<div class=\"col-sm-offset-2 col-sm-8\">\n";
 		echo "\t\t\t\t\t<div class=\"well text-center\">\n";
 		echo "\t\t\t\t\t\t<span class=\"fa fa-hand-paper-o fa-5x\"></span>\n";
-		echo "\t\t\t\t\t\t<h2 class=\"text-center\">¡Acceso prohibido!</h2>";
+		echo "\t\t\t\t\t\t<h2 class=\"text-center\">Â¡Acceso prohibido!</h2>";
 		echo "\t\t\t\t\t\t<hr>";
-		echo "\t\t\t\t\t\t<p class=\"lead text-center\">No tiene privilegios para acceder a esta página.<br>Si cree que se trata de algún error, póngase en contacto con algún miembro del equipo directivo de su centro.</p>";
+		echo "\t\t\t\t\t\t<p class=\"lead text-center\">No tiene privilegios para acceder a esta pÃ¡gina.<br>Si cree que se trata de algÃºn error, pÃ³ngase en contacto con algÃºn miembro del equipo directivo de su centro.</p>";
 		echo "\t\t\t\t\t\t<hr>";
-		echo "\t\t\t\t\t\t<a href=\"javascript:history.go(-1)\" class=\"btn btn-primary\">Volver atrás</a>";
+		echo "\t\t\t\t\t\t<a href=\"javascript:history.go(-1)\" class=\"btn btn-primary\">Volver atrÃ¡s</a>";
 		echo "\t\t\t\t\t</div>\n";
 		echo "\t\t\t\t</div>\n";
 		echo "\t\t\t</div>\n";
@@ -80,7 +80,7 @@ function redondeo($n){
 
 	$entero10 = explode(".",$n);
 	if (strlen($entero10[1]) > 2) {
-		//redondeo o truncamiento según los casos
+		//redondeo o truncamiento segÃºn los casos
 
 		if (substr($entero10[1],2,1) > 5){$n = $entero10[0].".". substr($entero10[1],0,2)+0.01;}
 		else {$n = $entero10[0].".". substr($entero10[1],0,2);}
@@ -94,7 +94,7 @@ function media_ponderada($n){
 
 	$entero10 = explode(".",$n);
 	if (strlen($entero10[1]) > 2) {
-		//redondeo o truncamiento según los casos
+		//redondeo o truncamiento segÃºn los casos
 
 		if (substr($entero10[1],2,1) > 5){$n = $entero10[0].".". substr($entero10[1],0,2)+0.01;}
 		else {$n = $entero10[0].".". substr($entero10[1],0,2);}
@@ -260,7 +260,7 @@ function formatDate($val)
 function fecha_actual($valor_fecha){
 	$mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
 	8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-	$dia = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
+	$dia = array("domingo", "lunes","martes","miÃ©rcoles","jueves","viernes","sÃ¡bado");
 	$diames = date("j");
 	$nmes = date("n");
 	$ndia = date("w");
@@ -274,7 +274,7 @@ function fecha_actual3($valor_fecha){
 	$arr = explode("-", $arr0[0]);
 	$mes0 = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
 	8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-	$dia0 = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
+	$dia0 = array("domingo", "lunes","martes","miÃ©rcoles","jueves","viernes","sÃ¡bado");
 	$diames0 = date("j",mktime($arr[1],$arr[2],$arr[0]));
 	$nmes0 = $arr[1];
 	if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}
@@ -288,7 +288,7 @@ function fecha_actual2($valor_fecha){
 	$arr = explode("-", $arr0[0]);
 	$mes0 = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
 	8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-	$dia0 = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
+	$dia0 = array("domingo", "lunes","martes","miÃ©rcoles","jueves","viernes","sÃ¡bado");
 	$diames0 = date("j",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
 	$nmes0 = $arr[1];
 	if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}
@@ -310,14 +310,14 @@ function fecha_sin($valor_fecha){
 	echo "$diames0 de ".$mes0[$nmes0].", $nano0";
 }
 
-// Eliminar nombre de profesor con mayúsculas completo
+// Eliminar nombre de profesor con mayÃºsculas completo
 function eliminar_mayusculas(&$n_profeso) {
-	$n_profeso = mb_convert_case($n_profeso, MB_CASE_TITLE, "iso-8859-1");
+	$n_profeso = mb_convert_case($n_profeso, MB_CASE_TITLE, "UTF-8");
 }
 
 
 function nomprofesor($nombre) {
-	return mb_convert_case($nombre, MB_CASE_TITLE, "iso-8859-1");
+	return mb_convert_case($nombre, MB_CASE_TITLE, "UTF-8");
 }
 
 

@@ -34,18 +34,18 @@ $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Este mÛdulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia, 
+						<p>Este m√≥dulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia, 
 						en caso de que el Centro disponga de una. Los Profesores que atienden el Aula en una determinada 
 						hora en su Guardia deben haber sido seleccionados en los <em><strong>Perfiles de los Profesores</strong></em>. 
-						Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia acceden desde el <em>Men˙ 
-						de la P·gina de Inicio --> Trabajo --> Problemas de Convivencia --> Aula de Convivencia</em>.</p>
-						<p>Esta p·gina nos presenta una tabla con los alumnos que deberÌan encontrarse en el Aula (al haber 
-						rellenado Jefatura el formulario de ExpulsiÛn al Aula de Convivencia en el Informe del Problema) en 
-						una hora y dÌa determinados. El Profesor puede informar sobre la <strong><em>Asistencia</em></strong> 
-						y <strong><em>Trabajo</em></strong> del alumno. Si necesita adem·s informar sobre otro asunto, puede 
+						Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia acceden desde el <em>Men√∫ 
+						de la P√°gina de Inicio --> Trabajo --> Problemas de Convivencia --> Aula de Convivencia</em>.</p>
+						<p>Esta p√°gina nos presenta una tabla con los alumnos que deber√≠an encontrarse en el Aula (al haber 
+						rellenado Jefatura el formulario de Expulsi√≥n al Aula de Convivencia en el Informe del Problema) en 
+						una hora y d√≠a determinados. El Profesor puede informar sobre la <strong><em>Asistencia</em></strong> 
+						y <strong><em>Trabajo</em></strong> del alumno. Si necesita adem√°s informar sobre otro asunto, puede 
 						utilizar el campo <strong><em>Observaciones</em></strong>. Una vez terminado de marcar las opciones 
 						de cada alumno, enviamos los datos para guardarlos. El Equipo directivo, por su parte, visualiza en 
-						todo momento la actividad en el Aula al recibir los datos de todos los Profesores que hacen allÌ 
+						todo momento la actividad en el Aula al recibir los datos de todos los Profesores que hacen all√≠ 
 						su Guardia.</p>
 					</div>
 					<div class="modal-footer">
@@ -109,7 +109,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
           </div></div>';	}
 }
 
-// Horas y dÌas seg˙n el horario
+// Horas y d√≠as seg√∫n el horario
 $minutos = date ( "i" );
 $diames = date ( "j" );
 $nmes = date ( "n" );
@@ -144,7 +144,7 @@ $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.no
 <?php
 echo "<br /><center><table class='table table-striped'>";
 	echo "<thead><th>Alumno</th>
-		<th>Grupo</th><th>DÌas</th><th>Inicio</th><th>Detalles</th><th>Asiste</th><th>Trabaja</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>R</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th></thead>";
+		<th>Grupo</th><th>D√≠as</th><th>Inicio</th><th>Detalles</th><th>Asiste</th><th>Trabaja</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>R</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th></thead>";
 	echo '<form name="conviv" action="convivencia.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysqli_fetch_array ( $result ) ) {
 	$sel =  mysqli_query($db_con, "select * from convivencia where claveal = '$row[8]' and dia = '$ndia' and hora = '$hora_dia' and fecha = '$hoy'");
@@ -156,7 +156,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>
-		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traÌdo al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha tra√≠do al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>

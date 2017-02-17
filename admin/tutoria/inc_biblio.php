@@ -2,7 +2,7 @@
 
 <!-- Biblioteca -->
 <?php if($config['mod_biblioteca']): ?>
-<h3 class="text-info">Devolución de Libros</h3>
+<h3 class="text-info">DevoluciÃ³n de Libros</h3>
 
 <?php $grupo = $_SESSION['mod_tutoria']['unidad']; 
 	  $fecha_act = date('Y-m-d');
@@ -11,7 +11,7 @@
 	<thead>
 		<tr>
 			<th>Alumno</th>
-			<th class="text-center">Devolución</th>
+			<th class="text-center">DevoluciÃ³n</th>
 		</tr>
 	</thead>
 <?php
@@ -27,7 +27,7 @@
 	<?	} ?>
 	</tbody>
 </table>
-<p><small class="text-muted">En rojo la fecha en la que debería haberse devuelto el ejemplar.</small></p>
+<p><small class="text-muted">En rojo la fecha en la que deberÃ­a haberse devuelto el ejemplar.</small></p>
 
 	<?php else: ?>
 

@@ -15,8 +15,8 @@ function Contenido(idContenido)
 {
 	/* readyState devuelve el estado de la conexion. puede valer:
 	 *	0- No inicializado (Es el valor inicial de readyState)
-	 *	1- Abierto (El mÈtodo "open" ha tenido Èxito)
-	 *	2- Enviado (Se ha completado la solicitud pero ningun dato ha sido recibido todavÌa)
+	 *	1- Abierto (El m√©todo "open" ha tenido √©xito)
+	 *	2- Enviado (Se ha completado la solicitud pero ningun dato ha sido recibido todav√≠a)
 	 *	3- Recibiendo
 	 *	4- Respuesta completa (Todos los datos han sido recibidos)
 	 */
@@ -24,8 +24,8 @@ function Contenido(idContenido)
 	// En espera del valor 4
 	if(Conexion.readyState!=4) return;
 	/* status: contiene un codigo enviado por el servidor
-	 *	200-Completado con Èxito
-	 *	404-No se encontrÛ URL
+	 *	200-Completado con √©xito
+	 *	404-No se encontr√≥ URL
 	 *	414-Los valores pasados por GET superan los 512
 	 * statusText: contiene el texto del estado
 	 */
@@ -73,16 +73,16 @@ function Solicitud(idContenido,Cadena)
 
 			/* Preparamos una conexion con el servidor:
 			*	POST|GET - determina como se envian los datos al servidor
-			*	true - No sincronizado. Ello significa que la p·gina WEB no es interferida en su funcionamiento
-			*	por la respuesta del servidor. El usuario puede continuar usando la p·gina mientras el servidor
-			*	retorna una respuesta que la actualizar·, usualmente, en forma parcial.
+			*	true - No sincronizado. Ello significa que la p√°gina WEB no es interferida en su funcionamiento
+			*	por la respuesta del servidor. El usuario puede continuar usando la p√°gina mientras el servidor
+			*	retorna una respuesta que la actualizar√°, usualmente, en forma parcial.
 			*	false - Sincronizado */
 			Conexion.open("POST",Servidor,true);
 
-			// AÒade un par etiqueta/valor a la cabecera HTTP a enviar. Si no lo colocamos, no se pasan los parametros.
+			// A√±ade un par etiqueta/valor a la cabecera HTTP a enviar. Si no lo colocamos, no se pasan los parametros.
 			Conexion.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	
-			// Cada vez que el estado de la conexiÛn (readyState) cambie se ejecutara el contenido de esta "funcion()"
+			// Cada vez que el estado de la conexi√≥n (readyState) cambie se ejecutara el contenido de esta "funcion()"
 			Conexion.onreadystatechange=function()
 			{
 				Contenido(idContenido);

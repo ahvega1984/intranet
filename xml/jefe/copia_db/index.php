@@ -11,7 +11,7 @@ function copia_bd($host, $user, $pass, $name) {
    
    $command = "mysqldump --opt --ignore-table=$name.fotos -h $host -u $user -p$pass $name | gzip -9 > $backup_file";
     
-   // ejecución y salida de éxito o errores
+   // ejecuciÃ³n y salida de Ã©xito o errores
    system($command,$output);
    return $output;   
 }
@@ -52,7 +52,7 @@ if(isset($_GET['action']) && $_GET['action']=="crear") {
 	$result = copia_bd($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 	
 	if($result) {
-		$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio ".__DIR__." tiene permiso de escritura.";
+		$msg_error = "No ha sido posible crear la copia de seguridad. AsegÃºrese de que el directorio ".__DIR__." tiene permiso de escritura.";
 	}
 	else {
 		$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $bd . ".";
@@ -78,7 +78,7 @@ include("../../../menu.php");
 <div class="container">
 	
 	<div class="page-header">
-	  <h2>Administración <small> Copia de seguridad de la base de datos</small></h2>
+	  <h2>AdministraciÃ³n <small> Copia de seguridad de la base de datos</small></h2>
 	</div>
 	
 	<?php if(isset($msg_success)): ?>
@@ -102,7 +102,7 @@ include("../../../menu.php");
 					<thead>
 						<tr>
 							<th>Archivo</th>
-							<th>Tamaño</th>
+							<th>TamaÃ±o</th>
 							<th>Fecha</th>
 							<th>&nbsp;</th>
 						</tr>

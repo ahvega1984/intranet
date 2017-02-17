@@ -6,8 +6,8 @@ require('../../bootstrap.php');
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>Páginas de Conserjería</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>PÃ¡ginas de ConserjerÃ­a</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <LINK href="//<?php echo $config['dominio']; ?>/<?php echo $css1; ?>" rel="stylesheet" type="text/css">
 <LINK href="//<?php echo $config['dominio']; ?>/<?php echo $css2; ?>" rel="stylesheet" type="text/css">
 <script languaje="javascript">
@@ -96,12 +96,12 @@ while ($copia=mysqli_fetch_array($ft)) {
 
 <FORM action="index.php" method="POST" name="numeros">
 <table class="tabla" align="center" style="margin-top:0px;">
-	<tr><td id="filaprincipal">Número de Copias</td>
+	<tr><td id="filaprincipal">NÃºmero de Copias</td>
 	<td><input name="n_numero" id="n_numero" value="" type="text" size="4"   />
 	</td></tr>
 	<tr><td colspan="2" style="text-align:center;">
 	<span id="filaprincipal" style="background-color:white;margin-left:25px;">
-	Administración<input id="administraccion" name="tipo" type="checkbox" value="1" <?php if ($profeso=="CONSERJE") {echo "checked";} ?> onClick="habilitaDeshabilita()" /></span>
+	AdministraciÃ³n<input id="administraccion" name="tipo" type="checkbox" value="1" <?php if ($profeso=="CONSERJE") {echo "checked";} ?> onClick="habilitaDeshabilita()" /></span>
 	<span id="filaprincipal" style="background-color:white;margin-left:25px;">
 	Personal<input id="personal" name="tipo" type="checkbox" value="2" onClick="habilitaDeshabilita()" /></span>
 	</td></tr>
@@ -118,7 +118,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
 <br>
-<a href="total.php" style="color:#261;font-size:1.0em;word-spacing:1px;border:1px solid #aaa;background-color:#feb;padding:5px 15px; margin-top:15px;">Ver estadísticas de fotocopias</a>
+<a href="total.php" style="color:#261;font-size:1.0em;word-spacing:1px;border:1px solid #aaa;background-color:#feb;padding:5px 15px; margin-top:15px;">Ver estadÃ­sticas de fotocopias</a>
 <?php
 }
 ?>

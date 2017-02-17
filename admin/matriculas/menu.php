@@ -14,7 +14,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 	<div class="container">
 		
 		<ul class="nav nav-tabs">
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'previsiones.php')==TRUE) ? ' class="active"' : ''; ?>><a href="previsiones.php">Previsiones de matrícula</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'previsiones.php')==TRUE) ? ' class="active"' : ''; ?>><a href="previsiones.php">Previsiones de matrÃ­cula</a></li>
 			<li class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'consultas')==TRUE) ? ' active' : ''; ?>">
 			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			    Consultas <span class="caret"></span>
@@ -26,7 +26,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 			</li>
 			<li class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'index')==TRUE) ? ' active' : ''; ?>">
 			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-			    Matriculación <span class="caret"></span>
+			    MatriculaciÃ³n <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" role="menu">
 			  	<li><a href="index.php">Matricular en ESO</a></li>
@@ -40,11 +40,11 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 			  <ul class="dropdown-menu" role="menu">
 			  	<li><a href="index_primaria.php">Importar Alumnado de Primaria</a></li>
 			  	<li><a href="index_secundaria.php">Importar Alumnado de ESO</a></li>
-			  	<li><a href="activar_matriculas.php?activar=1">Activar matriculación</a></li>
-			  	<li><a href="activar_matriculas.php?activar=2">Desactivar matriculación</a></li>
+			  	<li><a href="activar_matriculas.php?activar=1">Activar matriculaciÃ³n</a></li>
+			  	<li><a href="activar_matriculas.php?activar=2">Desactivar matriculaciÃ³n</a></li>
 			  </ul>
 			</li>
-			<li><a href="consulta_transito.php">Informes de Tránsito</a></li>
+			<li><a href="consulta_transito.php">Informes de TrÃ¡nsito</a></li>
 		</ul>
 		
 	</div>

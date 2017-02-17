@@ -58,7 +58,7 @@ if (isset($_GET['id'])) {
 		mysqli_free_result($result);
 	}
 	else {
-		$msg_error = "La intervenci髇 que intenta editar no existe o no tiene privilegios administrativos para editarlo.";
+		$msg_error = "La intervenci贸n que intenta editar no existe o no tiene privilegios administrativos para editarlo.";
 		unset($_GET['id']);
 	}
 }
@@ -83,13 +83,13 @@ if (isset($_POST['enviar'])) {
 		$fecha_sql = $exp_fecha_reg[2].'-'.$exp_fecha_reg[1].'-'.$exp_fecha_reg[0];
 		
 		
-		// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACI覰 O INSERCI覰
+		// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACI脫N O INSERCI脫N
 		if (isset($_GET['id'])) {
 		
 			$result = mysqli_query($db_con, "UPDATE tutoria SET observaciones='$observaciones', causa='$causa', accion='$accion', fecha='$fecha_sql' WHERE id='".$_GET['id']."'");
 			
-			if (!$result) $msg_error = "La intervenci髇 no se ha podido actualizar. Error: ".mysqli_error($db_con);
-			else $msg_success = "La intervenci髇 ha sido actualizada.";
+			if (!$result) $msg_error = "La intervenci贸n no se ha podido actualizar. Error: ".mysqli_error($db_con);
+			else $msg_success = "La intervenci贸n ha sido actualizada.";
 			
 		}
 		else {
@@ -105,8 +105,8 @@ if (isset($_POST['enviar'])) {
 					
 					$result1 = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
 					
-					if (!$result) $msg_error = "La intervenci髇 al alumno $nombre $apellidos no ha podido registrarse. Error: ".mysqli_error($db_con);
-					else $msg_success = "La intervenci髇 ha sido registrada a todos los alumnos de la undidad.";
+					if (!$result) $msg_error = "La intervenci贸n al alumno $nombre $apellidos no ha podido registrarse. Error: ".mysqli_error($db_con);
+					else $msg_success = "La intervenci贸n ha sido registrada a todos los alumnos de la undidad.";
 				}
 				
 				mysqli_free_result($result);
@@ -122,8 +122,8 @@ if (isset($_POST['enviar'])) {
 				$result = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES 
 						('".$apellidos."', '".$nombre."', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
 						
-				if (!$result) $msg_error = "La intervenci髇 no se ha podido registrar. Error: ".mysqli_error($db_con);
-				else $msg_success = "La intervenci髇 ha sido registrada.";
+				if (!$result) $msg_error = "La intervenci贸n no se ha podido registrar. Error: ".mysqli_error($db_con);
+				else $msg_success = "La intervenci贸n ha sido registrada.";
 			}
 			
 		}
@@ -132,26 +132,26 @@ if (isset($_POST['enviar'])) {
 }
 
 
-// ELIMINAR INTERVENCI覰
+// ELIMINAR INTERVENCI脫N
 if (isset($_GET['eliminar']) && isset($_GET['id'])) {
 	$result = mysqli_query($db_con, "DELETE FROM tutoria WHERE id='".$_GET['id']."' LIMIT 1");
 	
-	if (!$result) $msg_error = "No se ha podido eliminar la intervenci髇. Error: ".mysqli_error($db_con);
-	else $msg_success = "La intervenci髇 ha sido eliminada.";
+	if (!$result) $msg_error = "No se ha podido eliminar la intervenci贸n. Error: ".mysqli_error($db_con);
+	else $msg_success = "La intervenci贸n ha sido eliminada.";
 }
 
 
-// INFORMAMOS AL TUTOR QUIEN HA REGISTRADO LA INTERVENCI覰
+// INFORMAMOS AL TUTOR QUIEN HA REGISTRADO LA INTERVENCI脫N
 if (isset($orientacion) && $orientacion == 1) {
-	$msg_info = "El departamento de Orientacion ha registrado esta intervenci髇 tutorial.";
+	$msg_info = "El departamento de Orientacion ha registrado esta intervenci贸n tutorial.";
 }
 
 if (isset($accion) && $accion == 'Registro de Jefatura de Estudios') {
-	$msg_info = "Jefatura de estudios ha registrado esta intervenci髇 tutorial.";
+	$msg_info = "Jefatura de estudios ha registrado esta intervenci贸n tutorial.";
 }
 
 if (isset($jefatura) && $jefatura == 1) {
-	$msg_info = "Jefatura de estudios ha registrado esta intervenci髇 tutorial.";
+	$msg_info = "Jefatura de estudios ha registrado esta intervenci贸n tutorial.";
 }
 
 
@@ -166,7 +166,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2 style="display:inline;">Tutor韆 de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Intervenciones sobre los alumnos</small></h2>
+			<h2 style="display:inline;">Tutor铆a de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Intervenciones sobre los alumnos</small></h2>
 			
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -182,19 +182,19 @@ include("menu.php");
 							<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 						</div>
 						<div class="modal-body">
-							<p>Las Intervenciones del Tutor funcionan a modo de Diario de Tutor韆 
+							<p>Las Intervenciones del Tutor funcionan a modo de Diario de Tutor铆a 
 							donde se registran las actividades de distinto tipo (entrevistas con 
-							Padres o Alumnos, llamadas de tel閒ono, etc.) que el Tutor realiza dentro 
+							Padres o Alumnos, llamadas de tel茅fono, etc.) que el Tutor realiza dentro 
 							de sus funciones.</p>
 							<p>El Tutor recoge los datos de las intervenciones en el formulario de 
 							tal modo que pueda hacer un seguimiento de sus actividades con los 
-							alumnos de su tutor韆. Tambi閚 aparecen registradas como Intervenciones 
+							alumnos de su tutor铆a. Tambi茅n aparecen registradas como Intervenciones 
 							los mensajes SMS enviados a los Padres con motivo de Problemas de 
 							Convivencia o Faltas de Asistencia. Estas intervenciones aparecen 
-							recogidas a final de Curso en la Memoria de Tutor韆.</p>
-							<p>La p醙ina presenta el formulario de intervenciones y una lista con 
+							recogidas a final de Curso en la Memoria de Tutor铆a.</p>
+							<p>La p谩gina presenta el formulario de intervenciones y una lista con 
 							todas las intervenciones realizadas ordenadas por fecha. Al hacer click 
-							sobre un alumno de esta lista, se visualiza la intervenci髇 en el 
+							sobre un alumno de esta lista, se visualiza la intervenci贸n en el 
 							formulario (pudiendo editarla, borrarla, etc.) y aparece el historial 
 							de las intervenciones sobre el alumno bajo el formulario.</p>
 						</div>
@@ -291,7 +291,7 @@ include("menu.php");
 						  
 						  <div class="form-group">
 						  	<label for="observaciones">Observaciones</label>
-						    <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escriba la intervenci髇 realizada sobre el alumno..." rows="10"><?php echo (isset($observaciones) && $observaciones) ? $observaciones : ''; ?></textarea>
+						    <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escriba la intervenci贸n realizada sobre el alumno..." rows="10"><?php echo (isset($observaciones) && $observaciones) ? $observaciones : ''; ?></textarea>
 						  </div>
 						  
 						  <div class="row">
@@ -300,7 +300,7 @@ include("menu.php");
 						  		  <label for="causa">Causa</label>
 						  		  <select class="form-control" id="causa" name="causa">
 						  		  	<option value="Estado general del Alumno" <?php echo (isset($causa) && $causa == 'Estado general del Alumno') ? 'selected' : ''; ?>>Estado general del Alumno</option>
-						  		  	<option value="Evoluci髇 acad閙ica" <?php echo (isset($causa) && $causa == 'Evoluci髇 acad閙ica') ? 'selected' : ''; ?>>Evoluci髇 acad閙ica</option>
+						  		  	<option value="Evoluci贸n acad茅mica" <?php echo (isset($causa) && $causa == 'Evoluci贸n acad茅mica') ? 'selected' : ''; ?>>Evoluci贸n acad茅mica</option>
 						  		  	<option value="Faltas de Asistencia" <?php echo (isset($causa) && $causa == 'Faltas de Asistencia') ? 'selected' : ''; ?>>Faltas de Asistencia</option>
 						  		  	<option value="Problemas de convivencia" <?php echo (isset($causa) && $causa == 'Problemas de convivencia') ? 'selected' : ''; ?>>Problemas de convivencia</option>
 						  		  	<option value="Llamada por Enfermedad" <?php echo (isset($causa) && $causa == 'Llamada por Enfermedad') ? 'selected' : ''; ?>>Llamada por Enfermedad</option>
@@ -318,9 +318,9 @@ include("menu.php");
 						  		<div class="form-group">
 						  		  <label for="accion">Tipo</label>
 						  			<select class="form-control" id="accion" name="accion">
-						  				<option value="Entrevista telef髇ica" <?php echo (isset($accion) && $accion == 'Entrevista telef髇ica') ? 'selected' : ''; ?>>Entrevista telef髇ica</option>
+						  				<option value="Entrevista telef贸nica" <?php echo (isset($accion) && $accion == 'Entrevista telef贸nica') ? 'selected' : ''; ?>>Entrevista telef贸nica</option>
 						  				<option value="Entrevista personal" <?php echo (isset($accion) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista personal</option>
-						  				<option value="Comunicaci髇 por escrito" <?php echo (isset($accion) && $accion == 'Comunicaci髇 por escrito') ? 'selected' : ''; ?>>Comunicaci髇 por escrito</option>
+						  				<option value="Comunicaci贸n por escrito" <?php echo (isset($accion) && $accion == 'Comunicaci贸n por escrito') ? 'selected' : ''; ?>>Comunicaci贸n por escrito</option>
 						  			</select>
 						  		</div>
 						  	</div>
@@ -329,7 +329,7 @@ include("menu.php");
 						  <?php if(isset($_GET['id'])): ?>
 						  <button type="submit" class="btn btn-primary" name="enviar">Actualizar</button>
 						  <a href="intervencion.php?id=<?php echo $_GET['id']; ?>&eliminar=1" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
-						  <a class="btn btn-default" href="intervencion.php">Nueva intervenci髇</a>
+						  <a class="btn btn-default" href="intervencion.php">Nueva intervenci贸n</a>
 						  <?php else: ?>
 						  <button type="submit" class="btn btn-primary" name="enviar">Registrar</button>
 						  <?php endif; ?>
@@ -441,14 +441,14 @@ include("menu.php");
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ning鷑 resultado con ese criterio.",
-			            "info": "P醙ina _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ning煤n resultado con ese criterio.",
+			            "info": "P谩gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "趌tima",
+			                  "next": "脷ltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

@@ -10,7 +10,7 @@ include("menu.php");
 ?>
 <div align="center">
 <div class="page-header">
-  <h2>Matriculación de Alumnos <small> Importar Alumnos de Secundaria</small></h2>
+  <h2>MatriculaciÃ³n de Alumnos <small> Importar Alumnos de Secundaria</small></h2>
 </div>
 <br />
 <FORM ENCTYPE="multipart/form-data" ACTION="../../xml/jefe/alma_secundaria.php" METHOD="post">
@@ -27,7 +27,7 @@ include("menu.php");
 </FORM>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 

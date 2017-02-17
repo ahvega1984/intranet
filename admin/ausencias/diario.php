@@ -19,12 +19,12 @@ $hoy = date('Y-m-d');
 	echo '<br /><table class="table table-striped table-bordered" style="width:100%;">';	
 	echo "
 	<thead>
-	<th>1ª Hora</th>
-	<th>2ª Hora</th>
-	<th>3ª Hora</th>
-	<th>4ª Hora</th>
-	<th>5ª Hora</th>
-	<th>6ª Hora</th>
+	<th>1Âª Hora</th>
+	<th>2Âª Hora</th>
+	<th>3Âª Hora</th>
+	<th>4Âª Hora</th>
+	<th>5Âª Hora</th>
+	<th>6Âª Hora</th>
 	</thead><tbody>";
 	while($row = mysqli_fetch_array ( $result )){
 	

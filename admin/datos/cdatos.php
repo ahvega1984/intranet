@@ -38,7 +38,7 @@ include("../../menu.php");
 				
 				<form method="post" action="">
 					<fieldset>
-						<legend>Criterios de búsqueda</legend>
+						<legend>Criterios de bÃºsqueda</legend>
 						
 						<div class="form-group">
 					    <label for="campoApellidos">Apellidos</label>
@@ -66,13 +66,13 @@ include("../../menu.php");
 				
 				<form method="post" action="">
 					<fieldset>
-						<legend>Información por grupos</legend>
+						<legend>InformaciÃ³n por grupos</legend>
 						
 						<div class="form-group">
 					    <select class="form-control" name="unidad[]" multiple size="6">
 					    	 <?php unidad($db_con); ?>
 					    </select>
-					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+					    <p class="help-block">MantÃ©n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratÃ³n para seleccionar mÃºltiples grupos.</p>
 					  </div>
 					  <div class="checkbox">
 					  <label>

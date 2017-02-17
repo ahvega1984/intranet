@@ -16,7 +16,7 @@ endif;
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Informes de Tr·nsito <small class="hidden-print">Consulta de alumnos</small></h2>
+		<h2>Informes de Tr√°nsito <small class="hidden-print">Consulta de alumnos</small></h2>
 	</div>
 	
 	
@@ -154,23 +154,23 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 <hr>
 
-<legend class="muted">¡MBITO ACAD…MICO</legend>
+<legend class="muted">√ÅMBITO ACAD√âMICO</legend>
 
 <h5 class="text-info">Cursos Repetidos</h5>
 <label class="checkbox inline">
-  <input type="checkbox" name="repeticion[]" value="2 " <?php echo $r2;?>> 2∫ Curso
+  <input type="checkbox" name="repeticion[]" value="2 " <?php echo $r2;?>> 2¬∫ Curso
 </label>
 &nbsp;
 <label class="checkbox inline">
-  <input type="checkbox" name="repeticion[]" value="4 " <?php echo $r4;?>> 4∫ Curso
+  <input type="checkbox" name="repeticion[]" value="4 " <?php echo $r4;?>> 4¬∫ Curso
 </label>
 &nbsp;
 <label class="checkbox inline">
-  <input type="checkbox" name="repeticion[]" value="6 " <?php echo $r6;?>> 6∫ Curso
+  <input type="checkbox" name="repeticion[]" value="6 " <?php echo $r6;?>> 6¬∫ Curso
 </label>
 <hr>
-<h5 class="text-info">N∫ de Suspensos</h5>
-<label>1™ EvaluaciÛn</label>
+<h5 class="text-info">N¬∫ de Suspensos</h5>
+<label>1¬™ Evaluaci√≥n</label>
 <select name="susp1">
   <option><?php echo $susp1;?></option>
   <option>1</option>
@@ -182,7 +182,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>7</option>
 </select>
 &nbsp;&nbsp;
-<label>2™ EvaluaciÛn</label>
+<label>2¬™ Evaluaci√≥n</label>
 <select name="susp2">
   <option><?php echo $susp2;?></option>
   <option>1</option>
@@ -194,7 +194,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>7</option>
 </select>
 &nbsp;&nbsp;
-<label>3™ EvaluaciÛn</label>
+<label>3¬™ Evaluaci√≥n</label>
 <select name="susp3">
   <option><?php echo $susp3;?></option>
   <option>1</option>
@@ -222,7 +222,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>10</option>
 </select>
 &nbsp;&nbsp;
-<label>Matem·ticas</label>
+<label>Matem√°ticas</label>
 <select name="mat" class="input input-mini">
   <option><?php echo $mat;?></option>
   <option>1</option>
@@ -237,7 +237,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>10</option>
 </select>
 &nbsp;&nbsp;
-<label>InglÈs</label>
+<label>Ingl√©s</label>
 <select name="ing" class="input input-mini">
 <option><?php echo $ing;?></option>
   <option>1</option>
@@ -267,7 +267,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>10</option>
 </select>
 &nbsp;&nbsp;
-<label>Ed. FÌsica</label>
+<label>Ed. F√≠sica</label>
 <select name="edfis" class="input input-mini">
 <option><?php echo $edfis;?></option>
   <option>1</option>
@@ -282,7 +282,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>10</option>
 </select>
 &nbsp;&nbsp;
-<label>M˙sica</label>
+<label>M√∫sica</label>
 <select name="mus" class="input input-mini">
 <option><?php echo $mus;?></option>
   <option>1</option>
@@ -297,7 +297,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>10</option>
 </select>
 &nbsp;&nbsp;
-<label>Pl·stica</label>
+<label>Pl√°stica</label>
 <select name="plas" class="input input-mini">
 <option><?php echo $plas;?></option>
   <option>1</option>
@@ -318,7 +318,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 &nbsp;
 <label class="radio inline">
-  <input type="radio" name="asiste" value="2" <?php echo $as2;?>> Falta m·s de lo normal
+  <input type="radio" name="asiste" value="2" <?php echo $as2;?>> Falta m√°s de lo normal
 </label>
 &nbsp;
 <label class="radio inline">
@@ -327,25 +327,25 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <hr>
 <h5 class="text-info">Dificultades de Aprendizaje</h5>
 <label class="checkbox">
-  <input type="checkbox" name="dificultad[]" value="1" <?php echo $d1;?>> Tiene carencias en aprendizajes b·sicos: "falta de base"
+  <input type="checkbox" name="dificultad[]" value="1" <?php echo $d1;?>> Tiene carencias en aprendizajes b√°sicos: "falta de base"
 </label><br>
 <label class="checkbox">
   <input type="checkbox" name="dificultad[]" value="2" <?php echo $d2;?>>  Tiene dificultades en la lectura
 </label><br>
 <label class="checkbox">
-  <input type="checkbox" name="dificultad[]" value="3" <?php echo $d3;?>>  Tiene dificultades de comprensiÛn oral / escrita
+  <input type="checkbox" name="dificultad[]" value="3" <?php echo $d3;?>>  Tiene dificultades de comprensi√≥n oral / escrita
 </label><br>
 <label class="checkbox">
-  <input type="checkbox" name="dificultad[]" value="4" <?php echo $d4;?>>  Tiene dificultades de expresiÛn oral / escrita
+  <input type="checkbox" name="dificultad[]" value="4" <?php echo $d4;?>>  Tiene dificultades de expresi√≥n oral / escrita
 </label><br>
 <label class="checkbox">
-  <input type="checkbox" name="dificultad[]" value="5" <?php echo $d5;?>>  Tiene dificultades de razonamiento matem·tico
+  <input type="checkbox" name="dificultad[]" value="5" <?php echo $d5;?>>  Tiene dificultades de razonamiento matem√°tico
 </label><br>
 <label class="checkbox">
-  <input type="checkbox" name="dificultad[]" value="6" <?php echo $d6;?>>  Tiene dificultades en h·bitos /  mÈtodo de estudio
+  <input type="checkbox" name="dificultad[]" value="6" <?php echo $d6;?>>  Tiene dificultades en h√°bitos /  m√©todo de estudio
 </label><br>
 <label class="checkbox">
-  <input type="checkbox" name="dificultad[]" value="7" <?php echo $d7;?>>  Tiene dificultades de c·lculo.
+  <input type="checkbox" name="dificultad[]" value="7" <?php echo $d7;?>>  Tiene dificultades de c√°lculo.
 </label>
 <hr>
 
@@ -356,14 +356,14 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 &nbsp;
 <label class="checkbox inline">
-  <input type="checkbox" name="refuerzo[]" value="Matem·ticas " <?php echo $ref2;?>> Matem·ticas
+  <input type="checkbox" name="refuerzo[]" value="Matem√°ticas " <?php echo $ref2;?>> Matem√°ticas
 </label>
 &nbsp;
 <label class="checkbox inline">
-  <input type="checkbox" name="refuerzo[]" value="InglÈs " <?php echo $ref3;?>> InglÈs
+  <input type="checkbox" name="refuerzo[]" value="Ingl√©s " <?php echo $ref3;?>> Ingl√©s
 </label>
 <h6 class="text-success">Necesita Refuerzo:</h6>
-<p class="help-block">En caso necesario seÒalar orden de preferencia del Refuerzo.</p>
+<p class="help-block">En caso necesario se√±alar orden de preferencia del Refuerzo.</p>
 <label>Lengua</label>
 <select name="necreflen">
 <option><?php echo $necreflen;?></option>
@@ -372,7 +372,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>3</option>
 </select>
 &nbsp;&nbsp;
-<label>Matem·ticas</label>
+<label>Matem√°ticas</label>
 <select name="necrefmat">
 <option><?php echo $necrefmat;?></option>
   <option>1</option>
@@ -380,7 +380,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>3</option>
 </select>
 &nbsp;&nbsp;
-<label>InglÈs</label>
+<label>Ingl√©s</label>
 <select name="necrefing">
 <option><?php echo $necrefing;?></option>
   <option>1</option>
@@ -388,38 +388,38 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <option>3</option>
 </select>
 
-<h6 class="text-success">ExenciÛn</h6>
+<h6 class="text-success">Exenci√≥n</h6>
 <label class="checkbox inline">
   <input type="checkbox" name="exento" value="1" <?php echo $exen;?>> Alumnado que por sus dificultades no se le recomienda cursar optativa
 </label>
 
-<h6 class="text-success">Programa de AcompaÒamiento Escolar</h6>
+<h6 class="text-success">Programa de Acompa√±amiento Escolar</h6>
 <label class="checkbox inline">
-  <input type="checkbox" name="acompanamiento" value="1" <?php echo $acomp;?>> Se aconseja asistencia al Programa de AcompaÒamiento Escolar
+  <input type="checkbox" name="acompanamiento" value="1" <?php echo $acomp;?>> Se aconseja asistencia al Programa de Acompa√±amiento Escolar
 </label>
 <hr>
 
-<h5 class="text-info">Medidas de AtenciÛn a la Diversidad</h5>
-<h6 class="text-success">Ha tenido AdaptaciÛn Curricular:</h6>
-<label>Areas cursadas en la AdaptaciÛn Curricular Significativa
+<h5 class="text-info">Medidas de Atenci√≥n a la Diversidad</h5>
+<h6 class="text-success">Ha tenido Adaptaci√≥n Curricular:</h6>
+<label>Areas cursadas en la Adaptaci√≥n Curricular Significativa
   <input type="text" style="width:300px" name="areasadcurrsign" value="<?php echo $areasadcurrsign;?>" caption="Tarari">
 </label>
 <br>
-<label>Areas cursadas en la AdaptaciÛn Curricular <b>No</b> Significativa
+<label>Areas cursadas en la Adaptaci√≥n Curricular <b>No</b> Significativa
   <input type="text" style="width:300px" name="areasadcurrnosign" value="<?php echo $areasadcurrnosign;?>" >
 </label>
-<h6 class="text-success">Necesita AdaptaciÛn Curricular:</h6>
-<label>Areas propuestas para la AdaptaciÛn Curricular Significativa
+<h6 class="text-success">Necesita Adaptaci√≥n Curricular:</h6>
+<label>Areas propuestas para la Adaptaci√≥n Curricular Significativa
   <input type="text" style="width:300px" name="necareasadcurrsign" value="<?php echo $necareasadcurrsign;?>">
 </label>
 <br>
-<label>Areas  propuestas para la AdaptaciÛn Curricular <b>No</b> Significativa
+<label>Areas  propuestas para la Adaptaci√≥n Curricular <b>No</b> Significativa
   <input type="text" style="width:300px" name="necareasadcurrnosign" value="<?php echo $necareasadcurrnosign;?>" >
 </label>
 
-<h6 class="text-success">øHa sido atendido por PT o AL?</h6>
+<h6 class="text-success">¬øHa sido atendido por PT o AL?</h6>
 <label class="radio inline">
-  <input type="radio" name="PT_AL" value="SI" <?php echo $ptal1;?>> SÌ
+  <input type="radio" name="PT_AL" value="SI" <?php echo $ptal1;?>> S√≠
 </label>
 &nbsp;
 <label class="radio inline">
@@ -437,17 +437,17 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 
 <h5 class="text-info">Alumnado de otra nacionalidad</h5>
 <label class="radio inline">
-  <input type="radio" name="nacion" value="4" <?php echo $n4;?>> No conoce el espaÒol
+  <input type="radio" name="nacion" value="4" <?php echo $n4;?>> No conoce el espa√±ol
 </label>
 &nbsp;
 <label class="radio inline">
-  <input type="radio" name="nacion" value="1" <?php echo $n1;?>> Nociones b·sicas de espaÒol
+  <input type="radio" name="nacion" value="1" <?php echo $n1;?>> Nociones b√°sicas de espa√±ol
 </label>
 <label class="radio inline">
   <input type="radio" name="nacion" value="2" <?php echo $n2;?>> Dificultades en lectura y escritura
 </label>
 <label class="radio inline">
-  <input type="radio" name="nacion" value="3" <?php echo $n3;?>> Puede seguir el CurrÌculo
+  <input type="radio" name="nacion" value="3" <?php echo $n3;?>> Puede seguir el Curr√≠culo
 </label>
 <br>
 <br>
@@ -460,10 +460,10 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 <hr>
 <br>
-<legend class="muted">¡MBITO SOCIAL Y DE LA PERSONALIDAD</legend>
-<h5 class="text-info">IntegraciÛn en el Aula</h5>
+<legend class="muted">√ÅMBITO SOCIAL Y DE LA PERSONALIDAD</legend>
+<h5 class="text-info">Integraci√≥n en el Aula</h5>
 <label class="radio inline">
-  <input type="radio" name="integra" value="5" <?php echo $int5;?>> LÌder
+  <input type="radio" name="integra" value="5" <?php echo $int5;?>> L√≠der
 </label>
 &nbsp;
 <label class="radio inline">
@@ -475,7 +475,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 &nbsp;
 <label class="radio inline">
-  <input type="radio" name="integra" value="3" <?php echo $int3;?>> Se aÌsla
+  <input type="radio" name="integra" value="3" <?php echo $int3;?>> Se a√≠sla
 </label>
 &nbsp;
 <label class="radio inline">
@@ -483,7 +483,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 <hr>
 <h5 class="text-info">Actitud, comportamiento, estilo de aprendizaje</h5>
-<p class="help-block">Colaborador/a, Trabajador, Atento, Impulsivo.. Indicar los aspectos m·s significativos</p>
+<p class="help-block">Colaborador/a, Trabajador, Atento, Impulsivo.. Indicar los aspectos m√°s significativos</p>
 <textarea name="actitud" rows="5"cols="80"><?php echo $actitud;?></textarea>
 <hr>
 <h5 class="text-info">Lo que mejor "funciona" con el Alumno</h5>
@@ -491,22 +491,22 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <hr>
 <br>
 
-<legend class="muted">RELACI”N COLEGIO - FAMILIA</legend>
-<h5 class="text-info">Tipo de relaciÛn con el Colegio</h5>
+<legend class="muted">RELACI√ìN COLEGIO - FAMILIA</legend>
+<h5 class="text-info">Tipo de relaci√≥n con el Colegio</h5>
 <label class="radio">
-  <input type="radio" name="relacion" value="3" <?php echo $rel3;?>> ColaboraciÛn constante
+  <input type="radio" name="relacion" value="3" <?php echo $rel3;?>> Colaboraci√≥n constante
 </label>
 <br>
 <label class="radio">
-  <input type="radio" name="relacion" value="1" <?php echo $rel1;?>> ColaboraciÛn sÛlo cuando el Centro la ha solicitado
+  <input type="radio" name="relacion" value="1" <?php echo $rel1;?>> Colaboraci√≥n s√≥lo cuando el Centro la ha solicitado
 </label>
 <br>
 <label class="radio">
   <input type="radio" name="relacion" value="2" <?php echo $rel2;?>> Demanda constante por parte de los Padres
 </label>
 <hr>
-<h5 class="text-info">Razones para la ausencia de relaciÛn con el Colegio</h5>
-<p class="help-block">En caso de ausencia completa de relaciÛn de los padres con el Colegio seÒalar si es posible las razones de la misma.</p>
+<h5 class="text-info">Razones para la ausencia de relaci√≥n con el Colegio</h5>
+<p class="help-block">En caso de ausencia completa de relaci√≥n de los padres con el Colegio se√±alar si es posible las razones de la misma.</p>
 <textarea name="norelacion" rows="3"cols="80"><?php echo $norelacion;?></textarea>
 <hr>
 <br>
@@ -525,23 +525,23 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
   <input type="radio" name="disruptivo" value="2" <?php echo $dis2;?>> Alumno disruptivo
 </label>
 <hr>
-<h5 class="text-info">El alumno ha sido expulsado en alguna ocasiÛn</h5>
+<h5 class="text-info">El alumno ha sido expulsado en alguna ocasi√≥n</h5>
 <label class="radio inline">
   <input type="radio" name="expulsion" value="1" <?php echo $exp1;?>> No
 </label>
 &nbsp;
 <label class="radio inline">
-  <input type="radio" name="expulsion" value="2" <?php echo $exp2;?>> SÌ
+  <input type="radio" name="expulsion" value="2" <?php echo $exp2;?>> S√≠
 </label>
 <hr>
 <br>
 <legend class="muted">OBSERVACIONES</legend>
-<p class="help-block">Otros aspectos a reseÒar (agrupamientos, datos mÈdicos, autonomÌa, etc).</p>
+<p class="help-block">Otros aspectos a rese√±ar (agrupamientos, datos m√©dicos, autonom√≠a, etc).</p>
 <textarea name="observaciones" rows="6" cols="80"><?php echo $observaciones;?></textarea>
 <hr>
 <br>
-<legend class="muted">ORIENTACI”N</legend>
-<p class="help-block">Informe privado del Dpto. de OrientaciÛn.</p>
+<legend class="muted">ORIENTACI√ìN</legend>
+<p class="help-block">Informe privado del Dpto. de Orientaci√≥n.</p>
 <textarea name="orientacion" rows="6" cols="80"><?php echo $orientacion;?></textarea>
 <hr>
 <?php

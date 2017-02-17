@@ -44,20 +44,20 @@ else
 $padres="";
 }
 if (isset($_POST['asunto'])) {
-	$asunto = htmlspecialchars($_POST['asunto'], ENT_QUOTES, 'ISO-8859-1');
+	$asunto = htmlspecialchars($_POST['asunto'], ENT_QUOTES, 'UTF-8');
 } 
 elseif (isset($_GET['asunto'])) {
-	$asunto = htmlspecialchars($_GET['asunto'], ENT_QUOTES, 'ISO-8859-1');
+	$asunto = htmlspecialchars($_GET['asunto'], ENT_QUOTES, 'UTF-8');
 } 
 else
 {
 $asunto="";
 }
 if (isset($_POST['texto'])) {
-	$texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'ISO-8859-1');
+	$texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'UTF-8');
 } 
 elseif (isset($_GET['texto'])) {
-	$texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'ISO-8859-1');
+	$texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'UTF-8');
 } 
 if (isset($_POST['origen'])) {
 	$origen = $_POST['origen'];
@@ -230,7 +230,7 @@ $page_header = "Redactar mensaje";
                  <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input id="pas" name="pas" type="checkbox" value="1" <?php if($pas=='1' and !$claustro) echo 'checked'; ?>> Personal de Administraci髇
+                			<input id="pas" name="pas" type="checkbox" value="1" <?php if($pas=='1' and !$claustro) echo 'checked'; ?>> Personal de Administraci贸n
                 		</label>
                 	</div>
                 </div>
@@ -262,7 +262,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input id="ca" name="ca" type="checkbox" value="1" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores 羠ea
+              				<input id="ca" name="ca" type="checkbox" value="1" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores 脕rea
               			</label>
               		</div>
               	</div>
@@ -278,7 +278,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input id="orientacion" name="orientacion" type="checkbox" value="1" <?php if($orientacion=='1' and !$claustro) echo 'checked'; ?>> Orientaci髇
+              				<input id="orientacion" name="orientacion" type="checkbox" value="1" <?php if($orientacion=='1' and !$claustro) echo 'checked'; ?>> Orientaci贸n
               			</label>
               		</div>
               	</div>
@@ -287,7 +287,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input id="bilingue" name="bilingue" type="checkbox" value="1" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesorado biling黣
+              				<input id="bilingue" name="bilingue" type="checkbox" value="1" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesorado biling眉e
               			</label>
               		</div>
               	</div>
@@ -355,7 +355,7 @@ $page_header = "Redactar mensaje";
 				<div id="grupo_profesores" class="well <?php echo (isset($profes) && !empty($profes)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
-						<legend>Selecci髇 de Personal</legend>
+						<legend>Selecci贸n de Personal</legend>
 						
 						<?php $s_origen = mb_strtoupper($origen); ?>
 						
@@ -374,7 +374,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 							
-							<div class="help-block">Mant閚 apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat髇 para seleccionar m鷏tiples profesores.</div>
+							<div class="help-block">Mant茅n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat贸n para seleccionar m煤ltiples profesores.</div>
 						</div>
 						
 					</fieldset>
@@ -402,7 +402,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 							
-							<div class="help-block">Mant閚 apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat髇 para seleccionar m鷏tiples tutores.</div>
+							<div class="help-block">Mant茅n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat贸n para seleccionar m煤ltiples tutores.</div>
 						</div>
 						
 					</fieldset>
@@ -429,7 +429,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 							
-							<div class="help-block">Mant閚 apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat髇 para seleccionar m鷏tiples departamentos.</div>
+							<div class="help-block">Mant茅n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat贸n para seleccionar m煤ltiples departamentos.</div>
 						</div>
 						
 					</fieldset>
@@ -456,7 +456,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 							
-							<div class="help-block">Mant閚 apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat髇 para seleccionar m鷏tiples equipos educativos.</div>
+							<div class="help-block">Mant茅n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat贸n para seleccionar m煤ltiples equipos educativos.</div>
 						</div>
 						
 					</fieldset>
@@ -487,7 +487,7 @@ $page_header = "Redactar mensaje";
 				<div id="grupo_pas" class="well <?php echo (isset($pas) && !empty($pas)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
-						<legend>Personal de Administraci髇</legend>
+						<legend>Personal de Administraci贸n</legend>
 						
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%7%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
@@ -547,7 +547,7 @@ $page_header = "Redactar mensaje";
 				<div id="grupo_coordinadores" class="well <?php echo (isset($ca) && !empty($ca)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
-						<legend>Coordinadores de 醨ea</legend>
+						<legend>Coordinadores de 谩rea</legend>
 						
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
@@ -587,7 +587,7 @@ $page_header = "Redactar mensaje";
 				<div id="grupo_orientacion" class="well <?php echo (isset($orientacion) && !empty($orientacion)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
-						<legend>Orientaci髇</legend>
+						<legend>Orientaci贸n</legend>
 						
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%8%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
@@ -603,7 +603,7 @@ $page_header = "Redactar mensaje";
 				</div>
 
 				<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
-				<!-- BILING蹺 -->
+				<!-- BILING脺E -->
 				<div id="grupo_bilingue" class="well <?php echo (isset($bilingue) && !empty($bilingue)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
@@ -658,7 +658,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 							
-							<div class="help-block">Mant閚 apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat髇 para seleccionar m鷏tiples alumnos.</div>
+							<div class="help-block">Mant茅n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat贸n para seleccionar m煤ltiples alumnos.</div>
 						</div>
 						
 					</fieldset>
@@ -788,7 +788,7 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-			// Coordinadores 羠ea
+			// Coordinadores 脕rea
 			$('#ca').change(function() {
 				if(ca.checked==true) {
 					$('#grupo_coordinadores').removeClass('hidden');
@@ -808,7 +808,7 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-			// Orientaci髇
+			// Orientaci贸n
 			$('#orientacion').change(function() {
 				if(orientacion.checked==true) {
 					$('#grupo_orientacion').removeClass('hidden');
@@ -853,7 +853,7 @@ $page_header = "Redactar mensaje";
 			$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
 		}
 	  
-	  	$('#mostrar_grupos').click(function()爗
+	  	$('#mostrar_grupos').click(function()聽{
 	  	mostrar_grupos();
 	  });
 	  
@@ -877,23 +877,23 @@ $page_header = "Redactar mensaje";
 	function checkAsunto(form)
 	  {
 
-	    // Comprobaci髇 de Asunto vac韔
+	    // Comprobaci贸n de Asunto vac铆o
 	    if($('#asunto').val() == "") {
 	      bootbox.alert("No ha escrito nada en el asunto del formulario.");
 	      $('#asunto').parent('.form-group').addClass('has-error');
 	      return false;
 	    }
 	
-	    // Comprobaci髇 de Grupo de destinatarios sin marcar       
+	    // Comprobaci贸n de Grupo de destinatarios sin marcar       
 	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
-			bootbox.alert("No ha seleccionado ning鷑 grupo de destinatarios para el mensaje.");
+			bootbox.alert("No ha seleccionado ning煤n grupo de destinatarios para el mensaje.");
 			return false;
 	    }
 		
-	    // Comprobaci髇 de destinatario vac韔
+	    // Comprobaci贸n de destinatario vac铆o
 	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
 		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
-		    	bootbox.alert("No ha seleccionado ning鷑 destinatario para el mensaje.");
+		    	bootbox.alert("No ha seleccionado ning煤n destinatario para el mensaje.");
 		    	return false;
 		  	}
 		}

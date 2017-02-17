@@ -5,22 +5,22 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 if (isset($_POST['btnGuardar'])) {
 	
 	$prefMediaHora	= limpiar_string($_POST['prefMediaHora']);
 
-	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
+	// CREACIÃ“N DEL ARCHIVO DE CONFIGURACIÃ“N
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE GUARDIAS\r\n");
+		fwrite($file, "\r\n// CONFIGURACIÃ“N MÃ“DULO DE GUARDIAS\r\n");
 		fwrite($file, "\$config['guardias']['media_hora']\t= $prefMediaHora;\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÃ³n");
 		
 		fclose($file);
 		

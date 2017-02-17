@@ -22,7 +22,7 @@ include("../../menu.php");
 		
 		$cal->addEvent('Inicio curso Ed.Inf., Prim. E.E.', $curso, 9, 10, '#');
 		$cal->addEvent('Inicio curso E.S.O. Bach. F.P.', $curso, 9, 15, '#');
-		$cal->addEvent('Fin dÌas lectivos', $curso+1, 6, 23, '#');
+		$cal->addEvent('Fin d√≠as lectivos', $curso+1, 6, 23, '#');
 		
 		// DIAS FESTIVOS
 		$result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos");

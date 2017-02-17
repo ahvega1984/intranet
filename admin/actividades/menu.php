@@ -42,18 +42,18 @@ if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="acti
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El módulo de Actividades Extraescolares y Complementarias está unido al Calendario de Actividades.
+						<p>El mÃ³dulo de Actividades Extraescolares y Complementarias estÃ¡ unido al Calendario de Actividades.
 						 En el Calendario se registran las nuevas actividades por parte de DACE, Jefes de Departamento, Tutores 
 						 o Equipo Directivo. Una vez registrada la actividad, el funcionamiento es el siguiente.</p>
 						<p>La actividad debe ser aprobada por el Consejo Escolar, donde la presenta el Director. En la Lista de
-						 Actividades, un icono de verificación rojo indica que la actividad no ha sido aprobada aun por el Director. 
-						 Una vez aprobada por éste, el icono se pone verde y aparece en el Calendario como autorizada.</p>
+						 Actividades, un icono de verificaciÃ³n rojo indica que la actividad no ha sido aprobada aun por el Director. 
+						 Una vez aprobada por Ã©ste, el icono se pone verde y aparece en el Calendario como autorizada.</p>
 						<p>La actividad puede ser visualizada por todos los usuarios de la Intranet; editada por parte de Jefes de
 						 Departamento y profesores asociados a la actividad; eliminada por parte de DACE, Jefes de Departamento y 
-						 Equipo Directivo; y por último puede ser vinculada a un conjunto de alumnos que seleccionamos para realizar 
-						 la actividad (icono de usuario en reunión). Esta última tarea es especialmente importante si utilizamos el 
-						 sistema de faltas de asistencia porque bloquea las faltas de aquellos alumnos que están realizando una 
-						 actividad; también muestra en el Calendario de la página principal un enlace a los alumnos que asisten a la 
+						 Equipo Directivo; y por Ãºltimo puede ser vinculada a un conjunto de alumnos que seleccionamos para realizar 
+						 la actividad (icono de usuario en reuniÃ³n). Esta Ãºltima tarea es especialmente importante si utilizamos el 
+						 sistema de faltas de asistencia porque bloquea las faltas de aquellos alumnos que estÃ¡n realizando una 
+						 actividad; tambiÃ©n muestra en el Calendario de la pÃ¡gina principal un enlace a los alumnos que asisten a la 
 						 actividad para que sea conocido por los profesores que les dan clase (evitando el trabajo de crear una lista 
 						 de los alumnos participantes que se entrega a los profesores).</p>
 					</div>

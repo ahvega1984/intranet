@@ -44,19 +44,19 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El módulo de Ausencias permite al profesor comunicar que no va a asistir al Centro en un rango de 
+						<p>El mÃ³dulo de Ausencias permite al profesor comunicar que no va a asistir al Centro en un rango de 
 						horas o fechas. Facilita sobre todo la tarea de los Profesores de Guardia y del Equipo Directivo.</p>
 						El formulario de registro es muy sencillo: seleccionamos la fecha o rango de fechas de la baja; si 
 						la baja se va a limitar a ciertas horas sueltas elegimos las horas que vamos a estar ausentes (en 
-						caso de días completos no es necesario marcar las casillas de las horas sueltas); e introducimos la 
-						descripción de las tareas encargadas para los grupos de alumnos afectados, o bien subimos un documento 
+						caso de dÃ­as completos no es necesario marcar las casillas de las horas sueltas); e introducimos la 
+						descripciÃ³n de las tareas encargadas para los grupos de alumnos afectados, o bien subimos un documento 
 						con las tareas.</p>
 						<p>A la derecha del formulario aparecen las ausencias de los profesores, ordenadas temporalmente. Al 
-						hacer click con el ratón sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo 
+						hacer click con el ratÃ³n sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo 
 						del Curso Escolar.</p>
-						<p>Las ausencias aparecen bajo el menú de la página de inicio de la aplicación y un icono señala si el 
-						profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratón sobre el profesor ausente 
-						entraremos en una página donde podremos ver el horario del día del profesor ausente, así como las tareas 
+						<p>Las ausencias aparecen bajo el menÃº de la pÃ¡gina de inicio de la aplicaciÃ³n y un icono seÃ±ala si el 
+						profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratÃ³n sobre el profesor ausente 
+						entraremos en una pÃ¡gina donde podremos ver el horario del dÃ­a del profesor ausente, asÃ­ como las tareas 
 						o documento con las mismas para poder atender a los alumnos durante esa hora.</p>
 					</div>
 					<div class="modal-footer">
@@ -112,7 +112,7 @@ Los datos se han actualizado correctamente.
 				if (in_array($tipo_archivo, $formatos_no_validos)) {
 					echo '<div class="alert alert-danger">
 					        <button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>Atención:</strong><br />Ha ocurrido un error al subir el archivo. El formato del archivo no es válido.
+							<strong>AtenciÃ³n:</strong><br />Ha ocurrido un error al subir el archivo. El formato del archivo no es vÃ¡lido.
 					      </div>';
 					$ok = 0;
 				}
@@ -122,7 +122,7 @@ Los datos se han actualizado correctamente.
 					if (! move_uploaded_file($_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)) {
 						echo '<div class="alert alert-danger">
 					            <button type="button" class="close" data-dismiss="alert">&times;</button>
-								<strong>Atención:</strong><br />No ha sido posible subir el archivo. Contacta con el administrador de la aplicación.
+								<strong>AtenciÃ³n:</strong><br />No ha sido posible subir el archivo. Contacta con el administrador de la aplicaciÃ³n.
 					          </div>';
 					    $ok = 0;
 					}
@@ -143,8 +143,8 @@ Los datos se han actualizado correctamente.
 	else{
 		echo '<div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-			No se pueden procesar los datos. Has dejado campos vacíos en el formulario que es necesario rellenar. Vuelve atrás e inténtalo de nuevo.
+			<legend>ATENCIÃ“N:</legend>
+			No se pueden procesar los datos. Has dejado campos vacÃ­os en el formulario que es necesario rellenar. Vuelve atrÃ¡s e intÃ©ntalo de nuevo.
           </div>';
 
 		exit();
@@ -255,8 +255,8 @@ Los datos se han actualizado correctamente.
 				?>
 				</div>
 				<div class="form-group">
-					<label for="observaciones">Tipo y/o Razón de la Ausencia.</label>
-					<textarea class="form-control" id="observaciones" name="observaciones" rows="6" placeholder="ATENCIÓN: La información registrada en este campo sólo es visible para el Equipo Directivo."><?php echo $observaciones;?></textarea>
+					<label for="observaciones">Tipo y/o RazÃ³n de la Ausencia.</label>
+					<textarea class="form-control" id="observaciones" name="observaciones" rows="6" placeholder="ATENCIÃ“N: La informaciÃ³n registrada en este campo sÃ³lo es visible para el Equipo Directivo."><?php echo $observaciones;?></textarea>
 				</div>
 
 
@@ -269,7 +269,7 @@ Los datos se han actualizado correctamente.
 					<label for="userfile">Adjuntar archivo con tareas</label>
 					<input type="file" id="userfile" name="userfile">
 					<br>
-					<p class="block-help">Para adjuntar múltiples archivos es necesario comprimirlos en uno solo. El tamaño máximo permitido es de <?php echo ini_get('post_max_size'); ?>b.</p>
+					<p class="block-help">Para adjuntar mÃºltiples archivos es necesario comprimirlos en uno solo. El tamaÃ±o mÃ¡ximo permitido es de <?php echo ini_get('post_max_size'); ?>b.</p>
 				</div>
 
 				<button type="submit" class="btn btn-primary" name="submit2">Registrar</button>
@@ -294,7 +294,9 @@ Los datos se han actualizado correctamente.
 							<th>Inicio</th>
 							<th>Fin</th>
 							<th>Horas</th>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE or $_SESSION['profi'] == $row['profesor']): ?>	
 							<th>&nbsp;</th>
+							<?php endif; ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -308,14 +310,12 @@ Los datos se han actualizado correctamente.
 							<?php if ($row['horas'] != '0') { 
 							$hr = str_split($row['horas']);
 							foreach ($hr as $hora){
-								echo $hora."ª ";
+								echo $hora."Âª ";
 							}
 							}; ?>
 							</td>
-							
-							
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE or $_SESSION['profi'] == $row['profesor']): ?>							
-								<td>
+							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
 									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
 								</a>
@@ -367,7 +367,7 @@ Los datos se han actualizado correctamente.
 							<?php if ($row['horas'] != '0') { 
 							$hr = str_split($row['horas']);
 							foreach ($hr as $hora){
-								echo $hora."ª ";
+								echo $hora."Âª ";
 							}
 							}; ?>
 							</td>
@@ -457,14 +457,14 @@ $festivos = substr($festivos,0,-2);
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

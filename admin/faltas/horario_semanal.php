@@ -46,7 +46,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$tutor = mysqli_fetch_array($result);
 	mysqli_free_result($result);
 	
-	// Impresi�n de la cabecera
+	// Impresiï¿½n de la cabecera
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $unidad",0,0,'L');
 	$pdf->Cell(81,5,"SEMANA: _______________________",0,0,'C');
@@ -63,7 +63,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->SetWidths(array(63,42,42,42,42,42));
 	$pdf->SetAligns(array('L','C','C','C','C','C'));
-	$pdf->Row(array('','LUNES','MARTES','MI�RCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array('','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	
 	// SEGUNDA FILA
 	$pdf->SetWidths(array(8,55,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7));
@@ -92,8 +92,8 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 		$i++;
 	}
 
-	// En una hoja caben 34 filas, si es menor a�adimos el cuadrante de faltas en otra hoja;
-	// en otro caso, la tabla aparecer� a continuaci�n del listado de alumnos.
+	// En una hoja caben 34 filas, si es menor aï¿½adimos el cuadrante de faltas en otra hoja;
+	// en otro caso, la tabla aparecerï¿½ a continuaciï¿½n del listado de alumnos.
 	if ($i<34) $pdf->AddPage('L','A4');
 	else $pdf->Ln(5);
 	
@@ -113,7 +113,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
-	$pdf->Row(array('LUNES','MARTES','MI�RCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array('LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	
 	// Resto de la tabla
 	$pdf->SetFont('NewsGotT','',10);
@@ -151,7 +151,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
-	$pdf->Row(array("LUNES",'MARTES','MI�RCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array("LUNES",'MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	$pdf->Row(array("\n\n\n\n\n\n",'','','','','',''));
 	
 	

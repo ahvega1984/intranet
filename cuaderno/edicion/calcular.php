@@ -12,14 +12,14 @@ $celdas = substr($celdas,0,strlen($celdas)-3);
 if (empty($num_ids)) {
 	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Debes marcar al menos una Columna del cuaderno para poder realizar el cálculo.
+			<h5>ATENCIÃ“N:</h5>
+Debes marcar al menos una Columna del cuaderno para poder realizar el cÃ¡lculo.
 </div></div>';
 	echo "<INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' style='margin-top:12px;' class='btn btn-primary'>";
 	exit;
 }
 // Procesamos los datos
-// Distintos códigos de la asignatura cuando hay varios grupos en una hora.
+// Distintos cÃ³digos de la asignatura cuando hay varios grupos en una hora.
 $n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
 while($varias = mysqli_fetch_array($n_c))
 {
@@ -32,7 +32,7 @@ while($varias = mysqli_fetch_array($n_c))
 	$largo = strlen($varias[1]);
 	if (strlen($varias[1]) > 10) {$nombre_asig = substr($varias[1],0,10);} else {$nombre_asig = substr($varias[1],0,6);}
 	$nombre_asig = trim($nombre_asig);
-	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%º'");
+	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%Âº'");
 	while($asig_sen1 = mysqli_fetch_row($asig_sen0)){
 		if (strstr($asigna_a , $asig_sen1[0]) == false)
 		{
@@ -60,9 +60,9 @@ while($n_cur = mysqli_fetch_array($n_cursos))
 }
 // Eliminamos el espacio
 $curs0 = substr($curs,0,(strlen($curs)-1));
-// Eliminamos la última coma para el título.
+// Eliminamos la Ãºltima coma para el tÃ­tulo.
 $curso_sin = substr($curs0,0,(strlen($curs0)-1));
-//Número de columnas
+//NÃºmero de columnas
 
 $col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso%' and oculto = '0' and ($celdas)  order by orden asc";
 $col0 = mysqli_query($db_con, $col);
@@ -72,7 +72,7 @@ $curso_sin = substr($curso,0,strlen($curso) - 1);
 
 echo "<table align='center' class='table table-striped' style='width:auto'>";
 echo "<thead><th style='vertical-align:bottom;background-color:#fff'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#fff'>Alumno</th>";
-// Número de las columnas de la tabla
+// NÃºmero de las columnas de la tabla
 while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
@@ -86,7 +86,7 @@ while($col20 = mysqli_fetch_array($col0)){
 //echo "<th style='vertical-align:bottom;background-color:#eec'>M. Aritm&eacute;tica</th></thead><tbody>";
 echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-danger text-lowercase'><b>Media Aritmética</b></span> </div>
+<div class='Rotate-90'><span class='text-danger text-lowercase'><b>Media AritmÃ©tica</b></span> </div>
 </div> </th></thead>";
 
 // Tabla para cada Grupo
@@ -97,11 +97,11 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	$curso = $curso11[0];
 	$asignatura = $curso11[1];
 	$nombre = $curso11[2];
-	// Número de Columnas para crear la tabla
+	// NÃºmero de Columnas para crear la tabla
 	$num_col = 4 + $num_ids;
 	$nivel_curso = substr($curso,0,1);
 
-	//	Problemas con Diversificación (4E-Dd)
+	//	Problemas con DiversificaciÃ³n (4E-Dd)
 	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 	if (mysqli_num_rows($profe_div)<1) {
 

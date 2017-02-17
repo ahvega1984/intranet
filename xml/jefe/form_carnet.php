@@ -9,7 +9,7 @@ include("../../menu.php");
 <div class="container">
 
 <div class="page-header">
-  <h2>Administraci髇 <small> Crear el Carnet del Alumno</small></h2>
+  <h2>Administraci贸n <small> Crear el Carnet del Alumno</small></h2>
 </div>
   <br>
 
@@ -36,7 +36,7 @@ $unidad = $row_Recordset1[16];
 <form id="form1" name="form1" method="post" action="carnet.php">
 
 <div class="form-group">
-<legend>Impresi髇 de Carnet por Grupo</legend>
+<legend>Impresi贸n de Carnet por Grupo</legend>
   <label class="control-label" for="grupo">Selecciona un Grupo:</label>
 
 <?
@@ -69,7 +69,7 @@ else{
  <div class="well well-lg">
 
 <form name="crear" action="carnet.php" method="POST" onsubmit="placeInHidden('*', this.form.al2,this.form.profes)">
-<legend>Impresi髇 de Carnet por Alumno</legend>
+<legend>Impresi贸n de Carnet por Alumno</legend>
 
 <?############################?>
 <SCRIPT language="JavaScript" type="text/javascript">
@@ -169,7 +169,7 @@ if (stristr($_SESSION['cargo'],'2') == TRUE) {
 else{
 	$unidad_tuto = "";
 }
-if ($modificar==1) {                  #elige selecci髇 m鷏tiple
+if ($modificar==1) {                  #elige selecci贸n m煤ltiple
 		foreach($alumnos as  $valor) {
 			if (!isset($seleccion1)) { $seleccion1="'".$valor;}
 			else {$seleccion1=$seleccion1."','".$valor;}		
@@ -229,7 +229,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 
 <?php if(stristr($_SESSION['cargo'],'1') == TRUE) {
 	echo ' <div class="well well-lg" >';
-	echo '<legend>Impresi髇 de todos los Alumnos</legend>';
+	echo '<legend>Impresi贸n de todos los Alumnos</legend>';
 	echo "<a href='carnet.php?todos=1' class='btn btn-primary btn-block'><i class='fa fa-print '> </i> Imprimir todos los cursos</a></div>";
 }
 ?>

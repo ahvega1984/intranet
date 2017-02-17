@@ -19,7 +19,7 @@ include("../../menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría <small>Selección de tutoría</small></h2>
+			<h2>TutorÃ­a <small>SelecciÃ³n de tutorÃ­a</small></h2>
 		</div>
 		
 		

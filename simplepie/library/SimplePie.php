@@ -1128,7 +1128,7 @@ class SimplePie
 	 * is similar to {@see set_input_encoding()}.
 	 *
 	 * It should be noted, however, that not all character encodings can support
-	 * all characters.  If your page is being served as ISO-8859-1 and you try
+	 * all characters.  If your page is being served as UTF-8 and you try
 	 * to display a Japanese feed, you'll likely see garbled characters.
 	 * Because of this, it is highly recommended to ensure that your webpages
 	 * are served as UTF-8.
@@ -1329,10 +1329,10 @@ class SimplePie
 			}
 		}
 
-		// Fallback to XML 1.0 Appendix F.1/UTF-8/ISO-8859-1
+		// Fallback to XML 1.0 Appendix F.1/UTF-8/UTF-8
 		$encodings = array_merge($encodings, $this->registry->call('Misc', 'xml_encoding', array($this->raw_data, &$this->registry)));
 		$encodings[] = 'UTF-8';
-		$encodings[] = 'ISO-8859-1';
+		$encodings[] = 'UTF-8';
 
 		// There's no point in trying an encoding twice
 		$encodings = array_unique($encodings);

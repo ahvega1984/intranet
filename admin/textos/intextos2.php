@@ -49,8 +49,8 @@ if (empty($titulo) or empty($asignatura) or empty($departamento) or empty($grupo
 { 
 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No has introducido todos los datos.<br> Vuelve atrás e inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+No has introducido todos los datos.<br> Vuelve atrÃ¡s e intÃ©ntalo de nuevo.
 </div></div><br />';
 exit();
 	}
@@ -84,7 +84,7 @@ while($row = mysqli_fetch_array($textos))
 			</tr>";
         }
 		echo '</table>';
-		   			echo '<br /><INPUT TYPE="button" VALUE="Volver Atrás"
+		   			echo '<br /><INPUT TYPE="button" VALUE="Volver AtrÃ¡s"
    onClick="history.back()" class="btn btn-primary">';
 
    }	

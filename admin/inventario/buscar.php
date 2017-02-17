@@ -13,7 +13,7 @@ if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
 	$departament=$departamento;
 }
 else{
-	$departament="Dirección";
+	$departament="DirecciÃ³n";
 }
 $profe=$_SESSION['profi'];
 if (empty($buscar)) {
@@ -32,7 +32,7 @@ if (empty($buscar)) {
 </div>
 <br />
 <?php
-		echo '<div class="well well-lg">INSTRUCCIONES.<BR><div style="text-align:left;width:inherit;">1. Puedes buscar en cualquier campo de la tabla de datos: familia, clase, lugar, descripción, marca, modelo, etc. <br>Si introduces varias palabras, se buscarán los registros que contengan <em>todas</em> las palabras.<br>2. La(-s) palabra(-s) que introduzcas no tienen porque ser completas, así que puedes escribir un trozo de palabra para aumentar los resultados de la búsqueda.<br>3. Por esa razón, si no escribes ningún texto en el campo de búsqueda, se presentarán todos los registros que has introducido, lo cual es interesante, por ejemplo, para imprimir un listado completo del material del Departamento. Los miembros del Equipo directivo verán, en este caso, la totalidad de los materiales registrados por todos los Departamentos y la propia Dirección,<br>4. Los nombres de las columnas de la tabla de resultados contienen un enlace que ordena los resultados de modo ascendente o descendente. Haciendo click sobre el nombre de una columna, podemos ordenar los resultados por familia, clase, modelo, etc.</div></div>';
+		echo '<div class="well well-lg">INSTRUCCIONES.<BR><div style="text-align:left;width:inherit;">1. Puedes buscar en cualquier campo de la tabla de datos: familia, clase, lugar, descripciÃ³n, marca, modelo, etc. <br>Si introduces varias palabras, se buscarÃ¡n los registros que contengan <em>todas</em> las palabras.<br>2. La(-s) palabra(-s) que introduzcas no tienen porque ser completas, asÃ­ que puedes escribir un trozo de palabra para aumentar los resultados de la bÃºsqueda.<br>3. Por esa razÃ³n, si no escribes ningÃºn texto en el campo de bÃºsqueda, se presentarÃ¡n todos los registros que has introducido, lo cual es interesante, por ejemplo, para imprimir un listado completo del material del Departamento. Los miembros del Equipo directivo verÃ¡n, en este caso, la totalidad de los materiales registrados por todos los Departamentos y la propia DirecciÃ³n,<br>4. Los nombres de las columnas de la tabla de resultados contienen un enlace que ordena los resultados de modo ascendente o descendente. Haciendo click sobre el nombre de una columna, podemos ordenar los resultados por familia, clase, modelo, etc.</div></div>';
 
 		echo "</div></div></div>";
 }
@@ -69,7 +69,7 @@ if (mysqli_num_rows($datos) > 0)
 <?php
 echo '<table class="table table-striped table-bordered datatable">
 <thead>
-<tr><th>Familia</th><th>Clase</th><th>Lugar</th><th>Descripción</th><th>Marca</th><th>Modelo</th><th nowrap>Nº Serie</th><th>Unidad</th><th>Departamento</th><th></th><th></th></tr>
+<tr><th>Familia</th><th>Clase</th><th>Lugar</th><th>DescripciÃ³n</th><th>Marca</th><th>Modelo</th><th nowrap>NÂº Serie</th><th>Unidad</th><th>Departamento</th><th></th><th></th></tr>
 </thead><tbody>';
 while($dat = mysqli_fetch_row($datos))
 {
@@ -95,8 +95,8 @@ else
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Ningún registro del Inventario responde a tu criterio.
+			<h5>ATENCIÃ“N:</h5>
+NingÃºn registro del Inventario responde a tu criterio.
 </div></div><br />';
 }
 }
@@ -121,14 +121,14 @@ Ningún registro del Inventario responde a tu criterio.
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

@@ -12,7 +12,7 @@
 	if (empty($n_1)) {
 		echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 Debes seleccionar al menos una Columna del cuaderno para poder operar.
 </div></div>';
  echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";			

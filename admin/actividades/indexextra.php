@@ -14,7 +14,7 @@ include("menu.php");
 ?>
 <div class='container'>
 <div class="page-header">
-<h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
+<h2>Actividades Complementarias y Extraescolares <small> AdministraciÃ³n</small></h2>
 </div>
 
 <div class="row">
@@ -52,7 +52,7 @@ if($detalles == '1')
 	$registro = $datos[13];
 	?>
 <div>
-<h3>Información completa de Actividad Extraescolar</h3>
+<h3>InformaciÃ³n completa de Actividad Extraescolar</h3>
 <br />
 </div>
 <div>
@@ -67,7 +67,7 @@ if($detalles == '1')
 		<td><?php echo substr($datos[11],0,-1);?></td>
 	</tr>
 	<tr>
-		<th>Descripción</th>
+		<th>DescripciÃ³n</th>
 		<td><?php echo $datos[3];?></td>
 	</tr>
 	<tr>
@@ -82,7 +82,7 @@ if($detalles == '1')
 		<th>Horario</th>
 		<td><?php 
 		if ($datos[5]=="00:00:00") {
-			echo "Todo el día.";
+			echo "Todo el dÃ­a.";
 		}
 		else{
 		echo $datos[5]." - ".$datos[7];
@@ -105,7 +105,7 @@ if($detalles == '1')
 			echo "NO";
 		}
 		else{
-			echo "SÍ";
+			echo "SÃ";
 		}	
 		?></td>
 	</tr>
@@ -236,14 +236,14 @@ if($detalles == '1')
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-			            "info": "Página _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+			            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "Última",
+			                  "next": "Ãšltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

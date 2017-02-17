@@ -17,7 +17,7 @@ $profesor = mysqli_real_escape_string($db_con, $_POST['profesor']);
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Redactar Informe por asignatura</small></h2>
+  <h2>Informes de TutorÃ­a <small> Redactar Informe por asignatura</small></h2>
 </div>
 <br>
 
@@ -26,8 +26,8 @@ $profesor = mysqli_real_escape_string($db_con, $_POST['profesor']);
 if (empty($informe) or empty($asignatura)) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Los datos no están completos.<br>Debes seleccionar Asignatura y rellenar el Informe.<br>Vuelve a la página anterior y rellena todos los datos.
+			<legend>ATENCIÃ“N:</legend>
+Los datos no estÃ¡n completos.<br>Debes seleccionar Asignatura y rellenar el Informe.<br>Vuelve a la pÃ¡gina anterior y rellena todos los datos.
 <br /><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 		</div></div>';
 	exit;
@@ -38,14 +38,14 @@ if (strlen($ya_hay1[0]) > '0') {
 mysqli_query($db_con, "update infotut_profesor set informe = '$informe' where id_alumno = '$id' and asignatura = '$asignatura'") or die("<br><center><p>El Informe no ha podido ser actualizado. Busca ayuda. </p></center>");
 echo '<div align="center"><div class="alert alert-success alert-block fade in" >
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido actualizado correctamente. Puedes comprobar los datos más abajo. 
+El Informe ha sido actualizado correctamente. Puedes comprobar los datos mÃ¡s abajo. 
 		</div></div>';
 }
 else{
 mysqli_query($db_con, "insert into infotut_profesor (id_alumno,profesor,asignatura,informe) values ('$id_alumno','$profesor','$asignatura','$informe')") or die("<br><center><p>El Informe no ha podido ser registrado. Busca ayuda. </p></center>");
 echo '<div align="center"><div class="alert alert-success alert-block fade in" >
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido guardado correctamente. Puedes comprobar los datos más abajo. 
+El Informe ha sido guardado correctamente. Puedes comprobar los datos mÃ¡s abajo. 
 		</div></div>';	
 }
 

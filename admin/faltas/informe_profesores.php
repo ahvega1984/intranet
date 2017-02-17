@@ -17,7 +17,7 @@ include("../../faltas/menu.php");
 		<br><br>
 		<p class="lead">
 			<span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br>
-			<small>El proceso puede tomar algún tiempo.</small>
+			<small>El proceso puede tomar algÃºn tiempo.</small>
 		</p>
 		<br><br>
 	</div>
@@ -31,7 +31,7 @@ include("../../faltas/menu.php");
 			<br>
 
 			<div class="alert alert-info">
-				La columna <strong>Por grupo</strong> presenta el número de faltas que el profesor ha puesto en cada uno de sus grupos (entre paréntesis, primero la abreviatura de la asignatura y luego el número de alumnos de su asignatura); la columna <strong>Media grupos</strong> presenta la media de faltas que todos los profesores han puesto en cada uno de esos grupos.
+				La columna <strong>Por grupo</strong> presenta el nÃºmero de faltas que el profesor ha puesto en cada uno de sus grupos (entre parÃ©ntesis, primero la abreviatura de la asignatura y luego el nÃºmero de alumnos de su asignatura); la columna <strong>Media grupos</strong> presenta la media de faltas que todos los profesores han puesto en cada uno de esos grupos.
 			</div>
 			
 			<br>
@@ -132,14 +132,14 @@ include("../../faltas/menu.php");
 	
 	    "language": {
 	                "lengthMenu": "_MENU_",
-	                "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	                "info": "Página _PAGE_ de _PAGES_",
+	                "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	                "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	                "infoEmpty": "No hay resultados disponibles.",
 	                "infoFiltered": "(filtrado de _MAX_ resultados)",
 	                "search": "Buscar: ",
 	                "paginate": {
 	                      "first": "Primera",
-	                      "next": "Última",
+	                      "next": "Ãšltima",
 	                      "next": "",
 	                      "previous": ""
 	                    }

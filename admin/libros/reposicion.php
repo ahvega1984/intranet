@@ -25,7 +25,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,utf8_encode('CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE'),0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -74,24 +74,24 @@ $sqlasig="SELECT distinct asignaturas.nombre, textos_gratis.titulo, textos_grati
 $resulasig=mysqli_query($db_con, $sqlasig);
 #recogida de variables.
 $hoy=formatea_fecha(date('Y-m-d'));
-$alumno=$registroal[0];
-$unidad=$registroal[1];
-$domicilio=$registroal[2];
-$localidad=$registroal[3];
+$alumno=utf8_decode($registroal[0]);
+$unidad=utf8_decode($registroal[1]);
+$domicilio=utf8_decode($registroal[2]);
+$localidad=utf8_decode($registroal[3]);
 $codigo=$registroal[4];
-$tutor="Tutor/a: ".$registroal[5];
+$tutor=utf8_decode("Tutor/a: ".$registroal[5]);
 $fecha = date('d/m/Y');
 $texto2=" Se debe reponer o en su caso abonar el importe indicado ";
 
-$titulo2="NOTIFICACIÓN DE REPOSICIÓN DE LIBROS DE TEXTO";
-$cuerpo21="D./Dña. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la Direccción: ";
+$titulo2="NOTIFICACIÃ“N DE REPOSICIÃ“N DE LIBROS DE TEXTO";
+$cuerpo21="D./DÃ±a. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la DireccciÃ³n: ";
 $cuerpo22="CERTIFICA que el/la alumno/a: $alumno matriculado/a en el curso $unidad, revisados sus libros con fecha $fecha, debe ";
-$cuerpo22.="reponer (o en su caso abonar el importe segun tarifa marcada por la Junta de Andalucía) los siguientes libros: ";
-$importante2='En caso de no atender a este requerimiento el/la alumno/a no podrá disfrutar del programa de gratuidad el curso próximo.'; 
+$cuerpo22.="reponer (o en su caso abonar el importe segun tarifa marcada por la Junta de AndalucÃ­a) los siguientes libros: ";
+$importante2='En caso de no atender a este requerimiento el/la alumno/a no podrÃ¡ disfrutar del programa de gratuidad el curso prÃ³ximo.'; 
 
-# insertamos la primera página del documento
+# insertamos la primera pÃ¡gina del documento
 $MiPDF->Addpage();
-#### Cabecera con direcciÃ³n
+#### Cabecera con direcciÃƒÂ³n
 $MiPDF->SetFont('NewsGotT','',12);
 $MiPDF->SetTextColor(0,0,0);
 $MiPDF->Text(30,55,$tutor);
@@ -115,7 +115,7 @@ $MiPDF->Text(30,70,$codigo." (".$localidad.")");
 		$MiPDF->SetX(170);
 		$MiPDF->cell(0,4,$regasig[3].' Euros',0,'D',0);
 	$MiPDF->SetX(20);
-	$MiPDF->Multicell(150,4,'- '.$regasig[0].' --> Título: '.$regasig[1].' ('.$regasig[2].')',0,'I',0);
+	$MiPDF->Multicell(150,4,'- '.$regasig[0].' --> TÃ­tulo: '.$regasig[1].' ('.$regasig[2].')',0,'I',0);
 	
 	$total=$total+$regasig[3];
 	}#del while

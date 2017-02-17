@@ -1,7 +1,7 @@
 <?php
 require('../../../bootstrap.php');
 ?>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <?php
 
 $result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca");
@@ -36,25 +36,25 @@ while ($row = mysqli_fetch_array($result)) {
 	$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
 	$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
 	
-	$nomactividad = mb_convert_case($exp_nomactividad[0], MB_CASE_TITLE, 'ISO-8859-1');
+	$nomactividad = mb_convert_case($exp_nomactividad[0], MB_CASE_TITLE, 'UTF-8');
 	
 	$abrev = "";
 	for ($i = 0; $i < strlen($nomactividad); $i++) {
-		if ($nomactividad[$i] == mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'ISO-8859-1') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
-			$abrev .= mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'ISO-8859-1');
+		if ($nomactividad[$i] == mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'UTF-8') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
+			$abrev .= mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'UTF-8');
 		}
 	}
 	
 	if (strlen($abrev) < 3) {
 		$exp_nomactividad = explode(' ', $nomactividad);
 		$abrev .= $exp_nomactividad[1][1].$exp_nomactividad[1][2];
-		$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'ISO-8859-1');
+		$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'UTF-8');
 	}
 	
 	if (strlen($abrev) < 2) {
 		$exp_nomactividad = explode(' ', $nomactividad);
 		$abrev .= $exp_nomactividad[0][1].$exp_nomactividad[0][2];
-		$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'ISO-8859-1');
+		$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'UTF-8');
 	}
 
 	

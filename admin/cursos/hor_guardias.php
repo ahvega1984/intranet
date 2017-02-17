@@ -14,16 +14,16 @@ if (isset($_GET['menu']) && $_GET['menu'] == 'guardias' && acl_permiso($_SESSION
 ?>
  <div class="container">
   <div class="page-header">
-  <h2>Información sobre Guardias <small> Datos y Estadísticas</small></h2>
+  <h2>InformaciÃ³n sobre Guardias <small> Datos y EstadÃ­sticas</small></h2>
 </div>
 <div class="row">
 <div class="well well-larfe" style="width:750px;margin:auto">
 <p class="block-help">
 <legend class=" text-warning" align="center">Aclaraciones sobre los datos presentados sobre las Guardias.</legend>
 <ul class=" text-info">
-<li>Las Guardias de Pasillo presentan las guardias de pasillo totales registradas en el Horario en Séneca. Quedan excluidas las guardias de Biblioteca, las guardias en el Aula de Convivencia y las guardias de Recreo. Si el profesor tiene además guardias de recreo, aparece un asterisco azul moradito; si el profesor tiene guardias de Biblioteca, aparece un asterisco verde; y si el profesor tiene guardias de Convivencia, aparece un asterisco naranja.</li>
-<li>Las Guardias de Biblioteca, Aula de Convivencia y Recreo aparecen en tablas específicas para cada grupo.</li>
-<li>Las Guardias en el Aula se refieren a las sustituciones realizadas por los profesores de guardia hasta la fecha. En letra gris aparece el número de guardias asignadas en horario para cada profesor.</li>
+<li>Las Guardias de Pasillo presentan las guardias de pasillo totales registradas en el Horario en SÃ©neca. Quedan excluidas las guardias de Biblioteca, las guardias en el Aula de Convivencia y las guardias de Recreo. Si el profesor tiene ademÃ¡s guardias de recreo, aparece un asterisco azul moradito; si el profesor tiene guardias de Biblioteca, aparece un asterisco verde; y si el profesor tiene guardias de Convivencia, aparece un asterisco naranja.</li>
+<li>Las Guardias de Biblioteca, Aula de Convivencia y Recreo aparecen en tablas especÃ­ficas para cada grupo.</li>
+<li>Las Guardias en el Aula se refieren a las sustituciones realizadas por los profesores de guardia hasta la fecha. En letra gris aparece el nÃºmero de guardias asignadas en horario para cada profesor.</li>
 </ul>
 </p>
 </div>
@@ -104,7 +104,7 @@ $media = substr($num_gu/$num_prof,0,3);
 
 echo '<br /><table class="table table-striped table-bordered" align="center">';
 echo "<tr><td class='text-info'><strong>Profesores con Guardias</strong></td><td nowrap class='text-warning'><strong>$num_prof <span class='muted'>($profes_total)</span></strong></td></tr>";
-echo "<tr><td class='text-info'><strong>Número de Guardias en total</strong></td><td class='text-warning'><strong>$num_gu</strong></td></tr>";
+echo "<tr><td class='text-info'><strong>NÃºmero de Guardias en total</strong></td><td class='text-warning'><strong>$num_gu</strong></td></tr>";
 echo "<tr><td class='text-info'><strong>Media de Guardias por Profesor</strong></td><td class='text-warning'><strong>$media</strong></td></tr>";
 echo "</table>";
 ?>
@@ -240,14 +240,14 @@ include("../../pie.php");
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

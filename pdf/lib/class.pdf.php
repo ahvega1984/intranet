@@ -11,7 +11,7 @@
  * @author  Helmut Tischer <htischer@weihenstephan.org>
  * @author  Ryan H. Masten <ryan.masten@gmail.com>
  * @author  Brian Sweeney <eclecticgeek@gmail.com>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @author  Fabien MÃ©nager <fabien.menager@gmail.com>
  * @license Public Domain http://creativecommons.org/licenses/publicdomain/
  * @package Cpdf
  */
@@ -308,7 +308,7 @@ class Cpdf {
   /**
    * @var string The target internal encoding
    */
-  static protected $targetEncoding = 'iso-8859-1';
+  static protected $targetEncoding = 'UTF-8';
 
   /**
    * @var array The list of the core fonts
@@ -3128,7 +3128,7 @@ EOT;
     
     // detect the character encoding of the incoming file
     $encoding = mb_detect_encoding($fileName);
-    $fallbackfilename = mb_convert_encoding($fileName, "ISO-8859-1", $encoding); 
+    $fallbackfilename = mb_convert_encoding($fileName, "UTF-8", $encoding); 
     $encodedfallbackfilename = rawurlencode($fallbackfilename);
     $encodedfilename = rawurlencode($fileName);
 

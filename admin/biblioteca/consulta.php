@@ -19,7 +19,7 @@ function seleccionar_todo(){
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-	  <h2>Biblioteca <small>Gestión de los Préstamos</small></h1>
+	  <h2>Biblioteca <small>GestiÃ³n de los PrÃ©stamos</small></h1>
 		<h3 class="text-info">Lista de morosos</small></h3>
 	</div>
 	
@@ -33,10 +33,10 @@ function seleccionar_todo(){
 	<thead>
 		<tr>		
 		<th  style="width:60px"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="fa fa-lg fa-check-square-o"> </i></a></th>
-		<th style="width:100px">Código</th>
+		<th style="width:100px">CÃ³digo</th>
 		<th style="width:100px">Grupo</th>
 		<th>Alumno</th>
-		<th>Título</th>
+		<th>TÃ­tulo</th>
 		<th nowrap style="width:150px">Fecha dev.</th>
 		<th></th>
 		</tr>	
@@ -66,7 +66,7 @@ function seleccionar_todo(){
 			echo '<span class="fa fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}
 		if ($list[5]=='SI') {
-			echo '<span class="fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestación"></span>';
+			echo '<span class="fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestaciÃ³n"></span>';
 		}
 		?>
 		</td>
@@ -102,14 +102,14 @@ function seleccionar_todo(){
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

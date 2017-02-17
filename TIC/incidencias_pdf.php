@@ -22,7 +22,7 @@ class GranPDF extends PDF_MC_Table {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->MultiCell(170, 5, utf8_decode('CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE'), 0,'R', 0);
+		$this->MultiCell(170, 5, utf8_decode('CONSEJERÃA DE EDUCACIÃN, CULTURA Y DEPORTE'), 0,'R', 0);
 		$this->Ln(15);
 	}
 	function Footer() {
@@ -49,7 +49,7 @@ $titulo = "Listado de incidencias TIC - Curso ".$config['curso_actual'];
 $pdf->Addpage();
 
 $pdf->SetFont('NewsGotT', 'B', 12);
-$pdf->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+$pdf->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 $pdf->Ln(5);
 
 $pdf->SetFont('NewsGotT', '', 12);

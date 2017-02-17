@@ -24,12 +24,12 @@ $mess=array(
 "14" => "Ayer",
 "15" => "Archivo",
 "16" => "",
-"17" => "TamaÒo",
+"17" => "Tama√±o",
 "18" => "Fecha de subida",
-"19" => "DueÒo",
+"19" => "Due√±o",
 "20" => "Subir Archivo",
 "21" => "Archivo Local",
-"22" => "DescripciÛn del Archivo",
+"22" => "Descripci√≥n del Archivo",
 "23" => "Download",
 "24" => "Ordenar",
 "25" => "Principal",
@@ -44,20 +44,20 @@ $mess=array(
 "34" => "Tienes que seleccionar un archivo",
 "35" => "Regresar",
 "36" => "El Archivo",
-"37" => "ha sido subido con Èxito",
+"37" => "ha sido subido con √©xito",
 "38" => "Archivo con nombre",
 "39" => "ya existe",
-"40" => "El archivo ha sido subido con Èxito",
-"41" => "Lenguaje escogido con Èxito",
+"40" => "El archivo ha sido subido con √©xito",
+"41" => "Lenguaje escogido con √©xito",
 "42" => "Bienvenido al PHP Advanced Transfer Manager",
 "43" => "Espacio total usado",
 "44" => "Mostrar archivos para todos los dias",
-"45" => "Archivo Zip inv·lido!",
+"45" => "Archivo Zip inv√°lido!",
 "46" => "Contenido del Archivo:",
 "47" => "Fecha/Hora",
 "48" => "Directorio",
 "49" => "Esta prohibido subir archivos con el nombre %s!",
-"50" => "Sobrepasa el limite de tamaÒo",
+"50" => "Sobrepasa el limite de tama√±o",
 "51" => "Informacion",
 "52" => "Seleccionar Skin",
 "53" => "Skin",
@@ -76,7 +76,7 @@ $mess=array(
 "66" => "Sabado",
 "67" => "Enviar",
 "68" => "Enviar archivo al mail",
-"69" => "El archivo ha sido enviado a esa direcciÛn.",
+"69" => "El archivo ha sido enviado a esa direcci√≥n.",
 "70" => "Archivo subido por: %s",
 // "71" => "Entrar",
 "72" => "Salir",
@@ -86,83 +86,83 @@ $mess=array(
 "76" => "Usuario Poderoso",
 "77" => "Administrador",
 "78" => "Zona Privada",
-"79" => "Zona P˙blica",
+"79" => "Zona P√∫blica",
 "80" => "Tu nombre de usuario o password no es valido.",
 "81" => "Mi Perfil",
 "82" => "Ver/Editar Perfil",
-"83" => "ContraseÒa",
+"83" => "Contrase√±a",
 "84" => "Seleccionar Idioma",
 "85" => "Seleccionar Zona de Tiempo",
 "86" => "Hora Actual",
 "88" => "Por favor, introduce un e-mail valido.",
-"89" => "Asegurate de que tu mail este activo ya que ahi se enviara el cÛdigo de activaciÛn.",
+"89" => "Asegurate de que tu mail este activo ya que ahi se enviara el c√≥digo de activaci√≥n.",
 "90" => "Archivo Subido: ",
 "91" => "Por favor, introduce tu e-mail que pusiste cuando te registraste.",
-"92" => "TamaÒo: ",
-"93" => "Por Favor, escribe abajo tu usuario y contraseÒa",
+"92" => "Tama√±o: ",
+"93" => "Por Favor, escribe abajo tu usuario y contrase√±a",
 "94" => "Registrarse es necesario. Por favor, registrate.",
 "95" => "Registrarse no es necesario. Pero lo puedes hacer si asi lo deseas y asi aparecera el nombre en el tu archivo.",
 
 "96" => "Skin Escogido.",
 "97" => "Actualizar",
 // "98" => "Por Favor, enter your login name and password",
-"99" => "TodavÌa no te registras? - Registrate AquÌ!",
-"100" => "Olvidaste tu contraseÒa?",
+"99" => "Todav√≠a no te registras? - Registrate Aqu√≠!",
+"100" => "Olvidaste tu contrase√±a?",
 "101" => "Por favor, ve %s atras %s y prueba de nuevo.",
-"102" => "Haz cerrado sesiÛn.",
-"103" => "Usuario Invalido. no debe ser mas largo de 12 car·cteres, puede contener '_' '-' y espacios.",
+"102" => "Haz cerrado sesi√≥n.",
+"103" => "Usuario Invalido. no debe ser mas largo de 12 car√°cteres, puede contener '_' '-' y espacios.",
 "104" => "'%s' ya ha sido escogido.",
-"105" => "Confirmar ContraseÒa",
-"106" => "Las contraseÒas no coinciden.",
+"105" => "Confirmar Contrase√±a",
+"106" => "Las contrase√±as no coinciden.",
 "107" => "El formato del e-mail es invalido.",
 "108" => "Gracias por registrarte. Por favor apunta tu usuario y password.",
-"109" => "Puedes %s entrar al centro de uploads aquÌ. %s",
-"110" => "El cÛdigo de activaciÛn ha sido enviando. Deberas activar tu cuenta o en 2 dÌas sera borrada automaticamente.",
+"109" => "Puedes %s entrar al centro de uploads aqu√≠. %s",
+"110" => "El c√≥digo de activaci√≥n ha sido enviando. Deberas activar tu cuenta o en 2 d√≠as sera borrada automaticamente.",
 "111" => "no tienes permiso para subir ese tipo de archivo",
 "112" => "Activar Cuenta",
 "113" => "Por Favor, activa tu cuenta",
-"114" => "CÛdigo de ActivaciÛn",
+"114" => "C√≥digo de Activaci√≥n",
 "115" => "Tu cuenta ahora esta activa.",
 "116" => "Por Favor %s entra aqui %s.",
-"117" => "La cuenta o el cÛdigo son invalidos.",
+"117" => "La cuenta o el c√≥digo son invalidos.",
 "118" => "La cuenta ya ha sido activada.",
 "119" => "Quisiera recibir un e-mail con los uploads del dia.",
-"120" => "Cambiar ContraseÒa.",
-"121" => "Tu ContraseÒa Vieja",
+"120" => "Cambiar Contrase√±a.",
+"121" => "Tu Contrase√±a Vieja",
 "122" => "El usuario no existe.",
 "123" => "El e-mail no es valido.",
-"124" => "tu nueva contraseÒa ha sido enviada a tu correo.",
+"124" => "tu nueva contrase√±a ha sido enviada a tu correo.",
 "125" => "no se puede ejecutar, objeto no encontrado",
 "126" => "Customize your account settings",
 "127" => "Aplicar",
 "128" => "Tu Profile ha sido guardado.",
-"129" => "Tu contraseÒa ha cambiado.",
-"130" => "Haz escrito mal tu contraseÒa vieja.",
-"131" => "Tienes que poner tu nueva contraseÒa.",
-"132" => "ConfiguraciÛn",
+"129" => "Tu contrase√±a ha cambiado.",
+"130" => "Haz escrito mal tu contrase√±a vieja.",
+"131" => "Tienes que poner tu nueva contrase√±a.",
+"132" => "Configuraci√≥n",
 "133" => "Poner documentos",
 "134" => "Idioma & Zona horaria",
-"135" => "EstadÌsticas de la cuenta",
+"135" => "Estad√≠sticas de la cuenta",
 "136" => "Tu cuenta ha sido creada:",
 "137" => "Manejo de Usuario",
 "138" => "Vista (Ver Solamenente)",
 "139" => "Uploader (Solamente Upload)",
-"140" => "Cuenta '%s' cambiada con Èxito",
-"141" => "⁄ltimo",
+"140" => "Cuenta '%s' cambiada con √©xito",
+"141" => "√öltimo",
 "142" => "Todo",
-"143" => "Nuevo e-mail tomara efecto despues de la confirmaciÛn.",
+"143" => "Nuevo e-mail tomara efecto despues de la confirmaci√≥n.",
 "144" => "",
 "145" => "Por favor, confirma tu nuevo e-mail.",
-"146" => "CÛdigo de ConfirmaciÛn",
+"146" => "C√≥digo de Confirmaci√≥n",
 "147" => "Confirmar",
 "148" => "Nada que Confirmar.",
-"149" => "La cuenta o el cÛdigo de confirmaciÛn no es valido.",
+"149" => "La cuenta o el c√≥digo de confirmaci√≥n no es valido.",
 "150" => "Tu nuevo e-mail '%s' ha sido confirmado.",
 "151" => "Archivos Subidos",
 "152" => "Archivos Bajados",
 "153" => "Archivos enviados al correo",
 "154" => "Cuenta Creada",
-"155" => "⁄ltimo tiempo de acceso",
+"155" => "√öltimo tiempo de acceso",
 "156" => "Status",
 "157" => "Status Activo",
 "158" => "Recibir aviso",
@@ -174,7 +174,7 @@ $mess=array(
 "164" => "Configurar Centro de Uploads",
 "165" => "Editar Archivos",
 "166" => "Editar Archivo",
-"167" => "Archivo %s ha sido cambiado con Èxito",
+"167" => "Archivo %s ha sido cambiado con √©xito",
 "168" => "Salvar",
 "169" => "Borrar",
 "170" => "Borrar Archivos",
@@ -183,15 +183,15 @@ $mess=array(
 "173" => "No",
 "174" => "Activo",
 "175" => "Inactivo",
-"176" => "Sin AutorizaciÛn",
+"176" => "Sin Autorizaci√≥n",
 "177" => "Lo siento, pero el servidor no pudo ejecutar el programa de correo.",
 "178" => "Tu registro fallo. Por Favor, intenta de nuevo.",
-"179" => "Por Favor, intenta de nuevo m·s tarde.",
-"180" => "Archivo borrado con Èxito",
+"179" => "Por Favor, intenta de nuevo m√°s tarde.",
+"180" => "Archivo borrado con √©xito",
 "181" => "No tienes permiso para borrar el archivo",
-"182" => "directorio borrado con Èxito",
+"182" => "directorio borrado con √©xito",
 "183" => "no tienes permiso para borrar el directorio",
-"184" => "directorio creado con Èxito",
+"184" => "directorio creado con √©xito",
 "185" => "no tienes permiso para crear directorio",
 "186" => "Crear nuevo directorio",
 "187" => "Nombre del Directorio",
@@ -201,20 +201,20 @@ $mess=array(
 "191" => "Modificar",
 "192" => "Archivo",
 "193" => "Modificar detalles de archivo / directorio ",
-"194" => "objeto renombrado con Èxito.",
+"194" => "objeto renombrado con √©xito.",
 "195" => "no tienes permiso para renombrar objeto",
-"196" => "El directorio de documentos no es correcto. Comprueba la configuraciÛn",
+"196" => "El directorio de documentos no es correcto. Comprueba la configuraci√≥n",
 "197" => "Ordenar por",
 "198" => "fallo al renombrar, el archivo ya existe",
-"199" => "˙ltimos ficheros",
+"199" => "√∫ltimos ficheros",
 "200" => "Top downloads",
 "201" => "fallor al renombrar, nombre no permitido",
 
 
 //
 "202" => "The url you provided is not valid",
-"203" => "Seleccionar direcciÛn",
-"204" => "Poner p·ginas Web",
+"203" => "Seleccionar direcci√≥n",
+"204" => "Poner p√°ginas Web",
 
 //
 //
@@ -239,7 +239,7 @@ $sendfile_email_end = 'Atentamente,';
 
 
 //
-$digest_email_subject = "NotificaciÛn Diaria";
+$digest_email_subject = "Notificaci√≥n Diaria";
 
 //
 //
@@ -248,11 +248,11 @@ $confirm_email_body = 'Hola! %s,
 
 Por que nuestra seguridad es importante, tu nuevo e-mail debera de ser confirmado.
 
-Tu CÛdigo personal de activaciÛn es: %s
+Tu C√≥digo personal de activaci√≥n es: %s
 
 Activar la cuenta es simple:
 1. Visitat %s y seras guiado durante el proceso.
-2. Introduce tu Usuario y cÛdigo de confirmaciÛn.
+2. Introduce tu Usuario y c√≥digo de confirmaci√≥n.
 3. Oprime en \'Confirmar\'.
 
 ';
@@ -260,10 +260,10 @@ $confirm_email_end = 'Atentamente,';
 
 
 //
-$chpass_email_subject = 'Nueva ContraseÒa';
+$chpass_email_subject = 'Nueva Contrase√±a';
 $chpass_email_body = 'Estimado usuario,
 
-tu contraseÒa es: %s
+tu contrase√±a es: %s
 
 ';
 $chpass_email_end = 'Atentamente,';
@@ -277,12 +277,12 @@ Gracias por registrarte.
 
 Por que nuestra seguridad es importante, tu nuevo e-mail debera de ser confirmado.
 
-Tu CÛdigo personal de activaciÛn es: %s
-(Nota: este no es tu contraseÒa)
+Tu C√≥digo personal de activaci√≥n es: %s
+(Nota: este no es tu contrase√±a)
 
 Activar la cuenta es simple:
 1. Visitat %s y seras guiado durante el proceso.
-2. Introduce tu Usuario y cÛdigo de confirmaciÛn.
+2. Introduce tu Usuario y c√≥digo de confirmaci√≥n.
 3. Oprime en \'Activar Cuenta\'.
 
 ';

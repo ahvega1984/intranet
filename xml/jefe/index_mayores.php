@@ -13,7 +13,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Alumnos mayores de 18 años hoy (<?php echo date('d-m-Y'); ?>)</small></h2>
+		<h2>AdministraciÃ³n <small>Alumnos mayores de 18 aÃ±os hoy (<?php echo date('d-m-Y'); ?>)</small></h2>
 	</div>
 		
 	<!-- SCAFFOLDING -->
@@ -37,7 +37,7 @@ include("../../menu.php");
 			else{
 				echo '<br><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Esta página sólo funciona si el Módulo de Matriculación está operativo y la tabla de matrículas de los alumnos de Bachillerato contiene datos. La tabla en cuestión no contiene datos por lo que parece que el módulo no está operativo. No podemos presentar los datos solicitados.
+Esta pÃ¡gina sÃ³lo funciona si el MÃ³dulo de MatriculaciÃ³n estÃ¡ operativo y la tabla de matrÃ­culas de los alumnos de Bachillerato contiene datos. La tabla en cuestiÃ³n no contiene datos por lo que parece que el mÃ³dulo no estÃ¡ operativo. No podemos presentar los datos solicitados.
 </div></div><br>';
 			}
 		
@@ -62,14 +62,14 @@ Esta página sólo funciona si el Módulo de Matriculación está operativo y la tabl
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

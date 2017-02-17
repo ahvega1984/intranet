@@ -84,10 +84,10 @@ function codigo_control($x){
 	$long=strlen($x);
 	$sum=206;
 	
-    #  La fórmula para el cálculo del código de control es valida para restos menores a 95. Para restos entre 95 y 102 son:
-	#  95-chr(187) ; 96-chr(133) ; 97-¿? ; 98-chr(192) ; 99-chr(195) ; 100-¿? ; 101-chr(140) ; 102-chr(156)
-	#  Únicamente tengo los códigosa hasta el chr(211) y no encuentro los corresxpondientes al resto 97 y 100.
-	#  Prueba a imprimirme el pdf con los códigos hasta el chr(255).
+    #  La fÃ³rmula para el cÃ¡lculo del cÃ³digo de control es valida para restos menores a 95. Para restos entre 95 y 102 son:
+	#  95-chr(187) ; 96-chr(133) ; 97-Â¿? ; 98-chr(192) ; 99-chr(195) ; 100-Â¿? ; 101-chr(140) ; 102-chr(156)
+	#  Ãšnicamente tengo los cÃ³digosa hasta el chr(211) y no encuentro los corresxpondientes al resto 97 y 100.
+	#  Prueba a imprimirme el pdf con los cÃ³digos hasta el chr(255).
 	
 	for ($n=1;$n<=strlen($x);$n+=1) {
 		$num=substr($x,$n-1,1);
@@ -108,7 +108,7 @@ function codigo_control($x){
 ############### Abrimos la base de datos y creamos la consulta
 if (strlen($_POST['alumnos'])>0) {
 
-		#elige selección múltiple
+		#elige selecciÃ³n mÃºltiple
 		$sel=explode("*",$_POST['alumnos']);
 		foreach($sel as  $valor) {
 			if (!isset($seleccion)) { $seleccion="'".$valor;}
@@ -131,7 +131,7 @@ ORDER BY Apellidos ASC ";
 	}
 
 	elseif (isset($_POST['select'])) {		
-	#elige selección de un curso
+	#elige selecciÃ³n de un curso
 	$selecc=trim($_POST['select']);
 	if ($n_bib>0) {
 		$query_Recordset1 = "SELECT claveal, unidad, alma.apellidos, alma.nombre, fecha, combasi, biblioteca_lectores.codigo
@@ -171,7 +171,7 @@ $mes_an=date('m');
 $pdf->SetFillColor(255,255,255);
 $pdf->AddPage();
 $pdf->AddFont('c128ab');
-$n=1; # carnet nº 1
+$n=1; # carnet nÂº 1
 
 while ($row_Recordset1 = mysqli_fetch_array($Recordset1)){
 $fecha0 = str_replace("/","-",$row_Recordset1[4]);
@@ -189,7 +189,7 @@ $claveal_bib.=" ".$c_bib;
 }
 ########################### Comenzamos con los carnets
 
-	#posición del carnet
+	#posiciÃ³n del carnet
 	if ($n%2==1) {
 		$y=10+(round($n/2)-1)*52;
 		$x=10;}
@@ -213,7 +213,7 @@ $anyos = floor(($segundos-$sumadiasBis)/31536000);
 		$pdf->fondoverde($x,$y);
 		$naranja=0;}
 		
-	#Hasta aquí el fondo, ahora el texto:
+	#Hasta aquÃ­ el fondo, ahora el texto:
 	
 	// CABECERA
 	$pdf->Image('./carnet/junta.png',$x+3,$y+4,24);
@@ -302,7 +302,7 @@ if (file_exists($foto_al)) {
     }
     
 $n++;		#siguiente carnet
-if ($n%10==1){		#cada 10 carnets empezamos en la página siguiente
+if ($n%10==1){		#cada 10 carnets empezamos en la pÃ¡gina siguiente
 	$pdf->AddPage();
 	$n=1;
 	}

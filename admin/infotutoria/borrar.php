@@ -13,7 +13,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Borrar Informe</small></h2>
+  <h2>Informes de TutorÃ­a <small> Borrar Informe</small></h2>
 </div>
 <br />
     

@@ -25,7 +25,7 @@ include("../../menu.php");
 	<?php $result = mysqli_query($db_con, "SELECT * FROM textos_gratis LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe informaciÛn en la base de datos. Este proceso actualizar· el listado de libros de texto. Es recomendable realizar una <a class="../../admin/jefe/copia_db/index.php">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.
+		Ya existe informaci√≥n en la base de datos. Este proceso actualizar√° el listado de libros de texto. Es recomendable realizar una <a class="../../admin/jefe/copia_db/index.php">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -33,7 +33,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="in_textos.php">
 					<fieldset>
-						<legend>ImportaciÛn de libros</legend>
+						<legend>Importaci√≥n de libros</legend>
 
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">1ESO.txt, 2ESO.txt, 3ESO.txt, 4ESO.txt</span></label>
@@ -54,7 +54,7 @@ include("../../menu.php");
 				
 				<form method="post" action="reposicion.php">
 					<fieldset>
-						<legend>Imprimir Certificados de ReposiciÛn</legend>
+						<legend>Imprimir Certificados de Reposici√≥n</legend>
 
 						<div class="form-group">
 						  <label for="niv">Curso</label>
@@ -112,7 +112,7 @@ include("../../menu.php");
 							
 				<form method="post" action="libros_materias.php">
 					<fieldset>
-						<legend>Consultar relaciÛn de Materias y Alumnos</legend>
+						<legend>Consultar relaci√≥n de Materias y Alumnos</legend>
 						
 						<input type="hidden" name="jefe" value="1">
 
@@ -140,12 +140,12 @@ include("../../menu.php");
 				
 	</div>
 	<div class="col-sm-6">
-	<h3>InformaciÛn sobre la importaciÛn</h3>
+	<h3>Informaci√≥n sobre la importaci√≥n</h3>
 			
-			<p>En primer lugar, debemos obtener el cat·logo de libros de texto del Programa de Gratuidad desde SÈneca. Entramos en SÈneca y en el Men˙ vamos a <strong>Alumnado</strong>, <strong>Ayuda al Estudio</strong>, <strong>Gratuidad en Libros de Texto</strong>, <strong>AsignaciÛn de libros a materias</strong>. Seleccionamos el curso y pulsamos en <strong>Exportar datos</strong>. El formato de exportaciÛn debe ser <strong>Texto plano</strong>. El archivo resultante se llama <em>RegAsiLibMat.txt</em>. <br>
+			<p>En primer lugar, debemos obtener el cat√°logo de libros de texto del Programa de Gratuidad desde S√©neca. Entramos en S√©neca y en el Men√∫ vamos a <strong>Alumnado</strong>, <strong>Ayuda al Estudio</strong>, <strong>Gratuidad en Libros de Texto</strong>, <strong>Asignaci√≥n de libros a materias</strong>. Seleccionamos el curso y pulsamos en <strong>Exportar datos</strong>. El formato de exportaci√≥n debe ser <strong>Texto plano</strong>. El archivo resultante se llama <em>RegAsiLibMat.txt</em>. <br>
 			Con cada Curso descargado, renombramos el archivo  por el nombre del Curso seleccionado (1ESO.txt). Al final debemos tener cuatro archivos llamados 1ESO.txt, 2ESO.txt, 3ESO.txt y 4ESO.txt, que utilizamos para importar los libros de texto de cada Curso.</p>
 			
-			<p>El mÛdulo permite a los Tutores Consultar el estado de los Libros de Texto, asÌ como utilizar la aplicaciÛn para registrarlo al final de cada Curso Escolar. TambiÈn permite Consultar el estado de los Libros por Nivel al Equipo Directivo, asÌ como generar Certificados de ReposiciÛn (Facturas en su caso) en formato PDF preparados para entregar oficialmente a los Padres del Alumno. </p>
+			<p>El m√≥dulo permite a los Tutores Consultar el estado de los Libros de Texto, as√≠ como utilizar la aplicaci√≥n para registrarlo al final de cada Curso Escolar. Tambi√©n permite Consultar el estado de los Libros por Nivel al Equipo Directivo, as√≠ como generar Certificados de Reposici√≥n (Facturas en su caso) en formato PDF preparados para entregar oficialmente a los Padres del Alumno. </p>
 	</div>	
 	
 	</div>

@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 $unidad_notas = $_SESSION['mod_tutoria']['unidad'];
-$titulos = array("3"=>"Evaluación Ordinaria");
+$titulos = array("3"=>"EvaluaciÃ³n Ordinaria");
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
@@ -29,7 +29,7 @@ $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:920px">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
+			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){
@@ -63,7 +63,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 ?>
 <hr>
 <br>
-<h3>Resultados de los Alumnos en la Evaluación Ordinaria</h3><br />
+<h3>Resultados de los Alumnos en la EvaluaciÃ³n Ordinaria</h3><br />
 
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
 <thead>
@@ -128,10 +128,10 @@ mysqli_query($db_con, "drop table temp");
 ?>
 
 <?php
-$titulos = array("3"=>"Evaluación Ordinaria");
+$titulos = array("3"=>"EvaluaciÃ³n Ordinaria");
 foreach ($titulos as $key=>$val){
 	
-// Creamos la tabla en cada evaluación
+// Creamos la tabla en cada evaluaciÃ³n
  $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
@@ -145,7 +145,7 @@ foreach ($titulos as $key=>$val){
 
 <hr><br />
 <h3>Resultados de los Alumnos por Nivel</h3><br />
-<p class="help-block text-warning" align="left">En 4º de ESO y 2º de Bachillerato, los alumnos titulan con <strong>0</strong> asignaturas suspensas. En el resto de los grupos de ESO y Bachillerato los alumnos promocionan con <strong>2 o menos</strong> asignaturas suspensas. </p>
+<p class="help-block text-warning" align="left">En 4Âº de ESO y 2Âº de Bachillerato, los alumnos titulan con <strong>0</strong> asignaturas suspensas. En el resto de los grupos de ESO y Bachillerato los alumnos promocionan con <strong>2 o menos</strong> asignaturas suspensas. </p>
 <?php
 $niv = mysqli_query($db_con, "select curso from alma where unidad = '$unidad_notas'");
 $ord_nivel = mysqli_fetch_array($niv);
@@ -193,7 +193,7 @@ $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde SÃ©neca (AdministracciÃ³n --> Importar Calificaciones) para que este mÃ³dulo funcione.
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){

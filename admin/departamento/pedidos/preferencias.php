@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 if (isset($_POST['btnGuardar'])) {
@@ -15,17 +15,17 @@ if (isset($_POST['btnGuardar'])) {
 	$prefFechaLimite		= limpiar_string($_POST['prefFechaLimite']);
 	$prefCondiciones		= limpiar_string($_POST['prefCondiciones']);
 
-	// CREACI”N DEL ARCHIVO DE CONFIGURACI”N
+	// CREACI√ìN DEL ARCHIVO DE CONFIGURACI√ìN
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACI”N M”DULO DE PEDIDOS\r\n");
+		fwrite($file, "\r\n// CONFIGURACI√ìN M√ìDULO DE PEDIDOS\r\n");
 		fwrite($file, "\$config['pedidos']['limite_pedidos']\t= $prefLimitePedidos;\r\n");
 		fwrite($file, "\$config['pedidos']['limite_articulos']\t= $prefLimiteArticulos;\r\n");
 		fwrite($file, "\$config['pedidos']['condiciones']\t\t= '$prefCondiciones';\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÛn");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraci√≥n");
 		
 		fclose($file);
 		
@@ -75,45 +75,45 @@ include("menu.php");
 						<legend>Preferencias</legend>
 						
 						<div class="form-group">
-							<label for="prefLimitePedidos" class="col-sm-4 control-label">LÌmite de pedidos por departamento</label>
+							<label for="prefLimitePedidos" class="col-sm-4 control-label">L√≠mite de pedidos por departamento</label>
 							<div class="col-sm-3">
 								<input type="text" class="form-control" id="prefLimitePedidos" name="prefLimitePedidos" value="<?php echo (isset($config['pedidos']['limite_pedidos'])) ? $config['pedidos']['limite_pedidos'] : 0; ?>">
 							</div>
-							<p class="col-sm-5 form-control-static help-block">(0 = Sin lÌmite)</p>
+							<p class="col-sm-5 form-control-static help-block">(0 = Sin l√≠mite)</p>
 						</div>
 						
 						<div class="form-group">
-							<label for="prefLimiteArticulos" class="col-sm-4 control-label">LÌmite de artÌculos por pedido</label>
+							<label for="prefLimiteArticulos" class="col-sm-4 control-label">L√≠mite de art√≠culos por pedido</label>
 							<div class="col-sm-3">
 								<input type="text" class="form-control" id="prefLimiteArticulos" name="prefLimiteArticulos" value="<?php echo (isset($config['pedidos']['limite_articulos'])) ? $config['pedidos']['limite_articulos'] : 15; ?>">
 							</div>
-							<p class="col-sm-5 form-control-static help-block">(0 = Sin lÌmite)</p>
+							<p class="col-sm-5 form-control-static help-block">(0 = Sin l√≠mite)</p>
 						</div>
 						
 						<div class="form-group">
 							<label for="prefCondiciones" class="col-sm-4 control-label">Condiciones de compra</label>
 							<div class="col-sm-8">
-								<textarea class="form-control" id="prefCondiciones" name="prefCondiciones" rows="10"><?php echo (isset($config['pedidos']['condiciones'])) ? $config['pedidos']['condiciones'] : '<p>El presupuesto del centro determinar· la asignaciÛn de partidas especÌficas a cada Departamento en funciÛn del n˙mero de miembros del Departamento y de necesidades fundamentadas y para ello, cada Departamento entregar· en SecretarÌa un proyecto escrito de presupuesto de funcionamiento anual.</p>
+								<textarea class="form-control" id="prefCondiciones" name="prefCondiciones" rows="10"><?php echo (isset($config['pedidos']['condiciones'])) ? $config['pedidos']['condiciones'] : '<p>El presupuesto del centro determinar√° la asignaci√≥n de partidas espec√≠ficas a cada Departamento en funci√≥n del n√∫mero de miembros del Departamento y de necesidades fundamentadas y para ello, cada Departamento entregar√° en Secretar√≠a un proyecto escrito de presupuesto de funcionamiento anual.</p>
 								
-								<p>En Èl deber·n detallarse las partidas que componen el gasto desglosado por conceptos (material general, fungible, bibliografÌa, actividades, repografÌa, etc.) y valorarlas con la mayor exactitud posible (I.V.A. incluido).</p>
+								<p>En √©l deber√°n detallarse las partidas que componen el gasto desglosado por conceptos (material general, fungible, bibliograf√≠a, actividades, repograf√≠a, etc.) y valorarlas con la mayor exactitud posible (I.V.A. incluido).</p>
 								
-								<p>Para la adquisiciÛn de material se sigue el siguiente protocolo:</p>
+								<p>Para la adquisici√≥n de material se sigue el siguiente protocolo:</p>
 								
 								<ol>
 									<li>El primer paso es recoger en acta el acuerdo del Departamento</li>
-									<li>Todo gasto deber· contar previamente con la conformidad del Secretario/a y del Director/a mediante peticiÛn por escrito</li>
-									<li>Se solicitar· en el momento de la compra una factura con todos los requisitos legales oportunos:
+									<li>Todo gasto deber√° contar previamente con la conformidad del Secretario/a y del Director/a mediante petici√≥n por escrito</li>
+									<li>Se solicitar√° en el momento de la compra una factura con todos los requisitos legales oportunos:
 										<ul>
 											<li>Factura a nombre del '.$config['centro_denominacion'].'</li>
-											<li>NIF de la ConsejerÌa de EducaciÛn de la Junta de AndalucÌa: S4111001F</li>
+											<li>NIF de la Consejer√≠a de Educaci√≥n de la Junta de Andaluc√≠a: S4111001F</li>
 											<li>CIF o NIF del proveedor</li>
 											<li>Nombre del proveedor</li>
-											<li>Fecha y n˙mero de la factura</li>
+											<li>Fecha y n√∫mero de la factura</li>
 											<li>Firma y sello de la empresa proveedora</li>
 										</ul>
 									</li>
-									<li>El original del albar·n o factura se entregar· al Secretario/a, quedando una copia en poder del Jefe de Departamento correspondiente</li>
-									<li>El Secretario/a sÛlo entregar· a los Jefes de Departamento el valor nominal de la compra efectuada</li>
+									<li>El original del albar√°n o factura se entregar√° al Secretario/a, quedando una copia en poder del Jefe de Departamento correspondiente</li>
+									<li>El Secretario/a s√≥lo entregar√° a los Jefes de Departamento el valor nominal de la compra efectuada</li>
 								</ol>'; ?></textarea>
 							</div>
 						</div>

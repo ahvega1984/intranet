@@ -78,7 +78,7 @@ $asignatura="";
 ?>
 
 						    </select>
-						    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+						    <p class="help-block">MantÃ©n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratÃ³n para seleccionar mÃºltiples grupos.</p>
 						  </div>
 						  
 						  <div class="checkbox">
@@ -138,7 +138,7 @@ $totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 					    	   $rows = mysqli_num_rows($Recordset1);
 					    	 ?>
 					    </select>
-					    <p class="help-block">Selecciona el grupo para exportar los datos al formato de las hojas de cálculo, como Calc o Excel.</p>
+					    <p class="help-block">Selecciona el grupo para exportar los datos al formato de las hojas de cÃ¡lculo, como Calc o Excel.</p>
 					  </div>
 					  
 					  <div class="checkbox">

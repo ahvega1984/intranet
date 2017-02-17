@@ -43,7 +43,7 @@ include("../../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>AdministraciÛn <small>Restaurar base de datos</small></h2>
+		<h2>Administraci√≥n <small>Restaurar base de datos</small></h2>
 	</div>
 	
 	<!-- MENSAJES -->
@@ -77,7 +77,7 @@ include("../../../menu.php");
 						  <input type="file" id="archivo" name="archivo" accept="application/gzip">
 						</div>
 						
-						<p class="block-help"><small>TamaÒo m·ximo del archivo: <?php echo ini_get('post_max_size'); ?>B.</small></p>
+						<p class="block-help"><small>Tama√±o m√°ximo del archivo: <?php echo ini_get('post_max_size'); ?>B.</small></p>
 						
 						<br>
 						
@@ -94,9 +94,9 @@ include("../../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>InformaciÛn sobre la restauraciÛn</h3>
+			<h3>Informaci√≥n sobre la restauraci√≥n</h3>
 			
-			<p>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauraciÛn. Recuerda que los datos actuales se eliminar·n. Una vez enviado el archivo el proceso tardar· unos segundos, ten paciencia.</p>
+			<p>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauraci√≥n. Recuerda que los datos actuales se eliminar√°n. Una vez enviado el archivo el proceso tardar√° unos segundos, ten paciencia.</p>
 			
 		</div>
 		

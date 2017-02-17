@@ -14,11 +14,11 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 $cursos = mysqli_query($db_con, "select distinct unidad from alma order by unidad");
 while ($rowcursos = mysqli_fetch_row($cursos))
 {
-$unidad = $rowcursos[0];
+$unidad = utf8_decode($rowcursos[0]);
 if (empty($unidad)) {
 	
 }
@@ -28,7 +28,7 @@ $a=array("1","2","3","4","5");
 foreach($a as $dia) {
   		if($dia=='1'){$dia1 = "<b>Lunes</b>";}
 		if($dia=='2'){$dia1 = "<b>Martes</b>";}
-		if($dia=='3'){$dia1 = "<b>Miércoles</b>";}
+		if($dia=='3'){$dia1 = utf8_decode("<b>MiÃ©rcoles</b>");}
 		if($dia=='4'){$dia1 = "<b>Jueves</b>";}
 		if($dia=='5'){$dia1 = "<b>Viernes</b>";}	
 			
@@ -42,13 +42,13 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$ixx = $datatmp[1];
 	$data[] = array(
 				'num'=>$ixx,
-				'nombre'=>$datatmp[0]				
+				'nombre'=>utf8_decode($datatmp[0])				
 				);
 }
 $firma="Observaciones:\n\n\n\n\n\n\n\n";
 $data[]=array(
 			'num'=>'',
-			'nombre'=>$firma
+			'nombre'=>utf8_decode($firma)
 			);
 for($i=1;$i<7;$i++){
 $curso0 = $unidad;
@@ -61,7 +61,7 @@ $asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig FROM horw where  d
  ${'a'.$i}=substr(${'a'.$i},0,strlen(${'a'.$i})-1);
  } 
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>$a1,
 				'c2'=>$a2,

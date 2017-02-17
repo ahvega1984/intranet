@@ -11,7 +11,7 @@ if ($_POST['pdf']==1) {
 			$this->SetFont('ErasDemiBT','B',10);
 			$this->SetY(15);
 			$this->Cell(75);
-			$this->MultiCell(170, 5, 'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE', 0,'R', 0);
+			$this->MultiCell(170, 5, 'CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE', 0,'R', 0);
 			$this->Ln(15);
 		}
 		function Footer() {
@@ -41,7 +41,7 @@ if ($_POST['pdf']==1) {
 		$MiPDF->Addpage();
 		
 		$MiPDF->SetFont('NewsGotT', 'B', 12);
-		$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+		$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 		$MiPDF->Ln(5);
 		
 		
@@ -69,7 +69,7 @@ if ($_POST['pdf']==1) {
 		$MiPDF->SetTextColor(255, 255, 255);
 		$MiPDF->SetFillColor(61, 61, 61);
 		
-		$MiPDF->Row(array('Nº', 'Alumno/a', 'Asignaturas'), 0, 6);	
+		$MiPDF->Row(array('NÂº', 'Alumno/a', 'Asignaturas'), 0, 6);	
 		
 		$result = mysqli_query($db_con, "SELECT DISTINCT alma.claveal, FALUMNOS.NC, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, matriculas FROM alma, pendientes, FALUMNOS WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal ORDER BY alumno ASC");
 		
@@ -127,7 +127,7 @@ echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></lege
 		if (strstr($valor,"1")==TRUE) {
 			   echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Parece que estás intentando ver la lista de asignaturas pendientes de los alumnos de 1º ESO o 1º BACHILLERATO, y eso no es posible.
+Parece que estÃ¡s intentando ver la lista de asignaturas pendientes de los alumnos de 1Âº ESO o 1Âº BACHILLERATO, y eso no es posible.
 </div></div><br />';
 		}
 		else{	

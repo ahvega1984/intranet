@@ -40,33 +40,33 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 					</div>
 					<div class="modal-body">
 						<p>Los Informes de Tareas son activados por la Jefatura de Estudios cuando 
-						un alumno va a ser expulsado del Centro por alg鷑 Problema de Convivencia 
-						de tipo Grave o Muy Grave; tambi閚 pueden ser activados por el Tutor cuando 
+						un alumno va a ser expulsado del Centro por alg煤n Problema de Convivencia 
+						de tipo Grave o Muy Grave; tambi茅n pueden ser activados por el Tutor cuando 
 						un alumno se va a ausentar del Centro un tiempo por motivos diversos 
 						(enfermedad, viaje, etc.). Cuando han sido activados mediante el formulario 
 						correspondiente (en el que el Tutor selecciona al alumno y las fechas de 
-						comienzo y fin de la ausencia o expulsi髇), los profesores del Equipo 
-						Educativo del alumno reciben una solicitud de informaci髇 para que propongan 
-						tareas en su asignatura durante la ausencia del alumno. La notificaci髇 a 
-						los profesores aparece en la p醙ina de inicio de la Intranet, o bien en la 
-						p醙ina de Informes de Tareas. La notificaci髇 desaparece cuando hemos 
+						comienzo y fin de la ausencia o expulsi贸n), los profesores del Equipo 
+						Educativo del alumno reciben una solicitud de informaci贸n para que propongan 
+						tareas en su asignatura durante la ausencia del alumno. La notificaci贸n a 
+						los profesores aparece en la p谩gina de inicio de la Intranet, o bien en la 
+						p谩gina de Informes de Tareas. La notificaci贸n desaparece cuando hemos 
 						rellenado el Informe o la fecha de regreso ha pasado.</p>
-						<p>Una vez recibida la notificaci髇 de tareas, el profesor entra en un 
+						<p>Una vez recibida la notificaci贸n de tareas, el profesor entra en un 
 						formulario en el que aparece la asignatura (o asignaturas, en el caso de que 
-						el profesor imparta m醩 de una al alumno, o 閟te tenga una asignatura 
-						pendiente de continuidad), escribe sus tareas para el alumno y env韆 los 
+						el profesor imparta m谩s de una al alumno, o 茅ste tenga una asignatura 
+						pendiente de continuidad), escribe sus tareas para el alumno y env铆a los 
 						datos. Los Informes son visibles en todo momento para el resto de los 
 						profesores del alumno.</p>
-						<p>Cuando el alumno ha regresado, una nueva notificaci髇 aparece preguntando 
+						<p>Cuando el alumno ha regresado, una nueva notificaci贸n aparece preguntando 
 						a los profesores del mismo si este ha realizado las tareas o no para que el 
-						Tutor y Jefatura de Estudios est閚 informados y determinen las acciones a tomar.</p>
-						<p>El m骴ulo contiene la posibilidad de ver la totalidad de los Informes de 
+						Tutor y Jefatura de Estudios est茅n informados y determinen las acciones a tomar.</p>
+						<p>El m贸dulo contiene la posibilidad de ver la totalidad de los Informes de 
 						Tareas a lo largo del Curso Escolar, o bien de buscar entre los Informes los 
 						correspondientes a un alumno determinado. Hay que tener en cuenta que, una 
 						vez pasada la fecha de regreso del alumno, los Informes de Tareas quedan 
 						bloqueados, aunque siguen siendo visibles.</p>
-						<p>El Equipo Directivo dispone de una opci髇, <strong>Control de Informes</strong>, 
-						que presenta estad韘ticas por alumno y profesor sobre los Informes de Tareas.</p>
+						<p>El Equipo Directivo dispone de una opci贸n, <strong>Control de Informes</strong>, 
+						que presenta estad铆sticas por alumno y profesor sobre los Informes de Tareas.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -76,7 +76,7 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 		</div>
     	
 		<ul class="nav nav-tabs">
-			<li <?php echo $activo1;?>> <a href="index.php">P醙ina de Informes de Tareas</a></li>
+			<li <?php echo $activo1;?>> <a href="index.php">P谩gina de Informes de Tareas</a></li>
 			<?php
 			if(stristr($_SESSION ['cargo'],'1') == TRUE or stristr($_SESSION ['cargo'],'2') == TRUE)
 			{

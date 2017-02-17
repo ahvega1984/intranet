@@ -8,7 +8,7 @@ include("../../menu.php");
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Administración <small> Alumnos de Primaria</small></h2>
+  <h2>AdministraciÃ³n <small> Alumnos de Primaria</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
@@ -18,7 +18,7 @@ if($_FILES['archivo1']){
 // Creamos Base de datos y enlazamos con ella.
  mysqli_query($db_con, "DROP TABLE `alma_primaria`");
 
- // Creación de la tabla alma
+ // CreaciÃ³n de la tabla alma
  $alumnos = "CREATE TABLE  `alma_primaria` (
 `Alumno/a` varchar( 255 ) default NULL ,
  `ESTADOMATRICULA` varchar( 255 ) default NULL ,
@@ -64,21 +64,21 @@ if($_FILES['archivo1']){
  //echo $alumnos;
 mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No se ha podido crear la tabla <strong>Alma_primaria</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
   $SQL6 = "ALTER TABLE  `alma_primaria` ADD INDEX (  `CLAVEAL` )";
   $result6 = mysqli_query($db_con, $SQL6) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido crear el índice de la tabla. Busca ayuda.
+			<h5>ATENCIÃ“N:</h5>
+No se ha podido crear el Ã­ndice de la tabla. Busca ayuda.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
   // Borramos archivos antiguos
@@ -104,15 +104,15 @@ if ($handle = opendir('../primaria')) {
    while (false !== ($file = readdir($handle))) {   	
       if ($file != "." && $file != ".." && $file != ".txt") { 
       $colegio = substr($file,0,-4); 
-// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
+// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
 
 $fp = fopen ('../primaria/'.$file , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se han podido abrir los archivos de datos. ¿Están los archivos de los Colegios en el directorio ../primaria?
+			<h5>ATENCIÃ“N:</h5>
+No se han podido abrir los archivos de datos. Â¿EstÃ¡n los archivos de los Colegios en el directorio ../primaria?
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 $row = 1;
  while (!feof($fp))
@@ -128,8 +128,8 @@ $row = 1;
       $dato.= "\"". trim($valor) . "\", ";
         }
     $dato=substr($dato,0,strlen($dato)-2); 
-    $lineasalto.=$dato; 
-    $lineasalto.=", \"C.E.I.P. $colegio\"";
+    $lineasalto.=utf8_encode($dato); 
+    $lineasalto.=utf8_encode(", \"C.E.I.P. $colegio\"");
     $lineasalto.=");";
   //  echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);
@@ -154,7 +154,7 @@ ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `GRUPO`
 ";
 mysqli_query($db_con, $crear);
 
-// Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
+// Separamos Nivel y Grupo si sigue el modelo clÃ¡sico del guiÃ³n (1E-F, 2B-C, etc)
   $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma_primaria";
   $result_1 = mysqli_query($db_con, $SQL_1);  
  while  ($row0 = mysqli_fetch_array($result_1))
@@ -204,7 +204,7 @@ mysqli_query($db_con, $actualiza);
 	mysqli_query($db_con, $actualiza1P);
  }
  
-  // Eliminación de campos innecesarios por repetidos
+  // EliminaciÃ³n de campos innecesarios por repetidos
   $SQL3 = "ALTER TABLE alma_primaria
   DROP `apellido1`,
   DROP `Alumno/a`,
@@ -212,26 +212,26 @@ mysqli_query($db_con, $actualiza);
   DROP `estadomatricula`";
   $result3 = mysqli_query($db_con, $SQL3);
 
-  // Eliminación de alumnos dados de baja
+  // EliminaciÃ³n de alumnos dados de baja
     $SQL4 = "DELETE FROM alma_primaria WHERE `unidad` = ''";
-    $SQL5 = "DELETE FROM alma_primaria WHERE `claveal` = 'Nº Id. Escol'";
+    $SQL5 = "DELETE FROM alma_primaria WHERE `claveal` = 'NÂº Id. Escol'";
     $result4 = mysqli_query($db_con, $SQL4);
     $result5 = mysqli_query($db_con, $SQL5);
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La tabla de Alumnos de Primaria para la Matriculación ha sido creada.<br />Ya puedes proceder a matricular a los niños de los Colegios.
+La tabla de Alumnos de Primaria para la MatriculaciÃ³n ha sido creada.<br />Ya puedes proceder a matricular a los niÃ±os de los Colegios.
 </div></div><br />';
 }
 else
 {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Parece que te estás olvidando de enviar el archivo con los datos de los alumnos. Asegúrate de enviar el archivo comprimido con los datos de los Colegios.
+			<h5>ATENCIÃ“N:</h5>
+Parece que te estÃ¡s olvidando de enviar el archivo con los datos de los alumnos. AsegÃºrate de enviar el archivo comprimido con los datos de los Colegios.
 </div></div><br />';
 }
 
-// Creamos tabla de colegios para Fichas de Tránsito
+// Creamos tabla de colegios para Fichas de TrÃ¡nsito
 mysqli_query($db_con,"drop table transito_control");
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
 `id` int(11) NOT NULL,
@@ -252,18 +252,18 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  	$n_cole = trim($row6[0]); 	
  	$n_cole=str_replace("C.E.I.P. ","",$n_cole);
  	$pass=str_replace(" ", "", $n_cole)."_".$config['centro_codigo'];
- 	$pass=str_replace("á", "a", $pass);
- 	$pass=str_replace("é", "e", $pass);
- 	$pass=str_replace("í", "i", $pass);
- 	$pass=str_replace("ó", "o", $pass);
- 	$pass=str_replace("ú", "u", $pass);
- 	$pass=str_replace("Á", "A", $pass);
- 	$pass=str_replace("É", "E", $pass);
- 	$pass=str_replace("Í", "I", $pass);
- 	$pass=str_replace("Ó", "O", $pass);
- 	$pass=str_replace("Ú", "U", $pass);
- 	$pass=str_replace("ñ", "n", $pass);
- 	$pass=str_replace("Ñ", "N", $pass);
+ 	$pass=str_replace("Ã¡", "a", $pass);
+ 	$pass=str_replace("Ã©", "e", $pass);
+ 	$pass=str_replace("Ã­", "i", $pass);
+ 	$pass=str_replace("Ã³", "o", $pass);
+ 	$pass=str_replace("Ãº", "u", $pass);
+ 	$pass=str_replace("Ã", "A", $pass);
+ 	$pass=str_replace("Ã‰", "E", $pass);
+ 	$pass=str_replace("Ã", "I", $pass);
+ 	$pass=str_replace("Ã“", "O", $pass);
+ 	$pass=str_replace("Ãš", "U", $pass);
+ 	$pass=str_replace("Ã±", "n", $pass);
+ 	$pass=str_replace("Ã‘", "N", $pass);
  	$pass=strtolower($pass);
 	$n_pass=sha1($pass);	
 	mysqli_query($db_con, "INSERT INTO transito_control VALUES ('$num','$n_cole','$n_pass')");
@@ -329,7 +329,7 @@ mysqli_query($db_con,"INSERT INTO `transito_tipo` (`id`, `tipo`) VALUES
 ");
 ?>
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div></div>
 </div>
 </body>

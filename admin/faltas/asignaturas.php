@@ -52,7 +52,7 @@ if ($result) {
         {
 			echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
+			<legend>ATENCIÃ“N:</legend>
 No hay registros coincidentes, bien porque te has equivocado
         al introducir los datos, bien porque ningun dato se ajusta a tus criterios.
 		</div></div><br />';
@@ -63,8 +63,8 @@ No hay registros coincidentes, bien porque te has equivocado
 else{
 				echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Debes seleccionar una asugnatura con su Grupo y Nivel. Vuelve atrás e inténtalo de nuevo.
+			<legend>ATENCIÃ“N:</legend>
+Debes seleccionar una asugnatura con su Grupo y Nivel. Vuelve atrÃ¡s e intÃ©ntalo de nuevo.
 		</div></div><br />';
 }
   ?>

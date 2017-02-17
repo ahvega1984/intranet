@@ -30,7 +30,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(90);
-		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN',0,1);
+		$this->Cell(80,4,utf8_encode('CONSEJERÃA DE EDUCACIÃ“N'),0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(90);
 		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -77,7 +77,7 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
 
  mysqli_query($db_con, $SQLDELF);
  mysqli_query($db_con, $SQLDELJ);
-// Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;
+// CreaciÃ³n de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;
  // $fechasp0=explode("-",$fecha12);
   $fechasp1=cambia_fecha($fecha12);
   $fechasp3=cambia_fecha($fecha22);
@@ -112,10 +112,10 @@ $SQLJ = "select faltastemp3.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMN
 // No justificadas
  $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
 FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD,
-alma.PADRE from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal and faltastemp2.claveal =
+alma.PADRE , alma.provinciaresidencia from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal and faltastemp2.claveal =
 FALTAS.claveal and FALTAS.claveal = '$claveal' and FALTAS.falta = 'F' GROUP BY alma.apellidos";
   $resultF = mysqli_query($db_con, $SQLF);
-//Fecha del día
+//Fecha del dÃ­a
 $fhoy=date('Y-m-d');;
 $fecha = formatea_fecha($fhoy);
 // Bucle de Consulta.
@@ -126,17 +126,18 @@ $nojustidias = "";
 	$padre = $rowF[10];
 	$direcion =  $rowF[7];
 	$localidad = $rowF[8]." ".$rowF[9];
-// Días con Faltas Justificadas
+	$provincia =  $rowF[11];
+// DÃ­as con Faltas Justificadas
 $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and date(FALTAS.fecha )>= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' order by fecha";
 		$result3 = mysqli_query($db_con, $SQL2);
 		$justi = mysqli_fetch_array($result3);
 		if ($justi[0] == "")
 		{
-		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fecha12 y $fecha22.";}
+		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los dÃ­as $fecha12 y $fecha22.";}
 		else
 		{
 		$result2 = mysqli_query($db_con, $SQL2);
-		$justi1 = "El Alumno ha justificado su falta de asistencia al Centro los siguientes días entre el $fechasp11 y el $fechasp31: ";
+		$justi1 = "El Alumno ha justificado su falta de asistencia al Centro los siguientes dÃ­as entre el $fechasp11 y el $fechasp31: ";
 		while ($rowsql = mysqli_fetch_array($result2)):
 		$fechaj = explode("-", $rowsql[0]);
 		$fecha2 = $fechaj[2]."-".$fechaj[1]."-".$fechaj[0];
@@ -144,9 +145,9 @@ $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$clave
 		endwhile;
 		}
 		$justi2=$justidias;
-// Días con Faltas No Justificadas
+// DÃ­as con Faltas No Justificadas
 $SQL3 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' order by fecha";
-	$justi3 = "Los días en los que el Alumno no ha justificado su ausencia del Centro son los siguientes:";
+	$justi3 = "Los dÃ­as en los que el Alumno no ha justificado su ausencia del Centro son los siguientes:";
     $result3 = mysqli_query($db_con, $SQL3);
     while ($rowsql3 = mysqli_fetch_array($result3)):
     $fecha3 = explode("-", $rowsql3[0]);
@@ -159,9 +160,9 @@ $justi4 = $nojustidias;
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
 $cuerpo1="											
-Muy Señor/Sra. mío/a:
+Muy SeÃ±or/Sra. mÃ­o/a:
 Nos dirigimos a usted para enviarle un informe completo sobre las faltas de asistencia al Centro de su hijo/a, $rowF[2] $rowF[1], perteneciente al Grupo $rowF[3].";
-	if($justi1=="Su hijo no ha justificado ninguno de los días en los que no ha asistido al Centro")
+	if($justi1=="Su hijo no ha justificado ninguno de los dÃ­as en los que no ha asistido al Centro")
 	{
 $cuerpo2="$justi1
 $justi3
@@ -175,20 +176,20 @@ $justi2
 $justi3
 ";	
 	}
-	$cuerpo3 = "Ante las reiteradas faltas de asistencia a clase de su hijo/a pongo en su conocimiento que esta situación atenta contra los derechos del niño/a a una escolarización obligatoria y continuada.
-Por tanto está incumpliendo las obligaciones recogidas en los artículos 154 y 269, 1 y 2 del Código Civil por el que los padres o tutores legales están obligados a cumplir los deberes legales de asistencia inherentes a la patria potestad, tutela, guarda o acogimiento familiar y en su caso sería de aplización lo dispuesto en el artículo 226 del Código Penal.
-De no tener respuesta positiva, justificando estas ausencias e incorporándose su hijo/a a las clases correspondientes, nos veremos en la obligación de poner esta situación en conocimiento del organismo competente.
+	$cuerpo3 = "Ante las reiteradas faltas de asistencia a clase de su hijo/a pongo en su conocimiento que esta situaciÃ³n atenta contra los derechos del niÃ±o/a a una escolarizaciÃ³n obligatoria y continuada.
+Por tanto estÃ¡ incumpliendo las obligaciones recogidas en los artÃ­culos 154 y 269, 1 y 2 del CÃ³digo Civil por el que los padres o tutores legales estÃ¡n obligados a cumplir los deberes legales de asistencia inherentes a la patria potestad, tutela, guarda o acogimiento familiar y en su caso serÃ­a de aplizaciÃ³n lo dispuesto en el artÃ­culo 226 del CÃ³digo Penal.
+De no tener respuesta positiva, justificando estas ausencias e incorporÃ¡ndose su hijo/a a las clases correspondientes, nos veremos en la obligaciÃ³n de poner esta situaciÃ³n en conocimiento del organismo competente.
 
-Atentamente le saluda la Dirección del Centro.
+Atentamente le saluda la DirecciÃ³n del Centro.
 	";
 
-#### Cabecera con dirección
+#### Cabecera con direcciÃ³n
 	$MiPDF->SetFont('Times','',10);
 	$MiPDF->SetTextColor(0,0,0);
-	$MiPDF->Text(120,35,$padre);
-	$MiPDF->Text(120,39,$direcion);
-	$MiPDF->Text(120,43,$localidad);
-	$MiPDF->Text(120,47,$config['centro_provincia']);
+	$MiPDF->Text(120,35,utf8_decode($padre));
+	$MiPDF->Text(120,39,utf8_decode($direcion));
+	$MiPDF->Text(120,43,utf8_decode($localidad));
+	$MiPDF->Text(120,47,utf8_decode($provincia));
 	$MiPDF->Text(120,58,$fecha);
 	
 	#Cuerpo.

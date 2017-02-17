@@ -13,7 +13,7 @@
 </thead>
 <tbody>
 <?php	
-// Horas del día
+// Horas del dÃ­a
 $t_hora = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
 while($todas_horas=mysqli_fetch_array($t_hora)){
 $n_hora = $todas_horas[0];
@@ -31,7 +31,7 @@ if (mysqli_num_rows($hay_algo)) {
 if ($algo) {
 	echo '<tr><th>'.$nombre.'</th>';
 	
-	//Días
+	//DÃ­as
 	for($z = 1; $z < 6; $z ++) {
 
 		?>
@@ -82,8 +82,8 @@ if ($algo) {
 							$exp_grupo = explode('-', $grupo);
 							echo "/".trim($exp_grupo[1]);
 						}
-						elseif (stristr($grupo, 'º') == TRUE) {
-							$exp_grupo = explode('º', $grupo);
+						elseif (stristr($grupo, 'Âº') == TRUE) {
+							$exp_grupo = explode('Âº', $grupo);
 							echo "/".trim($exp_grupo[1]);
 						}
 						elseif (preg_match('/^[0-9][A-Z]+$/', $grupo) == TRUE) {

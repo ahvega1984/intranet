@@ -33,25 +33,25 @@ function abrevactividad($db_con, $actividad) {
 		$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
 		
-		$nomactividad = mb_convert_case($exp_nomactividad[0], MB_CASE_TITLE, 'ISO-8859-1');
+		$nomactividad = mb_convert_case($exp_nomactividad[0], MB_CASE_TITLE, 'UTF-8');
 		
 		$abrev = "";
 		for ($i = 0; $i < strlen($nomactividad); $i++) {
-			if ($nomactividad[$i] == mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'ISO-8859-1') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
-				$abrev .= mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'ISO-8859-1');
+			if ($nomactividad[$i] == mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'UTF-8') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
+				$abrev .= mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'UTF-8');
 			}
 		}
 		
 		if (strlen($abrev) < 3) {
 			$exp_nomactividad = explode(' ', $nomactividad);
 			$abrev .= $exp_nomactividad[1][1].$exp_nomactividad[1][2];
-			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'ISO-8859-1');
+			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'UTF-8');
 		}
 		
 		if (strlen($abrev) < 2) {
 			$exp_nomactividad = explode(' ', $nomactividad);
 			$abrev .= $exp_nomactividad[0][1].$exp_nomactividad[0][2];
-			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'ISO-8859-1');
+			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'UTF-8');
 		}
 	}
 	
@@ -96,7 +96,7 @@ if (isset($_POST['unidad'])) {
 elseif (isset($_GET['unidad']) && $_GET['asignatura'] !== '25' and $_POST['unidad']=="") {
 	$unidad = urldecode($_GET['unidad']);
 
-	// A partir del código de la asignatura y la unidad, descubrimos el curso...
+	// A partir del cÃ³digo de la asignatura y la unidad, descubrimos el curso...
 	$result = mysqli_query($db_con, "SELECT CURSO FROM materias WHERE GRUPO='$unidad' AND CODIGO = '$asignatura' LIMIT 1");
 	$esDesdoble = 0;
 	if (! mysqli_num_rows($result)) {
@@ -319,7 +319,7 @@ include("../../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Modificación de horarios</small></h2>
+		<h2>AdministraciÃ³n <small>ModificaciÃ³n de horarios</small></h2>
 	</div>
 	
 	
@@ -366,10 +366,10 @@ include("../../../menu.php");
 						<?php endif; ?>
 						
 						<div class="form-group">
-						  <label for="dia">Día de la semana</label>
+						  <label for="dia">DÃ­a de la semana</label>
 						  <select class="form-control" id="dia" name="dia">
 						  	<option value=""></option>
-						  	<?php $arrdias = array(1=>'Lunes',2=>'Martes',3=>'Miércoles',4=>'Jueves',5=>'Viernes'); ?>
+						  	<?php $arrdias = array(1=>'Lunes',2=>'Martes',3=>'MiÃ©rcoles',4=>'Jueves',5=>'Viernes'); ?>
 						  	<?php foreach ($arrdias as $numdia => $nomdia): ?>
 						  	<option value="<?php echo $numdia; ?>" <?php echo (isset($dia) && $numdia == $dia) ? 'selected' : ''; ?>><?php echo $nomdia; ?></option>
 						  	<?php endforeach; ?>
@@ -445,7 +445,7 @@ include("../../../menu.php");
 						  	<?php if($ocultar_dependencias_seneca): ?>
 						  	<?php $result = mysqli_query($db_con, "SELECT nomdependencia, descdependencia FROM dependencias ORDER BY nomdependencia ASC"); ?>
 					  		<?php if(mysqli_num_rows($result)): ?>
-					  		<optgroup label="Aulas registradas en Séneca">
+					  		<optgroup label="Aulas registradas en SÃ©neca">
 						  	  	<?php while ($row = mysqli_fetch_array($result)): ?>
 						  	  	<option value="<?php echo $row['nomdependencia']; ?>" <?php echo (isset($dependencia) && $row['nomdependencia'] == $dependencia) ? 'selected' : ''; ?>><?php echo $row['descdependencia']; ?></option>
 						  	  	<?php endwhile; ?>
@@ -462,7 +462,7 @@ include("../../../menu.php");
 					  	<button type="submit" class="btn btn-danger" name="eliminar">Eliminar</button>
 					  	<a href="index.php" class="btn btn-default">Nuevo</a>
 					  	<?php else: ?>
-					  	<button type="submit" class="btn btn-primary" name="enviar">Añadir</button>
+					  	<button type="submit" class="btn btn-primary" name="enviar">AÃ±adir</button>
 					  	<a class="btn btn-default" href="../../index.php">Volver</a>
 					  	<?php endif; ?>
 					  	
@@ -485,7 +485,7 @@ include("../../../menu.php");
 							<th>&nbsp;</th>
 							<th>Lunes</th>
 							<th>Martes</th>
-							<th>Miércoles</th>
+							<th>MiÃ©rcoles</th>
 							<th>Jueves</th>
 							<th>Viernes</th>
 						</tr>

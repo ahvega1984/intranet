@@ -26,7 +26,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Mensajes <small>Resultados de la búsqueda</small></h2>
+			<h2>Mensajes <small>Resultados de la bÃºsqueda</small></h2>
 		</div>
 		
 		<!-- MENSAJES -->
@@ -49,7 +49,7 @@ include("menu.php");
 			
 				<form method="get" action="">
 				   <div class="input-group">
-				     <input type="text" class="form-control" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar por título, contenido o destinatario del mensaje">
+				     <input type="text" class="form-control" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar por tÃ­tulo, contenido o destinatario del mensaje">
 				     <span class="input-group-btn">
 				       <button class="btn btn-default" type="submit"><span class="fa fa-search fa-lg"></span></button>
 				     </span>
@@ -72,7 +72,7 @@ include("menu.php");
 								<tr>
 									<th>#</th>
 									<th>Fecha</th>
-									<th>Título</th>
+									<th>TÃ­tulo</th>
 									<th>Destino</th>
 								</tr>
 							</thead>

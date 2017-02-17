@@ -18,7 +18,7 @@ if ($config['mod_sms']) {
 
 	if(isset($curso)) {
 
-		// Fechas y dem·s...
+		// Fechas y dem√°s...
 		$fechasp0=explode("-",$_POST['fecha12']);
 		$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
 		$fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
@@ -53,7 +53,7 @@ if ($config['mod_sms']) {
 			$unidad = $rowsql3[5];
 			$nombre_alumno = "$nombre $apellidos";
 			
-// EnvÌo de Email						
+// Env√≠o de Email						
 			$cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
 			$cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");			
 			if(mysqli_num_rows($cor_alma)>0){
@@ -85,20 +85,20 @@ if ($config['mod_sms']) {
 	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
-	$message = str_replace('{{titulo}}', 'ComunicaciÛn de Faltas de Asistencia', $message);
-	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificaciÛn.<br>Puede conseguir informaciÛn m·s detallada en la p·gina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcciÛn de correo. Si necesita mayor informaciÛn sobre el contenido de este mensaje, pÛngase en contacto con Jefatura de Estudios.', $message);
+	$message = str_replace('{{titulo}}', 'Comunicaci√≥n de Faltas de Asistencia', $message);
+	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificaci√≥n.<br>Puede conseguir informaci√≥n m√°s detallada en la p√°gina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcci√≥n de correo. Si necesita mayor informaci√≥n sobre el contenido de este mensaje, p√≥ngase en contacto con Jefatura de Estudios.', $message);
 	
 	$mail->msgHTML($message);
-	$mail->Subject = $config['centro_denominacion'].' - ComunicaciÛn de Faltas de Asistencia';
-	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificaciÛn.<br>Puede conseguir informaciÛn m·s detallada en la p·gina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcciÛn de correo. Si necesita mayor informaciÛn sobre el contenido de este mensaje, pÛngase en contacto con Jefatura de Estudios.';
+	$mail->Subject = $config['centro_denominacion'].' - Comunicaci√≥n de Faltas de Asistencia';
+	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificaci√≥n.<br>Puede conseguir informaci√≥n m√°s detallada en la p√°gina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcci√≥n de correo. Si necesita mayor informaci√≥n sobre el contenido de este mensaje, p√≥ngase en contacto con Jefatura de Estudios.';
 
 	$mail->AddAddress($correo, $nombre_alumno);
 	$mail->Send();				
 			}
 
-// Fin envÌo de correo.
+// Fin env√≠o de correo.
 
-// Telefonos mÛviles o sin telefono
+// Telefonos m√≥viles o sin telefono
 			if(substr($tfno2,0,1)=="6" or substr($tfno2,0,1)=="7"){$mobil2=$tfno2;$sin="";}elseif((substr($tfno_u2,0,1)=="6" or substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6") or substr($tfno2,0,1)=="7"){$mobil2=$tfno_u2;$sin="";}else{$mobil2="";$sin=$claveal;}
 
 			if(strlen($mobil2) > 0)
@@ -110,10 +110,10 @@ if ($config['mod_sms']) {
 
 	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 6 horas injustificadas al centro. Mas info en http://".$config['dominio'];
 	
-        // Registramos intervenciÛn de tutorÌa
+        // Registramos intervenci√≥n de tutor√≠a
         $causa = "Faltas de Asistencia";
-        $observaciones = "ComunicaciÛn de Faltas de Asistencia a la familia del Alumno.";
-        $accion = "EnvÌo de SMS";
+        $observaciones = "Comunicaci√≥n de Faltas de Asistencia a la familia del Alumno.";
+        $accion = "Env√≠o de SMS";
         $tuto = "Jefatura de Estudios";
         $fecha2 = date('Y-m-d');
         mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
@@ -154,7 +154,7 @@ if ($config['mod_sms']) {
 <div class="container">
 
 <div class="page-header">
-<h2>SMS <small> ComunicaciÛn de Faltas de Asistencia a los Padres </small></h2>
+<h2>SMS <small> Comunicaci√≥n de Faltas de Asistencia a los Padres </small></h2>
 </div>
 <br>
 <div class="row">
@@ -169,20 +169,20 @@ if(isset($curso))
 if(strlen($mobile2) > 0){
 	echo '<div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de '. $curso.'.<br>Una nueva acciÛn tutorial ha sido tambiÈn registrada.
+El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de '. $curso.'.<br>Una nueva acci√≥n tutorial ha sido tambi√©n registrada.
           </div><br />';
 }
 else{
 	echo '<div class="alert alert-danger alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-No se ha enviado ning˙n SMS a los alumnos de '. $curso.'. O bien ning˙n alumno tiene m·s de 4 faltas o bien no est·n registrados los telÈfonos mÛviles de los mismos (en cuyo caso aparecer· un mensaje m·s abajo indicando los alumnos sin mÛvil).
+No se ha enviado ning√∫n SMS a los alumnos de '. $curso.'. O bien ning√∫n alumno tiene m√°s de 4 faltas o bien no est√°n registrados los tel√©fonos m√≥viles de los mismos (en cuyo caso aparecer√° un mensaje m√°s abajo indicando los alumnos sin m√≥vil).
           </div><br />';	
 }
 if(strlen($sin2) > '0'){
 	echo '<div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCI”N:</h4>
-<p align="left">Los siguientes alumnos no tienen telÈfono mÛvil al que enviar comunicaciÛn de Faltas de Asistencia:</p>
+			<h4>ATENCI√ìN:</h4>
+<p align="left">Los siguientes alumnos no tienen tel√©fono m√≥vil al que enviar comunicaci√≥n de Faltas de Asistencia:</p>
 <ul style="text-align:left;">';
 	// Marcamos alumnos sin movil para enviarlos al tutor
 	$sin2 = substr($sin2,0,strlen($sin2)-1);
@@ -257,14 +257,14 @@ while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
 </div>
 </div>
 <?php
-// Tabla temporalÒ y recogida de datos
+// Tabla temporal√± y recogida de datos
 mysqli_query($db_con, "DROP table `faltastemp2`");
 }
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCI”N:</h4>
-El mÛdulo de envÌo de SMS debe ser activado en la ConfiguraciÛn general de la Intranet para poder accede a estas p·ginas, y ahora mismo est· desactivado.
+			<h4>ATENCI√ìN:</h4>
+El m√≥dulo de env√≠o de SMS debe ser activado en la Configuraci√≥n general de la Intranet para poder accede a estas p√°ginas, y ahora mismo est√° desactivado.
           </div></div>';
 }
 ?>

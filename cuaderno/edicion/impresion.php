@@ -7,7 +7,7 @@ foreach($_GET as $key => $val)
 	${$key} = $val;
 }
 $html="<html><head>
-<meta charset='iso-8859-1'>";
+<meta charset='UTF-8'>";
 $html.="<style>
 html {
   font-family: sans-serif;
@@ -73,7 +73,7 @@ while($varias = mysqli_fetch_array($n_c))
 	$largo = strlen($varias[1]);
 	if (strlen($varias[1]) > 10) {$nombre_asig = substr($varias[1],0,10);} else {$nombre_asig = substr($varias[1],0,6);}
 	$nombre_asig = trim($nombre_asig);
-	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%º'");
+	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%Âº'");
 	while($asig_sen1 = mysqli_fetch_row($asig_sen0)){
 		if (strstr($asigna_a , $asig_sen1[0]) == false)
 		{
@@ -128,10 +128,10 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	$curso = $curso11[0];
 	$asignatura = $curso11[1];
 	$nombre = $curso11[2];
-	// Número de Columnas para crear la tabla
+	// NÃºmero de Columnas para crear la tabla
 	$num_col = 4 + $num_ids;
 	$nivel_curso = substr($curso,0,1);
-	//	Problemas con Diversificaci�n (4E-Dd)
+	//	Problemas con Diversificación (4E-Dd)
 	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 	if (mysqli_num_rows($profe_div)<1) {
 		$div = $curso;
@@ -187,7 +187,7 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	}
 }
 $html.="</table></body></html>";
-$content = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');
+$content = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
 $dompdf = new DOMPDF();
 $dompdf->load_html($content);
 $dompdf->render();

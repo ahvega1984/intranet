@@ -48,7 +48,7 @@ while($asigna = mysqli_fetch_array($asig0))
   if(mysqli_num_rows($asig0) == 1)
   {
     $num+=1;
-    //  echo "Unidad única.<br>";
+    //  echo "Unidad Ãºnica.<br>";
     mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
     mysqli_query($db_con, "update horw_var set clase='Actualizado' where id='$id'");
     mysqli_query($db_con, "update horw set a_asig = '$abrev', c_asig = '$codigo', asig = '$materia' where id= '$id'");
@@ -146,7 +146,7 @@ Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en
 
 ?>
 <div align="center">
-  <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
+  <a  href="../index.php" class="btn btn-primary" />Volver a AdministraciÃ³n</a>
 </div>
 </div>
 </div>

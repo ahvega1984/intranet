@@ -21,7 +21,7 @@ class GranPDF extends PDF_MC_Table {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->MultiCell(170, 5, 'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE', 0,'R', 0);
+		$this->MultiCell(170, 5, 'CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE', 0,'R', 0);
 		$this->Ln(15);
 	}
 	function Footer() {
@@ -42,13 +42,13 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 $MiPDF->SetMargins(25, 20, 20);
 $MiPDF->SetDisplayMode('fullpage');
 
-$titulo = "Informe de tutoría";
+$titulo = "Informe de tutorÃ­a";
 
 
 $MiPDF->Addpage();
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 $MiPDF->Ln(5);
 
 
@@ -63,7 +63,7 @@ $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $MiPDF->SetFont('NewsGotT', 'B', 12);
 $MiPDF->Cell(25, 5, 'Alumno/a: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
-$MiPDF->Cell(80, 5, $row['apellidos'].', '.$row['nombre'], 0, 0, 'L', 0 );
+$MiPDF->Cell(80, 5, utf8_encode($row['apellidos']).', '.utf8_encode($row['nombre']), 0, 0, 'L', 0 );
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
 $MiPDF->Cell(35, 5, 'Fecha de visita: ', 0, 0, 'L', 0);
@@ -80,7 +80,7 @@ $MiPDF->Cell(85, 5, $row['unidad'], 0, 0, 'L', 0 );
 $MiPDF->SetFont('NewsGotT', 'B', 12);
 $MiPDF->Cell(20, 5, 'Tutor/a: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
-$MiPDF->Cell(40, 5, mb_convert_case($row['tutor'], MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
+$MiPDF->Cell(40, 5, utf8_encode(mb_convert_case($row['tutor'], MB_CASE_TITLE, "UTF-8")), 0, 1, 'L', 0 );
 
 $MiPDF->Ln(5);
 

@@ -30,7 +30,7 @@ foreach($_GET as $key => $val)
 $curso_sin=substr($curso,0,-1);
 $curso_nota=$curso.",";
 	echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
-// Asignatura ese día a esa hora
+// Asignatura ese dÃ­a a esa hora
 $asig0 = "SELECT distinct c_asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 $asig1 = mysqli_query($db_con, $asig0);
 $asig = mysqli_fetch_array($asig1);
@@ -71,16 +71,16 @@ $tipo = $ident0[5];
 			<label for="select_tipo">Tipo de datos</label>
 			<select id="select_tipo" name="tipo" value="1" class="form-control" >
 			<?php if($tipo) echo "<option>$tipo</option>"; ?>
-			<option>Números</option>
+			<option>NÃºmeros</option>
 			<option>Texto largo</option>
 			<option>Texto corto</option>
-			<option>Casilla de verificación</option>			
+			<option>Casilla de verificaciÃ³n</option>			
 			</select>
 			<p class="help-block well well-small well-transparent small">
-			<strong>Números. </strong>Cualquier número entero o con decimales<br />
+			<strong>NÃºmeros. </strong>Cualquier nÃºmero entero o con decimales<br />
 			<strong>Texto largo. </strong>Observaciones, descripciones, etc. (hasta 48 caracteres)<br />
 			<strong>Texto corto. </strong>Uno a tres caracteres (por ejemplo: B, M, R, Si, No, etc)<br />
-			<strong>Casilla de verificación. </strong>Selección entre dos posibles estados: marcado (por ejemplo: ha realizado una actividad) o desmarcado (No ha realizado la actividad)<br />
+			<strong>Casilla de verificaciÃ³n. </strong>SelecciÃ³n entre dos posibles estados: marcado (por ejemplo: ha realizado una actividad) o desmarcado (No ha realizado la actividad)<br />
 			</p>
 		</div>
 		<div class="form-group">
@@ -98,7 +98,7 @@ $tipo = $ident0[5];
 		<div class="checkbox">
 			<label for="cmp_visible_nota">
 			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>
-			Visible en la página externa <strong data-bs="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
+			Visible en la pÃ¡gina externa <strong data-bs="tooltip" title="Si estÃ¡ marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la pÃ¡gina externa">(?)</strong></label>
 		</div>
 		<hr />
 		<div class="form-group">

@@ -1032,11 +1032,11 @@ class SimplePie_Misc
 
 			case 'cswindows30latin1':
 			case 'iso88591windows30latin1':
-				return 'ISO-8859-1-Windows-3.0-Latin-1';
+				return 'UTF-8-Windows-3.0-Latin-1';
 
 			case 'cswindows31latin1':
 			case 'iso88591windows31latin1':
-				return 'ISO-8859-1-Windows-3.1-Latin-1';
+				return 'UTF-8-Windows-3.1-Latin-1';
 
 			case 'csisolatin2':
 			case 'iso88592':
@@ -1125,10 +1125,10 @@ class SimplePie_Misc
 			case 'isoir157':
 			case 'l6':
 			case 'latin6':
-				return 'ISO-8859-10';
+				return 'UTF-80';
 
 			case 'iso885913':
-				return 'ISO-8859-13';
+				return 'UTF-83';
 
 			case 'iso885914':
 			case 'iso8859141998':
@@ -1136,18 +1136,18 @@ class SimplePie_Misc
 			case 'isoir199':
 			case 'l8':
 			case 'latin8':
-				return 'ISO-8859-14';
+				return 'UTF-84';
 
 			case 'iso885915':
 			case 'latin9':
-				return 'ISO-8859-15';
+				return 'UTF-85';
 
 			case 'iso885916':
 			case 'iso8859162001':
 			case 'isoir226':
 			case 'l10':
 			case 'latin10':
-				return 'ISO-8859-16';
+				return 'UTF-86';
 
 			case 'iso10646j1':
 				return 'ISO-10646-J-1';

@@ -16,7 +16,7 @@ if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 ?>
 <div align="center">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Profesores que no redactan Informe</small></h2>
+  <h2>Informes de TutorÃ­a <small> Profesores que no redactan Informe</small></h2>
 </div>
 <br />
 </div>

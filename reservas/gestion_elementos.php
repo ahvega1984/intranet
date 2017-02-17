@@ -14,7 +14,7 @@ $nombre_tipo = $row['tipo'];
 $page_header = "Reservas <small>".$nombre_tipo."</small>";
 
 
-// ENVÕO DE FORMULARIO
+// ENV√çO DE FORMULARIO
 if (isset($_POST['aceptar'])) {
 
 	// LIMPIAMOS CARACTERES
@@ -23,10 +23,10 @@ if (isset($_POST['aceptar'])) {
 	$obs_elemento 		= mysqli_real_escape_string($db_con, trim($_POST['obs_elemento']));
 	(isset($_POST['visible_elemento'])) ? $oculto_elemento = 0 : $oculto_elemento = 1;
 	
-	// COMPROBAMOS QUE LOS CAMPOS OBLIGATORIOS NO EST…N VACÕOS
+	// COMPROBAMOS QUE LOS CAMPOS OBLIGATORIOS NO EST√âN VAC√çOS
 	if (! empty($nombre_elemento)) {
 	
-		// COMPROBAMOS SI SE TRATA DE UNA EDICI”N DE ELEMENTOS O INSERCI”N
+		// COMPROBAMOS SI SE TRATA DE UNA EDICI√ìN DE ELEMENTOS O INSERCI√ìN
 		if (isset($id_elemento)) {
 			
 			$result = mysqli_query($db_con, "SELECT id FROM reservas_elementos WHERE id='$id_elemento' LIMIT 1");
@@ -42,7 +42,7 @@ if (isset($_POST['aceptar'])) {
 		else {
 			$result_insert = mysqli_query($db_con, "INSERT INTO reservas_elementos (elemento, id_tipo, observaciones, oculto) VALUES ('$nombre_elemento', '$id_recurso', '$obs_elemento', '$oculto_elemento')");
 			
-			if (! $result_insert) $msg_error = 'No se ha podido aÒadir el elemento. Error: '.mysqli_error($db_con);
+			if (! $result_insert) $msg_error = 'No se ha podido a√±adir el elemento. Error: '.mysqli_error($db_con);
 			else $msg_success = 'El elemento ha sido creado';
 		}
 	}

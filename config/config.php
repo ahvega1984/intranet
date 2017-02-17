@@ -4,11 +4,11 @@ require('../bootstrap.php');
 acl_acceso($_SESSION['cargo'], array(1));
 
 // TITULO DE LA PAGINA
-$page_header = 'Configuración de la Intranet';
+$page_header = 'ConfiguraciÃ³n de la Intranet';
 
 $config_nuevo = 0;
 
-$provincias = array('Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla');
+$provincias = array('AlmerÃ­a', 'CÃ¡diz', 'CÃ³rdoba', 'Granada', 'Huelva', 'JaÃ©n', 'MÃ¡laga', 'Sevilla');
 
 function forzar_ssl() {
 	$ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/intranet/config/ssl.json' : 'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/ssl.json';
@@ -25,7 +25,7 @@ function forzar_ssl() {
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 // PROCESAMOS EL FORMULARIO
@@ -90,17 +90,17 @@ if (isset($_POST['config']))
 	(isset($_POST['mod_transporte_escolar'])) ? $modulo_transporte_escolar = 1 : $modulo_transporte_escolar = 0;
 	
 	
-	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
+	// CREACIÃ“N DEL ARCHIVO DE CONFIGURACIÃ“N
 	if($file = fopen(CONFIG_FILE, 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACIÓN INTRANET\r\n");
+		fwrite($file, "\r\n// CONFIGURACIÃ“N INTRANET\r\n");
 		fwrite($file, "\$config['dominio']\t\t\t= '$dominio_centro';\r\n");
 		fwrite($file, "\$config['forzar_ssl']\t\t= $forzar_ssl;\r\n");
 		fwrite($file, "\$config['mantenimiento']\t= $mantenimiento;\r\n");
 		
-		fwrite($file, "\r\n// INFORMACIÓN DEL CENTRO\r\n");
+		fwrite($file, "\r\n// INFORMACIÃ“N DEL CENTRO\r\n");
 		fwrite($file, "\$config['centro_denominacion']\t= '$nombre_centro';\r\n");
 		fwrite($file, "\$config['centro_codigo']\t\t= '$codigo_centro';\r\n");
 		fwrite($file, "\$config['centro_email']\t\t\t= '$email_centro';\r\n");
@@ -127,46 +127,46 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['curso_inicio']\t= '$fecha_inicio';\r\n");
 		fwrite($file, "\$config['curso_fin']\t= '$fecha_final';\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: BIBLIOTECA\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: BIBLIOTECA\r\n");
 		fwrite($file, "\$config['mod_biblioteca']\t\t= $modulo_biblioteca;\r\n");
 		fwrite($file, "\$config['mod_biblioteca_web']\t= '$modulo_biblioteca_web';\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: BILINGÜE\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: BILINGÃœE\r\n");
 		fwrite($file, "\$config['mod_bilingue']\t\t\t= $modulo_bilingue;\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: CENTRO TIC\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: CENTRO TIC\r\n");
 		fwrite($file, "\$config['mod_centrotic']\t\t= $modulo_centrotic;\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: DOCUMENTOS\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: DOCUMENTOS\r\n");
 		fwrite($file, "\$config['mod_documentos']\t\t= $modulo_documentos;\r\n");
 		fwrite($file, "\$config['mod_documentos_dir']\t= '$modulo_documentos_dir';\r\n");
 		fwrite($file, "\$config['mod_documentos_biblioteca']\t= '$mod_documentos_biblioteca';\r\n");
 		fwrite($file, "\$config['mod_documentos_recursos']\t= '$mod_documentos_recursos';\r\n");
 		fwrite($file, "\$config['mod_documentos_departamentos']\t= '$mod_documentos_departamentos';\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: SMS\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: SMS\r\n");
 		fwrite($file, "\$config['mod_sms']\t\t\t\t= $modulo_sms;\r\n");
 		fwrite($file, "\$config['mod_sms_id']\t\t\t= '$modulo_sms_id';\r\n");
 		fwrite($file, "\$config['mod_sms_user']\t\t\t= '$modulo_sms_user';\r\n");
 		fwrite($file, "\$config['mod_sms_pass']\t\t\t= '$modulo_sms_pass';\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: NOTIFICACIONES\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: NOTIFICACIONES\r\n");
 		fwrite($file, "\$config['mod_notificaciones']\t= $modulo_notificaciones;\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: FALTAS DE ASISTENCIA\r\n");
 		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: HORARIOS\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: HORARIOS\r\n");
 		fwrite($file, "\$config['mod_horarios']\t\t\t= $modulo_horarios;\r\n");
 
-		fwrite($file, "\r\n// MÓDULO: AULA DE CONVIVENCIA\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: AULA DE CONVIVENCIA\r\n");
 		fwrite($file, "\$config['mod_convivencia']\t\t\t= $modulo_convivencia;\r\n");
 		
-		fwrite($file, "\r\n// MÓDULO: MATRICULACIÓN\r\n");
+		fwrite($file, "\r\n// MÃ“DULO: MATRICULACIÃ“N\r\n");
 		fwrite($file, "\$config['mod_matriculacion']\t\t= $modulo_matriculacion;\r\n");
 		fwrite($file, "\$config['mod_transporte_escolar']\t= $modulo_transporte_escolar;\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÃ³n");
 		
 		$config_nuevo = 1;
 		fclose($file);
@@ -209,15 +209,15 @@ include('../menu.php');
 		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off">
 			
 			<ul class="nav nav-tabs" role="tablist">
-				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">Configuración general</a></li>
-				<li><a href="#modulos" aria-controls="modulos" role="tab" data-toggle="tab">Módulos</a></li>
+				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">ConfiguraciÃ³n general</a></li>
+				<li><a href="#modulos" aria-controls="modulos" role="tab" data-toggle="tab">MÃ³dulos</a></li>
 			</ul>
 			
 			<br>
 			
 			<div id="tabs-configuracion" class="tab-content">
 			
-				<!-- CONFIGURACIÓN GENERAL -->
+				<!-- CONFIGURACIÃ“N GENERAL -->
 				<div role="tabpanel" class="tab-pane active" id="configuracion">
 					<div class="row">
 					
@@ -225,7 +225,7 @@ include('../menu.php');
 							
 							<div class="well">
 							
-								<h3><span class="fa fa-university fa-fw"></span> Información de su centro educativo</h3>
+								<h3><span class="fa fa-university fa-fw"></span> InformaciÃ³n de su centro educativo</h3>
 								<br>
 								
 								<input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
@@ -238,41 +238,41 @@ include('../menu.php');
 								<?php $tam_control = 7; ?>
 								
 								<div class="form-group">
-								  <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación <span class="text-danger">*</span></label>
+								  <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">DenominaciÃ³n <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" value="<?php echo $config['centro_denominacion']; ?>" data-error="La denominación del centro no es válida" required>
+								    <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" value="<?php echo $config['centro_denominacion']; ?>" data-error="La denominaciÃ³n del centro no es vÃ¡lida" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
 								
 								<div class="form-group">
-								  <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código <span class="text-danger">*</span></label>
+								  <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro cÃ³digo <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="text" class="form-control" id="codigo_centro" name="codigo_centro" value="<?php echo $config['centro_codigo']; ?>" maxlength="8" data-minlength="8" data-error="El código del centro no es válido" required>
+								    <input type="text" class="form-control" id="codigo_centro" name="codigo_centro" value="<?php echo $config['centro_codigo']; ?>" maxlength="8" data-minlength="8" data-error="El cÃ³digo del centro no es vÃ¡lido" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
 								
 								<div class="form-group">
-								  <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico <span class="text-danger">*</span></label>
+								  <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrÃ³nico <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="email" class="form-control" id="email_centro" name="email_centro" value="<?php echo $config['centro_email']; ?>" data-error="La dirección de correo electrónico no es válida" required>
+								    <input type="email" class="form-control" id="email_centro" name="email_centro" value="<?php echo $config['centro_email']; ?>" data-error="La direcciÃ³n de correo electrÃ³nico no es vÃ¡lida" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
 								
 								<div class="form-group">
-								  <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal <span class="text-danger">*</span></label>
+								  <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">DirecciÃ³n postal <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="text" class="form-control" id="direccion_centro" name="direccion_centro" value="<?php echo $config['centro_direccion']; ?>" data-error="La dirección postal no es válida" required>
+								    <input type="text" class="form-control" id="direccion_centro" name="direccion_centro" value="<?php echo $config['centro_direccion']; ?>" data-error="La direcciÃ³n postal no es vÃ¡lida" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
 								
 								<div class="form-group">
-								  <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal <span class="text-danger">*</span></label>
+								  <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">CÃ³digo postal <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="text" class="form-control" id="codpostal_centro" name="codpostal_centro" value="<?php echo $config['centro_codpostal']; ?>" maxlength="5" data-minlength="5" data-error="El código postal no es válido" required>
+								    <input type="text" class="form-control" id="codpostal_centro" name="codpostal_centro" value="<?php echo $config['centro_codpostal']; ?>" maxlength="5" data-minlength="5" data-error="El cÃ³digo postal no es vÃ¡lido" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
@@ -280,7 +280,7 @@ include('../menu.php');
 								<div class="form-group">
 								  <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="text" class="form-control" id="localidad_centro" name="localidad_centro" value="<?php echo $config['centro_localidad']; ?>" data-error="La localidad no es válida" required>
+								    <input type="text" class="form-control" id="localidad_centro" name="localidad_centro" value="<?php echo $config['centro_localidad']; ?>" data-error="La localidad no es vÃ¡lida" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
@@ -288,7 +288,7 @@ include('../menu.php');
 								<div class="form-group">
 								  <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <select class="form-control" id="provincia_centro" name="provincia_centro" data-error="La provincia no es válida" required>
+								    <select class="form-control" id="provincia_centro" name="provincia_centro" data-error="La provincia no es vÃ¡lida" required>
 								    	<option value=""></option>
 								    	<?php foreach($provincias as $provincia): ?>
 								    	<option value="<?php echo $provincia; ?>" <?php echo ($provincia == $config['centro_provincia']) ? 'selected' : ''; ?>><?php echo $provincia; ?></option>
@@ -299,9 +299,9 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono <span class="text-danger">*</span></label>
+								  <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">TelÃ©fono <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="tel" class="form-control" id="telefono_centro" name="telefono_centro" value="<?php echo $config['centro_telefono']; ?>" maxlength="9" data-minlength="9" data-error="El télefono no es válido" required>
+								    <input type="tel" class="form-control" id="telefono_centro" name="telefono_centro" value="<?php echo $config['centro_telefono']; ?>" maxlength="9" data-minlength="9" data-error="El tÃ©lefono no es vÃ¡lido" required>
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
@@ -309,7 +309,7 @@ include('../menu.php');
 								<div class="form-group">
 								  <label for="fax_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Fax</label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
-								    <input type="tel" class="form-control" id="fax_centro" name="fax_centro" value="<?php echo $config['centro_fax']; ?>" maxlength="9" data-minlength="9" data-error="El fax no es válido">
+								    <input type="tel" class="form-control" id="fax_centro" name="fax_centro" value="<?php echo $config['centro_fax']; ?>" maxlength="9" data-minlength="9" data-error="El fax no es vÃ¡lido">
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
@@ -357,7 +357,7 @@ include('../menu.php');
 								<div class="form-group">
 									<label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
-									  <input type="text" class="form-control" id="db_host" name="db_host" value="<?php echo $config['db_host']; ?>" data-error="La dirección servidor de base de datos no es válida" required>
+									  <input type="text" class="form-control" id="db_host" name="db_host" value="<?php echo $config['db_host']; ?>" data-error="La direcciÃ³n servidor de base de datos no es vÃ¡lida" required>
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
@@ -365,7 +365,7 @@ include('../menu.php');
 								<div class="form-group">
 									<label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
-									  <input type="text" class="form-control" id="db_name" name="db_name" value="<?php echo $config['db_name']; ?>" data-error="El nombre de la base de datos no es válido" required>
+									  <input type="text" class="form-control" id="db_name" name="db_name" value="<?php echo $config['db_name']; ?>" data-error="El nombre de la base de datos no es vÃ¡lido" required>
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
@@ -373,15 +373,15 @@ include('../menu.php');
 								<div class="form-group">
 									<label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
-									  <input type="text" class="form-control" id="db_user" name="db_user" value="<?php echo $config['db_user']; ?>" data-error="El nombre de usuario de la base de datos no es válido" required>
+									  <input type="text" class="form-control" id="db_user" name="db_user" value="<?php echo $config['db_user']; ?>" data-error="El nombre de usuario de la base de datos no es vÃ¡lido" required>
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger">*</span></label>
+									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">ContraseÃ±a <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
-									  <input type="text" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseña de la base de datos no es válido" required>
+									  <input type="text" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseÃ±a de la base de datos no es vÃ¡lido" required>
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
@@ -443,32 +443,32 @@ include('../menu.php');
 					
 				</div><!-- /.tab-pane -->
 				
-				<!-- CONFIGURACIÓN MÓDULOS -->
+				<!-- CONFIGURACIÃ“N MÃ“DULOS -->
 				<div role="tabpanel" class="tab-pane" id="modulos">
 					
 					<div class="well">
-						<h3><span class="fa fa-cubes fa-fw"></span> Configuración de módulos</h3>
+						<h3><span class="fa fa-cubes fa-fw"></span> ConfiguraciÃ³n de mÃ³dulos</h3>
 						<br>
 					    
 						<div class="row">
 							<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: -3px;">
 								<ul class="nav nav-pills nav-stacked" role="tablist">
 									<li class="active"><a href="#mod_biblioteca" aria-controls="mod_biblioteca" role="tab" data-toggle="tab">Biblioteca</a></li>
-									<li><a href="#mod_bilingue" aria-controls="mod_bilingue" role="tab" data-toggle="tab">Centro Bilingüe</a></li>
+									<li><a href="#mod_bilingue" aria-controls="mod_bilingue" role="tab" data-toggle="tab">Centro BilingÃ¼e</a></li>
 									<li><a href="#mod_centrotic" aria-controls="mod_centrotic" role="tab" data-toggle="tab">Centro TIC</a></li>
 									<li><a href="#mod_documentos" aria-controls="mod_documentos" role="tab" data-toggle="tab">Documentos</a></li>
-									<li><a href="#mod_sms" aria-controls="mod_sms" role="tab" data-toggle="tab">Envío SMS</a></li>
+									<li><a href="#mod_sms" aria-controls="mod_sms" role="tab" data-toggle="tab">EnvÃ­o SMS</a></li>
 									<li><a href="#mod_notificaciones" aria-controls="mod_notificaciones" role="tab" data-toggle="tab">Notificaciones</a></li>
 									<li><a href="#mod_asistencia" aria-controls="mod_asistencia" role="tab" data-toggle="tab">Faltas de Asistencia</a></li>
 									<li><a href="#mod_horarios" aria-controls="mod_horarios" role="tab" data-toggle="tab">Horarios</a></li>
 									<li><a href="#mod_convivencia" aria-controls="mod_convivencia" role="tab" data-toggle="tab">Aula de Convivencia</a></li>
-									<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
+									<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">MatriculaciÃ³n</a></li>
 								</ul>
 							</div>
 							
 							<div class="tab-content col-sm-7" style="border-left: 3px solid #dce4ec; padding-left: 45px;">
 								
-								<!-- MÓDULO: BIBLIOTECA -->
+								<!-- MÃ“DULO: BIBLIOTECA -->
 							    <div role="tabpanel" class="tab-pane active" id="mod_biblioteca">
 							    	
 							    	<div class="form-group">
@@ -476,7 +476,7 @@ include('../menu.php');
 								    		<label>
 					    			    		<input type="checkbox" name="mod_biblioteca" value="1" <?php echo (isset($config['mod_biblioteca']) && $config['mod_biblioteca']) ? 'checked' : ''; ?>>
 					    			    		<strong>Biblioteca</strong>
-					    			    		<p class="help-block">Si el Centro dispone de Biblioteca que funciona con Abies, y cuenta con un equipo de profesores dedicados a su mantenimiento, este módulo permite consultar e importar los fondos, lectores y préstamos, así como hacer un seguimiento de los alumnos morosos. También incorpora el código de barras generado por Abies al Carnet del Alumno para facilitar la lectura por parte del scanner de la Biblioteca.</p>
+					    			    		<p class="help-block">Si el Centro dispone de Biblioteca que funciona con Abies, y cuenta con un equipo de profesores dedicados a su mantenimiento, este mÃ³dulo permite consultar e importar los fondos, lectores y prÃ©stamos, asÃ­ como hacer un seguimiento de los alumnos morosos. TambiÃ©n incorpora el cÃ³digo de barras generado por Abies al Carnet del Alumno para facilitar la lectura por parte del scanner de la Biblioteca.</p>
 					    			    	</label>
 								    	</div>
 								    </div>
@@ -484,7 +484,7 @@ include('../menu.php');
 							    	<br>
 							    	
 							    	<div class="form-group">
-							    		<label for="mod_biblioteca_web">Página web de la Biblioteca</label>
+							    		<label for="mod_biblioteca_web">PÃ¡gina web de la Biblioteca</label>
 							    		<div class="input-group">
 						    		      <div class="input-group-addon">http://</div>
 						    		      <input type="text" class="form-control" id="mod_biblioteca_web" name="mod_biblioteca_web" value="<?php echo $config['mod_biblioteca_web']; ?>">
@@ -494,15 +494,15 @@ include('../menu.php');
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: CENTRO BILINGÜE -->
+							    <!-- MÃ“DULO: CENTRO BILINGÃœE -->
 							    <div role="tabpanel" class="tab-pane" id="mod_bilingue">
 							    	
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
 					    			    		<input type="checkbox" name="mod_bilingue" value="1" <?php echo (isset($config['mod_bilingue']) && $config['mod_bilingue']) ? 'checked' : ''; ?>>
-					    			    		<strong>Centro Bilingüe</strong>
-					    			    		<p class="help-block">Activa características para los Centros Bilingües, como el envío de mensajes a los profesores que pertenecen al programa bilingüe.</p>
+					    			    		<strong>Centro BilingÃ¼e</strong>
+					    			    		<p class="help-block">Activa caracterÃ­sticas para los Centros BilingÃ¼es, como el envÃ­o de mensajes a los profesores que pertenecen al programa bilingÃ¼e.</p>
 					    			    	</label>
 								    	</div>
 								    </div>
@@ -510,7 +510,7 @@ include('../menu.php');
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: CENTRO TIC -->
+							    <!-- MÃ“DULO: CENTRO TIC -->
 							    <div role="tabpanel" class="tab-pane" id="mod_centrotic">
 							    	
 							    	<div class="form-group">
@@ -526,7 +526,7 @@ include('../menu.php');
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: DOCUMENTOS --> 
+							    <!-- MÃ“DULO: DOCUMENTOS --> 
 							    <div role="tabpanel" class="tab-pane" id="mod_documentos" <?php echo (isset($config['mod_documentos']) && $config['mod_documentos']) ? 'checked' : ''; ?>>
 							    	
 							    	<div class="form-group">
@@ -534,13 +534,13 @@ include('../menu.php');
 								    		<label>
 								    			<input type="checkbox" name="mod_documentos" value="1" checked>
 								    			<strong>Documentos</strong>
-								    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet.</p>
+								    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos pÃºblicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet.</p>
 								    		</label>
 								    	</div>
 								    </div>
 							    				    			    	
 							    	<div class="form-group">
-							    		<label for="mod_documentos_dir">Directorio público</label>
+							    		<label for="mod_documentos_dir">Directorio pÃºblico</label>
 							    	    <input type="text" class="form-control" id="mod_documentos_dir" name="mod_documentos_dir" value="<?php echo $config['mod_documentos_dir']; ?>">
 							    	</div>
 							    	
@@ -548,7 +548,7 @@ include('../menu.php');
 							    		<label>
 							    			<input type="checkbox" name="mod_documentos_biblioteca" value="1" <?php echo (isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) ? 'checked' : ''; ?>>
 							    			<strong>Biblioteca</strong>
-							    			<p class="help-block">Creará una carpeta donde el personal de Biblioteca puede subir documentos de interés para la comunidad educativa.</p>
+							    			<p class="help-block">CrearÃ¡ una carpeta donde el personal de Biblioteca puede subir documentos de interÃ©s para la comunidad educativa.</p>
 							    		</label>
 							    	</div>
 							    	
@@ -556,7 +556,7 @@ include('../menu.php');
 							    		<label>
 							    			<input type="checkbox" name="mod_documentos_recursos" value="1" <?php echo (isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) ? 'checked' : ''; ?>>
 							    			<strong>Recursos educativos</strong>
-							    			<p class="help-block">Creará una carpeta <strong>Recursos</strong>, con el nombre de cada Grupo de Alumnos en el que los miembros de un Equipo Educativo pueden subir archivos visibles para Padres y Alumnos en <u>Acceso para Alumnos</u> de la <em>Página del Centro</em>.</p>
+							    			<p class="help-block">CrearÃ¡ una carpeta <strong>Recursos</strong>, con el nombre de cada Grupo de Alumnos en el que los miembros de un Equipo Educativo pueden subir archivos visibles para Padres y Alumnos en <u>Acceso para Alumnos</u> de la <em>PÃ¡gina del Centro</em>.</p>
 							    		</label>
 							    	</div>
 							    	
@@ -564,30 +564,30 @@ include('../menu.php');
 							    		<label>
 							    			<input type="checkbox" name="mod_documentos_departamentos" value="1" <?php echo (isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) ? 'checked' : ''; ?>>
 							    			<strong>Departamentos</strong>
-							    			<p class="help-block">Creará una carpeta para los Departamentos del Centro donde estos pueden colocar documentos importantes y públicos (Programaciones, etc.) visibles desde la <em>Página del Centro</em>.</p>
+							    			<p class="help-block">CrearÃ¡ una carpeta para los Departamentos del Centro donde estos pueden colocar documentos importantes y pÃºblicos (Programaciones, etc.) visibles desde la <em>PÃ¡gina del Centro</em>.</p>
 							    		</label>
 							    	</div>
 							    	
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: ENVÍO DE SMS -->
+							    <!-- MÃ“DULO: ENVÃO DE SMS -->
 							    <div role="tabpanel" class="tab-pane" id="mod_sms">
 							    	
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
 								    			<input type="checkbox" name="mod_sms" value="1" <?php echo (isset($config['mod_sms']) && $config['mod_sms']) ? 'checked' : ''; ?>>
-								    			<strong>Envío de SMS</strong>
-								    			<p class="help-block">Pone en funcionamiento el envío de SMS en distintos lugares de la Intranet (Problemas de convivencia, faltas de asistencia, etc.). La aplicación está preparada para trabajar con la API de <a href="http://www.trendoo.es/" target="_blank">Trendoo</a>.</p>
+								    			<strong>EnvÃ­o de SMS</strong>
+								    			<p class="help-block">Pone en funcionamiento el envÃ­o de SMS en distintos lugares de la Intranet (Problemas de convivencia, faltas de asistencia, etc.). La aplicaciÃ³n estÃ¡ preparada para trabajar con la API de <a href="http://www.trendoo.es/" target="_blank">Trendoo</a>.</p>
 								    		</label>
 								    	</div>
 								    </div>
 							    	
 							    	<div class="form-group">
-							    		<label for="mod_sms_id">Nombre de identificación (<abbr title="Transmission Path Originating Address">TPOA</abbr>)</label>
+							    		<label for="mod_sms_id">Nombre de identificaciÃ³n (<abbr title="Transmission Path Originating Address">TPOA</abbr>)</label>
 							    	    <input type="text" class="form-control" id="mod_sms_id" name="mod_sms_id" value="<?php echo $config['mod_sms_id']; ?>" maxlength="11">
-							    	    <p class="help-block">11 caracteres como máximo.</p>
+							    	    <p class="help-block">11 caracteres como mÃ¡ximo.</p>
 							    	</div>
 							    	
 							    	<div class="form-group">
@@ -596,13 +596,13 @@ include('../menu.php');
 							    	</div>
 							    	
 							    	<div class="form-group">
-							    		<label for="mod_sms_pass">Contraseña</label>
+							    		<label for="mod_sms_pass">ContraseÃ±a</label>
 							    	    <input type="text" class="form-control" id="mod_sms_pass" name="mod_sms_pass" value="<?php echo $config['mod_sms_pass']; ?>">
 							    	</div>
 							    	
 							    </div>
 							    
-							    <!-- MÓDULO: NOTIFICACIONES -->
+							    <!-- MÃ“DULO: NOTIFICACIONES -->
 							    <div role="tabpanel" class="tab-pane" id="mod_notificaciones">
 							    	
 							    	<div class="form-group">
@@ -610,7 +610,7 @@ include('../menu.php');
 							        		<label>
 							        			<input type="checkbox" name="mod_notificaciones" value="1" <?php echo (isset($config['mod_notificaciones']) && $config['mod_notificaciones']) ? 'checked' : ''; ?>>
 							        			<strong>Notificar a los profesores con tareas pendientes</strong>
-							        			<p class="help-block">Pone en funcionamiento el envío de SMS o correo electrónico a los profesores que no hayan accedido a la aplicación hace más de 4 días o tengan tareas pendientes: más de 25 mensajes sin leer, informes de tareas o tutoría sin rellenar.</p>
+							        			<p class="help-block">Pone en funcionamiento el envÃ­o de SMS o correo electrÃ³nico a los profesores que no hayan accedido a la aplicaciÃ³n hace mÃ¡s de 4 dÃ­as o tengan tareas pendientes: mÃ¡s de 25 mensajes sin leer, informes de tareas o tutorÃ­a sin rellenar.</p>
 							        		</label>
 							        	</div>
 							        </div>
@@ -618,7 +618,7 @@ include('../menu.php');
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: FALTAS DE ASISTENCIA -->
+							    <!-- MÃ“DULO: FALTAS DE ASISTENCIA -->
 							    <div role="tabpanel" class="tab-pane" id="mod_asistencia">
 							    	
 							    	<div class="form-group">
@@ -626,17 +626,17 @@ include('../menu.php');
 								    		<label>
 								    			<input type="checkbox" id="check_asistencia" name="mod_asistencia" value="1" <?php echo (isset($config['mod_asistencia']) && $config['mod_asistencia']) ? 'checked' : ''; ?>>
 								    			<strong>Faltas de Asistencia</strong>
-								    			<p class="help-block">El módulo de Faltas gestiona las asistencia de los alumnos. Permite registrar las ausencias diarias, al modo de <em>iSeneca</em>), que luego podremos gestionar (Consultar, Justificar, crear Informes, enviar SMS, etc.) y subir finalmente a Séneca. <br>O bien podemos descargar las faltas desde Séneca para utilizar los módulos de la aplicación basados en faltas de asistencia (Informes de alumnos, Tutoría, Absentismo, etc.).</p>
+								    			<p class="help-block">El mÃ³dulo de Faltas gestiona las asistencia de los alumnos. Permite registrar las ausencias diarias, al modo de <em>iSeneca</em>), que luego podremos gestionar (Consultar, Justificar, crear Informes, enviar SMS, etc.) y subir finalmente a SÃ©neca. <br>O bien podemos descargar las faltas desde SÃ©neca para utilizar los mÃ³dulos de la aplicaciÃ³n basados en faltas de asistencia (Informes de alumnos, TutorÃ­a, Absentismo, etc.).</p>
 								    		</label>
 								    	</div>
 								    </div>
 							    	
-							    	<div class="alert alert-warning">Este módulo depende del módulo de Horarios. Si decide utilizarlo se activará el módulo de Horarios automáticamente.</div>
+							    	<div class="alert alert-warning">Este mÃ³dulo depende del mÃ³dulo de Horarios. Si decide utilizarlo se activarÃ¡ el mÃ³dulo de Horarios automÃ¡ticamente.</div>
 							    	
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: HORARIOS -->
+							    <!-- MÃ“DULO: HORARIOS -->
 							    <div role="tabpanel" class="tab-pane" id="mod_horarios">
 							    	
 							    	<div class="form-group">
@@ -644,7 +644,7 @@ include('../menu.php');
 								    		<label>
 								    			<input type="checkbox" id="check_horarios" name="mod_horarios" value="1" <?php echo (isset($config['mod_horarios']) && $config['mod_horarios']) ? 'checked' : ''; ?>>
 								    			<strong>Horarios</strong>
-								    			<p class="help-block">Si disponemos de un archivo de Horario en formato XML (como el que se utiliza para subir a Séneca) o DEL (como el que genera el programa Horw) para importar sus datos a la Intranet. Aunque no obligatoria, esta opción es necesaria si queremos hacernos una idea de todo lo que la aplicación puede ofrecer.</p>
+								    			<p class="help-block">Si disponemos de un archivo de Horario en formato XML (como el que se utiliza para subir a SÃ©neca) o DEL (como el que genera el programa Horw) para importar sus datos a la Intranet. Aunque no obligatoria, esta opciÃ³n es necesaria si queremos hacernos una idea de todo lo que la aplicaciÃ³n puede ofrecer.</p>
 								    		</label>
 								    	</div>
 								    </div>
@@ -652,7 +652,7 @@ include('../menu.php');
 							    </div>
 
 
-							    <!-- MÓDULO: AULA DE CONVIVENCIA -->
+							    <!-- MÃ“DULO: AULA DE CONVIVENCIA -->
 							    <div role="tabpanel" class="tab-pane" id="mod_convivencia">
 							    	
 							    	<div class="form-group">
@@ -660,7 +660,7 @@ include('../menu.php');
 								    		<label>
 								    			<input type="checkbox" id="check_convivencia" name="mod_convivencia" value="1" <?php echo (isset($config['mod_convivencia']) && $config['mod_convivencia']) ? 'checked' : ''; ?>>
 								    			<strong>Aula de Convivencia</strong>
-								    			<p class="help-block">Si el Centro dispone de un <em>Aula de Convivencia</em> donde son enviados los alumnos cuando un profesor los expulsa de clase, o bien donde realizan sus tareas los alumnos con determinados problemas de conducta que han sido seleccionados por la Jefatura de Estudios. Este módulo supone que em módulo de horarios ha sido marcao y los datos del horario del Centro se han incorporado a la aplicación</p>
+								    			<p class="help-block">Si el Centro dispone de un <em>Aula de Convivencia</em> donde son enviados los alumnos cuando un profesor los expulsa de clase, o bien donde realizan sus tareas los alumnos con determinados problemas de conducta que han sido seleccionados por la Jefatura de Estudios. Este mÃ³dulo supone que em mÃ³dulo de horarios ha sido marcao y los datos del horario del Centro se han incorporado a la aplicaciÃ³n</p>
 								    		</label>
 								    	</div>
 								    </div>
@@ -668,15 +668,15 @@ include('../menu.php');
 							    </div>
 							    
 							    
-							    <!-- MÓDULO: MATRICULACIÓN -->
+							    <!-- MÃ“DULO: MATRICULACIÃ“N -->
 							    <div role="tabpanel" class="tab-pane" id="mod_matriculacion">
 							    	
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
 								    			<input type="checkbox" name="mod_matriculacion" value="1" <?php echo (isset($config['mod_matriculacion']) && $config['mod_matriculacion']) ? 'checked' : ''; ?>>
-								    			<strong>Matriculación</strong>
-								    			<p class="help-block">Este módulo permite matricular a los alumnos desde la propia aplicación o bien desde la página pública del Centro incluyendo el código correspondiente. Requiere que cada Centro personalice las materias y optativas que va a ofrecer a sus Alumnos.</p>
+								    			<strong>MatriculaciÃ³n</strong>
+								    			<p class="help-block">Este mÃ³dulo permite matricular a los alumnos desde la propia aplicaciÃ³n o bien desde la pÃ¡gina pÃºblica del Centro incluyendo el cÃ³digo correspondiente. Requiere que cada Centro personalice las materias y optativas que va a ofrecer a sus Alumnos.</p>
 								    		</label>
 								    	</div>
 								    </div>
@@ -686,7 +686,7 @@ include('../menu.php');
 								    		<label>
 								    			<input type="checkbox" name="mod_transporte_escolar" value="1" <?php echo (isset($config['mod_transporte_escolar']) && $config['mod_transporte_escolar']) ? 'checked' : ''; ?>>
 								    			<strong>Transporte escolar</strong>
-								    			<p class="help-block">Activa la selección de transporte escolar</p>
+								    			<p class="help-block">Activa la selecciÃ³n de transporte escolar</p>
 								    		</label>
 								    	</div>
 								    </div>

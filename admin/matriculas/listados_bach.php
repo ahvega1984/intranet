@@ -7,7 +7,7 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -59,7 +59,7 @@ for ($i = 3; $i < 13; $i++) {
 	$opt = '
 	
 	Optativas:
-	Opt.1 = Alemán 2º Idioma; Opt.2 = Francés 2º Idioma; Opt.3 = T.I.C.; Opt.4 = Ciencias de la Tierra y Medioambientales; Opt.5 = Historia de la Música y la Danza; Opt.6 = Literatura Universal; Opt.7 = Educación Física; Opt.8 = Estadística; Opt.9 = Introducción a las Ciencias de la Salud; Opt.10 = Inglés 2º Idioma;
+	Opt.1 = AlemÃ¡n 2Âº Idioma; Opt.2 = FrancÃ©s 2Âº Idioma; Opt.3 = T.I.C.; Opt.4 = Ciencias de la Tierra y Medioambientales; Opt.5 = Historia de la MÃºsica y la Danza; Opt.6 = Literatura Universal; Opt.7 = EducaciÃ³n FÃ­sica; Opt.8 = EstadÃ­stica; Opt.9 = IntroducciÃ³n a las Ciencias de la Salud; Opt.10 = InglÃ©s 2Âº Idioma;
 	';
 	$optas = str_replace("21","",$datatmp[2]);
 	$optas = str_replace("22","",$optas);
@@ -81,7 +81,7 @@ for ($i = 3; $i < 13; $i++) {
 				'c13'=>$datatmp[12],
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>'Rel.',
 				'c2'=>'It2',
@@ -113,7 +113,7 @@ if ($curso=="1BACH") {
 				'c3'=>$optas,
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>'Rel.',
 				'c2'=>'It1',

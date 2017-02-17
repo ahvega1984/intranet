@@ -64,7 +64,7 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 							<tr>
 								<?php if ($rows < 1): ?>
 								<th <?php echo ($num_results2 > 1) ? 'rowspan="'.$num_results2.'"' : ''; ?> nowrap>
-									<span class="text-info"><?php echo $row['hora'] == 'R' ? 'Recreo' : $row['hora'].'ª hora'; ?></span><br>
+									<span class="text-info"><?php echo $row['hora'] == 'R' ? 'Recreo' : $row['hora'].'Âª hora'; ?></span><br>
 									<small class="text-muted"><?php echo $row['hora_inicio'].' - '.$row['hora_fin']; ?></small></th>
 								</th>
 								<?php $rows++; ?>
@@ -73,13 +73,13 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 								<td><?php echo nomprofesor($row2['profe_aula']); ?></td>
 								<td><?php echo $row2['a_grupo']; ?></td>
 								<td><?php echo $row2['n_aula']; ?></td>
-								<td><?php if ($row2['turno'] == 1) echo 'Hora completa'; elseif ($row2['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
+								<td><?php if ($row2['turno'] == 1) echo 'Hora completa'; elseif ($row2['turno'] == 2) echo '1Âª media hora'; else echo '2Âª media hora'; ?></td>
 							</tr>
 							<?php endwhile; ?>
 							<?php else: ?>
 							<tr>
 								<th nowrap>
-									<span class="text-info"><?php echo $row['hora'] == 'R' ? 'Recreo' : $row['hora'].'ª hora'; ?></span><br>
+									<span class="text-info"><?php echo $row['hora'] == 'R' ? 'Recreo' : $row['hora'].'Âª hora'; ?></span><br>
 									<small class="text-muted"><?php echo $row['hora_inicio'].' - '.$row['hora_fin']; ?></small></th>
 								<td></td>
 								<td></td>

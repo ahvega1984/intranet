@@ -40,7 +40,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 	<table class="table table-bordered table-striped table-hover">
 		<thead>
 			<tr>
-				<th>Expulsión</th>
+				<th>ExpulsiÃ³n</th>
 				<th>Inicio</th>
 				<th>Final</th>
 				<th>Conducta contraria</th>
@@ -49,7 +49,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 		<tbody>
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
-				<td><?php echo ($row['expulsion'] > '1') ? 'Expulsión del centro' : 'Aula de convivencia'; ?></td>
+				<td><?php echo ($row['expulsion'] > '1') ? 'ExpulsiÃ³n del centro' : 'Aula de convivencia'; ?></td>
 				<td><?php echo ($row['expulsion'] > '1') ? cambia_fecha($row['inicio']) : cambia_fecha($row['inicio_aula']); ?></td>
 				<td><?php echo ($row['expulsion'] > '1') ? cambia_fecha($row['fin']) : cambia_fecha($row['fin_aula']); ?></td>
 				<td><?php echo $row['asunto']; ?></td>

@@ -36,8 +36,8 @@ $n_cur=$dalumno[7];
 if (empty($dalumno[0])) {
 echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo.<br /><br /
+			<h5>ATENCIÃ“N:</h5>
+Debes seleccionar un alumno en primer lugar.<br>Vuelve atrÃ¡s e intÃ©ntalo de nuevo.<br /><br /
 ><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
 	exit();	
@@ -45,7 +45,7 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 $claveal=trim($dalumno[0]);
 echo "<table align=center class='table table-striped'>";
 echo "<thead><tr  class='active'><th>Alumno/a </th>
- <th>Grupo</th><th nowrap>Expulsión</th><th>Duración</th><tr></thead><tbody>
+ <th>Grupo</th><th nowrap>ExpulsiÃ³n</th><th>DuraciÃ³n</th><tr></thead><tbody>
 <TR><td>$dalumno[1], $dalumno[2]</td>
 <td>$dalumno[3]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
 

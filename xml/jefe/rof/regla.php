@@ -5,8 +5,8 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
 
-$titulo = "A馻dir nueva regla";
-$boton = "A馻dir regla";
+$titulo = "A帽adir nueva regla";
+$boton = "A帽adir regla";
 
 // COMPROBAMOS SI SE MODIFICA UNA REGLA
 if(isset($_GET['id'])) {
@@ -15,7 +15,7 @@ if(isset($_GET['id'])) {
 	}
 	else {
 	
-		$titulo = "Modificaci髇 de regla";
+		$titulo = "Modificaci贸n de regla";
 		$boton = "Actualizar";
 		$id = $_GET['id'];
 	}
@@ -52,7 +52,7 @@ include("../../../menu.php");
 <div class="container">
 	
 	<div class="page-header">
-	  <h2>ROF <small>A馻dir nueva regla</small></h2>
+	  <h2>ROF <small>A帽adir nueva regla</small></h2>
 	</div>
 	
 	
@@ -86,15 +86,15 @@ include("../../../menu.php");
 					echo '  <label for="medida">Medida</label>';
 					echo '  <select class="form-control" name="medida" required>';
 					
-					if($fechoria[1]=="Amonestaci髇 oral") $selected1="selected";
-					if($fechoria[1]=="Amonestaci髇 oral. Llamada telef髇ica.") $selected2="selected";
-					if($fechoria[1]=="Amonestaci髇 escrita") $selected3="selected";
-					if($fechoria[1]=="Llamada telef髇ica. Comunicaci髇 escrita") $selected4="selected";
+					if($fechoria[1]=="Amonestaci贸n oral") $selected1="selected";
+					if($fechoria[1]=="Amonestaci贸n oral. Llamada telef贸nica.") $selected2="selected";
+					if($fechoria[1]=="Amonestaci贸n escrita") $selected3="selected";
+					if($fechoria[1]=="Llamada telef贸nica. Comunicaci贸n escrita") $selected4="selected";
 					
-					echo '    <option '.$selected1.'>Amonestaci髇 oral</option>';
-					echo '    <option '.$selected2.'>Amonestaci髇 oral. Llamada telef髇ica.</option>';
-					echo '    <option '.$selected3.'>Amonestaci髇 escrita</option>';
-					echo '    <option '.$selected4.'>Llamada telef髇ica. Comunicaci髇 escrita</option>';
+					echo '    <option '.$selected1.'>Amonestaci贸n oral</option>';
+					echo '    <option '.$selected2.'>Amonestaci贸n oral. Llamada telef贸nica.</option>';
+					echo '    <option '.$selected3.'>Amonestaci贸n escrita</option>';
+					echo '    <option '.$selected4.'>Llamada telef贸nica. Comunicaci贸n escrita</option>';
 					echo '  </select>';
 					echo '  <br><br>';
 					echo '  <label for="medida2">Medida complementaria</label>';

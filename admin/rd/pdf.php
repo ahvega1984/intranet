@@ -50,7 +50,7 @@ if ($result) {
 			$html .= '<div style="page-break-before: always;"></div>';
 		}
 		
-		$html .= mb_convert_encoding($row['contenido'], 'UTF-8', 'ISO-8859-1');
+		$html .= mb_convert_encoding($row['contenido'], 'UTF-8', 'UTF-8');
 	}
 	
 	$html .= '</body></html>';

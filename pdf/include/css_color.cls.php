@@ -3,7 +3,7 @@
  * @package dompdf
  * @link    http://dompdf.github.com/
  * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @author  Fabien MÃ©nager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
@@ -193,7 +193,7 @@ class CSS_Color {
       return $cache[$color] = self::getArray(mb_substr($color, 1, 6));
     }
     
-    // rgb( r,g,b ) / rgbaa( r,g,b,α ) format
+    // rgb( r,g,b ) / rgbaa( r,g,b,Î± ) format
     else if ( mb_strpos($color, "rgb") !== false ) {
       $i = mb_strpos($color, "(");
       $j = mb_strpos($color, ")");

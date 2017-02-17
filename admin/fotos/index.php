@@ -9,7 +9,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Fotografías <small>Alumnado</small></h2>
+		<h2>FotografÃ­as <small>Alumnado</small></h2>
 	</div>
 	
 	

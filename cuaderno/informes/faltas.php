@@ -16,7 +16,7 @@
              {
 echo "<h4 class='text-info'>Faltas de Asistencia en el Curso</h4>";
 echo "<h5>
-		Días con Faltas de Asistencia</h5>";
+		DÃ­as con Faltas de Asistencia</h5>";
 		do {
   	if($rowt[5]=="")
 		$rowt[5]="0";
@@ -54,7 +54,7 @@ $numdias=mysqli_num_rows($resultf);
         else{
 			echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 El Alumno no tiene Faltas en tu Asignatura.
 </div></div>';
         }

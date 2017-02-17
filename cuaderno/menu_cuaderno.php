@@ -85,9 +85,9 @@ function enviar(){
 				$col_pondera="";
 				$n_col = $colum1[2];
 				$id = $colum1[0];
-				if (strstr($colum1[1],"Ponderación")==TRUE) {
+				if (strstr($colum1[1],"PonderaciÃ³n")==TRUE) {
 					$col_pondera=1;
-					$nombre = "Ponderación ($n_col)";
+					$nombre = "PonderaciÃ³n ($n_col)";
 				}
 				else{
 					$nombre = $colum1[1];
@@ -99,7 +99,7 @@ function enviar(){
 				$pond= $pon0[0];
 				$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$n_col&nom_asig=$nom_asig&asignatura=$asignatura";
 
-				$colum1[4] ? $icon_eye = '<i class="fa fa-eye" data-bs="tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" data-bs="tooltip" title="Columna oculta en la página pública del Centro"></i>';
+				$colum1[4] ? $icon_eye = '<i class="fa fa-eye" data-bs="tooltip" title="Columna visible en la pÃ¡gina pÃºblica del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" data-bs="tooltip" title="Columna oculta en la pÃ¡gina pÃºblica del Centro"></i>';
 				$colum1[3] ? $icon_lock = '<i class="fa fa-lock" data-bs="tooltip" title="Columna oculta en el Cuaderno"></i>' : $icon_lock  = '';
 
 				echo "<tr><td nowrap style='vertical-align:middle;'>";
@@ -115,7 +115,7 @@ function enviar(){
 		else{
 			echo "<a href='$mens0'>$nombre</a>";
 		}
-		if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' data-bs='tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
+		if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' data-bs='tooltip' title='PonderaciÃ³n de la columna'> ($pond)</span>"; }
 		echo "</td></tr>";
 			}
 			echo "</table>";
@@ -138,7 +138,7 @@ function enviar(){
 	echo '<input name=nom_asig type=hidden value="';
 	echo $nom_asig;
 	echo '" />';
-	// Día.
+	// DÃ­a.
 	echo '<input name=dia type=hidden value="';
 	echo $dia;
 	echo '" />';

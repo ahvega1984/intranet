@@ -143,7 +143,7 @@ else
 <div class="well well-large">
 
 <legend>Faltas de un grupo</legend>
-<p class="help-block">( Faltas justificadas o no justificadas de un grupo en un mes con posibilidad de elegir un número mínimo de faltas. )</p> 
+<p class="help-block">( Faltas justificadas o no justificadas de un grupo en un mes con posibilidad de elegir un nÃºmero mÃ­nimo de faltas. )</p> 
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 
 <fieldset>
@@ -201,7 +201,7 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 <div class="well well-large">
 
 <legend>Faltas de un Grupo en una fecha</legend>
-<p class="help-block">( Faltas justificadas o no justificadas de todos los alumnos de un Grupo en un día concreto del Curso.)</p> 
+<p class="help-block">( Faltas justificadas o no justificadas de todos los alumnos de un Grupo en un dÃ­a concreto del Curso.)</p> 
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 
 <fieldset>
@@ -312,14 +312,14 @@ if (isset($_POST['profe'])) {
 
 <fieldset>
 
-<legend> Faltas y días sin justificar</legend>
+<legend> Faltas y dÃ­as sin justificar</legend>
 
 <p class="help-block">( Alumnos que
-tienen un número mínimo de faltas entre el rango de fechas
+tienen un nÃºmero mÃ­nimo de faltas entre el rango de fechas
 seleccionadas. )</p> 
 
 <div class="form-group col-md-6">
-<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
+<label class="control-label" for='numero'> NÃºmero mÃ­nimo de Faltas</label> 
 <INPUT
 	name="numero" type="text" id="numero" class="form-control"
 	maxlength="3" value="1">

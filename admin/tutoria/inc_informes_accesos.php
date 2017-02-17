@@ -20,7 +20,7 @@
 					<thead>
 						<tr>
 							<th>Alumno/a</th>
-							<th>Accesos (Último)</th>
+							<th>Accesos (Ãšltimo)</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -6,18 +6,18 @@ $tuto = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'
 $tut = mysqli_fetch_array($tuto);
 $tutor = $tut[0];
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'2') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor) {
-echo "<h3>Intervenciones de tutoría</h3>";
+echo "<h3>Intervenciones de tutorÃ­a</h3>";
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8')) {$prohibido="";}else{$prohibido=" and prohibido = '0'";}
 $alumno=mysqli_query($db_con, "select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria where tutoria.claveal = '$claveal' $prohibido");
 
 if (mysqli_num_rows($alumno) < 1)
 { 
-echo '<h3 class="text-muted">El alumno/a no tiene intervenciones de tutoría</h3>
+echo '<h3 class="text-muted">El alumno/a no tiene intervenciones de tutorÃ­a</h3>
 <br>';
 }
 else 
 {
-echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1")."</h4><br />";
+echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "UTF-8")."</h4><br />";
 
   
 echo "<div class=\"table-responsive\"><table class='table table-bordered table-striped table-hover'>\n";  	

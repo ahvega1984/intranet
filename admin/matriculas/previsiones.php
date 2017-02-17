@@ -9,7 +9,7 @@ include("menu.php");
 
 <div class="container"><!-- TITULO DE LA PAGINA -->
 <div class="page-header">
-<h2>Matriculación de alumnos <small> Previsiones de Matrícula</small></h2>
+<h2>MatriculaciÃ³n de alumnos <small> Previsiones de MatrÃ­cula</small></h2>
 </div>
 
 
@@ -35,7 +35,7 @@ elseif(mysqli_num_rows($n1)>0){$n_eval = "notas1";}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÃƒÂ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde SÃ©neca (AdministraciÃ³n de la Intranet --> Importar Calificaciones) para que este mÃ³dulo funcione.
           </div></div>';
 	exit();
 }
@@ -60,7 +60,7 @@ else{
 		if ($todos < '1') {
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÃ“Â“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde SÃ©neca (AdministracciÃ³n --> Importar Calificaciones) para que este mÃ³dulo funcione.
           </div></div>';
 		}
 		while($row1 = mysqli_fetch_array($result1)){
@@ -87,7 +87,7 @@ else{
 				$asig = mysqli_query($db_con, $nombreasig);
 				$cali = mysqli_fetch_row($asig);
 
-				// Borramos de la tabla la Libre Disposición de ESO
+				// Borramos de la tabla la Libre DisposiciÃ³n de ESO
 
 				$lbd = mysqli_query($db_con,"select nombre from asignaturas where codigo = '$bloque[0]'");
 				$libre_disp = mysqli_fetch_array($lbd);
@@ -168,11 +168,11 @@ VALUES (
 			?>
 			<thead>
 				<th>Suspensos</th>
-				<th>Nº Alumnos</th>
+				<th>NÂº Alumnos</th>
 			</thead>
 			<tbody>
 				<tr>
-					<th>Más de 4</th>
+					<th>MÃ¡s de 4</th>
 					<td style='text-align: right'><?php echo $mas_cuatro;?></td>
 				</tr>
 				<th>4</th>

@@ -18,7 +18,7 @@ $result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. "
 mysqli_close($db_con);
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Atención:</strong>
+            <strong>AtenciÃ³n:</strong>
 			El problema de convivencia ha sido borrado de la base de datos.
           </div></div>';
 ?>

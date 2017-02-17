@@ -21,7 +21,7 @@
 			  `orden` varchar(4) CHARACTER SET latin1 DEFAULT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
 			
-				// Claveal primaria e índice
+				// Claveal primaria e Ã­ndice
 				mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");
 				mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD INDEX (  `CODIGO` )");
 			
@@ -33,7 +33,7 @@
 						if ($file != "." && $file != ".." && $file != "index.php" ) {
 							//echo $file."<br />";
 							$num+=1;
-							$doc = new DOMDocument('1.0', 'iso-8859-1');
+							$doc = new DOMDocument('1.0', 'UTF-8');
 			
 							/*Cargo el XML*/
 							$doc->load( '../exporta/'.$file );
@@ -78,7 +78,7 @@
 			
 								//
 								if ($num=="3") {
-									///*Obtengo el nodo Calificación del XML
+									///*Obtengo el nodo CalificaciÃ³n del XML
 									//a traves del metodo getElementsByTagName,
 									//este nos entregara una lista de todos los
 									//nodos encontrados */
@@ -115,11 +115,11 @@
 				else{
 					echo '<div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			No se han colocado los ficheros de Evaluación de Séneca en el directorio exporta/.<br> Descárgalos de Séneca y colócalos allí antes de continuar.
+						<h5>ATENCIÃ“N:</h5>
+			No se han colocado los ficheros de EvaluaciÃ³n de SÃ©neca en el directorio exporta/.<br> DescÃ¡rgalos de SÃ©neca y colÃ³calos allÃ­ antes de continuar.
 			</div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 			</div>';
 					exit();
 				}
@@ -127,7 +127,7 @@
 				//Tabla calificaciones
 				mysqli_query($db_con, "insert into calificaciones select distinct codigo, nombre, abreviatura, orden from calificaciones_temp");
 			
-				//Creamos tabla materias y arreglamos problema de codificación.
+				//Creamos tabla materias y arreglamos problema de codificaciÃ³n.
 			
 				mysqli_query($db_con, "create table materias select * from materias_temp");
 				mysqli_query($db_con, "ALTER TABLE  `materias` ADD INDEX ( `CODIGO` )");
@@ -146,19 +146,19 @@
 				mysqli_query($db_con, "drop table materias_temp");
 				mysqli_query($db_con, "drop table calificaciones_temp");
 			
-				// Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
+				// Depuramos los cÃ³digos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
 				$crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO" ;
 				mysqli_query($db_con, $crear) or die('<div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
+						<h5>ATENCIÃ“N:</h5>
 			No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
 			</div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 			</div>'); 
 			
-				// Añadimos excepciones
-				mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TCA', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '4º de E.S.O.'), ('386', 'Tutoría Programa Diversificación Curricular (Orientador/a)', 'TUDIV', '1º de F.P.B. (Informática y Comunicaciones)'), ('386', 'Tutoría Programa Diversificación Curricular (Orientador/a)', 'TUDIV', '2º de F.P.B. (Informática y Comunicaciones)'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '4º de E.S.O.')");
+				// AÃ±adimos excepciones
+				mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'TutorÃ­a con Alumnos', 'TCA', '1Âº de E.S.O.'), ('2', 'TutorÃ­a con Alumnos', 'TCA', '2Âº de E.S.O.'), ('2', 'TutorÃ­a con Alumnos', 'TCA', '3Âº de E.S.O.'), ('2', 'TutorÃ­a con Alumnos', 'TCA', '4Âº de E.S.O.'), ('386', 'TutorÃ­a Programa DiversificaciÃ³n Curricular (Orientador/a)', 'TUDIV', '1Âº de F.P.B. (InformÃ¡tica y Comunicaciones)'), ('386', 'TutorÃ­a Programa DiversificaciÃ³n Curricular (Orientador/a)', 'TUDIV', '2Âº de F.P.B. (InformÃ¡tica y Comunicaciones)'), ('21', 'Refuerzo PedagÃ³gico', 'REF', '1Âº de E.S.O.'), ('21', 'Refuerzo PedagÃ³gico', 'REF', '2Âº de E.S.O.'), ('21', 'Refuerzo PedagÃ³gico', 'REF', '4Âº de E.S.O.')");
 			
 				echo '<br />
 				<div class="alert alert-success alert-block fade in">

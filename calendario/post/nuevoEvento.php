@@ -130,7 +130,7 @@ else {
 			}
 			else {
 				
-				// Comprobamos si el profesor ha marcado la opción de crear columna en el cuaderno
+				// Comprobamos si el profesor ha marcado la opciÃ³n de crear columna en el cuaderno
 				if ($calendario_evento != 1 && $calendario_evento != 2 && $cuaderno_evento == 1) {
 				
 					$string_unidades = "";
@@ -139,11 +139,11 @@ else {
 						$exp_unidad = explode(' => ', $unidad);
 						$string_unidades .= mysqli_real_escape_string($db_con, $exp_unidad[0]).', ';
 						
-						// Las siguientes variables sirven para obtener el código de la asignatura
+						// Las siguientes variables sirven para obtener el cÃ³digo de la asignatura
 						$unidad = mysqli_real_escape_string($db_con, $exp_unidad[0]);
 						$nomasignatura = mysqli_real_escape_string($db_con, $exp_unidad[1]); 
 
-						// Códigos diferentes en Bachillerato
+						// CÃ³digos diferentes en Bachillerato
 						$extra_unidad.="a_grupo='$unidad' or ";
 					}
 					
@@ -156,7 +156,7 @@ else {
 						${asignatura.$num_codigos}=$codasignatura[0];
 					}
 
-					// Códigos diferentes en Bachillerato 2ª parte
+					// CÃ³digos diferentes en Bachillerato 2Âª parte
 					if ($num_codigos>1) {
 						$extra_asig = " or asignatura = '$asignatura2'";
 					}
@@ -168,7 +168,7 @@ else {
 					$numcolumna = mysqli_fetch_array($result_columnas);
 					$orden = $numcolumna[0] + 1;
 					
-					$tipo="Números";
+					$tipo="NÃºmeros";
 					mysqli_query($db_con, "INSERT INTO notas_cuaderno (profesor, fecha, nombre, texto , asignatura, curso, orden, visible_nota, Tipo, color) VALUES ('".$_SESSION['profi']."', '$fechareg_evento', '$nombre_evento', '$descripcion_evento', '$asignatura1', '$string_unidades', '$orden', '0', '$tipo', '#FFFFFF')") or die (mysqli_error($db_con));
 				}
 				

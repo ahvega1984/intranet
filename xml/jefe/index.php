@@ -12,13 +12,13 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>AdministraciÛn <small>ActualizaciÛn de alumnos</small></h2>
+		<h2>Administraci√≥n <small>Actualizaci√≥n de alumnos</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM alma LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe informaciÛn en la base de datos. Este proceso actualizar· la informaciÛn de los alumnos y asignaturas matriculadas. Es recomendable realizar una <a class="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.
+		Ya existe informaci√≥n en la base de datos. Este proceso actualizar√° la informaci√≥n de los alumnos y asignaturas matriculadas. Es recomendable realizar una <a class="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -33,7 +33,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="alma.php">
 					<fieldset>
-						<legend>ActualizaciÛn de alumnos</legend>
+						<legend>Actualizaci√≥n de alumnos</legend>
 						
 						<div class="form-group">
 						  <label for="archivo1"><span class="text-info">RegAlum.txt</span></label>
@@ -61,15 +61,15 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>InformaciÛn sobre la importaciÛn</h3>
+			<h3>Informaci√≥n sobre la importaci√≥n</h3>
 			
-			<p>Este apartado se encarga de importar los <strong>alumnos matriculados</strong> en el centro. TambiÈn se importar·n los <strong>sistemas de calificaciones</strong> soportados por SÈneca para mostrar los resultados de las evaluaciones de cada curso.</p>
+			<p>Este apartado se encarga de importar los <strong>alumnos matriculados</strong> en el centro. Tambi√©n se importar√°n los <strong>sistemas de calificaciones</strong> soportados por S√©neca para mostrar los resultados de las evaluaciones de cada curso.</p>
 			
-			<p>El sistema importar· la <strong>relaciÛn de materias matriculadas</strong> de cada alumno.</p>
+			<p>El sistema importar√° la <strong>relaci√≥n de materias matriculadas</strong> de cada alumno.</p>
 			
-			<p>Para obtener el archivo de exportaciÛn de alumnos debe dirigirse al apartado <strong>Alumnado</strong>, <strong>Alumnado</strong>, <strong>Alumnado del centro</strong>. Muestre todos los alumnos del centro y haga clic en el botÛn <strong>Exportar datos</strong>. El formato de exportaciÛn debe ser <strong>Texto plano</strong>.</p>
+			<p>Para obtener el archivo de exportaci√≥n de alumnos debe dirigirse al apartado <strong>Alumnado</strong>, <strong>Alumnado</strong>, <strong>Alumnado del centro</strong>. Muestre todos los alumnos del centro y haga clic en el bot√≥n <strong>Exportar datos</strong>. El formato de exportaci√≥n debe ser <strong>Texto plano</strong>.</p>
 			
-			<p>Para obtener el archivo de exportaciÛn de calificaciones debe dirigirse al apartado <strong>Utilidades</strong>, <strong>ImportaciÛn/ExportaciÛn de datos</strong>. Seleccione <strong>ExportaciÛn de Calificaciones</strong>. Seleccione una convocatoria com˙n para todas las unidades y aÒada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.<p>
+			<p>Para obtener el archivo de exportaci√≥n de calificaciones debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importaci√≥n/Exportaci√≥n de datos</strong>. Seleccione <strong>Exportaci√≥n de Calificaciones</strong>. Seleccione una convocatoria com√∫n para todas las unidades y a√±ada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.<p>
 			
 		</div>
 		

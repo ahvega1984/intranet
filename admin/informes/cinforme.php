@@ -144,19 +144,19 @@ else{
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="tutoria" value="tutoria" checked> Informes de tutoría
+										<input type="checkbox" name="tutoria" value="tutoria" checked> Informes de tutorÃ­a
 									</label>
 								</div>
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="notas" value="notas" checked> Notas de evaluación
+										<input type="checkbox" name="notas" value="notas" checked> Notas de evaluaciÃ³n
 									</label>
 								</div>
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="act_tutoria" value="act_tutoria" checked> Acciones de tutoría
+										<input type="checkbox" name="act_tutoria" value="act_tutoria" checked> Acciones de tutorÃ­a
 									</label>
 								</div>
 								

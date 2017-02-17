@@ -14,11 +14,11 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 
 if($dia1=='Lunes'){$dia = "1";}
 if($dia1=='Martes'){$dia = "2";}
-if($dia1=='Miércoles'){$dia = "3";}
+if($dia1=='MiÃ©rcoles'){$dia = "3";}
 if($dia1=='Jueves'){$dia = "4";}
 if($dia1=='Viernes'){$dia = "5";}
 		
@@ -51,7 +51,7 @@ $asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig FROM horw where  d
  ${'a'.$i}=substr(${'a'.$i},0,strlen(${'a'.$i})-1);
  } 
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>$a1,
 				'c2'=>$a2,

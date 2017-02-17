@@ -24,7 +24,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'bdtruncate')) {
 }
 else {
 	
-	// Copia de la Base de datos principal para mantener registro de cursos académicos
+	// Copia de la Base de datos principal para mantener registro de cursos acadÃ©micos
 	$curso_pasado = date('Y');
 	$nombre_copia = $config['db_name'].$curso_pasado;
 	
@@ -32,7 +32,7 @@ else {
 		<div class="text-center">
 		
 			<div class="alert alert-info">
-	    	Si el servidor de base de datos es propio del centro, a principio de cada curso escolar se crea una copia de la base de datos, <strong><em>'.$config['db_name'].'</em></strong>, con el año del curso escolar añadido al final del nombre (en este caso <strong><em>'.$nombre_copia.'</em></strong>). A continuación, se vacían las tablas adecuadas, aunque se mantienen las que contienen datos persistentes. Una vez completadas estas tareas, comienza la importación de datos de alumnos.
+	    	Si el servidor de base de datos es propio del centro, a principio de cada curso escolar se crea una copia de la base de datos, <strong><em>'.$config['db_name'].'</em></strong>, con el aÃ±o del curso escolar aÃ±adido al final del nombre (en este caso <strong><em>'.$nombre_copia.'</em></strong>). A continuaciÃ³n, se vacÃ­an las tablas adecuadas, aunque se mantienen las que contienen datos persistentes. Una vez completadas estas tareas, comienza la importaciÃ³n de datos de alumnos.
 	    </div>
 	    
 	   </div>
@@ -45,16 +45,16 @@ else {
 		echo '
 			
 				<div class="alert alert-danger">
-					<h4>ATENCIÓN:</h4>
+					<h4>ATENCIÃ“N:</h4>
 					
-					Ha surgido un error al crear la nueva base de datos de forma automática. Esto se debe a que estas utilizando la Intranet en un servidor comercial y no tienes privilegios para crear una nueva base de datos. Es importante que no cierre esta página y siga los siguientes pasos para continuar:
+					Ha surgido un error al crear la nueva base de datos de forma automÃ¡tica. Esto se debe a que estas utilizando la Intranet en un servidor comercial y no tienes privilegios para crear una nueva base de datos. Es importante que no cierre esta pÃ¡gina y siga los siguientes pasos para continuar:
 					
 					<ol>
-						<li>Diríjase a la página de gestión de su alojamiento web y cree una nueva base de datos. Apunte los parámetros de conexión: <strong>servidor</strong>, <strong>usuario</strong>, <strong>contraseña</strong> y <strong>nombre de la base de datos</strong>.</li>
+						<li>DirÃ­jase a la pÃ¡gina de gestiÃ³n de su alojamiento web y cree una nueva base de datos. Apunte los parÃ¡metros de conexiÃ³n: <strong>servidor</strong>, <strong>usuario</strong>, <strong>contraseÃ±a</strong> y <strong>nombre de la base de datos</strong>.</li>
 						<li>Realice una <a href="copia_db/index.php" class="alert-link" target="_blank">copia de seguridad</a> de la base de datos actual.</li>
 						<li>Descargue la copia de seguridad que ha generado.</li>
-						<li>Importe la copia de seguridad en la nueva base de datos. Para ello, el proveedor de alojamiento web, suele ofrecer una herramienta de Administración de Bases de datos como PHPMyAdmin.</li>
-						<li>Una vez importado los datos, modifique la configuración de la base de datos en <a href="../../config/config.php" class="alert-link" target="_blank">Configuración general y módulos</a> por los nuevos parámetros.</li>
+						<li>Importe la copia de seguridad en la nueva base de datos. Para ello, el proveedor de alojamiento web, suele ofrecer una herramienta de AdministraciÃ³n de Bases de datos como PHPMyAdmin.</li>
+						<li>Una vez importado los datos, modifique la configuraciÃ³n de la base de datos en <a href="../../config/config.php" class="alert-link" target="_blank">ConfiguraciÃ³n general y mÃ³dulos</a> por los nuevos parÃ¡metros.</li>
 						<li>Haga click en <em>Continuar</em> e importe de nuevo los datos.</li>
 					</ol>
 					

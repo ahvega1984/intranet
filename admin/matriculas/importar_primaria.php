@@ -14,7 +14,7 @@ include("menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Matriculaci髇 de alumnos <small>Importaci髇 de alumnos/as de Primaria</small></h2>
+		<h2>Matriculaci贸n de alumnos <small>Importaci贸n de alumnos/as de Primaria</small></h2>
 	</div>
 	
 	
@@ -28,7 +28,7 @@ include("menu.php");
 				
 				<form method="post" enctype="multipart/form-data" action="../../xml/jefe/alma_primaria.php">
 					<fieldset>
-						<legend>Importaci髇 de alumnos/as de Primaria</legend>
+						<legend>Importaci贸n de alumnos/as de Primaria</legend>
 						
 					  
 					  <div class="form-group">
@@ -49,11 +49,11 @@ include("menu.php");
 		<!-- COLUMNA DERECHA -->
 		<div class="col-sm-6">
 			
-			<h3>Informaci髇 sobre la importaci髇 de datos</h3>
+			<h3>Informaci贸n sobre la importaci贸n de datos</h3>
 			
-			<p>Para contar con los datos de los colegios, los directores de los mismos deben proporcionar el archivo de S閚eca RegAlum.txt (lo descargamos desde S閚eca: Alumnado --> Alumnado del Centro --> Aceptar (arriba a la derecha) --> Exportar (arriba a la izquierda) --> Exportar datos al formato: Texto plano). Una vez en nuestras manos, le cambiamos el nombre por el del colegio respectivo, y comprimimos todos los archivos en formato .zip. Este es el archivo que debes seleccionar en el formulario.</p>
+			<p>Para contar con los datos de los colegios, los directores de los mismos deben proporcionar el archivo de S茅neca RegAlum.txt (lo descargamos desde S茅neca: Alumnado --> Alumnado del Centro --> Aceptar (arriba a la derecha) --> Exportar (arriba a la izquierda) --> Exportar datos al formato: Texto plano). Una vez en nuestras manos, le cambiamos el nombre por el del colegio respectivo, y comprimimos todos los archivos en formato .zip. Este es el archivo que debes seleccionar en el formulario.</p>
 			
-			<p>Hay que tener en cuenta que el m骴ulo de importaci髇 supone que el formato de las grupos de los colegios es semejante al de los institutos, por lo que se espera que el nombre sea del tipo 6P-A, 6P-B, etc. Si el colegio no sigue ese criterio, es necesario editar los archivos de S閚eca y Buscar/Reemplazar el nombre de las unidades para ajustarlo a los criterios de la Intranet antes de proceder a la importaci髇. Tambi閚 se les puede pedir a los Colegios que normalicen el nombre de los grupos a largo plazo con el nuevo sistema de nombres, considerando los beneficios que derivan del proceso de matriculaci髇 de la Intranet.</p>
+			<p>Hay que tener en cuenta que el m贸dulo de importaci贸n supone que el formato de las grupos de los colegios es semejante al de los institutos, por lo que se espera que el nombre sea del tipo 6P-A, 6P-B, etc. Si el colegio no sigue ese criterio, es necesario editar los archivos de S茅neca y Buscar/Reemplazar el nombre de las unidades para ajustarlo a los criterios de la Intranet antes de proceder a la importaci贸n. Tambi茅n se les puede pedir a los Colegios que normalicen el nombre de los grupos a largo plazo con el nuevo sistema de nombres, considerando los beneficios que derivan del proceso de matriculaci贸n de la Intranet.</p>
 			
 		</div><!-- /.col-sm-6 -->
 		

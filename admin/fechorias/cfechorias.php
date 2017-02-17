@@ -26,13 +26,13 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Las Consultas de Problemas de Convivencia no tienen ningún campo obligatorio, pero al menos uno 
-						de los campos debe contener criterios de búsqueda. Hay campos con criterios de tiempo 
+						<p>Las Consultas de Problemas de Convivencia no tienen ningÃºn campo obligatorio, pero al menos uno 
+						de los campos debe contener criterios de bÃºsqueda. Hay campos con criterios de tiempo 
 						(<strong>Mes</strong>, <strong>Fecha</strong>); criterios relacionados con un alumno o grupo de 
 						alumnos (<strong>Unidad</strong>, <strong>Apellidos</strong>, etc.); o podemos elegir entre criterios 
 						relacionados con los <strong>Problemas de Convivencia</strong>.</p>
-						<p>Hay que tener en cuenta que los campos de búsqueda se pueden sumar: como regla general, cuanto mayor 
-						sea el número de criterios, más reducido será el resultado de la búsqueda.</p>
+						<p>Hay que tener en cuenta que los campos de bÃºsqueda se pueden sumar: como regla general, cuanto mayor 
+						sea el nÃºmero de criterios, mÃ¡s reducido serÃ¡ el resultado de la bÃºsqueda.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -54,7 +54,7 @@ include("menu.php");
 				
 				<form method="POST" action="fechorias.php">
 					<fieldset>
-						<legend>Criterios de búsqueda</legend>
+						<legend>Criterios de bÃºsqueda</legend>
 						
 						<div class="row">
 							<!-- FORMULARIO COLUMNA IZQUIERDA -->
@@ -118,8 +118,8 @@ include("menu.php");
 								<div class="form-group">
 									<label for="clase">Otros criterios</label>
 									<select class="form-control" id="clase" name="clase[]" multiple size="7">
-										<option value="Expulsion del Centro">Expulsión del centro</option>
-										<option value="Expulsion del Aula">Expulsión del aula</option>
+										<option value="Expulsion del Centro">ExpulsiÃ³n del centro</option>
+										<option value="Expulsion del Aula">ExpulsiÃ³n del aula</option>
 										<?php if ($config['mod_convivencia']==1) { ?>
 										<option value="Aula de Convivencia">Aula de convivencia: Profesor</option>
 										<option value="Aula de Convivencia Jefatura">Aula de convivencia: Jefatura</option>

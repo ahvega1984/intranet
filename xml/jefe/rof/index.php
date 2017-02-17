@@ -20,7 +20,7 @@ include("../../../menu.php");
 <div class="container">
 
 	<div class="page-header">
-	  <h2 style="display:inline">ROF <small>Administraci髇 de Reglas de Organizaci髇 y Funcionamiento</small></h2>
+	  <h2 style="display:inline">ROF <small>Administraci贸n de Reglas de Organizaci贸n y Funcionamiento</small></h2>
 	  
 	  <!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -37,21 +37,21 @@ include("../../../menu.php");
 					</div>
 					<div class="modal-body">
 						<p>El registro de Problemas de Convivencia supone que las Conductas Negativas de los 
-						alumnos han sido definidas y organizadas en categor韆s. Estas conductas, a su vez, son 
-						las que aparecen en el ROF del Centro, y se clasifican en funci髇 de la gravedad de 
-						los hechos (Leve, Grave y Muy Grave). La lista m醩 abajo presenta las Conductas Negativas 
+						alumnos han sido definidas y organizadas en categor铆as. Estas conductas, a su vez, son 
+						las que aparecen en el ROF del Centro, y se clasifican en funci贸n de la gravedad de 
+						los hechos (Leve, Grave y Muy Grave). La lista m谩s abajo presenta las Conductas Negativas 
 						o Problemas de Convivencia de nuestro Centro, y por eso debe ser adaptada al Centro en 
-						el que se instala la Intranet. La edici髇, modificaci髇 y eliminaci髇 de las Conductas 
+						el que se instala la Intranet. La edici贸n, modificaci贸n y eliminaci贸n de las Conductas 
 						contra las normas del Centro es fundamental para que los profesores puedan registrar 
 						los Problema de Convivencia en el marco del reglamento propio de cada I.E.S.</p>
 						
-						<p>La edici髇 de una regla o la creaci髇 de una nueva nos presenta un formulario con 
+						<p>La edici贸n de una regla o la creaci贸n de una nueva nos presenta un formulario con 
 						cuatro campos. El <strong>Asunto</strong> debe contener el enunciado conciso y preciso 
 						de la Conducta Negativa del alumno o alumnos. El campo <strong>Medida</strong> indica 
-						la acci髇 emprendida por el profesor o Jefe de Estudios en relaci髇 a la Conducta. La 
+						la acci贸n emprendida por el profesor o Jefe de Estudios en relaci贸n a la Conducta. La 
 						<strong>Medida Complementaria</strong> precisa el contenido de la <strong>Medida</strong> 
 						que debe ser tomada con el alumno. La <strong>Gravedad</strong> clasifica la Conducta 
-						dentro de tres categor韆s: <em>Leve, Grave y Muy Grave</em>.</p>
+						dentro de tres categor铆as: <em>Leve, Grave y Muy Grave</em>.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -70,7 +70,7 @@ include("../../../menu.php");
 		  if($msg) {
 		   echo "<div class=\"alert alert-success\">\n";
 		   if($msg=="update") $msg = "La regla ha sido modificada";
-		   if($msg=="insert") $msg = "La regla ha sido a馻dida";
+		   if($msg=="insert") $msg = "La regla ha sido a帽adida";
 		   echo "  $msg.";
 		   echo "</div>\n";
 		  }

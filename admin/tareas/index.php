@@ -12,7 +12,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
+  <h2>Informes de Tareas <small> ExpulsiÃ³n o ausencia del Alumno</small></h2>
 </div>
 <br>
 
@@ -28,7 +28,7 @@ $resultcurso = mysqli_query($db_con, $SQLcurso);
 	$unidad = $rowcurso[0];
 	$asignatura = $rowcurso[1];
 	
-// Problema con asignaturas comunes de Bachillerato con distinto código
+// Problema con asignaturas comunes de Bachillerato con distinto cÃ³digo
 	if(strlen($rowcurs[2])>15){
 		$rowcurs[2] = substr($rowcurs[2],0,15);
 	}
@@ -55,7 +55,7 @@ $resultcurso = mysqli_query($db_con, $SQLcurso);
 
 	if($c_asig2){
 	$hoy=date('Y-m-d');
-// Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
+// Buscamos los alumnos de esos grupos que tienen informes de TutorÃ­a activos y ademÃ¡s tienen esa asignatura en su el campo combasi	
 	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and  date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
 	//echo "$query<br>";
 	$result = mysqli_query($db_con, $query);

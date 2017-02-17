@@ -20,7 +20,7 @@ $id="";
 <div class="container">
 
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Informe de un alumno</small></h2>
+  <h2>Informes de TutorÃ­a <small> Informe de un alumno</small></h2>
 </div>
 
 
@@ -49,8 +49,8 @@ if (empty($dalumno[0])) {
 fade in">
             <button type="button" class="close" 
 data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de 
+			<legend>ATENCIÃ“N:</legend>
+Debes seleccionar un alumno en primer lugar.<br>Vuelve atrÃ¡s e intÃ©ntalo de 
 nuevo<br><br /><input type="button" onClick="history.back(1)" value="Volver" 
 class="btn btn-danger">
 </div></div><hr>';
@@ -74,7 +74,7 @@ echo '
     <h4 class="text-warning">Fecha de visita: '.strftime('%e de %B de 
 %Y',strtotime($dalumno[5])).'</h4>
     <h4 class="text-info">Tutor/a: '.mb_convert_case($dalumno[4], 
-MB_CASE_TITLE, "iso-8859-1").'</h4>
+MB_CASE_TITLE, "UTF-8").'</h4>
   </div>
 </div>
 <br>';
@@ -157,7 +157,7 @@ else{
 //echo "$pend2[0] ==> $dep2[0]<br>";
 	echo "<tr><td style='width:15%;'><strong>$nombre_asig[0] ($nombre_asig[1])</strong></td>
 		<td style='width:20%;'>Asignatura Pendiente sin contiuidad.</td>
-		  <td> Solicitar información al jefe de Departamento.</td></tr>";
+		  <td> Solicitar informaciÃ³n al jefe de Departamento.</td></tr>";
 }
 }
 
@@ -176,8 +176,8 @@ else
 alert-block fade in">
             <button type="button" class="close" 
 data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Los Profesores no han rellenado aún su Informe.<br />
+			<h5>ATENCIÃ“N:</h5>
+Los Profesores no han rellenado aÃºn su Informe.<br />
 <input name="volver" type="button" onClick="history.go(-1)" value="Volver" 
 class="btn btn-danger">
 </div></div><hr>';

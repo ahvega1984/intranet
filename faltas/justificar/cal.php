@@ -11,7 +11,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Lun','Mar','Mie','Jue','Vie','Sáb','Dom');
+$alldays = array('Lun','Mar','Mie','Jue','Vie','SÃ¡b','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
 include("nombres.php");
@@ -52,7 +52,7 @@ echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h4 align='center'>" 
 echo "</tr><tr>";
 
 
-//Nombre de Días
+//Nombre de DÃ­as
 foreach($alldays as $value) {
 	echo "<th  style='background-color:#eee'>
 	$value</th>";
@@ -60,14 +60,14 @@ foreach($alldays as $value) {
 echo "</tr><tr>";
 
 
-//Días vacíos
+//DÃ­as vacÃ­os
 if ($dayone < 0) $dayone = 6;
 for ($i = 0; $i < $dayone; $i++) {
 	echo "<td>&nbsp;</td>";
 }
 
 
-//Días
+//DÃ­as
 
 for ($zz = 1; $zz <= $numdays; $zz++) {
 
@@ -75,7 +75,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 
 	if ($result_found != 1) {
 
-		//Buscar falta en el día y marcarla
+		//Buscar falta en el dÃ­a y marcarla
 
 		$sql_currentday = "$year-$month-$zz";
 		// echo $sql_currentday;
@@ -127,17 +127,17 @@ las Horas para Justificar: <span class='text-success'> <?php echo "$zz-$month-$y
 	name="marcar_falta<?php echo "_".$zz;?>" style="display: inline">&nbsp;&nbsp;
 <div class="checkbox" style="display: inline; align: center;"><label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"1")==TRUE){ echo "checked"; }?>
-	name="1<?php echo "_".$zz;?>" value="1">1ª</label> <label
+	name="1<?php echo "_".$zz;?>" value="1">1Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"2")==TRUE){ echo "checked"; }?>
-	name="2<?php echo "_".$zz;?>" value="2">2ª</label> <label
+	name="2<?php echo "_".$zz;?>" value="2">2Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"3")==TRUE){ echo "checked"; }?>
-	name="3<?php echo "_".$zz;?>" value="3">3ª</label> <label
+	name="3<?php echo "_".$zz;?>" value="3">3Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"4")==TRUE){ echo "checked"; }?>
-	name="4<?php echo "_".$zz;?>" value="4">4ª</label> <label
+	name="4<?php echo "_".$zz;?>" value="4">4Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"5")==TRUE){ echo "checked"; }?>
-	name="5<?php echo "_".$zz;?>" value="5">5ª</label> <label
+	name="5<?php echo "_".$zz;?>" value="5">5Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"6")==TRUE){ echo "checked"; }?>
-	name="6<?php echo "_".$zz;?>" value="6">6ª</label></div>
+	name="6<?php echo "_".$zz;?>" value="6">6Âª</label></div>
 
 </div>
 <div class="modal-footer"><input type="hidden" name="profesor"
@@ -229,17 +229,17 @@ las Horas de la Ausencia.</h4>
 	name="marcar_falta<?php echo "_".$zz;?>" style="display: inline">&nbsp;&nbsp;
 <div class="checkbox" style="display: inline; align: center;"><label
 	class="checkbox-inline"> <input type="checkbox"
-	name="1<?php echo "_".$zz;?>" value="1">1ª</label> <label
+	name="1<?php echo "_".$zz;?>" value="1">1Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="2<?php echo "_".$zz;?>" value="2">2ª</label> <label
+	name="2<?php echo "_".$zz;?>" value="2">2Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="3<?php echo "_".$zz;?>" value="3">3ª</label> <label
+	name="3<?php echo "_".$zz;?>" value="3">3Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="4<?php echo "_".$zz;?>" value="4">4ª</label> <label
+	name="4<?php echo "_".$zz;?>" value="4">4Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="5<?php echo "_".$zz;?>" value="5">5ª</label> <label
+	name="5<?php echo "_".$zz;?>" value="5">5Âª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="6<?php echo "_".$zz;?>" value="6">6ª</label></div>
+	name="6<?php echo "_".$zz;?>" value="6">6Âª</label></div>
 
 </div>
 <div class="modal-footer"><input type="hidden" name="profesor"

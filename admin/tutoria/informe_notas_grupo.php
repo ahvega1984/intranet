@@ -12,16 +12,16 @@ include("menu.php");
 <br />
 <div align="center" style="max-width:920px;margin:auto;">
 <div class="page-header">
-  <h2>Informe de Evaluaciones por Grupo <small> Estadísticas de Calificaciones</small></h2>
+  <h2>Informe de Evaluaciones por Grupo <small> EstadÃ­sticas de Calificaciones</small></h2>
 </div>
 
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab0" data-toggle="tab">Eval. Inicial</a></li>	
-<li><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
-<li><a href="#tab2" data-toggle="tab">2ª Evaluación</a></li>
-<li><a href="#tab3" data-toggle="tab">Evaluación Ordinaria</a></li>
-<li><a href="#tab4" data-toggle="tab">Evaluación Extraordinaria</a></li>
+<li><a href="#tab1" data-toggle="tab">1Âª EvaluaciÃ³n</a></li>
+<li><a href="#tab2" data-toggle="tab">2Âª EvaluaciÃ³n</a></li>
+<li><a href="#tab3" data-toggle="tab">EvaluaciÃ³n Ordinaria</a></li>
+<li><a href="#tab4" data-toggle="tab">EvaluaciÃ³n Extraordinaria</a></li>
 </ul>
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
@@ -32,7 +32,7 @@ if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde SÃ©neca (AdministraciÃ³n de la Intranet --> Importar Calificaciones) para que este mÃ³dulo funcione.
           </div></div>';
 	exit();
 }
@@ -40,7 +40,7 @@ else{
 
 <?php
 $unidad = $_GET['unidad'];
-$titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
+$titulos = array("0"=>"Eval. Inicial","1"=>"1Âª EvaluaciÃ³n","2"=>"2Âª EvaluaciÃ³n","3"=>"EvaluaciÃ³n Ordinaria","4"=>"EvaluaciÃ³n Extraordinaria");
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
@@ -69,7 +69,7 @@ $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:920px">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
+			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){

@@ -44,13 +44,13 @@ if (mysqli_num_rows($result)) {
 	}
 	</style>
 	<div id="footer">
-	  Página <span class="page-number"></span>
+	  PÃ¡gina <span class="page-number"></span>
 	</div>'.$texto_acta;
-	$html = mb_convert_encoding($texto_acta, 'UTF-8', 'ISO-8859-1');
+	$html = mb_convert_encoding($texto_acta, 'UTF-8', 'UTF-8');
 	
 	$dompdf = new DOMPDF();
 	$dompdf->load_html($html);
 	$dompdf->render();
-	$dompdf->stream("Acta de evaluación $evaluacion - $unidad.pdf", array("Attachment" => 0));
+	$dompdf->stream("Acta de evaluaciÃ³n $evaluacion - $unidad.pdf", array("Attachment" => 0));
 }
 ?>

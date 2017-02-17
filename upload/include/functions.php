@@ -215,7 +215,7 @@ function page_header($title)
   echo "<html><head><title>$title</title>";
   echo "<link rel=\"stylesheet\" href=\"../css/bootstrap.css\" type=\"text/css\">";
   if ($charsetencoding != "")
-    echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">";
+    echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
   echo "<style type=\"text/css\"></style></head><body>";
   if (file_exists($headerpage))
     include($headerpage);        

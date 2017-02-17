@@ -59,7 +59,7 @@ echo "".$tipo20[0]."</label></div>";
 			    <div class="panel-heading">
 			      <h4 class="panel-title" align="left">
 			        <a data-toggle="collapse" data-parent="#filter" href="#avanzado">
-			          <span class="fa fa-filter"></span> B鷖queda avanzada
+			          <span class="fa fa-filter"></span> B煤squeda avanzada
 			        </a>
 			      </h4>
 			    </div>
@@ -177,8 +177,8 @@ else{
 		}
 		?>
 			<option></option>
-			<option>Ingl閟</option>
-			<option>Franc閟</option>
+			<option>Ingl茅s</option>
+			<option>Franc茅s</option>
 		</select>
 </div>
 </div>
@@ -191,9 +191,9 @@ else{
 		}
 		?>
 			<option></option>
-			<option>Alem醤</option>
-			<option>Franc閟</option>
-			<option>Alem醤</option>
+			<option>Alem谩n</option>
+			<option>Franc茅s</option>
+			<option>Alem谩n</option>
 		</select>
 		</div>
 		</div>
@@ -205,7 +205,7 @@ else{
 
 		
 <div class="col-sm-3">
-<div class="form-group"><label>Promoci髇 </label><select class="form-control"  name="promocion" >
+<div class="form-group"><label>Promoci贸n </label><select class="form-control"  name="promocion" >
 		<?php
 		if ($promocion) {
 			echo "<option>$promocion</option>";
@@ -277,7 +277,7 @@ else{
 		</div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>Religi髇</span> </label><select class="form-control"  name="religio" id="religion">
+<div class="form-group"><label>Religi贸n</span> </label><select class="form-control"  name="religio" id="religion">
 		<?php
 		if ($religio) {
 			echo "<option>$religio</option>";
@@ -285,11 +285,11 @@ else{
 		?>
 			<option></option>
 			<option>Religi&oacute;n Cat&oacute;lica</option>
-			<option>Religi髇 Isl醡ica</option>
-			<option>Religi髇 Jud韆</option>
-			<option>Religi髇 Evang閘ica</option>
-			<option>Cultura Cient韋ica</option>
-			<option value="Valores 蓆icos">Educaci髇 para la Ciudadan韆 y los Derechos Humanos</option>
+			<option>Religi贸n Isl谩mica</option>
+			<option>Religi贸n Jud铆a</option>
+			<option>Religi贸n Evang茅lica</option>
+			<option>Cultura Cient铆fica</option>
+			<option value="Valores 脡ticos">Educaci贸n para la Ciudadan铆a y los Derechos Humanos</option>
 		</select>
 		</div>
 </div>
@@ -366,7 +366,7 @@ else{
 </div>	
 <div class="row">
 <div class="col-sm-12" align=left>
-<strong>Criterio de ordenaci髇<br></strong>
+<strong>Criterio de ordenaci贸n<br></strong>
 <div class="radio">
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="promociona"> Promociona
@@ -428,6 +428,6 @@ else{
 			  </div>
 	
 			</div>
-			<input type="submit" name="consulta" value="Ver matr韈ulas" alt="Introducir" class="btn btn-primary" />
+			<input type="submit" name="consulta" value="Ver matr铆culas" alt="Introducir" class="btn btn-primary" />
 </form>
 <br />

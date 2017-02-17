@@ -35,7 +35,7 @@ function contar(form,name) {
 <div class="container">
 
 <div class="page-header">
-  <h2>SMS <small> Envío de mensajes</small></h2>
+  <h2>SMS <small> EnvÃ­o de mensajes</small></h2>
 <?php
 if(strlen($unidad)>1){
 	$t0 = mysqli_query($db_con,"select Tutor from FTUTORES where unidad='$unidad'");
@@ -63,16 +63,16 @@ if($submit0 == "Enviar SMS")
 	if(empty($causa)){
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-No has seleccionado ninguna Causa del Mensaje.<br />Vuelve atrás, selecciónala e inténtalo de nuevo.
+			<h4>ATENCIÃ“N:</h4>
+No has seleccionado ninguna Causa del Mensaje.<br />Vuelve atrÃ¡s, selecciÃ³nala e intÃ©ntalo de nuevo.
           </div></div>';
 		  exit();
 }
 if(empty($text)){
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto e inténtalo de nuevo.
+			<h4>ATENCIÃ“N:</h4>
+No has escrito ningÃºn texto para el Mensaje.<br />Vuelve atrÃ¡s, redacta el texto e intÃ©ntalo de nuevo.
           </div></div>';
 		  exit();
 }
@@ -109,7 +109,7 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	if(stristr($_SESSION['cargo'],'1') == TRUE){$tuto="Jefatura de Estudios";}else{$tuto=$profe;}
 $fecha2 = date('Y-m-d');
 $observaciones = $text;
-$accion = "Envío de SMS";
+$accion = "EnvÃ­o de SMS";
 	}
 
 	$mobile=substr($mobile,0,strlen($mobile)-1);
@@ -118,8 +118,8 @@ else
 {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>ATENCIÓN:</strong>
-No has seleccionado ningún alumno para el envío de SMS.<br />Vuelve atrás, selecciónalo e inténtalo de nuevo.
+			<strong>ATENCIÃ“N:</strong>
+No has seleccionado ningÃºn alumno para el envÃ­o de SMS.<br />Vuelve atrÃ¡s, selecciÃ³nalo e intÃ©ntalo de nuevo.
           </div></div>';
 		  exit();
 }
@@ -148,7 +148,7 @@ $extid = $n_sms[0]+1;
 		else {
 			echo "
 			<div class=\"alert alert-error\">
-				<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$num_movil.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+				<strong>Error:</strong> No se pudo enviar el SMS al telÃ©fono (+34) ".$num_movil.". Corrija la informaciÃ³n de contacto del alumno/a en SÃ©neca e importe los datos nuevamente.
 			</div>
 			<br>";
 		}
@@ -163,7 +163,7 @@ $extid = $n_sms[0]+1;
 	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
-	El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acción tutorial ha sido también registrada.
+	El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acciÃ³n tutorial ha sido tambiÃ©n registrada.
 	          </div></div>';
 	
 }
@@ -195,10 +195,10 @@ if (stristr($_SESSION['cargo'],'1') == TRUE) {
 			}
 if (!empty($tut)) {
 				
-$query0="insert into mens_texto (asunto, texto, origen, destino) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre." con el siguiente texto:<< ".$observaciones.">>','".$observaciones."','".$profe."', '$alumnos_sms')";
+$query0="insert into mens_texto (asunto, texto, origen, destino) values ('EnvÃ­o de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre." con el siguiente texto:<< ".$observaciones.">>','".$observaciones."','".$profe."', '$alumnos_sms')";
 //echo "$query0<br>";
 mysqli_query($db_con, $query0);
-$id0 = mysqli_query($db_con, "select id from mens_texto where asunto like 'Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre."%' and texto = '$observaciones' and origen = '$profe'");
+$id0 = mysqli_query($db_con, "select id from mens_texto where asunto like 'EnvÃ­o de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre."%' and texto = '$observaciones' and origen = '$profe'");
 $id1 = mysqli_fetch_array($id0);
 $id = $id1[0];
 $query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$tut."')";
@@ -243,7 +243,7 @@ else
 			<select name="causa" class="form-control">
  <?php if(stristr($_SESSION['cargo'],'8') == TRUE){?>
 		    <option><?php echo $causa; ?></option>
-		    <option>Orientación académica y profesional</option>
+		    <option>OrientaciÃ³n acadÃ©mica y profesional</option>
 		    <option>Evoluci&oacute;n acad&eacute;mica</option>
 		    <option>T&eacute;cnicas de estudio</option>
             <option>Problemas de convivencia</option>
@@ -286,7 +286,7 @@ $extid = $n_sms[0]+1;
 <div class="col-sm-4">
 <div class="well">
 <div class='form-group'>
-<label>Selección de Alumnos<?php echo "<span class='text-info'>: $unidad</span>"; ?></label>
+<label>SelecciÃ³n de Alumnos<?php echo "<span class='text-info'>: $unidad</span>"; ?></label>
         <?php
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
@@ -309,8 +309,8 @@ $extid = $n_sms[0]+1;
  else {
 	 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
+			<h4>ATENCIÃ“N:</h4>
+El mÃ³dulo de envÃ­o de SMS debe ser activado en la ConfiguraciÃ³n general de la Intranet para poder accede a estas pÃ¡ginas, y ahora mismo estÃ¡ desactivado.
           </div></div>';
  }
  

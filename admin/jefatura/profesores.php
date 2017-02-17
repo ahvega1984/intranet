@@ -26,7 +26,7 @@ $observaciones = mysqli_real_escape_string($db_con, trim($_POST['observaciones']
 $causa = mysqli_real_escape_string($db_con, $_POST['causa']);
 $accion = mysqli_real_escape_string($db_con, $_POST['accion']);
 
-// INSERCI覰
+// INSERCI脫N
 if (isset($_POST['submit1'])) {
 	
 	if (! empty($profesor) && ! empty($fecha_reg) && ! empty($observaciones) && ! empty($causa) && ! empty($accion)) {
@@ -42,10 +42,10 @@ if (isset($_POST['submit1'])) {
 		$result = mysqli_query($db_con, "INSERT intervenciones_profesores (idea, nombre, observaciones, causa, accion, fecha) VALUES ('$profesor', '$nombre_profesor', '$observaciones', '$causa', '$accion', '$fecha_sql')");
 		
 		if (! $result) {
-			$msg_error = "No se ha podido registrar la intervenci髇. Error: ".mysqli_error($db_con);
+			$msg_error = "No se ha podido registrar la intervenci贸n. Error: ".mysqli_error($db_con);
 		}
 		else {
-			$msg_success = "La intervenci髇 ha sido registrada.";
+			$msg_success = "La intervenci贸n ha sido registrada.";
 		}
 		
 	}
@@ -55,7 +55,7 @@ if (isset($_POST['submit1'])) {
 	
 }
 
-// ACTUALIZACI覰
+// ACTUALIZACI脫N
 if (isset($_POST['submit2'])) {
 	
 	if (! empty($id) && ! empty($profesor) && ! empty($fecha_reg) && ! empty($observaciones) && ! empty($causa) && ! empty($accion)) {
@@ -70,10 +70,10 @@ if (isset($_POST['submit2'])) {
 		$result = mysqli_query($db_con, "UPDATE intervenciones_profesores SET idea = '$profesor', nombre = '$nombre_profesor', observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha_sql' WHERE id = '$id'");
 		
 		if (! $result) {
-			$msg_error = "No se ha podido actualizar la intervenci髇. Error: ".mysqli_error($db_con);
+			$msg_error = "No se ha podido actualizar la intervenci贸n. Error: ".mysqli_error($db_con);
 		}
 		else {
-			$msg_success = "La intervenci髇 ha sido actualizar.";
+			$msg_success = "La intervenci贸n ha sido actualizar.";
 		}
 	}
 	else {
@@ -82,7 +82,7 @@ if (isset($_POST['submit2'])) {
 	
 }
 
-// ELIMINACI覰
+// ELIMINACI脫N
 		
 if (isset($_POST['submit3'])) {
 	
@@ -90,10 +90,10 @@ if (isset($_POST['submit3'])) {
 		$result = mysqli_query($db_con, "DELETE FROM intervenciones_profesores WHERE id = '$id' LIMIT 1");
 		
 		if (! $result) {
-			$msg_error = "No se ha podido eliminar la intervenci髇. Error: ".mysqli_error($db_con);
+			$msg_error = "No se ha podido eliminar la intervenci贸n. Error: ".mysqli_error($db_con);
 		}
 		else {
-			$msg_success = "La intervenci髇 ha sido eliminada correctamente.";
+			$msg_success = "La intervenci贸n ha sido eliminada correctamente.";
 		}
 	}
 	
@@ -191,13 +191,13 @@ include("menu.php");
 
 						<div class="form-group">
 							<label for="observaciones">Observaciones</label>
-							<textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escribe la intervenci髇 realizada sobre el profesor/a..." rows="10"><?php echo (isset($observaciones)) ? $observaciones : ''; ?></textarea>
+							<textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escribe la intervenci贸n realizada sobre el profesor/a..." rows="10"><?php echo (isset($observaciones)) ? $observaciones : ''; ?></textarea>
 						</div>
 
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
-									<?php $array_causas = array('Temas Acad閙icos-Pedag骻icos', 'Temas Metodol骻icos', 'Tema Disciplinario', 'Tutor韆s con Familias', 'Problemas de Convivencia', 'Faltas de Asistencia', 'Otros...'); ?>
+									<?php $array_causas = array('Temas Acad茅micos-Pedag贸gicos', 'Temas Metodol贸gicos', 'Tema Disciplinario', 'Tutor铆as con Familias', 'Problemas de Convivencia', 'Faltas de Asistencia', 'Otros...'); ?>
 									<label for="causa">Causa</label>
 									<select class="form-control" id="causa" name="causa">
 										<?php for($i = 0; $i < count($array_causas); $i++): ?>
@@ -209,7 +209,7 @@ include("menu.php");
 							
 							<div class="col-sm-6">
 								<div class="form-group">
-									<?php $array_tipos = array('Entrevista telef髇ica', 'Entrevista personal', 'Comunicaci髇 por escrito'); ?>
+									<?php $array_tipos = array('Entrevista telef贸nica', 'Entrevista personal', 'Comunicaci贸n por escrito'); ?>
 									
 									<label for="accion">Tipo</label>
 									<select class="form-control" id="accion" name="accion">
@@ -224,7 +224,7 @@ include("menu.php");
 						<?php if(isset($id)): ?>
 						<button type="submit" class="btn btn-primary" name="submit2">Actualizar</button>
 						<button type="submit" class="btn btn-danger" name="submit3">Eliminar</button>
-						<a class="btn btn-default" href="profesores.php">Nueva intervenci髇</a>
+						<a class="btn btn-default" href="profesores.php">Nueva intervenci贸n</a>
 						<?php else: ?>
 						<button type="submit" class="btn btn-primary" name="submit1">Registrar</button>
 						<?php endif; ?>
@@ -269,7 +269,7 @@ include("menu.php");
 				<?php else: ?>
 				
 				<div>
-					<p class="lead text-muted text-center">El profesor no tiene m醩 intervenciones registradas.</p>
+					<p class="lead text-muted text-center">El profesor no tiene m谩s intervenciones registradas.</p>
 				</div>
 				
 				<?php endif; ?>
@@ -338,14 +338,14 @@ include("menu.php");
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ning鷑 resultado con ese criterio.",
-			            "info": "P醙ina _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ning煤n resultado con ese criterio.",
+			            "info": "P谩gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "趌tima",
+			                  "next": "脷ltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// Creación de tabla temporal.
+// CreaciÃ³n de tabla temporal.
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `AsignacionMesasTICtmp` (
   `prof` varchar(50) NOT NULL,
   `agrupamiento` varchar(50) NOT NULL default '',

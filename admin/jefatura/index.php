@@ -232,7 +232,7 @@ if ($clave !== "") {
 
 <div class="form-group"><label for="observaciones">Observaciones</label>
 <textarea class="form-control" id="observaciones" name="observaciones"
-	placeholder="Escriba la intervenci髇 realizada sobre el alumno..."
+	placeholder="Escriba la intervenci贸n realizada sobre el alumno..."
 	rows="10"><?php echo (isset($id) && $observaciones) ? $observaciones : ''; ?></textarea>
 </div>
 
@@ -243,9 +243,9 @@ if ($clave !== "") {
 	<option value="Estado general del Alumno"
 	<?php echo (isset($id) && $causa == 'Estado general del Alumno') ? 'selected' : ''; ?>>Estado
 	general del Alumno</option>
-	<option value="Evoluci髇 acad閙ica"
-	<?php echo (isset($id) && $causa == 'Evoluci髇 acad閙ica') ? 'selected' : ''; ?>>Evoluci髇
-	acad閙ica</option>
+	<option value="Evoluci贸n acad茅mica"
+	<?php echo (isset($id) && $causa == 'Evoluci贸n acad茅mica') ? 'selected' : ''; ?>>Evoluci贸n
+	acad茅mica</option>
 	<option value="Faltas de Asistencia"
 	<?php echo (isset($id) && $causa == 'Faltas de Asistencia') ? 'selected' : ''; ?>>Faltas
 	de Asistencia</option>
@@ -261,8 +261,8 @@ if ($clave !== "") {
 	<option value="Otras"
 	<?php echo (isset($id) && $causa == 'Otras') ? 'selected' : ''; ?>>Otras</option>
 	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') { ?>
-	<option value="Programa Apr閚delo"
-	<?php echo (isset($id) && $causa == 'Programa Apr閚delo') ? 'selected' : ''; ?>>Programa Apr閚delo</option>
+	<option value="Programa Apr茅ndelo"
+	<?php echo (isset($id) && $causa == 'Programa Apr茅ndelo') ? 'selected' : ''; ?>>Programa Apr茅ndelo</option>
 	<option value="Compromiso de convivencia-asistencia"
 	<?php echo (isset($id) && $causa == 'Compromiso de convivencia-asistencia') ? 'selected' : ''; ?>>Compromiso de convivencia-asistencia</option>
 	<?php } ?>
@@ -272,14 +272,14 @@ if ($clave !== "") {
 <div class="col-sm-6">
 <div class="form-group"><label for="accion">Tipo</label> <select
 	class="form-control" id="accion" name="accion">
-	<option value="Entrevista telef髇ica"
-	<?php echo (isset($id) && $accion == 'Entrevista telef髇ica') ? 'selected' : ''; ?>>Entrevista
-	telef髇ica</option>
+	<option value="Entrevista telef贸nica"
+	<?php echo (isset($id) && $accion == 'Entrevista telef贸nica') ? 'selected' : ''; ?>>Entrevista
+	telef贸nica</option>
 	<option value="Entrevista personal"
 	<?php echo (isset($id) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista
 	personal</option>
-	<option value="Comunicaci髇 por escrito"
-	<?php echo (isset($id) && $accion == 'Comunicaci髇 por escrito') ? 'selected' : ''; ?>>Comunicaci髇
+	<option value="Comunicaci贸n por escrito"
+	<?php echo (isset($id) && $accion == 'Comunicaci贸n por escrito') ? 'selected' : ''; ?>>Comunicaci贸n
 	por escrito</option>
 </select></div>
 </div>
@@ -294,7 +294,7 @@ Informe privado </label></div>
 <button type="submit" class="btn btn-primary" name="submit2">Actualizar</button>
 <button type="submit" class="btn btn-danger" name="submit3"
 	onclick="confirmacion();">Eliminar</button>
-<a class="btn btn-default" href="index.php">Nueva intervenci髇</a> <?php else: ?>
+<a class="btn btn-default" href="index.php">Nueva intervenci贸n</a> <?php else: ?>
 <button type="submit" class="btn btn-primary" name="submit1">Registrar</button>
 	<?php endif; ?></fieldset>
 
@@ -362,14 +362,14 @@ if($alumno){
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ning鷑 resultado con ese criterio.",
-			            "info": "P醙ina _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ning煤n resultado con ese criterio.",
+			            "info": "P谩gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "趌tima",
+			                  "next": "脷ltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

@@ -14,7 +14,7 @@ include("../../faltas/menu.php");
 </div>
 
 <div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algÃºn tiempo.</small><br><br></span>
 </div>
 
 
@@ -25,7 +25,7 @@ include("../../faltas/menu.php");
   <br>
   
   <div class="alert alert-info">
-  	En <strong>negrita</strong> el número total de faltas; en <strong>rojo</strong> las faltas no justificadas; en <strong>verde</strong> las faltas justificadas.
+  	En <strong>negrita</strong> el nÃºmero total de faltas; en <strong>rojo</strong> las faltas no justificadas; en <strong>verde</strong> las faltas justificadas.
   </div>
   
   <br>
@@ -45,9 +45,9 @@ $idcurso=$curs[1];
   <table class="table table-bordered table-vcentered">
   <thead><tr>
       <th></th>
-      <th>Trimestre 1º</th>
-      <th>Trimestre 2º</th>
-      <th>Trimestre 3º</th> 
+      <th>Trimestre 1Âº</th>
+      <th>Trimestre 2Âº</th>
+      <th>Trimestre 3Âº</th> 
   </tr></thead>
   <tbody>
 <?php
@@ -112,14 +112,14 @@ include("../../pie.php");
         
         "language": {
                     "lengthMenu": "_MENU_",
-                    "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-                    "info": "Página _PAGE_ de _PAGES_",
+                    "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+                    "info": "PÃ¡gina _PAGE_ de _PAGES_",
                     "infoEmpty": "No hay resultados disponibles.",
                     "infoFiltered": "(filtrado de _MAX_ resultados)",
                     "search": "Buscar: ",
                     "paginate": {
                           "first": "Primera",
-                          "next": "Última",
+                          "next": "Ãšltima",
                           "next": "",
                           "previous": ""
                         }

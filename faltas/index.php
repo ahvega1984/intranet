@@ -16,7 +16,7 @@ if(empty($hora_dia)){
 	$hora = date("G");// hora ahora
 	$minutos = date("i");
 
-	// Se han importado los daos de la tramos escolar desde Séneca
+	// Se han importado los daos de la tramos escolar desde SÃ©neca
 	$jor = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
 	if(mysqli_num_rows($jor)>0){
 		while($jornad = mysqli_fetch_array($jor)){
@@ -60,14 +60,14 @@ if (isset($fecha_dia)) {
 	//echo "$ndia $hora_dia $fecha_dia $hoy $an-$me-$di";
 }
 else {
-	$ndia = date("w");// nº de día de la semana (1,2, etc.)
+	$ndia = date("w");// nÂº de dÃ­a de la semana (1,2, etc.)
 	$hoy = date("Y-m-d");
 	$hoy_actual = "$diames-$nmes-$nano";
 }
 
 if($ndia == "1"){$nom_dia = "Lunes";}
 if($ndia == "2"){$nom_dia = "Martes";}
-if($ndia == "3"){$nom_dia = "Miércoles";}
+if($ndia == "3"){$nom_dia = "MiÃ©rcoles";}
 if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
 ?>
@@ -214,7 +214,7 @@ else{
 		?>
 <h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
 <br>
-Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "ª";?>)</h2>
+Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "Âª";?>)</h2>
 		<?php
 	}
 }
@@ -250,7 +250,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		
 		$asignat="";
 		$cod_asig_bach="";
-		// Cursos con dos códigos distintos de una misma asignatura o Bachillerato.
+		// Cursos con dos cÃ³digos distintos de una misma asignatura o Bachillerato.
 		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'");
 		$asig_bch = mysqli_fetch_array($n_bach);
 		$asignat = $asig_bch[0];
@@ -309,16 +309,16 @@ while($hora2 = mysqli_fetch_row($hora0))
 		$filaprincipal.= $curso." ($asignatura)";
 
 		/*	if(!($t_grupos=="")){
-		 $filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-		 if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
+		 $filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DÃ­a:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+		 if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "Âª hora";}
 		 echo "</small>";
 		 }
 		 */
 		if(!($t_grupos=="")){
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
-			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
+			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DÃ­a:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "Âª hora";}
 			echo "</small>";
 		}
 		echo "</h4></th></tr></thead>";
@@ -386,10 +386,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 				}
 
 				// Expulsado del Centro o Aula de Convivencia en la fecha
-				$hay_expulsión="";
+				$hay_expulsiÃ³n="";
 				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and ((expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy')))");
 				if (mysqli_num_rows($exp) > '0') {
-							$hay_expulsión = 1;
+							$hay_expulsiÃ³n = 1;
 				}
 
 				$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
@@ -411,7 +411,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
 				}
-				elseif ($hay_expulsión==1){
+				elseif ($hay_expulsiÃ³n==1){
 					$chkF = 'id="disable" disabled';
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
@@ -510,7 +510,7 @@ if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class
 else {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El módulo de Faltas de Asistencia debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
+El mÃ³dulo de Faltas de Asistencia debe ser activado en la ConfiguraciÃ³n general de la Intranet para poder accede a estas pÃ¡ginas, y ahora mismo estÃ¡ desactivado.
           </div></div>'; 
 	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 }

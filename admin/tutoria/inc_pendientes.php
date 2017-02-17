@@ -11,8 +11,8 @@ if(! (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria'
 			$alumno = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
 				
 			$rowa = mysqli_fetch_array ( $alumno );
-			$asunto = "ReiteraciÛn en el mismo trimestre de cinco o m·s faltas leves";
-			$medida = "AmonestaciÛn escrita";
+			$asunto = "Reiteraci√≥n en el mismo trimestre de cinco o m√°s faltas leves";
+			$medida = "Amonestaci√≥n escrita";
 			$apellidos = trim ( $rowa [0] );
 			$nombre = trim ( $rowa [1] );
 			$unidad = trim ( $rowa [2] );
@@ -55,7 +55,7 @@ if(! (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria'
 					else {
 						echo "
 						<div class=\"alert alert-error\">
-							<strong>Error:</strong> No se pudo enviar el SMS al telÈfono (+34) ".$mobile.". Corrija la informaciÛn de contacto del alumno/a en SÈneca e importe los datos nuevamente.
+							<strong>Error:</strong> No se pudo enviar el SMS al tel√©fono (+34) ".$mobile.". Corrija la informaci√≥n de contacto del alumno/a en S√©neca e importe los datos nuevamente.
 						</div>
 						<br>";
 					}
@@ -68,7 +68,7 @@ if(! (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria'
 			// Mensaje SMS a la base de datos
 			if(isset($config['mod_sms']) && $config['mod_sms']) {
 				$observaciones = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
-				$accion = "EnvÌo de SMS";
+				$accion = "Env√≠o de SMS";
 				$causa = "Problemas de convivencia";
 				
 				mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','".$_SESSION['mod_tutoria']['unidad']."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
@@ -77,7 +77,7 @@ if(! (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria'
 			$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','grave','" . $medida . "','0')";
 			mysqli_query($db_con, $query );	
 			
-			// Actualizamos la FechorÌa para amortizarla
+			// Actualizamos la Fechor√≠a para amortizarla
 			$rep1 = mysqli_query($db_con, "select id from Fechoria where claveal = '$claveal' and grave = 'Leve' and medida not like 'Sancionada'");
 			while ($rep11 = mysqli_fetch_array($rep1)) {
 				mysqli_query($db_con, "update Fechoria set medida = 'Sancionada' where id = '$rep11[0]'");
@@ -88,7 +88,7 @@ if(! (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria'
 
 // Problemas varios de convivencia
 
-$result1 = mysqli_query($db_con, "select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'AmonestaciÛn escrita'");
+$result1 = mysqli_query($db_con, "select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'Amonestaci√≥n escrita'");
 if(mysqli_num_rows($result1)>0)
 {
 
@@ -111,7 +111,7 @@ $alumno1 = mysqli_query($db_con, "select nombre, apellidos from alma where clave
 $alumno0 = mysqli_fetch_array($alumno1);
 $alumno = $alumno0[1].", ".$alumno0[0];
 
-// ExpulsiÛn al Aula de Convivencia
+// Expulsi√≥n al Aula de Convivencia
 if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioaula) >= strtotime($hoy)){
 	$count_fech=1;
 	?>
@@ -119,7 +119,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 <div class="alert alert-warning">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 	<h4><?php echo $alumno; ?> ha sido expulsado al Aula de convivencia</h4>
-	<p>El siguiente alumno ha sido expulsado al Aula de convivencia entre los dÌas <strong><?php echo $inicioaula; ?></strong> y <strong><?php echo $finaula; ?></strong>. Ponte en contacto con Jefatura de estudios si necesitas detalles.</p>
+	<p>El siguiente alumno ha sido expulsado al Aula de convivencia entre los d√≠as <strong><?php echo $inicioaula; ?></strong> y <strong><?php echo $finaula; ?></strong>. Ponte en contacto con Jefatura de estudios si necesitas detalles.</p>
 	
 	<br>
 
@@ -129,7 +129,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 <?php 
 }
 
-// ExpulsiÛn del Centro
+// Expulsi√≥n del Centro
 if($expulsion > 0 and $fechareg <= $hoy and $inicio >= $hoy) {
 	$count_fech=1;
  	?>
@@ -164,49 +164,49 @@ $count_fech=1;
 	
 	<?php if (isset($config['tutoria']['impresion_expulsion_aula']) && $config['tutoria']['impresion_expulsion_aula'] == 1): ?>
 	
-	<p>Jefatura de estudios se encargar· de imprimir el comunicado de expulsiÛn del aula para los padres.</p>
+	<p>Jefatura de estudios se encargar√° de imprimir el comunicado de expulsi√≥n del aula para los padres.</p>
 	<?php mysqli_query($db_con, "UPDATE Fechoria SET recibido='1' WHERE Fechoria.id='$id'"); ?>
 	
 	<?php else: ?>
 	
-	<p>El alumno/a ha sido expulsado del aula y est· pendiente de la amonestaciÛn escrita del tutor.</p>
+	<p>El alumno/a ha sido expulsado del aula y est√° pendiente de la amonestaci√≥n escrita del tutor.</p>
 	
 	<br>
 
 	<form method="post" action="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
 		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
-		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsiÛn</button>
+		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsi√≥n</button>
 	</form>
 	<?php endif; ?>
 </div>
 
 <?php } 
-elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "AmonestaciÛn escrita") 
+elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestaci√≥n escrita") 
 {
 	$count_fech=1;
-//AmonestaciÛn Escrita	
+//Amonestaci√≥n Escrita	
 	?>
 	
 <div class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-	<h4><?php echo $alumno; ?> tiene una amonestaciÛn escrita</h4>
+	<h4><?php echo $alumno; ?> tiene una amonestaci√≥n escrita</h4>
 	
 	<?php if (isset($config['tutoria']['impresion_amonestacion']) && $config['tutoria']['impresion_amonestacion'] == 1): ?>
 	
-	<p>Jefatura de estudios se encargar· de imprimir el comunicado de amonestaciÛn escrita para los padres.</p>
+	<p>Jefatura de estudios se encargar√° de imprimir el comunicado de amonestaci√≥n escrita para los padres.</p>
 	<?php mysqli_query($db_con, "UPDATE Fechoria SET recibido='1' WHERE Fechoria.id='$id'"); ?>
 	
 	<?php else: ?>
 	
-	<p>El alumno/a est· pendiente de la amonestaciÛn escrita del tutor.</p>
+	<p>El alumno/a est√° pendiente de la amonestaci√≥n escrita del tutor.</p>
 		
 	<br>
 
 	<form method="post" action="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
 		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
-		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestaciÛn escrita</button>
+		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestaci√≥n escrita</button>
 	</form>
 	
 	<?php endif; ?>

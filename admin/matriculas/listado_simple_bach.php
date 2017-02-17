@@ -9,7 +9,7 @@ $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas_bach where grupo_actual != '' order by curso, grupo_actual");
 while($total = mysqli_fetch_array($tot)){
-# hasta aquÃ­ lo del pdf
+# hasta aquÃƒÂ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -37,20 +37,20 @@ if ($curso=="2BACH") {
 
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 }
 if ($curso=="1BACH") {
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 }
@@ -65,8 +65,8 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>230
 			);
-$txttit = "Lista del Grupo $curso-$grupo_actual[0]\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+$txttit = "Lista del Grupo ".$curso."-".$grupo_actual."\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

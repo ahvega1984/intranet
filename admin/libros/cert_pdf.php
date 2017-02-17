@@ -25,7 +25,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÕA DE EDUCACI”N, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,utf8_encode('CONSEJER√çA DE EDUCACI√ìN, CULTURA Y DEPORTE'),0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -55,7 +55,7 @@ $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 $MiPDF->SetMargins(20,20,20);
-# ajustamos al 100% la visualizaci√≥n
+# ajustamos al 100% la visualizaci√É¬≥n
 $MiPDF->SetDisplayMode('fullpage');
 
 
@@ -70,8 +70,8 @@ $sqlasig0="SELECT distinct asignaturas.nombre, textos_gratis.titulo, textos_grat
 $resulasig0=mysqli_query($db_con, $sqlasig0);
 
 if (mysqli_num_rows($resulasig0) == "0") {
-	echo "<p style='border:1px solid black;padding:6px;width:450px;margin:auto;text-align:center;margin-top:35px;font-size:13px;color:brown;margin-bottom:18px;'>El Tutor no ha revisado a˙n los Libros de este Alumno, por lo que no puede imprimirse certificado alguno.<br>Los Libros deben ser revisados y registrados en primer lugar.</p>";
-	echo "<div align=center><input type=button value='Volver atr·s' onClick='history.back(-1)'></div>";
+	echo "<p style='border:1px solid black;padding:6px;width:450px;margin:auto;text-align:center;margin-top:35px;font-size:13px;color:brown;margin-bottom:18px;'>El Tutor no ha revisado a√∫n los Libros de este Alumno, por lo que no puede imprimirse certificado alguno.<br>Los Libros deben ser revisados y registrados en primer lugar.</p>";
+	echo "<div align=center><input type=button value='Volver atr√°s' onClick='history.back(-1)'></div>";
 	exit;
 }
 // Libros en mal estado o perdidos
@@ -87,8 +87,8 @@ $resulasig2=mysqli_query($db_con, $sqlasig2);
 $sqlasig3="SELECT distinct asignaturas.nombre, estado from textos_alumnos, textos_gratis, asignaturas where textos_alumnos.claveal='$claveal' and asignaturas.codigo = textos_alumnos.materia and textos_gratis.materia=asignaturas.nombre and textos_gratis.nivel='$nivel' and estado='S'";
 $resulasig3=mysqli_query($db_con, $sqlasig3);
 if (mysqli_num_rows($resulasig3) > "0") {
-	echo "<p style='border:1px solid black;padding:6px;width:450px;margin:auto;text-align:center;margin-top:35px;font-size:13px;color:brown;margin-bottom:18px;'>No es posible imprimir el certificado de entrega de Libros cuando alguno de estos est&aacute marcado como pendiente hasta Septiembre.<br>Vuelve atr·s y corrige los datos si est·n equivocados.</p>";
-	echo "<div align=center><input type=button value='Volver atr·s' onClick='history.back(-1)'></div>";
+	echo "<p style='border:1px solid black;padding:6px;width:450px;margin:auto;text-align:center;margin-top:35px;font-size:13px;color:brown;margin-bottom:18px;'>No es posible imprimir el certificado de entrega de Libros cuando alguno de estos est&aacute marcado como pendiente hasta Septiembre.<br>Vuelve atr√°s y corrige los datos si est√°n equivocados.</p>";
+	echo "<div align=center><input type=button value='Volver atr√°s' onClick='history.back(-1)'></div>";
 	exit;
 }
 
@@ -104,29 +104,29 @@ $fecha = date('d/m/Y');
 $texto1=" Justificante de que el alumno ha entegado los libros de texto";
 $texto2=" Se debe reponer o en su caso abonar el importe indicado ";
 
-$titulo1="CERTIFICACI”N DE ENTREGA DE LIBROS";
-$cuerpo11="D./DÒa. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la DireccciÛn, ";
-$cuerpo12="CERTIFICO que el/la alumno/a: $alumno matriculado/a en el curso $unidad, con fecha $fecha ha hecho entrega de los libros que se le asignaron con cargo al Programa de Gratuidad de Libros de Texto, en el estado de conservaciÛn que se indica: ";
-$importante1='Importante: los libros prestados para Septiembre deben ser devueltos el dÌa de la Convocatoria Extraordinaria ';
+$titulo1="CERTIFICACI√ìN DE ENTREGA DE LIBROS";
+$cuerpo11="D./D√±a. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la Direccci√≥n, ";
+$cuerpo12="CERTIFICO que el/la alumno/a: $alumno matriculado/a en el curso $unidad, con fecha $fecha ha hecho entrega de los libros que se le asignaron con cargo al Programa de Gratuidad de Libros de Texto, en el estado de conservaci√≥n que se indica: ";
+$importante1='Importante: los libros prestados para Septiembre deben ser devueltos el d√≠a de la Convocatoria Extraordinaria ';
 $importante1.='en buen estado.';
-$titulo2="NOTIFICACI”N DE REPOSICION DE LIBROS DE TEXTO";
-$cuerpo21="D./DÒa. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la DireccciÛn, ";
+$titulo2="NOTIFICACI√ìN DE REPOSICION DE LIBROS DE TEXTO";
+$cuerpo21="D./D√±a. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la Direccci√≥n, ";
 $cuerpo22="CERTIFICA que el/la alumno/a: $alumno matriculado/a en el curso $unidad, revisados sus libros con fecha $fecha, debe ";
-$cuerpo22.="reponer (o en su caso abonar el importe segun tarifa marcada por la Junta de AndalucÌa) los siguientes libros: ";
-$importante2='En caso de no atender a este requerimiento el/la alumno/a no podr· disfrutar del programa de gratuidad el curso prÛximo.';
+$cuerpo22.="reponer (o en su caso abonar el importe segun tarifa marcada por la Junta de Andaluc√≠a) los siguientes libros: ";
+$importante2='En caso de no atender a este requerimiento el/la alumno/a no podr√° disfrutar del programa de gratuidad el curso pr√≥ximo.';
 ##########################################
-# insertamos la primera p√°gina del documento
+# insertamos la primera p√É¬°gina del documento
 $MiPDF->Addpage();
-#### Cabecera con direcciÛn
+#### Cabecera con direcci√≥n
 $MiPDF->SetFont('NewsGotT','',12);
 $MiPDF->SetTextColor(0,0,0);
-$MiPDF->Text(120,55,$tutor);
-$MiPDF->Text(120,60,$domicilio);
-$MiPDF->Text(120,65,$codigo." (".$localidad.")");
+$MiPDF->Text(120,55,utf8_decode($tutor));
+$MiPDF->Text(120,60,utf8_decode($domicilio));
+$MiPDF->Text(120,65,utf8_decode($codigo)." (".utf8_decode($localidad).")");
 ###
 
 if (!($mal=='1')){
-	#Cuerpo de la devoluciÛn.
+	#Cuerpo de la devoluci√≥n.
 	$MiPDF->Ln(50);
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$titulo1,0,'C',0);
@@ -160,7 +160,7 @@ if (!($mal=='1')){
 	}
 
 }else{
-	#Cuerpo de la reclamaci√≥n de reposici√≥n
+	#Cuerpo de la reclamaci√É¬≥n de reposici√É¬≥n
 	$total=0;
 	$MiPDF->Ln(50);
 	$MiPDF->SetFont('NewsGotT','B',12);
@@ -178,7 +178,7 @@ if (!($mal=='1')){
 		$MiPDF->SetX(170);
 		$MiPDF->cell(0,4,$regasig[3].' Euros',0,'D',0);
 		$MiPDF->SetX(20);
-		$MiPDF->Multicell(150,4,'- '.$regasig[0].' --> TÌtulo: '.$regasig[1].' ('.$regasig[2].')',0,'I',0);
+		$MiPDF->Multicell(150,4,'- '.$regasig[0].' --> T√≠tulo: '.$regasig[1].' ('.$regasig[2].')',0,'I',0);
 		$MiPDF->Ln(2);
 
 		$total=$total+$regasig[3];

@@ -50,9 +50,9 @@ if (!(empty($confirma))) {
   	}
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            El problema de convivencia ha sido confirmado correctamente. <br />No te olvides de recargar la página si decides volver atrás a los resultados de la consulta.
+            El problema de convivencia ha sido confirmado correctamente. <br />No te olvides de recargar la pÃ¡gina si decides volver atrÃ¡s a los resultados de la consulta.
           </div><br />
-<INPUT class="btn btn-primary" TYPE="button" VALUE="Volver atrás"
+<INPUT class="btn btn-primary" TYPE="button" VALUE="Volver atrÃ¡s"
 	onClick="history.back()"></div>';
 exit();
   }
@@ -70,11 +70,11 @@ exit();
 	   {
 	   echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-            Debes seleccionar al menos un tipo de datos (Apellidos, Nombre, unidad, etc.) para poder hacer la Consulta. Vuelve atrás y selecciona algún criterio de búsqueda.
+			<h4>ATENCIÃ“N:</h4>
+            Debes seleccionar al menos un tipo de datos (Apellidos, Nombre, unidad, etc.) para poder hacer la Consulta. Vuelve atrÃ¡s y selecciona algÃºn criterio de bÃºsqueda.
           </div></div>';
 	echo " <br /><center>
-<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atrás'
+<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atrÃ¡s'
 	onClick='history.back()'></center>";
 exit();
     }
@@ -151,7 +151,7 @@ exit();
     }
 		    if  ($tipo_fech == "Aula de Convivencia Jefatura")
     {
-    $AUXSQL .= " (aula_conv > '0' and horas='123456') OR";
+    $AUXSQL .= " (aula_conv > '0' and horas='123R456') OR";
     }
 		     if  ($tipo_fech == "Falta Grave")
     {
@@ -180,7 +180,7 @@ $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS
  echo "<br /><center>
  <form action='fechorias.php' method='post' name='cnf'>
  <div class='table-responsive'>
- <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
+ <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>ExpulsiÃ³n del Centro</td><td class='amonestacion-escrita'>AmonestaciÃ³n escrita</td><td class='expulsion-aula'>ExpulsiÃ³n del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
 		echo "<center><form action='fechorias.php' method='post' name='cnf'>
 		<table class='table table-bordered table-striped table-vcentered datatable'>";
 		$fecha1 = (date("d").-date("m").-date("Y"));
@@ -226,18 +226,18 @@ $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS
 			$marca = " checked = 'checked'";
 		}
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
-		{$caducada="Sí";} else {$caducada="No";}
+		{$caducada="SÃ­";} else {$caducada="No";}
 		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' order by Fechoria.fecha"); 
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";
-				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
+				if($medida == "AmonestaciÃ³n escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
 				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
 				
 				if($aula_conv > 0){
-					if ($horas == "123456") {
+					if ($horas == "123R456") {
 						$bgcolor="class='aula-convivencia-jefatura'";
 					}
 					else{
@@ -307,14 +307,14 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE or (st
     		
     		"language": {
     		            "lengthMenu": "_MENU_",
-    		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-    		            "info": "Página _PAGE_ de _PAGES_",
+    		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+    		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
     		            "infoEmpty": "No hay resultados disponibles.",
     		            "infoFiltered": "(filtrado de _MAX_ resultados)",
     		            "search": "Buscar: ",
     		            "paginate": {
     		                  "first": "Primera",
-    		                  "next": "Última",
+    		                  "next": "Ãšltima",
     		                  "next": "",
     		                  "previous": ""
     		                }

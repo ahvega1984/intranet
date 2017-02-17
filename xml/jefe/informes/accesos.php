@@ -37,7 +37,7 @@ include("../../../menu.php");
 						<tr>
 							<th>Profesor/a</th>
 							<th>Total accesos</th>
-							<th>Fecha último acceso</th>
+							<th>Fecha Ãºltimo acceso</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -73,14 +73,14 @@ include("../../../menu.php");
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-			            "info": "Página _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+			            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "Última",
+			                  "next": "Ãšltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

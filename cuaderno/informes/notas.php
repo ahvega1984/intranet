@@ -3,7 +3,7 @@
 echo "<h4 class='text-info'>Evaluaciones del Alumno</h4><br />";
 
  echo "<table class='table table-striped' style='width:auto'>
-		<TR><Th nowrap>Asignatura</th><th>Ev. Inicial </th><th>1ª Eval.</th><th>2ª Eval.</th><th>Eval. Ord. </th><th>Eval. Extra.</th></tr>";
+		<TR><Th nowrap>Asignatura</th><th>Ev. Inicial </th><th>1Âª Eval.</th><th>2Âª Eval.</th><th>Eval. Ord. </th><th>Eval. Extra.</th></tr>";
 
 // Evaluaciones  
 $notas1 = "select notas1, notas2, notas3, notas4, notas0 from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL like '%" . $claveal . "%'";
@@ -19,10 +19,10 @@ $bloque = explode(":", $trozos1[$i]);
 $nombreasig = "select NOMBRE, ABREV, CURSO, CODIGO from asignaturas where CODIGO = '" . $bloque[0] . "'  order by CURSO";
 //echo "$nombreasig"."<br>";
 $asig = mysqli_query($db_con, $nombreasig);
-if(mysqli_num_rows($asig) < 1)	{$nombre_asig = "Asignatura sin código"; }
+if(mysqli_num_rows($asig) < 1)	{$nombre_asig = "Asignatura sin cÃ³digo"; }
 while($rowasig = mysqli_fetch_array($asig))	{
   if ($rowasig[3] == "")
-  {$nombre_asig = "Asignatura sin código"; }
+  {$nombre_asig = "Asignatura sin cÃ³digo"; }
 else{$nombre_asig = $rowasig[0];}
 	
 	if(strlen(strstr($rowasig[1],'_')) > 0)	{	}
@@ -92,7 +92,7 @@ if($rown1[0] == "" and $rown2[0] == "" and $rown3[0] == "" and $rown4[0] == "")
 	else
 		{
 	echo "<tr><td>";
-	if ($nombre_asig == "Asignatura sin código")  $asig_pend = "Consultar con Administración";
+	if ($nombre_asig == "Asignatura sin cÃ³digo")  $asig_pend = "Consultar con AdministraciÃ³n";
 	echo $nombre_asig . "</td>"; 
 	echo "<td>";
 	echo $rown0[0] ."</td>";

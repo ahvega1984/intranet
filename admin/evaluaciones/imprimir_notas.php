@@ -17,20 +17,20 @@ if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {
 }
 else {
 	$evaluaciones = array(
-		'1EV' => '1ª Evaluación',
-		'2EV' => '2ª Evaluación',
-		'3EV' => '3ª Evaluación',
+		'1EV' => '1Âª EvaluaciÃ³n',
+		'2EV' => '2Âª EvaluaciÃ³n',
+		'3EV' => '3Âª EvaluaciÃ³n',
 		'Ord' => 'Ordinaria',
 		'FFP' => 'Final FP',
 		'Ext' => 'Extraordinaria',
-		'FE1' => 'Final Excepcional 1ª Convocatoria',
-		'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
-		'OT1' => 'Obtención título ESO (Primer año)',
-		'FE2' => 'Final Excepcional 2ª Convocatoria',
-		'OT2' => 'Obtención título ESO (Segundo año)',
-		'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
-		'EVI' => 'Evaluación inicial',
-		'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
+		'FE1' => 'Final Excepcional 1Âª Convocatoria',
+		'5CV' => '5Âº Convocatoria Extraordinaria de EvaluaciÃ³n',
+		'OT1' => 'ObtenciÃ³n tÃ­tulo ESO (Primer aÃ±o)',
+		'FE2' => 'Final Excepcional 2Âª Convocatoria',
+		'OT2' => 'ObtenciÃ³n tÃ­tulo ESO (Segundo aÃ±o)',
+		'EP1' => 'EvaluaciÃ³n de pendientes 1Âª Convovatoria',
+		'EVI' => 'EvaluaciÃ³n inicial',
+		'EP2' => 'EvaluaciÃ³n de pendientes 2Âª Convovatoria',
 	);
 }
 
@@ -60,7 +60,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,'CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -94,7 +94,7 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 
 $MiPDF->SetMargins(25, 20, 20);
 
-$titulo = "Boletín de calificaciones";
+$titulo = "BoletÃ­n de calificaciones";
 
 
 $result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='$unidad' AND (combasi NOT LIKE '%25204%' AND combasi NOT LIKE '%25226%' AND combasi NOT LIKE '%31307%' AND combasi NOT LIKE '%135785%')");
@@ -129,7 +129,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	// INFORMACION DE LA CARTA
 	$MiPDF->SetY(35);
 	$MiPDF->SetFont('NewsGotT', 'BU', 10);
-	$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+	$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 	$MiPDF->Ln(10);
 	
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
@@ -138,7 +138,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->Cell(50, 5, $alumno, 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $padre, 0, 1, 'L', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
-	$MiPDF->Cell(25, 5, 'Número exp.:', 0, 0, 'R', 0 );
+	$MiPDF->Cell(25, 5, 'NÃºmero exp.:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(50, 5, $numexp, 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $direccion, 0, 1, 'L', 0 );
@@ -146,12 +146,12 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->Cell(25, 5, 'Curso:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(50, 5, (strlen($curso) > 31) ? substr($curso, 0 ,31).'...' : $curso, 0, 0, 'L', 0 );
-	$MiPDF->Cell(0, 5, $localidad.' - '.$codpostal.' '.mb_strtoupper($provincia, 'iso-8859-1'), 0, 1, 'L', 0 );
+	$MiPDF->Cell(0, 5, $localidad.' - '.$codpostal.' '.mb_strtoupper($provincia, 'UTF-8'), 0, 1, 'L', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Cell(25, 5, 'Unidad:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	if (isset($div)) {
-		$MiPDF->Cell(50, 5, $unidad.' (Diversificación)', 0, 1, 'L', 0 );
+		$MiPDF->Cell(50, 5, $unidad.' (DiversificaciÃ³n)', 0, 1, 'L', 0 );
 	}
 	else {
 		$MiPDF->Cell(50, 5, $unidad, 0, 1, 'L', 0 );
@@ -161,14 +161,14 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(75, 5, $evaluacion.' ('.$evaluaciones[$evaluacion].')', 0, 1, 'L', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
-	$MiPDF->Cell(25, 5, 'Año académico:', 0, 0, 'R', 0 );
+	$MiPDF->Cell(25, 5, 'AÃ±o acadÃ©mico:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(50, 5, $GLOBALS['CURSO_ACTUAL'], 0, 1, 'L', 0 );
 	$MiPDF->Ln(10);
 	
 	// CUERPO DE LA CARTA
 	$MiPDF->SetFont('NewsGotT', 'B', 10);
-	$MiPDF->Multicell(0, 5, mb_strtoupper('E V A L U A C I Ó N', 'iso-8859-1'), 0, 'C', 0 );
+	$MiPDF->Multicell(0, 5, mb_strtoupper('E V A L U A C I Ã“ N', 'UTF-8'), 0, 'C', 0 );
 	$MiPDF->Ln(5);
 	
 	$MiPDF->SetFillColor(239,240,239);
@@ -214,7 +214,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->Cell(55, 20, '', 0, 1, 'L', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	$MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0 );
-	$MiPDF->Cell(55, 5, 'Tutor/a: '.mb_convert_case($tutor['TUTOR'], MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
+	$MiPDF->Cell(55, 5, 'Tutor/a: '.mb_convert_case($tutor['TUTOR'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'L', 0 );
 	
 	$i++;
 }

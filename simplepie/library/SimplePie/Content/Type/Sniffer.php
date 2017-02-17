@@ -87,8 +87,8 @@ class SimplePie_Content_Type_Sniffer
 		{
 			if (!isset($this->file->headers['content-encoding'])
 				&& ($this->file->headers['content-type'] === 'text/plain'
-					|| $this->file->headers['content-type'] === 'text/plain; charset=ISO-8859-1'
-					|| $this->file->headers['content-type'] === 'text/plain; charset=iso-8859-1'
+					|| $this->file->headers['content-type'] === 'text/plain; charset=UTF-8'
+					|| $this->file->headers['content-type'] === 'text/plain; charset=UTF-8'
 					|| $this->file->headers['content-type'] === 'text/plain; charset=UTF-8'))
 			{
 				return $this->text_or_binary();

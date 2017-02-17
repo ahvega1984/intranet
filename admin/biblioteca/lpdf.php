@@ -7,7 +7,7 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -23,10 +23,10 @@ while($datatmp = mysqli_fetch_array($lista)) {
   if(strstr($datatmp[0],"Monter")==TRUE){$datatmp[0]="Prof.";}
 	$data[] = array(
 				'id'=>$datatmp[5],
-				'curso'=>$datatmp[0],
-				'nombre'=>$datatmp[1].', '.$datatmp[2],
-				'ejemplar'=>$datatmp[3],
-				'devol'=>$datatmp[4]
+				'curso'=>utf8_decode($datatmp[0]),
+				'nombre'=>utf8_decode($datatmp[1]).', '.utf8_decode($datatmp[2]),
+				'ejemplar'=>utf8_decode($datatmp[3]),
+				'devol'=>utf8_decode($datatmp[4])
 				);
 											}
 $titles = array(
@@ -34,7 +34,7 @@ $titles = array(
 				'curso'=>'<b>Curso</b>',
 				'nombre'=>'<b>Alumno/a</b>',
 				'ejemplar'=>'<b>Ejemplar</b>',
-				'devol'=>'<b>Devoluci�n</b>'
+				'devol'=>utf8_decode('<b>Devolución</b>')
 
 			);
 $options = array(
@@ -45,7 +45,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'fontSize' => 8,
 				'width'=>475,
-				// justificacion y tamaño de columnas de manera independiente
+				// justificacion y tamaÃ±o de columnas de manera independiente
 				'cols'=>array(
 "id" => array('justification'=>'center', 'width' => '48'),
 "curso" => array('justification'=>'center', 'width' => '35'),
@@ -57,13 +57,13 @@ $options = array(
 
 
 if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
-	$biblio= "Biblioteca Julio P�rez Santander";
+	$biblio= utf8_decode("Biblioteca Julio Pérez Santander");
 }
 else {
 	$biblio= "Biblioteca";
 }
 $txttit= $biblio.'. 
-' . $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+' . utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 $txttit.= "Lista de morosos con fecha ". $fecha ."\n";
 	
 $pdf->ezText($txttit, 13, $options_center);

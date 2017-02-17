@@ -8,7 +8,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
+  <h2>Informes de Tareas <small> ExpulsiÃ³n o ausencia del Alumno</small></h2>
 </div>
 <br>
           
@@ -20,8 +20,8 @@ if(empty($_POST['alumno']) or empty($_POST['tutor']))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>Atención:</legend>
-Debes rellenar todos los datos, y parece que te has olvidado del Alumno o del Tutor.<br>Vuelve atrás e inténtalo de nuevo.<br /><br />
+						<legend>AtenciÃ³n:</legend>
+Debes rellenar todos los datos, y parece que te has olvidado del Alumno o del Tutor.<br>Vuelve atrÃ¡s e intÃ©ntalo de nuevo.<br /><br />
 <input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-primary">
 </div></div>';
 exit;
@@ -48,8 +48,8 @@ if(mysqli_num_rows($duplicado)>0)
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>Atención:</legend>';
-			echo "Ya hay un <b>Informe de Tareas</b> activado para el alumno/a <b> $nombre $apellidos </b>para el día
+						<legend>AtenciÃ³n:</legend>';
+			echo "Ya hay un <b>Informe de Tareas</b> activado para el alumno/a <b> $nombre $apellidos </b>para el dÃ­a
 <b>";
 echo formatea_fecha($fecha);
 			echo "</b>, y no queremos duplicarlo, verdad?";
@@ -62,7 +62,7 @@ $insertar=mysqli_query($db_con, "INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE
  VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysqli_error($db_con));
   echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
-			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
+			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el dÃ­a <b>";
 echo formatea_fecha($fecha);
 echo "</b> se ha activado correctamente.";
 echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">

@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// Actualizaciones de la aplicaci髇.
-// Comprueba la 鷏tima release de la aplicaci髇
+// Actualizaciones de la aplicaci贸n.
+// Comprueba la 煤ltima release de la aplicaci贸n
 if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 	function getLatestVersion($repository, $default = INTRANET_VERSION) {
@@ -22,9 +22,9 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 <?php if(isset($_SESSION['user_admin']) && version_compare($ultima_version, INTRANET_VERSION, '>')): ?>
 <div class="alert alert-info">
-<h4>Nueva actualizaci髇 de la Intranet</h4>
+<h4>Nueva actualizaci贸n de la Intranet</h4>
 <div class="row">
-<div class="col-sm-8">Disponible para su descarga la versi髇 <?php echo $ultima_version; ?> de la aplicaci髇.</div>
+<div class="col-sm-8">Disponible para su descarga la versi贸n <?php echo $ultima_version; ?> de la aplicaci贸n.</div>
 <div class="col-sm-4"><a
 	href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>"
 	target="_blank" class="btn btn-primary pull-right"><span
@@ -107,9 +107,9 @@ ORDER BY tareas_alumnos.fecha";
 			}
 			else{
 				$count_vuelven = 1;
-				echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que se reincorporan tras su Expulsi髇<br /></h4>";
+				echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que se reincorporan tras su Expulsi贸n<br /></h4>";
 				echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
-				echo "<p>縃a realizado el alumno las tareas que le has encomendado en la asignatura de <b><em>$materia</em></b>?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary btn-sm'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger btn-sm'>NO</button></a></p>";
+				echo "<p>驴Ha realizado el alumno las tareas que le has encomendado en la asignatura de <b><em>$materia</em></b>?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary btn-sm'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger btn-sm'>NO</button></a></p>";
 				echo "</div>";
 			}
 		}
@@ -160,8 +160,8 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 			}
 
 	if ($hay_al=="1" or $hay_grupo<1) {
-		echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que ma馻na abandonan el Centro por Expulsi髇 </h4><br>";
-		echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] d韆s) </p>";
+		echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que ma帽ana abandonan el Centro por Expulsi贸n </h4><br>";
+		echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] d铆as) </p>";
 		echo "<h5>$materia</h5>
 		</div>";
 			}
@@ -180,7 +180,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	$unidad_t = $curso;
 	$asignatura = $rowcurso[1];
 
-	// Problema con asignaturas comunes de Bachillerato con distinto c骴igo
+	// Problema con asignaturas comunes de Bachillerato con distinto c贸digo
 	if(strlen($rowcurso[2])>15){
 		$rowcurso[2] = substr($rowcurso[2],0,15);
 	}
@@ -266,7 +266,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	$unidad3 = $curso3;
 	$asignatura3 = trim($rowcurso3[1]);
 
-	// Problema con asignaturas comunes de Bachillerato con distinto c骴igo
+	// Problema con asignaturas comunes de Bachillerato con distinto c贸digo
 	/*if(strlen($rowcurso3[2])>15){
 		$rowcurso3[2] = substr($rowcurso3[2],0,15);
 	}*/
@@ -414,7 +414,7 @@ if(stristr($carg,'2') == TRUE)
 {
 	$unidad_m = $_SESSION['mod_tutoria']['unidad'];
 
-	if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmaci髇") {
+	if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmaci贸n") {
 		mysqli_query($db_con, "UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
 	}
 	$men1 = "SELECT ahora, asunto, texto, nombre, apellidos, id, archivo FROM mensajes JOIN alma ON mensajes.claveal = alma.claveal WHERE mensajes.unidad = '$unidad_m' AND recibidotutor = '0' ORDER BY ahora DESC";
@@ -442,7 +442,7 @@ if(stristr($carg,'2') == TRUE)
 <li id="mensaje_link_familia_<?php echo $id; ?>"><a class="alert-link"
 	data-toggle="modal" href="#mensajep<?php echo $n_mensajesp;?>"><?php echo stripslashes($asunto); ?></a>
 <br />
-			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "UTF-8")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 			<?php
 		}
@@ -471,10 +471,10 @@ if(stristr($carg,'2') == TRUE)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "UTF-8"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?>
 			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
 	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
 	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
@@ -524,7 +524,7 @@ if(mysqli_num_rows($men2) > 0)
 <li id="mensaje_link_<?php echo $id; ?>"><a class="alert-link"
 	data-toggle="modal" href="#mensaje<?php echo $n_mensajes;?>"><?php echo stripslashes($asunto); ?></a>
 <br>
-		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "UTF-8")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 		<?php
 	}
@@ -552,10 +552,10 @@ if(mysqli_num_rows($men2) > 0)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "UTF-8"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?></div>
 
 <div class="modal-footer"><a href="#" target="_top" data-dismiss="modal"
 	class="btn btn-default">Cerrar</a> <?php
@@ -566,7 +566,7 @@ if(mysqli_num_rows($men2) > 0)
 <button type="button" class="btn btn-info"
 	id="noleido-<?php echo $id; ?>" data-toggle="button"
 	aria-pressed="false" data-dismiss="modal" autocomplete="off">Marcar
-como no le韉o</button>
+como no le铆do</button>
 </div>
 </div>
 </div>
@@ -585,11 +585,11 @@ else {
 	<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 
 <div class='alert alert-warning'>
-<p class='lead'><i class='fa fa-bell'></i> Informes de tutor韆 activos</p>
+<p class='lead'><i class='fa fa-bell'></i> Informes de tutor铆a activos</p>
 <br>
 
 <p><?php echo date('d-m-Y'); ?> <a class='alert-link'
-	data-toggle='modal' href='#'> Pedro P閞ez</a> -- 1B-A <span
+	data-toggle='modal' href='#'> Pedro P茅rez</a> -- 1B-A <span
 	class=' pull-right'> <a href='#' class='alert-link'
 	style='margin-right: 10px'> <i class='fa fa-search fa-fw fa-lg'
 	title='Ver informe'> </i></a> <a href='#' class='alert-link'
@@ -603,7 +603,7 @@ Profesores</p>
 <br>
 <ul>
 	<li><a href="#" class="alert-link"> Claustro de profesores </a> <br>
-	<small>Juan P閞ez (<?php echo fecha_actual2(date('Y-m-d')); ?>)</small>
+	<small>Juan P茅rez (<?php echo fecha_actual2(date('Y-m-d')); ?>)</small>
 	</li>
 </ul>
 </div>

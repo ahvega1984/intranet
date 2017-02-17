@@ -1,17 +1,17 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// Creamos versiÛn corta para FALTAS
+// Creamos versi√≥n corta para FALTAS
 mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE,
 APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert 
 alert-danger alert-block fade in">
             <button type="button" class="close" 
 data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>
+			<h5>ATENCI√ìN:</h5>
 No se ha podido crear la tabla <strong>AlmaFaltas</strong> en la base de datos. 
 Ponte en contacto con quien pueda resolver el problema.
 </div></div><br /><br />
 <div align="center">
-  <input type="button" value="Volver atr·s" name="boton" 
+  <input type="button" value="Volver atr√°s" name="boton" 
 onClick="../index.php" class="btn btn-primary" />
 </div>');
 mysqli_query($db_con, "ALTER TABLE almafaltas ADD PRIMARY KEY (  `CLAVEAL` )");
@@ -47,7 +47,7 @@ if ($total !== 0)
 {
 	echo "<div align='left'><div class='alert alert-success alert-block fade in'>
             <button type='button'' class='close' data-dismiss='alert'>&times;</button>
-            Tabla FALUMNOS: los nuevos alumnos han sido aÒadidos a 
+            Tabla FALUMNOS: los nuevos alumnos han sido a√±adidos a 
 la tabla FALUMNOS. <br>Comprueba en la lista de abajo los registros 
 creados:</div></div>";
 	while  ($row1= mysqli_fetch_array($result1))
@@ -74,36 +74,36 @@ creados:</div></div>";
 			$nombreorig = $row1[2]  . " " . $row1[1] ;
 			$nombre = $row1[2] ;
 			$claveal = $row1[0] ;
-			if (substr($nombre,0,1) == "¡") {$nombre =
-			str_replace("¡","A",$nombre);}
-			if (substr($nombre,0,1) == "…") {$nombre =
-			str_replace("…","E",$nombre);}
-			if (substr($nombre,0,1) == "Õ") {$nombre =
-			str_replace("Õ","I",$nombre);}
-			if (substr($nombre,0,1) == "”") {$nombre =
-			str_replace("”","O",$nombre);}
-			if (substr($nombre,0,1) == "⁄") {$nombre =
-			str_replace("⁄","U",$nombre);}
+			if (substr($nombre,0,1) == "√Å") {$nombre =
+			str_replace("√Å","A",$nombre);}
+			if (substr($nombre,0,1) == "√â") {$nombre =
+			str_replace("√â","E",$nombre);}
+			if (substr($nombre,0,1) == "√ç") {$nombre =
+			str_replace("√ç","I",$nombre);}
+			if (substr($nombre,0,1) == "√ì") {$nombre =
+			str_replace("√ì","O",$nombre);}
+			if (substr($nombre,0,1) == "√ö") {$nombre =
+			str_replace("√ö","U",$nombre);}
 
-			$apellido[0] = str_replace("¡","A",$apellido[0]);
-			$apellido[0] = str_replace("…","E",$apellido[0]);
-			$apellido[0] = str_replace("Õ","I",$apellido[0]);
-			$apellido[0] = str_replace("”","O",$apellido[0]);
-			$apellido[0] = str_replace("⁄","U",$apellido[0]);
-			$apellido[0] = str_replace("·","a",$apellido[0]);
-			$apellido[0] = str_replace("È","e",$apellido[0]);
-			$apellido[0] = str_replace("Ì","i",$apellido[0]);
-			$apellido[0] = str_replace("Û","o",$apellido[0]);
-			$apellido[0] = str_replace("˙","u",$apellido[0]);
+			$apellido[0] = str_replace("√Å","A",$apellido[0]);
+			$apellido[0] = str_replace("√â","E",$apellido[0]);
+			$apellido[0] = str_replace("√ç","I",$apellido[0]);
+			$apellido[0] = str_replace("√ì","O",$apellido[0]);
+			$apellido[0] = str_replace("√ö","U",$apellido[0]);
+			$apellido[0] = str_replace("√°","a",$apellido[0]);
+			$apellido[0] = str_replace("√©","e",$apellido[0]);
+			$apellido[0] = str_replace("√≠","i",$apellido[0]);
+			$apellido[0] = str_replace("√≥","o",$apellido[0]);
+			$apellido[0] = str_replace("√∫","u",$apellido[0]);
 
 			$userpass =
 "a".strtolower(substr($nombre,0,1)).strtolower($apellido[0]);
-			$userpass = str_replace("™","",$userpass);
-			$userpass = str_replace("Ò","n",$userpass);
+			$userpass = str_replace("¬™","",$userpass);
+			$userpass = str_replace("√±","n",$userpass);
 			$userpass = str_replace("-","_",$userpass);
 			$userpass = str_replace("'","",$userpass);
-			$userpass = str_replace("∫","",$userpass);
-			$userpass = str_replace("ˆ","o",$userpass);
+			$userpass = str_replace("¬∫","",$userpass);
+			$userpass = str_replace("√∂","o",$userpass);
 
 			$usuario  = $userpass;
 			$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
@@ -131,11 +131,11 @@ else
 	echo "<div align='left'><div class='alert alert-warning alert-block fade in'>
             <button type='button'' class='close' data-dismiss='alert'>&times;</button>
             Tabla FALUMNOS: No se ha encontrado ningun registro 
-nuevo para aÒadir en FALUMNOS.<br>Si crees que hay un problema, ponte en 
+nuevo para a√±adir en FALUMNOS.<br>Si crees que hay un problema, ponte en 
 contacto con quien sepa arreglarlo</div></div><br />";	
 }
 
-// Actualizamos nombre y apellidos en FALUMNOS para incorporar cambios en SÈneca.
+// Actualizamos nombre y apellidos en FALUMNOS para incorporar cambios en S√©neca.
 $act_fal = mysqli_query($db_con,"select distinct claveal, apellidos, nombre from alma");
 while ($af = mysqli_fetch_array($act_fal)) {
 	mysqli_query($db_con, "update FALUMNOS set apellidos='$af[1]', nombre='$af[2]' where claveal='$af[0]'");

@@ -34,7 +34,7 @@ $fin_aula = $expulsados1[2];
 mysqli_query($db_con, "delete from FALTAS where claveal = '$claveal' and date(fecha) >= '$inicio_aula' and date(fecha) <= '$fin_aula'");
 }
 
-// Si se ha pulsado el botón de Enviar, se llama a insertar.php para meter los datos en la tabla
+// Si se ha pulsado el botÃ³n de Enviar, se llama a insertar.php para meter los datos en la tabla
 if(isset($_POST['enviar']))
 {		include("insertar.php");}
 ?>

@@ -58,7 +58,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Alumnos/as absentistas</small></h2>
+			<h2>TutorÃ­a de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Alumnos/as absentistas</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
 		
@@ -140,7 +140,7 @@ include("menu.php");
 							</div>
 							
 							<div class="form-group">
-								<label for="texto_orienta">Observaciones de Orientación</label>
+								<label for="texto_orienta">Observaciones de OrientaciÃ³n</label>
 								<textarea class="form-control" id="texto_orienta" name="texto_orienta" rows="7" readonly><?php echo ($row['orientacion'] != '') ? $row['orientacion'] : ''; ?></textarea>
 							</div>
 							

@@ -12,7 +12,7 @@ if (isset($_GET['horario_profesor'])) {
 else{
 	$extra = "order by prof";
 }
-// Días de la semana 
+// DÃ­as de la semana 
 $profe1 = mysqli_query($db_con, "SELECT distinct prof, no_prof from horw_faltas $extra");
 while($profe2 = mysqli_fetch_array($profe1))
 {
@@ -21,10 +21,10 @@ $dia="";
 $nombre="";
 $i="";
 ${'a'.$i}="";
-$profesor = $profe2[0];
+$profesor = utf8_decode($profe2[0]);
 $no_prof+=1;
 $profes = "<b>FALTAS DE ASISTENCIA</b>    -    <b>$no_prof</b> => $profesor     Semana de ................... a ...................";
-$horas=array(1=>"1ª Hora",2=>"2ª Hora",3=>"3ª Hora",4=>"4ª Hora",5=>"5ª Hora",6=>"6ª Hora");
+$horas=array(1=>"1Âª Hora",2=>"2Âª Hora",3=>"3Âª Hora",4=>"4Âª Hora",5=>"5Âª Hora",6=>"6Âª Hora");
 foreach($horas as $n_hora => $nombre) 
 {
 for($i=1;$i<6;$i++) 
@@ -35,12 +35,12 @@ $asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig, a_grupo FROM  hor
 while($rowasignaturas1 = mysqli_fetch_array($asignaturas1))
  {
  	$grupo = $rowasignaturas1[1];
-	${'a'.$i}.= "<b>".$grupo."</b> - <i>".$rowasignaturas1[0]."</i>\n\n"; 
+	${'a'.$i}.= "<b>".utf8_decode($grupo)."</b> - <i>".$rowasignaturas1[0]."</i>\n\n"; 
  }
  ${'a'.$i}=substr(${'a'.$i},0,strlen(${'a'.$i})-1);
 }
 $datos[] = array(
-    'c0'=>'<b>'.strtoupper($nombre).'</b>',
+    'c0'=>'<b>'.strtoupper(utf8_decode($nombre)).'</b>',
 	'c1'=>$a1,
 	'c2'=>$a2,
 	'c3'=>$a3,

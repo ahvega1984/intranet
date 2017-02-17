@@ -11,13 +11,13 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>AdministraciÛn <small>ImportaciÛn de profesores</small></h2>
+		<h2>Administraci√≥n <small>Importaci√≥n de profesores</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM profesores LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe informaciÛn en la base de datos. Este proceso actualizar· la informaciÛn de los profesores. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.
+		Ya existe informaci√≥n en la base de datos. Este proceso actualizar√° la informaci√≥n de los profesores. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -31,7 +31,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="profesores.php">
 					<fieldset>
-						<legend>ImportaciÛn de profesores</legend>
+						<legend>Importaci√≥n de profesores</legend>
 						
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">RelMatProUni.txt</span></label>
@@ -52,11 +52,11 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>InformaciÛn sobre la importaciÛn</h3>
+			<h3>Informaci√≥n sobre la importaci√≥n</h3>
 			
-			<p>Este apartado se encarga de importar los <strong>Profesores del Centro</strong>, junto con los Grupos y y las Asignaturas que imparten. Esto permitir· comprobar incoherencias en el horario de Horwin en relaciÛn con SÈneca. El enlace <strong>Limpiar Horarios</strong>, m·s abajo, se encarga de eliminar esas incoherencias depurando la tabla de los Horarios.</p>
+			<p>Este apartado se encarga de importar los <strong>Profesores del Centro</strong>, junto con los Grupos y y las Asignaturas que imparten. Esto permitir√° comprobar incoherencias en el horario de Horwin en relaci√≥n con S√©neca. El enlace <strong>Limpiar Horarios</strong>, m√°s abajo, se encarga de eliminar esas incoherencias depurando la tabla de los Horarios.</p>
 			
-			<p>Para obtener el archivo de exportaciÛn de los Profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el botÛn <strong>Exportar datos</strong>. El formato de exportaciÛn debe ser <strong>Texto plano</strong>.</p>
+			<p>Para obtener el archivo de exportaci√≥n de los Profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el bot√≥n <strong>Exportar datos</strong>. El formato de exportaci√≥n debe ser <strong>Texto plano</strong>.</p>
 
 		</div>
 		

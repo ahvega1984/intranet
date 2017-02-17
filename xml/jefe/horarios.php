@@ -7,7 +7,7 @@ include("../../menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-<h2>AdministraciÛn <small>ImportaciÛn del horario con archivo DEL de Horw</small></h2>
+<h2>Administraci√≥n <small>Importaci√≥n del horario con archivo DEL de Horw</small></h2>
 </div>
 <div class="row"><?php
 
@@ -27,11 +27,11 @@ mysqli_query($db_con,"truncate table horw");
 else{
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>AtenciÛn:</legend>
-El archivo de Horw que intentas descargar est· <strong>VACÕO</strong>. IntÈntalo de nuevo con el archivo de datos exportado desde HORWIN.
+			<legend>Atenci√≥n:</legend>
+El archivo de Horw que intentas descargar est√° <strong>VAC√çO</strong>. Int√©ntalo de nuevo con el archivo de datos exportado desde HORWIN.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr√°s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><br />';
 		exit();	
 }
@@ -43,11 +43,11 @@ foreach($contents as $linea){
 	if ($num_col != 11) {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>AtenciÛn:</legend>
-El archivo de Horw que est·s intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>11 columnas</strong>. Aseg˙rate de que el archivo de Horw sigue las instrucciones de la imagen, y vuelve a intentarlo.
+			<legend>Atenci√≥n:</legend>
+El archivo de Horw que est√°s intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>11 columnas</strong>. Aseg√∫rate de que el archivo de Horw sigue las instrucciones de la imagen, y vuelve a intentarlo.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr√°s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><br />';
 		exit();
 	}
@@ -65,15 +65,15 @@ El archivo de Horw que est·s intentando exportar contiene <strong>'.$num_col.' c
 
 	mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>
+			<h5>ATENCI√ìN:</h5>
 No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr√°s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 }
 
-// Eliminamos el Recreo como 4¬™ Hora.
+// Eliminamos el Recreo como 4√Ç¬™ Hora.
 $recreo = "update horw set hora = 'R' WHERE hora ='4'";
 mysqli_query($db_con,$recreo);
 $hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
@@ -93,15 +93,15 @@ while($s_asigna = mysqli_fetch_array($s_cod)){
 	mysqli_query($db_con,"update horw set c_asig = '$s_l', asig = (select nomactividad from actividades_seneca where idactividad = '$s_l') where c_asig = '$s_asigna[0]'");
 }
 
-// Detectamos asignaturas sin cÛdigo
+// Detectamos asignaturas sin c√≥digo
 $sin_codigo="";
 $sin_cd = mysqli_query($db_con,"select distinct a_asig, asig from horw where c_asig = '' or c_asig is null");
 if (mysqli_num_rows($sin_cd)>0) {
 
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>
-No se ha registrado un cÛdigo para las asignaturas que aparecen abajo. Esta situaciÛn producir· problemas en mÛdulos fundamentales de la Intranet. Asigna el cÛdigo correcto y actualiza el horario cuanto antes, a menos que sepas lo que haces.
+			<h5>ATENCI√ìN:</h5>
+No se ha registrado un c√≥digo para las asignaturas que aparecen abajo. Esta situaci√≥n producir√° problemas en m√≥dulos fundamentales de la Intranet. Asigna el c√≥digo correcto y actualiza el horario cuanto antes, a menos que sepas lo que haces.
 <br><br><ul>';
 
 	while($sin_codi = mysqli_fetch_array($sin_cd)){
@@ -110,7 +110,7 @@ No se ha registrado un cÛdigo para las asignaturas que aparecen abajo. Esta situ
 	echo '</ul></div></div>';
 }
 
-// Cambiamos el nombre de los profesores de Horw para ajustarlos a SÈneca.
+// Cambiamos el nombre de los profesores de Horw para ajustarlos a S√©neca.
 $hor0 = mysqli_query($db_con, "select distinct c_prof, prof from horw order by prof");
 while($hor_profe0 = mysqli_fetch_array($hor0)){
 	$nombre_profesor="";
@@ -128,7 +128,7 @@ while($hor_profe0 = mysqli_fetch_array($hor0)){
 	}
 }
 
-// Cambiamos los numeros de Horw para dejarlos en orden alfabÈtico.
+// Cambiamos los numeros de Horw para dejarlos en orden alfab√©tico.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
 while($hor_profe = mysqli_fetch_array($hor)){
 	$np+=1;
@@ -203,7 +203,7 @@ $pro =mysqli_query($db_con,"select distinct asig, a_asig, c_asig from horw where
 		}
 	}
 	
-// Recorremos la tabla Profesores bajada de SÈneca
+// Recorremos la tabla Profesores bajada de S√©neca
 $tabla_profes =mysqli_query($db_con,"select * from profesores");
 if (mysqli_num_rows($tabla_profes) > 0) {
 	$hay_profes=1;
@@ -231,7 +231,7 @@ else{
 
 mysqli_query($db_con, "OPTIMIZE TABLE `horw`");
 
-// Actualizamos nombre de las materias / actividades para hacerlas m·s intuitivas
+// Actualizamos nombre de las materias / actividades para hacerlas m√°s intuitivas
 mysqli_query($db_con, "update horw set a_asig = 'TCA' where c_asig = '2'");
 mysqli_query($db_con, "update asignaturas set abrev = 'TCA' where codigo = '2'");
 mysqli_query($db_con, "update horw set a_asig = 'TCF' where c_asig = '279'");
@@ -240,10 +240,10 @@ mysqli_query($db_con, "update horw set a_asig = 'GU' where c_asig = '25'");
 mysqli_query($db_con, "update horw set a_asig = 'GUREC' where c_asig = '353'");
 mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 
-// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a SÈneca y consigamos los datos reales de los mismos
+// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a S√©neca y consigamos los datos reales de los mismos
 
 
-// Recorremos la tabla Profesores bajada de SÈneca
+// Recorremos la tabla Profesores bajada de S√©neca
 /*if ($nohay_profes==1) {
         mysqli_query($db_con,"drop table profesores_seg");
         mysqli_query($db_con,"create table profesores_seg select * from profesores");
@@ -326,7 +326,7 @@ El Horario ha sido importado correctamente.</div>
 </div>
 <br />
 <div align="center"><a href="../index.php" class="btn btn-primary" />Volver
-a AdministraciÛn</a></div>
+a Administraci√≥n</a></div>
 <br />
 </div>
 </div>

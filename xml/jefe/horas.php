@@ -5,7 +5,7 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -41,7 +41,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$profe=ucwords(mb_strtolower($profe));
 
 	$data[] = array(
-				'nombre'=>$profe,
+				'nombre'=>utf8_decode($profe),
 				'c1'=>$c1,
 				'c2'=>$c2,
 				'c3'=>$c3,

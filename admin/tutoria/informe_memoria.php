@@ -87,7 +87,7 @@ textarea.form-control {
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">TutorÌa de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
+		<h2 style="display:inline;">Tutor√≠a de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
 	 	
 	 	<!-- Button trigger modal -->
  		<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -103,23 +103,23 @@ textarea.form-control {
  						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
  					</div>
  					<div class="modal-body">
- 						<p>La Memoria de TutorÌa ofrece a los Tutores un informe completo sobre 
- 						los datos m·s relevantes que se han generado a lo largo del Curso escolar 
- 						en relaciÛn con su Grupo de Alumnos. Presenta en primer lugar un conjunto 
- 						de datos estadÌsticos de car·cter general, y otro m·s especÌfico sobre 
- 						Problemas de Convivencia del Grupo. A partir de ahÌ, se muestran datos por 
+ 						<p>La Memoria de Tutor√≠a ofrece a los Tutores un informe completo sobre 
+ 						los datos m√°s relevantes que se han generado a lo largo del Curso escolar 
+ 						en relaci√≥n con su Grupo de Alumnos. Presenta en primer lugar un conjunto 
+ 						de datos estad√≠sticos de car√°cter general, y otro m√°s espec√≠fico sobre 
+ 						Problemas de Convivencia del Grupo. A partir de ah√≠, se muestran datos por 
  						Alumno sobre Faltas de Asistencia, Problemas de Convivencia, Expulsiones, 
  						Absentismo escolar, Visitas de Padres, Intervenciones del Tutor, 
- 						Actividades Extraescolares y estadÌsticas de calificaciones en las 
+ 						Actividades Extraescolares y estad√≠sticas de calificaciones en las 
  						distintas asignaturas del Tutor.</p>
- 						<p>En la parte superior derecha de la p·gina aparece un botÛn con el tÌtulo 
- 						'Redactar Observaciones finales'. Al hacer click sobre este botÛn se nos 
- 						presenta un cuadro de texto en el que procedemos a escribir la valoraciÛn 
- 						que el Tutor realiza sobre el Grupo y su TutorÌa, asÌ como cualquier otro 
+ 						<p>En la parte superior derecha de la p√°gina aparece un bot√≥n con el t√≠tulo 
+ 						'Redactar Observaciones finales'. Al hacer click sobre este bot√≥n se nos 
+ 						presenta un cuadro de texto en el que procedemos a escribir la valoraci√≥n 
+ 						que el Tutor realiza sobre el Grupo y su Tutor√≠a, as√≠ como cualquier otro 
  						elemento que considere relevante. Una vez rellenado el campo de observaciones, 
- 						el botÛn cambia a 'Imprimir Memoria de TutorÌa' y ya est· lista para presentar 
+ 						el bot√≥n cambia a 'Imprimir Memoria de Tutor√≠a' y ya est√° lista para presentar 
  						en Jefatura de Estudios. Las observaciones aparecen en la parte inferior de 
- 						la Memoria, y pueden ser editadas en todo momento hasta su impresiÛn.</p>
+ 						la Memoria, y pueden ser editadas en todo momento hasta su impresi√≥n.</p>
  					</div>
  					<div class="modal-footer">
  						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -136,9 +136,9 @@ if (isset($_POST['imp_memoria'])) {
 	mysqli_query($db_con, "update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Las observaciones que has redactado han sido guardadas. Puedes aÒadir y editar el texto tantas veces como quieras. O puedes volver a la p·gina de la memoria e imprimirla para entregarla en Jefatura.
+Las observaciones que has redactado han sido guardadas. Puedes a√±adir y editar el texto tantas veces como quieras. O puedes volver a la p√°gina de la memoria e imprimirla para entregarla en Jefatura.
 </div></div><br />';
-	echo '<center><input type="button" value="Volver a la Memoria de TutorÌa" name="boton" onclick="window.location.href = \'informe_memoria.php\'" class="btn btn-primary" /></center>';
+	echo '<center><input type="button" value="Volver a la Memoria de Tutor√≠a" name="boton" onclick="window.location.href = \'informe_memoria.php\'" class="btn btn-primary" /></center>';
 	echo "</div>";
 	include("../../pie.php");
 	echo '</body></html>';
@@ -149,7 +149,7 @@ Las observaciones que has redactado han sido guardadas. Puedes aÒadir y editar e
  $obs2=mysqli_fetch_array($obs1);
  if (empty($obs2[0]) && empty($obs[1]) && date('m')==06) {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
  	else{
-		$boton = "Imprimir Memoria final de TutorÌa"; $click="onClick=print();";}
+		$boton = "Imprimir Memoria final de Tutor√≠a"; $click="onClick=print();";}
  ?>
   <div style="margin-bottom:0px;">
  <input type="button" class="btn btn-primary hidden-print pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
@@ -352,7 +352,7 @@ if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde SÈneca (AdministraciÛn de la Intranet --> Importar Calificaciones) para que este mÛdulo funcione.
+			<h5>ATENCI√ìN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde S√©neca (Administraci√≥n de la Intranet --> Importar Calificaciones) para que este m√≥dulo funcione.
           </div></div>';
 	exit();
 }
@@ -360,7 +360,7 @@ else{
 
 
 
- <hr><br /><h3>InformaciÛn de TutorÌa por Alumno</h3>
+ <hr><br /><h3>Informaci√≥n de Tutor√≠a por Alumno</h3>
   <div class="row">     
  <div class="col-sm-6">
  <hr><br /><h3>Alumnos absentistas</h3>
@@ -463,7 +463,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div>
  </div>
  
- <hr><br /><h3>Informes de TutorÌa por visita de padres</h3>
+ <hr><br /><h3>Informes de Tutor√≠a por visita de padres</h3>
 
 <?php
  $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '".$config['curso_inicio']."' group by apellidos";
@@ -506,7 +506,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 	 ?>
 	 </div> 
 	 <div class="col-sm-7">
- <hr><br /><h3>Intervenciones de TutorÌa (excluidos SMS)</h3>
+ <hr><br /><h3>Intervenciones de Tutor√≠a (excluidos SMS)</h3>
 
      <?php
  echo '<table class="table table-bordered table-striped">';
@@ -550,7 +550,7 @@ if($imprimir == 1 || strlen($obs2[0]) > 1 || strlen($obs[1])> 1)
 ?>
 <a name="observaciones" id="obs"></a>
 <hr><br /><h3>
- Observaciones sobre dificultades encontradas en el Grupo<br />(IntegraciÛn, MotivaciÛn, Rendimiento acadÈmico, etc.)</h3>
+ Observaciones sobre dificultades encontradas en el Grupo<br />(Integraci√≥n, Motivaci√≥n, Rendimiento acad√©mico, etc.)</h3>
 
  <form action="" method="POST">
  <textarea class="form-control autosize hidden-print" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>

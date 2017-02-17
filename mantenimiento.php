@@ -9,7 +9,7 @@ $_SESSION['autentificado'] = 0;
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="iso-8859-1">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -117,11 +117,11 @@ $_SESSION['autentificado'] = 0;
         
         <br>
         
-        <p class="lead">Esta página se encuentra cerrada temporalmente por tareas de mantenimiento. El acceso se reanudará pronto.</p>
+        <p class="lead">Esta pÃ¡gina se encuentra cerrada temporalmente por tareas de mantenimiento. El acceso se reanudarÃ¡ pronto.</p>
         
         <br>
         
-        <p><a class="btn btn-lg btn-success" href="//<?php echo $config['dominio']; ?>" role="button">Ir a la página del centro</a></p>
+        <p><a class="btn btn-lg btn-success" href="//<?php echo $config['dominio']; ?>" role="button">Ir a la pÃ¡gina del centro</a></p>
       </div>
 
       <footer class="hidden-print">
@@ -129,7 +129,7 @@ $_SESSION['autentificado'] = 0;
       		<hr>
       		
       		<p class="text-center">
-      			<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
+      			<small class="text-muted">VersiÃ³n <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
       			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
       		</p>
       		<p class="text-center">

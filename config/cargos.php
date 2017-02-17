@@ -8,7 +8,7 @@ include ("../menu.php");
 <div class='container-fluid'>
 
 	<div class="page-header">
-	  <h2>Administraci髇 <small> Perfiles de Profesores</small></h2>
+	  <h2>Administraci贸n <small> Perfiles de Profesores</small></h2>
 	</div>
 	
 	<?php
@@ -40,7 +40,7 @@ include ("../menu.php");
 				$n_profe = mysqli_query($db_con, "select nombre from departamentos where dni='$dni'" );
 				$n_prof = mysqli_fetch_array ( $n_profe );
 				$unidad = $cargo_profe;
-				$n_tutor = mb_strtoupper ( $n_prof [0], 'iso-8859-1' );
+				$n_tutor = mb_strtoupper ( $n_prof [0], 'UTF-8' );
 				
 				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor`, `observaciones1`, `observaciones2` ) VALUES ('$unidad', '$n_tutor', '', '')" ) or die (mysqli_error($db_con));
 			
@@ -81,25 +81,25 @@ include ("../menu.php");
 		$head = '<thead>
 			<tr>
 				<th>Profesor</th>
-				<th><span data-bs="tooltip" title="Administradores de la Aplicaci髇">Admin</span></th>
-				<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Direcci髇</span></th>
+				<th><span data-bs="tooltip" title="Administradores de la Aplicaci贸n">Admin</span></th>
+				<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Direcci贸n</span></th>
 				<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
-				<th><span data-bs="tooltip" title="Tutores de faltas de asistencia. Estos tutores se encargan de pasar a la Intranet las faltas que los profesores registran en su parte personal (Administracci髇 de la Intranet --> Faltas de Asistencia -> Horario de faltas para profesores), que entregan los viernes en Jefatura o Conserjer韆. ">Faltas</span></th>
+				<th><span data-bs="tooltip" title="Tutores de faltas de asistencia. Estos tutores se encargan de pasar a la Intranet las faltas que los profesores registran en su parte personal (Administracci贸n de la Intranet --> Faltas de Asistencia -> Horario de faltas para profesores), que entregan los viernes en Jefatura o Conserjer铆a. ">Faltas</span></th>
 				<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
-				<th><span data-bs="tooltip" title="Miembros del Equipo T閏nico de Coordinaci髇 Pedadg骻ica">ETCP</span></th>
+				<th><span data-bs="tooltip" title="Miembros del Equipo T茅cnico de Coordinaci贸n Pedadg贸gica">ETCP</span></th>
 				<th><span data-bs="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
-				<th><span data-bs="tooltip" title="Miembros del personal de Administracci髇 y Servicios: Conserjes.">Conserje</span></th>
-				<th><span data-bs="tooltip" title="Miembros del personal de Administracci髇 y Servicios: Administrativos">Administ.</span></th>
-				<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientaci髇, inclu韉os ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
-		if($config['mod_bilingue']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Biling黣</span></th>';
+				<th><span data-bs="tooltip" title="Miembros del personal de Administracci贸n y Servicios: Conserjes.">Conserje</span></th>
+				<th><span data-bs="tooltip" title="Miembros del personal de Administracci贸n y Servicios: Administrativos">Administ.</span></th>
+				<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientaci贸n, inclu铆dos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
+		if($config['mod_bilingue']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Biling眉e</span></th>';
 
 		if ($config['mod_convivencia']==1) { 
 		$head .= '<th><span data-bs="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
 		}
 		if($config['mod_biblioteca']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
-		$head .= '<th><span data-bs="tooltip" title="Profesor encargado de las Relaciones de G閚ero">G閚ero</span></th>
-				  <th><span data-bs="tooltip" title="Departamento de Formacci髇, Innovaci髇 y Evaluaci髇">DFEIE</span></th>
-				  <th><span data-bs="tooltip" title="Tel閒ono m髒il del Profesor">Tfno. M髒il</span></th>
+		$head .= '<th><span data-bs="tooltip" title="Profesor encargado de las Relaciones de G茅nero">G茅nero</span></th>
+				  <th><span data-bs="tooltip" title="Departamento de Formacci贸n, Innovaci贸n y Evaluaci贸n">DFEIE</span></th>
+				  <th><span data-bs="tooltip" title="Tel茅fono m贸vil del Profesor">Tfno. M贸vil</span></th>
 				  <th>&nbsp;</th>
 			</tr>
 			</thead>';
@@ -108,7 +108,7 @@ include ("../menu.php");
 		<form name="cargos" action="cargos.php" method="post">
 		
 		<p class="help-block">
-			Si necesitas informaci髇 sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del rat髇 sobre los distintos tipos de perfiles.
+			Si necesitas informaci贸n sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del rat贸n sobre los distintos tipos de perfiles.
 		</p>
 		
 		<table class="table table-bordered table-striped table-condensed">

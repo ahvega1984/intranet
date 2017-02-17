@@ -11,13 +11,13 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>AdministraciÛn <small>ActualizaciÛn de Departamentos</small></h2>
+		<h2>Administraci√≥n <small>Actualizaci√≥n de Departamentos</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe informaciÛn en la base de datos. Este proceso actualizar· la informaciÛn de los departamentos. Es recomendable realizar una <a class="../copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.
+		Ya existe informaci√≥n en la base de datos. Este proceso actualizar√° la informaci√≥n de los departamentos. Es recomendable realizar una <a class="../copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -32,7 +32,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="departamentos.php">
 					<fieldset>
-						<legend>ActualizaciÛn de departamentos</legend>
+						<legend>Actualizaci√≥n de departamentos</legend>
 
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">RelPerCen.txt</span></label>
@@ -53,13 +53,13 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>InformaciÛn sobre la actualizaciÛn</h3>
+			<h3>Informaci√≥n sobre la actualizaci√≥n</h3>
 			
 			<p>Este apartado se encarga de actualizar los <strong>Departamentos</strong> de los profesores que trabajan en el Centro.</p>
 			
-			<p>Una vez importados los datos es conveniente ir a la p·gina de <strong>GestiÛn de los Departamentos</strong> para personalizarlos y adaptarlos a la estructura real del Centro. Esta tarea debe realizarse cada vez que se importan o actualizan los Departamentos y profesores.</p>
+			<p>Una vez importados los datos es conveniente ir a la p√°gina de <strong>Gesti√≥n de los Departamentos</strong> para personalizarlos y adaptarlos a la estructura real del Centro. Esta tarea debe realizarse cada vez que se importan o actualizan los Departamentos y profesores.</p>
 			
-			<p>Para obtener el archivo de exportaciÛn de profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Muestre todos los profesores del centro y haga clic en el botÛn <strong>Exportar datos</strong>. El formato de exportaciÛn debe ser <strong>Texto plano</strong>.</p>		
+			<p>Para obtener el archivo de exportaci√≥n de profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Muestre todos los profesores del centro y haga clic en el bot√≥n <strong>Exportar datos</strong>. El formato de exportaci√≥n debe ser <strong>Texto plano</strong>.</p>		
 		</div>
 		
 	

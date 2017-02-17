@@ -7,7 +7,7 @@ include "../../menu.php";
 
 <div class="container">
 <div class="page-header">
-		<h2>Evaluación de Pendientes <small>Calificación de las materias pendientes</small></h2>
+		<h2>EvaluaciÃ³n de Pendientes <small>CalificaciÃ³n de las materias pendientes</small></h2>
 </div>
 
 <div class="row">
@@ -25,7 +25,7 @@ $evaluacion_pendiente=$_POST["evaluacion"];
 ?>
 
 <legend class="text-info" align="center"><strong><?php echo $curso_pendiente;?></strong></legend>
-<legend class='text-warning' align="center"><?php echo $evaluacion_pendiente;?>ª Evaluación</legend>
+<legend class='text-warning' align="center"><?php echo $evaluacion_pendiente;?>Âª EvaluaciÃ³n</legend>
 <table class='table table-striped table-bordered table-condensed' style="width:auto;" align='center'>
 
 <?php

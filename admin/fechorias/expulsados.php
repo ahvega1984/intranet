@@ -27,13 +27,13 @@ include("menu.php");
   FALUMNOS.nc, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.fin = '$ayer'
   order by Fechoria.fecha ");
-echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsión</legend>";
+echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsiÃ³n</legend>";
      if ($row = mysqli_fetch_array($result))
         {
 
 		echo "<center><table class='table table-striped' style='width:auto'>";
         echo "<tr><th>Apellidos</th><th>Nombre</th>
-		<th>Grupo</th><th>Días</th><th>Comienzo</th><th>Fin</th><th>Detalles</th><th>Tareas</th><th>Foto</th></tr>";
+		<th>Grupo</th><th>DÃ­as</th><th>Comienzo</th><th>Fin</th><th>Detalles</th><th>Tareas</th><th>Foto</th></tr>";
 
                 do {
 $foto0="";		
@@ -58,7 +58,7 @@ while( $row = mysqli_fetch_array($result));
 		else{
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
- Parece que ningún Alumno se reincorpora hoy al Centro.          
+ Parece que ningÃºn Alumno se reincorpora hoy al Centro.          
 		</div></div>';
 			 }
   
@@ -72,7 +72,7 @@ echo "<br /><legend align='center'>Alumnos expulsados del Centro actualmente</le
         {
 		echo "<center><table class='table table-striped' style='width:auto'>";
         echo "<tr><th>Apellidos</th><th>Nombre</th>
-		<th>Grupo</th><th>Días</th><th>Comienzo</th><th>Fin</th><th>Detalles</th><th>Foto</th></tr>";
+		<th>Grupo</th><th>DÃ­as</th><th>Comienzo</th><th>Fin</th><th>Detalles</th><th>Foto</th></tr>";
 
                 do {
 		$foto="";

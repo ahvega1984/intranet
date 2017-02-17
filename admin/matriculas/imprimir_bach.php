@@ -33,7 +33,7 @@ define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
-# ajustamos al 100% la visualizaci√≥n
+# ajustamos al 100% la visualizaci√É¬≥n
 $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
 if (substr($curso, 0, 1) == '1') {
@@ -64,12 +64,12 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 $dnitutor= "DNI: ".$dnitutor;
 	 $madre= "Apellidos y nombre del Tutor legal 2: ".$madre;
 	 $dnitutor2= "DNI: ".$dnitutor2;
-	 $telefono1= "TelÈfono Casa: ".$telefono1;
-	 $telefono2= "TelÈfono MÛvil: ".$telefono2;
+	 $telefono1= "Tel√©fono Casa: ".$telefono1;
+	 $telefono2= "Tel√©fono M√≥vil: ".$telefono2;
 	 $telefonos="$telefono1\n   $telefono2";
 
 	 if ($datos_ya->colegio == "Otro Centro") { $colegio= "Centro de procedencia:  ".$datos_ya->otrocolegio; }else{	 $colegio= "Centro de procedencia:  ".$datos_ya->colegio; }
-	 $correo= "Correo electrÛnico de padre o madre: ".$datos_ya->correo;
+	 $correo= "Correo electr√≥nico de padre o madre: ".$datos_ya->correo;
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
@@ -78,27 +78,27 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 // Asignaturas y Modalidades
 
 // 1 BACHILLERATO
-$it1 = array("1"=>"Ciencias e IngenierÌa y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y JurÌdicas");
+$it1 = array("1"=>"Ciencias e Ingenier√≠a y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jur√≠dicas");
 
-$opt11=array( "CC11" => "Cultura CientÌfica 1", "TIC11" => "TecnologÌas de InformaciÛn y ComunicaciÛn 1");
-$opt12=array("CC12" => "Cultura CientÌfica 2", "TIC12" => "TecnologÌas de InformaciÛn y ComunicaciÛn 2");
-$opt13=array("LUN13" => "Literatura Universal 3","HMC13" => "Historia del Mundo Contempor·neo 3");
-$opt14=array("LUN14" => "Literatura Universal 4","HMC14" => "Historia del Mundo Contempor·neo 4");
+$opt11=array( "CC11" => "Cultura Cient√≠fica 1", "TIC11" => "Tecnolog√≠as de Informaci√≥n y Comunicaci√≥n 1");
+$opt12=array("CC12" => "Cultura Cient√≠fica 2", "TIC12" => "Tecnolog√≠as de Informaci√≥n y Comunicaci√≥n 2");
+$opt13=array("LUN13" => "Literatura Universal 3","HMC13" => "Historia del Mundo Contempor√°neo 3");
+$opt14=array("LUN14" => "Literatura Universal 4","HMC14" => "Historia del Mundo Contempor√°neo 4");
 
 // 2 BACHILLERATO
-$it2 = array("1"=>"Ciencias e IngenierÌa y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y JurÌdicas");
+$it2 = array("1"=>"Ciencias e Ingenier√≠a y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jur√≠dicas");
 
-$it21 = array("Bachillerato de Ciencias", "Arquitectura e IngenierÌa y Ciencias", "Matem·ticas II", "FÌsica", "Dibujo TÈcnico II");
-$it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Matem·ticas II", "QuÌmica", "BiologÌa");
-$it23 = array("Bachillerato de Humanidades", "Humanidades", "LatÌn II", "Historia del Arte");
-$it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y JurÌdicas", "Matem·ticas de las Ciencias Sociales II", "GeografÌa");
+$it21 = array("Bachillerato de Ciencias", "Arquitectura e Ingenier√≠a y Ciencias", "Matem√°ticas II", "F√≠sica", "Dibujo T√©cnico II");
+$it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Matem√°ticas II", "Qu√≠mica", "Biolog√≠a");
+$it23 = array("Bachillerato de Humanidades", "Humanidades", "Lat√≠n II", "Historia del Arte");
+$it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y Jur√≠dicas", "Matem√°ticas de las Ciencias Sociales II", "Geograf√≠a");
 
-$opt21=array("TIN21" => "TecnologÌa Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "PsicologÌa 1", "GEO21" => "GeologÌa 1", "TIC21" => "TIC 1 II", "AL21" => "Alem·n 2∫ Idioma 1", "FR21" => "FrancÈs 2∫ Idioma 1", "ING21" => "InglÈs 2∫ Idioma 1");
-$opt22=array("TIN22" => "TecnologÌa Industrial 2 II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente 2", "PSI22" => "PsicologÌa 2", "GEO22" => "GeologÌa 2", "TIC22" => "TIC 2 II", "AL22" => "Alem·n 2∫ Idioma 2", "FR22" => "FrancÈs 2∫ Idioma 2", "ING22" => "InglÈs 2∫ Idioma 2");
-$opt23=array( "TIC23" => "TIC II 3", "AL23" => "Alem·n 2∫ Idioma 3", "FR23" => "FrancÈs 2∫ Idioma 3", "ING23" => "InglÈs 2∫ Idioma 3");
-$opt24=array( "TIC24" => "TIC II 4", "FAG24" => "Fundamentos de AdministracciÛn y GestiÛn 4", "AL24" => "Alem·n 2∫ Idioma 4", "FR24" => "FrancÈs 2∫ Idioma 4", "ING24" => "InglÈs 2∫ Idioma 4");
+$opt21=array("TIN21" => "Tecnolog√≠a Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "Psicolog√≠a 1", "GEO21" => "Geolog√≠a 1", "TIC21" => "TIC 1 II", "AL21" => "Alem√°n 2¬∫ Idioma 1", "FR21" => "Franc√©s 2¬∫ Idioma 1", "ING21" => "Ingl√©s 2¬∫ Idioma 1");
+$opt22=array("TIN22" => "Tecnolog√≠a Industrial 2 II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente 2", "PSI22" => "Psicolog√≠a 2", "GEO22" => "Geolog√≠a 2", "TIC22" => "TIC 2 II", "AL22" => "Alem√°n 2¬∫ Idioma 2", "FR22" => "Franc√©s 2¬∫ Idioma 2", "ING22" => "Ingl√©s 2¬∫ Idioma 2");
+$opt23=array( "TIC23" => "TIC II 3", "AL23" => "Alem√°n 2¬∫ Idioma 3", "FR23" => "Franc√©s 2¬∫ Idioma 3", "ING23" => "Ingl√©s 2¬∫ Idioma 3");
+$opt24=array( "TIC24" => "TIC II 4", "FAG24" => "Fundamentos de Administracci√≥n y Gesti√≥n 4", "AL24" => "Alem√°n 2¬∫ Idioma 4", "FR24" => "Franc√©s 2¬∫ Idioma 4", "ING24" => "Ingl√©s 2¬∫ Idioma 4");
 
-$opt_aut2=array("opt_aut21" => "EducaciÛn FÌsica", "opt_aut22" => "EstadÌstica", "opt_aut23" => "IntroducciÛn Ciencias de la Salud", "opt_aut24" => "Alem·n 2∫ Idioma", "opt_aut25" => "FrancÈs 2∫ Idioma", "opt_aut26" => "InglÈs 2∫ Idioma", "opt_aut27" => "Electrotecnia 1");
+$opt_aut2=array("opt_aut21" => "Educaci√≥n F√≠sica", "opt_aut22" => "Estad√≠stica", "opt_aut23" => "Introducci√≥n Ciencias de la Salud", "opt_aut24" => "Alem√°n 2¬∫ Idioma", "opt_aut25" => "Franc√©s 2¬∫ Idioma", "opt_aut26" => "Ingl√©s 2¬∫ Idioma", "opt_aut27" => "Electrotecnia 1");
 
 
 	 $observaciones= "OBSERVACIONES: ".$observaciones;
@@ -113,25 +113,25 @@ $fecha = $fech[0];
 $an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $hoy = formatea_fecha(date('Y-m-d'));
-$titulo_documentacion = "DOCUMENTACI”N NECESARIA PARA LA MATRICULACI”N";
-$documentacion = "1. Fotocopia del DNI. Si el alumno no dispone de DNI, una fotocopia del Libro de Familia o Certificado de Nacimiento. El alumnado extranjero deber· entregar una fotocopia del Pasaporte y Tarjeta de Residencia.
-2. El alumnado procedente de otros Institutos o de Colegios no adscritos a nuestro Centro deben aportar el Certificado de expediente acadÈmico..
-3. Los alumnos que se matriculen a partir de 3∫ de ESO tienen que abonar 2 euros para la cuota obligatoria del Seguro Escolar.
-4. Cuota voluntaria de 12 euros para la AsociaciÛn de Padres y Madres del Centro.
+$titulo_documentacion = "DOCUMENTACI√ìN NECESARIA PARA LA MATRICULACI√ìN";
+$documentacion = "1. Fotocopia del DNI. Si el alumno no dispone de DNI, una fotocopia del Libro de Familia o Certificado de Nacimiento. El alumnado extranjero deber√° entregar una fotocopia del Pasaporte y Tarjeta de Residencia.
+2. El alumnado procedente de otros Institutos o de Colegios no adscritos a nuestro Centro deben aportar el Certificado de expediente acad√©mico..
+3. Los alumnos que se matriculen a partir de 3¬∫ de ESO tienen que abonar 2 euros para la cuota obligatoria del Seguro Escolar.
+4. Cuota voluntaria de 12 euros para la Asociaci√≥n de Padres y Madres del Centro.
 ";
-$datos_junta = "PROTECCI”N DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Org·nica 15/1999, de 13 de Diciembre, de ProtecciÛn de Datos de Car·cter Personal, la ConsejerÌa de EducaciÛn le informa que los datos personales obtenidos mediante la cumplimentaciÛn de este formulario y dem·s documentaciÛn que se adjunta van a ser incorporados, para su tratamiento, al fichero 'SÈneca. Datos personales y acadÈmicos del alumnado', con la finalidad de recoger los datos personales y acadÈmicos del alumnado que cursa estudios en centros dependientes de la ConserjerÌa de EducaciÛn, asÌ como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificaciÛn, cancelaciÛn y oposiciÛn dirigiendo un escrito a la SecretarÌa General TÈcnica de la ConserjerÌa de EducaciÛn de la Junta de AndalucÌa en Avda. Juan Antonio de VizarrÛn, s/n, Edificio Torretriana 41071 SEVILLA";
-// Normas de telefonÌa mÛvil
-$titulo_moviles = "SOBRE EL USO DE TEL…FONOS M”VILES Y OTROS DISPOSITIVOS EN EL CENTRO";
+$datos_junta = "PROTECCI√ìN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Org√°nica 15/1999, de 13 de Diciembre, de Protecci√≥n de Datos de Car√°cter Personal, la Consejer√≠a de Educaci√≥n le informa que los datos personales obtenidos mediante la cumplimentaci√≥n de este formulario y dem√°s documentaci√≥n que se adjunta van a ser incorporados, para su tratamiento, al fichero 'S√©neca. Datos personales y acad√©micos del alumnado', con la finalidad de recoger los datos personales y acad√©micos del alumnado que cursa estudios en centros dependientes de la Conserjer√≠a de Educaci√≥n, as√≠ como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificaci√≥n, cancelaci√≥n y oposici√≥n dirigiendo un escrito a la Secretar√≠a General T√©cnica de la Conserjer√≠a de Educaci√≥n de la Junta de Andaluc√≠a en Avda. Juan Antonio de Vizarr√≥n, s/n, Edificio Torretriana 41071 SEVILLA";
+// Normas de telefon√≠a m√≥vil
+$titulo_moviles = "SOBRE EL USO DE TEL√âFONOS M√ìVILES Y OTROS DISPOSITIVOS EN EL CENTRO";
 
 $texto_moviles="
            Estimadas familias:
 
-     Les informamos de que est· prohibido el uso de telÈfonos mÛviles y otros dispositivos de grabaciÛn/reproducciÛn multimedia por parte del alumnado durante el horario escolar. Dicha medida es consecuencia de salvaguardar la intimidad tanto del alumnado como del profesorado, quienes pudieran ver vulnerados sus derechos de protecciÛn por grabaciones y/o difusiones de im·genes capturadas de forma ajena a su voluntad. Por este motivo, recordamos que la utilizaciÛn de estos aparatos est· prohibida en el Centro. En caso de que alg˙n alumno sea sorprendido con cualquier dispositivo electrÛnico, este le ser· requisado aplic·ndose las medidas que en materia de convivencia hay estipuladas en nuestro Reglamento al efecto.
-     El telÈfono mÛvil en el Centro es absolutamente innecesario y constituye un elemento perturbador del clima de estudio y trabajo en el mismo. En aquellos casos en los que el alumnado tenga que comunicarse con la familia (que se entienden como situaciones graves o de urgencia), los telÈfonos del Centro est·n siempre a disposiciÛn del alumnado. 
-     Por ˙ltimo anunciar que dado que se ha dejado claro que est·n prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
+     Les informamos de que est√° prohibido el uso de tel√©fonos m√≥viles y otros dispositivos de grabaci√≥n/reproducci√≥n multimedia por parte del alumnado durante el horario escolar. Dicha medida es consecuencia de salvaguardar la intimidad tanto del alumnado como del profesorado, quienes pudieran ver vulnerados sus derechos de protecci√≥n por grabaciones y/o difusiones de im√°genes capturadas de forma ajena a su voluntad. Por este motivo, recordamos que la utilizaci√≥n de estos aparatos est√° prohibida en el Centro. En caso de que alg√∫n alumno sea sorprendido con cualquier dispositivo electr√≥nico, este le ser√° requisado aplic√°ndose las medidas que en materia de convivencia hay estipuladas en nuestro Reglamento al efecto.
+     El tel√©fono m√≥vil en el Centro es absolutamente innecesario y constituye un elemento perturbador del clima de estudio y trabajo en el mismo. En aquellos casos en los que el alumnado tenga que comunicarse con la familia (que se entienden como situaciones graves o de urgencia), los tel√©fonos del Centro est√°n siempre a disposici√≥n del alumnado. 
+     Por √∫ltimo anunciar que dado que se ha dejado claro que est√°n prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
 
 $final_moviles="
-D./D™. $papa, con DNI n˙mero $datos_ya->dnitutor, padre/madre/tutor legal del alumno/ a $datos_ya->nombre $datos_ya->apellidos del curso $curso, teniendo en cuenta la informaciÛn aportada, es conocedor de la prohibiciÛn de la tenencia y uso de los telÈfonos mÛviles, asÌ como de cualquier otro dispositivo electrÛnico que difunda o grabe im·genes de vÌdeo/audio.
+D./D¬™. $papa, con DNI n√∫mero $datos_ya->dnitutor, padre/madre/tutor legal del alumno/ a $datos_ya->nombre $datos_ya->apellidos del curso $curso, teniendo en cuenta la informaci√≥n aportada, es conocedor de la prohibici√≥n de la tenencia y uso de los tel√©fonos m√≥viles, as√≠ como de cualquier otro dispositivo electr√≥nico que difunda o grabe im√°genes de v√≠deo/audio.
 ";
 $firma_moviles="
 Firmado,
@@ -144,22 +144,22 @@ $pags = array("1","2");
 foreach ($pags as $pag_pdf){
 
 	$MiPDF->Addpage ();
-	#### Cabecera con direcciÛn
+	#### Cabecera con direcci√≥n
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
 	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
-	$titulo2 = "MATRÕCULA DE ". $n_curso."∫ DE BACHILLERATO";
+	$titulo2 = "MATR√çCULA DE ". $n_curso."¬∫ DE BACHILLERATO";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'C', 0 );
 
 	$MiPDF->Ln ( 5 );
 	$MiPDF->SetFont ( 'Times', '', 7 );
-	$MiPDF->Cell(21,6,"N∫ MATRÕCULA: ",0);
+	$MiPDF->Cell(21,6,"N¬∫ MATR√çCULA: ",0);
 	$MiPDF->Cell(24,6,"",1);
 	$adv = "         ANTES DE FIRMAR ESTE IMPRESO, COMPRUEBE QUE CORRESPONDE A LA
-	        ETAPA EDUCATIVA EN LA QUE DESEA REALIZAR LA MATRÕCULA.
-	        ESTA MATRÕCULA EST¡ CONDICIONADA A LA COMPROBACI”N DE LOS DATOS,  DE CUYA
+	        ETAPA EDUCATIVA EN LA QUE DESEA REALIZAR LA MATR√çCULA.
+	        ESTA MATR√çCULA EST√Å CONDICIONADA A LA COMPROBACI√ìN DE LOS DATOS,  DE CUYA
 	        VERACIDAD SE RESPONSABILIZA LA PERSONA FIRMANTE. ";
 	$MiPDF->MultiCell(120, 3, $adv,0,'L',0);
 	$MiPDF->Ln ( 4 );
@@ -175,7 +175,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(40,5,"FECHA NACIMIENTO",0,0,"C");
 	$MiPDF->Cell(26,5,"DNI/NIE",0,0,"C");
-	$MiPDF->Cell(26,5,"TEL…FONO",0,0,"C");
+	$MiPDF->Cell(26,5,"TEL√âFONO",0,0,"C");
 	$MiPDF->Cell(35,5,"NACIONALIDAD",0,0,"C");
 	$MiPDF->Cell(21,5,"HERMANOS",0,0,"C");
 	$MiPDF->Cell(20,5,"SEXO",0,0,"C");
@@ -198,7 +198,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(28,5,$config['centro_provincia'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 
-	$MiPDF->Cell(84,5,"CORREO ELECTR”NICO DE CONTACTO",0,0,"C");
+	$MiPDF->Cell(84,5,"CORREO ELECTR√ìNICO DE CONTACTO",0,0,"C");
 	$MiPDF->Cell(84,5,"Transporte Escolar",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,5,$datos_ya->correo,1,0,'C');
@@ -223,7 +223,7 @@ foreach ($pags as $pag_pdf){
 	
 	$MiPDF->Ln ( 9 );
 	$MiPDF->Cell(5,6,"3",1,0,'C',1);
-	$MiPDF->Cell(163,6,"DATOS DE MATRÕCULA",1,0,'C',1);
+	$MiPDF->Cell(163,6,"DATOS DE MATR√çCULA",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(76,5,"CENTRO DOCENTE EN EL QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
@@ -234,19 +234,19 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(46,5,$config['centro_codigo'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 	
-	if(stristr($religion,"Valores")==TRUE){$religion="EducaciÛn para la CiudadanÌa";}
+	if(stristr($religion,"Valores")==TRUE){$religion="Educaci√≥n para la Ciudadan√≠a";}
 	
 	if ($curso=="2BACH") {
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
-	$MiPDF->Cell(84,6,"RELIGI”N O ALTERNATIVA",0,0,'C');
+	$MiPDF->Cell(84,6,"RELIGI√ìN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
 	$MiPDF->Cell(84,5,$idioma1,1,0,'C');
 	$MiPDF->Cell(84,5,$religion,1,0,'C');	
 	}
 	else{
-	$MiPDF->Cell(56,6,"1∫ IDIOMA EXTRANJERO",0,0,'C');
-	$MiPDF->Cell(56,6,"2∫ IDIOMA EXTRANJERO",0,0,'C');
-	$MiPDF->Cell(56,6,"RELIGI”N O ALTERNATIVA",0,0,'C');
+	$MiPDF->Cell(56,6,"1¬∫ IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"2¬∫ IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"RELIGI√ìN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
 	$MiPDF->Cell(56,5,$idioma1,1,0,'C');
 	$MiPDF->Cell(56,5,$idioma2,1,0,'C');
@@ -266,7 +266,7 @@ foreach ($pags as $pag_pdf){
 	$nombre_opta="";
 	$nombre_opt="";
 	if ($bilinguismo=="Si") {
-		$opt.="EnseÒanza Bilingue\n";
+		$opt.="Ense√±anza Bilingue\n";
 	}
 	if ($n_curso=="1") {
                 foreach($it1 as $num_it=>$nombre_it){
@@ -334,7 +334,7 @@ foreach ($pags as $pag_pdf){
 
 
 	//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
-	$MiPDF->Cell(78,5,$n_curso."∫ DE BACH. ( ".$mod_registro." )",1,0,'C');
+	$MiPDF->Cell(78,5,$n_curso."¬∫ DE BACH. ( ".$mod_registro." )",1,0,'C');
 	$MiPDF->MultiCell(90,5,$opt,1);
 	if ($curso=="2BACH") {
 	$MiPDF->Ln ( 2 );
@@ -344,7 +344,7 @@ foreach ($pags as $pag_pdf){
 	}
     if ($n_curso=="1" and $bilinguismo=="Si") {
     	$MiPDF->Ln ( 3 );
-    	$MiPDF->Cell(165,5,"Alumno con EnseÒanzas Biling¸es",1,0,"C");
+    	$MiPDF->Cell(165,5,"Alumno con Ense√±anzas Biling√ºes",1,0,"C");
     	$MiPDF->Ln ( 7 );
 	}
 	else{
@@ -361,7 +361,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(84, 8, $f_hoy,0);
 	$MiPDF->Cell(84, 8, $sello,0);
 	$MiPDF->Ln ( 9 );
-	$nota = "NOTA: Para la primera matriculaciÛn del alumnado en el centro docente se aportar· documento acreditativo de la fecha de nacimimiento del alumno/a y documento de estar en posesiÛn de los requisitos acadÈmicos establecidos en la legislaciÛn vigente.";
+	$nota = "NOTA: Para la primera matriculaci√≥n del alumnado en el centro docente se aportar√° documento acreditativo de la fecha de nacimimiento del alumno/a y documento de estar en posesi√≥n de los requisitos acad√©micos establecidos en la legislaci√≥n vigente.";
 	$MiPDF->SetFont ( 'Times', 'B', 8 );
 	$MiPDF->MultiCell(168,5,$nota,0);
 	$MiPDF->SetFont ( 'Times', '', 7 );
@@ -448,23 +448,23 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 3 );
 	$MiPDF->Multicell ( 0, 6, $firma_moviles, 0, 'C', 0 );
 	
-	$titulo_34 = "REPETIDORES DE 1∫ DE BACHILLERATO";
+	$titulo_34 = "REPETIDORES DE 1¬∫ DE BACHILLERATO";
 $an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
 $autoriza_34="
-D./D™ $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."∫ de Bachillerato, matriculado en el ".$config['centro_denominacion']." (".$config['centro_localidad'].") durante el curso acadÈmico $c_escolar:
+D./D¬™ $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."¬∫ de Bachillerato, matriculado en el ".$config['centro_denominacion']." (".$config['centro_localidad'].") durante el curso acad√©mico $c_escolar:
 
 
 
 SOLICITA:
 
-   1) Que su hijo/a sea matriculado exclusivamente de las materias que se exponen a continuaciÛn por no haber sido superadas en el curso anterior. De este modo se autoriza a que cuando no tenga clase abandone el Centro. 
+   1) Que su hijo/a sea matriculado exclusivamente de las materias que se exponen a continuaci√≥n por no haber sido superadas en el curso anterior. De este modo se autoriza a que cuando no tenga clase abandone el Centro. 
    
  $materias
 
-   2) Que su hijo/a sea matriculado de nuevo en segundo curso de Bachillerato en su totalidad, de forma que tenga la oportunidad de consolidar su formaciÛn en las materias.
+   2) Que su hijo/a sea matriculado de nuevo en segundo curso de Bachillerato en su totalidad, de forma que tenga la oportunidad de consolidar su formaci√≥n en las materias.
 ";
 $firma_34 = "		
 En ".$config['centro_localidad'].", a $hoy
@@ -474,12 +474,12 @@ En ".$config['centro_localidad'].", a $hoy
 ";
 
 $direccion_junta = "
-Ed. Torretriana. C/. Juan A. de VizarrÛn, s/n. 41071 Sevilla
+Ed. Torretriana. C/. Juan A. de Vizarr√≥n, s/n. 41071 Sevilla
 Telf. 95 506 40 00. Fax: 95 506 40 03.
 e-mail: informacion.ced@juntadeandalucia.es
 ";
 	$MiPDF->Addpage ();
-	#### Cabecera con direcciÛn
+	#### Cabecera con direcci√≥n
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);		

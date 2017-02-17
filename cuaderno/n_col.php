@@ -27,8 +27,8 @@ echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";
 if(empty($nombre)){
 	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Debes escribir al menos un Nombre para la Columna del cuaderno que estás creando.
+			<h5>ATENCIÃ“N:</h5>
+Debes escribir al menos un Nombre para la Columna del cuaderno que estÃ¡s creando.
 </div></div>';
 echo '<br /><div align="center"><input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-primary"></div>';
 exit;
@@ -56,7 +56,7 @@ VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso_nota',
 //echo $sql;
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La nueva columna ha sido añadida a la tabla del Cuaderno.
+La nueva columna ha sido aÃ±adida a la tabla del Cuaderno.
 </div></div>';
 }
 mysqli_query($db_con, $sql) or die (mysqli_error($db_con));

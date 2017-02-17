@@ -58,7 +58,7 @@ if ($mes == 12) {
 // HTML CALENDARIO MENSUAL
 function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 	
-	// CorrecciÛn en mes
+	// Correcci√≥n en mes
 	($mes < 10) ? $mes = '0'.$mes : $mes = $mes;
 	
 	echo '<div class"table-responsive">';
@@ -67,10 +67,10 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 	echo '		<tr>';
 	echo '			<th class="text-center">Lunes</th>';
 	echo '			<th class="text-center">Martes</th>';
-	echo '			<th class="text-center">MiÈrcoles</th>';
+	echo '			<th class="text-center">Mi√©rcoles</th>';
 	echo '			<th class="text-center">Jueves</th>';
 	echo '			<th class="text-center">Viernes</th>';
-	echo '			<th class="text-center">S·bado</th>';
+	echo '			<th class="text-center">S√°bado</th>';
 	echo '			<th class="text-center">Domingo</th>';
 	echo '		</tr>';
 	echo '	</thead>';
@@ -102,7 +102,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 
 				echo '				<p class="lead text-right">'.$dias[$i].'</p>';
 				
-				// CorrecciÛn en dÌa
+				// Correcci√≥n en d√≠a
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				
 				
@@ -130,7 +130,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 								$hora_evento = 'Hasta las '.$horafin;
 							}
 							else if($eventos['fechaini'] != $eventos['fechafin'] || ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] == $eventos['horafin'])) {
-								$hora_evento = 'Todo el dÌa';
+								$hora_evento = 'Todo el d√≠a';
 							}
 							else {
 								$hora_evento = $horaini.' - '.$horafin;
@@ -151,7 +151,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 				mysqli_free_result($result_equipo_educativo);
 				
 				
-				// Consultamos los calendarios p˙blicos
+				// Consultamos los calendarios p√∫blicos
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
@@ -169,7 +169,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 							$hora_evento = 'Hasta las '.$horafin;
 						}
 						else if($eventos['fechaini'] != $eventos['fechafin'] || ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] == $eventos['horafin'])) {
-							$hora_evento = 'Todo el dÌa';
+							$hora_evento = 'Todo el d√≠a';
 						}
 						else {
 							$hora_evento = $horaini.' - '.$horafin;
@@ -307,14 +307,14 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 										<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 									</div>
 									<div class="modal-body">
-										<p>El Calendario de los Grupos presenta informaciÛn sobre los ex·menes 
+										<p>El Calendario de los Grupos presenta informaci√≥n sobre los ex√°menes 
 										y actividades que los miembros de un Equipo Educativo han registrado 
 										en su Calendario Personal y han asociado a ese Grupo. Las actividades 
-										han sido introducidas a travÈs del Calendario, y han quedado vinculadas 
-										a un Grupo o Grupos determinados. La informaciÛn registrada para el 
-										Grupo tambiÈn es visible desde la zona de acceso privado para los alumnos 
-										y sus padres en la P·gina del Centro, de tal modo que estos pueden ver 
-										el Calendario de ex·menes y actividades de sus hijos.</p>
+										han sido introducidas a trav√©s del Calendario, y han quedado vinculadas 
+										a un Grupo o Grupos determinados. La informaci√≥n registrada para el 
+										Grupo tambi√©n es visible desde la zona de acceso privado para los alumnos 
+										y sus padres en la P√°gina del Centro, de tal modo que estos pueden ver 
+										el Calendario de ex√°menes y actividades de sus hijos.</p>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>

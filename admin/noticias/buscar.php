@@ -26,7 +26,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Noticias <small>Resultados de la búsqueda</small></h2>
+			<h2>Noticias <small>Resultados de la bÃºsqueda</small></h2>
 		</div>
 		
 		<!-- MENSAJES -->
@@ -49,7 +49,7 @@ include("menu.php");
 			
 				<form method="get" action="">
 				   <div class="input-group">
-				     <input type="text" class="form-control" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar por título o contenido de la noticia">
+				     <input type="text" class="form-control" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar por tÃ­tulo o contenido de la noticia">
 				     <span class="input-group-btn">
 				       <button class="btn btn-default" type="submit"><span class="fa fa-search fa-lg"></span></button>
 				     </span>
@@ -71,8 +71,8 @@ include("menu.php");
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Título</th>
-									<th nowrap>Fecha publicación</th>
+									<th>TÃ­tulo</th>
+									<th nowrap>Fecha publicaciÃ³n</th>
 									<th>Autor</th>
 									<th>Int.</th>
 									<th>Ext.</th>
@@ -90,7 +90,7 @@ include("menu.php");
 											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la página externa' : 'No publicada en la página externa'; ?>"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la pÃ¡gina externa' : 'No publicada en la pÃ¡gina externa'; ?>"></span>
 										</td>
 										<td nowrap>
 											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>

@@ -13,7 +13,7 @@ include("../../../menu.php");
 		<!-- TITULO DE LA PAGINA -->
 		
 		<div class="page-header">
-			<h2 class="page-title" align="center">Informe de accesos de padres/alumnos a la Página pública del Centro</h2>
+			<h2 class="page-title" align="center">Informe de accesos de padres/alumnos a la PÃ¡gina pÃºblica del Centro</h2>
 		</div>
 		
 		
@@ -38,8 +38,8 @@ include("../../../menu.php");
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<i class="fa fa-exclamation-triangle fa-5x" ></i><br><hr>
 		<p class="text-left">
-		No hay datos de acceso de padres o alumnos. Parece que no has instalado la Página del Centro en tu Servidor. <br>Puedes encontrar más información sobre esta extensión de la Intranet en esta dirección: <a href="https://github.com/IESMonterroso/pagina_centros" target="_blank">https://github.com/IESMonterroso/pagina_centros</a>. 
-		<br>También puedes descargarla e instalarla siguiendo las instrucciones en la misma página.
+		No hay datos de acceso de padres o alumnos. Parece que no has instalado la PÃ¡gina del Centro en tu Servidor. <br>Puedes encontrar mÃ¡s informaciÃ³n sobre esta extensiÃ³n de la Intranet en esta direcciÃ³n: <a href="https://github.com/IESMonterroso/pagina_centros" target="_blank">https://github.com/IESMonterroso/pagina_centros</a>. 
+		<br>TambiÃ©n puedes descargarla e instalarla siguiendo las instrucciones en la misma pÃ¡gina.
 		</p>
 		</div>
 	</div>
@@ -61,7 +61,7 @@ include("../../../menu.php");
 							<th>Alumno/a</th>
 							<th>Unidad</th>
 							<th>Total accesos</th>
-							<th>Fecha último acceso</th>
+							<th>Fecha Ãºltimo acceso</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -115,14 +115,14 @@ include("../../../menu.php");
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-			            "info": "Página _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+			            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "Última",
+			                  "next": "Ãšltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

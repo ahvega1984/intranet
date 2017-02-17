@@ -7,12 +7,12 @@ if (file_exists('config.php')) {
 
 
 // RECOPILACION DE INFORMACION
-$ar = array('ñ'=>'','º'=>'','ª','á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u','Á'=>'A','É'=>'E','Í'=>'I','Ó'=>'O','Ú'=>'U',' '=>'');
+$ar = array('Ã±'=>'','Âº'=>'','Âª','Ã¡'=>'a','Ã©'=>'e','Ã­'=>'i','Ã³'=>'o','Ãº'=>'u','Ã'=>'A','Ã‰'=>'E','Ã'=>'I','Ã“'=>'O','Ãš'=>'U',' '=>'');
 
 $srv0 = mysqli_query($db_con,"select distinct elemento from reservas_elementos where id_tipo = '1' order by elemento");
 $num_carrito = mysqli_num_rows($srv0);
 				
-// Tabla de Estadísticas TIC
+// Tabla de EstadÃ­sticas TIC
 
 mysqli_query($db_con,"drop table usuario"); 
 $user = "CREATE TABLE IF NOT EXISTS `usuario` (
@@ -74,14 +74,14 @@ include("../TIC/menu.php");
 <div
 	class="container"><!-- TITULO DE LA PAGINA -->
 <div class="page-header">
-<h2>Centro TIC <small>Estadísticas de uso de Recursos TIC</small></h2>
+<h2>Centro TIC <small>EstadÃ­sticas de uso de Recursos TIC</small></h2>
 </div>
 
 <!-- SCAFFOLDING -->
 <div class="row"><!-- COLUMNA IZQUIERDA -->
 <div class="col-sm-4">
 
-<h3>Información de Recursos TIC</h3>
+<h3>InformaciÃ³n de Recursos TIC</h3>
 
 <br>
 
@@ -111,7 +111,7 @@ $rc_tic = $elm[0];
 	</thead>
 	<tbody>
 		<tr>
-			<th class="col-sm-9">Total días de uso</th>
+			<th class="col-sm-9">Total dÃ­as de uso</th>
 			<td class="col-sm-3"><span class="text-info"><?php echo $n_dias; ?></span></td>
 		</tr>
 		<tr>
@@ -125,7 +125,7 @@ $rc_tic = $elm[0];
 <!-- /.col-sm-4 --> <!-- COLUMNA DERECHA -->
 <div class="col-sm-8">
 
-<h3>Información de uso por profesor</h3>
+<h3>InformaciÃ³n de uso por profesor</h3>
 
 <br>
 
@@ -158,7 +158,7 @@ $rc_tic = $elm[0];
 	</tbody>
 </table>
 </div>
-<p class="text-muted"><small class="pull-right">Total de días que el
+<p class="text-muted"><small class="pull-right">Total de dÃ­as que el
 profesor/a ha reservado un carro TIC.</small></p>
 
 </div>

@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 if (isset($_POST['btnGuardar'])) {
@@ -19,12 +19,12 @@ if (isset($_POST['btnGuardar'])) {
 	$prefSecretarioACSL		= limpiar_string($_POST['prefSecretarioACSL']);
 	$prefSecretarioAFP		= limpiar_string($_POST['prefSecretarioAFP']);
 
-	// CREACI”N DEL ARCHIVO DE CONFIGURACI”N
+	// CREACI√ìN DEL ARCHIVO DE CONFIGURACI√ìN
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACI”N M”DULO DE ACTAS DE DEPARTAMENTOS\r\n");
+		fwrite($file, "\r\n// CONFIGURACI√ìN M√ìDULO DE ACTAS DE DEPARTAMENTOS\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_dfeie']\t= '$prefSecretarioDFEIE';\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_ed']\t= '$prefSecretarioED';\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_etcp']\t= '$prefSecretarioETCP';\r\n");
@@ -34,7 +34,7 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "\$config['actas_depto']['secretario_acsl']\t= '$prefSecretarioACSL';\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_afp']\t= '$prefSecretarioAFP';\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÛn");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraci√≥n");
 		
 		fclose($file);
 		
@@ -127,7 +127,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefSecretarioCEB" class="col-sm-4 control-label">Equipo Coord. EnseÒanzas Biling¸e</label>
+							<label for="prefSecretarioCEB" class="col-sm-4 control-label">Equipo Coord. Ense√±anzas Biling√ºe</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioCEB" name="prefSecretarioCEB">
 									<option value=""></option>
@@ -140,7 +140,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefSecretarioACA" class="col-sm-4 control-label">¡rea de Competencia ArtÌstica</label>
+							<label for="prefSecretarioACA" class="col-sm-4 control-label">√Årea de Competencia Art√≠stica</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioACA" name="prefSecretarioACA">
 									<option value=""></option>
@@ -153,7 +153,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefSecretarioACCT" class="col-sm-4 control-label">¡rea de Competencia CientÌfico-TecnolÛgica</label>
+							<label for="prefSecretarioACCT" class="col-sm-4 control-label">√Årea de Competencia Cient√≠fico-Tecnol√≥gica</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioACCT" name="prefSecretarioACCT">
 									<option value=""></option>
@@ -166,7 +166,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefSecretarioACSL" class="col-sm-4 control-label">¡rea de Competencia Social-Ling¸istica</label>
+							<label for="prefSecretarioACSL" class="col-sm-4 control-label">√Årea de Competencia Social-Ling√ºistica</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioACSL" name="prefSecretarioACSL">
 									<option value=""></option>
@@ -179,7 +179,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefSecretarioAFP" class="col-sm-4 control-label">¡rea de FormaciÛn Profesional</label>
+							<label for="prefSecretarioAFP" class="col-sm-4 control-label">√Årea de Formaci√≥n Profesional</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioAFP" name="prefSecretarioAFP">
 									<option value=""></option>

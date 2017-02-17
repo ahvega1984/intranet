@@ -50,7 +50,7 @@ for ($i = 1; $i < 11; $i++) {
 	}
 }
 
-//Introducción de datos si todo va bién
+//IntroducciÃ³n de datos si todo va biÃ©n
 $query="UPDATE Textos SET Titulo = '$titulo', Autor = '$autor',
 		Editorial = '$editorial', Departamento = '$departamento', 
 		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo', obligatorio = '$obligatorio' where Id = '$id'";

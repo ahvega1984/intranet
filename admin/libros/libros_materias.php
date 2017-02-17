@@ -35,20 +35,20 @@ include("../../menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El módulo permite gestionar los Libros de Texto dentro del Programa de Ayudas al 
-						Estudio de la Junta de Andalucía. Se activa durante los meses de Junio y Septiembre, 
+						<p>El mÃ³dulo permite gestionar los Libros de Texto dentro del Programa de Ayudas al 
+						Estudio de la Junta de AndalucÃ­a. Se activa durante los meses de Junio y Septiembre, 
 						y desaparece posteriormente.</p>
-						<p>El Tutor marca el estado de los libros según las siguientes opciones: Bien, Regular, 
+						<p>El Tutor marca el estado de los libros segÃºn las siguientes opciones: Bien, Regular, 
 						Mal, No hay libro y Septiembre (en caso de que el alumno haya suspendido la asignatura 
-						en Junio, y pueda entregarlo tras la Evaluación Extraordinaria).</p>
-						<p>Para evitar un cierre inesperado de la página y la pérdida de datos, la aplicación 
-						envía el formulario cada 9 minutos, recargando la página. El comportamiento, por lo 
+						en Junio, y pueda entregarlo tras la EvaluaciÃ³n Extraordinaria).</p>
+						<p>Para evitar un cierre inesperado de la pÃ¡gina y la pÃ©rdida de datos, la aplicaciÃ³n 
+						envÃ­a el formulario cada 9 minutos, recargando la pÃ¡gina. El comportamiento, por lo 
 						tanto, es normal.</p>
-						<p>Una vez terminado de marcar el estado de los libros de los alumnos de la Tutoría, 
-						se envían los datos del formulario por última vez para guardarlos. El Tutor puede 
+						<p>Una vez terminado de marcar el estado de los libros de los alumnos de la TutorÃ­a, 
+						se envÃ­an los datos del formulario por Ãºltima vez para guardarlos. El Tutor puede 
 						modificar el estado hasta que desaparece el formulario en Septiembre.</p>
-						<p>El Secretario del Centro puede emitir con la aplicación Certificados de entrega y 
-						estado de los libros, así como Facturas en caso de que los libros se encuentren 
+						<p>El Secretario del Centro puede emitir con la aplicaciÃ³n Certificados de entrega y 
+						estado de los libros, asÃ­ como Facturas en caso de que los libros se encuentren 
 						desaparecidos o en un estado inaceptable.</p>
 					</div>
 					<div class="modal-footer">

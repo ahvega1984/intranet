@@ -29,8 +29,8 @@ array(
 // Enfermedades
 $enfermedades = array(
 array(
-													'id'     => 'CeliaquÌa',
-													'nombre' => 'CeliaquÌa',
+													'id'     => 'Celiaqu√≠a',
+													'nombre' => 'Celiaqu√≠a',
 ),
 array(
 													'id'     => 'Alergias a alimentos',
@@ -57,8 +57,8 @@ array(
 													'nombre' => 'Epilepsia',
 ),
 array(
-													'id'     => 'Insuficiencia cardÌaca',
-													'nombre' => 'Insuficiencia cardÌaca',
+													'id'     => 'Insuficiencia card√≠aca',
+													'nombre' => 'Insuficiencia card√≠aca',
 ),
 array(
 													'id'     => 'Insuficiencia renal',
@@ -96,12 +96,12 @@ array(
 												'nombre' => 'El Pirata',
 ),
 array(
-												'id'     => 'El VelerÌn',
-												'nombre' => 'El VelerÌn',
+												'id'     => 'El Veler√≠n',
+												'nombre' => 'El Veler√≠n',
 ),
 array(
-												'id'     => 'El PadrÛn',
-												'nombre' => 'El PadrÛn',
+												'id'     => 'El Padr√≥n',
+												'nombre' => 'El Padr√≥n',
 ),
 array(
 												'id'     => 'Mc Donalds',
@@ -119,16 +119,16 @@ array(
 												'nombre' => 'Costa Galera',
 ),
 array(
-												'id'     => 'BahÌa Dorada',
-												'nombre' => 'BahÌa Dorada',
+												'id'     => 'Bah√≠a Dorada',
+												'nombre' => 'Bah√≠a Dorada',
 ),
 array(
 												'id'     => 'Don Pedro',
 												'nombre' => 'Don Pedro',
 ),
 array(
-												'id'     => 'BahÌa Azul',
-												'nombre' => 'BahÌa Azul',
+												'id'     => 'Bah√≠a Azul',
+												'nombre' => 'Bah√≠a Azul',
 ),
 array(
 												'id'     => 'G. Shell - H10',
@@ -145,18 +145,18 @@ array(
 );
 
 // OPTATIVAS Y MODALIDADES DE LOS DISTINTOS NIVELES
-	$opt1 = array("Alem·n 2∫ Idioma","Cambios Sociales y GÈnero", "FrancÈs 2∫ Idioma","TecnologÌa Aplicada");
-	$opt2 = array("Alem·n 2∫ Idioma","Cambios Sociales y GÈnero", "FrancÈs 2∫ Idioma");
-	$opt3 = array("Alem·n 2∫ Idioma","Cambios Sociales y GÈnero", "FrancÈs 2∫ Idioma","Cultura Cl·sica", "Taller T.I.C. III", "Taller de Cer·mica", "Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matem·ticas", "Actividades de refuerzo de InglÈs", "AmpliaciÛn: Taller T.I.C.", "AmpliaciÛn: Matem·ticas Recreativas", "AmpliaciÛn: Taller de Teatro", "AmpliaciÛn: Taller de Lenguas Extranjeras (Se debe elegir Alem·n o FrancÈs como Optativa)");
-	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matem·ticas", "Actividades de refuerzo de InglÈs", "AmpliaciÛn: Taller T.I.C. II", "AmpliaciÛn: Taller de Teatro II");
-	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matem·ticas", "Actividades de refuerzo de InglÈs", "AmpliaciÛn: Lengua", "AmpliaciÛn: Matem·ticas", "AmpliaciÛn: InglÈs");
+	$opt1 = array("Alem√°n 2¬∫ Idioma","Cambios Sociales y G√©nero", "Franc√©s 2¬∫ Idioma","Tecnolog√≠a Aplicada");
+	$opt2 = array("Alem√°n 2¬∫ Idioma","Cambios Sociales y G√©nero", "Franc√©s 2¬∫ Idioma");
+	$opt3 = array("Alem√°n 2¬∫ Idioma","Cambios Sociales y G√©nero", "Franc√©s 2¬∫ Idioma","Cultura Cl√°sica", "Taller T.I.C. III", "Taller de Cer√°mica", "Taller de Teatro");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matem√°ticas", "Actividades de refuerzo de Ingl√©s", "Ampliaci√≥n: Taller T.I.C.", "Ampliaci√≥n: Matem√°ticas Recreativas", "Ampliaci√≥n: Taller de Teatro", "Ampliaci√≥n: Taller de Lenguas Extranjeras (Se debe elegir Alem√°n o Franc√©s como Optativa)");
+	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matem√°ticas", "Actividades de refuerzo de Ingl√©s", "Ampliaci√≥n: Taller T.I.C. II", "Ampliaci√≥n: Taller de Teatro II");
+	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matem√°ticas", "Actividades de refuerzo de Ingl√©s", "Ampliaci√≥n: Lengua", "Ampliaci√≥n: Matem√°ticas", "Ampliaci√≥n: Ingl√©s");
 		
-	$it41 = array("(Bachillerato de Ciencias)", "Matem·ticas AcadÈmicas", "TecnologÌa (SÛlo IngenierÌa y Arquitectura)", "FÌsica y QuÌmica", "BiologÌa y GeologÌa", "EconomÌa");
-	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matem·ticas AcadÈmicas", "LatÌn", "EconomÌa");
-	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matem·ticas Aplicadas", "TecnologÌa", "Ciencias Aplicadas a la Actividad Profesional", "IniciaciÛn a la Actividad Emprendedora y Empresarial");
+	$it41 = array("(Bachillerato de Ciencias)", "Matem√°ticas Acad√©micas", "Tecnolog√≠a (S√≥lo Ingenier√≠a y Arquitectura)", "F√≠sica y Qu√≠mica", "Biolog√≠a y Geolog√≠a", "Econom√≠a");
+	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matem√°ticas Acad√©micas", "Lat√≠n", "Econom√≠a");
+	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matem√°ticas Aplicadas", "Tecnolog√≠a", "Ciencias Aplicadas a la Actividad Profesional", "Iniciaci√≥n a la Actividad Emprendedora y Empresarial");
 
-	$opt4=array("Alem·n2" => "Alem·n 2∫ Idioma", "FrancÈs2" => "FrancÈs 2∫ Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. Pl·stica y Visual", "M˙sica" => "M˙sica");
+	$opt4=array("Alem√°n2" => "Alem√°n 2¬∫ Idioma", "Franc√©s2" => "Franc√©s 2¬∫ Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. Pl√°stica y Visual", "M√∫sica" => "M√∫sica");
 
 // Se han enviado datos para procesar....
 if(isset($_POST['enviar'])){
@@ -196,14 +196,14 @@ if(isset($_POST['enviar'])){
 
 	if (substr($curso,0,1)=='3') {
 		if (empty($matematicas3)) {
-		$vacios.= "matematicas de 3∫ de ESO, ";
+		$vacios.= "matematicas de 3¬∫ de ESO, ";
 		$num+=1;
 	}
 	}
 	
 	if (substr($curso,0,1)<'4') {
 		if (empty($act1)) {
-		$vacios.= "Refuerzo o AmpliaciÛn de $curso, ";
+		$vacios.= "Refuerzo o Ampliaci√≥n de $curso, ";
 		$num+=1;
 		}
 	}
@@ -244,11 +244,11 @@ if(isset($_POST['enviar'])){
 	// Control de errores
 	if($num > 0){
 		$adv = substr($vacios,0,-2);
-		$msg_error = "Los siguientes datos son obligatorios y no los has rellenado en el formulario de inscripciÛn:";
+		$msg_error = "Los siguientes datos son obligatorios y no los has rellenado en el formulario de inscripci√≥n:";
 		$num_cur = substr($curso,0,1);
 		$num_cur_ant = $num_cur - 1;
-		$cur_act = substr($curso,0,1)."∫ de ESO";
-		$cur_ant = $num_cur_ant . "∫ de ESO";
+		$cur_act = substr($curso,0,1)."¬∫ de ESO";
+		$cur_ant = $num_cur_ant . "¬∫ de ESO";
 		for ($i=1;$i<8;$i++){
 			$adv= str_replace("optativa2$i", "optativa de $cur_ant $i", $adv);
 		}
@@ -256,7 +256,7 @@ if(isset($_POST['enviar'])){
 			$adv= str_replace("optativa$i", "optativa de $cur_act  $i", $adv);
 		}
 		$msg_error .= " $adv";
-		$msg_error .= ". Rellena los campos mencionados y envÌa los datos de nuevo para poder registrar tu solicitud correctamente.";
+		$msg_error .= ". Rellena los campos mencionados y env√≠a los datos de nuevo para poder registrar tu solicitud correctamente.";
 	}
 	else{
 		if (substr($curso,0,1)<5){
@@ -283,13 +283,13 @@ if(isset($_POST['enviar'])){
 				}
 			}
 		}
-		if($colegio == "Otro Centro" and ($otrocolegio == "" or $otrocolegio == "Escribe aquÌ el nombre del Centro")){
+		if($colegio == "Otro Centro" and ($otrocolegio == "" or $otrocolegio == "Escribe aqu√≠ el nombre del Centro")){
 			$vacios.="otrocolegio ";
-			$msg_error = "No has escrito el nombre del Centro del que procede el alumno. Rellena el nombre del Centro y envÌa los datos de nuevo para poder registrar tu solicitud correctamente.";
+			$msg_error = "No has escrito el nombre del Centro del que procede el alumno. Rellena el nombre del Centro y env√≠a los datos de nuevo para poder registrar tu solicitud correctamente.";
 		}
-		elseif($enfermedad == "Otra enfermedad" and ($otraenfermedad == "" or $otraenfermedad == "Escribe aquÌ el nombre de la enfermedad")){
+		elseif($enfermedad == "Otra enfermedad" and ($otraenfermedad == "" or $otraenfermedad == "Escribe aqu√≠ el nombre de la enfermedad")){
 			$vacios.="otraenfermedad ";
-			$msg_error = "No has escrito el nombre de la enfermedad del alumno. Rellena el nombre de la enfermedad y envÌa los datos de nuevo para poder registrar tu solicitud correctamente.";
+			$msg_error = "No has escrito el nombre de la enfermedad del alumno. Rellena el nombre de la enfermedad y env√≠a los datos de nuevo para poder registrar tu solicitud correctamente.";
 		}
 		elseif(strstr($nacimiento,"-") == FALSE){
 			$msg_error = "La fecha de nacimiento que has escrito no es correcta. El formato adecuado para la fecha es DD-MM-YYYY (Por ejemplo: 01-01-2000).";
@@ -300,10 +300,10 @@ if(isset($_POST['enviar'])){
 			$ruta_error = "";
 		}
 		elseif ($opt_rep=="1"){
-			$msg_error = "Parece que has seleccionado el mismo n˙mero de preferencia para varias optativas, y cada optativa debe tener un n˙mero de preferencia distinto. Elige las optativas sin repetir el n˙mero de preferencia e intÈntalo de nuevo.";
+			$msg_error = "Parece que has seleccionado el mismo n√∫mero de preferencia para varias optativas, y cada optativa debe tener un n√∫mero de preferencia distinto. Elige las optativas sin repetir el n√∫mero de preferencia e int√©ntalo de nuevo.";
 		}
 		elseif ($opt_rep2=="1"){
-			$msg_error = "Parece que has seleccionado el mismo n˙mero de preferencia para varias optativas del curso anterior, y cada optativa debe tener un n˙mero de preferencia distinto. Elige las optativas del curso anterior sin repetir el n˙mero de preferencia e intÈntalo de nuevo.";
+			$msg_error = "Parece que has seleccionado el mismo n√∫mero de preferencia para varias optativas del curso anterior, y cada optativa debe tener un n√∫mero de preferencia distinto. Elige las optativas del curso anterior sin repetir el n√∫mero de preferencia e int√©ntalo de nuevo.";
 		}
 		else{
 			if (strlen($claveal) > 3) {$extra = " claveal = '$claveal'";}
@@ -336,7 +336,7 @@ if(isset($_POST['enviar'])){
 				exit();
 			}
 			else{
-				$msg_success = "La solicitud de matrÌcula se ha guardado correctamente.";
+				$msg_success = "La solicitud de matr√≠cula se ha guardado correctamente.";
 			}
 		}
 	}
@@ -348,7 +348,7 @@ $n_curso="";
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="iso-8859-1">
+<meta charset="UTF-8">
 <title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
@@ -386,12 +386,12 @@ if ($dni or $claveal or $id) {
 	}
 
 	$curso = str_replace(" ","",$curso);
-	// ComprobaciÛn de padre con varios hijos en el Centro
+	// Comprobaci√≥n de padre con varios hijos en el Centro
 	$ya_matricula = mysqli_query($db_con, "select claveal, apellidos, nombre, id from matriculas where ". $conditio ."");
 	$ya_primaria = mysqli_query($db_con, "select claveal, apellidos, nombre from alma_primaria where ". $conditio1 ."");
 	$ya_alma = mysqli_query($db_con, "select claveal, apellidos, nombre, unidad, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
 
-	// ComprobaciÛn de padre con varios hijos en el Centro
+	// Comprobaci√≥n de padre con varios hijos en el Centro
 	if (mysqli_num_rows($ya_alma) > 1) {
 		?>
 <form id="form2" name="form1" method="post"
@@ -424,7 +424,7 @@ echo "</form></div>";
 exit();
 	}
 
-	// ComprobaciÛn de padre con varios hijos en Primaria
+	// Comprobaci√≥n de padre con varios hijos en Primaria
 	if (mysqli_num_rows($ya_primaria) > 1) {
 		?>
 <form id="form2" name="form1" method="post"
@@ -449,7 +449,7 @@ echo "</form></div>";
 exit();
 	}
 
-	// ComprobaciÛn de padre con varios hijos en la tabla de matrÌculas
+	// Comprobaci√≥n de padre con varios hijos en la tabla de matr√≠culas
 	if (mysqli_num_rows($ya_matricula) > 1) {
 		?>
 <form id="form2" name="form1" method="post"
@@ -526,10 +526,10 @@ exit();
 			if (substr($curso,0,1) == substr($n_curso_ya,0,1)) {
 				echo '
 <script> 
- if(confirm("ATENCI”N:\n ';
+ if(confirm("ATENCI√ìN:\n ';
 				echo 'Has elegido matricularte en el mismo Curso( ';
 				echo strtoupper($n_curso_ya);
-				echo ') que ya has estudiado este aÒo. \nEsta situaciÛn solo puede significar que est·s absolutamente seguro de que vas a repetir el mismo Curso. Si te has equivocado al elegir Curso para el prÛximo aÒo escolar, vuelve atr·s y selecciona el curso correcto. De lo contrario, puedes continuar.")){}else{history.back()};
+				echo ') que ya has estudiado este a√±o. \nEsta situaci√≥n solo puede significar que est√°s absolutamente seguro de que vas a repetir el mismo Curso. Si te has equivocado al elegir Curso para el pr√≥ximo a√±o escolar, vuelve atr√°s y selecciona el curso correcto. De lo contrario, puedes continuar.")){}else{history.back()};
  </script>
  
 ';
@@ -551,7 +551,7 @@ exit();
 				class="img-responsive" src="../../img/encabezado.jpg" alt=""
 				width="350"></td>
 			<td colspan="2">
-			<h4 class="text-uppercase"><strong>ConsejerÌa de EducaciÛn, Cultura y
+			<h4 class="text-uppercase"><strong>Consejer√≠a de Educaci√≥n, Cultura y
 			Deporte</strong></h4>
 			<h5 class="text-uppercase"><strong><?php echo $config['centro_denominacion']; ?></strong></h5>
 			</td>
@@ -573,7 +573,7 @@ exit();
 	?>
 		<tr>
 			<td colspan="4">
-			<h4 class="text-center text-uppercase">SOLICITUD DE MATRÕCULA EN <?php echo $curso_matricula; ?>
+			<h4 class="text-center text-uppercase">SOLICITUD DE MATR√çCULA EN <?php echo $curso_matricula; ?>
 			DE E.S.O.</h4>
 			</td>
 		</tr>
@@ -667,7 +667,7 @@ exit();
 			<td colspan="2">
 			<div
 				class="form-group <?php echo (strstr($vacios,"domicilio, ")==TRUE) ? 'has-error' : ''; ?>">
-			<label for="domicilio">Domicilio, calle, plaza o avenida y n˙mero</label>
+			<label for="domicilio">Domicilio, calle, plaza o avenida y n√∫mero</label>
 			<input type="text" class="form-control" id="domicilio"
 				name="domicilio"
 				value="<?php echo (isset($domicilio)) ? $domicilio : ''; ?>"
@@ -682,7 +682,7 @@ exit();
 				maxlength="30"></div>
 			</td>
 			<td>
-			<div class="form-group"><label for="hermanos">N∫ de hermanos</label>
+			<div class="form-group"><label for="hermanos">N¬∫ de hermanos</label>
 			<input type="number" class="form-control" id="hermanos"
 				name="hermanos"
 				value="<?php echo (isset($hermanos)) ? $hermanos : '0'; ?>" min="0"
@@ -693,7 +693,7 @@ exit();
 			<td>
 			<div
 				class="form-group <?php echo (strstr($vacios,"telefono1, ")==TRUE) ? 'has-error' : ''; ?>">
-			<label for="telefono1">TelÈfono</label> <input type="text"
+			<label for="telefono1">Tel√©fono</label> <input type="text"
 				class="form-control" id="telefono1" name="telefono1"
 				value="<?php echo (isset($telefono1)) ? $telefono1 : ''; ?>"
 				maxlength="9"></div>
@@ -701,13 +701,13 @@ exit();
 			<td>
 			<div
 				class="form-group <?php echo (strstr($vacios,"telefono2, ")==TRUE) ? 'has-error' : ''; ?>">
-			<label for="telefono2">TelÈfono urgencias</label> <input type="text"
+			<label for="telefono2">Tel√©fono urgencias</label> <input type="text"
 				class="form-control" id="telefono2" name="telefono2"
 				value="<?php echo (isset($telefono2)) ? $telefono2 : ''; ?>"
 				maxlength="9"></div>
 			</td>
 			<td>
-			<div class="form-group"><label for="correo">Correo electrÛnico</label>
+			<div class="form-group"><label for="correo">Correo electr√≥nico</label>
 			<input type="text" class="form-control" id="correo" name="correo"
 				value="<?php echo (isset($correo)) ? $correo : ''; ?>"
 				maxlength="120"></div>
@@ -735,16 +735,16 @@ exit();
 			<label for="otrocolegio">Colegio</label> <input type="text"
 				class="form-control" id="otrocolegio" name="otrocolegio"
 				value="<?php echo (isset($otrocolegio)) ? $otrocolegio : ''; ?>"
-				maxlength="60" placeholder="Escribe aquÌ el nombre del Colegio"> <input
+				maxlength="60" placeholder="Escribe aqu√≠ el nombre del Colegio"> <input
 				type="hidden" name="letra_grupo"
 				value="<?php echo (isset($letra_grupo)) ? $letra_grupo : ''; ?>"></div>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="3">
-			<p class="help-block"><small>El centro podr· enviar comunicaciones
-			vÌa SMS si proporciona el n˙mero de un telÈfono mÛvil o por correo
-			electrÛnico.</small></p>
+			<p class="help-block"><small>El centro podr√° enviar comunicaciones
+			v√≠a SMS si proporciona el n√∫mero de un tel√©fono m√≥vil o por correo
+			electr√≥nico.</small></p>
 			</td>
 		</tr>
 		<!-- DATOS DE LOS REPRESENTANTES O GUARDADORES LEGALES -->
@@ -829,14 +829,14 @@ exit();
 		<tr>
 			<th class="active text-center text-uppercase" colspan="2">Idioma
 			extranjero</th>
-			<th class="active text-center text-uppercase" colspan="2">OpciÛn de
-			enseÒanza de religiÛn o alternativa<br>
-			<p class="help-block"><small>(seÒale una)</small></p></th>
+			<th class="active text-center text-uppercase" colspan="2">Opci√≥n de
+			ense√±anza de religi√≥n o alternativa<br>
+			<p class="help-block"><small>(se√±ale una)</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="2">
 			<div class="form-group"><input type="text" class="form-control"
-				name="idioma" value="InglÈs" readonly>
+				name="idioma" value="Ingl√©s" readonly>
 			<p class="help-block"><small>Materia obligatoria</small></p>
 			</div>
 			</td>
@@ -844,42 +844,42 @@ exit();
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="ReligiÛn CatÛlica" required
+				value="Religi√≥n Cat√≥lica" required
 				<?php if(stristr($religion,' Cat')==TRUE){echo "checked";} ?>>
-			ReligiÛn CatÛlica </label></div>
+			Religi√≥n Cat√≥lica </label></div>
 			</div>
 
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="ReligiÛn Isl·mica" required
-				<?php if($religion == 'ReligiÛn Isl·mica'){echo "checked";} ?>>
-			ReligiÛn Isl·mica </label></div>
+				value="Religi√≥n Isl√°mica" required
+				<?php if($religion == 'Religi√≥n Isl√°mica'){echo "checked";} ?>>
+			Religi√≥n Isl√°mica </label></div>
 			</div>
 
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="ReligiÛn JudÌa" required
-				<?php if($religion == 'ReligiÛn JudÌa'){echo "checked";} ?>>
-			ReligiÛn JudÌa </label></div>
+				value="Religi√≥n Jud√≠a" required
+				<?php if($religion == 'Religi√≥n Jud√≠a'){echo "checked";} ?>>
+			Religi√≥n Jud√≠a </label></div>
 			</div>
 			</td>
 			<td>
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="ReligiÛn EvangÈlica" required
-				<?php if($religion == 'ReligiÛn EvangÈlica'){echo "checked";} ?>>
-			ReligiÛn EvangÈlica </label></div>
+				value="Religi√≥n Evang√©lica" required
+				<?php if($religion == 'Religi√≥n Evang√©lica'){echo "checked";} ?>>
+			Religi√≥n Evang√©lica </label></div>
 			</div>
 
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="Valores …ticos" required
-				<?php if($religion == 'Valores …ticos'){echo "checked";} ?>>
-			Valores …ticos</label></div>
+				value="Valores √âticos" required
+				<?php if($religion == 'Valores √âticos'){echo "checked";} ?>>
+			Valores √âticos</label></div>
 			</div>
 			</td>
 		</tr>
@@ -891,11 +891,11 @@ exit();
 			<span class="text-uppercase">Asignatura optativa</span>
 			<p class="help-block"><small>(marca con 1, 2, 3, y 4 por orden de preferencia)</small></p></th>
 			<th class="active text-center" colspan="2"><span
-				class="text-uppercase">Programa de Refuerzo o AmpliaciÛn</span>
+				class="text-uppercase">Programa de Refuerzo o Ampliaci√≥n</span>
 			<p class="help-block"><small>Se elige una asignatura de refuerzo si el alumno tiene
 			asignaturas suspensas del curso anterior; se elige asignatura de
-			ampliaciÛn si el alumno pasa de curso sin suspensos. El Departamento
-			de OrientaciÛn decide finalmente.</small></p></th>
+			ampliaci√≥n si el alumno pasa de curso sin suspensos. El Departamento
+			de Orientaci√≥n decide finalmente.</small></p></th>
 		</tr>
 		<tr>
 
@@ -949,7 +949,7 @@ exit();
 		<!-- OPTATIVAS: 3 ESO -->
 		<?php elseif($n_curso == 3): ?>
 		<tr>
-			<th class="active text-uppercase"  colspan="4">Matem·ticas de 3∫ de E.S.O.</th>
+			<th class="active text-uppercase"  colspan="4">Matem√°ticas de 3¬∫ de E.S.O.</th>
 		</tr>
 		<tr>
 			<td valign=top colspan="4">
@@ -957,9 +957,9 @@ exit();
 	<?	
 			echo "<label class='radio-inline'><input type='radio' name = 'matematicas3' value='A' ";
 			if ($matematicas3=="A") { echo "checked";}
-			echo " required/>Matem·ticas AcadÈmicas</label><label class='radio-inline'><input type='radio' name = 'matematicas3' value='B' ";
+			echo " required/>Matem√°ticas Acad√©micas</label><label class='radio-inline'><input type='radio' name = 'matematicas3' value='B' ";
 			if ($matematicas3=="B") { echo "checked";}
-			echo " required/>Matem·ticas Aplicadas</label>";				
+			echo " required/>Matem√°ticas Aplicadas</label>";				
 		?>
 		</div>
 	</td>
@@ -973,11 +973,11 @@ exit();
 			</th>
 
 			<th class="active text-center" colspan="2"><span
-				class="text-uppercase">Programa de Refuerzo o AmpliaciÛn</span>
+				class="text-uppercase">Programa de Refuerzo o Ampliaci√≥n</span>
 			<p class="help-block"><small>Se elige una asignatura de refuerzo si el alumno tiene
 			asignaturas suspensas del curso anterior; se elige asignatura de
-			ampliaciÛn si el alumno pasa de curso sin suspensos. El Departamento
-			de OrientaciÛn decide finalmente.</small></p>
+			ampliaci√≥n si el alumno pasa de curso sin suspensos. El Departamento
+			de Orientaci√≥n decide finalmente.</small></p>
 			</th>
 
 		</tr>
@@ -1021,8 +1021,8 @@ exit();
 		<!-- OPTATIVAS: 4 ESO -->
 		<?php else: ?>
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">ElecciÛn de
-			Itinerario de 4∫ de ESO<p class="help-block">
+			<th class="active text-center text-uppercase" colspan="4">Elecci√≥n de
+			Itinerario de 4¬∫ de ESO<p class="help-block">
 			<small>(Debes marcar un Itinerario y luego seleccionar una
 			asignatura optativa si procede)</small></p></th>
 		</tr>
@@ -1032,10 +1032,10 @@ exit();
 				<table style="width:100%" class="table table-bordered">
 					<tr>
 						<td class="info text-center text-uppercase" style="width:66%">
-							<strong>OpciÛn de EnseÒanzas AcadÈmicas para la IniciaciÛn al Bachillerato</strong>
+							<strong>Opci√≥n de Ense√±anzas Acad√©micas para la Iniciaci√≥n al Bachillerato</strong>
 						</td>	
 						<td class="warning text-center text-uppercase" style="width:33%">
-							<strong>OpciÛn de EnseÒanzas Aplicadas para la IniciaciÛn a la FormaciÛn Profesional</strong>
+							<strong>Opci√≥n de Ense√±anzas Aplicadas para la Iniciaci√≥n a la Formaci√≥n Profesional</strong>
 						</td>
 					</tr>
 				</table>
@@ -1086,15 +1086,15 @@ exit();
 			<p class="form-control-static"><?php echo ${it4.$i}[3]; ?></p>
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" id="r1" 
-				class="itinerario<?php echo $i; ?>" name="optativas4" value="BiologÌa y GeologÌa"
-				<?php echo ($optativas4 == 'BiologÌa y GeologÌa') ? 'checked' : '' ; ?>>
+				class="itinerario<?php echo $i; ?>" name="optativas4" value="Biolog√≠a y Geolog√≠a"
+				<?php echo ($optativas4 == 'Biolog√≠a y Geolog√≠a') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>
 			</div>
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" id="r1" 
-				class="itinerario<?php echo $i; ?>" name="optativas4" value="EconomÌa"
-				<?php echo ($optativas4 == 'EconomÌa') ? 'checked' : '' ; ?>>
+				class="itinerario<?php echo $i; ?>" name="optativas4" value="Econom√≠a"
+				<?php echo ($optativas4 == 'Econom√≠a') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[5]; ?>
 			</label></div>
 			</div>
@@ -1109,8 +1109,8 @@ exit();
 			</div>
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" id="r2"
-				class="itinerario<?php echo $i; ?>" name="optativas4" value="IniciaciÛn Act. Emprend."
-				<?php echo ($optativas4 == 'IniciaciÛn') ? 'checked' : '' ; ?>>
+				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciaci√≥n Act. Emprend."
+				<?php echo ($optativas4 == 'Iniciaci√≥n') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>
 			</div>
@@ -1126,8 +1126,8 @@ exit();
 			</td>
 		</tr>
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4∫ de ESO<p class="help-block">
-			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)<br><span class="text-info text-lowercase">La OpciÛn de <em>IngenierÌa y Arquitectura</em> del Itinerario de Ciencias tiene <b>1 materia optativa</b>; la OpciÛn de <em>Ciencias de la Salud</em> tiene <b>2 materia optativas</b>.</span></small></p></th>
+			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4¬∫ de ESO<p class="help-block">
+			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)<br><span class="text-info text-lowercase">La Opci√≥n de <em>Ingenier√≠a y Arquitectura</em> del Itinerario de Ciencias tiene <b>1 materia optativa</b>; la Opci√≥n de <em>Ciencias de la Salud</em> tiene <b>2 materia optativas</b>.</span></small></p></th>
 		</tr>
 		<tr>
 			<td style="border-top: 0; <?php if(stristr($adv, "optativa de 4")==TRUE) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
@@ -1158,13 +1158,13 @@ exit();
 		<?php if($n_curso == 4): ?>
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">
-			Asignaturas optativas de 3∫ de ESO<p class="help-block">
+			Asignaturas optativas de 3¬∫ de ESO<p class="help-block">
 			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small></p>
 			</th>
 
 		</tr>
                 <tr>
-			<td class="text-uppercase"  colspan="4"><strong>Matem·ticas de 3∫ de E.S.O.</strong></td>
+			<td class="text-uppercase"  colspan="4"><strong>Matem√°ticas de 3¬∫ de E.S.O.</strong></td>
 		</tr>
 		<tr>
 			<td valign=top colspan="4">
@@ -1172,9 +1172,9 @@ exit();
 	<?	
 			echo "<label class='radio-inline'><input type='radio' name = 'matematicas3' value='A' ";
 			if ($matematicas3=="A") { echo "checked";}
-			echo " required/>Matem·ticas AcadÈmicas</label><label class='radio-inline'><input type='radio' name = 'matematicas3' value='B' ";
+			echo " required/>Matem√°ticas Acad√©micas</label><label class='radio-inline'><input type='radio' name = 'matematicas3' value='B' ";
 			if ($matematicas3=="B") { echo "checked";}
-			echo " required/>Matem·ticas Aplicadas</label>";				
+			echo " required/>Matem√°ticas Aplicadas</label>";				
 		?>
 		</div>
 	</td>
@@ -1228,8 +1228,8 @@ exit();
 
 		<!-- OPTATIVAS EN CASO DE REPETIR CURSO -->
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">ElecciÛn de
-			asignaturas optativas de <?php echo substr($curso, 0, 1) - 1; ?>∫ de
+			<th class="active text-center text-uppercase" colspan="4">Elecci√≥n de
+			asignaturas optativas de <?php echo substr($curso, 0, 1) - 1; ?>¬∫ de
 			ESO<p class="help-block">
 			<small>(Deben rellenarlo todos los alumnos, incluso si promocionan al
 			curso siguiente)</small></p></th>
@@ -1240,8 +1240,8 @@ exit();
 			<small>(marque con 1, 2, 3, y 4 por orden de preferencia)</small></th>
 			<th class="text-center text-uppercase" colspan="2">Programa de
 			refuerzo o alternativo<p class="help-block">
-			<small>Estudios en funciÛn del Informe de tr·nsito elaborado por el
-			tutor y seleccionados por el Departamento de OrientaciÛn.</small></p></</th>
+			<small>Estudios en funci√≥n del Informe de tr√°nsito elaborado por el
+			tutor y seleccionados por el Departamento de Orientaci√≥n.</small></p></</th>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -1284,21 +1284,21 @@ exit();
 		<input type="hidden" name="bilinguismo" value="Si">
 		<?php endif; ?>
 	
-		<!-- EXENCI”N DE ASIGNATURA OPTATIVA -->
+		<!-- EXENCI√ìN DE ASIGNATURA OPTATIVA -->
 		<?php if(substr($curso, 0, 1) < 3): ?>
 		<tr>
 			<td colspan="4">
 			<div class="form-group">
 			<div class="checkbox"><label> <input type="checkbox" name="exencion"
 				value="1" <?php echo ($exencion == 1) ? 'checked' : ''; ?> disabled>
-			ExenciÛn de la asignatura optativa (a rellenar por el Departamento de
-			OrientaciÛn previo acuerdo con la familia) </label></div>
+			Exenci√≥n de la asignatura optativa (a rellenar por el Departamento de
+			Orientaci√≥n previo acuerdo con la familia) </label></div>
 			</div>
 			</td>
 		</tr>
 		<?php endif; ?>
 
-		<!-- DIVERSIFICACI”N -->
+		<!-- DIVERSIFICACI√ìN -->
 		<?php if(substr($curso, 0, 1)>2): ?>
 		<tr>
 			<td colspan="4">
@@ -1306,7 +1306,7 @@ exit();
 			<div class="checkbox"><label> <input type="checkbox"
 				name="diversificacion" value="1"
 				<?php echo ($diversificacion == 1) ? 'checked' : ''; ?> disabled> El
-			alumno participa en el programa de DiversificaciÛn </label></div>
+			alumno participa en el programa de Diversificaci√≥n </label></div>
 			</div>
 			</td>
 		</tr>
@@ -1316,12 +1316,12 @@ exit();
 
 		<!-- ENFERMEDADES -->
 		<tr>
-			<th class="active text-center" colspan="4"><span class="text-uppercase">InformaciÛn Privada sobre el Alumno</span></th>
+			<th class="active text-center" colspan="4"><span class="text-uppercase">Informaci√≥n Privada sobre el Alumno</span></th>
 		</tr>
 		<tr>
 			<td colspan="2" style="border-top: 0;">
 			<p class="help-block"><small>
-			SeÒalar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida acadÈmica del alumno.</small></p>
+			Se√±alar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida acad√©mica del alumno.</small></p>
 		<div
 				class="form-group col-sm-5">
 			<label for="enfermedad">Enfermedades del Alumno</label>					 
@@ -1341,13 +1341,13 @@ exit();
 			<input type="text"
 				class="form-control" id="otraenfermedad" name="otraenfermedad"
 				value="<?php echo (isset($otraenfermedad)) ? $otraenfermedad : ''; ?>"
-				maxlength="60" placeholder="Escribe aquÌ el nombre de la enfermedad"> 
+				maxlength="60" placeholder="Escribe aqu√≠ el nombre de la enfermedad"> 
 				</div>
 			</td>
 			
 			<td colspan="2" style="border-top: 0;">
 			<p class="help-block"><small>
-			SeÒalar si el alumno procede de padres divorciados y cual es la situaciÛn legal de la Guardia y Custodia respecto al mismo.</small></p>
+			Se√±alar si el alumno procede de padres divorciados y cual es la situaci√≥n legal de la Guardia y Custodia respecto al mismo.</small></p>
 		<div
 				class="form-group col-sm-10">
 			<label for="divorcio">Alumno con padres divorciados</label>					 
@@ -1366,7 +1366,7 @@ exit();
 		<!-- FOTO -->
 		<tr>
 			<th class="active text-center" colspan="4"><span class="text-uppercase">Foto del Alumno:</span><p class="help-block"><small>
-			Desmarcar si la familia tiene alg˙n inconveniente en que se publiquen en nuestra web fotografÌas del alumno por motivos educativos (Actividaes Complementarias y Extraescolares, etc.)</small></p></th>
+			Desmarcar si la familia tiene alg√∫n inconveniente en que se publiquen en nuestra web fotograf√≠as del alumno por motivos educativos (Actividaes Complementarias y Extraescolares, etc.)</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 0;">
@@ -1415,11 +1415,11 @@ cambios</button>
 
 <?php } else { ?> <?php if($dni == '' || $dnitutor == ''): ?>
 <div class="alert alert-danger">Debes introducir el DNI / Pasaporte o
-equivalente del alumno/a o tutor legal que solicita la matriculaciÛn en
+equivalente del alumno/a o tutor legal que solicita la matriculaci√≥n en
 este centro.</div>
 <?php endif; ?> <?php if($curso == ''): ?>
 <div class="alert alert-danger">Debes seleccionar el curso del alumno/a
-que solicita la matriculaciÛn en este centro.</div>
+que solicita la matriculaci√≥n en este centro.</div>
 <?php endif; ?> <?php } ?>
 
 </div>

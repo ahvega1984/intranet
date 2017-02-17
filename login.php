@@ -1,15 +1,15 @@
 <?php
-// COMPROBAMOS LA VERSI”N DE PHP
-if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>VersiÛn de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicaciÛn.</p>");
+// COMPROBAMOS LA VERSI√ìN DE PHP
+if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versi√≥n de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicaci√≥n.</p>");
 
 require('bootstrap.php');
 
-// Comienzo de sesiÛn
+// Comienzo de sesi√≥n
 $_SESSION['autentificado'] = 0;
 
 if (! isset($_SESSION['intentos'])) $_SESSION['intentos'] = 0;
 
-// DESTRUIMOS LAS VARIABLES DE SESI”N
+// DESTRUIMOS LAS VARIABLES DE SESI√ìN
 if (isset($_SESSION['profi'])) {
 	$_SESSION = array();
 	session_destroy();
@@ -39,7 +39,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		if ($codigo == $clave) {
 			$_SESSION['autentificado'] = 1;
 
-			// Se usa la P·gina p˙blica para el acceso de los alumnos
+			// Se usa la P√°gina p√∫blica para el acceso de los alumnos
 			$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' or pagina='/alumnos/login.php' ORDER BY accesos DESC limit 5");				
 			if (mysqli_num_rows($query_accesos)>0) {	
 				$_SESSION['pagina_centro'] = 1;
@@ -48,7 +48,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$_SESSION['profi'] = $pass1[1];
 			$profe = $_SESSION['profi'];
 
-			// Variables de sesiÛn del cargo del Profesor
+			// Variables de sesi√≥n del cargo del Profesor
 			$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
 			$cargo1 = mysqli_fetch_array ( $cargo0 );
 			$_SESSION['cargo'] = $cargo1 [0];
@@ -105,7 +105,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			}
 
 		}
-		// La contraseÒa no es correcta
+		// La contrase√±a no es correcta
 		else {
 
 			if ($_SESSION['intentos'] > 4) {
@@ -131,11 +131,11 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 				$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 				$message = str_replace('{{titulo}}', 'Cuenta temporalmente bloqueada', $message);
-				$message = str_replace('{{contenido}}', 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta estÈ bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla f·cilmente en unos pocos pasos.<br><br>PÛnte en contacto con alg˙n miembro del equipo directivo para restablecer tu contraseÒa. Una vez restablecida podr·s acceder a la Intranet utilizando tu DNI como contraseÒa. Para mantener tu seguridad utilice una contraseÒa segura.<br><br><hr>Este es un mensaje autom·tico y no es necesario responder.', $message);
+				$message = str_replace('{{contenido}}', 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta est√© bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla f√°cilmente en unos pocos pasos.<br><br>P√≥nte en contacto con alg√∫n miembro del equipo directivo para restablecer tu contrase√±a. Una vez restablecida podr√°s acceder a la Intranet utilizando tu DNI como contrase√±a. Para mantener tu seguridad utilice una contrase√±a segura.<br><br><hr>Este es un mensaje autom√°tico y no es necesario responder.', $message);
 
 				$mail->msgHTML($message);
 				$mail->Subject = $config['centro_denominacion'].' - Cuenta temporalmente bloqueada';
-				$mail->AltBody = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta estÈ bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla f·cilmente en unos pocos pasos.<br><br>PÛnte en contacto con alg˙n miembro del equipo directivo para restablecer tu contraseÒa. Una vez restablecida podr·s acceder a la Intranet utilizando tu DNI como contraseÒa. Para mantener tu seguridad utilice una contraseÒa segura.<br><br><hr>Este es un mensaje autom·tico y no es necesario responder.';
+				$mail->AltBody = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta est√© bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla f√°cilmente en unos pocos pasos.<br><br>P√≥nte en contacto con alg√∫n miembro del equipo directivo para restablecer tu contrase√±a. Una vez restablecida podr√°s acceder a la Intranet utilizando tu DNI como contrase√±a. Para mantener tu seguridad utilice una contrase√±a segura.<br><br><hr>Este es un mensaje autom√°tico y no es necesario responder.';
 
 				$mail->AddAddress($correo, $profe);
 				$mail->Send();
@@ -144,7 +144,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				unset($_SESSION['intentos']);
 			}
 			else {
-				$msg_error = "Nombre de usuario y/o contraseÒa incorrectos";
+				$msg_error = "Nombre de usuario y/o contrase√±a incorrectos";
 
 				if ($usuarioExiste) {
 					$_SESSION['intentos']++;
@@ -156,7 +156,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		}
 	}
 	else {
-		$msg_error = "La cuenta de usuario est· bloqueada";
+		$msg_error = "La cuenta de usuario est√° bloqueada";
 	}
 }
 
@@ -165,7 +165,7 @@ include('control_acceso.php');
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="iso-8859-1">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
@@ -187,7 +187,7 @@ include('control_acceso.php');
 	    <div class="modal-content">
 	      <div class="modal-body">
 	      	<br>
-	        <p class="lead text-center">Est·s utilizando una versiÛn de Internet Explorer demasiado antigua. <br>Actualiza tu navegador o c·mbiate a <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a> o <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a>.</p>
+	        <p class="lead text-center">Est√°s utilizando una versi√≥n de Internet Explorer demasiado antigua. <br>Actualiza tu navegador o c√°mbiate a <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a> o <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a>.</p>
 	        <br>
 	      </div>
 	    </div><!-- /.modal-content -->
@@ -200,7 +200,7 @@ include('control_acceso.php');
 
 		  <div class="text-center" style="-webkit-animation: fadeInDown 1s;">
 		    <h1><?php echo $config['centro_denominacion']; ?></h1>
-		    <h4>Inicia sesiÛn para acceder</h4>
+		    <h4>Inicia sesi√≥n para acceder</h4>
 		  </div>
 
 		  <form id="form-signin" class="form-signin well" method="POST" autocomplete="on">
@@ -213,7 +213,7 @@ include('control_acceso.php');
 
 		      <div id="form-group" class="form-group">
 		        <input type="text" class="form-control" id="idea" name="idea" placeholder="Usuario IdEA" maxlength="12" required autofocus>
-		        <input type="password" class="form-control" id="clave" name="clave" placeholder="ContraseÒa" maxlength="20" required>
+		        <input type="password" class="form-control" id="clave" name="clave" placeholder="Contrase√±a" maxlength="20" required>
 
 		        <?php if($msg_error): ?>
 		            <label class="control-label text-danger"><?php echo $msg_error; ?></label>
@@ -222,7 +222,7 @@ include('control_acceso.php');
 
 
 
-		      <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Iniciar sesiÛn</button>
+		      <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Iniciar sesi√≥n</button>
 
 		      <div class="form-signin-footer">
 
@@ -238,7 +238,7 @@ include('control_acceso.php');
 			<hr>
 
 			<p class="text-center">
-				<small class="text-muted">VersiÛn <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
+				<small class="text-muted">Versi√≥n <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
 				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
 			</p>
 			<p class="text-center">
@@ -284,18 +284,18 @@ include('control_acceso.php');
 			});
 		}
 
-		// Deshabilitamos el botÛn
+		// Deshabilitamos el bot√≥n
 		$("button[type=submit]").attr("disabled", "disabled");
 
 		// Cuando se presione una tecla en un input del formulario
-		// realizamos la validaciÛn
+		// realizamos la validaci√≥n
 		$('input').keyup(function(){
 		      // Validamos el formulario
 		      var validated = true;
 		      if($('#idea').val().length < 5) validated = false;
 		      if($('#clave').val().length < 8) validated = false;
 
-		      // Si el formulario es v·lido habilitamos el botÛn, en otro caso
+		      // Si el formulario es v√°lido habilitamos el bot√≥n, en otro caso
 		      // lo volvemos a deshabilitar
 		      if(validated) $("button[type=submit]").removeAttr("disabled");
 		      else $("button[type=submit]").attr("disabled", "disabled");

@@ -10,14 +10,14 @@
 			<th width="20">&nbsp;</th>
 			<th width="20">Lun</th>
 			<th width="20">Mar</th>
-			<th width="20">Mi�</th>
+			<th width="20">Mié</th>
 			<th width="20">Jue</th>
-			<th width="20">Vi�</th>
+			<th width="20">Vié</th>
 		  </tr>
 		</thead>
 		<tbody>
 		<?php
-		// Horas del día
+		// Horas del dÃ­a
 		$t_hora = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
 		while($todas_horas=mysqli_fetch_array($t_hora)){
 		$n_hora = $todas_horas[0];
@@ -35,7 +35,7 @@
 		if ($algo) {
 			echo '<tr><th>'.$nombre.'</th>';
 
-			//Días
+			//DÃ­as
 			for($z = 1; $z < 6; $z ++) {
 
 				?>
@@ -86,8 +86,8 @@
 									$exp_grupo = explode('-', $grupo);
 									echo "/".$exp_grupo[1];
 								}
-								elseif (stristr($grupo, '�') == TRUE) {
-									$exp_grupo = explode('�', $grupo);
+								elseif (stristr($grupo, 'º') == TRUE) {
+									$exp_grupo = explode('º', $grupo);
 									echo "/".$exp_grupo[1];
 								}
 								else {

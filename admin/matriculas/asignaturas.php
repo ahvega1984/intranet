@@ -1,21 +1,21 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
-// Optativas 1º, 2º y 3º ESO
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Métodos de la Ciencia");
-	$opt3 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
+// Optativas 1Âº, 2Âº y 3Âº ESO
+	$opt1 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","TecnologÃ­a Aplicada");
+	$opt2 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","MÃ©todos de la Ciencia");
+	$opt3 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","Cultura ClÃ¡sica", "Taller T.I.C. III", "Taller de CerÃ¡mica", "Taller de Teatro");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C.", "AmpliaciÃ³n: Taller de Teatro");
+	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C. II", "AmpliaciÃ³n: Taller de Teatro II");
 
-// Itinerarios 4º ESO	
-	$it41 = array("(Bachillerato de Ciencias y Tecnología - Vía de Ciencias de la Naturaleza y la Salud)", "Física y Química", "Biología y Geología", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática");
-	$it42 = array("(Bachillerato de Ciencias y Tecnología - Vía de Ciencias e Ingeniería)", "Física y Química", "Tecnología", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$it43 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Latín", "Música", "Matemáticas A", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$it44 = array("(Ciclos Formativos y Mundo Laboral)", "Informática", "Ed. Plástica y Visual", "Matemáticas A", "Alemán 2º Idioma", "Francés 2º Idioma", "Tecnología");
+// Itinerarios 4Âº ESO	
+	$it41 = array("(Bachillerato de Ciencias y TecnologÃ­a - VÃ­a de Ciencias de la Naturaleza y la Salud)", "FÃ­sica y QuÃ­mica", "BiologÃ­a y GeologÃ­a", "MatemÃ¡ticas B", "AlemÃ¡n 2Âº Idioma", "FrancÃ©s 2Âº Idioma", "InformÃ¡tica");
+	$it42 = array("(Bachillerato de Ciencias y TecnologÃ­a - VÃ­a de Ciencias e IngenierÃ­a)", "FÃ­sica y QuÃ­mica", "TecnologÃ­a", "MatemÃ¡ticas B", "AlemÃ¡n 2Âº Idioma", "FrancÃ©s 2Âº Idioma", "InformÃ¡tica", "Ed. PlÃ¡stica y Visual");
+	$it43 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "LatÃ­n", "MÃºsica", "MatemÃ¡ticas A", "MatemÃ¡ticas B", "AlemÃ¡n 2Âº Idioma", "FrancÃ©s 2Âº Idioma", "InformÃ¡tica", "Ed. PlÃ¡stica y Visual");
+	$it44 = array("(Ciclos Formativos y Mundo Laboral)", "InformÃ¡tica", "Ed. PlÃ¡stica y Visual", "MatemÃ¡ticas A", "AlemÃ¡n 2Âº Idioma", "FrancÃ©s 2Âº Idioma", "TecnologÃ­a");
 
-// Optativas 4º ESO	
-	$opt41=array("Alemán2_1" => "Alemán 2º Idioma", "Francés2_1" => "Francés 2º Idioma", "Informatica_1" => "Informática");
-	$opt42=array("Alemán2_2" => "Alemán 2º Idioma", "Francés2_2" => "Francés 2º Idioma", "Informatica_2" => "Informática", "EdPlástica_2" => "Ed. Plástica y Visual");
-	$opt43=array("Alemán2_3" => "Alemán 2º Idioma", "Francés2_3" => "Francés 2º Idioma", "Informatica_3" => "Informática", "EdPlástica_3" => "Ed. Plástica y Visual");
-	$opt44=array("Alemán2_4" => "Alemán 2º Idioma", "Francés2_4" => "Francés 2º Idioma", "Tecnología_4" => "Tecnología");
+// Optativas 4Âº ESO	
+	$opt41=array("AlemÃ¡n2_1" => "AlemÃ¡n 2Âº Idioma", "FrancÃ©s2_1" => "FrancÃ©s 2Âº Idioma", "Informatica_1" => "InformÃ¡tica");
+	$opt42=array("AlemÃ¡n2_2" => "AlemÃ¡n 2Âº Idioma", "FrancÃ©s2_2" => "FrancÃ©s 2Âº Idioma", "Informatica_2" => "InformÃ¡tica", "EdPlÃ¡stica_2" => "Ed. PlÃ¡stica y Visual");
+	$opt43=array("AlemÃ¡n2_3" => "AlemÃ¡n 2Âº Idioma", "FrancÃ©s2_3" => "FrancÃ©s 2Âº Idioma", "Informatica_3" => "InformÃ¡tica", "EdPlÃ¡stica_3" => "Ed. PlÃ¡stica y Visual");
+	$opt44=array("AlemÃ¡n2_4" => "AlemÃ¡n 2Âº Idioma", "FrancÃ©s2_4" => "FrancÃ©s 2Âº Idioma", "TecnologÃ­a_4" => "TecnologÃ­a");
 ?>

@@ -11,7 +11,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-  		<h2 style="display:inline;">Orientación <small>Intervenciones sobre los alumnos</small></h2>
+  		<h2 style="display:inline;">OrientaciÃ³n <small>Intervenciones sobre los alumnos</small></h2>
   		
   		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -27,21 +27,21 @@ include("../../menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Las Intervenciones del Departamento de Orientación funcionan a modo de
+						<p>Las Intervenciones del Departamento de OrientaciÃ³n funcionan a modo de
 						Diario donde se registran las actividades de distinto tipo (entrevistas 
-						con Padres o Alumnos, llamadas de teléfono, etc.) asociadas a determinadas 
-						causas (Orientación académica, evolución de estudios, técnicas de estudio, 
+						con Padres o Alumnos, llamadas de telÃ©fono, etc.) asociadas a determinadas 
+						causas (OrientaciÃ³n acadÃ©mica, evoluciÃ³n de estudios, tÃ©cnicas de estudio, 
 						etc.) que el Departamento realiza dentro de sus funciones. El Orientador 
 						recoge los datos de las intervenciones de tal modo que pueda hacer un 
 						seguimiento de sus actividades con los alumnos del Centro.</p>
-						<p>Además de sus propias Intervenciones (color azul), el Departamento puede 
-						ver las Intervenciones del Tutor (color naranja) así como otras intervenciones 
-						generadas por procesos automatizadas (envío de SMS por faltas de asistencia, 
+						<p>AdemÃ¡s de sus propias Intervenciones (color azul), el Departamento puede 
+						ver las Intervenciones del Tutor (color naranja) asÃ­ como otras intervenciones 
+						generadas por procesos automatizadas (envÃ­o de SMS por faltas de asistencia, 
 						problemas de convivencia, etc.) sobre un determinado alumno dentro del 
 						historial del mismo.</p>
-						<p>La página presenta el formulario de intervenciones y una lista con todas 
+						<p>La pÃ¡gina presenta el formulario de intervenciones y una lista con todas 
 						las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un 
-						alumno de esta lista, se visualiza la intervención en el formulario 
+						alumno de esta lista, se visualiza la intervenciÃ³n en el formulario 
 						(pudiendo editarla, borrarla, etc.) y aparece el historial de las 
 						intervenciones sobre el alumno bajo el formulario.</p>
 					</div>
@@ -263,7 +263,7 @@ if ($alumno) {
 <label>Causa </label>
 <select name="causa" class='form-control'>
 	<option><?php echo $causa; ?></option>
-	<option>Orientación académica y profesional</option>
+	<option>OrientaciÃ³n acadÃ©mica y profesional</option>
 	<option>Evoluci&oacute;n acad&eacute;mica</option>
 	<option>T&eacute;cnicas de estudio</option>
 	<option>Problemas de convivencia</option>
@@ -286,10 +286,10 @@ if ($alumno) {
 $opcion = array(   'Entrevista con el Alumno',
 		      'Entrevista personal con la Familia',
                           'Entrevista con el Equipo Educativo',
-                          'Entrevista telefónica con la familia',
-                          'Derivación a Servicios Sociales',
-                          'Derivación a Asistencia médica',
-                          'Derivación a Asistencia psicológica ',
+                          'Entrevista telefÃ³nica con la familia',
+                          'DerivaciÃ³n a Servicios Sociales',
+                          'DerivaciÃ³n a Asistencia mÃ©dica',
+                          'DerivaciÃ³n a Asistencia psicolÃ³gica ',
                           'Contacto con Servicios Sociales',
                           'Contacto con Equipo de Tratamiento Familiar',
                           'Contacto con Del. de Juventud ',
@@ -314,7 +314,7 @@ foreach ($opcion as $opc)
 
 <input name="id2" type="hidden" value="<?php echo $id; ?>" /> <input
 	name='submit1' type='submit'
-	value='Registrar intervención' class='btn btn-primary'>
+	value='Registrar intervenciÃ³n' class='btn btn-primary'>
 &nbsp; <input name='submit2' type='submit'
 	value='Actualizar datos' class='btn btn-warning'>
 &nbsp;<input name=submit3 type=submit
@@ -361,7 +361,7 @@ if($alumno){
 
 
 <div class="col-sm-5">
-<legend>Intervenciones de Orientación</legend>
+<legend>Intervenciones de OrientaciÃ³n</legend>
 <?php include("ultimos.php");?>
 </div>
 </div>
@@ -389,14 +389,14 @@ if($alumno){
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

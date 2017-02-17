@@ -51,7 +51,7 @@ $curso=$trozos[2];
 	}
 	echo '<br /><div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			Los datos de los alumnos absentistas se han actualizado. Se ha enviado un mensaje al <b>Departamento de Orientación</b> y los <b>Tutores</b> para que procedan con el Informe de Absentismo.
+			Los datos de los alumnos absentistas se han actualizado. Se ha enviado un mensaje al <b>Departamento de OrientaciÃ³n</b> y los <b>Tutores</b> para que procedan con el Informe de Absentismo.
 			</div></div>';
 }
 else 
@@ -70,13 +70,13 @@ else
                     if($mes=='Mayo'){$n_mes='05';}
                     if($mes=='Junio'){$n_mes='06';}
                     $mes=strtoupper($mes);
-        echo "<center> <h4>Alumnos con más de <span class='badge badge-warning'>$numero</span> faltas de asistencia en <span class='badge badge-warning'>$mes</span></h4>";
+        echo "<center> <h4>Alumnos con mÃ¡s de <span class='badge badge-warning'>$numero</span> faltas de asistencia en <span class='badge badge-warning'>$mes</span></h4>";
 		echo '<br /><TABLE class="table table-striped" style="width:auto" align="center">
 ';
         echo "<tr><th></th><th align='center'>Alumno</th><th align='center'>Curso</th>
-        <th align='center'>Nº faltas</th><th align='center'>Nº días</th></tr>";
+        <th align='center'>NÂº faltas</th><th align='center'>NÂº dÃ­as</th></tr>";
 
-// Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
+// CreaciÃ³n de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
   $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, FALTAS.unidad FROM FALTAS, FALUMNOS where FALTAS.CLAVEAL=FALUMNOS.claveal and  falta = 'F' and month(FALTAS.fecha)= '$n_mes'   group by apellidos, nombre";
   $resultTEMP= mysqli_query($db_con, $SQLTEMP);
   mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX (CLAVEAL)");
@@ -94,7 +94,7 @@ $claveal = $row0[0];
   and FALTAS.falta = 'F' GROUP BY alma.apellidos";
   //echo $SQLF;
   $resultF = mysqli_query($db_con, $SQLF);	
-//Fecha del día
+//Fecha del dÃ­a
 $fhoy=getdate();
 $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Bucle de Consulta.
@@ -133,7 +133,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 </form>
 <?php
 }
-if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {echo '<br><div align="center"><br /><a href="index.php" class="btn btn-primary">Volver a la Página de Absentismo</a>';}
+if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {echo '<br><div align="center"><br /><a href="index.php" class="btn btn-primary">Volver a la PÃ¡gina de Absentismo</a>';}
 ?>
 </div>
 </div>

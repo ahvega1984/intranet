@@ -25,10 +25,10 @@ function dia_semana($dia) {
 	switch ($dia) {
 		case 1 : $texto = 'lunes'; break;
 		case 2 : $texto = 'martes'; break;
-		case 3 : $texto = 'miércoles'; break;
+		case 3 : $texto = 'miÃ©rcoles'; break;
 		case 4 : $texto = 'jueves'; break;
 		case 5 : $texto = 'viernes'; break;
-		case 6 : $texto = 'sábado'; break;
+		case 6 : $texto = 'sÃ¡bado'; break;
 		case 7 : $texto = 'domingo'; break;
 	}
 	
@@ -78,7 +78,7 @@ include("menu.php");
 	<?php mysqli_query($db_con, "DELETE FROM guardias WHERE id='$id' LIMIT 1"); ?>
 	<div class="alert alert-success alert-block fade in">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		La sustitución ha sido borrada correctamente. Puedes comprobarlo en la tabla de la derecha.
+		La sustituciÃ³n ha sido borrada correctamente. Puedes comprobarlo en la tabla de la derecha.
 	</div>
 	<?php endif; ?>
 	
@@ -104,7 +104,7 @@ include("menu.php");
 			
 			<?php if (! empty($diasem) && ! empty($hora)): ?>
 			<h4>
-				<span class="fa fa-history fa-fw"></span> Histórico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>ª hora</span>
+				<span class="fa fa-history fa-fw"></span> HistÃ³rico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>Âª hora</span>
 				<a class="btn btn-default btn-sm pull-right" href="consulta_profesores.php">Eliminar filtro</a>
 			</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' AND dia = '$diasem' AND hora = '$hora' ORDER BY fecha_guardia DESC"); ?>
@@ -112,7 +112,7 @@ include("menu.php");
 
 			<?php else: ?>
 			
-			<h4><span class="fa fa-history fa-fw"></span> Histórico de guardias</h4>
+			<h4><span class="fa fa-history fa-fw"></span> HistÃ³rico de guardias</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' ORDER BY fecha_guardia DESC"); ?>
 			
 			<?php endif; ?>
@@ -137,8 +137,8 @@ include("menu.php");
 						<tr>
 							<td><?php echo nomprofesor($row['profe_aula']); ?></td>
 							<td><?php echo strftime('%A %e, %B %Y' ,strtotime($row['fecha_guardia'])); ?></td>
-							<td><?php echo $row['hora']; ?>ª</td>
-							<td><?php if ($row['turno'] == 1) echo 'Hora completa'; elseif ($row['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
+							<td><?php echo $row['hora']; ?>Âª</td>
+							<td><?php if ($row['turno'] == 1) echo 'Hora completa'; elseif ($row['turno'] == 2) echo '1Âª media hora'; else echo '2Âª media hora'; ?></td>
 							<?php if (acl_permiso($_SESSION['cargo'], array(1)) || nomprofesor($profesor) == nomprofesor($pr)): ?>
 							<td class="hidden-print">
 								<a href="?id=<?php echo $row['id']; ?>&borrar=1&profesor=<?php echo nomprofesor($row['profesor']); ?><?php if (isset($uri_extra)) echo $uri_extra; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar"><span class="fa fa-trash fa-lg fa-fw"></span></a>

@@ -1,7 +1,7 @@
 <?php
 require('../bootstrap.php');
 
-$caracteres_no_permitidos = array('·', 'È', 'Ì', 'Û', '˙', '¡', '…', 'Õ', '”', '⁄');
+$caracteres_no_permitidos = array('√°', '√©', '√≠', '√≥', '√∫', '√Å', '√â', '√ç', '√ì', '√ö');
 $caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 $result = mysqli_query($db_con, "SELECT grupo FROM profesores WHERE profesor ='".$_SESSION['profi']."'");
@@ -425,10 +425,10 @@ function contents_dir($current_dir, $directory)
 		  	echo "		  <span class=\"fa " . get_mimetype_img("$current_dir/$filename") . " fa-fw fa-lg\"></span>";	  
 		  	
 			if(strlen($filename) > $file_out_max_caracters) {
-				echo htmlspecialchars(substr($filename, 0, $file_out_max_caracters-4).'...', ENT_QUOTES, 'ISO-8859-1');
+				echo htmlspecialchars(substr($filename, 0, $file_out_max_caracters-4).'...', ENT_QUOTES, 'UTF-8');
 			}
 			else {
-				echo htmlspecialchars($filename, ENT_QUOTES, 'ISO-8859-1');
+				echo htmlspecialchars($filename, ENT_QUOTES, 'UTF-8');
 			}
 			if (is_dir("$current_dir/$filename")) echo "</a>";
 			echo "        $content\n";
@@ -527,7 +527,7 @@ function contents_dir($current_dir, $directory)
 				echo "</td>";
 				echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
 				
-				// FECHA DE MODIFICACI”N
+				// FECHA DE MODIFICACI√ìN
 				$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
 				echo "<span class=\"text-muted\">".date($datetimeformat, $file_modif_time)."</span>";
 				
@@ -608,7 +608,7 @@ function delete_dir($location)
 function normalize_filename($name)
 {
 	global $file_name_max_caracters, $invalidchars;
-	$caracteres_no_permitidos = array('·', 'È', 'Ì', 'Û', '˙', '¡', '…', 'Õ', '”', '⁄');
+	$caracteres_no_permitidos = array('√°', '√©', '√≠', '√≥', '√∫', '√Å', '√â', '√ç', '√ì', '√ö');
 	$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 	$name = stripslashes($name);
@@ -635,7 +635,7 @@ function show_contents() {
 
 	switch ($index) {
 		default :
-		case 'publico' : $activo1 = 'class="active"'; $titulo='Documentos p˙blicos'; break;
+		case 'publico' : $activo1 = 'class="active"'; $titulo='Documentos p√∫blicos'; break;
 		case 'privado' : $activo2 = 'class="active"'; $titulo='Documentos personales'; break;
 	}
 	
@@ -655,21 +655,21 @@ function show_contents() {
 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 				</div>
 				<div class="modal-body">
-					<p>La p·gina presenta dos tipos de documentos: los <strong><em>Documentos 
-					p˙blicos del Centro</em></strong> y los <strong><em>Documentos privados de 
+					<p>La p√°gina presenta dos tipos de documentos: los <strong><em>Documentos 
+					p√∫blicos del Centro</em></strong> y los <strong><em>Documentos privados de 
 					cada Profesor</em></strong>.</p>
-					<p>Los <strong><em>Documentos P˙blicos</em></strong> se configuran en la 
-					instalaciÛn de la Intranet, y son visibles desde la p·gina p˙blica del Centro. Ofrecen un directorio donde el Equipo 
-					directivo y dem·s profesores colocan aquellos archivos que consideran relevantes para la Comunidad 
+					<p>Los <strong><em>Documentos P√∫blicos</em></strong> se configuran en la 
+					instalaci√≥n de la Intranet, y son visibles desde la p√°gina p√∫blica del Centro. Ofrecen un directorio donde el Equipo 
+					directivo y dem√°s profesores colocan aquellos archivos que consideran relevantes para la Comunidad 
 					educativa (Programaciones, Plan del Centro, etc.). <br>					
-					Dependiendo de las opciones elegidas en la instalaciÛn, podemos encontrar tres categorÌas: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del 
+					Dependiendo de las opciones elegidas en la instalaci√≥n, podemos encontrar tres categor√≠as: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del 
 					cual encontraremos directorios de los distintos Departamentos del Centro y que pueden ser utilizados por los miembros de los mismos; y <strong><em>Recursos</em></strong>, con un directorio para cada grupo del Centro en el que los Equipos educativos pueden colocar materiales diversos para sus alumnos.</p>
 					<p>Los <strong><em>Documentos Personales</em></strong> son propios de cada 
-					Profesor y sÛlo son accesibles por Èl. Podemos subir archivos para luego usarlos en el Centro, o bien 
+					Profesor y s√≥lo son accesibles por √©l. Podemos subir archivos para luego usarlos en el Centro, o bien 
 					utilizar esos archivos para incrustarlos en un mensaje que luego se comparte 
-					dentro de la Intranet. Este mÛdulo se puede tambiÈn entender como un pequeÒo 
-					Explorador personal de nuestros archivos. No es visible desde la P·gina 
-					p˙blica del Centro.</p>
+					dentro de la Intranet. Este m√≥dulo se puede tambi√©n entender como un peque√±o 
+					Explorador personal de nuestros archivos. No es visible desde la P√°gina 
+					p√∫blica del Centro.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -679,7 +679,7 @@ function show_contents() {
 	</div>
 	<?php
 	echo "  <ul class=\"nav nav-tabs\">\n";
-	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Documentos p˙blicos</a></li>\n";
+	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Documentos p√∫blicos</a></li>\n";
 	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Documentos personales</a></li>\n";
 	echo "  </ul>\n";
 	
@@ -786,7 +786,7 @@ function is_path_safe(&$path, &$filename) {
 }
 
 //----------------------------------------------------------------------------
-//   CREACI”N / ELIMINACI”N DE DIRECTORIOS EN FUNCI”N DE LA CONFIGURACI”N
+//   CREACI√ìN / ELIMINACI√ìN DE DIRECTORIOS EN FUNCI√ìN DE LA CONFIGURACI√ìN
 //----------------------------------------------------------------------------
 
 if($index=='publico') {

@@ -11,7 +11,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Importación de fotos de los alumnos</small></h2>
+		<h2>AdministraciÃ³n <small>ImportaciÃ³n de fotos de los alumnos</small></h2>
 	</div>
 	
 	
@@ -25,7 +25,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="fotos.php">
 					<fieldset>
-						<legend>Importación de fotos de los alumnos</legend>
+						<legend>ImportaciÃ³n de fotos de los alumnos</legend>
 
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">Fotografias_alumnos.zip</span></label>
@@ -33,7 +33,7 @@ include("../../menu.php");
 						</div>
 						<div class="checkbox">
 					  	<label>
-					    	<input type="checkbox" name="tabla" value="1"> Crear tabla de fotos para Página Pública
+					    	<input type="checkbox" name="tabla" value="1"> Crear tabla de fotos para PÃ¡gina PÃºblica
 					    </label>
 					  </div>
 						<br>
@@ -50,13 +50,13 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>Información sobre la importación</h3>
+			<h3>InformaciÃ³n sobre la importaciÃ³n</h3>
 			
 			<p>Para importar las fotos de todos los alumnos, necesitaremos crear un archivo comprimido (.zip) conteniendo todos los archivos de fotos de los alumnos.</p>
 			
-			<p>Cada archivo de foto tiene como nombre el Número de Identificación Escolar que Séneca asigna a cada alumno seguido de la extensión .jpg o .jpeg. El nombre típico de un archivo de foto quedaría por ejemplo así: 1526530.jpg.</p>
+			<p>Cada archivo de foto tiene como nombre el NÃºmero de IdentificaciÃ³n Escolar que SÃ©neca asigna a cada alumno seguido de la extensiÃ³n .jpg o .jpeg. El nombre tÃ­pico de un archivo de foto quedarÃ­a por ejemplo asÃ­: 1526530.jpg.</p>
 			
-			<p>Los tutores podrán actualizar las fotografías de los alumnos en la Página del tutor.</p>
+			<p>Los tutores podrÃ¡n actualizar las fotografÃ­as de los alumnos en la PÃ¡gina del tutor.</p>
 			
 		</div>
 		

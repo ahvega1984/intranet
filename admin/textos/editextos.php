@@ -15,7 +15,7 @@ include 'menu.php';
 ?>
 <div class="container">
 <div class="page-header">
-  <h2>Libros de texto <small>EdiciÛn de libros</small></h2>
+  <h2>Libros de texto <small>Edici√≥n de libros</small></h2>
 </div>
 
 <div class="row">
@@ -94,7 +94,7 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 	$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos order by departamento asc");
 	while($filaprofe = mysqli_fetch_array($profe))
 	{
-		if ($filaprofe[0] == "Lengua Castellana" or $filaprofe[0] == "Lengua Extranjera-InglÈs (Secundaria)" or $filaprofe[0] == "Matem·ticas")
+		if ($filaprofe[0] == "Lengua Castellana" or $filaprofe[0] == "Lengua Extranjera-Ingl√©s (Secundaria)" or $filaprofe[0] == "Matem√°ticas")
 		{}
 		else {$departamen = $filaprofe[0];}
 		$opcion1 = printf ("<OPTION>$departamen</OPTION>");

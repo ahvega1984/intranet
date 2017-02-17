@@ -9,7 +9,7 @@ $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas_bach where grupo_actual != '' order by curso, grupo_actual");
 while($total = mysqli_fetch_array($tot)){
-# hasta aquÃ­ lo del pdf
+# hasta aquÃƒÂ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -70,21 +70,21 @@ for ($i = 3; $i < 11; $i++) {
 			$religion ="X";
 		}
 		
-	$opt = '
+	$opt = utf8_decode('
 	
-	Itinerarios: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
+	Itinerarios: 1 => Ciencias e IngenierÃ­a y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y JurÃ­dicas
 
-	Optativas Itin. 1 y 2: 1 => Tecnología; 2 => Ciencias de la Tierra; 3 => Psicología; 4 => Geología; 5 => TIC; 6 => Alemán 2º Id; 7 => Francés 2º Id; 8 => Inglés 2º Id;
-	Optativas Itin. 3: 1 => TIC II; 2 => Alemán 2º Idioma; 3 => Francés 2º Idioma; 4 => Inglés 2º Idioma;
-	Optativas Itin. 4: 1 => TIC II; 2 => Fundamentos de Administracción y Gestión; 3 => Alemán 2º Idioma; 4 => Francés 2º Idioma; 5 => Inglés 2º Idioma;
+	Optativas Itin. 1 y 2: 1 => TecnologÃ­a; 2 => Ciencias de la Tierra; 3 => PsicologÃ­a; 4 => GeologÃ­a; 5 => TIC; 6 => AlemÃ¡n 2Âº Id; 7 => FrancÃ©s 2Âº Id; 8 => InglÃ©s 2Âº Id;
+	Optativas Itin. 3: 1 => TIC II; 2 => AlemÃ¡n 2Âº Idioma; 3 => FrancÃ©s 2Âº Idioma; 4 => InglÃ©s 2Âº Idioma;
+	Optativas Itin. 4: 1 => TIC II; 2 => Fundamentos de AdministracciÃ³n y GestiÃ³n; 3 => AlemÃ¡n 2Âº Idioma; 4 => FrancÃ©s 2Âº Idioma; 5 => InglÃ©s 2Âº Idioma;
 	
-	Optativas 2 horas: 1 => Ed. Física; 2 => Estadística; 3 => Ciencias de la Salud;
-	';
+	Optativas 2 horas: 1 => Ed. FÃ­sica; 2 => EstadÃ­stica; 3 => Ciencias de la Salud;
+	');
 	$optas = $datatmp[2];
 	if (stristr($optas, "Econom")==TRUE) { $optas = "ECO"; }elseif(stristr($optas, "Grieg")==TRUE){ $optas = "GRI"; }
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0].$bil,
+				'nombre'=>utf8_decode($datatmp[0]).$bil,
 				'c1'=>$religion,
 				'c2'=>$datatmp['itinerario2'],
 				'c3'=>$optas,
@@ -97,11 +97,11 @@ for ($i = 3; $i < 11; $i++) {
 				'c10'=>$datatmp[9],
 				'c11'=>$datatmp[10],
 				'c12'=>$opt_2h,
-				'c13'=>$datatmp['idioma1'],
+				'c13'=>utf8_decode($datatmp['idioma1']),
 
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>'R.Cat.',
 				'c2'=>'It2',
@@ -132,30 +132,30 @@ if ($curso=="1BACH") {
 		elseif (strstr($datatmp['religion'],"Valo")==TRUE) {
 			$religion ="E. Ciud.";
 		}
-		$opt = '
+		$opt = utf8_decode('
 	
-	Itinerarios: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
+	Itinerarios: 1 => Ciencias e IngenierÃ­a y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y JurÃ­dicas
 	
 	Optativas:
-	CC => Cultura Científica; TIC => Tecnologías de la Información y Comunicación; HMC => Historia del Mundo Contemporáneo.; LUN => Literatura Universal;
-		';
+	CC => Cultura CientÃ­fica; TIC => TecnologÃ­as de la InformaciÃ³n y ComunicaciÃ³n; HMC => Historia del Mundo ContemporÃ¡neo.; LUN => Literatura Universal;
+		');
 	$optas = str_replace("1","",$datatmp[2]);
 	$optas = str_replace("2","",$optas);
 	$optas = str_replace("3","",$optas);
 	$optas = str_replace("4","",$optas);
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0].$bil,
+				'nombre'=>utf8_decode($datatmp[0]).$bil,
 				'c1'=>$religion,
 				'c2'=>$datatmp[1],
 				'c3'=>$optas,
-				'c4'=>$datatmp[3],
-				'c5'=>$datatmp[4],
+				'c4'=>utf8_decode($datatmp[3]),
+				'c5'=>utf8_decode($datatmp[4]),
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c1'=>'Religión',
+				'c1'=>utf8_decode('ReligiÃ³n'),
 				'c2'=>'It1',
 				'c3'=>'Opt1',
 				'c4'=>'Idioma1',
@@ -173,8 +173,9 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $curso-$grupo_actual[0]\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+
+$txttit = "Lista del Grupo ".$curso."-".$grupo_actual."\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

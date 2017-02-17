@@ -28,8 +28,8 @@ $asignatura = $exp_unidad[3];
 		</div>
 		
 		<div class="alert alert-info hidden-print">
-			<h4>Cambio de contraseÒa</h4>
-			Es conveniente que el alumno cambie la contraseÒa que el Centro le ha asignado en las Plataformas Moodle o Helvia por una contraseÒa personal. SÛlo entonces el alumno podr· tener la certeza de que el aceso a la Plataforma es realmente privado.
+			<h4>Cambio de contrase√±a</h4>
+			Es conveniente que el alumno cambie la contrase√±a que el Centro le ha asignado en las Plataformas Moodle o Helvia por una contrase√±a personal. S√≥lo entonces el alumno podr√° tener la certeza de que el aceso a la Plataforma es realmente privado.
 		</div>
 		
 		<br>
@@ -46,13 +46,13 @@ $asignatura = $exp_unidad[3];
 							<tr>
 								<th>Alumno/a</th>
 								<th>Usuario</th>
-								<th>ContraseÒa</th>
+								<th>Contrase√±a</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 
 
-							// Comprobamos problema de varios cÛdigos en Bachillerato y otro
+							// Comprobamos problema de varios c√≥digos en Bachillerato y otro
 							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
 							while($cod_bch = mysqli_fetch_array($asig_bach)){
 								$cod_asignatura.= "combasi like '%$cod_bch[0]%' or ";

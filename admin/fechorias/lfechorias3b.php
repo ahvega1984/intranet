@@ -9,7 +9,7 @@ include ("menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-  <h2>Problemas de convivencia <small> Ranking de Fechorías desde la última expulsión</small></h2>
+  <h2>Problemas de convivencia <small> Ranking de FechorÃ­as desde la Ãºltima expulsiÃ³n</small></h2>
 </div>
 <br />
 
@@ -114,14 +114,14 @@ include ("menu.php");
      		
      		"language": {
      		            "lengthMenu": "_MENU_",
-     		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-     		            "info": "Página _PAGE_ de _PAGES_",
+     		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+     		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
      		            "infoEmpty": "No hay resultados disponibles.",
      		            "infoFiltered": "(filtrado de _MAX_ resultados)",
      		            "search": "Buscar: ",
      		            "paginate": {
      		                  "first": "Primera",
-     		                  "next": "Última",
+     		                  "next": "Ãšltima",
      		                  "next": "",
      		                  "previous": ""
      		                }

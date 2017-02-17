@@ -44,7 +44,7 @@ if ($mes == 12) {
 // HTML CALENDARIO MENSUAL
 function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 	
-	// Corrección en mes
+	// CorrecciÃ³n en mes
 	($mes < 10) ? $mes = '0'.$mes : $mes = $mes;
 	
 	echo '<div class"table-responsive">';
@@ -53,10 +53,10 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 	echo '		<tr>';
 	echo '			<th class="text-center">Lunes</th>';
 	echo '			<th class="text-center">Martes</th>';
-	echo '			<th class="text-center">Miércoles</th>';
+	echo '			<th class="text-center">MiÃ©rcoles</th>';
 	echo '			<th class="text-center">Jueves</th>';
 	echo '			<th class="text-center">Viernes</th>';
-	echo '			<th class="text-center">Sábado</th>';
+	echo '			<th class="text-center">SÃ¡bado</th>';
 	echo '			<th class="text-center">Domingo</th>';
 	echo '		</tr>';
 	echo '	</thead>';
@@ -88,7 +88,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 
 				echo '				<p class="lead text-right">'.$dias[$i].'</p>';
 				
-				// Corrección en día
+				// CorrecciÃ³n en dÃ­a
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				
 				
@@ -108,7 +108,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 								$hora_evento = 'Hasta las '.$horafin;
 							}
 							else if($eventos['fechaini'] != $eventos['fechafin'] || ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] == $eventos['horafin'])) {
-								$hora_evento = 'Todo el día';
+								$hora_evento = 'Todo el dÃ­a';
 							}
 							else {
 								$hora_evento = $horaini.' - '.$horafin;
@@ -124,7 +124,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				}
 				mysqli_free_result($result_calendarios);
 				
-				// Consultamos los calendarios públicos
+				// Consultamos los calendarios pÃºblicos
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
@@ -144,7 +144,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 								$hora_evento = 'Hasta las '.$horafin;
 							}
 							else if($eventos['fechaini'] != $eventos['fechafin'] || ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] == $eventos['horafin'])) {
-								$hora_evento = 'Todo el día';
+								$hora_evento = 'Todo el dÃ­a';
 							}
 							else {
 								$hora_evento = $horaini.' - '.$horafin;
@@ -200,7 +200,7 @@ $lista_errores = array(
 	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser posterior a la fecha final del evento.',
 	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
 	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.',
-	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y está pendiente de aprobación por el Consejo Escolar. Debe esperar su aprobación para que aparezca oficialmente en el calendario.'
+	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y estÃ¡ pendiente de aprobaciÃ³n por el Consejo Escolar. Debe esperar su aprobaciÃ³n para que aparezca oficialmente en el calendario.'
 	);
 
 function randomColor() {
@@ -363,7 +363,7 @@ include("../menu.php"); ?>
 				    	<?php endwhile; ?>
 				    	<li>
 				    		<a href="#" class="nohide" id="toggle_calendario_festivo">
-				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
+				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> DÃ­as festivos
 				    			<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 				    		</a>
 				    	</li>
@@ -399,28 +399,28 @@ include("../menu.php"); ?>
 					 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					 				</div>
 					 				<div class="modal-body">
-					 					<p>Este módulo presenta los distintos calendarios que funcionan en la aplicación.</p>
+					 					<p>Este mÃ³dulo presenta los distintos calendarios que funcionan en la aplicaciÃ³n.</p>
 					 					<p>El <strong>Calendario personal</strong> es propio de todos y cada uno de los 
-					 					profesores. Sólo es visible para el profesor concreto que es su propietario. Si la 
+					 					profesores. SÃ³lo es visible para el profesor concreto que es su propietario. Si la 
 					 					actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), 
-					 					también es visible para los profesores que dan clase en esos grupos. Es una forma 
-					 					fácil de controlar los exámenes o actividades que afectan al grupo por parte del 
+					 					tambiÃ©n es visible para los profesores que dan clase en esos grupos. Es una forma 
+					 					fÃ¡cil de controlar los exÃ¡menes o actividades que afectan al grupo por parte del 
 					 					Equipo Educativo del mismo.</p>
-					 					<p>Además del Calendario personal, podemos crear tantos calendarios personales como 
+					 					<p>AdemÃ¡s del Calendario personal, podemos crear tantos calendarios personales como 
 					 					necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo 
-					 					con los alumnos, etc.). Para añadir un calendario hacemos click sobre el icono de 
+					 					con los alumnos, etc.). Para aÃ±adir un calendario hacemos click sobre el icono de 
 					 					<span class="fa fa-calendar-plus-o fa-fw"></span> que aparece al lado del selector de 
 					 					calendarios.</p>
 					 					<p>El <strong>Calendario del Centro</strong> es visible por todo el mundo, incluida 
-					 					la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.</p>
+					 					la PÃ¡gina pÃºblica del Centro. El Equipo Directivo puede crear entradas en este calendario.</p>
 					 					<p>El <strong>Calendario de Actividades Complementarias y Extraescolares</strong> es 
-					 					también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, 
-					 					Tutores, DACE y Dirección. También pueden editar las actividades los profesores 
+					 					tambiÃ©n visible por todo el mundo y pueden crear entradas los Jefes de Departamento, 
+					 					Tutores, DACE y DirecciÃ³n. TambiÃ©n pueden editar las actividades los profesores 
 					 					asociados a una de ellas. El formulario de registro de Actividades aparece cuando 
 					 					hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor 
-					 					quien registra una actividad complementaria se encontrará limitado a su Grupo de 
-					 					Tutoría, y aparecerá bajo el Departamento de Orientación. Más información sobre el 
-					 					mecanismo que regula las Actividades Extraescolares en el Menú de la página 
+					 					quien registra una actividad complementaria se encontrarÃ¡ limitado a su Grupo de 
+					 					TutorÃ­a, y aparecerÃ¡ bajo el Departamento de OrientaciÃ³n. MÃ¡s informaciÃ³n sobre el 
+					 					mecanismo que regula las Actividades Extraescolares en el MenÃº de la pÃ¡gina 
 					 					principal --> Departamento --> Actividades Extraescolares.</p>
 					 				</div>
 					 				<div class="modal-footer">
@@ -580,7 +580,7 @@ include("../menu.php"); ?>
 			}
 			mysqli_free_result($result_calendarios);
 			
-			// Consultamos los calendarios públicos
+			// Consultamos los calendarios pÃºblicos
 			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 				
@@ -666,12 +666,12 @@ include("../menu.php"); ?>
             	  backdrop: true,
             	  closeButton: true,
             	  animate: true,
-            	  title: "Confirmación para eliminar",
+            	  title: "ConfirmaciÃ³n para eliminar",
             	});
             	
                 e.preventDefault();
                 var _this = this;
-                bootbox.confirm("Esta acción eliminará permanentemente los eventos del calendario ¿Seguro que desea continuar?", function(result) {
+                bootbox.confirm("Esta acciÃ³n eliminarÃ¡ permanentemente los eventos del calendario Â¿Seguro que desea continuar?", function(result) {
                     if (result) {
                         $(_this).parent().submit();
                     }

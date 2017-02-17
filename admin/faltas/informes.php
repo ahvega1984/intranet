@@ -145,7 +145,7 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
         <br><br>
         <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
         <div class="alert alert-info hidden-print">
-            <span class="fa fa-filter fa-fw"></span> Mostrando resultados entre los días <strong><?php echo $fechasp1; ?></strong> y <strong><?php echo $fechasp3; ?></strong>.
+            <span class="fa fa-filter fa-fw"></span> Mostrando resultados entre los dÃ­as <strong><?php echo $fechasp1; ?></strong> y <strong><?php echo $fechasp3; ?></strong>.
         </div>
         <?php endif; ?>
 
@@ -228,7 +228,7 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
             
             <h3 class="text-info text-center">
               <?php echo $total; ?><br>
-              <small class="text-uppercase">días completos injustificados</small>
+              <small class="text-uppercase">dÃ­as completos injustificados</small>
             </h3>
             
           </div>
@@ -253,7 +253,7 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
               <tr>
                 <th>Fecha</th>
                 <?php for ($i = 1; $i < 7; $i++): ?>
-                <th><?php echo $i; ?>ª hora</th>
+                <th><?php echo $i; ?>Âª hora</th>
                 <?php endfor; ?>
               </tr>
             </thead>

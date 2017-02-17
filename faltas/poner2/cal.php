@@ -11,7 +11,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
+$alldays = array('Lun','Mar','MiÃ©','Jue','Vie','SÃ¡b','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
 include("nombres.php");
@@ -54,7 +54,7 @@ echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h4 align='center'>" 
 echo "</tr><tr>";
 
 
-//Nombre de Días
+//Nombre de DÃ­as
 foreach($alldays as $value) {
   echo "<th  style='background-color:#eee'>
   $value</th>";
@@ -62,13 +62,13 @@ foreach($alldays as $value) {
 echo "</tr><tr>";
 
 
-//Días vacíos
+//DÃ­as vacÃ­os
 if ($dayone < 0) $dayone = 6;
 for ($i = 0; $i < $dayone; $i++) {
   echo "<td>&nbsp;</td>";
 }
 
-//Días
+//DÃ­as
 for ($zz = 1; $zz <= $numdays; $zz++) {
   if ($i >= 7) {  print("</tr>\n<tr>\n"); $i=0; }
   // Marcar el dia seleccionado

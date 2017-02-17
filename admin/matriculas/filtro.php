@@ -59,7 +59,7 @@ echo "".$tipo20[0]."</label></div>";
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#filter" href="#avanzado">
-			          <span class="fa fa-filter"></span> Búsqueda avanzada
+			          <span class="fa fa-filter"></span> BÃºsqueda avanzada
 			        </a>
 			      </h4>
 			    </div>
@@ -112,7 +112,7 @@ echo "".$tipo20[0]."</label></div>";
 
 <div class="row">
 <div class="col-sm-3">
-<div class="form-group"><label>Promoción </label><select name="promocion" class="form-control" >
+<div class="form-group"><label>PromociÃ³n </label><select name="promocion" class="form-control" >
 		<?php
 		if ($promocion) {
 			echo "<option>$promocion</option>";
@@ -140,7 +140,7 @@ echo "".$tipo20[0]."</label></div>";
 
 <?php if($curso=="1ESO" or $curso=="2ESO"){?>
 <div class="col-sm-3">
-<div class="form-group"><label>Exención </label><select name="exencio"class="form-control" >
+<div class="form-group"><label>ExenciÃ³n </label><select name="exencio"class="form-control" >
 		<?php
 		if ($exencio) {
 			echo "<option>$exencio</option>";
@@ -154,7 +154,7 @@ echo "".$tipo20[0]."</label></div>";
 
 <?php } elseif($curso=="3ESO"){?>	
 <div class="col-sm-3">
-<div class="form-group"><label>Matematicas 3º</label><select name="matematica3"class="form-control" >
+<div class="form-group"><label>Matematicas 3Âº</label><select name="matematica3"class="form-control" >
 		<?php
 		if ($matematica3) {
 			echo "<option>$matematica3</option>";
@@ -169,7 +169,7 @@ echo "".$tipo20[0]."</label></div>";
 
 <?php } elseif($curso=="4ESO"){?>
 <div class="col-sm-3">
-<div class="form-group"><label>Optativas Itinerario de 4º</label><select name="optativ4"class="form-control" >
+<div class="form-group"><label>Optativas Itinerario de 4Âº</label><select name="optativ4"class="form-control" >
 		<?php
 		if ($optativ4) {
 			echo "<option>$optativ4</option>";
@@ -177,9 +177,9 @@ echo "".$tipo20[0]."</label></div>";
 		?>
 			<option></option>
 			<option>Ciencias Aplicadas</option>
-			<option>Biología y Geología</option>
-			<option>Iniciación</option>
-			<option>Economía</option>
+			<option>BiologÃ­a y GeologÃ­a</option>
+			<option>IniciaciÃ³n</option>
+			<option>EconomÃ­a</option>
 		</select>
 </div>
 </div>
@@ -205,7 +205,7 @@ echo "".$tipo20[0]."</label></div>";
 </div>
 <div class="row">
 <div class="col-sm-3">
-<div class="form-group"><label>Diversificación </label><select name="diversificacio"class="form-control" >
+<div class="form-group"><label>DiversificaciÃ³n </label><select name="diversificacio"class="form-control" >
 		<?php
 		if ($diversificacio) {
 			echo "<option>$diversificacio</option>";
@@ -315,7 +315,7 @@ echo "".$tipo20[0]."</label></div>";
 		</select></div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>Religión<br /></span> </label><select name="religio" id="religion" class="form-control" >
+<div class="form-group"><label>ReligiÃ³n<br /></span> </label><select name="religio" id="religion" class="form-control" >
 		<?php
 		if ($religio) {
 			echo "<option>$religio</option>";
@@ -323,10 +323,10 @@ echo "".$tipo20[0]."</label></div>";
 		?>
 			<option></option>
 			<option>Religi&oacute;n Cat&oacute;lica</option>
-			<option>Religión Islámica</option>
-			<option>Religión Judía</option>
-			<option>Religión Evangélica</option>
-			<option>Valores Éticos</option>
+			<option>ReligiÃ³n IslÃ¡mica</option>
+			<option>ReligiÃ³n JudÃ­a</option>
+			<option>ReligiÃ³n EvangÃ©lica</option>
+			<option>Valores Ã‰ticos</option>
 		</select></div>
 </div>
 <div class="col-sm-3">
@@ -362,7 +362,7 @@ echo "".$tipo20[0]."</label></div>";
 
 <div class="row">
 <div class="col-sm-12">
-		<strong>Criterio de ordenación<br></strong>
+		<strong>Criterio de ordenaciÃ³n<br></strong>
 <div class="radio">
 		
 <label class="radio-inline">
@@ -375,16 +375,16 @@ echo "".$tipo20[0]."</label></div>";
   <input type="radio" name="op_orden" value="exencion"> Exencion
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="itinerario"> Itinerario de 4º
+  <input type="radio" name="op_orden" value="itinerario"> Itinerario de 4Âº
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="matematicas3"> Matematicas 3º
+  <input type="radio" name="op_orden" value="matematicas3"> Matematicas 3Âº
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="optativas4"> Optativas Mod. 4
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="diversificacion"> Diversificación
+  <input type="radio" name="op_orden" value="diversificacion"> DiversificaciÃ³n
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="letra_grupo"> Grupo de origen
@@ -431,5 +431,5 @@ echo "".$tipo20[0]."</label></div>";
 </div>
 </div>
 </div>
-<input type="submit" name="consulta" value="Ver matrículas" class="btn btn-primary" />
+<input type="submit" name="consulta" value="Ver matrÃ­culas" class="btn btn-primary" />
 </form><br />

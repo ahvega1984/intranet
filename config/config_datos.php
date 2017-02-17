@@ -10,7 +10,7 @@ $config_datos_nuevo = 0;
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 // PROCESAMOS EL FORMULARIO
@@ -27,7 +27,7 @@ if (isset($_POST['config']))
 	$curso_bd = substr($config['curso_actual'], 0, 4);
 	$curso_bd -= 1;
 	
-	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
+	// CREACIÃ“N DEL ARCHIVO DE CONFIGURACIÃ“N
 	$archivo_bd = INTRANET_DIRECTORY . '/config_datos.php';
 	if($file = fopen($archivo_bd, 'w+'))
 	{
@@ -44,7 +44,7 @@ if (isset($_POST['config']))
 			fwrite($file, "\$config['db_pass_c".$curso_ini."']\t= '".${'db_pass_c'.$curso_ini}."';\r\n");
 		}
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuración de bases de datos");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÃ³n de bases de datos");
 		
 		$config_datos_nuevo = 1;
 		fclose($file);
@@ -91,7 +91,7 @@ include('../menu.php');
 							<div class="col-sm-3">
 								<div class="form-group">
 									<label for="db_host_c<?php echo $curso_ini; ?>">Servidor</label>
-									<input type="text" class="form-control" id="db_host_c<?php echo $curso_ini; ?>" name="db_host_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_host_c'.$curso_ini]; ?>" data-error="La dirección servidor de base de datos no es válida">
+									<input type="text" class="form-control" id="db_host_c<?php echo $curso_ini; ?>" name="db_host_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_host_c'.$curso_ini]; ?>" data-error="La direcciÃ³n servidor de base de datos no es vÃ¡lida">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
@@ -99,7 +99,7 @@ include('../menu.php');
 							<div class="col-sm-3">
 								<div class="form-group">
 									<label for="db_name_c<?php echo $curso_ini; ?>">Base de datos</label>
-									<input type="text" class="form-control" id="db_name_c<?php echo $curso_ini; ?>" name="db_name_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_name_c'.$curso_ini]; ?>" data-error="El nombre de la base de datos no es válido">
+									<input type="text" class="form-control" id="db_name_c<?php echo $curso_ini; ?>" name="db_name_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_name_c'.$curso_ini]; ?>" data-error="El nombre de la base de datos no es vÃ¡lido">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
@@ -107,15 +107,15 @@ include('../menu.php');
 							<div class="col-sm-3">
 								<div class="form-group">
 									<label for="db_user_c<?php echo $curso_ini; ?>">Usuario</label>
-									<input type="text" class="form-control" id="db_user_c<?php echo $curso_ini; ?>" name="db_user_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_user_c'.$curso_ini]; ?>" data-error="El nombre de usuario de la base de datos no es válido">
+									<input type="text" class="form-control" id="db_user_c<?php echo $curso_ini; ?>" name="db_user_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_user_c'.$curso_ini]; ?>" data-error="El nombre de usuario de la base de datos no es vÃ¡lido">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
 							
 							<div class="col-sm-3">
 								<div class="form-group">
-									<label for="db_pass_c<?php echo $curso_ini; ?>">Contraseña</label>
-									<input type="password" class="form-control" id="db_pass_c<?php echo $curso_ini; ?>" name="db_pass_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_pass_c'.$curso_ini]; ?>" data-error="La contraseña de la base de datos no es válido">
+									<label for="db_pass_c<?php echo $curso_ini; ?>">ContraseÃ±a</label>
+									<input type="password" class="form-control" id="db_pass_c<?php echo $curso_ini; ?>" name="db_pass_c<?php echo $curso_ini; ?>" value="<?php echo $config['db_pass_c'.$curso_ini]; ?>" data-error="La contraseÃ±a de la base de datos no es vÃ¡lido">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>

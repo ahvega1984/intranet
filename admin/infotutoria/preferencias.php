@@ -5,22 +5,22 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 if (isset($_POST['btnGuardar'])) {
 	
 	$prefActivaAdministrativo	= limpiar_string($_POST['prefActivaAdministrativo']);
 
-	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
+	// CREACIÃ“N DEL ARCHIVO DE CONFIGURACIÃ“N
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE INFORMES DE TUTORÍA\r\n");
+		fwrite($file, "\r\n// CONFIGURACIÃ“N MÃ“DULO DE INFORMES DE TUTORÃA\r\n");
 		fwrite($file, "\$config['informe_tutoria']['activa_administrativo']\t= $prefActivaAdministrativo;\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÃ³n");
 		
 		fclose($file);
 		
@@ -41,7 +41,7 @@ include("menu.php");
 <div class="container">
 
 	<div class="page-header">
-		<h2>Informes de tutoría <small>Preferencias</small></h2>
+		<h2>Informes de tutorÃ­a <small>Preferencias</small></h2>
 	</div>
 	
 	<!-- MENSAJES -->

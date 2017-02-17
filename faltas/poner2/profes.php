@@ -21,8 +21,8 @@
 </div></td>
   </tr>
 <?php
-// Nombres de los días y variable que recoge el nombre del dia.
-// Días de la semana
+// Nombres de los dÃ­as y variable que recoge el nombre del dia.
+// DÃ­as de la semana
 $horas=array(1=>"1",2=>"2",3=>"3",4=>"4",5=>"5",6=>"6");
 foreach($horas as $n_hora => $nombre) 
 {
@@ -50,8 +50,8 @@ echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
  $trozos = explode("_ ",$profesor) ;
 		  $id = $trozos[0];
 		  $profesores = $trozos[1]; 
-// Comienza la presentación de la tabla.
-// Asignaturas del Curso en un día
+// Comienza la presentaciÃ³n de la tabla.
+// Asignaturas del Curso en un dÃ­a
 // Abreviatura de la Asignatura
 $asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig FROM  horw_faltas where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
 $rowasignatur1 = mysqli_fetch_row($asignatur1);
@@ -64,7 +64,7 @@ $n = count($asignaturas1);
     { 
     	
  		$nivel_curso = substr($rowasignaturas1[1],0,1);				
-//	Problemas con Diversificación (4E-Dd)
+//	Problemas con DiversificaciÃ³n (4E-Dd)
 			$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$rowasignaturas1[1]'");
 			if (mysqli_num_rows($profe_div)<1) {		
 				$diversificacion = 1;
@@ -80,17 +80,17 @@ $n = count($asignaturas1);
   if($rowasignaturas1[1] !== "") 
     	    {	
 
-// Si hay más de un grupo, separamos para cada grupo un conjunto de variables distintas  	    	
+// Si hay mÃ¡s de un grupo, separamos para cada grupo un conjunto de variables distintas  	    	
     for ($i=0;$i<$n;$i++) 
     {   	    	  	    
- // Como esto es un formulario, y cada elemento del formulario debe tener una identificación única para poder convertirse en una variable válida, hay que producir un mogollón de nombres distintos para cada elemento del formulario. L estrucruraes: primera hora del lunes, del martes, etc. Y luego segunda hora del lunes, etc.	
+ // Como esto es un formulario, y cada elemento del formulario debe tener una identificaciÃ³n Ãºnica para poder convertirse en una variable vÃ¡lida, hay que producir un mogollÃ³n de nombres distintos para cada elemento del formulario. L estrucruraes: primera hora del lunes, del martes, etc. Y luego segunda hora del lunes, etc.	
   	$curso = substr($rowasignaturas1[1],$i,1);  
-  	   // Fecha exacta de cada día, referida a los cálculos de nombres.php 
+  	   // Fecha exacta de cada dÃ­a, referida a los cÃ¡lculos de nombres.php 
     echo "<INPUT type=hidden name=fecha".$z.$n_hora.$curso_con." value=$diafaltas>";	
 	// Nivel y Grupo en pantalla	
 	echo "<h4><span class='label label-warning'>" .$rowasignaturas1[1]."</span></h4>";      	
     echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso_con." value=$curso_con>";
-    // Cambios de fecha entre PHP y MySQL, de española a internacional.
+    // Cambios de fecha entre PHP y MySQL, de espaÃ±ola a internacional.
      if (isset($diafaltas)) {
     $fechanc = explode("-",$diafaltas);
     $dia10 = $fechanc[0];
@@ -109,7 +109,7 @@ $n = count($asignaturas1);
 // Unimos las faltas si son varias mediante un punto.
     $faltas13 .= $faltas12[0]. ".";
 }
-// Eliminamos el último punto de la serie, limpiando un poco.
+// Eliminamos el Ãºltimo punto de la serie, limpiando un poco.
 $faltas14 = rtrim($faltas13, "."); 
 	  
     echo " <div class='form-group col-md-12'> 
@@ -119,7 +119,7 @@ $faltas14 = rtrim($faltas13, ".");
     echo "<INPUT type=hidden name=asignatura".$z.$n_hora.$curso_con." value='$rowasignaturas1[0]'>";
     echo "<INPUT type=hidden name=hora".$z.$n_hora.$curso_con." value='$n_hora'>";
     }}}
-// Termina la presentación de la primera hora de todos los días de la semanana. El resto es lo mismo para las horas siguientes. 
+// Termina la presentaciÃ³n de la primera hora de todos los dÃ­as de la semanana. El resto es lo mismo para las horas siguientes. 
 ?>
     </div></td>
   

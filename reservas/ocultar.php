@@ -22,7 +22,7 @@ if (isset($_POST['nueva'])) {
 		if ($_POST['nueva']=="Crear nueva Aula / Dependencia") {
 			mysqli_query($db_con,"insert into nuevas values ('','$abrev_nueva','$nombre_nueva','$texto')");
 			if (mysqli_affected_rows($db_con)>0) {
-				$msg = "Los datos se han registrado correctamente. Las aulas / dependencias creadas aparecerán en el sistema de reservas a partir de ahora.";
+				$msg = "Los datos se han registrado correctamente. Las aulas / dependencias creadas aparecerÃ¡n en el sistema de reservas a partir de ahora.";
 			}			}
 
 			elseif ($_POST['nueva']=="Actualizar datos del Aula / Dependencia") {
@@ -35,7 +35,7 @@ if (isset($_POST['nueva'])) {
 					$n_aul = $tr_h[1];
 					$actualiza_hor = mysqli_query($db_con,"update horw set a_aula='$abrev_nueva', n_aula='$nombre_nueva' where a_aula = '$a_aul' and n_aula = '$n_aul'");
 					$actualiza_hor_faltas = mysqli_query($db_con,"update horw_faltas set a_aula='$abrev_nueva', n_aula='$nombre_nueva' where a_aula = '$a_aul' and n_aula = '$n_aul'");
-					$msg = "Los datos se han actualizado correctamente. Las aulas / dependencias actualizadas aparecerán en el sistema de reservas con los nuevos datos.";
+					$msg = "Los datos se han actualizado correctamente. Las aulas / dependencias actualizadas aparecerÃ¡n en el sistema de reservas con los nuevos datos.";
 				}
 			}
 	}
@@ -61,7 +61,7 @@ if (isset($_POST['enviar'])) {
 <br>
 <div class="alert alert-success">
 <p>Los datos se han registrado correctamente. Las aulas y dependencias
-seleccionadas dejarán de aparecer en el sistema de reservas a partir de
+seleccionadas dejarÃ¡n de aparecer en el sistema de reservas a partir de
 ahora.<P>
 </div>
 
@@ -110,11 +110,11 @@ if (isset($_GET['editar'])) {
 ?>
 <div class="col-sm-5 col-sm-offset-1">
 <h3>Ocultar Aulas / Dependencias</h3>
-<p class="help-block text-justify well">A través de esta página puedes
+<p class="help-block text-justify well">A travÃ©s de esta pÃ¡gina puedes
 seleccionar los espacios del centro que quedan fuera del sistema de
 reservas. Marca la casilla de aquellas dependencias que quieres ocultar
-y envía los datos. A partir de ese momento las dependencias elegidas
-quedarán ocultas en la selección de aulas del sistema de reservas.</p>
+y envÃ­a los datos. A partir de ese momento las dependencias elegidas
+quedarÃ¡n ocultas en la selecciÃ³n de aulas del sistema de reservas.</p>
 <form action="ocultar.php" method="post">
 <table class="table table-striped">
 <?php
@@ -189,7 +189,7 @@ reservas.</p>
 <div class="form-group"><label>Abreviatura</label> <input
 	class="form-control" type="text" maxlength="5" name="abrev_nueva"
 	value="<?php echo $abrev_nueva;?>"
-	placeholder="5 caracteres como máximo"></div>
+	placeholder="5 caracteres como mÃ¡ximo"></div>
 <div class="form-group"><label>Nombre del Aula</label> <input
 	class="form-control" type="text" name="nombre_nueva"
 	value="<?php echo $nombre_nueva;?>"></div>

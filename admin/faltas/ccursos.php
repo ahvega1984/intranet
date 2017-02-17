@@ -42,11 +42,11 @@ include("../../menu.php");
           </SELECT>
 </label>
 <label for="dia1" class="control-label">
-          Día de la semana:</label>
+          DÃ­a de la semana:</label>
           <select name="dia1" class="form-control">
             <option>Lunes</option>
             <option>Martes</option>
-            <option>Miércoles</option>
+            <option>MiÃ©rcoles</option>
             <option>Jueves</option>
             <option>Viernes</option>
             <option>Formato semanal</option>

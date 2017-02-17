@@ -22,8 +22,8 @@ $profesor = mysqli_real_escape_string($db_con, $_POST['profesor']);
 if (empty($informe) or empty($asignatura) or empty($id_alumno)) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Los datos no están completos.<br>Debes seleccionar Asignatura y rellenar el Informe de Tareas.<br>Vuelve a la página anterior y rellena todos los datos.
+			<legend>ATENCIÃ“N:</legend>
+Los datos no estÃ¡n completos.<br>Debes seleccionar Asignatura y rellenar el Informe de Tareas.<br>Vuelve a la pÃ¡gina anterior y rellena todos los datos.
 <br /><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 		</div></div>';
 	exit;
@@ -37,14 +37,14 @@ if (strlen($ya_hay1[0]) > '0') {
 	mysqli_query($db_con, "update tareas_profesor set tarea = '$informe' where id_alumno = '$id' and asignatura = '$asignatura'") or die("<br><center><p>El Informe no ha podido ser actualizado. Busca ayuda. </p></center>");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido actualizado correctamente. Puedes comprobar los datos más abajo. 
+El Informe ha sido actualizado correctamente. Puedes comprobar los datos mÃ¡s abajo. 
 		</div></div>';
 }
 else{
 	mysqli_query($db_con, "insert into tareas_profesor (id_alumno,profesor,asignatura,tarea) values ('$id_alumno','$profesor','$asignatura','$informe')") or die("<center><p>El Informe no ha podido ser registrado. Busca ayuda. </p></center>");
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido guardado correctamente. Puedes comprobar los datos más abajo. 
+El Informe ha sido guardado correctamente. Puedes comprobar los datos mÃ¡s abajo. 
 		</div></div>';	}	
 }
 	
@@ -53,7 +53,7 @@ El Informe ha sido guardado correctamente. Puedes comprobar los datos más abajo.
 
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id,tutor, FECHA, duracion FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and ID='$id_alumno'");
 $dalumno = mysqli_fetch_array($alumno);
-echo "<br><h4>Alumno: $dalumno[1] $dalumno[0] ($dalumno[2])</h4><h4> Fecha de Expulsión: $dalumno[5] ($dalumno[6] días)</h4><h4>Tutor: $dalumno[4]</h4><br />";
+echo "<br><h4>Alumno: $dalumno[1] $dalumno[0] ($dalumno[2])</h4><h4> Fecha de ExpulsiÃ³n: $dalumno[5] ($dalumno[6] dÃ­as)</h4><h4>Tutor: $dalumno[4]</h4><br />";
 $datos=mysqli_query($db_con, "SELECT asignatura, tarea, id FROM tareas_profesor WHERE id_alumno='$id_alumno'");
 // echo "SELECT asignatura, tarea FROM tareas_profesor WHERE id_alumno='$id'";
 if(mysqli_num_rows($datos) > 0)

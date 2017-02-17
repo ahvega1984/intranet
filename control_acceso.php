@@ -20,7 +20,7 @@ if ($config['mod_notificaciones']) {
 		$antesdeayer = strtotime($hoy)-172800;
 		$uno_antesdeayer = strtotime($hoy)-259200;
 		
-		// Comenzamos 10 días después del comienzo de curso para dar tiempo a que los Centros se organicen.
+		// Comenzamos 10 dÃ­as despuÃ©s del comienzo de curso para dar tiempo a que los Centros se organicen.
 		$fecha_inicio_curso = strtotime($config['curso_inicio'])+36000;
 		$fecha_fin_curso = strtotime($config['curso_fin']); 
 		
@@ -29,7 +29,7 @@ if ($config['mod_notificaciones']) {
 		if ($fecha_actual > $fecha_inicio_curso and $fecha_actual < $fecha_fin_curso) {
 		
 		//Si lunes, $suma_dias = 1;
-		//Si sábado o domingo $fiesta=1;
+		//Si sÃ¡bado o domingo $fiesta=1;
 		
 		if (date('N')>5) {
 			$fiesta = 1;
@@ -63,7 +63,7 @@ if ($config['mod_notificaciones']) {
 		
 		if ($fiesta != 1 and $fiesta2 != 1) {
 		
-			// Mensaje a Profesores que llevan más de 5 días sin entra en la intranet							
+			// Mensaje a Profesores que llevan mÃ¡s de 5 dÃ­as sin entra en la intranet							
 		
 			$result = mysqli_query($db_con, "SELECT DISTINCT profesor, MAX(fecha) FROM reg_intranet WHERE profesor IN (SELECT idea FROM departamentos where departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor");
 											
@@ -229,7 +229,7 @@ if ($config['mod_notificaciones']) {
 	
 	
 	
-	// ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES
+	// ENVÃO DE MENSAJES SMS U OTROS A LOS PROFESORES
 
 	$pr_sms = mysqli_query($db_con,"SELECT DISTINCT profesor FROM acceso WHERE DATE( fecha ) =  '$hoy' and profesor not in (select idea from ausencias, departamentos where nombre=profesor and date(inicio)<='$hoy' and date(fin)>='$hoy')");
 	
@@ -251,7 +251,7 @@ if ($config['mod_notificaciones']) {
 		$text_1 = " hace mas de 4 dias que no compruebas el estado de tus tareas en la Intranet y es necesario que lo hagas con regularidad;";
 		$text_2 = " tienes mas de 25 mensajes pendientes de lectura;";
 		$text_3 = " tienes que presentar hoy Informes de Tareas;";
-		$text_4 = " tienes que presentar hoy Informes de Tutoría.";
+		$text_4 = " tienes que presentar hoy Informes de TutorÃ­a.";
 		$text_5 = " ".$config['centro_denominacion'];
 	
 		$texto = $text_0;
@@ -269,12 +269,12 @@ if ($config['mod_notificaciones']) {
 			$texto = str_ireplace($texto_ies, $nombre_ies, $texto);
 		}
 	
-		// Telefonos móviles o sin telefono
+		// Telefonos mÃ³viles o sin telefono
 		$tfn = mysqli_query($db_con,"SELECT telefono FROM c_profes WHERE idea = '$profe_sms'");
 		$tfno = mysqli_fetch_array($tfn);
 		$movil = $tfno[0];
 	
-		// El Centro tiene envío de SMS
+		// El Centro tiene envÃ­o de SMS
 		if ($config['mod_sms']==1 and strlen($movil)==9) {
 	
 			include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
@@ -308,8 +308,8 @@ if ($config['mod_notificaciones']) {
 				$tr_profes = explode(", ", $cor_profes);
 				$nombre_profe = $tr_profes[1]." ".$tr_profes[0];
 	
-				$tema = "Comunicación de Tareas pendientes en el Centro";
-				$profe_envia = "Dirección del ".$config['centro_denominacion'];
+				$tema = "ComunicaciÃ³n de Tareas pendientes en el Centro";
+				$profe_envia = "DirecciÃ³n del ".$config['centro_denominacion'];
 				$mail_from = $config['centro_email'];
 				
 				$titulo = stripslashes(mysqli_real_escape_string($db_con, $tema));

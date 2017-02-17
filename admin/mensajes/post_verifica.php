@@ -3,7 +3,7 @@ require('../../bootstrap.php');
 
 $jsondata = array();
 
-// Verificación lectura de mensajes de profesores
+// VerificaciÃ³n lectura de mensajes de profesores
 if( isset($_POST['idp']) ) {
 		
 		$idp = $_POST['idp'];
@@ -22,7 +22,7 @@ if( isset($_POST['idp']) ) {
 
 }
 
-// Verificación lectura de mensajes de familias
+// VerificaciÃ³n lectura de mensajes de familias
 if( isset($_POST['idf']) ) {
 		
 		$idf = $_POST['idf'];

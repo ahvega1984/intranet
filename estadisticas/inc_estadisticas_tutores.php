@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-<h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
+<h4><span class="fa fa-pie-chart fa-fw"></span> EstadÃ­sticas del dÃ­a</h4>
 
 <div class="row">
 

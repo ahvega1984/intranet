@@ -149,7 +149,7 @@ if(isset($_POST['enviar']))
 	include("cuaderno/poner_notas.php");
 }
 
-// Distintos códigos de la asignatura cuando hay varios grupos en una hora.
+// Distintos cÃ³digos de la asignatura cuando hay varios grupos en una hora.
 $n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
 
 while($varias = mysqli_fetch_array($n_c))
@@ -164,10 +164,10 @@ while($varias = mysqli_fetch_array($n_c))
 $codigos = substr($codigos,0,-1);
 // Eliminamos el espacio
 $curs0 = substr($curs,0,(strlen($curs)-1));
-// Eliminamos la última coma para el título.
+// Eliminamos la Ãºltima coma para el tÃ­tulo.
 $curso_sin = substr($curs0,0,(strlen($curs0)-1));
 $curso_asignatura = substr($curso_sin, 0, 8);
-//Número de columnas
+//NÃºmero de columnas
 $col = "select distinct id, nombre, orden, visible_nota, Tipo, texto_pond from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig) and oculto = '0' order by orden asc";
 // echo $col;
 $col0 = mysqli_query($db_con, $col);
@@ -209,12 +209,12 @@ include("cuaderno/menu_cuaderno.php");
 					$nivel_curso = substr($curso,0,1);
 					$nombre = $curso11[1];
 
-					// Número de Columnas para crear la tabla
+					// NÃºmero de Columnas para crear la tabla
 					$num_col =  $cols2;
 
 					
 
-					//	Problemas con Diversificación (4E-Dd)
+					//	Problemas con DiversificaciÃ³n (4E-Dd)
 					$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 					if (mysqli_num_rows($profe_div)<1) {
 						$asig_div="";						
@@ -245,11 +245,11 @@ include("cuaderno/menu_cuaderno.php");
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
 					$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
-					//Alumnos de 2º de Bachillerato
+					//Alumnos de 2Âº de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
 
 							$cod_asig_bach="";
-							// Bachillerato con dos códigos distintos
+							// Bachillerato con dos cÃ³digos distintos
 
 							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
 							if (mysqli_num_rows($asig_bach)>0) {							
@@ -344,7 +344,7 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 				<?php } ?>	
 					<?php
-					// Notas de las Evaluaciones de Séneca
+					// Notas de las Evaluaciones de SÃ©neca
 					$ev_sen0 = mysqli_query($db_con,"select notas0 from notas where notas0 != ''");
 					$ev_sen1 = mysqli_query($db_con,"select notas1 from notas where notas1 != ''");
 					$ev_sen2 = mysqli_query($db_con,"select notas2 from notas where notas2 != ''");
@@ -366,13 +366,13 @@ include("cuaderno/menu_cuaderno.php");
 									if ($i == 0) {
 										echo "<td nowrap>
 									<div style='width:40px;height:104px;'>
-									<div class='Rotate-90'><span style='font-weight:bold'>Eval. Inic. Séneca</span></div>
+									<div class='Rotate-90'><span style='font-weight:bold'>Eval. Inic. SÃ©neca</span></div>
 									</div> </td>";	
 										}	
 									else{
 										echo "<td nowrap>
 									<div style='width:40px;height:104px;'>
-									<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
+									<div class='Rotate-90'><span style='font-weight:bold'>".$i."Âª EvaluciÃ³n SÃ©neca</span></div>
 									</div> </td>";
 										}
 									
@@ -380,7 +380,7 @@ include("cuaderno/menu_cuaderno.php");
 									}
 								}
 
-					// Número de las columnas de la tabla
+					// NÃºmero de las columnas de la tabla
 					$cols2=0;
 					while($col20 = mysqli_fetch_array($col0)){
 						$id = $col20[0];
@@ -393,10 +393,10 @@ include("cuaderno/menu_cuaderno.php");
 							$orden_ponde="";
 						}
 						else{
-							$orden_ponde="<span class='text-muted' data-bs='tooltip' title='Ponderación asignada a la columna'>(".$orden_pondera.")</span>";
+							$orden_ponde="<span class='text-muted' data-bs='tooltip' title='PonderaciÃ³n asignada a la columna'>(".$orden_pondera.")</span>";
 						}
 
-						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "";}
+						if ($tipo_col=="NÃºmeros") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificaciÃ³n"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "";}
 						$icon_eye="";
 						$nombre_col="";
 						$col2=mysqli_query($db_con, "select distinct id from datos where id = '$col20[0]' ");
@@ -404,7 +404,7 @@ include("cuaderno/menu_cuaderno.php");
 						$ident= $col20[2];
 						$nombre_col = $col20[1];
 						$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-						if (strstr($nombre_col,"Ponderación")==TRUE) {
+						if (strstr($nombre_col,"PonderaciÃ³n")==TRUE) {
 							$nombre_columna="";
 							$orden_columna="";
 							$tr_pond= explode(":",$nombre_col);
@@ -420,13 +420,13 @@ include("cuaderno/menu_cuaderno.php");
 							}
 							$nombre_columna=substr($nombre_columna,0,-2);
 							$orden_columna=substr($orden_columna,0,-2);
-							$col_vert="<span  data-bs='tooltip' title='Columna con Media Ponderada'>&nbsp;&nbsp;Ponderación  ($ident)<br>&nbsp;&nbsp;&nbsp;".$orden_columna."</span>";
+							$col_vert="<span  data-bs='tooltip' title='Columna con Media Ponderada'>&nbsp;&nbsp;PonderaciÃ³n  ($ident)<br>&nbsp;&nbsp;&nbsp;".$orden_columna."</span>";
 						}
 						elseif (strlen($nombre_col)>23) {
-							$col_vert = "&nbsp;&nbsp;".substr($nombre_col,0,20)."...<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span>";
+							$col_vert = "&nbsp;&nbsp;".substr($nombre_col,0,20)."...<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='NÃºmero de la Columna'>".$ident."</span>";
 						}
 						else {
-							$col_vert = "&nbsp;&nbsp;".$nombre_col."<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span> ".$orden_ponde;
+							$col_vert = "&nbsp;&nbsp;".$nombre_col."<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='NÃºmero de la Columna'>".$ident."</span> ".$orden_ponde;
 						}
 
 						if ($tipo_col=="Ponderacion") {
@@ -448,7 +448,7 @@ include("cuaderno/menu_cuaderno.php");
 					if($seleccionar == 1){
 						echo "<td nowrap class='warning'>
 <div style='width:40px;height:104px;'>
-<div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
+<div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> SelecciÃ³n de alumnos </span></div>
 </div> </td>";
 					}
 
@@ -470,12 +470,12 @@ include("cuaderno/menu_cuaderno.php");
 						$nivel_curso2 = substr($curso,0,-1);
 						$nombre = $curso11[1];
 
-						// Número de Columnas para crear la tabla
+						// NÃºmero de Columnas para crear la tabla
 						$num_col =  $cols2;
 					
 
 
-						//	Problemas con Diversificación (4E-Dd)
+						//	Problemas con DiversificaciÃ³n (4E-Dd)
 						$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 						if (mysqli_num_rows($profe_div)<1) {
 
@@ -526,10 +526,10 @@ include("cuaderno/menu_cuaderno.php");
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
 						$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
-						//Alumnos de 2º de Bachillerato
+						//Alumnos de 2Âº de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
 							$cod_asig_bach2="";
-							// Bachillerato con dos códigos distintos
+							// Bachillerato con dos cÃ³digos distintos
 
 							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
 							if (mysqli_num_rows($asig_bach)>0) {							
@@ -575,13 +575,13 @@ include("cuaderno/menu_cuaderno.php");
 										if ($i == 0) {
 										echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
-									<div class='Rotate-corto'>Ev. Inic. Séneca</div>
+									<div class='Rotate-corto'>Ev. Inic. SÃ©neca</div>
 									</div> </td>";
 										}	
 									else{
 										echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
-									<div class='Rotate-corto'>".$i."ª Ev. Séneca</div>
+									<div class='Rotate-corto'>".$i."Âª Ev. SÃ©neca</div>
 									</div> </td>";
 										}
 									}
@@ -590,7 +590,7 @@ include("cuaderno/menu_cuaderno.php");
 								while($col30 = mysqli_fetch_array($col00)){
 									$tipo_col = $col30[2];
 									
-									if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
+									if ($tipo_col=="NÃºmeros") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificaciÃ³n"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
 
 									$nombre_col="";
 									$nombre_col = $col30[1];
@@ -689,7 +689,7 @@ include("cuaderno/menu_cuaderno.php");
 							}
 							$tipo_dato.=" /></div>";
 						}
-						elseif (stristr($t_dato,"Número")==TRUE) {
+						elseif (stristr($t_dato,"NÃºmero")==TRUE) {
 
 							$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;height:60px;border:none;background-color:$color_dato'>";
 						}
@@ -747,7 +747,7 @@ include("cuaderno/menu_cuaderno.php");
 					echo '<input name=nom_asig type=hidden value="';
 					echo $nom_asig;
 					echo '" />';
-					// Día.
+					// DÃ­a.
 					echo '<input name=dia type=hidden value="';
 					echo $dia;
 					echo '" />';
@@ -778,7 +778,7 @@ include("cuaderno/menu_cuaderno.php");
 					<?php include("pie.php");?>
 <script type="text/javascript">
 
-/*Desactivar rueda del ratón en campos numéricos*/
+/*Desactivar rueda del ratÃ³n en campos numÃ©ricos*/
 
 $('form').on('focus', 'input[type=number]', function (e) {
 $(this).on('mousewheel.disableScroll', function (e) {
@@ -792,7 +792,7 @@ $(this).off('mousewheel.disableScroll')
 
 <script type="text/javascript">
 
-/*Modificar función de la tecla Intro para desplazarse por columna de datos*/
+/*Modificar funciÃ³n de la tecla Intro para desplazarse por columna de datos*/
 
 $('table input').keypress(function(e) {
     if (e.keyCode == 13) {

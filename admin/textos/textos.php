@@ -25,7 +25,7 @@ $AUXSQL = "";
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Libros de Texto <small> Búsqueda de Textos</small></h2>
+  <h2>Libros de Texto <small> BÃºsqueda de Textos</small></h2>
 </div>
 <div class="col-sm-12">
 <?php
@@ -70,11 +70,11 @@ if (mysqli_num_rows($textos)>0) {
 		{
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No hubo suerte, bien porque te has equivocado
-        al introducir los datos, bien porque ningún dato se ajusta a tus criterios.
+        al introducir los datos, bien porque ningÃºn dato se ajusta a tus criterios.
 		</div></div><br />';
-		echo '<input type="submit" name="enviar2" value="Volver atrás" onClick="history.back(1)" class="btn btn-primary">';
+		echo '<input type="submit" name="enviar2" value="Volver atrÃ¡s" onClick="history.back(1)" class="btn btn-primary">';
 		}
 
 ?>

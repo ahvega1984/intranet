@@ -67,8 +67,8 @@ include("menu.php");
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Título</th>
-									<th nowrap>Fecha publicación</th>
+									<th>TÃ­tulo</th>
+									<th nowrap>Fecha publicaciÃ³n</th>
 									<th>Autor</th>
 									<th>Int.</th>
 									<th>Ext.</th>
@@ -86,7 +86,7 @@ include("menu.php");
 											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la página externa' : 'No publicada en la página externa'; ?>"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la pÃ¡gina externa' : 'No publicada en la pÃ¡gina externa'; ?>"></span>
 										</td>
 										<td nowrap>
 											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>

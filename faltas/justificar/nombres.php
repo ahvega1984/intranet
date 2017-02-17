@@ -11,13 +11,13 @@ if ($dia == "D")
     elseif ($dia == "M")
 	{$dia = "Martes";}
     elseif ($dia == "X")
-	{$dia = "Miércoles";}
+	{$dia = "MiÃ©rcoles";}
     elseif ($dia == "J")
 	{$dia = "Jueves";}
     elseif ($dia == "V")
 	{$dia = "Viernes";}
     elseif ($dia == "S")
-	{$dia = "Sábado";}
+	{$dia = "SÃ¡bado";}
 }
 
 if (isset($daylong)) {
@@ -28,13 +28,13 @@ if ($daylong == "Sunday")
     elseif ($daylong == "Tuesday")
 	{$daylong = "Martes";}
     elseif ($daylong == "Wednesday")
-	{$daylong = "Miércoles";}
+	{$daylong = "MiÃ©rcoles";}
     elseif ($daylong == "Thursday")
 	{$daylong = "Jueves";}
     elseif ($daylong == "Friday")
 	{$daylong = "Viernes";}
     elseif ($daylong == "Saturday")
-	{$daylong = "Sábado";}
+	{$daylong = "SÃ¡bado";}
 }
 
 if (isset($monthlong)) {

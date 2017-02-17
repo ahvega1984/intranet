@@ -24,19 +24,19 @@ include("menu.php");
 	<th width="20">&nbsp;</th>
 	<th width="20">Lunes</th>
 	<th width="20">Martes</th>
-	<th width="20">Miércoles</th>
+	<th width="20">MiÃ©rcoles</th>
 	<th width="20">Jueves</th>
 	<th width="20">Viernes</th>
   </tr>
 </thead>
 <tbody>
 <?php	
-// Horas del día
+// Horas del dÃ­a
 $todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
-echo '<tr><th>'.$nombre.'ª</th>';
+echo '<tr><th>'.$nombre.'Âª</th>';
 	
-	//Días
+	//DÃ­as
 	for($z = 1; $z < 6; $z ++) {
 
 		?>

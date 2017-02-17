@@ -11,7 +11,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Importación de fotos de los profesores</small></h2>
+		<h2>AdministraciÃ³n <small>ImportaciÃ³n de fotos de los profesores</small></h2>
 	</div>
 	
 	
@@ -25,7 +25,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="fotos_profes.php">
 					<fieldset>
-						<legend>Importación de fotos de los profesores</legend>
+						<legend>ImportaciÃ³n de fotos de los profesores</legend>
 
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">Fotografias_profesores.zip</span></label>
@@ -46,13 +46,13 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>Información sobre la importación</h3>
+			<h3>InformaciÃ³n sobre la importaciÃ³n</h3>
 			
 			<p>Para importar las fotos de todos los profesores, necesitaremos crear un archivo comprimido (.zip) conteniendo todos los archivos de fotos de los profesores.</p>
 			
-			<p>Cada archivo de foto tiene como nombre el usuario IdEA de Séneca seguido de la extensión .jpg o .jpeg. El nombre típico de un archivo de foto quedaría por ejemplo así: mgargon732.jpg.</p>
+			<p>Cada archivo de foto tiene como nombre el usuario IdEA de SÃ©neca seguido de la extensiÃ³n .jpg o .jpeg. El nombre tÃ­pico de un archivo de foto quedarÃ­a por ejemplo asÃ­: mgargon732.jpg.</p>
 			
-			<p>Los profesores podrán actualizar su fotografía desde el menú superior, Cambiar fotografía.</p>
+			<p>Los profesores podrÃ¡n actualizar su fotografÃ­a desde el menÃº superior, Cambiar fotografÃ­a.</p>
 			
 		</div>
 		

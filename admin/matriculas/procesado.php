@@ -15,7 +15,7 @@
 			if ($col == 'revisado'){$revis.=$id_submit." ";}
 			if ($col == "grupo_actual"){$val=strtoupper($val);}
 
-			// Promoción
+			// PromociÃ³n
 			if ($col=='promociona' and date('m')>"06" and $n_curso>1){
 
 				$nivel_a = mysqli_query($db_con,"select curso, claveal from alma where claveal like (select claveal from matriculas where id = '$id_submit')");

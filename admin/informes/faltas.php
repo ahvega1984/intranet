@@ -66,7 +66,7 @@
 		
 		<h3 class="text-info text-center">
 			<?php echo $total; ?><br>
-			<small class="text-uppercase">días completos injustificados</small>
+			<small class="text-uppercase">dÃ­as completos injustificados</small>
 		</h3>
 		
 	</div>

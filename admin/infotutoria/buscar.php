@@ -1,6 +1,6 @@
 <?php
   if(isset($_GET['todos']) and $_GET['todos'] == "1") { 
-  $titulo = "Todos los Informes en este año escolar";
+  $titulo = "Todos los Informes en este aÃ±o escolar";
 } else { 
   $titulo = "Informes que responden a los datos introducidos";
 }
@@ -40,7 +40,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Buscar Informes</small></h2>
+  <h2>Informes de TutorÃ­a <small> Buscar Informes</small></h2>
 </div>
 <br>
 
@@ -52,14 +52,14 @@ if ($validar=='1') {
 	mysqli_query($db_con, "update infotut_alumno set valido='0' where id = '$id'");
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido marcado como <b>NO VALIDADO</b> por el Tutor. Esto significa que el Informe no podrá ser visto por los Padres del Alumno desde la página pública del Centro
+El Informe ha sido marcado como <b>NO VALIDADO</b> por el Tutor. Esto significa que el Informe no podrÃ¡ ser visto por los Padres del Alumno desde la pÃ¡gina pÃºblica del Centro
 		</div></div>';
 }
 elseif ($validar=='0') {
 	mysqli_query($db_con, "update infotut_alumno set valido='1' where id = '$id'");
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que el Informe podrá ser visto por los Padres del Alumno desde la página pública del Centro
+El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que el Informe podrÃ¡ ser visto por los Padres del Alumno desde la pÃ¡gina pÃºblica del Centro
 		</div></div>';
 }
 }
@@ -131,7 +131,7 @@ else
 {
 	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No hay Informes de Tutor&iacute;a disponibles.</div></div><hr>';
 }
 ?>
@@ -161,14 +161,14 @@ if(mysqli_num_rows($result0) > 50) {
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
-			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-			            "info": "Página _PAGE_ de _PAGES_",
+			            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+			            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "Buscar: ",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "Última",
+			                  "next": "Ãšltima",
 			                  "next": "",
 			                  "previous": ""
 			                }

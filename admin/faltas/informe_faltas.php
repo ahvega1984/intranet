@@ -15,7 +15,7 @@ include("../../faltas/menu.php");
 </div>
 
 <div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algÃºn tiempo.</small><br><br></span>
 </div>
 
 <div id="wrap" class="row" style="display: none;">
@@ -38,7 +38,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
 <br>
 
 <div class="alert alert-info">
-	Esta página presenta información sobre faltas de asistencia no registradas por los profesores. Para entender los datos ofrecidos es necesario comprender el procedimiento seguido para extraerlos. Se han seleccionado los alumnos a los que se les han registrado 3 o más faltas en un día, con la idea de excluir aquellos alumnos que han podido faltar una o dos horas por razones frecuentes (cita médica, se han dormido, etc.). De esos alumnos con 3 o más faltas se han buscado las horas no registradas por los profesores, y se han localizado a aquellos que les daban clase en esas horas. Se han tenido en cuenta los grupos con desdobles en la contabilidad, reduciendo el número final de faltas no registradas. <strong>El resultado final es aproximativo y contiene probablemente algunas imprecisiones</strong>, pero permite hacerse una composición de lugar sobre los profesores que no registran las faltas de asistencia (<em>que puede/debe complementarse con el Informe sobre los Profesores</em>).
+	Esta pÃ¡gina presenta informaciÃ³n sobre faltas de asistencia no registradas por los profesores. Para entender los datos ofrecidos es necesario comprender el procedimiento seguido para extraerlos. Se han seleccionado los alumnos a los que se les han registrado 3 o mÃ¡s faltas en un dÃ­a, con la idea de excluir aquellos alumnos que han podido faltar una o dos horas por razones frecuentes (cita mÃ©dica, se han dormido, etc.). De esos alumnos con 3 o mÃ¡s faltas se han buscado las horas no registradas por los profesores, y se han localizado a aquellos que les daban clase en esas horas. Se han tenido en cuenta los grupos con desdobles en la contabilidad, reduciendo el nÃºmero final de faltas no registradas. <strong>El resultado final es aproximativo y contiene probablemente algunas imprecisiones</strong>, pero permite hacerse una composiciÃ³n de lugar sobre los profesores que no registran las faltas de asistencia (<em>que puede/debe complementarse con el Informe sobre los Profesores</em>).
 </div>
 
 <br>
@@ -151,14 +151,14 @@ include("../../pie.php");
         
         "language": {
                     "lengthMenu": "_MENU_",
-                    "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-                    "info": "Página _PAGE_ de _PAGES_",
+                    "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+                    "info": "PÃ¡gina _PAGE_ de _PAGES_",
                     "infoEmpty": "No hay resultados disponibles.",
                     "infoFiltered": "(filtrado de _MAX_ resultados)",
                     "search": "Buscar: ",
                     "paginate": {
                           "first": "Primera",
-                          "next": "Última",
+                          "next": "Ãšltima",
                           "next": "",
                           "previous": ""
                         }

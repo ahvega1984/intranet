@@ -182,7 +182,7 @@ include("menu.php");
 					<div class="col-sm-4">
 						
 						<div class="form-group<?php echo (isset($numacta_has_error)) ? ' has-error' : ''; ?>" id="datetimepicker1">
-							<label for="numacta">N∫ Acta de toma de acuerdo</label>
+							<label for="numacta">N¬∫ Acta de toma de acuerdo</label>
 							<select class="form-control" id="numacta" name="numacta" <?php echo (isset($campoBloqueado) && $campoBloqueado == 1) ? 'disabled' : ''; ?>>
 								<option value=""></option>
 								<?php if (isset($datos_pedido['departamento'])): ?>
@@ -201,7 +201,7 @@ include("menu.php");
 				</div>
 				
 				<div class="form-group<?php echo (isset($justificacion_has_error)) ? ' has-error' : ''; ?>">
-					<label for="justificacion">JustificaciÛn de la necesidad</label>
+					<label for="justificacion">Justificaci√≥n de la necesidad</label>
 					<textarea class="form-control" id="justificacion" name="justificacion" rows="3" <?php echo (isset($campoBloqueado) && $campoBloqueado == 1) ? 'disabled' : ''; ?>><?php echo (isset($datos_pedido['justificacion'])) ? $datos_pedido['justificacion'] : $form_justificacion; ?></textarea>
 				</div>	
 	
@@ -209,7 +209,7 @@ include("menu.php");
 				
 					<div class="col-sm-8">
 						<label>
-							ArtÌculo
+							Art√≠culo
 						</label>
 					</div>
 					
@@ -233,7 +233,7 @@ include("menu.php");
 				<?php $cont = 0; ?>
 				<?php while ($row_articulo = mysqli_fetch_array($result_articulos_pedido)): ?>
 				<?php $cont++; ?>
-				<div class="visible-xs" style="margin-top: 15px;"><label>ArtÌculo <?php echo $cont; ?></label></div>
+				<div class="visible-xs" style="margin-top: 15px;"><label>Art√≠culo <?php echo $cont; ?></label></div>
 				
 				<div class="row grupo" style="margin-bottom: 8px;">
 				
@@ -264,7 +264,7 @@ include("menu.php");
 				<?php if (! (isset($campoBloqueado) && $campoBloqueado == 1)): ?>
 				<div class="row">
 					<div class="col-xs-12 col-sm-2">
-						<button type="button" id="nuevoArticulo" class="btn btn-success btn-block">AÒadir artÌculo</button>
+						<button type="button" id="nuevoArticulo" class="btn btn-success btn-block">A√±adir art√≠culo</button>
 					</div>
 				</div>
 				<?php endif; ?>
@@ -281,7 +281,7 @@ include("menu.php");
 					<div class="checkbox">
 					  <label for="condiciones">
 					    <input type="checkbox" id="condiciones" name="condiciones" value="1" <?php echo (isset($datos_pedido['condiciones']) && $datos_pedido['condiciones'] == 1) ? 'checked' : ''; ?> <?php echo (isset($campoBloqueado) && $campoBloqueado == 1) ? 'disabled' : ''; ?>>
-					    He leÌdo y acepto las <a href="#" data-toggle="modal" data-target="#modalCondiciones">Condiciones de compras de los Departamentos</a>.
+					    He le√≠do y acepto las <a href="#" data-toggle="modal" data-target="#modalCondiciones">Condiciones de compras de los Departamentos</a>.
 					  </label>
 					</div>
 				</div>
@@ -316,27 +316,27 @@ include("menu.php");
       	<?php if (isset($config['pedidos']['condiciones'])): ?>
       	<?php echo htmlspecialchars_decode($config['pedidos']['condiciones']); ?>
       	<?php else: ?>
-        <p>El presupuesto del centro determinar· la asignaciÛn de partidas especÌficas a cada Departamento en funciÛn del n˙mero de miembros del Departamento y de necesidades fundamentadas y para ello, cada Departamento entregar· en SecretarÌa un proyecto escrito de presupuesto de funcionamiento anual.</p>
+        <p>El presupuesto del centro determinar√° la asignaci√≥n de partidas espec√≠ficas a cada Departamento en funci√≥n del n√∫mero de miembros del Departamento y de necesidades fundamentadas y para ello, cada Departamento entregar√° en Secretar√≠a un proyecto escrito de presupuesto de funcionamiento anual.</p>
         
-        <p>En Èl deber·n detallarse las partidas que componen el gasto desglosado por conceptos (material general, fungible, bibliografÌa, actividades, repografÌa, etc.) y valorarlas con la mayor exactitud posible (I.V.A. incluido).</p>
+        <p>En √©l deber√°n detallarse las partidas que componen el gasto desglosado por conceptos (material general, fungible, bibliograf√≠a, actividades, repograf√≠a, etc.) y valorarlas con la mayor exactitud posible (I.V.A. incluido).</p>
         
-        <p>Para la adquisiciÛn de material se sigue el siguiente protocolo:</p>
+        <p>Para la adquisici√≥n de material se sigue el siguiente protocolo:</p>
         
         <ol>
         	<li>El primer paso es recoger en acta el acuerdo del Departamento</li>
-        	<li>Todo gasto deber· contar previamente con la conformidad del Secretario/a y del Director/a mediante peticiÛn por escrito</li>
-        	<li>Se solicitar· en el momento de la compra una factura con todos los requisitos legales oportunos:
+        	<li>Todo gasto deber√° contar previamente con la conformidad del Secretario/a y del Director/a mediante petici√≥n por escrito</li>
+        	<li>Se solicitar√° en el momento de la compra una factura con todos los requisitos legales oportunos:
         		<ul>
         			<li>Factura a nombre del <?php echo $config['centro_denominacion']; ?></li>
-        			<li>NIF de la ConsejerÌa de EducaciÛn de la Junta de AndalucÌa: S4111001F</li>
+        			<li>NIF de la Consejer√≠a de Educaci√≥n de la Junta de Andaluc√≠a: S4111001F</li>
         			<li>CIF o NIF del proveedor</li>
         			<li>Nombre del proveedor</li>
-        			<li>Fecha y n˙mero de la factura</li>
+        			<li>Fecha y n√∫mero de la factura</li>
         			<li>Firma y sello de la empresa proveedora</li>
         		</ul>
         	</li>
-        	<li>El original del albar·n o factura se entregar· al Secretario/a, quedando una copia en poder del Jefe de Departamento correspondiente</li>
-        	<li>El Secretario/a sÛlo entregar· a los Jefes de Departamento el valor nominal de la compra efectuada</li>
+        	<li>El original del albar√°n o factura se entregar√° al Secretario/a, quedando una copia en poder del Jefe de Departamento correspondiente</li>
+        	<li>El Secretario/a s√≥lo entregar√° a los Jefes de Departamento el valor nominal de la compra efectuada</li>
         </ol>
         <?php endif; ?>
       </div>
@@ -356,7 +356,7 @@ $(document).ready(function(){
     var num = <?php echo (isset($num_articulos_pedido)) ? $num_articulos_pedido : 0; ?>;
     function nuevoArticulo() {
     	num++;
-    	$('#listaArticulos').append('<div class="visible-xs" style="margin-top: 15px;"><label>ArtÌculo '+num+'</label></div><div class="row grupo" style="margin-bottom: 8px;"><div class="col-sm-8"><input type="text" class="form-control" name="articulo'+num+'" value="" /></div><div class="col-sm-2"><input type="number" class="form-control" name="cantidad'+num+'" min="0" value="0" /></div><div class="col-sm-2"><div class="input-group"><input type="number" class="form-control" name="importe'+num+'" min="0" step="0.01" value="0.00"/><span class="input-group-addon">&euro;</span></div></div></div>');
+    	$('#listaArticulos').append('<div class="visible-xs" style="margin-top: 15px;"><label>Art√≠culo '+num+'</label></div><div class="row grupo" style="margin-bottom: 8px;"><div class="col-sm-8"><input type="text" class="form-control" name="articulo'+num+'" value="" /></div><div class="col-sm-2"><input type="number" class="form-control" name="cantidad'+num+'" min="0" value="0" /></div><div class="col-sm-2"><div class="input-group"><input type="number" class="form-control" name="importe'+num+'" min="0" step="0.01" value="0.00"/><span class="input-group-addon">&euro;</span></div></div></div>');
     	
     	$('#numArticulos').val(num);
     }

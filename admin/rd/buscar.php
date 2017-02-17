@@ -13,7 +13,7 @@ if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
 	$departament=$departamento;
 }
 else{
-	$departament="Dirección del Centro";
+	$departament="DirecciÃ³n del Centro";
 }
 echo '<div align="center">';
   echo '<div class="page-header">
@@ -22,7 +22,7 @@ echo '<div align="center">';
 </div>
 <br />';
 ?>
-<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<?php echo $expresion;?></a>&quot;</p><br /><?php
+<p class="lead" align="center">Actas que contienen la expresiÃ³n<a href="#"> &quot;<?php echo $expresion;?></a>&quot;</p><br /><?php
 $trozos = explode(" ",$expresion,5);
 $frase="";
 for($i=0;$i<5;$i++)
@@ -80,7 +80,7 @@ else
 ?>
 <div align="center"><div class="alert alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Lo sentimos, pero ninguna noticia responde a ese criterio de búsqueda.          
+Lo sentimos, pero ninguna noticia responde a ese criterio de bÃºsqueda.          
 </div>
 </div>
 <?php

@@ -21,10 +21,10 @@
 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 				</div>
 				<div class="modal-body">
-					<p>Las p·ginas del tutor presentan informaciÛn especÌfica sobre los alumnos de su tutorÌa.<br>
-					El men˙ superior abre las distintas opciones que se le presentan al tutor. 
-					La p·gina principal (<b>Resumen</b>) contiene datos sobre los aspectos m·s relevantes de la vida escolar de los alumnos: Faltas de Asistencia, Problemas de Conducta, Actividades Extraescolares, Informes de TutorÌa y de Tareas por ausencia, intervenciones de tutorÌa, DevoluciÛn de libros a la Biblioteca, etc. TambiÈn presenta una lista de los mensajes de Padres/Alumnos y acceso a su p·gina de estos si el Centro dispone de ese servicio.</p>						
-					<p>Las <b>Intervenciones de TutorÌa</b> permiten mantener un diaro en el que el Tutor registra sus intervenciones sobre alumnos de su grupo o sus padres. La p·gina presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta lista, se visualiza la intervenciÛn en el formulario (pudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario. La IntervenciÛn va asociada a una <em>causa (EvoluciÛn acadÈmica, Faltas de asistencia, etc.)</em> y a un <em>tipo (Entrevista telefÛnica o personal, etc.)</em> y </p>
+					<p>Las p√°ginas del tutor presentan informaci√≥n espec√≠fica sobre los alumnos de su tutor√≠a.<br>
+					El men√∫ superior abre las distintas opciones que se le presentan al tutor. 
+					La p√°gina principal (<b>Resumen</b>) contiene datos sobre los aspectos m√°s relevantes de la vida escolar de los alumnos: Faltas de Asistencia, Problemas de Conducta, Actividades Extraescolares, Informes de Tutor√≠a y de Tareas por ausencia, intervenciones de tutor√≠a, Devoluci√≥n de libros a la Biblioteca, etc. Tambi√©n presenta una lista de los mensajes de Padres/Alumnos y acceso a su p√°gina de estos si el Centro dispone de ese servicio.</p>						
+					<p>Las <b>Intervenciones de Tutor√≠a</b> permiten mantener un diaro en el que el Tutor registra sus intervenciones sobre alumnos de su grupo o sus padres. La p√°gina presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta lista, se visualiza la intervenci√≥n en el formulario (pudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario. La Intervenci√≥n va asociada a una <em>causa (Evoluci√≥n acad√©mica, Faltas de asistencia, etc.)</em> y a un <em>tipo (Entrevista telef√≥nica o personal, etc.)</em> y </p>
 					<p></p>
 				</div>
 				<div class="modal-footer">
@@ -64,7 +64,7 @@ $curso_tutor=$query2[0];
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intervencion.php')==TRUE) ? ' class="active"' : ''; ?>><a
 		href="intervencion.php">Intervenciones</a></li>
 		<li	class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'Tutor')==TRUE) ? ' active' : ''; ?>">
-	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Men˙ de TutorÌa <span
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Men√∫ de Tutor√≠a <span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 		<li><a href="../datos/datos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'] ?>">Datos de alumnos/as</a></li>
@@ -75,17 +75,17 @@ $curso_tutor=$query2[0];
 		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
 		<li><a href="../../faltas/justificar/index.php">Justificar Faltas de Asistencia del Grupo</a></li>	
 		<?php endif; ?>
-		<li><a href="consulta_fotografias.php">FotografÌas de alumnos/as</a></li>
-		<li><a href="consulta_mesas.php">AsignaciÛn de mesas</a></li>
+		<li><a href="consulta_fotografias.php">Fotograf√≠as de alumnos/as</a></li>
+		<li><a href="consulta_mesas.php">Asignaci√≥n de mesas</a></li>
 		<li><a href="../../xml/jefe/form_carnet.php">Credenciales de alumnos</a></li>
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
 		<?php if($_SERVER['SERVER_NAME']=="iesmonterroso.org"): ?>
 		<li class="divider"></li>
-		<li><a href="http://www.iesmonterroso.net/moodle/course/view.php?id=33"	target="_blank">Moodle de OrientaciÛn</a></li>
+		<li><a href="http://www.iesmonterroso.net/moodle/course/view.php?id=33"	target="_blank">Moodle de Orientaci√≥n</a></li>
 		<?php endif; ?>
-		<?php if($config['centro_provincia']=="M·laga"): ?>
+		<?php if($config['centro_provincia']=="M√°laga"): ?>
 		<li class="divider"></li>
 		<li><a href="http://lnx.educacionenmalaga.es/orientamalaga/plan-provincial-2/" target="_blank">Plan Provincial contra el Absentismo Escolar</a></li>
 		<?php endif; ?>
@@ -97,7 +97,7 @@ $curso_tutor=$query2[0];
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 		<li><a href="../informes/cinforme.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de un alumno/a</a></li>
-		<li><a href="../infotutoria/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tutorÌa</a></li>
+		<li><a href="../infotutoria/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tutor√≠a</a></li>
 		<li><a href="../tareas/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tareas</a></li>
 		<li class="divider"></li>
 		
@@ -107,21 +107,21 @@ $curso_tutor=$query2[0];
 		$id_curso = $id_t[0];
 		if (strstr($id_curso,"10114")==TRUE or $id_curso=="105806" or $id_curso=="105825"):
 		?>
-		<li><a href="../tutoria/informe_evaluaciones.php">Informes de EvaluaciÛn</a></li>
+		<li><a href="../tutoria/informe_evaluaciones.php">Informes de Evaluaci√≥n</a></li>
 		<li class="divider"></li>
 		<?php endif; ?>
 		
 		<?php 
 		if ($id_curso=="101140"):
 		?>
-		<li><a href="../matriculas/consulta_transito.php">Informes de Tr·nsito</a></li>
+		<li><a href="../matriculas/consulta_transito.php">Informes de Tr√°nsito</a></li>
 		<li class="divider"></li>
 		<?php endif; ?>
 		
-		<li><a href="../tutoria/informe_notas_grupo.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">EstadÌsticas de EvaluaciÛn del Grupo</a></li>
-		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?php echo $curso_tutor;?>">EstadÌsticas de EvaluaciÛn del Nivel</a></li>
+		<li><a href="../tutoria/informe_notas_grupo.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Estad√≠sticas de Evaluaci√≥n del Grupo</a></li>
+		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?php echo $curso_tutor;?>">Estad√≠sticas de Evaluaci√≥n del Nivel</a></li>
 		<li class="divider"></li>
-		<li><a href="informe_memoria.php">Memoria de tutorÌa</a></li>
+		<li><a href="informe_memoria.php">Memoria de tutor√≠a</a></li>
 	</ul>
 	</li>
 

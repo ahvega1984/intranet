@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// Fechas y demás...
+// Fechas y demÃ¡s...
 $fechasp0=explode("-",$_POST['fecha12']);
 $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
 $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
@@ -28,13 +28,13 @@ $claveal = $row0[0];
 	$apellidos = $rowsql3[3];
 	$nombre = $rowsql3[4];
 	$unidad = $rowsql3[5];
-	// Telefonos móviles
+	// Telefonos mÃ³viles
 	if(substr($tfno2,0,1)=="6" OR substr($tfno2,0,1)=="7"){$mobil2=$tfno2;}elseif((substr($tfno_u2,0,1)=="6" OR substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6" OR substr($tfno2,0,1)=="7")){$mobil2=$tfno_u2;}else{$mobil2="";}
 	//echo $mobil2;	
-	// Variables para la acción de tutoría
+	// Variables para la acciÃ³n de tutorÃ­a
 	$causa = "Faltas de Asistencia";	
-	$observaciones = "Comunicación de Faltas de Asistencia a la familia del Alumno.";
-	$accion = "Envío de SMS";
+	$observaciones = "ComunicaciÃ³n de Faltas de Asistencia a la familia del Alumno.";
+	$accion = "EnvÃ­o de SMS";
 	$tuto = "Jefatura de Estudios";
 	$fecha2 = date('Y-m-d');
 	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
@@ -63,7 +63,7 @@ if(strlen($mobil2) == 9) {
 else {
 	echo "
 	<div class='alert alert-warning'>
-		<strong>Error:</strong> No se pudo enviar el SMS al alumno ".$nombre." ".$apellidos." (".$unidad.") porque el teléfono está vacío o contiene errores(".$mobil2."). Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+		<strong>Error:</strong> No se pudo enviar el SMS al alumno ".$nombre." ".$apellidos." (".$unidad.") porque el telÃ©fono estÃ¡ vacÃ­o o contiene errores(".$mobil2."). Corrija la informaciÃ³n de contacto del alumno/a en SÃ©neca e importe los datos nuevamente.
 	</div>
 	<br>";
 }
@@ -74,13 +74,13 @@ endwhile;
   if ($num>0) {
   	echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El mensaje SMS se ha enviado correctamente para los hermanos del mismo nivel con faltas sin justificar.<br>Una nueva acción tutorial ha sido también registrada.
+El mensaje SMS se ha enviado correctamente para los hermanos del mismo nivel con faltas sin justificar.<br>Una nueva acciÃ³n tutorial ha sido tambiÃ©n registrada.
           </div></div><br />';
   }
   else{
   		echo '<div class="alert alert-danger alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-No se ha enviado ningún SMS a los alumnos de latabla Hermanos. O bien ningún alumno tiene más de 4 faltas o bien no están registrados los teléfonos móviles de los mismos.
+No se ha enviado ningÃºn SMS a los alumnos de latabla Hermanos. O bien ningÃºn alumno tiene mÃ¡s de 4 faltas o bien no estÃ¡n registrados los telÃ©fonos mÃ³viles de los mismos.
           </div><br />';
   }
 
@@ -95,6 +95,6 @@ $posterior = $fecha_fin[0];
 $fc2 = explode("-",$posterior);
 $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 
-// Tabla temporalñ y recogida de datos
+// Tabla temporalÃ± y recogida de datos
  mysqli_query($db_con, "DROP table `faltastemp2`");
 ?>

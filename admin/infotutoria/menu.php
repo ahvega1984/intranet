@@ -43,26 +43,26 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 							<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 						</div>
 						<div class="modal-body">
-							<p>Los Informes de Tutoría son activados por el Tutor cuando los padres de un alumno 
+							<p>Los Informes de TutorÃ­a son activados por el Tutor cuando los padres de un alumno 
 							solicitan una cita para hablar sobre este. Cuando han sido activados mediante el 
 							formulario correspondiente (en el que el Tutor simplemente selecciona al alumno y la 
 							fecha de la entrevista con los padres), los profesores del Equipo Educativo del alumno 
-							reciben una solicitud de información para que describan el estado y evolución del 
-							alumno en su asignatura. La notificación a los profesores aparece en la página de 
-							inicio de la Intranet, o bien en la página de Informes de Tutoría. La notificación 
+							reciben una solicitud de informaciÃ³n para que describan el estado y evoluciÃ³n del 
+							alumno en su asignatura. La notificaciÃ³n a los profesores aparece en la pÃ¡gina de 
+							inicio de la Intranet, o bien en la pÃ¡gina de Informes de TutorÃ­a. La notificaciÃ³n 
 							desaparece cuando hemos rellenado el Informe o la fecha de la entrevista ha pasado.</p>
-							<p>Una vez recibida la notificación, el profesor entra en un formulario en el que 
-							aparece la asignatura (o asignaturas, en el caso de que el profesor imparta más de una 
-							al alumno, o éste tenga una asignatura pendiente de continuidad), escribe su informe 
-							para el Tutor y envía los datos. Los Informes son visibles en todo momento para el 
+							<p>Una vez recibida la notificaciÃ³n, el profesor entra en un formulario en el que 
+							aparece la asignatura (o asignaturas, en el caso de que el profesor imparta mÃ¡s de una 
+							al alumno, o Ã©ste tenga una asignatura pendiente de continuidad), escribe su informe 
+							para el Tutor y envÃ­a los datos. Los Informes son visibles en todo momento para el 
 							resto de los profesores del alumno.</p>
-							<p>El módulo contiene la posibilidad de ver la totalidad de los Informes a lo largo 
+							<p>El mÃ³dulo contiene la posibilidad de ver la totalidad de los Informes a lo largo 
 							del Curso Escolar, o bien de buscar entre los Informes los correspondientes a un 
 							alumno determinado. Hay que tener en cuenta que, una vez pasada la fecha de la 
-							entrevista con los padres, los Informes de Tutoría quedan bloqueados, aunque siguen 
+							entrevista con los padres, los Informes de TutorÃ­a quedan bloqueados, aunque siguen 
 							siendo visibles.</p>
-							<p>El Equipo Directivo dispone de una opción, <strong>Control de Informes</strong>, 
-							que presenta estadísticas por alumno y profesor sobre los Informes de Tutoría.</p>
+							<p>El Equipo Directivo dispone de una opciÃ³n, <strong>Control de Informes</strong>, 
+							que presenta estadÃ­sticas por alumno y profesor sobre los Informes de TutorÃ­a.</p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -72,7 +72,7 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 			</div>
 			
 			<ul class="nav nav-tabs">
-				<li <?php echo $activo1;?>> <a href="index.php">Página de Informes de Tutoría</a></li>
+				<li <?php echo $activo1;?>> <a href="index.php">PÃ¡gina de Informes de TutorÃ­a</a></li>
 				
 				<?php if (isset($config['informe_tutoria']['activa_administrativo']) && $config['informe_tutoria']['activa_administrativo'] == 1): ?>
 				<?php if (acl_permiso($carg, array('1', '2', '7'))): ?>

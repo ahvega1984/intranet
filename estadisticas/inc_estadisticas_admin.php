@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-<h4><span class="fa fa-pie-chart fa-fw"></span> EstadÌsticas del dÌa</h4>
+<h4><span class="fa fa-pie-chart fa-fw"></span> Estad√≠sticas del d√≠a</h4>
 
 <div class="row">
 
@@ -144,7 +144,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-						<h4 class="modal-title">Profesores con m·s de 25 mensajes sin leer</h4>
+						<h4 class="modal-title">Profesores con m√°s de 25 mensajes sin leer</h4>
 					</div>
 					
 					<div id="stats-mensajes-modal" class="modal-body">

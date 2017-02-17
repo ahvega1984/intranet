@@ -1,12 +1,12 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
-echo "<h3>Informes de Tutoría</h3>";
+echo "<h3>Informes de TutorÃ­a</h3>";
 
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,unidad,TUTOR,CLAVEAL, F_ENTREV, ID FROM infotut_alumno WHERE CLAVEAL = '$claveal'");
 
 if (mysqli_num_rows($alumno) < 1)
 { 
-echo '<h3 class="text-muted">El alumno/a no tiene informes de tutoría.</h3>
+echo '<h3 class="text-muted">El alumno/a no tiene informes de tutorÃ­a.</h3>
 <br>';
 }
 else 
@@ -14,7 +14,7 @@ else
 $tuto = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$unidad'");
 $tut = mysqli_fetch_array($tuto);
 $tutor = $tut[0];
-echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1")."</h4>
+echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "UTF-8")."</h4>
 <br />";
 
 while ($dalumno = mysqli_fetch_array($alumno))

@@ -42,7 +42,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        							<input type="checkbox" id="cmp_fecha_diacomp_'.$eventos1['id'].'" name="cmp_fecha_diacomp" value="1"';
 		if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' checked';
 		echo '>
-		        							<strong>Todo el dÌa</strong>
+		        							<strong>Todo el d√≠a</strong>
 		        						</label>
 		        					</div>
 		        				</div>
@@ -93,7 +93,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		</div>
 		        		
 		        		<div class="form-group">
-		        			<label for="cmp_descripcion">DescripciÛn</label>
+		        			<label for="cmp_descripcion">Descripci√≥n</label>
 		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.stripslashes($eventos1['descripcion']).'</textarea>
 		        		</div>
 		        		
@@ -170,7 +170,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		 <input type="checkbox" id="cmp_cuaderno" name="cmp_cuaderno" value="1"';*/
 		if (mysqli_num_rows($result_cuaderno)) echo ' ';
 		/*echo '> Crear columna en mi cuaderno de notas<br>
-		 <small class="text-muted">Se crear· una columna de tipo numÈrico y no visible para las familias. Puede modificar estos valores en el cuaderno de notas.</small><br>
+		 <small class="text-muted">Se crear√° una columna de tipo num√©rico y no visible para las familias. Puede modificar estos valores en el cuaderno de notas.</small><br>
 		 <small class="text-danger">Importante: Si la asignatura tiene desdoble de unidades, debe marcar todas las unidades afectadas. Deben ser del mismo curso y tener el mismo nombre de asignatura.</small>
 		 </label>
 		 </div>
@@ -238,7 +238,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        							<input type="checkbox" id="cmp_fecha_diacomp_'.$eventos1['id'].'" name="cmp_fecha_diacomp" value="1"';
 			if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' checked';
 			echo '>
-			        							<strong>Todo el dÌa</strong>
+			        							<strong>Todo el d√≠a</strong>
 			        						</label>
 			        					</div>
 			        				</div>
@@ -289,7 +289,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        		</div>
 			        		
 			        		<div class="form-group">
-			        			<label for="cmp_descripcion">DescripciÛn</label>
+			        			<label for="cmp_descripcion">Descripci√≥n</label>
 			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.stripslashes($eventos1['descripcion']).'</textarea>
 			        		</div>
 			        		
@@ -346,7 +346,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        					<label for="cmp_departamento">Departamento que lo organiza</label>
 			        					<select class="form-control" id="cmp_departamento" name="cmp_departamento">';
 			if (stristr($_SESSION['cargo'],'2') == TRUE  and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)){ 
-		       echo '<option value="OrientaciÛn">OrientaciÛn</option>';
+		       echo '<option value="Orientaci√≥n">Orientaci√≥n</option>';
 		    } 
 		    else{ 		        				
 			if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)):
@@ -357,19 +357,19 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			echo '>'.$row['departamento'].'</option>';
 			endwhile;
 			elseif (stristr($_SESSION['cargo'],'d') == TRUE):
-			echo '<option value="Relaciones de GÈnero"';
-			if ("Relaciones de GÈnero" == $row['departamento']) echo ' selected';
-			echo '>Relaciones de GÈnero</option>';
+			echo '<option value="Relaciones de G√©nero"';
+			if ("Relaciones de G√©nero" == $row['departamento']) echo ' selected';
+			echo '>Relaciones de G√©nero</option>';
 			else:
-			echo '<option value="M˙ltiples Departamentos"';
-			if ("M˙ltiples Departamentos" == $row['departamento']) echo ' selected';
-			echo '>M˙ltiples Departamentos</option>
+			echo '<option value="M√∫ltiples Departamentos"';
+			if ("M√∫ltiples Departamentos" == $row['departamento']) echo ' selected';
+			echo '>M√∫ltiples Departamentos</option>
 			        						<option value="Actividades Extraescolares"';
 			if ("Actividades Extraescolares" == $row['departamento']) echo ' selected';
 			echo '>Actividades Extraescolares</option>
-			        						<option value="Relaciones de GÈnero"';
-			if ("Relaciones de GÈnero" == $row['departamento']) echo ' selected';
-			echo '>Relaciones de GÈnero</option>';
+			        						<option value="Relaciones de G√©nero"';
+			if ("Relaciones de G√©nero" == $row['departamento']) echo ' selected';
+			echo '>Relaciones de G√©nero</option>';
 			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC");
 			while ($row = mysqli_fetch_assoc($result)):
 			echo '<option value="'.$row['departamento'].'"';
@@ -382,7 +382,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        				</div>
 			        				
 			        				<div class="form-group">
-			        					<label for="cmp_profesores">Profesores que asistir·n a la actividad</label>
+			        					<label for="cmp_profesores">Profesores que asistir√°n a la actividad</label>
 			        					<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>';
 			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC");
 			while ($row = mysqli_fetch_assoc($result)):
@@ -397,7 +397,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			echo '</optgroup>';
 			endwhile;
 			echo '</select>
-			        					<p class="help-block">Para seleccionar varios profesores, mantÈn apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el ratÛn.</p>
+			        					<p class="help-block">Para seleccionar varios profesores, mant√©n apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el rat√≥n.</p>
 			        				</div>
 			        			
 			        	<div class="form-group">
@@ -409,7 +409,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        			<div class="col-sm-6">
 			        				
 			        				<div class="form-group">
-			        					<label for="">Unidades que asistir·n a la actividad</label>';
+			        					<label for="">Unidades que asistir√°n a la actividad</label>';
 			if (stristr($_SESSION['cargo'],'2')) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }
 			$result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC");
 			while($row = mysqli_fetch_assoc($result)):
@@ -488,7 +488,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 	        			<div class="col-xs-12">
 	        				<div class="form-group">
 	        					<label for="">Fecha inicio</label>
-	        					<p class="form-control-static text-info">'.$fechaini_evento.', todo el dÌa.</p>
+	        					<p class="form-control-static text-info">'.$fechaini_evento.', todo el d√≠a.</p>
 	        				</div>
 	        			</div>';
 			}
@@ -523,7 +523,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			echo '</div>
 	        		
 	        		<div class="form-group">
-	        			<label for="">DescripciÛn</label>
+	        			<label for="">Descripci√≥n</label>
 	        			<p class="form-control-static text-info">'.stripslashes($eventos1['descripcion']).'</p>
 	        		</div>
 	        		
@@ -538,7 +538,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 	        		</div>
 	        		
 	        		<div class="form-group">
-	        			<label for="">Profesores que asistir·n a la actividad</label>
+	        			<label for="">Profesores que asistir√°n a la actividad</label>
 	        			<p class="form-control-static text-info">'.str_replace(';', ' | ',$eventos1['profesores']).'</p>
 	        		</div>
 	        		
@@ -548,7 +548,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        	</div>	
 		        		
 	        		<div class="form-group">
-	        			<label for="">Unidades que asistir·n a la actividad</label>
+	        			<label for="">Unidades que asistir√°n a la actividad</label>
 	        			<p class="form-control-static text-info">'.str_replace(';', ' | ',$eventos1['unidades']).'</p>
 	        		</div>';
 			}

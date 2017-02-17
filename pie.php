@@ -5,7 +5,7 @@
     		<hr>
     		
     		<p class="text-center">
-    			<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
+    			<small class="text-muted">VersiÃ³n <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
     			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
     		</p>
     		<p class="text-center">
@@ -20,7 +20,7 @@
     
     <?php if(isset($_SESSION['user_admin'])): ?>
     <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: 0; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%;">
-    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%; text-transform: uppercase;"><span class="fa fa-dashboard fa-fw"></span> Análisis</a>
+    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%; text-transform: uppercase;"><span class="fa fa-dashboard fa-fw"></span> AnÃ¡lisis</a>
     	<div id="debug" class="row" style="display: none;">
     	
     		<div class="col-sm-9">
@@ -47,7 +47,7 @@
     </div>
     <?php endif; ?>
 
-    <!-- MODAL SESIÓN-->
+    <!-- MODAL SESIÃ“N-->
 	<div class="modal fade" id="session_expired" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -56,8 +56,8 @@
 			    <h4 class="modal-title">Inactividad de la cuenta</h4>
 			  </div>
 			  <div class="modal-body">
-			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de 
-			    	<strong>3 minutos</strong>. Realice alguna actividad en la aplicación para cancelar esta acción.</p>
+			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesiÃ³n se cerrarÃ¡ automÃ¡ticamente dentro de 
+			    	<strong>3 minutos</strong>. Realice alguna actividad en la aplicaciÃ³n para cancelar esta acciÃ³n.</p>
 			  </div>
 			  <div class="modal-footer">
 			    <button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -65,7 +65,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	<!-- FIN MODAL SESIÓN -->
+	<!-- FIN MODAL SESIÃ“N -->
     
     <!-- BOOTSTRAP JS CORE -->
     <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-1.12.4.min.js"></script>  
@@ -148,10 +148,10 @@
 				  backdrop: true,
 				  closeButton: true,
 				  animate: true,
-				  title: "Confirmación para eliminar",
+				  title: "ConfirmaciÃ³n para eliminar",
 				});
 				
-				bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
+				bootbox.confirm("Esta acciÃ³n eliminarÃ¡ permanentemente el elemento seleccionado Â¿Seguro que desea continuar?", function(result) {
 				    if (result) {
 				    	document.location.href = link;
 				    }

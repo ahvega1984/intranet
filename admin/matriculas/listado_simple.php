@@ -10,7 +10,7 @@ $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas where grupo_actual != '' order by curso, grupo_actual");
 while($total = mysqli_fetch_array($tot)){
-# hasta aquÃ­ lo del pdf
+# hasta aquÃƒÂ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -52,20 +52,20 @@ if ($curso=="3ESO") {
 	if ($div_3 == $grupo_actual) {
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 	}
 	else{
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 	}
@@ -76,11 +76,11 @@ if ($curso=="2ESO") {
 	
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 }
@@ -90,11 +90,11 @@ if ($curso=="1ESO") {
 	
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 }
@@ -105,33 +105,33 @@ if ($curso=="4ESO") {
 if ($datatmp[7]=="1" or $datatmp[7]=="2") {
 $data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 	}
 		elseif ($datatmp[7]=="3") {
 $data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 			);
 	}	
 	else{
 		$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',				
 			);
 	}
@@ -148,8 +148,8 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>230
 			);
-$txttit = "Lista del Grupo $curso-$grupo_actual\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+$txttit = "Lista del Grupo ".$curso."-".$grupo_actual."\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

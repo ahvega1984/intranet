@@ -10,17 +10,17 @@ require('../../lib/trendoo/sms_status.php');
 function sms_status($status) {
 
 	switch ($status) {
-		case 'SCHEDULED'	: return 'Pendiente de envío'; break;
+		case 'SCHEDULED'	: return 'Pendiente de envÃ­o'; break;
 		case 'SENT' 		: return 'Enviado, sin reporte de entrega'; break;
 		case 'DLVRD' 		: return 'Recibido'; break;
 		case 'ERROR' 		: return 'Error de entrega'; break;
-		case 'TIMEOUT' 		: return 'Sin información del operador'; break;
+		case 'TIMEOUT' 		: return 'Sin informaciÃ³n del operador'; break;
 		case 'TOOM4NUM' 	: return 'Demasiados SMS para el mismo destinatario'; break;
 		case 'TOOM4USER' 	: return 'Demasiados SMS enviados por el usuario'; break;
-		case 'UNKNPFX'	 	: return 'Prefijo SMS no válido'; break;
-		case 'UNKNRCPT'	 	: return 'Número de teléfono no válido'; break;
+		case 'UNKNPFX'	 	: return 'Prefijo SMS no vÃ¡lido'; break;
+		case 'UNKNRCPT'	 	: return 'NÃºmero de telÃ©fono no vÃ¡lido'; break;
 		case 'WAIT4DLVR'	: return 'Mensaje enviado, en espera del reporte'; break;
-		case 'WAITING'		: return 'Pendiente, no enviado todavía'; break;
+		case 'WAITING'		: return 'Pendiente, no enviado todavÃ­a'; break;
 		case 'UNKNOWN'		: return 'Estado desconocido'; break;
 	}
 	
@@ -36,7 +36,7 @@ include('../../menu.php');
 	<div class="container">
 	
 		<div class="page-header">
-			<h2>Información de envíos SMS</h2>
+			<h2>InformaciÃ³n de envÃ­os SMS</h2>
 		</div>
 		
 		
@@ -60,7 +60,7 @@ include('../../menu.php');
 		
 		<br>
 		
-		<h3>Histórico de envíos <small>Del <?php echo date('d/m/Y H:i:s', time()-(7*24*60*60)); ?> al <?php echo date('d/m/Y H:i:s', time()); ?></small></h3>
+		<h3>HistÃ³rico de envÃ­os <small>Del <?php echo date('d/m/Y H:i:s', time()-(7*24*60*60)); ?> al <?php echo date('d/m/Y H:i:s', time()); ?></small></h3>
 		
 		<div class="row">
 		
@@ -72,7 +72,7 @@ include('../../menu.php');
 						<tr>
 							<th>ID Orden</th>
 							<th>Tipo SMS</th>
-							<th>Fecha de envío</th>
+							<th>Fecha de envÃ­o</th>
 							<th>Destinatarios</th>
 							<th>Estado</th>
 						</tr>

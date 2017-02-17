@@ -9,7 +9,7 @@ include("menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-  <h2>Material del Centro <small> Edición de datos</small></h2>
+  <h2>Material del Centro <small> EdiciÃ³n de datos</small></h2>
 </div>
 <?php
 /*if (empty($departamento) or stristr ( $_SESSION ['cargo'], '1' ) == FALSE){
@@ -17,11 +17,11 @@ include("menu.php");
 	$departament=$departamento;
 }
 else{
-	$departament="Dirección";
+	$departament="DirecciÃ³n";
 }*/
 
 if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE and empty($departamento)){
-	$departament="Dirección";
+	$departament="DirecciÃ³n";
 	$departamento=$departament;
 }
 else{
@@ -63,8 +63,8 @@ Los datos se han modificado correctamente.
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Parece que no has escrito nada en alguno de los campos obligatorios del formulario. Inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+Parece que no has escrito nada en alguno de los campos obligatorios del formulario. IntÃ©ntalo de nuevo.
 </div></div><br />';
 }
 }
@@ -89,8 +89,8 @@ Los datos se han registrado correctamente.
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Parece que no has escrito nada en alguno de los campos obligatorios del formulario. Inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+Parece que no has escrito nada en alguno de los campos obligatorios del formulario. IntÃ©ntalo de nuevo.
 </div></div><br />';
 }
 }
@@ -160,7 +160,7 @@ while($lug = mysqli_fetch_array($luga))
 	?>
 </select>
 </div>
-<div class="form-group"><label>Descipción</label>
+<div class="form-group"><label>DescipciÃ³n</label>
 <textarea name="descripcion" cols="45" rows="5" class="form-control"><?php echo $descripcion;?></textarea>
 </div>
 <div class="form-group"><label>Marca</label>
@@ -169,10 +169,10 @@ while($lug = mysqli_fetch_array($luga))
 <div class="form-group"><label>Modelo</label>
 <input type="text" name="modelo" size="40"class="form-control" value="<?php echo $modelo;?>" />
 </div>
-<div class="form-group"><label>Nº Serie</label>
+<div class="form-group"><label>NÂº Serie</label>
 <input type="text" name="serie" size="25" class="form-control" value="<?php echo $serie;?>"/>
 </div>
-<div class="form-group"><label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
+<div class="form-group"><label>NÂº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
 <input type="text" name="unidades" size="5" class="form-control" value="<?php echo $unidades;?>"/>
 </div>
 <div class="form-group"  id="datetimepicker1">
@@ -198,10 +198,10 @@ $it = mysqli_query($db_con, "select inventario_clases.clase, marca, modelo, unid
 if (mysqli_num_rows($it)>0) {
 	echo '<legend>Inventario: ';
 	if($departamento){echo "<span style=color:#9d261d>".$departamento."</span>";}
-	else{echo "<span style=color:#9d261d>Dirección del Centro</span>";}
+	else{echo "<span style=color:#9d261d>DirecciÃ³n del Centro</span>";}
 	echo '</legend>
 <table class="table table-striped">
-<tr><th>Tipo</th><th>Marca / Modelo</th><th>Núm.</th><th></th><th></th></tr>';
+<tr><th>Tipo</th><th>Marca / Modelo</th><th>NÃºm.</th><th></th><th></th></tr>';
 while($item = mysqli_fetch_row($it))
 {
 	if (empty($item[1])) {

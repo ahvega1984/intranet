@@ -12,13 +12,13 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>AdministraciÛn <small>ImportaciÛn de datos del centro</small></h2>
+		<h2>Administraci√≥n <small>Importaci√≥n de datos del centro</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM cursos LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result) && !isset($_FILES['ExpGenHor'])): ?>
 	<div class="alert alert-warning">
-		Ya existe informaciÛn relativa a este curso escolar. Este proceso sustituir· parte de la informaciÛn almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se ver·n afectadas. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.
+		Ya existe informaci√≥n relativa a este curso escolar. Este proceso sustituir√° parte de la informaci√≥n almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se ver√°n afectadas. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -44,7 +44,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="">
 					<fieldset>
-						<legend>ImportaciÛn de datos del centro</legend>
+						<legend>Importaci√≥n de datos del centro</legend>
 						
 						<input type="hidden" name="curso_escolar" value="<?php echo $config['curso_actual']; ?>">
 						
@@ -73,11 +73,11 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>InformaciÛn sobre la importaciÛn</h3>
+			<h3>Informaci√≥n sobre la importaci√≥n</h3>
 			
-			<p>Este mÛdulo se encarga de importar la relaciÛn de <strong>cursos</strong> y <strong>unidades</strong> del centro registrados en SÈneca, asÌ como la relaciÛn de <strong>materias</strong> que se imparten y <strong>actividades</strong> del personal docente, necesarias para comprobar la coherencia de los horarios y poder realizar tareas de depuraciÛn. Se importar· tambiÈn la relaciÛn de <strong>dependencias</strong>, que se utilizar· para realizar reservas de aulas o consultar el horario de aulas.</p>
+			<p>Este m√≥dulo se encarga de importar la relaci√≥n de <strong>cursos</strong> y <strong>unidades</strong> del centro registrados en S√©neca, as√≠ como la relaci√≥n de <strong>materias</strong> que se imparten y <strong>actividades</strong> del personal docente, necesarias para comprobar la coherencia de los horarios y poder realizar tareas de depuraci√≥n. Se importar√° tambi√©n la relaci√≥n de <strong>dependencias</strong>, que se utilizar√° para realizar reservas de aulas o consultar el horario de aulas.</p>
 			
-			<p>Para obtener el archivo de exportaciÛn debe dirigirse al apartado <strong>Utilidades</strong>, <strong>ImportaciÛn/ExportaciÛn de datos</strong>. Seleccione <strong>ExportaciÛn hacia generadores de horario</strong> y proceda a descargar el archivo XML.</p>
+			<p>Para obtener el archivo de exportaci√≥n debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importaci√≥n/Exportaci√≥n de datos</strong>. Seleccione <strong>Exportaci√≥n hacia generadores de horario</strong> y proceda a descargar el archivo XML.</p>
 			
 		</div>
 		

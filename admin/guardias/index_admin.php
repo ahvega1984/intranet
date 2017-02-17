@@ -32,16 +32,16 @@ include 'menu.php';
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te 
-						aparecerá el horario del Profesor, para que puedas determinar con precisión la hora 
-						de la guardia (1ª hora, 2ª hora, etc) del día en cuestión.</p>
-						<p>Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de 
-						la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre 
-						la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.</p>
+						<p>Selecciona el Profesor al que quieres apuntar una sustituciÃ³n no registrada. Te 
+						aparecerÃ¡ el horario del Profesor, para que puedas determinar con precisiÃ³n la hora 
+						de la guardia (1Âª hora, 2Âª hora, etc) del dÃ­a en cuestiÃ³n.</p>
+						<p>Seleccionas a continuaciÃ³n el Profesor sustituido. Al hacer click en el campo de 
+						la fecha, aparecerÃ¡ una nueva ventana con el calendario en el que debes pinchar sobre 
+						la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envÃ­a los datos.</p>
 						<p>Si quieres consultar el historial de guardias de un Profesor, pincha en 
-						<em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerá un 
-						histórico con todas las sustituciones realizadas. Si pinchas en una de las guardias 
-						de su horario, podrás ver las sustituciones de todos los profesores de esa guardia 
+						<em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerÃ¡ un 
+						histÃ³rico con todas las sustituciones realizadas. Si pinchas en una de las guardias 
+						de su horario, podrÃ¡s ver las sustituciones de todos los profesores de esa guardia 
 						en esa hora a lo largo del curso.</p>
 					</div>
 					<div class="modal-footer">
@@ -56,8 +56,8 @@ include 'menu.php';
 	
 	<?php if (! $config['mod_horarios']): ?>
 	<div class="alert alert-warning">
-		<h5>Módulo desactivado</h5>
-		El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado.
+		<h5>MÃ³dulo desactivado</h5>
+		El mÃ³dulo de Horarios debe ser activado en la ConfiguraciÃ³n general de la Intranet para poder acceder a estas pÃ¡ginas, y ahora mismo estÃ¡ desactivado.
 	</div>
 	<?php else: ?>
 	
@@ -137,7 +137,7 @@ include 'menu.php';
 					    			<label for="hora_guardia">Hora:</label> 
 					    			<select class="form-control" id="hora_guardia" name="hora_guardia" required>
 					    				<?php for ($i = 1; $i < 7; $i++): ?>
-					    				<option value="<?php echo $i; ?>" <?php echo ($i == $hora) ? 'selected' : ''; ?>><?php echo $i; ?>ª hora</option>
+					    				<option value="<?php echo $i; ?>" <?php echo ($i == $hora) ? 'selected' : ''; ?>><?php echo $i; ?>Âª hora</option>
 					    				<?php endfor; ?>
 					    			</select>
 					    		</div>
@@ -146,7 +146,7 @@ include 'menu.php';
 					    
 					    </div><!-- /.row -->
 						
-						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?> 
+						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1Âª media hora', 3 => '2Âª media hora'); ?> 
 						
 						<div class="form-group">
 							<label class="turno_guardia">Turno:</label> 

@@ -13,15 +13,15 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 
 if($dia1=='Lunes'){$dia = "1";}
 if($dia1=='Martes'){$dia = "2";}
-if($dia1=='Miércoles'){$dia = "3";}
+if($dia1=='MiÃ©rcoles'){$dia = "3";}
 if($dia1=='Jueves'){$dia = "4";}
 if($dia1=='Viernes'){$dia = "5";}
 		
-$sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE unidad='$unidad ' ORDER BY NC";
+$sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC";
 //echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos );
 $num=0;
@@ -31,7 +31,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$ixx = $datatmp[1];
 	$data[] = array(
 				'num'=>$ixx,
-				'nombre'=>$datatmp[0]				
+				'nombre'=>utf8_decode($datatmp[0])				
 				);
 }
 $firma="Observaciones:\n\n\n\n\n\n\n\n";
@@ -40,7 +40,7 @@ $data[]=array(
 			'nombre'=>$firma
 			);
 for($i=1;$i<7;$i++){
-$curso0 = $unidad;
+$curso0 = utf8_decode($unidad);
 $rowasignaturas1="";
 ${'a'.$i}="";
 $asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig FROM horw where  dia= '$dia' and hora = '$i' and a_grupo like '%$curso0%'");
@@ -50,7 +50,7 @@ $asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig FROM horw where  d
  ${'a'.$i}=substr(${'a'.$i},0,strlen(${'a'.$i})-1);
  } 
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>$a1,
 				'c2'=>$a2,
@@ -68,7 +68,7 @@ $options = array(
 				'innerLineThickness'=>0.5,
   				'outerLineThickness'=>0.8
 			);
-$txttit = "<b>Parte de faltas del Alumno</b>     <b>Grupo $unidad</b>     $dia1      Fecha: ____/____/_________\n";
+$txttit = "<b>Parte de faltas del Alumno</b>     <b>Grupo ".utf8_decode($unidad)."</b>     $dia1      Fecha: ____/____/_________\n";
 		
 $pdf->ezText($txttit, 11,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

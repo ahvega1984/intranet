@@ -16,7 +16,7 @@ $( document ).ready(function() {
 	           	 	case 'R' : texto_falta = 'Restraso'; break;
 	           	 } 	
 	           	 	
-	          	 $('#asistencia_tabla').append('<tr><td>' + item.alumno + '</td><td>' + item.hora + 'ª hora</td><td>' + texto_falta + '</td></tr>');
+	          	 $('#asistencia_tabla').append('<tr><td>' + item.alumno + '</td><td>' + item.hora + 'Âª hora</td><td>' + texto_falta + '</td></tr>');
 	           });
 	       }
 	       else {

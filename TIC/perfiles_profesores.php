@@ -28,7 +28,7 @@ include("menu.php");
 							<tr>
 								<th>Profesor</th>
 								<th>Usuario</th>
-								<th>Contraseña</th>
+								<th>ContraseÃ±a</th>
 							</tr>
 						</thead>
 						<tbody>

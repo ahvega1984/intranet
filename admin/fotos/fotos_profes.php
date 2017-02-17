@@ -22,7 +22,7 @@ if (isset($_POST['enviar'])) {
 			header('Location:'.'../../index.php?tour=1');
 		}
 		else {
-			$msg_success = "La fotografía se ha actualizado.";
+			$msg_success = "La fotografÃ­a se ha actualizado.";
 		}
 		
 	}
@@ -85,13 +85,13 @@ include("../../menu.php");
 							<div class="<?php echo $foto ? 'col-sm-8' : 'col-sm-12'; ?>">
 							
 								<div class="form-group">
-									<label for="foto">Fotografía (formato JPEG)</label>
+									<label for="foto">FotografÃ­a (formato JPEG)</label>
 								  <input type="file" id="foto" name="foto" accept="image/jpeg">
 								</div>
 								
 								<br>
 								
-								<button type="submit" class="btn btn-primary" name="enviar"><?php echo $foto ? 'Actualizar' : 'Subir'; ?> fotografía</button>
+								<button type="submit" class="btn btn-primary" name="enviar"><?php echo $foto ? 'Actualizar' : 'Subir'; ?> fotografÃ­a</button>
 								<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 								<a href="../../xml/jefe/index_temas.php?tour=1" class="btn btn-default">Omitir</a>
 								<?php endif; ?>
@@ -110,16 +110,16 @@ include("../../menu.php");
 		<div class="col-sm-6">
 			
 				
-			<h3>Información sobre las fotografías</h3>
+			<h3>InformaciÃ³n sobre las fotografÃ­as</h3>
 			
 			<p>La foto debe cumplir la norma especificada:<p>
 			 	
 			<ul>
-				<li>Tener el fondo de un único color, liso y claro.</li>
-				<li>La foto ha de ser reciente y tener menos de 6 meses de antigüedad.</li>
+				<li>Tener el fondo de un Ãºnico color, liso y claro.</li>
+				<li>La foto ha de ser reciente y tener menos de 6 meses de antigÃ¼edad.</li>
 				<li>Foto tipo carnet, la imagen no puede estar inclinada, tiene que mostrar la cara claramente de frente.</li>
-				<li>Fotografía de cerca que incluya la cabeza y parte superior de los hombros, la cara ocuparía un 70-80% de la fotografía.</li>
-				<li>Fotografía perfectamente enfocada y clara.</li>
+				<li>FotografÃ­a de cerca que incluya la cabeza y parte superior de los hombros, la cara ocuparÃ­a un 70-80% de la fotografÃ­a.</li>
+				<li>FotografÃ­a perfectamente enfocada y clara.</li>
 			</ul>
 			
 		</div><!-- /.col-sm-6 -->

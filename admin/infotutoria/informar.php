@@ -18,7 +18,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Redactar Informe por asignatura</small></h2>
+  <h2>Informes de TutorÃ­a <small> Redactar Informe por asignatura</small></h2>
 </div>
 <br>
 
@@ -32,8 +32,8 @@ $n_cur=$dalumno[5];
 if (empty($dalumno[0])) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo
+			<legend>ATENCIÃ“N:</legend>
+Debes seleccionar un alumno en primer lugar.<br>Vuelve atrÃ¡s e intÃ©ntalo de nuevo
 <br><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
 		</div></div>';
 	exit;	
@@ -48,8 +48,8 @@ $claveal=trim($dalumno[0]);
 if (empty($dalumno[0])) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo.<br /><br /
+			<legend>ATENCIÃ“N:</legend>
+Debes seleccionar un alumno en primer lugar.<br>Vuelve atrÃ¡s e intÃ©ntalo de nuevo.<br /><br /
 ><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
 	exit();	
@@ -63,8 +63,8 @@ echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
 		echo "</div>";
 	}
 echo "<br />";
-echo "<label>Motivo de la reunión:</label>";
-$motivo_reunion = ($dalumno['motivo']) ? $dalumno['motivo'] : 'No se ha especificado el motivo de la reunión.';
+echo "<label>Motivo de la reuniÃ³n:</label>";
+$motivo_reunion = ($dalumno['motivo']) ? $dalumno['motivo'] : 'No se ha especificado el motivo de la reuniÃ³n.';
 echo "<p class=\"text-info\">".$motivo_reunion."</p>";
 
 $depto = $_SESSION ['dpt'];

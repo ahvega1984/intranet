@@ -21,7 +21,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> Selección de alumnos</small></h2>
+  <h2>Actividades Complementarias y Extraescolares <small> SelecciÃ³n de alumnos</small></h2>
 </div>
 </div>
 

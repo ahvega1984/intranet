@@ -21,7 +21,7 @@ echo "<table  class='table table-striped' style='width:auto'>";
 <tr><th>DNI</th><td>$row[5]</td></tr>
 <tr><th>FECHA</th><td>$row[6]</td></tr>
 <tr><th>DOMICILIO</th><td>$row[7]</td></tr>
-<tr><th>TELÉFONO</th><td>$row[8]</td></tr>
+<tr><th>TELÃ‰FONO</th><td>$row[8]</td></tr>
 <tr><th>PADRE</th><td>$PADRE</td></tr>";
         } 
         echo "</table>";        

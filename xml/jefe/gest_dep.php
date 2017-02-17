@@ -10,7 +10,7 @@ include("../../menu.php");
 <div class="container">
 
 <div class="page-header">
-<h2>Administraci髇 <small> Gesti髇 de los departamentos</small></h2>
+<h2>Administraci贸n <small> Gesti贸n de los departamentos</small></h2>
 </div>
 
 <div class="row">
@@ -19,11 +19,11 @@ include("../../menu.php");
 el nombre</em> a una Especialidad o Departamento como <em>Incorporar a
 los miembros</em> de una Especialidad en otro Departamento. Para cambiar
 el nombre simplemente escribe el nuevo nombre en el campo de texto; para
-incorporar una Especialidad en un Departamento, selecci髇alo en la lista
-desplegable. Una vez realizados los cambios, haz click en el bot髇 <em><b>Enviar
+incorporar una Especialidad en un Departamento, selecci贸nalo en la lista
+desplegable. Una vez realizados los cambios, haz click en el bot贸n <em><b>Enviar
 datos</b></em>. Si actualizas los Departamentos, no te olvides
 incorporar a los profesores nuevos en el Departamento correspondiente,
-ya que aparecer醤 asociados a su <em>Especialidad de S閚eca</em>.</p>
+ya que aparecer谩n asociados a su <em>Especialidad de S茅neca</em>.</p>
 <br />
 <?php
 if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
@@ -131,10 +131,10 @@ if ($_GET['borrar']=='1') {
 <div class="col-sm-5">
 <p class="help-block" align="left">(*) Este formulario permite cambiar
 el Departamento al que pertenece un profesor. Selecciona el Departamento
-al que quieres asignar al Profesor y env韆 los datos. Si actualizas los
+al que quieres asignar al Profesor y env铆a los datos. Si actualizas los
 Departamentos, no te olvides incorporar a los profesores nuevos en el
-Departamento correspondiente, ya que aparecer醤 asociados a su <em>Especialidad
-de S閚eca</em>.</p>
+Departamento correspondiente, ya que aparecer谩n asociados a su <em>Especialidad
+de S茅neca</em>.</p>
 <br />
 	<?php
 	if (isset($_POST['cambiar']) and $_POST['cambiar'] == "Cambiar Departamento") {

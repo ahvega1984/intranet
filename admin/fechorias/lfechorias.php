@@ -24,7 +24,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 <div class="container">
   
 	<div class="page-header">
-		<h2 style="display: inline;">Problemas de convivencia <small>Últimos problemas</small></h2>
+		<h2 style="display: inline;">Problemas de convivencia <small>Ãšltimos problemas</small></h2>
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -40,20 +40,20 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Esta página presenta un listado de los últimos 300 Problemas de Convivencia que se han 
+						<p>Esta pÃ¡gina presenta un listado de los Ãºltimos 300 Problemas de Convivencia que se han 
 						registrado.</p>
 						<p>La tabla con los resultados puede ser ordenada de forma ascendente o descendente pulsando 
-						con el ratón sobre el nombre de las columnas o las flechas que las acompañan. También admite 
-						la introducción de criterios selectivos escribiendo datos en el campo de búsqueda que aparece 
+						con el ratÃ³n sobre el nombre de las columnas o las flechas que las acompaÃ±an. TambiÃ©n admite 
+						la introducciÃ³n de criterios selectivos escribiendo datos en el campo de bÃºsqueda que aparece 
 						en la parte superior derecha de la tabla.</p>
-						<p>La columna <strong>NUM.</strong> indica el número total de Problemas registrados para un 
-						alumno; la columna <strong>CAD.</strong> indica si el Problema ha caducado o no (30 días para 
-						los Problemas Leves y Graves, 60 días para los Muy Graves); la siguiente columna nos dice si 
-						el Tutor ha recibido y procesado la Notificación del Problema en su página de inicio. La 
-						última columna presenta un grupo de iconos con distintas funciones: podemos ver los detalles 
+						<p>La columna <strong>NUM.</strong> indica el nÃºmero total de Problemas registrados para un 
+						alumno; la columna <strong>CAD.</strong> indica si el Problema ha caducado o no (30 dÃ­as para 
+						los Problemas Leves y Graves, 60 dÃ­as para los Muy Graves); la siguiente columna nos dice si 
+						el Tutor ha recibido y procesado la NotificaciÃ³n del Problema en su pÃ¡gina de inicio. La 
+						Ãºltima columna presenta un grupo de iconos con distintas funciones: podemos ver los detalles 
 						del Problema; acceder al historial de Convivencia de un alumno; y, si procede, podemos editar 
-						(hasta un máximo de 2 días después de haberlo registrado) o eliminar un Problema de Convivencia.</p>
-						<p>El Equipo Directivo tiene una columna con una casilla de verificación que indica si el 
+						(hasta un mÃ¡ximo de 2 dÃ­as despuÃ©s de haberlo registrado) o eliminar un Problema de Convivencia.</p>
+						<p>El Equipo Directivo tiene una columna con una casilla de verificaciÃ³n que indica si el 
 						Problema ha sido <strong>Revisado</strong> por Jefatura de Estudios.</p>
 						</p>
 					</div>
@@ -104,7 +104,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
   $result = mysqli_query($db_con, $query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
  <div class='table-responsive'>
- <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td>";
+ <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>ExpulsiÃ³n del Centro</td><td class='amonestacion-escrita'>AmonestaciÃ³n escrita</td><td class='expulsion-aula'>ExpulsiÃ³n del aula</td>";
 if ($config['mod_convivencia']==1) { 
  echo "<td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td>";
  }
@@ -152,18 +152,18 @@ if ($config['mod_convivencia']==1) {
 			$marca = " checked = 'checked'";
 		}
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
-		{$caducada="Sí";} else {$caducada="No";}
+		{$caducada="SÃ­";} else {$caducada="No";}
 		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha"); 
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";
-				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
+				if($medida == "AmonestaciÃ³n escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
 				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
 				
 				if($aula_conv > 0){
-					if ($horas == "123456") {
+					if ($horas == "123R456") {
 						$bgcolor="class='aula-convivencia-jefatura'";
 					}
 					else{
@@ -172,7 +172,7 @@ if ($config['mod_convivencia']==1) {
 				}	
 				
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
-				if($recibido == '1'){$comentarios1="<i class='fa fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='fa fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificaciÃ³n.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificaciÃ³n.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
@@ -210,7 +210,7 @@ if ($config['mod_convivencia']==1) {
 			echo "<input type='checkbox' name='confirmado' value='1' $marca data-bs='tooltip' title='El problema de conducta Muy grave ha sido confirmado por el Jefe de Estudios.' />";			
 		}
 		elseif (stristr($_SESSION['cargo'],'1') and $grave=="muy grave" and $confirmado!=="1") {
-			echo "<input type='checkbox' name='confirmado' value='' $marca data-bs='tooltip' title='El problema de conducta Muy grave está pendiente de confrimación por parte del Jefe de Estudios. Para completar el proceso de registro, pulsa sobre el icono de edición y actualiza los datos en el formulario.'/>";
+			echo "<input type='checkbox' name='confirmado' value='' $marca data-bs='tooltip' title='El problema de conducta Muy grave estÃ¡ pendiente de confrimaciÃ³n por parte del Jefe de Estudios. Para completar el proceso de registro, pulsa sobre el icono de ediciÃ³n y actualiza los datos en el formulario.'/>";
 		}		
 		echo "</td></tr>";
         }
@@ -237,14 +237,14 @@ if ($config['mod_convivencia']==1) {
     		
     		"language": {
     		            "lengthMenu": "_MENU_",
-    		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-    		            "info": "Página _PAGE_ de _PAGES_",
+    		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+    		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
     		            "infoEmpty": "No hay resultados disponibles.",
     		            "infoFiltered": "(filtrado de _MAX_ resultados)",
     		            "search": "Buscar: ",
     		            "paginate": {
     		                  "first": "Primera",
-    		                  "next": "Última",
+    		                  "next": "Ãšltima",
     		                  "next": "",
     		                  "previous": ""
     		                }

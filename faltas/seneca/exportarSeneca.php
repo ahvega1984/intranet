@@ -15,7 +15,7 @@ $cont_falt=0;
 
 
 if (!isset($_GET['iniciofalta']) && !isset($_GET['finfalta'])) {
-	die("Error: Debe introducir los par·metros FECHA_DESDE y FECHA_HASTA para generar el archivo.");
+	die("Error: Debe introducir los par√°metros FECHA_DESDE y FECHA_HASTA para generar el archivo.");
 }
 
 $FECHA_DESDE = $_GET['iniciofalta'];
@@ -43,7 +43,7 @@ $flag_curso="";		// Controla que no imprima el curso por cada unidad.
 
 
 // CABECERA DEL DOCUMENTO XML
-$docXML  = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
+$docXML  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n";
 $docXML .= "<SERVICIO>\n";
 $docXML .= "\t<DATOS_GENERALES>\n";
 $docXML .= "\t\t<MODULO>FALTAS DE ASISTENCIA</MODULO>\n";
@@ -66,7 +66,7 @@ foreach ($directorio as $archivo) {
 	
     if (!is_dir($archivo) and stristr($archivo,".xml")==TRUE)
     {               
-        $doc = new DOMDocument('1.0', 'iso-8859-1');
+        $doc = new DOMDocument('1.0', 'UTF-8');
         $doc->load( './origen/'.$archivo );
         
         // Obtenemos los datos del curso
@@ -138,11 +138,11 @@ foreach ($directorio as $archivo) {
 	        	elseif($faltas[2]=="R"){
 	        		$faltas_tipo = "R";
 	        	}
-	        	// Obtenemos la fecha de la falta en formato SÈneca
+	        	// Obtenemos la fecha de la falta en formato S√©neca
 	        	$F_FALASI = fecha_seneca($faltas[0]);
 	        	
-	        	// Obtenemos el cÛdigo de tramo
-	        	// if ($faltas[1] > 3) $faltas[1]++; // No es lo m·s Ûptimo, pero soluciona el problema... :/
+	        	// Obtenemos el c√≥digo de tramo
+	        	// if ($faltas[1] > 3) $faltas[1]++; // No es lo m√°s √≥ptimo, pero soluciona el problema... :/
 	        	$result_tramos = mysqli_query($db_con, "SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
 	        	$tramos = mysqli_fetch_array($result_tramos);
 	        	
@@ -182,7 +182,7 @@ $docXML .= "\t</CURSOS>\n";
 $docXML .= "</SERVICIO>";
 
 
-// CREACI√ìN DEL DOCUMENTO XML
+// CREACI√É¬ìN DEL DOCUMENTO XML
 $directorio = "./exportado/";
 $archivo = "Importacion_Faltas_Alumnado.xml";
 $fopen = fopen($directorio.$archivo, "w");
@@ -217,7 +217,7 @@ if ($MODO_DEPURACION) {
 		
 		$error=0;
 		if ($diasem == 0 || $diasem == 6 || $filas>1) {
-			echo "<span style='color:red'>$dias[$i]  -->  $diasem (Es dÌa festivo o fin de semana: (6) S·bado, (0) Domingo)</span><br>";
+			echo "<span style='color:red'>$dias[$i]  -->  $diasem (Es d√≠a festivo o fin de semana: (6) S√°bado, (0) Domingo)</span><br>";
 			$error=1;
 		}
 		

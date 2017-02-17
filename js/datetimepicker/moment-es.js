@@ -1,6 +1,6 @@
 // moment.js locale configuration
 // locale : spanish (es)
-// author : Julio Napurí : https://github.com/julionc
+// author : Julio NapurÃ­ : https://github.com/julionc
 
 (function (factory) {
     factory(moment);
@@ -17,9 +17,9 @@
                 return monthsShortDot[m.month()];
             }
         },
-        weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
-        weekdaysShort : "Dom._Lun._Mar._Mié._Jue._Vie._Sáb.".split("_"),
-        weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
+        weekdays : "Domingo_Lunes_Martes_MiÃ©rcoles_Jueves_Viernes_SÃ¡bado".split("_"),
+        weekdaysShort : "Dom._Lun._Mar._MiÃ©._Jue._Vie._SÃ¡b.".split("_"),
+        weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_SÃ¡".split("_"),
         longDateFormat : {
             LT : "H:mm",
             L : "DD/MM/YYYY",
@@ -32,7 +32,7 @@
                 return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
             },
             nextDay : function () {
-                return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+                return '[maÃ±ana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
             },
             nextWeek : function () {
                 return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
@@ -53,14 +53,14 @@
             mm : "%d minutos",
             h : "una hora",
             hh : "%d horas",
-            d : "un día",
-            dd : "%d días",
+            d : "un dÃ­a",
+            dd : "%d dÃ­as",
             M : "un mes",
             MM : "%d meses",
-            y : "un año",
-            yy : "%d años"
+            y : "un aÃ±o",
+            yy : "%d aÃ±os"
         },
-        ordinal : '%dº',
+        ordinal : '%dÂº',
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4th is the first week of the year.

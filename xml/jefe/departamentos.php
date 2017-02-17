@@ -9,7 +9,7 @@ include("../../menu.php");
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Administración <small> Departamentos del Centro</small></h2>
+	  <h2>AdministraciÃ³n <small> Departamentos del Centro</small></h2>
 	</div>
 	
 	<div id="status-loading" class="text-center">
@@ -47,23 +47,23 @@ include("../../menu.php");
 				// Importamos los datos del fichero CSV 
 				$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h5>ATENCIÓN:</h5>
-				No se ha podido abrir el archivo RelPerCen.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+							<h5>ATENCIÃ“N:</h5>
+				No se ha podido abrir el archivo RelPerCen.txt. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
 				</div></div><br />
 				<div align="center">
-				  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+				  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 				</div><br />'); 
 				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 				{
 				$dep_mod = trim($data1[2]);
-				$dep_mod = str_replace("(Inglés)","",$dep_mod);
-				$dep_mod = str_replace("(Francés)","",$dep_mod);
-				$dep_mod = str_replace("(Alemán)","",$dep_mod);
+				$dep_mod = str_replace("(InglÃ©s)","",$dep_mod);
+				$dep_mod = str_replace("(FrancÃ©s)","",$dep_mod);
+				$dep_mod = str_replace("(AlemÃ¡n)","",$dep_mod);
 				$dep_mod = str_replace("P.E.S.","",$dep_mod);
 				$dep_mod = str_replace(" P.T.F.P","",$dep_mod);
 				$dep_mod = str_replace("(Secundaria)","",$dep_mod);
-				$dep_mod = trim($dep_mod);
-				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". $dep_mod . "\",\"". trim($data1[5]) . "\")";
+				$dep_mod = trim(utf8_encode($dep_mod));
+				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim($data1[1]) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\")";
 				mysqli_query($db_con, $datos1);
 				}
 				fclose($handle);
@@ -79,7 +79,7 @@ include("../../menu.php");
 				echo "
 				<br /><div align='center'><div class='alert alert-success alert-block fade in'>
 				            <button type='button'' class='close' data-dismiss='alert'>&times;</button>
-				Tabla <strong>Departamentos</strong>: los siguientes Profesores han sido añadidos a la tabla. <br>Comprueba los registros creados:</div></div>";
+				Tabla <strong>Departamentos</strong>: los siguientes Profesores han sido aÃ±adidos a la tabla. <br>Comprueba los registros creados:</div></div>";
 				while($elimina2 = mysqli_fetch_array($elimina1))
 				{
 				echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li>";
@@ -91,8 +91,8 @@ include("../../menu.php");
 				else {
 					echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h5>ATENCIÓN:</h5>
-				Tabla <strong>Departamentos</strong>: No se ha añadido ningún registro a la tabla.
+							<h5>ATENCIÃ“N:</h5>
+				Tabla <strong>Departamentos</strong>: No se ha aÃ±adido ningÃºn registro a la tabla.
 				</div></div>';
 					}
 				
@@ -110,13 +110,13 @@ include("../../menu.php");
 				}
 				}
 				// Usuario
-				  // Actualización de IDEA de los Profesores del Centro.
+				  // ActualizaciÃ³n de IDEA de los Profesores del Centro.
 				$SQL1 = "select distinct nombre, dni, idea from departamentos where nombre NOT IN (select distinct profesor from c_profes) and departamento not like '%Conserjer%' and idea not like 'admin'";
 				$result1 = mysqli_query($db_con, $SQL1);
 				$total = mysqli_num_rows($result1);
 				if ($total !== 0)
 				{
-					echo "<div class='form-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido añadidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
+					echo "<div class='form-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido aÃ±adidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
 				while  ($row1= mysqli_fetch_array($result1))
 				 {
 				$SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". sha1($row1[1]) . "\",\"". $row1[2] . "\")";
@@ -173,11 +173,11 @@ include("../../menu.php");
 				 {
 				 $fpprof=fopen("TIC/profesores.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h5>ATENCIÓN:</h5>
-				No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
+							<h5>ATENCIÃ“N:</h5>
+				No se ha podido escribir en el archivo TIC/profesores.txt. Â¿Has concedido permiso de escritura en ese directorio?
 				</div></div><br />
 				<div align="center">
-				  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+				  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 				</div>'); 
 				 }
 				 $pepito=fwrite($fpprof,$todoprof);
@@ -211,11 +211,11 @@ include("../../menu.php");
 				 {
 				 $fpprof1=fopen("TIC/profesores_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h5>ATENCIÓN:</h5>
-				No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
+							<h5>ATENCIÃ“N:</h5>
+				No se ha podido escribir en el archivo TIC/profesores.txt. Â¿Has concedido permiso de escritura en ese directorio?
 				</div></div><br />
 				<div align="center">
-				  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+				  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 				</div>'); 
 				 }
 				 $pepito1=fwrite($fpprof1,$todos_moodle);
@@ -228,8 +228,8 @@ include("../../menu.php");
 				else{
 					echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h5>ATENCIÓN:</h5>
-				Parece que te está olvidando de enviar el archivo con los datos de los Profesores. Asegúrate de enviar el archivo descargado desde Séneca.
+							<h5>ATENCIÃ“N:</h5>
+				Parece que te estÃ¡ olvidando de enviar el archivo con los datos de los Profesores. AsegÃºrate de enviar el archivo descargado desde SÃ©neca.
 				</div></div><br />';
 				}
 				
@@ -257,7 +257,7 @@ include("../../menu.php");
 				?>
 			
 				<div class="text-center">
-					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
+					 <a href="../index.php" class="btn btn-primary">Volver a AdministraciÃ³n</a>
 				</div>
 			
 			</div><!-- /.well -->

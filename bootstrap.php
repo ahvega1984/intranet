@@ -1,13 +1,13 @@
 <?php
-if (ini_get('default_charset') != "iso-8859-1" && ini_get('default_charset') != "ISO-8859-1") {
-	ini_set("default_charset", "iso-8859-1");
+if (ini_get('default_charset') != "UTF-8" && ini_get('default_charset') != "UTF-8") {
+	ini_set("default_charset", "UTF-8");
 }
 
-if (version_compare(phpversion(), '5.5.38', '<')) die ("<h1>Versi髇 de PHP incompatible</h1>\n<p>Necesita PHP 5.5.38 o superior para poder utilizar esta aplicaci髇.</p>");
+if (version_compare(phpversion(), '5.5.38', '<')) die ("<h1>Versi贸n de PHP incompatible</h1>\n<p>Necesita PHP 5.5.38 o superior para poder utilizar esta aplicaci贸n.</p>");
 
 session_start();
 
-// CONFIGURACI覰 INICIAL
+// CONFIGURACI脫N INICIAL
 error_reporting(0);
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, 'es_ES');
@@ -56,8 +56,9 @@ else {
 	
 }
 
-// CONEXI覰 A LA BASE DE DATOS
+// CONEXI脫N A LA BASE DE DATOS
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+mysqli_query($db_con,"SET NAMES 'utf8'");
 
 
 if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/salir.php') {
@@ -109,7 +110,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	
 	// VER COMO USUARIO
 	
-	// Es el Administrador de la Aplicaci髇.
+	// Es el Administrador de la Aplicaci贸n.
 	if (($_SESSION['ide'] == 'admin') || (stristr($_SESSION['cargo'],'0') == TRUE)) {
 		$_SESSION['user_admin'] = 1;
 	}
@@ -118,7 +119,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		$_SESSION['profi'] = $_POST['view_as_user'];
 		$profe = $_SESSION['profi'];
 		
-		// Variables de sesi髇 del cargo del Profesor
+		// Variables de sesi贸n del cargo del Profesor
 		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
 		$cargo1 = mysqli_fetch_array ( $cargo0 );
 		$_SESSION['cargo'] = $cargo1 [0];
@@ -166,5 +167,5 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 $pr = $_SESSION['profi']; // Nombre
 $carg = $_SESSION['cargo']; // Perfil
 $dpto = $_SESSION['dpt']; // Departamento
-$idea = $_SESSION['ide']; // Usuario iDea de S閚eca
+$idea = $_SESSION['ide']; // Usuario iDea de S茅neca
 $n_curso = $_SESSION['n_cursos']; // Tiene Horario

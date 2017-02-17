@@ -25,7 +25,7 @@ include '../../menu.php';
 			font-size: 1.5em;
 		}
 		
-		.fa-4x {
+		.fa-4xÂ {
 			font-size: 0.5em;
 		}
 		

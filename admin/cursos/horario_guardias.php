@@ -7,7 +7,7 @@ $profesor = $_SESSION['profi'];
 if (isset($_POST['n_dia'])) {$n_dia = $_POST['n_dia'];} elseif (isset($_GET['n_dia'])) {$n_dia = $_GET['n_dia'];} else{$n_dia="";}
 if ($n_dia == 'Lunes') {	$dia = '1';}
 if ($n_dia == 'Martes') { $dia = '2';}
-if ($n_dia == 'Miércoles') {	$dia = '3';}
+if ($n_dia == 'MiÃ©rcoles') {	$dia = '3';}
 if ($n_dia == 'Jueves') {	$dia = '4';}
 if ($n_dia == 'Viernes') {	$dia = '5';}
 
@@ -20,7 +20,7 @@ include("../../menu.php");
 	<div class="page-header">
 		<h2 style="display: inline;"><?php echo $n_dia; ?> <small>Consulta de Guardias</small></h2>
 		
-		<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
+		<?php $dias = array('Lunes','Martes','MiÃ©rcoles','Jueves','Viernes'); ?>
 		<form class="pull-right col-sm-2" method="post" action="">
 			<select class="form-control" id="n_dia" name="n_dia" onChange="submit()">
 				<?php for($i = 0; $i < count($dias); $i++): ?>	
@@ -83,7 +83,7 @@ include("../../menu.php");
 			<div class="hidden-print">
 				<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
 				<a class="btn btn-default" href="chorarios.php">Volver</a>
-				<a class="btn btn-info" href="hor_guardias.php">Estadísticas</a>
+				<a class="btn btn-info" href="hor_guardias.php">EstadÃ­sticas</a>
 			</div>
 		
 		</div><!-- /.col-sm-12 -->

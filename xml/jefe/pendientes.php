@@ -33,6 +33,6 @@ if (mysqli_num_rows($asig2)>0) {
 <div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h5>ALUMNOS CON ASIGNATURAS PENDIENTES:</h5>
-Los alumnos con asignaturas pendientes han sido importados en la base de datos. Ya es posible realizar consultas y ver listados de pendientes por Grupo o Asignatura (Menú de la página principal ==> Consultas ==> Listados ==> Listas de Pendientes).
+Los alumnos con asignaturas pendientes han sido importados en la base de datos. Ya es posible realizar consultas y ver listados de pendientes por Grupo o Asignatura (MenÃº de la pÃ¡gina principal ==> Consultas ==> Listados ==> Listas de Pendientes).
 </div>
  <br />

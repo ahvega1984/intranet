@@ -18,7 +18,7 @@ input[type=number] {
 
 <div class="container">
 <div class="page-header">
-		<h2>Evaluación de Pendientes <small>Alumnos con la asignatura pendiente</small></h2>
+		<h2>EvaluaciÃ³n de Pendientes <small>Alumnos con la asignatura pendiente</small></h2>
 </div>
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
@@ -70,7 +70,7 @@ $profe_dep = $_SESSION ['profi'];
 
 echo '<legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';
 echo '<form action="lista_pendientes.php" method="POST">';
-echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
+echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th nowrap>1Âª Ev.</th><th nowrap>2Âª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
 
 if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
@@ -127,7 +127,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 echo "</tbody></table>";
 echo "<input type='hidden' name='select' value='$asig_pendiente' />";
 echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary' />";
-echo '<a href="index.php" class="btn btn-default pull-right">Volver a la página de Pendientes</a>';
+echo '<a href="index.php" class="btn btn-default pull-right">Volver a la pÃ¡gina de Pendientes</a>';
 echo "</form>";
 
 ?>
@@ -138,7 +138,7 @@ echo "</form>";
 <?php include("../../pie.php"); ?>
 <script type="text/javascript">
 
-/*Desactivar rueda del ratón en campos numéricos*/
+/*Desactivar rueda del ratÃ³n en campos numÃ©ricos*/
 
 $('form').on('focus', 'input[type=number]', function (e) {
 $(this).on('mousewheel.disableScroll', function (e) {
@@ -152,7 +152,7 @@ $(this).off('mousewheel.disableScroll')
 
 <script type="text/javascript">
 
-/*Modificar función de la tecla Intro para desplazarse por columna de datos*/
+/*Modificar funciÃ³n de la tecla Intro para desplazarse por columna de datos*/
 
 $('table input').keypress(function(e) {
     if (e.keyCode == 13) {

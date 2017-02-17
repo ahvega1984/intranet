@@ -5,8 +5,8 @@ if (!$fecha_reg or !$observaciones or !$causa or !$accion)
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No has introducido datos en alguno de los campos , y <strong> todos son obligatorios</strong>.<br> Vuelve atrás e inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+No has introducido datos en alguno de los campos , y <strong> todos son obligatorios</strong>.<br> Vuelve atrÃ¡s e intÃ©ntalo de nuevo.
 </div></div><br />';
 exit();
 }
@@ -31,8 +31,8 @@ $tt = mysqli_query($db_con,"select idea from departamentos where nombre like (se
 $tt0 = mysqli_fetch_row($tt);
 $tutor_real = $tt0[0];
 
-$asunto = "Nueva Intervención de Tutoría desde Jefatura de Estudios";
-$texto = "Jefatura de Estudios ha registrado una intervención sobre todos los alumnos de tu Tutoría. Podrás leerla en la lista de intervenciones del alumno de la página del tutor.";
+$asunto = "Nueva IntervenciÃ³n de TutorÃ­a desde Jefatura de Estudios";
+$texto = "Jefatura de Estudios ha registrado una intervenciÃ³n sobre todos los alumnos de tu TutorÃ­a. PodrÃ¡s leerla en la lista de intervenciones del alumno de la pÃ¡gina del tutor.";
 $profesor = $_SESSION['profi'];
 
 $query0="insert into mens_texto (asunto, texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
@@ -76,8 +76,8 @@ $tt = mysqli_query($db_con,"select idea from departamentos where nombre like (se
 $tt0 = mysqli_fetch_row($tt);
 $tutor_real = $tt0[0];
 
-$asunto = "Nueva Intervención de Tutoría desde Jefatura de Estudios";
-$texto = "Jefatura de Estudios ha registrado una intervención sobre el alumno $nombre $apellidos de tu Tutoría. Podrás leerla en la lista de intervenciones del alumno de la página del tutor.";
+$asunto = "Nueva IntervenciÃ³n de TutorÃ­a desde Jefatura de Estudios";
+$texto = "Jefatura de Estudios ha registrado una intervenciÃ³n sobre el alumno $nombre $apellidos de tu TutorÃ­a. PodrÃ¡s leerla en la lista de intervenciones del alumno de la pÃ¡gina del tutor.";
 $profesor = $_SESSION['profi'];
 
 $query0="insert into mens_texto (asunto, texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";

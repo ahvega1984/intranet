@@ -88,7 +88,7 @@ include("menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Evaluaciones del tutor (<?php echo $evaluacion; ?>)</small></h2>
+		<h2 style="display:inline;">TutorÃ­a de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Evaluaciones del tutor (<?php echo $evaluacion; ?>)</small></h2>
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -104,15 +104,15 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El módulo está abierto a Tutores, Equipo Directivo y Departamento de Orientación.</p>
-						<p>El Informe de Evaluaciones presenta los datos más importantes que conviene tener en 
-						cuenta en el proceso de evaluación de un alumno de la ESO: Edad, Cursos repetidos, PIL, 
-						Exención de optativas, Refuerzo y Asignaturas pendientes. <br>Puede ser utilizado como 
-						fuente de información en las Sesiones de Evaluación. También puede utilizarse como un 
-						diario donde el Tutor, el Equipo Directivo o el Departamento de Orientación registran 
-						los datos más relevantes en el campo de texto 'Observaciones'. Este campo es persistente: 
-						si en la Evaluación Ordinaria coloco el ratón sobre el mismo aparecerán en un cuadro 
-						superpuesto las observaciones realizadas en las anteriores Sesiones de Evaluación.</p>
+						<p>El mÃ³dulo estÃ¡ abierto a Tutores, Equipo Directivo y Departamento de OrientaciÃ³n.</p>
+						<p>El Informe de Evaluaciones presenta los datos mÃ¡s importantes que conviene tener en 
+						cuenta en el proceso de evaluaciÃ³n de un alumno de la ESO: Edad, Cursos repetidos, PIL, 
+						ExenciÃ³n de optativas, Refuerzo y Asignaturas pendientes. <br>Puede ser utilizado como 
+						fuente de informaciÃ³n en las Sesiones de EvaluaciÃ³n. TambiÃ©n puede utilizarse como un 
+						diario donde el Tutor, el Equipo Directivo o el Departamento de OrientaciÃ³n registran 
+						los datos mÃ¡s relevantes en el campo de texto 'Observaciones'. Este campo es persistente: 
+						si en la EvaluaciÃ³n Ordinaria coloco el ratÃ³n sobre el mismo aparecerÃ¡n en un cuadro 
+						superpuesto las observaciones realizadas en las anteriores Sesiones de EvaluaciÃ³n.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -146,15 +146,15 @@ include("menu.php");
 
 <div class="col-sm-12">
 <input type='hidden' name='unidad' value='<?php echo $curso; ?>' />
-<legend>Seleccione evaluación</legend>
+<legend>Seleccione evaluaciÃ³n</legend>
 <div class="form-group">
 <select class="form-control" id="evaluacion" name="evaluacion" onchange="submit()">
 	<option><?php if (isset($_POST['evaluacion'])) {
 		echo $evaluacion;
 	} ?></option>
 	<option>Ev. Inicial</option>
-	<option>1ª Evaluacion</option>
-	<option>2ª Evaluacion</option>
+	<option>1Âª Evaluacion</option>
+	<option>2Âª Evaluacion</option>
 	<option>Ev.Ordinaria</option>
 	<option>Ev.Extraordinaria</option>
 	</select>
@@ -209,7 +209,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 			<th>Pend.</th>
 			<th>Observaciones</th>
 			<?php if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
-			<th>Orientación</th>
+			<th>OrientaciÃ³n</th>
 			<th>Otros</th>
 			<?php }?>
 		</tr>
@@ -238,7 +238,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 				if (mysqli_num_rows($result_transito)>0) {
 				?>
 				<br>
-				<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" target="_blank" class="fa fa-user fa-lg text-info" data-bs="tooltip" data-html="true" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"></a>
+				<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" target="_blank" class="fa fa-user fa-lg text-info" data-bs="tooltip" data-html="true" title="Ver el Informe de TrÃ¡nsito de Primaria disponible para el alumno"></a>
 				<?php
 				}
 				?>				
@@ -254,7 +254,7 @@ $rep_primaria="";
 $result_transito = mysqli_query($db_con, "SELECT dato FROM `transito_datos` WHERE `tipo` LIKE 'repetici%' and claveal='".$claveal."'");
 while ($r_c = mysqli_fetch_array($result_transito)) {
 	$rep_prim = trim($r_c[0]);
-	$rep_primaria="Prim: ".$rep_prim."º; ";
+	$rep_primaria="Prim: ".$rep_prim."Âº; ";
 }
 $chk1 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'rep'");
 if (mysqli_num_rows($chk1)>0) {
@@ -267,14 +267,14 @@ $repi_db=mysqli_query($db_con,"select matriculas, curso from ".$config['db_name'
 
 if (mysqli_num_rows($repi_db)>0) {
 $repit_db = mysqli_fetch_array($repi_db);
-$repite=substr($repit_db[1],0,1)."º, ";
+$repite=substr($repit_db[1],0,1)."Âº, ";
 }
 	for ($i = 0; $i < 5; $i++) {
 	$ano = $config['db_name']."".($index-$i);
 		$repi=mysqli_query($db_con,"select matriculas, curso from $ano.alma where claveal='".$row['claveal']."' and matriculas>'1'");
 		if (mysqli_num_rows($repi)>0) {
 		$repit = mysqli_fetch_array($repi);	
-		$repite.=substr($repit[1],0,1)."º, ";
+		$repite.=substr($repit[1],0,1)."Âº, ";
 	}
 	}
 	if (strlen($repite)>0) {

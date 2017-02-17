@@ -8,7 +8,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-<h2>Biblioteca <small> EdiciÛn de morosos</small></h2>
+<h2>Biblioteca <small> Edici√≥n de morosos</small></h2>
 </div>
 <br>
 
@@ -23,11 +23,11 @@ if(isset($_FILES['archivo'])){
 	$handle = fopen ($_FILES['archivo']['tmp_name'] , 'r' ) or die
 	('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI”N:</legend>
-No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o el archivo est· corrompido.
+			<legend>ATENCI√ìN:</legend>
+No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o el archivo est√° corrompido.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr√°s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 	while (($data1 = fgetcsv($handle, 1000, ";")) !== FALSE)
 	{
@@ -61,16 +61,16 @@ No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o
 	}
 
 		
-	$borrar1 = mysqli_query($db_con, "delete from morosos where curso='Informe' or curso like 'Abies%' or apellidos like 'DepÛsito'");
+	$borrar1 = mysqli_query($db_con, "delete from morosos where curso='Informe' or curso like 'Abies%' or apellidos like 'Dep√≥sito'");
 	
 	?>
 <div align="center">
 <div class="alert alert-success alert-block fade in">
-La actualizaciÛn se ha realizado con Èxito. Vuelve atr·s y compruÈbalo. </div>
+La actualizaci√≥n se ha realizado con √©xito. Vuelve atr√°s y compru√©balo. </div>
 </div>
 <br />
 <div align="center">
-	<input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+	<input type="button" value="Volver atr√°s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 
 	<?php

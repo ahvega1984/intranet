@@ -54,7 +54,7 @@ foreach($cursos as $unidad)
  				}	
 }
 
-  	// Borramos datos en casillas de verificación visibles
+  	// Borramos datos en casillas de verificaciÃ³n visibles
   	$contr = mysqli_query($db_con, "select id from notas_cuaderno where profesor = '$profesor' and Tipo like 'Casilla%' and oculto = '0'");
   	while($control_veri = mysqli_fetch_array($contr)){
   		//echo "Borramos registro $claveal ==> $id<br />";

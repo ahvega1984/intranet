@@ -67,7 +67,7 @@ echo "</td></tr></table><br />";
 		$unidad = $filatutor[0];
 		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$unidad</span></h4><br />";
 		echo '<div class="well well-large">';
-// Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
+// Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
 		$nivelgrupo0 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc");
 		$todos = mysqli_num_rows($nivelgrupo0);
 	function IS_ODD($number) { return($number & 1); }

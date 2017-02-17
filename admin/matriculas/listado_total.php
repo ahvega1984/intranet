@@ -10,7 +10,7 @@ $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas where grupo_actual != '' order by curso, grupo_actual");
 while($total = mysqli_fetch_array($tot)){
-# hasta aquÃ­ lo del pdf
+# hasta aquÃƒÂ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -49,7 +49,7 @@ for ($i = 2; $i < 9; $i++) {
 			$datatmp[$i]="";
 		}
 	}
-	// Diversificación
+	// DiversificaciÃ³n
 if ($datatmp['diversificacion']=="1") {
 			$datatmp['diversificacion']="X";
 		}
@@ -59,7 +59,7 @@ if ($datatmp['diversificacion']=="1") {
 }
 else {
 if ($curso=="2ESO") {
-	// Diversificación
+	// DiversificaciÃ³n
 	if ($datatmp['diversificacion']=="1") {
 			$datatmp['diversificacion']="X";
 		}
@@ -107,20 +107,20 @@ if (strstr($datatmp['religion'],"Cat")==TRUE) {
 
 if ($curso=="3ESO") {
 
-	$act = "
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,4 => Ampliación: Lengua, 5 => Ampliación: Matemáticas, 6 => Ampliación: Inglés";
+	$act = utf8_decode("
+	Actividades de Refuerzo y AmpliaciÃ³n:
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de MatemÃ¡ticas, 3 => Actividades de refuerzo de InglÃ©s,4 => AmpliaciÃ³n: Lengua, 5 => AmpliaciÃ³n: MatemÃ¡ticas, 6 => AmpliaciÃ³n: InglÃ©s");
 
-	$opt = "
+	$opt = utf8_decode("
 	
 	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Cultura Clásica, 5 => Taller T.I.C. III,	6 => Taller de Cerámica, 7 => Taller de Teatro
+	1 => AlemÃ¡n 2Âº Idioma,	2 => Cambios Sociales y GÃ©nero,	3 => FrancÃ©s 2Âº Idioma,	4 => Cultura ClÃ¡sica, 5 => Taller T.I.C. III,	6 => Taller de CerÃ¡mica, 7 => Taller de Teatro
 	
-	Matemáticas: A => Mat. Académicas; B => Mat. Enseñanzas Aplicadas";
+	MatemÃ¡ticas: A => Mat. AcadÃ©micas; B => Mat. EnseÃ±anzas Aplicadas");
 	if ($div_3 == $grupo_actual) {
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0].$bil,
+				'nombre'=>utf8_decode($datatmp[0]).$bil,
 				'c9'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -135,7 +135,7 @@ if ($curso=="3ESO") {
 				
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c9'=>'Rel. Cat.',
 				'c2'=>'O1',
@@ -153,7 +153,7 @@ if ($curso=="3ESO") {
 	else{
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0].$bil,
+				'nombre'=>utf8_decode($datatmp[0]).$bil,
 				'c10'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -166,7 +166,7 @@ if ($curso=="3ESO") {
 				'c11'=>$datatmp['act1'],
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c10'=>'Rel. Cat.',
 				'c2'=>'O1',
@@ -184,18 +184,18 @@ if ($curso=="3ESO") {
 
 if ($curso=="2ESO") {
 	
-		$act = "
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,4 => Ampliación: Taller T.I.C. II, 5 => Ampliación: Taller de Teatro II";	
+		$act = utf8_decode("
+	Actividades de Refuerzo y AmpliaciÃ³n:
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de MatemÃ¡ticas, 3 => Actividades de refuerzo de InglÃ©s,4 => AmpliaciÃ³n: Taller T.I.C. II, 5 => AmpliaciÃ³n: Taller de Teatro II");	
 		
-		$opt = "
+		$opt = utf8_decode("
 	
 	Optativas:
-	1 => Alemán 2º Idioma, 2 => Cambios Sociales y Género,	3 => Francés 2º Idioma";
+	1 => AlemÃ¡n 2Âº Idioma, 2 => Cambios Sociales y GÃ©nero,	3 => FrancÃ©s 2Âº Idioma");
 	if ($div_3 == $grupo_actual) {
 				$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				'c7'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -205,7 +205,7 @@ if ($curso=="2ESO") {
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c7'=>'Rel. Cat.',
 				'c2'=>'Opt1',
@@ -218,7 +218,7 @@ if ($curso=="2ESO") {
 	else{
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				'c7'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -227,7 +227,7 @@ if ($curso=="2ESO") {
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c7'=>'Rel. Cat.',
 				'c2'=>'Opt1',
@@ -241,17 +241,17 @@ if ($curso=="2ESO") {
 
 
 if ($curso=="1ESO") {
-	$act = "
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro";			
-		$opt = "
+	$act = utf8_decode("
+	Actividades de Refuerzo y AmpliaciÃ³n:
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de MatemÃ¡ticas, 3 => Actividades de refuerzo de InglÃ©s,	4 => AmpliaciÃ³n: Taller T.I.C., 5 => AmpliaciÃ³n: Taller de Teatro");			
+		$opt = utf8_decode("
 					
 	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género, 3 => Francés 2º Idioma,	4 => Tecnología Aplicada";
+	1 => AlemÃ¡n 2Âº Idioma,	2 => Cambios Sociales y GÃ©nero, 3 => FrancÃ©s 2Âº Idioma,	4 => TecnologÃ­a Aplicada");
 	
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				'c7'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -261,7 +261,7 @@ if ($curso=="1ESO") {
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c7'=>'Rel. Cat.',
 				'c2'=>'Opt1',
@@ -275,18 +275,18 @@ if ($curso=="1ESO") {
 
 if ($curso=="4ESO") {
 
-		$opt = "
+		$opt = utf8_decode("
 	
-	Optativas Modalidad Itinerario 1 (Bachillerato de Ciencias -> Matemáticas Académicas):
-	1 => Tecnología,	2 => Física y Química,	3 => Biología y Geología, 4 => Economía.
-	Optativas Modalidad Itinerario 2 (Bachillerato de Humanidades y Ciencias Sociales -> Matemáticas Académicas):
-	1 => Latín,	2 => Economía.
-	Optativas Modalidad Itinerario 3 (Ciclos Formativos y Mundo Laboral -> Matemáticas Aplicadas):
-	1 => Tecnología,	2 => Ciencias Aplicadas a la Actividad Profesional,	3 => Iniciación a la Actividad Emprendedora y Empresaria.
+	Optativas Modalidad Itinerario 1 (Bachillerato de Ciencias -> MatemÃ¡ticas AcadÃ©micas):
+	1 => TecnologÃ­a,	2 => FÃ­sica y QuÃ­mica,	3 => BiologÃ­a y GeologÃ­a, 4 => EconomÃ­a.
+	Optativas Modalidad Itinerario 2 (Bachillerato de Humanidades y Ciencias Sociales -> MatemÃ¡ticas AcadÃ©micas):
+	1 => LatÃ­n,	2 => EconomÃ­a.
+	Optativas Modalidad Itinerario 3 (Ciclos Formativos y Mundo Laboral -> MatemÃ¡ticas Aplicadas):
+	1 => TecnologÃ­a,	2 => Ciencias Aplicadas a la Actividad Profesional,	3 => IniciaciÃ³n a la Actividad Emprendedora y Empresaria.
 
 	Optativas Generales:
-	1 => Alemán 2º Idioma, 2 => Francés 2º Idioma, 3 => TIC, 4 => Ed. Plástica y Visual, 5 => Música.
-	";
+	1 => AlemÃ¡n 2Âº Idioma, 2 => FrancÃ©s 2Âº Idioma, 3 => TIC, 4 => Ed. PlÃ¡stica y Visual, 5 => MÃºsica.
+	");
 
 if ($datatmp['itinerario']==1) {
 	$extra_itin="(".$datatmp['ciencias4'].")";
@@ -319,7 +319,7 @@ $data[] = array(
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c8'=>'Rel. Cat.',
 				'It.'=>'Itiner.',
@@ -344,8 +344,9 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $curso-$grupo_actual\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+
+$txttit = "Lista del Grupo ".$curso."-".$grupo_actual."\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

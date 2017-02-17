@@ -5,7 +5,7 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -20,18 +20,18 @@ while($asigtmp = mysqli_fetch_array($codasig)) {
 	$asignatura[$asigtmp[0]] = $asigtmp[1].'('.substr($asigtmp[2],0,2).')';
 	} 
 $libd12 = "
-LIBD1: Ref. Lengua; LIBD2: Ref. Matemáticas; LIBD3: Ref. Inglés; LIBD4: Taller TIC; LIBD5: Taller Teatro.
+LIBD1: Ref. Lengua; LIBD2: Ref. MatemÃ¡ticas; LIBD3: Ref. InglÃ©s; LIBD4: Taller TIC; LIBD5: Taller Teatro.
 ";
 $lc3 = "
-OPLC1: TALLER TIC; OPLC2: TALLER CERÁMICA; OPLC3: TALLER TEATRO.
+OPLC1: TALLER TIC; OPLC2: TALLER CERÃMICA; OPLC3: TALLER TEATRO.
 ";
 $lc1b = "
-OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
+OPLC1: Ed. FÃ­sica; OPLC2: EstadÃ­stica; OPLC3: FrancÃ©s.
 ";
 if (isset($_GET['unidad'])) {
 
 $matr="";
-$crs = mysqli_query($db_con,"select curso from alma where unidad = '".$_GET['unidad']."'");
+$crs = mysqli_query($db_con,"select curso from alma where unidad = '".utf8_decode($_GET['unidad'])."'");
 $curso_a = mysqli_fetch_array($crs);
 if(stristr($curso_a[0],"Bachill")==TRUE){$matr = 'matriculas_bach';}elseif(stristr($curso_a[0],"E.S.O.")==TRUE){$matr = 'matriculas';}
 
@@ -63,13 +63,13 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	}
 	}
 	
-	$data[] = array(
+$data[] = array(
 				'num'=>$datatmp[1],
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 }
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>'   ',
 				'c2'=>'   ',
@@ -92,7 +92,7 @@ $options = array(
 				'width'=>500
 			);
 $txttit = "Lista del Grupo ".$_GET['unidad']."\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
@@ -103,7 +103,7 @@ $pdf->ezNewPage();
 		
 foreach ($_POST['unidad'] as $unida){
 $tr_c = explode(" -> ",$unida);
-$tr_unidad = $tr_c[0];
+$tr_unidad = utf8_decode($tr_c[0]);
 $cod_asig = $tr_c[2];
 $tr_codasi = explode("-",$tr_c[2]);
 $n_uni+=1;
@@ -166,15 +166,15 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
 	}
-	if ($hay_sel==0 or in_array($datatmp[1],$hay_alumno) or $_POST['todos']=="1") {
-	$data[] = array(
+if ($hay_sel==0 or in_array($datatmp[1],$hay_alumno) or $_POST['todos']=="1") {
+$data[] = array(
 				'num'=>$datatmp[1],
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 }
 }	
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>'   ',
 				'c2'=>'   ',
@@ -272,14 +272,14 @@ while($datatmp = mysqli_fetch_array($lista)) {
 if ($hay_sel==0 or in_array($datatmp[2],$hay_alumno) or $_POST['todos']=="1") {
 	$data[] = array(
 				'num'=>$ixx,
-				'nombre'=>$datatmp[0],
-				'asig'=>$mat
+				'nombre'=>utf8_decode($datatmp[0]),
+				'asig'=>utf8_decode($mat)
 				);
 }
 	
 }
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'asig'=>'<b>Asignaturas</b>'
 			);

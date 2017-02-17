@@ -64,7 +64,7 @@ Los archivos de los alumnos han sido descargados correctamente en el directorio 
   <div class="well well-large" align="left">
 
  <div class="form-group">
-    <p class="help-block">Selecciona el archivo comprimido descargado desde Séneca 'Exportacion_Faltas_Alumnado.zip'</p>
+    <p class="help-block">Selecciona el archivo comprimido descargado desde SÃ©neca 'Exportacion_Faltas_Alumnado.zip'</p>
    <input type="file" name="archivo1" class="input input-file" id="file1">
   </div>
   
@@ -72,15 +72,15 @@ Los archivos de los alumnos han sido descargados correctamente en el directorio 
   
   </div> <!-- well -->
 <hr />
-  <div class="help-block" style="text-align:justify; <?php if($error) echo 'color: red;';?>"><p class="lead text-warning">Información sobre la Importación.</p>
-Para poder subir las faltas de los alumnos a Séneca, es necesario en primer lugar descargar un archivo desde <em>S&eacute;neca --> Utilidades --> Imprtaci&oacute;n/Exportaci&oacute;n --> Exportaci&oacute;n de Faltas del alumnado</em>. <br />Crea un nuevo archivo con todos los grupos del Centro, y acepta la fecha propuesta. Tardar&aacute; unos instantes en aparecer, as&iacute; que vuelve al cabo de un minuto a la misma p&aacute;gina y te aparecer&aacute; un mensaje confirmando que el archivo ha sido generado. <br />Descarga el archivo y selecciónalo para proceder. Los archivo se colocan en el directorio /faltas/seneca/origen/ y se utilizan como punto de partida en la generación del archivo comprimido que subiremos a Séneca. Puede ser necesario repetir este procedimientoa lo largo del Curso para actualizar la lista de los alumnos.
+  <div class="help-block" style="text-align:justify; <?php if($error) echo 'color: red;';?>"><p class="lead text-warning">InformaciÃ³n sobre la ImportaciÃ³n.</p>
+Para poder subir las faltas de los alumnos a SÃ©neca, es necesario en primer lugar descargar un archivo desde <em>S&eacute;neca --> Utilidades --> Imprtaci&oacute;n/Exportaci&oacute;n --> Exportaci&oacute;n de Faltas del alumnado</em>. <br />Crea un nuevo archivo con todos los grupos del Centro, y acepta la fecha propuesta. Tardar&aacute; unos instantes en aparecer, as&iacute; que vuelve al cabo de un minuto a la misma p&aacute;gina y te aparecer&aacute; un mensaje confirmando que el archivo ha sido generado. <br />Descarga el archivo y selecciÃ³nalo para proceder. Los archivo se colocan en el directorio /faltas/seneca/origen/ y se utilizan como punto de partida en la generaciÃ³n del archivo comprimido que subiremos a SÃ©neca. Puede ser necesario repetir este procedimientoa lo largo del Curso para actualizar la lista de los alumnos.
  </div>
 </FORM>
 </div>
 
 
 <div class="col-sm-6">
-<legend align="center">Exportar Faltas a Séneca</legend>
+<legend align="center">Exportar Faltas a SÃ©neca</legend>
 <div class="well" align="left">	
 
         <form id="form1" name="form1" method="post" action="index.php">
@@ -128,9 +128,9 @@ Para poder subir las faltas de los alumnos a Séneca, es necesario en primer luga
         </div>
         <hr />
         <div class="help-block" style="text-align:justify; <?php if($error) echo 'color: red;';?>"><p class="lead text-warning">Instrucciones de Uso.</p>
-        La condición esencial que debe cumplirse para poder subir las faltas a Séneca es que el horario de los profesores esté correctamente registrado en Séneca. El 99% de los problemas que puedan surgir al subir las faltas se deben al horario. Revisa el horario con detenimiento antes de proceder, con especial cuidado a los cursos de Bachillerato.<br />
-        Es importante que los datos de los Alumnos est&eacute;n actualizados para evitar errores en la importaci&oacute;n de las Faltas. El formulario de la izquierda permite actualizar la información.<br />Adem&aacute;s, ten en cuenta que S&eacute;neca s&oacute;lo acepta importaciones de un mes m&aacute;ximo de Faltas de Asistencia. Por esta raz&oacute;n, el Primer D&iacute;a que introduces debe ser el primer d&iacute;a del mes (o el mas pr&oacute;ximo en caso de que sea un mes de vacaciones, o 
-puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criterio se aplica para el ultimo d&iacute;a del mes. <br />Una vez le damos a enviar se generan los ficheros (o el fichero comprimido, según la opción elegida) que posteriormente se importan a S&eacute;neca, as&iacute; que ya puedes abrir la pagina de S&eacute;neca para hacerlo. La opción por defecto, más simple y cómoda, es la creación de un archivo comprimido con todos los Grupos. El archivo comprimido se genera en el navegador preparado para subir.<br /> La opción de crear tantos archivos como Grupos tiene una función de ayuda en caso de problemas al subir las faltas a Séneca (ayuda a determinar dóde se encuentra el problema y solucionarlo). Los archivos se encuentran en el directorio de la intranet /faltas/seneca/exportado/.</div>
+        La condiciÃ³n esencial que debe cumplirse para poder subir las faltas a SÃ©neca es que el horario de los profesores estÃ© correctamente registrado en SÃ©neca. El 99% de los problemas que puedan surgir al subir las faltas se deben al horario. Revisa el horario con detenimiento antes de proceder, con especial cuidado a los cursos de Bachillerato.<br />
+        Es importante que los datos de los Alumnos est&eacute;n actualizados para evitar errores en la importaci&oacute;n de las Faltas. El formulario de la izquierda permite actualizar la informaciÃ³n.<br />Adem&aacute;s, ten en cuenta que S&eacute;neca s&oacute;lo acepta importaciones de un mes m&aacute;ximo de Faltas de Asistencia. Por esta raz&oacute;n, el Primer D&iacute;a que introduces debe ser el primer d&iacute;a del mes (o el mas pr&oacute;ximo en caso de que sea un mes de vacaciones, o 
+puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criterio se aplica para el ultimo d&iacute;a del mes. <br />Una vez le damos a enviar se generan los ficheros (o el fichero comprimido, segÃºn la opciÃ³n elegida) que posteriormente se importan a S&eacute;neca, as&iacute; que ya puedes abrir la pagina de S&eacute;neca para hacerlo. La opciÃ³n por defecto, mÃ¡s simple y cÃ³moda, es la creaciÃ³n de un archivo comprimido con todos los Grupos. El archivo comprimido se genera en el navegador preparado para subir.<br /> La opciÃ³n de crear tantos archivos como Grupos tiene una funciÃ³n de ayuda en caso de problemas al subir las faltas a SÃ©neca (ayuda a determinar dÃ³de se encuentra el problema y solucionarlo). Los archivos se encuentran en el directorio de la intranet /faltas/seneca/exportado/.</div>
         
 </div>
 </div>

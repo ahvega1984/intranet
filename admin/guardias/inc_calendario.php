@@ -41,7 +41,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 		$anio_sig = $anio + 1;
 	}
 	
-	// Corrección en mes
+	// CorrecciÃ³n en mes
 	(strlen($mes) < 2) ? $mes = '0'.$mes : $mes = $mes;
 	
 	echo '<div class"table-responsive">';
@@ -90,7 +90,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				
 				if ($i < 6) {
 					echo '				<a class="text-center" href="?dia='.$dias[$i].'&mes='.$mes.'&anio='.$anio.'" style="display: block;">'.$dias[$i].'</a>';
-					// Corrección en día
+					// CorrecciÃ³n en dÃ­a
 					($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				}
 				else {

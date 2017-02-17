@@ -1,6 +1,6 @@
 <?php
   if(isset($_GET['todos']) and $_GET['todos'] == "1") { 
-  $titulo = "Todos los Informes en este año escolar";
+  $titulo = "Todos los Informes en este aÃ±o escolar";
 } else { 
   $titulo = "Informes que responden a los datos introducidos";
 }
@@ -56,7 +56,7 @@ $result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mys
 echo "<table class='table table-striped table-bordered datatable' align='center'><thead>";
 echo "<tr><th>Alumno/a</th>
 <th>Curso</th>
-<th>Fecha inicio</th><th>Sí</th><th>No</th><th></th><th></th></TR></thead><tbody>";
+<th>Fecha inicio</th><th>SÃ­</th><th>No</th><th></th><th></th></TR></thead><tbody>";
 if (mysqli_num_rows($result) > 0)
 {
 
@@ -133,14 +133,14 @@ No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 				
 				"language": {
 				            "lengthMenu": "_MENU_",
-				            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-				            "info": "Página _PAGE_ de _PAGES_",
+				            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+				            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 				            "infoEmpty": "No hay resultados disponibles.",
 				            "infoFiltered": "(filtrado de _MAX_ resultados)",
 				            "search": "Buscar: ",
 				            "paginate": {
 				                  "first": "Primera",
-				                  "next": "Última",
+				                  "next": "Ãšltima",
 				                  "next": "",
 				                  "previous": ""
 				                }

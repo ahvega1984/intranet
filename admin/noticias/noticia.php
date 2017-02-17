@@ -32,7 +32,7 @@ include("menu.php");
 					
 					<br>
 					
-					<?php echo stripslashes(html_entity_decode($row['content'], ENT_QUOTES, 'ISO-8859-1')); ?>
+					<?php echo stripslashes(html_entity_decode($row['content'], ENT_QUOTES, 'UTF-8')); ?>
 					
 					<br>
 					<br>
@@ -55,7 +55,7 @@ include("menu.php");
 				<?php else: ?>
 					
 					<h3>La noticia a la que intenta acceder no existe.</h3>
-					<h4 class="text-muted">Ser· redirigido autom·ticamente a la p·gina anterior . . .</h4>
+					<h4 class="text-muted">Ser√° redirigido autom√°ticamente a la p√°gina anterior . . .</h4>
 					
 					<meta http-equiv="refresh" content="5;url=javascript:history.back()">
 					

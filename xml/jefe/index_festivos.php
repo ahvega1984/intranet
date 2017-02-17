@@ -10,7 +10,7 @@ include("../../menu.php");
 	<div class="container">
 	
 		<div class="page-header">
-		  <h2>Administración <small> Días Festivos</small></h2>
+		  <h2>AdministraciÃ³n <small> DÃ­as Festivos</small></h2>
 		</div>
 		
 		<div class="row">
@@ -21,7 +21,7 @@ include("../../menu.php");
 					<form action="festivos.php" method="post" enctype="multipart/form-data">
 						
 						<fieldset>
-							<legend>Días festivos</legend>
+							<legend>DÃ­as festivos</legend>
 							
 							<div class="form-group">
 								<label class="text-info" for="file">200CalEscCent.txt</label>
@@ -42,9 +42,9 @@ include("../../menu.php");
 			
 			<div class="col-sm-6">
 				
-				<h3>Información sobre la importación</h3>
+				<h3>InformaciÃ³n sobre la importaciÃ³n</h3>
 				
-				<p class="help-block"><span style="color:#9d261d">(*) </span>Si has descargado el archivo <strong>200CalEscCent</strong> de Séneca (desde Séneca --> Centro --> Días festivos), puedes continuar con el segundo paso.</p>
+				<p class="help-block"><span style="color:#9d261d">(*) </span>Si has descargado el archivo <strong>200CalEscCent</strong> de SÃ©neca (desde SÃ©neca --> Centro --> DÃ­as festivos), puedes continuar con el segundo paso.</p>
 			
 			</div><!-- /.col-sm-6 -->
 		

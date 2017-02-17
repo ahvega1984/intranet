@@ -40,11 +40,11 @@ include("../../menu.php");
 					$base0 = "truncate table profesores";
 					mysqli_query($db_con, $base0);
 			
-					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
+					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
 					$fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die
 					('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
+						<h5>ATENCIÃN:</h5>
 			No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de enviarlo o el archivo est&aacute; corrompido.
 			</div></div><br />
 			<div align="center">
@@ -65,7 +65,7 @@ include("../../menu.php");
 							$dato.= "\"". trim($valor) . "\", ";
 						}
 						$dato=substr($dato,0,strlen($dato)-2);
-						$lineasalto.=$dato;
+						$lineasalto.=utf8_encode($dato);
 						$lineasalto.=");";
 						mysqli_query($db_con, $lineasalto);
 					}
@@ -112,7 +112,7 @@ include("../../menu.php");
 							if(mysqli_num_rows($asig0) == 1)
 							{
 								$num+=1;
-								//	echo "Unidad �nica.<br>";
+								//	echo "Unidad única.<br>";
 								mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
 								mysqli_query($db_con, "update horw_var set clase='Actualizado' where id='$id'");
 								mysqli_query($db_con, "update horw set a_asig = '$abrev', c_asig = '$codigo', asig = '$materia' where id= '$id'");
@@ -187,14 +187,14 @@ include("../../menu.php");
 				else{
 					echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>ATENCI�N:</legend>
+						<legend>ATENCIÓN:</legend>
 			Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los Profesores. Aseg&uacute;rate de enviar el archivo descargado desde S&eacute;neca.
 			</div></div><br />';
 				}
 				?>
 				
 				<div class="text-center">
-					 <a href="../index.php" class="btn btn-primary">Volver a Administraci�n</a>
+					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
 				</div>
 			
 			</div><!-- /.well -->

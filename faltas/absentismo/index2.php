@@ -16,7 +16,7 @@ $mas2="";
 <?php
 if (strstr($_SESSION['cargo'],'8')==TRUE) {
 	$mas="";
-	$titulo="Departamento de orientación  ";
+	$titulo="Departamento de orientaciÃ³n  ";
 	$upd=" orientacion='$texto' ";
 }
 if (strstr($_SESSION['cargo'],'2')==TRUE and strstr($_SESSION['cargo'],'8')==FALSE) {
@@ -49,7 +49,7 @@ if ($del=='1') {
 Los datos del alumno han sido borrados de la Base de datos.
 			</div></div><br />';
 }
-// Procesamos datos si se ha dado al botón 
+// Procesamos datos si se ha dado al botÃ³n 
 if (isset($_POST['submit'])) {
 mysqli_query($db_con, "update absentismo set $upd where claveal='$claveal' and mes='$mes'")	;
 // echo "update absentismo set $upd where claveal='$claveal' and mes='$mes'";
@@ -80,7 +80,7 @@ if (mysqli_num_rows($al)>0) {
 $datos=mysqli_fetch_array($al);
 if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];$obs2=$datos[8];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];}else {$obs=$datos[7];}
 echo  "<table class='table' style='width:auto' align=center><tr><th align='center'> NOMBRE </th><th align='center'> CURSO </th>
-<th align='center'> MES </th><th align='center'> Nº FALTAS </th></tr>
+<th align='center'> MES </th><th align='center'> NÂº FALTAS </th></tr>
 <tr class='warning'><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
 echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 ?>
@@ -116,7 +116,7 @@ $result0 = mysqli_query($db_con, $SQL0);
   if (mysqli_num_rows($result0)>0) {
 echo  "<center><table class='table table-striped table-bordered' style='width:auto'>\n";
         echo "<tr><th align='center' colspan=2>ALUMNO</th><th align='center'>CURSO</th>
-        <th align='center'>MES</th><th align='center'>Nº FALTAS</th>";
+        <th align='center'>MES</th><th align='center'>NÂº FALTAS</th>";
 
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
         	echo "<th>Jef.</th><th>Orienta.</th><th>Tut.</th><th>S. Soc.</th><th class='no_imprimir'></th>";

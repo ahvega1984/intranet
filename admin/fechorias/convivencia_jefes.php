@@ -9,7 +9,7 @@ include ("menu.php");
 <div class="container">
 
 	<div class="page-header">
-		<h2 style="display: inline;">Aula de Convivencia <small> Últimos Problemas de Convivencia</small></h2>
+		<h2 style="display: inline;">Aula de Convivencia <small> Ãšltimos Problemas de Convivencia</small></h2>
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -25,19 +25,19 @@ include ("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Este módulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia, 
+						<p>Este mÃ³dulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia, 
 						en caso de que el Centro disponga de una. Los Profesores que atienden el Aula en una determinada 
 						hora en su Guardia deben  haber sido seleccionados en los <em><strong>Perfiles de los Profesores</strong></em>. 
-						Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia acceden desde el <em>Menú 
-						de la Página de Inicio --> Trabajo --> Problemas de Convivencia --> Aula de Convivencia</em>.</p>
-						<p>Esta página nos presenta una tabla con los alumnos que deberían encontrarse en el Aula (al haber 
-						rellenado Jefatura el formulario de Expulsión al Aula de Convivencia en el Informe del Problema) 
-						en una hora y día determinados. El Profesor puede informar sobre la <strong><em>Asistencia</em></strong> 
-						y <strong><em>Trabajo</em></strong> del alumno. Si necesita además informar sobre otro asunto, 
+						Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia acceden desde el <em>MenÃº 
+						de la PÃ¡gina de Inicio --> Trabajo --> Problemas de Convivencia --> Aula de Convivencia</em>.</p>
+						<p>Esta pÃ¡gina nos presenta una tabla con los alumnos que deberÃ­an encontrarse en el Aula (al haber 
+						rellenado Jefatura el formulario de ExpulsiÃ³n al Aula de Convivencia en el Informe del Problema) 
+						en una hora y dÃ­a determinados. El Profesor puede informar sobre la <strong><em>Asistencia</em></strong> 
+						y <strong><em>Trabajo</em></strong> del alumno. Si necesita ademÃ¡s informar sobre otro asunto, 
 						puede utilizar el campo <strong><em>Observaciones</em></strong>. Una vez terminado de marcar las 
 						opciones de cada alumno, enviamos los datos para guardarlos. El Equipo directivo, por su parte, 
 						visualiza en todo momento la actividad en el Aula al recibir los datos de todos los Profesores que 
-						hacen allí su Guardia.</p>
+						hacen allÃ­ su Guardia.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -72,8 +72,8 @@ if ($borrar == '1') {
 	else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-            Algún problema impide borrar los datos, así que deberías ponerte en contacto con quien pueda ayudarte.
+			<h5>ATENCIÃ“N:</h5>
+            AlgÃºn problema impide borrar los datos, asÃ­ que deberÃ­as ponerte en contacto con quien pueda ayudarte.
           </div></div>';
 	}
 }
@@ -152,7 +152,7 @@ echo "$hoy0</legend>";
 	?>
 <div class="well">	
 	<div class="form-group" id="datetimepicker1">
-<label>Selecciona el Día </label>
+<label>Selecciona el DÃ­a </label>
 <div class="input-group">
   <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?php echo $hoy0;?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -179,7 +179,7 @@ echo "$hoy0</legend>";
 if (empty($fecha0)) {$hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else{$hoy = $fecha0;}
 $trf = explode("-", $hoy);
 
-// Horas y días según el horario
+// Horas y dÃ­as segÃºn el horario
 
 $minutos = date ( "i" );
 $diames = date ( "j", mktime(0, 0, 0, $trf[1], $trf[2], $trf[0]) );
@@ -200,7 +200,7 @@ $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.no
 <?php
 	echo "<center><table class='table table-striped'>";
 	echo "<thead><th>Alumno</th>
-		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>R</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
+		<th>Grupo</th><th>DÃ­as</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>R</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
 	echo '<form name="conviv" action="convivencia_jefes.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysqli_fetch_array ( $result ) ) {
 	$obs="";
@@ -215,7 +215,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>
-		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traÃ­do al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>

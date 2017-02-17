@@ -28,7 +28,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,utf8_encode('CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE'),0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -88,11 +88,11 @@ Fecha: $alumno[11]
 Curso: $alumno[1]
 Tutor/a: $alumno[7]
 Domicilio: $alumno[8] ($alumno[9])
-Teléfono: $alumno[10]";
+TelÃ©fono: $alumno[10]";
 $cuerpo1="El Alumno no ha asistido al Centro $alumno[0] horas lectivas durante el mes de $n_mes. Las faltas de asistencia no han sido justificadas.";
 	$mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
                  8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-    $dia = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
+    $dia = array("domingo", "lunes","martes","miÃ©rcoles","jueves","viernes","sÃ¡bado");
 	$diames = date("j");
     $nmes = date("n");
     $ndia = date("w");
@@ -101,7 +101,7 @@ $cuerpo1="El Alumno no ha asistido al Centro $alumno[0] horas lectivas durante e
 $cuerpo3="Informe de la Jefatura de Estudios";
 $cuerpo33="$alumno[4]";
 if (strlen($alumno[5])>0) {
-$cuerpo4="Informe del Departamento de Orientación";
+$cuerpo4="Informe del Departamento de OrientaciÃ³n";
 $cuerpo44="$alumno[5]";	
 }
 if (strlen($alumno[6])>0) {
@@ -112,7 +112,7 @@ if (strlen($alumno[13])>0) {
 $cuerpo6="Informe de los Servicios Sociales";
 $cuerpo66="$alumno[13]";	
 }
-#### Cabecera con dirección
+#### Cabecera con direcciÃ³n
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->SetTextColor(0,0,0);
 	

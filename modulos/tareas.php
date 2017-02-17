@@ -13,7 +13,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$unidad_t = $curso;
 	$asignatura = $rowcurs[1];
 
-	// Problema con asignaturas comunes de Bachillerato con distinto código
+	// Problema con asignaturas comunes de Bachillerato con distinto cÃ³digo
 	if(strlen($rowcurs[2])>15){
 		$rowcurs[2] = substr($rowcurs[2],0,15);
 	}
@@ -103,7 +103,7 @@ if(mysqli_num_rows($datos) > 0)
 }
 else
 {
-	echo '<p style="color:#08c"> Los Profesores no han rellenado aún su Informe de tareas</p>';
+	echo '<p style="color:#08c"> Los Profesores no han rellenado aÃºn su Informe de tareas</p>';
 }
 ?></div>
 <div class="modal-footer"><a href="#" class="btn btn-primary"

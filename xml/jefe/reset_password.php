@@ -30,7 +30,7 @@ if (isset($_POST['enviar'])) {
 		
 		if($mail_correo != "") {
 		
-			// ExcepciÛn para el usuario Administrador
+			// Excepci√≥n para el usuario Administrador
 			if ($mail_nomprofesor == 'Administrador') {
 				$pass_admin = generador_password(9);
 				$pass_sha1	= sha1($pass_admin);
@@ -58,10 +58,10 @@ if (isset($_POST['enviar'])) {
 			$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 			$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 						
-			// ExcepciÛn para el usuario Administrador
+			// Excepci√≥n para el usuario Administrador
 			if ($mail_nomprofesor == 'Administrador') {
 				$message = str_replace('{{titulo}}', 'Restablecimiento de la cuenta de Administrador', $message);
-				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contraseÒa ha sido restablecida por alg˙n miembro del Equipo Directivo. Para acceder a la Intranet haga click en el botÛn Iniciar sesiÛn y utilice la contraseÒa que aparece a continuaciÛn:<br><br>
+				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contrase√±a ha sido restablecida por alg√∫n miembro del Equipo Directivo. Para acceder a la Intranet haga click en el bot√≥n Iniciar sesi√≥n y utilice la contrase√±a que aparece a continuaci√≥n:<br><br>
 				<center>
 				<table cellpadding="0" cellspacing="0" width="250">
 				  <tr>
@@ -74,22 +74,22 @@ if (isset($_POST['enviar'])) {
 				      <div style="text-align: center;"><!--[if mso]>
 				        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://'.$config['dominio'].'/intranet/" style="height:45px;v-text-anchor:middle;width:155px;" arcsize="15%" strokecolor="#ffffff" fillcolor="#ff6f6f">
 				          <w:anchorlock/>
-				          <center style="color:#ffffff;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;">Iniciar sesiÛn</center>
+				          <center style="color:#ffffff;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;">Iniciar sesi√≥n</center>
 				        </v:roundrect>
 				      <![endif]--><a class="button-mobile" href="http://'.$config['dominio'].'/intranet/"
-				      style="background-color: rgb(48,119,67);border-radius:5px;color:#ffffff;display:inline-block;font-family:\'Cabin\', Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">Iniciar sesiÛn</a></div>
+				      style="background-color: rgb(48,119,67);border-radius:5px;color:#ffffff;display:inline-block;font-family:\'Cabin\', Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">Iniciar sesi√≥n</a></div>
 				    </td>
 				  </tr>
 				</table>
 				</center>
-				<br><br>Para mantener su seguridad utilice una contraseÒa segura.<br><hr><small>Este es un mensaje autom·tico y no es necesario responder.</small>', $message);
+				<br><br>Para mantener su seguridad utilice una contrase√±a segura.<br><hr><small>Este es un mensaje autom√°tico y no es necesario responder.</small>', $message);
 				
 				$mail->Subject = $config['centro_denominacion'].' - Restablecimiento de la cuenta de Administrador';
-				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\n>Su contraseÒa ha sido restablecida por alg˙n miembro del Equipo Directivo. Para acceder a la Intranet haga click en la siguiente direcciÛn http://".$config['dominio']."/intranet/ y utilice la contraseÒa que aparece a continuaciÛn:\n\n".$pass_admin."\n\n\nPara mantener su seguridad utilice una contraseÒa segura.\n\nEste es un mensaje autom·tico y no es necesario responder.";
+				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\n>Su contrase√±a ha sido restablecida por alg√∫n miembro del Equipo Directivo. Para acceder a la Intranet haga click en la siguiente direcci√≥n http://".$config['dominio']."/intranet/ y utilice la contrase√±a que aparece a continuaci√≥n:\n\n".$pass_admin."\n\n\nPara mantener su seguridad utilice una contrase√±a segura.\n\nEste es un mensaje autom√°tico y no es necesario responder.";
 			}
 			else {
-				$message = str_replace('{{titulo}}', 'Restablecimiento de contraseÒa', $message);
-				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contraseÒa ha sido restablecida por alg˙n miembro del Equipo Directivo. Para acceder a la Intranet haga click en el botÛn Iniciar sesiÛn y utilice la contraseÒa que aparece a continuaciÛn:<br>br>
+				$message = str_replace('{{titulo}}', 'Restablecimiento de contrase√±a', $message);
+				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contrase√±a ha sido restablecida por alg√∫n miembro del Equipo Directivo. Para acceder a la Intranet haga click en el bot√≥n Iniciar sesi√≥n y utilice la contrase√±a que aparece a continuaci√≥n:<br>br>
 				<center>
 				<table cellpadding="0" cellspacing="0" width="250">
 				  <tr>
@@ -102,18 +102,18 @@ if (isset($_POST['enviar'])) {
 				      <div style="text-align: center;"><!--[if mso]>
 				        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://'.$config['dominio'].'/intranet/" style="height:45px;v-text-anchor:middle;width:155px;" arcsize="15%" strokecolor="#ffffff" fillcolor="#ff6f6f">
 				          <w:anchorlock/>
-				          <center style="color:#ffffff;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;">Iniciar sesiÛn</center>
+				          <center style="color:#ffffff;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;">Iniciar sesi√≥n</center>
 				        </v:roundrect>
 				      <![endif]--><a class="button-mobile" href="http://'.$config['dominio'].'/intranet/"
-				      style="background-color: rgb(48,119,67);border-radius:5px;color:#ffffff;display:inline-block;font-family:\'Cabin\', Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">Iniciar sesiÛn</a></div>
+				      style="background-color: rgb(48,119,67);border-radius:5px;color:#ffffff;display:inline-block;font-family:\'Cabin\', Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">Iniciar sesi√≥n</a></div>
 				    </td>
 				  </tr>
 				</table>
 				</center>
-				<br><br>Para mantener su seguridad utilice una contraseÒa segura.<br><hr><small>Este es un mensaje autom·tico y no es necesario responder.</small>', $message);
+				<br><br>Para mantener su seguridad utilice una contrase√±a segura.<br><hr><small>Este es un mensaje autom√°tico y no es necesario responder.</small>', $message);
 				
-				$mail->Subject = 'Restablecimiento de contraseÒa';
-				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\nTu contraseÒa ha sido restablecida por alg˙n miembro del Equipo Directivo. Para acceder a la Intranet haz click en la siguiente direcciÛn http://".$config['dominio']."/intranet/ y utilice la contraseÒa que aparece a continuaciÛn:\n\n".$p_dni."\n\n\nPara mantener su seguridad utilice una contraseÒa segura.\n\nEste es un mensaje autom·tico y no es necesario responder.";
+				$mail->Subject = 'Restablecimiento de contrase√±a';
+				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\nTu contrase√±a ha sido restablecida por alg√∫n miembro del Equipo Directivo. Para acceder a la Intranet haz click en la siguiente direcci√≥n http://".$config['dominio']."/intranet/ y utilice la contrase√±a que aparece a continuaci√≥n:\n\n".$p_dni."\n\n\nPara mantener su seguridad utilice una contrase√±a segura.\n\nEste es un mensaje autom√°tico y no es necesario responder.";
 			}
 			
 			$mail->msgHTML($message);
@@ -126,10 +126,10 @@ if (isset($_POST['enviar'])) {
 	}
 	
 	if($num > 1) {
-		$msg_success = 'Se han restablecido las contraseÒas seleccionadas. Se ha enviado un correo electrÛnico a los usuarios afectados.';
+		$msg_success = 'Se han restablecido las contrase√±as seleccionadas. Se ha enviado un correo electr√≥nico a los usuarios afectados.';
 	}
 	else {
-		$msg_success = 'Se ha restablecido la contraseÒa seleccionada. Se ha enviado un correo electrÛnico al usuario afectado.';
+		$msg_success = 'Se ha restablecido la contrase√±a seleccionada. Se ha enviado un correo electr√≥nico al usuario afectado.';
 	}
 
 }
@@ -139,7 +139,7 @@ include("../../menu.php");
 <div class="container">
 
 	<div class="page-header">
-  		<h2>AdministraciÛn <small> Restablecer contraseÒa</small></h2>
+  		<h2>Administraci√≥n <small> Restablecer contrase√±a</small></h2>
 	</div>
 	
 	<?php if(isset($msg_success)): ?>
@@ -165,7 +165,7 @@ include("../../menu.php");
 						</select>
 					</div>
 
-					<button type="submit" class="btn btn-primary" name="enviar" value="Reasignar clave">Restablecer contraseÒas</button>
+					<button type="submit" class="btn btn-primary" name="enviar" value="Reasignar clave">Restablecer contrase√±as</button>
 					<a class="btn btn-default" href="../index.php">Volver</a>
 					
 				</div>
@@ -176,9 +176,9 @@ include("../../menu.php");
 		<div class="col-sm-6">
 			<legend>Instrucciones</legend>
 			
-			<p class="block-help">Selecciona en primer lugar el profesor o profesores a los que se necesita restablecer la clave de acceso. Si quieres seleccionar varios usuarios, mantÈn pulsada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratÛn en cada uno de ellos.</p>
+			<p class="block-help">Selecciona en primer lugar el profesor o profesores a los que se necesita restablecer la clave de acceso. Si quieres seleccionar varios usuarios, mant√©n pulsada la tecla <kbd>Ctrl</kbd> mientras haces click con el rat√≥n en cada uno de ellos.</p>
 			
-			<p>Tras enviar los datos del formulario se les enviar· un correo comunic·ndoles que la clave ha sido restablecida y la nueva clave provisional es ahora el DNI como si el usuario entrase por primera vez en la aplicaciÛn. </p>
+			<p>Tras enviar los datos del formulario se les enviar√° un correo comunic√°ndoles que la clave ha sido restablecida y la nueva clave provisional es ahora el DNI como si el usuario entrase por primera vez en la aplicaci√≥n. </p>
 		</div>
 	</div>
 </div>

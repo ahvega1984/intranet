@@ -23,7 +23,7 @@ $options_left = array(
 				'justification' => 'left'
 					);
 
-// Número de grupo para los saltos de página
+// NÃºmero de grupo para los saltos de pÃ¡gina
 $numg=0;
 $grupo=$_POST['unidad'];
 $n=count($grupo);
@@ -42,31 +42,31 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$ixx = $ixx+1;
 	$tels = trim($datatmp[6]."    ".$datatmp[8]);
 	if ($datatmp[2]>1) {
-                		$repite="Sí";
+                		$repite="SÃ­";
                 	}
                 	else{
                 		$repite="No";
                 	}
 	$data[] = array(
 				'num'=>$datatmp[9],
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				'fecha'=>cambia_fecha($datatmp[1]),
-				'Repite'=>$repite,
-				'NIE'=>$datatmp[7],
-				'Tutor'=>$datatmp[4],
-				'Domicilio'=>$datatmp[5],
+				'Repite'=>utf8_decode($repite),
+				'NIE'=>utf8_decode($datatmp[7]),
+				'Tutor'=>utf8_decode($datatmp[4]),
+				'Domicilio'=>utf8_decode($datatmp[5]),
 				'Telefonos'=>$tels
 				);
 }
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno/a</b>',
 				'fecha'=>'<b>Fecha ncto.</b>',
 				'Repite'=>'<b>Rep.</b>',
 				'NIE'=>'<b>NIE</b>',
 				'Tutor'=>'<b>Padre / madre</b>',
 				'Domicilio'=>'<b>Domicilio</b>',
-				'Telefonos'=>'<b>Teléfono(s)</b>'
+				'Telefonos'=>'<b>Tel&eaacute;fono(s)</b>'
 				#'direccion'=>'<b>Direccion</b>',
 				#'telefono'=>'<b>Telefono</b>'
 			);
@@ -83,7 +83,7 @@ $pdf->ezText($txttit, 14,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n", 4);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_left);
-#####  Hasta aquí la lista con cuadrícula
+#####  Hasta aquÃ­ la lista con cuadrÃ­cula
 
 //echo $numg;
 if ($numg!=$n){$pdf->ezNewPage();unset($data);unset($titles);}

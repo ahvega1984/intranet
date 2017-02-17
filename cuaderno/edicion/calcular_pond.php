@@ -14,7 +14,7 @@ if(isset($_POST['pondera']) and $_POST['pondera']=="Guardar resultado como colum
 	$asignatura=$_POST['asignatura'];
 	$curso=$_POST['curso'];
 	$texto="Ponderacion de columnas: $id_cols";
-	$nombre="Ponderación de columnas: $id_cols";
+	$nombre="PonderaciÃ³n de columnas: $id_cols";
 	$tipo="Ponderacion";
 	
 	//echo "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura'";
@@ -27,7 +27,7 @@ if(isset($_POST['pondera']) and $_POST['pondera']=="Guardar resultado como colum
 VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso', '$orden', '$tipo', '#555')";
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La nueva columna ha sido añadida a la tabla del Cuaderno.
+La nueva columna ha sido aÃ±adida a la tabla del Cuaderno.
 </div></div>';
 	mysqli_query($db_con, $sql) or die (mysqli_error($db_con));
 
@@ -63,7 +63,7 @@ echo '" />';
 echo '<input name=asignatura type=hidden value="';
 echo $asignatura;
 echo '" />';
-// Día.
+// DÃ­a.
 echo '<input name=dia type=hidden value="';
 echo $dia;
 echo '" />';
@@ -95,14 +95,14 @@ $num_ids = count($_POST)-6;
 if (empty($num_ids)) {
 	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 Debes seleccionar al menos una Columna del cuaderno para poder operar.
 </div></div>';
 	echo "<INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";
 	exit;
 }
 // Procesamos los datos
-// Distintos cÃ³digos de la asignatura cuando hay varios grupos en una hora.
+// Distintos cÃƒÂ³digos de la asignatura cuando hay varios grupos en una hora.
 $n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
 while($varias = mysqli_fetch_array($n_c))
 {
@@ -142,27 +142,27 @@ while($n_cur = mysqli_fetch_array($n_cursos))
 	$curs .= $n_cur[0].", ";
 }
 
-// Eliminamos la última coma para el título.
+// Eliminamos la Ãºltima coma para el tÃ­tulo.
 $curso_sin = rtrim($curs, ', ');
 
-//Número de columnas
+//NÃºmero de columnas
 
 $col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso_sin%' and oculto = '0' and ($celdas)  order by orden asc";
 $col0 = mysqli_query($db_con, $col);
 
 echo "<table align='center' class='table table-striped' style='width:auto'>";
 echo "<thead><th style='background-color:#fff'>NC</th><th style='background-color:#fff' colspan='2' align='center'>Alumno</th>";
-// Número de las columnas de la tabla
+// NÃºmero de las columnas de la tabla
 while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
 	$nombre_col=$col20[1];
 	
 if (strlen($nombre_col)>23) {
-	$col_vert = "&nbsp;&nbsp;".substr($nombre_col,0,20)."...<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span>";
+	$col_vert = "&nbsp;&nbsp;".substr($nombre_col,0,20)."...<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='NÃºmero de la Columna'>".$ident."</span>";
 						}
 else {
-	$col_vert = "&nbsp;&nbsp;".$nombre_col."<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span> ".$orden_ponde;
+	$col_vert = "&nbsp;&nbsp;".$nombre_col."<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='NÃºmero de la Columna'>".$ident."</span> ".$orden_ponde;
 						}
 	echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:100px;'>
@@ -182,10 +182,10 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	$curso = $curso11[0];
 	$asignatura = $curso11[1];
 	$nombre = $curso11[2];
-	// Número de Columnas para crear la tabla
+	// NÃºmero de Columnas para crear la tabla
 	$num_col = 4 + $num_ids;
 	$nivel_curso = substr($curso,0,1);
-	//	Problemas con Diversificación (4E-Dd)
+	//	Problemas con DiversificaciÃ³n (4E-Dd)
 	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 	if (mysqli_num_rows($profe_div)<1) {
 

@@ -57,7 +57,7 @@ if(isset($_POST['enviar'])) {
 	$descripcion = mysqli_real_escape_string($db_con, $_POST['descripcion']);
 	
 	if(empty($descripcion) || strlen(trim($descripcion))<8) { 
-		$msg_error = 'El campo de descripciÛn de la incidencia es obligatorio.';
+		$msg_error = 'El campo de descripci√≥n de la incidencia es obligatorio.';
 	}
 	else {
 	
@@ -103,12 +103,12 @@ if(isset($_POST['enviar'])) {
 					$texto = "Datos de la incidencia:
 					Grupo --> '$unidad';
 					Recurso --> '$carrito';
-					N™ de Serie --> '$numeroserie';
+					N¬™ de Serie --> '$numeroserie';
 					Fecha --> '$fecha_sql';
 					Hora --> '$hora';
 					Alumno --> '$alumno';
 					Profesor --> '$profesor';
-					DescripciÛn --> '$descripcion';
+					Descripci√≥n --> '$descripcion';
 					Estado --> '$estado';
 					";
 					mail($correo_coordinador, $tema, $texto); 
@@ -253,7 +253,7 @@ include("menu.php");
 						  </div>
 						   
 						  <div id="form-group-descripcion" class="form-group">
-						    <label for="descripcion">DescripciÛn de la incidencia</label>
+						    <label for="descripcion">Descripci√≥n de la incidencia</label>
 						    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Describa brevemente la incidencia del ordenador..." rows="6"><?php echo (isset($descripcion) && $descripcion) ? $descripcion : ''; ?></textarea>
 						  </div>
 						  
@@ -280,7 +280,7 @@ include("menu.php");
 						  		
 						  		<div class="form-group">
 						  			<div class="form-group">
-						  				<label for="nincidencia">N∫ incidencia</label>
+						  				<label for="nincidencia">N¬∫ incidencia</label>
 						  				<input type="text" class="form-control" id="nincidencia" name="nincidencia" value="<?php echo (isset($nincidencia) && $nincidencia) ? $nincidencia : ''; ?>">
 						  			</div>
 						  		</div>
@@ -306,13 +306,13 @@ include("menu.php");
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-6">
 				
-				<h3>InformaciÛn</h3>
+				<h3>Informaci√≥n</h3>
 				
-				<p>En esta p·gina se dan de alta los problemas que pod·is tener con los ordenadores, tanto port·tiles como fijos.</p>
+				<p>En esta p√°gina se dan de alta los problemas que pod√°is tener con los ordenadores, tanto port√°tiles como fijos.</p>
 				
-				<p>Los fallos pueden ser de dos tipos: bien sucede que la m·quina o alguna de sus partes presenta problemas (la m·quina no enciende, se ha fastidiado la pantalla o el teclado, etc); o bien el Sistema Operativo o alguna de sus aplicaciones no funcionan. Cualquiera de las dos clases de problemas se registran aquÌ.</p>
+				<p>Los fallos pueden ser de dos tipos: bien sucede que la m√°quina o alguna de sus partes presenta problemas (la m√°quina no enciende, se ha fastidiado la pantalla o el teclado, etc); o bien el Sistema Operativo o alguna de sus aplicaciones no funcionan. Cualquiera de las dos clases de problemas se registran aqu√≠.</p>
 				
-				<p>Para modificar una incidencia ya registrada, dirÌjase a <strong>Listado de incidencias</strong> y haga click en el icono de ediciÛn <strong><span class="fa fa-edit"></span></strong>.</p>
+				<p>Para modificar una incidencia ya registrada, dir√≠jase a <strong>Listado de incidencias</strong> y haga click en el icono de edici√≥n <strong><span class="fa fa-edit"></span></strong>.</p>
 				
 				<p class="text-danger">Si el problema ha sido causado por el mal uso de un alumno/a, registrar el problema en el modulo de Problemas de Convivencia.</p>
 

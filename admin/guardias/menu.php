@@ -40,7 +40,7 @@ else {
 	<div class="container hidden-print">
 		<ul class="nav nav-tabs">
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/index.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">Registrar guardia</a></li>
-			<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">Histórico de guardias</a></li>
+			<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">HistÃ³rico de guardias</a></li>
 		</ul>
 	</div>
 <?php

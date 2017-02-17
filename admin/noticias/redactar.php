@@ -28,15 +28,15 @@ if (isset($_POST['enviar'])) {
 	else {
 		
 		if ($ndias != 0 && !intval($ndias)) {
-			$msg_error = "Debe indicar el número de días que desea que la noticia sea destacada.";
+			$msg_error = "Debe indicar el nÃºmero de dÃ­as que desea que la noticia sea destacada.";
 		}
 		else {
 			
-			if ($ndias == 0) $fechafin = '2100-01-01';
+			if ($ndias == 0) $fechafin = '';
 			else $fechafin = date("Y-m-d", strtotime("$fecha_pub +$ndias days"));
 			
 			if(empty($intranet) && empty($principal)) {
-				$msg_error = "Debe indicar dónde desea publicar la noticia.";
+				$msg_error = "Debe indicar dÃ³nde desea publicar la noticia.";
 			}
 			else {
 				// COMPROBAMOS SI INSERTAMOS O ACTUALIZAMOS
@@ -137,8 +137,8 @@ include ("menu.php");
 							<input type="hidden" name="token" value="<?php echo $token; ?>">
 							
 								<div class="form-group">
-									<label for="slug">Título</label>
-									<input type="text" class="form-control" id="slug" name="slug" placeholder="Título de la noticia" value="<?php echo (isset($slug) && $slug) ? $slug : ''; ?>" maxlength="120" autofocus>
+									<label for="slug">TÃ­tulo</label>
+									<input type="text" class="form-control" id="slug" name="slug" placeholder="TÃ­tulo de la noticia" value="<?php echo (isset($slug) && $slug) ? $slug : ''; ?>" maxlength="120" autofocus>
 								</div>
 								
 								<div class="form-group">
@@ -162,7 +162,7 @@ include ("menu.php");
 					<div class="well">
 						
 						<fieldset>
-							<legend>Opciones de publicación</legend>
+							<legend>Opciones de publicaciÃ³n</legend>
 							
 							
 							<div class="form-group">
@@ -172,17 +172,17 @@ include ("menu.php");
 							</div>
 							
 							<div class="form-group" id="datetimepicker1">
-								<label for="fecha_pub">Fecha de publicación</label>
+								<label for="fecha_pub">Fecha de publicaciÃ³n</label>
 								<div class="input-group">
 									<input type="text" class="form-control" id="fecha_pub" name="fecha_pub" value="<?php echo (isset($fecha_pub) && $fecha_pub) ? $fecha_pub : date('Y-m-d H:i:s'); ?>" data-date-format="YYYY-MM-DD HH:mm:ss">
 									<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 								</div>
 							</div>
 							
-							<?php $categorias = array('Dirección del Centro', 'Jefatura de Estudios', 'Secretaría', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro Bilingüe', 'Centro TIC', 'Ciclos Formativos'); ?>
+							<?php $categorias = array('DirecciÃ³n del Centro', 'Jefatura de Estudios', 'SecretarÃ­a', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro BilingÃ¼e', 'Centro TIC', 'Ciclos Formativos'); ?>
 							
 							<div class="form-group">
-								<label for="clase">Categoría</label>
+								<label for="clase">CategorÃ­a</label>
 								<select class="form-control" id="clase" name="clase">
 								<?php foreach ($categorias as $categoria): ?>
 									<option value="<?php echo $categoria; ?>" <?php echo (isset($clase) && $categoria == $clase) ? 'selected' : ''; ?>><?php echo $categoria; ?></option>
@@ -195,7 +195,7 @@ include ("menu.php");
 							
 							<div class="form-horizontal">
 								<div class="form-group">
-							    <label for="ndias" class="col-sm-8 control-label"><div class="text-left">Noticia destacada (en días)</div></label>
+							    <label for="ndias" class="col-sm-8 control-label"><div class="text-left">Noticia destacada (en dÃ­as)</div></label>
 							    <div class="col-sm-4">
 							      <input type="number" class="form-control" id="ndias" name="ndias" value="<?php echo (isset($ndias) && $ndias) ? $ndias : '0'; ?>" min="0" max="31" maxlength="2">
 							    </div>
@@ -215,7 +215,7 @@ include ("menu.php");
 							<div class="form-group">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="principal" value="2" <?php echo (isset($principal) && $principal) ? 'checked' : ''; ?>> Publicar en la página externa
+										<input type="checkbox" name="principal" value="2" <?php echo (isset($principal) && $principal) ? 'checked' : ''; ?>> Publicar en la pÃ¡gina externa
 									</label>
 								</div>
 							</div>

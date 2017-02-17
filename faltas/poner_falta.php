@@ -83,11 +83,11 @@ foreach($_POST as $clave => $valor)
 		$fin_num = strtotime($config['curso_fin']);
 		//echo "$hoy_num $inicio_num $fin_num";
 		if (($hoy_num < $inicio_num) or ($hoy_num > $fin_num)) {
-			$mens_fecha = "Sólo es posible poner Faltas en el <b>Curso Escolar actual</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
+			$mens_fecha = "SÃ³lo es posible poner Faltas en el <b>Curso Escolar actual</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
 		}
 		elseif($dia_festivo=='1')
 		{
-			$mens_fecha = "No es posible poner Faltas en un <b>Día Festivo</b> o en <b>Vacaciones</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
+			$mens_fecha = "No es posible poner Faltas en un <b>DÃ­a Festivo</b> o en <b>Vacaciones</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
 		}
 		elseif ($hoy2 > $hoy_hoy) {
 			$mens_fecha = "No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha: <b>$hoy</b>.";
@@ -96,11 +96,11 @@ foreach($_POST as $clave => $valor)
 			$mens_fecha = "No es posible poner Faltas del <b>Curso Anterior</b>.<br>Comprueba la Fecha: <b>$hoy</b>.";
 		}
 		elseif ($hay_actividad==1){
-			$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque están registrados en una Actividad Extraescolar programada.";
+			$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque estÃ¡n registrados en una Actividad Extraescolar programada.";
 		}
 		else{
 
-			// Comprobamos problema de varios códigos en Bachillerato y otros
+			// Comprobamos problema de varios cÃ³digos en Bachillerato y otros
 
 				$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
 					while($cod_bch = mysqli_fetch_array($asig_bach)){
@@ -137,7 +137,7 @@ if (!empty($_POST['profesor_ausente'])) {
 	
 	//Horas
 	$horas=$_POST['hora'];
-	// Registramos o actualizamos ausencia del profesor sustituído en la guardia
+	// Registramos o actualizamos ausencia del profesor sustituÃ­do en la guardia
 	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1')");
 		if (mysqli_num_rows($ya) > '0') {
 			$ya_hay = mysqli_fetch_array($ya);
@@ -145,7 +145,6 @@ if (!empty($_POST['profesor_ausente'])) {
 			if (strstr($horas_ya,$horas)==FALSE and $horas_ya!=="0" and $horas_ya!=="") {
 				$horas=$horas_ya.$horas;
 				$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ya_hay[0]'");
-				echo "update ausencias set horas = '$horas' where id = '$ya_hay[0]'";
 				echo '<div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamente.
@@ -160,14 +159,14 @@ Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
           </div>';		
 			}
 
-			//Registramos sustitución en la tabla de Guardias
+			//Registramos sustituciÃ³n en la tabla de Guardias
 			$horas=$_POST['hora'];
 			$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
 			if (mysqli_num_rows($gu)>0) {
 				$guardi = mysqli_fetch_row($gu);
 				echo '<div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituído por un compañero de guardia: '.$guardi[1].'
+			<legend>ATENCIÃ“N:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituÃ­do por un compaÃ±ero de guardia: '.$guardi[1].'
 </div>';
 			}
 			else{

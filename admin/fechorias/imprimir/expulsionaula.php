@@ -33,6 +33,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	$provincia = $row [17];
 	$tutor = $row [18];
 }
+
 $tr_tut = explode(", ", $tutor);
 $tutor = "$tr_tut[1] $tr_tut[0]";
 $fecha2 = date ( 'Y-m-d' );
@@ -61,7 +62,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,utf8_encode('CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE'),0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -96,12 +97,12 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 $MiPDF->SetMargins (25, 20, 20);
 $MiPDF->SetDisplayMode ( 'fullpage' );
 
-$titulo = "Comunicación de expulsión del aula";
+$titulo = "ComunicaciÃ³n de expulsiÃ³n del aula";
 $cuerpo = "Muy Srs. nuestros:
 
-Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." a su hijo/a $nombre $apellidos, alumno/a del grupo $unidad, le ha sido impuesta la suspensión del derecho de asistencia a clase tras haber sido expulsado del aula por el profesor $profesor por el siguiente motivo: \"$asunto\".
+Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." a su hijo/a $nombre $apellidos, alumno/a del grupo $unidad, le ha sido impuesta la suspensiÃ³n del derecho de asistencia a clase tras haber sido expulsado del aula por el profesor $profesor por el siguiente motivo: \"$asunto\".
 
-Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.
+Asimismo, le comunico que, segÃºn contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento OrgÃ¡nico de los Institutos de EducaciÃ³n Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podrÃ­a imponÃ©rsele otra medida de correcciÃ³n que podrÃ­a llegar a ser la suspensiÃ³n del derecho de asistencia al Centro.
 
 En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
@@ -114,17 +115,17 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->SetY(45);
 	$MiPDF->SetFont ( 'NewsGotT', '', 12 );
 	$MiPDF->Cell(75, 5, 'Fecha:  '.$hoy, 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $padre, 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, utf8_encode($padre), 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 12, 'Ref.:     Fec/'.$row['id'], 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $direccion, 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, utf8_encode($direccion), 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $codpostal.' '.mb_strtoupper($provincia, 'iso-8859-1'), 0, 1, 'L', 0 );
-	$MiPDF->Cell(0, 12, 'Asunto: '.$titulo, 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $codpostal.' '.utf8_encode(mb_strtoupper($provincia, 'UTF-8')), 0, 1, 'L', 0 );
+	$MiPDF->Cell(0, 12, 'Asunto: '.utf8_encode($titulo), 0, 1, 'L', 0 );
 	$MiPDF->Ln(10);
 	
 	// CUERPO DE LA CARTA
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
-	$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+	$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 	$MiPDF->Ln(5);
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);
@@ -137,18 +138,18 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Cell (55, 20, '', 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'C', 0 );
+	$MiPDF->Cell (90, 5, 'Fdo. '.utf8_encode($padre), 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0 );
 	
 	// RECIBI
-	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+	$txt_recibi = "D./DÃ±a. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	
 	$MiPDF->Ln(8);
 	$MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
 	$MiPDF->Ln(5);
 	
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
-	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
+	$MiPDF->Multicell(0, 5, 'RECIBÃ', 0, 'C', 0 );
 	$MiPDF->Ln(5);
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);

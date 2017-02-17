@@ -23,55 +23,55 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El registro de un Problema de Convivencia comienza con la selección de la 
-						<em><strong>fecha</strong></em> en que sucedió. <br>Continúa con la selección de la 
+						<p>El registro de un Problema de Convivencia comienza con la selecciÃ³n de la 
+						<em><strong>fecha</strong></em> en que sucediÃ³. <br>ContinÃºa con la selecciÃ³n de la 
 						<em><strong>Unidad o Grupo de alumnos</strong></em> dentro del cual se encuentra el 
 						autor del problema. El Grupo no es un campo obligatorio, simplemente facilita la 
-						búsqueda al reducir la lista de alumnos.</p>
+						bÃºsqueda al reducir la lista de alumnos.</p>
 						<p>El campo <em><strong>Alumno/a</strong></em> presenta al principio la lista de todos 
-						los alumnos del Centro ordenada alfabéticamente. Si elegimos un Grupo aparecerán los 
+						los alumnos del Centro ordenada alfabÃ©ticamente. Si elegimos un Grupo aparecerÃ¡n los 
 						alumnos de ese Grupo. Tanto en la lista total como en la lista de un Grupo podemos 
-						seleccionar uno o varios alumnos. Como se señala en el texto de ayuda del formulario, 
-						se pueden seleccionar múltiples alumnos mediante el uso de la tecla <kbd>CTRL</kbd> + 
+						seleccionar uno o varios alumnos. Como se seÃ±ala en el texto de ayuda del formulario, 
+						se pueden seleccionar mÃºltiples alumnos mediante el uso de la tecla <kbd>CTRL</kbd> + 
 						click sobre los distintos elementos; si queremos seleccionar a todo el Grupo, hacemos 
-						click sobre el primero de la lista y, manteniendo presionada la tecla Mayúsculas 
-						(<kbd>SHIFT</kbd>), seleccionamos el último de la lista.</p>
-						<p>El segundo bloque de campos del formulario comienza con la elección de la 
+						click sobre el primero de la lista y, manteniendo presionada la tecla MayÃºsculas 
+						(<kbd>SHIFT</kbd>), seleccionamos el Ãºltimo de la lista.</p>
+						<p>El segundo bloque de campos del formulario comienza con la elecciÃ³n de la 
 						<em><strong>Gravedad</strong></em> del Problema que vamos a registrar. La Gravedad 
-						puede ser: Leve, Grave y Muy Grave. Cada categoría va asociada a un conjunto de 
+						puede ser: Leve, Grave y Muy Grave. Cada categorÃ­a va asociada a un conjunto de 
 						<em><strong>Conductas Negativas</strong></em> que aparecen en el ROF (Reglamento de 
-						Organización y Funcionamiento) del Centro y que puede ser editado por parte de los 
-						Administradores de la Intranet (Administración de la Intranet --> A principio de 
-						Curso --> Modificar ROF). Al cargar una de las categorías, el desplegable muestra las 
-						Conductas Negativas propias de esa categoría. Seleccionamos una Conducta y aparecerán 
+						OrganizaciÃ³n y Funcionamiento) del Centro y que puede ser editado por parte de los 
+						Administradores de la Intranet (AdministraciÃ³n de la Intranet --> A principio de 
+						Curso --> Modificar ROF). Al cargar una de las categorÃ­as, el desplegable muestra las 
+						Conductas Negativas propias de esa categorÃ­a. Seleccionamos una Conducta y aparecerÃ¡n 
 						al mismo tiempo la <em><strong>Medida Adoptada</strong></em> administrativamente (si 
-						procede según el ROF) y las <em><strong>Medidas Complementarias</strong></em> que deben 
-						tomarse (según el ROF). Si el alumno ha sido <em><strong>expulsado del Aula</strong></em>, 
-						debe marcarse la opción correspondiente.</p>
+						procede segÃºn el ROF) y las <em><strong>Medidas Complementarias</strong></em> que deben 
+						tomarse (segÃºn el ROF). Si el alumno ha sido <em><strong>expulsado del Aula</strong></em>, 
+						debe marcarse la opciÃ³n correspondiente.</p>
 						<p>En el campo <em><strong>Observaciones</strong></em> describimos el acontecimiento que 
-						hemos tipificado. La descripción debe ser precisa y completa, de tal modo que tanto el 
+						hemos tipificado. La descripciÃ³n debe ser precisa y completa, de tal modo que tanto el 
 						Tutor como el Jefe de Estudios como los propios Padres del alumno puedan hacerse una 
 						idea ajustada de lo sucedido.</p>
 						<p>El <em><strong>Profesor</strong></em> que informa del Problema coincide con el Profesor 
-						que ha abierto la sesión de la Intranet, excepto en el caso de los miembros del Equipo 
+						que ha abierto la sesiÃ³n de la Intranet, excepto en el caso de los miembros del Equipo 
 						Directivo que pueden elegir entre la lista de todos los Profesores.</p>
-						<p>El botón <em><strong>Registrar</strong></em> envía los datos del formulario y completa 
+						<p>El botÃ³n <em><strong>Registrar</strong></em> envÃ­a los datos del formulario y completa 
 						el proceso de registro.</p>
 						<p>Hay que tener en cuenta algunos detalles que suceden al registrar un Problema 
 						de Convivencia:</p>
 						<ul>
-							<li>El Tutor recibe un mensaje en la Página principal cuando se 
+							<li>El Tutor recibe un mensaje en la PÃ¡gina principal cuando se 
 							registra un Problema Grave o Muy Grave de alguno de sus alumnos. El mensaje ofrece 
 							datos sobre el problema e indica el procedimiento a seguir. El Jefe de Estudios 
-							también ve los Problemas que se van registrando en el momento de producirse.</li>
+							tambiÃ©n ve los Problemas que se van registrando en el momento de producirse.</li>
 							<li>Si el problema es Leve, el sistema registra un nuevo problema 
-							Grave por reiteración: cada 5 problemas Leves se crea un Problema Grave de forma 
-							automática. El Tutor y Jefe de Estudios reciben una notificación.</li>
-							<li>Los Problemas de Convivencia caducan según el tiempo 
-							especificado en el ROF. Los valores por defecto de la aplicación son los siguientes: 
-							30 días para los Leves y Graves; 60 días para los Muy Graves.</li>
-							<li>Se puede editar el Problema registrado en los dos días 
-							siguientes a la fecha en la que sucedió. Posteriormente, la edición queda bloqueada.</li>
+							Grave por reiteraciÃ³n: cada 5 problemas Leves se crea un Problema Grave de forma 
+							automÃ¡tica. El Tutor y Jefe de Estudios reciben una notificaciÃ³n.</li>
+							<li>Los Problemas de Convivencia caducan segÃºn el tiempo 
+							especificado en el ROF. Los valores por defecto de la aplicaciÃ³n son los siguientes: 
+							30 dÃ­as para los Leves y Graves; 60 dÃ­as para los Muy Graves.</li>
+							<li>Se puede editar el Problema registrado en los dos dÃ­as 
+							siguientes a la fecha en la que sucediÃ³. Posteriormente, la ediciÃ³n queda bloqueada.</li>
 						</ul>
 					</div>
 					<div class="modal-footer">
@@ -120,7 +120,7 @@ if (isset($_POST['submit1']) or isset($_POST['submit2']))
 	include("fechoria25.php");
 }
 
-// Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
+// Si se envian datos desde el campo de bÃºsqueda de alumnos, se separa claveal para procesarlo.
 if ($_GET['seleccionado']=="1") {
 	$claveal=$_GET['nombre'];
 	//$nombrel=$claveal;
@@ -167,10 +167,10 @@ if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TR
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-danger">ATENCIÓN JEFATURA DE ESTUDIOS:</h4>
+        <h4 class="modal-title text-danger">ATENCIÃ“N JEFATURA DE ESTUDIOS:</h4>
       </div>
       <div class="modal-body">
-        <p>Los miembros del Equipo Directivo deben pulsar en el botón de '<b>Actualizar datos</b>' para completar el proceso de registro de un problema de conducta calificado de '<b>Muy grave</b>'. Al pulsar sobre el botón se enviarán un SMS o email a los padres y finalizará el proceso.</p>
+        <p>Los miembros del Equipo Directivo deben pulsar en el botÃ³n de '<b>Actualizar datos</b>' para completar el proceso de registro de un problema de conducta calificado de '<b>Muy grave</b>'. Al pulsar sobre el botÃ³n se enviarÃ¡n un SMS o email a los padres y finalizarÃ¡ el proceso.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -257,8 +257,8 @@ else{
 ?>
 </select>
 <p class="help-block">Puedes seleccionar varios alumnos manteniendo
-presionada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón
-sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Problema a todos los alumnos del Grupo, marca con el ratón el primer alumno y, mientras mantienes pulsada la tecla <kbd>Mayúsculas (Shift)</kbd>, marca el último de los alumnos para seleccionarlos a todos.</p>
+presionada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratÃ³n
+sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Problema a todos los alumnos del Grupo, marca con el ratÃ³n el primer alumno y, mientras mantienes pulsada la tecla <kbd>MayÃºsculas (Shift)</kbd>, marca el Ãºltimo de los alumnos para seleccionarlos a todos.</p>
 <?php
 }
 ?>
@@ -302,7 +302,7 @@ $tipo = "select distinct medidas from listafechorias where fechoria = '$asunto'"
 $tipo1 = mysqli_query($db_con, $tipo);
 while($tipo2 = mysqli_fetch_array($tipo1))
 {
-	if($tipo2[0] == "Amonestación escrita")
+	if($tipo2[0] == "AmonestaciÃ³n escrita")
 	{
 		$medidaescr = $tipo2[0];
 		echo '<input type="hidden" id="medida" name="medida" value="'.$tipo2[0].'">';
@@ -333,9 +333,9 @@ sido <u>expulsado</u> del aula </label></div>
 }
 ?>
 
-<div class="form-group"><label for="notas">Descripción:</label> <textarea
+<div class="form-group"><label for="notas">DescripciÃ³n:</label> <textarea
 	class="form-control" id="notas" name="notas" rows="7"
-	placeholder="Describe aquí los detalles del incidente..." required><?php echo $notas; ?></textarea>
+	placeholder="Describe aquÃ­ los detalles del incidente..." required><?php echo $notas; ?></textarea>
 </div>
 
 <?php

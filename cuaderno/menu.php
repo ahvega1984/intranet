@@ -87,12 +87,12 @@ elseif (isset($_POST['foto'])) {
 </thead>
 <tbody>
 <?php	
-// Horas del día
+// Horas del dÃ­a
 $todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre_hora ) {	
-echo '<tr><th>'.$nombre_hora.'ª</th>';
+echo '<tr><th>'.$nombre_hora.'Âª</th>';
 	
-	//Días
+	//DÃ­as
 	for($z = 1; $z < 6; $z ++) {
 
 		?>

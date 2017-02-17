@@ -21,16 +21,16 @@ $fin_aula = "$fechaesp1[2]-$fechaesp1[1]-$fechaesp1[0]";
   	if(empty($inicio_aula) OR empty($fin_aula) OR empty($convivencia)){
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No has escrito datos en <u>todos</u> los campos del formulario del Aula de Convivencia. Inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+No has escrito datos en <u>todos</u> los campos del formulario del Aula de Convivencia. IntÃ©ntalo de nuevo.
           </div></div>';
 	}
 	elseif (strstr($inicio_aula,"-")==FALSE OR strstr($fin_aula,"-")==FALSE)
 	{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-El formato de las fechas no es correcto. Lo correcto es "dia-mes-año" (p.ej. 15-10-2009). Inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+El formato de las fechas no es correcto. Lo correcto es "dia-mes-aÃ±o" (p.ej. 15-10-2009). IntÃ©ntalo de nuevo.
           </div></div>';
 	}
 	else{
@@ -136,16 +136,16 @@ if($submit){
 	if(empty($inicio) OR empty($fin) OR empty($expulsion)){
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No has escrito datos en <u>todos</u> los campos del formulario de expulsión. Inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+No has escrito datos en <u>todos</u> los campos del formulario de expulsiÃ³n. IntÃ©ntalo de nuevo.
           </div></div>';
 	}
 		elseif (strstr($inicio,"-")==FALSE OR strstr($fin,"-")==FALSE)
 	{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
->El formato de las fechas no es correcto. Lo correcto es "dia-mes-año" (p.ej. 15-10-2009). Inténtalo de nuevo.
+			<h5>ATENCIÃ“N:</h5>
+>El formato de las fechas no es correcto. Lo correcto es "dia-mes-aÃ±o" (p.ej. 15-10-2009). IntÃ©ntalo de nuevo.
           </div></div>';
 	}
 	else{
@@ -213,13 +213,13 @@ mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values 
 		$fecha2 = date('Y-m-d');
 		$tutor = "Jefatura de Estudios";
 		$causa = "Problemas de Convivencia";
-		$accion = "Envío de SMS";
+		$accion = "EnvÃ­o de SMS";
 		mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
 	}
 	else {
 		echo "
 		<div class=\"alert alert-error\">
-			<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+			<strong>Error:</strong> No se pudo enviar el SMS al telÃ©fono (+34) ".$mobile.". Corrija la informaciÃ³n de contacto del alumno/a en SÃ©neca e importe los datos nuevamente.
 		</div>
 		<br>";
 	}

@@ -51,7 +51,7 @@ do {
   $rows = mysqli_num_rows($Recordset1);
 ?>
 						  </select>
-						  <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples asignaturas.</p>
+						  <p class="help-block">MantÃ©n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratÃ³n para seleccionar mÃºltiples asignaturas.</p>
 						</div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
@@ -76,7 +76,7 @@ do {
 					    <select class="form-control" name="select1[]" multiple size="20">
 <?php 
 do {  
-	if ((strstr($row_Recordset2['curso'],"E.S.O.") || strstr($row_Recordset2['curso'], "Bachillerato")) && !strstr($row_Recordset2['curso'], "1º ")) {	
+	if ((strstr($row_Recordset2['curso'],"E.S.O.") || strstr($row_Recordset2['curso'], "Bachillerato")) && !strstr($row_Recordset2['curso'], "1Âº ")) {	
 ?>
     <option value="<?php  echo $row_Recordset2['unidad']?>"><?php  echo $row_Recordset2['unidad']?> (<?php  echo $row_Recordset2['curso']?>)</option>
     <?php 
@@ -89,7 +89,7 @@ do {
   }
 ?>
 					    </select>
-					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+					    <p class="help-block">MantÃ©n apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratÃ³n para seleccionar mÃºltiples grupos.</p>
 					  </div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit2">Consultar</button>

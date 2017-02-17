@@ -2,7 +2,7 @@
 
 echo "<h4 class='text-info'>Problemas de convivencia</h4>";
 
-// Consulta del a� en curso.
+// Consulta del aï¿½ en curso.
 
   $fechoria = mysqli_query($db_con, "select distinct Fechoria.claveal from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha");
 $fech = mysqli_fetch_array($fechoria);
@@ -11,7 +11,7 @@ if ($fech[0] == "")
 { 
 echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI�N:</h5>
+			<h5>ATENCIÓN:</h5>
 El Alumno no tiene Problemas de convivencia.
 </div></div>';}
 else {

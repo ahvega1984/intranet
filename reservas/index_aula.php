@@ -98,13 +98,13 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 	elseif ($daylong == "Tuesday")
 	{$daylong = "Martes";}
 	elseif ($daylong == "Wednesday")
-	{$daylong = "Miércoles";}
+	{$daylong = "MiÃ©rcoles";}
 	elseif ($daylong == "Thursday")
 	{$daylong = "Jueves";}
 	elseif ($daylong == "Friday")
 	{$daylong = "Viernes";}
 	elseif ($daylong == "Saturday")
-	{$daylong = "Sábado";}
+	{$daylong = "SÃ¡bado";}
 
 
 	if ($monthlong == "January")
@@ -133,7 +133,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 	{$monthlong = "Diciembre";}
 	if ($today > $numdays) { $today--; }
 
-	// Lugares y situación
+	// Lugares y situaciÃ³n
 	// Comprobamos que existe la tabla del aula
 	$aula_res = mysqli_query($db_con,"select distinct servicio from reservas");
 	while ($a_res=mysqli_fetch_array($aula_res)) {
@@ -186,17 +186,17 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		</tr>
 	</thead>
 	<?php
-	//Días vacíos
+	//DÃ­as vacÃ­os
 	if ($dayone < 0) $dayone = 6;
 	for ($i = 0; $i < $dayone; $i++) {
 		echo "<td>&nbsp;</td>";
 	}
 
 
-	//Días
+	//DÃ­as
 	for ($zz = 1; $zz <= $numdays; $zz++) {
 		if ($i >= 7) {  print("</tr><tr>"); $i=0; }
-		// Mirar a ver si hay alguna ctividad en el días
+		// Mirar a ver si hay alguna ctividad en el dÃ­as
 		$result_found = 0;
 		if ($zz == $today) {
 			echo "<td class=\"calendar-today\">$zz</td>";
@@ -204,7 +204,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		}
 
 		if ($result_found != 1) {
-			//Buscar actividad para el día y marcarla
+			//Buscar actividad para el dÃ­a y marcarla
 			$sql_currentday = "$year-$month-$zz";
 			$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio'";
 			//echo $eventQuery;
@@ -245,7 +245,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 	echo "</table>";
 	?>
 	<div class="well">
-	<h4 class="text-info">Próximos días</h4>
+	<h4 class="text-info">PrÃ³ximos dÃ­as</h4>
 	<?php
 	for ($i = $today; $i <= ($today + 6); $i++) {
 		$current_day = $i;
@@ -266,13 +266,13 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		elseif ($dayname == "Tuesday")
 		{$dayname = "Martes";}
 		elseif ($dayname == "Wednesday")
-		{$dayname = "Miércoles";}
+		{$dayname = "MiÃ©rcoles";}
 		elseif ($dayname == "Thursday")
 		{$dayname = "Jueves";}
 		elseif ($dayname == "Friday")
 		{$dayname = "Viernes";}
 		elseif ($dayname == "Saturday")
-		{$dayname = "Sábado";}
+		{$dayname = "SÃ¡bado";}
 
 		$sql_currentday = "$current_year-$current_month-$current_day";
 		$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio'";
@@ -293,29 +293,29 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		echo '<p><span class="fa fa-calendar-o fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
 		echo '<a href="//'.$config['dominio'].'/intranet/reservas/reservar/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
-		//Nombre del día
+		//Nombre del dÃ­a
 		if (mysqli_num_rows($eventExec) == 1)
 		{
 			if ($event_event1 !== "") {
-				echo "<p>1ª hora: $event_event1</p>";
+				echo "<p>1Âª hora: $event_event1</p>";
 			}
 			if ($event_event2 !== "") {
-				echo "<p>2ª hora: $event_event2</p>";
+				echo "<p>2Âª hora: $event_event2</p>";
 			}
 			if ($event_event3 !== "") {
-				echo "<p>3ª hora: $event_event3</p>";
+				echo "<p>3Âª hora: $event_event3</p>";
 			}
 			if ($event_event4 !== "") {
-				echo "<p>4ª hora: $event_event4</p>";
+				echo "<p>4Âª hora: $event_event4</p>";
 			}
 			if ($event_event5 !== "") {
-				echo "<p>5ª hora: $event_event5</p>";
+				echo "<p>5Âª hora: $event_event5</p>";
 			}
 			if ($event_event6 !== "") {
-				echo "<p>6ª hora: $event_event6</p>";
+				echo "<p>6Âª hora: $event_event6</p>";
 			}
 			if ($event_event7 !== "") {
-				echo "<p>7ª hora: $event_event7</p>";
+				echo "<p>7Âª hora: $event_event7</p>";
 			}
 		}
 

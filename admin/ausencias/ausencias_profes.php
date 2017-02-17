@@ -21,10 +21,10 @@ $PLUGIN_DATATABLES = 1;
 					<thead>
 						<tr>
 				      		<th><small>Profesor</small></th>
-				      		<th><small>Total Días</small></th>
-				      		<th><small>Días completos</small></th>
-				      		<th><small>Días con horas</small></th>
-				      		<th><small>Nº de horas</small></th>
+				      		<th><small>Total DÃ­as</small></th>
+				      		<th><small>DÃ­as completos</small></th>
+				      		<th><small>DÃ­as con horas</small></th>
+				      		<th><small>NÂº de horas</small></th>
 				  		</tr>
 				  	</thead>
 
@@ -81,14 +81,14 @@ $PLUGIN_DATATABLES = 1;
 
         "language": {
                     "lengthMenu": "_MENU_",
-                    "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-                    "info": "Página _PAGE_ de _PAGES_",
+                    "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+                    "info": "PÃ¡gina _PAGE_ de _PAGES_",
                     "infoEmpty": "No hay resultados disponibles.",
                     "infoFiltered": "(filtrado de _MAX_ resultados)",
                     "search": "Buscar: ",
                     "paginate": {
                           "first": "Primera",
-                          "next": "Última",
+                          "next": "Ãšltima",
                           "next": "",
                           "previous": ""
                         }

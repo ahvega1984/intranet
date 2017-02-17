@@ -10,7 +10,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Biblioteca <small> EdiciÛn de morosos</small></h2>
+  <h2>Biblioteca <small> Edici√≥n de morosos</small></h2>
 </div>
 <br>
 
@@ -55,15 +55,15 @@ if(isset($_POST['registro'])){$registro=$_POST['registro'];}
 if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 	$i=0;
 	$j=0;
-	$asunto='Retraso injustificado en la devoluciÛn de material a la Biblioteca del Centro';
+	$asunto='Retraso injustificado en la devoluci√≥n de material a la Biblioteca del Centro';
 	$informa='Jefatura de Estudios';
 	$grave='grave';
-	$medida='AmonestaciÛn escrita';
+	$medida='Amonestaci√≥n escrita';
 	$expulsionaula='0';
 	$enviado='1';
 	$recibido='0';
 	$causa='Otras';
-	$accion='EnvÌo de SMS';
+	$accion='Env√≠o de SMS';
 
 	foreach ($_POST as $ide => $valor) {      
 		if(($ide != 'registro') and (!empty( $valor)))
@@ -81,7 +81,7 @@ if($duplicados[0]=='NO'){
 
 if (isset($_POST['registro'])) {
 		$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id='$valor[$i]'") or die ("No se ha podido actualizar el registro");
-		//localizo el alumno a trav√©s de la id de la tabla morosos.
+		//localizo el alumno a trav√É¬©s de la id de la tabla morosos.
 	}
 	$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id='$valor[$i]'") or die ("error al localizar alumno");
 
@@ -97,10 +97,10 @@ if (isset($_POST['registro'])) {
 			$dia= date ('Y-m-d',time());
 			$clave=$clav[0];// echo $clave.'---'. $dia;
 			$unidad=$clav[1]; //echo $nivel;
-			//insertamos, por f√≠n, la fechor√≠a
+			//insertamos, por f√É¬≠n, la fechor√É¬≠a
 if (isset($_POST['registro'])) {
-				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechorÌa");
-				//ahora registramos la intervencion en la tabla tutor√≠a, debido al tema de los SMS
+				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechor√≠a");
+				//ahora registramos la intervencion en la tabla tutor√É¬≠a, debido al tema de los SMS
 				$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 			}
 if (isset($_POST['sms'])) {
@@ -128,7 +128,7 @@ if (isset($_POST['sms'])) {
 				$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro: No devolver en el tiempo debido material de la Biblioteca.";
 			}
 			else{
-				$message = "Su hijo/a no ha devuelto material de la Biblioteca en el plazo indicado. Si no lo devuelve en los prÛximos dÌas se le impondr· un parte disciplinario grave.";
+				$message = "Su hijo/a no ha devuelto material de la Biblioteca en el plazo indicado. Si no lo devuelve en los pr√≥ximos d√≠as se le impondr√° un parte disciplinario grave.";
 			}
 			
 			if(strlen($mobile) == 9) {
@@ -149,7 +149,7 @@ if (isset($_POST['sms'])) {
 			else {
 				echo "
 				<div class=\"alert alert-error\">
-					<strong>Error:</strong> No se pudo enviar el SMS al telÈfono (+34) ".$mobile.". Corrija la informaciÛn de contacto del alumno/a en SÈneca e importe los datos nuevamente.
+					<strong>Error:</strong> No se pudo enviar el SMS al tel√©fono (+34) ".$mobile.". Corrija la informaci√≥n de contacto del alumno/a en S√©neca e importe los datos nuevamente.
 				</div>
 				<br>";			}
 
@@ -174,19 +174,19 @@ if (isset($_POST['registro'])) {
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
-La amonestaciÛn se ha registrado con &eacute;xito. Los tutores de los alumnos recibir·n el mensaje del problema de convivencia registrado y proceder·n a imprimir y entregar en Jefatura el impreso para los padres.
+La amonestaci√≥n se ha registrado con &eacute;xito. Los tutores de los alumnos recibir√°n el mensaje del problema de convivencia registrado y proceder√°n a imprimir y entregar en Jefatura el impreso para los padres.
 	</div></div><br />';
-	echo "<div align='center'><a href='consulta.php' class='btn btn-default'>Volver a la Consulta de PrÈstamos</a></div>";
+	echo "<div align='center'><a href='consulta.php' class='btn btn-default'>Volver a la Consulta de Pr√©stamos</a></div>";
 }
 elseif(isset($_POST['sms'])){
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
-Los mensajes SMS de aviso por retraso en la devoluciÛn de ejemplares de la Biblioteca han sido enviados correctamente.
+Los mensajes SMS de aviso por retraso en la devoluci√≥n de ejemplares de la Biblioteca han sido enviados correctamente.
 	</div></div><br /></div>
 </div>
 </div>';
-echo "<div align='center'><a href='consulta.php' class='btn btn-default'>Volver a la Consulta de PrÈstamos</a></div>";
+echo "<div align='center'><a href='consulta.php' class='btn btn-default'>Volver a la Consulta de Pr√©stamos</a></div>";
 }
 ?>
 </div>

@@ -46,7 +46,7 @@ $hora_actual = $hora_act[0];
 	<div class="list-group">
 		<a class="list-group-item" href="#">
 			<span class="pull-right fa fa-check-square-o fa-fw fa-lg" data-bs="tooltip" title="Hay tareas para los alumnos"></span>
-			Juan Pérez
+			Juan PÃ©rez
 		</a>
 	</div>
 

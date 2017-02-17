@@ -19,7 +19,7 @@ include("../menu.php");
 	  {
 ?>
 <form enctype='multipart/form-data' action='lista.php' method='post' role="form">
-<legend> Consulta por Mes y Número de Faltas.</legend>
+<legend> Consulta por Mes y NÃºmero de Faltas.</legend>
 <fieldset>		
                     <div class="form-group ">
 <label class="control-label">Mes </label>
@@ -39,7 +39,7 @@ include("../menu.php");
                     </select>
  </div>
                     <div class="form-group">
-                    <label >Número mínimo de Faltas</label>
+                    <label >NÃºmero mÃ­nimo de Faltas</label>
                     <INPUT name="numero" type="text" id="numero" size="3" maxlength="3" class="form-control">
                     </div>
                     <br /> 
@@ -72,7 +72,7 @@ include("../menu.php");
                     </select>
 </div>
 <br />
-                    <INPUT name="submit5" type="submit" value="Ir a la Página de Informes" class="btn btn-primary"> 
+                    <INPUT name="submit5" type="submit" value="Ir a la PÃ¡gina de Informes" class="btn btn-primary"> 
 </form>
 </div>
 </div>

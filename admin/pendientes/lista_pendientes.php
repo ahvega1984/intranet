@@ -13,7 +13,7 @@ if ($_POST['pdf'] == 1) {
 			$this->SetFont('ErasDemiBT','B',10);
 			$this->SetY(15);
 			$this->Cell(75);
-			$this->MultiCell(170, 5, 'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE', 0,'R', 0);
+			$this->MultiCell(170, 5, 'CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE', 0,'R', 0);
 			$this->Ln(15);
 		}
 		function Footer() {
@@ -43,7 +43,7 @@ if ($_POST['pdf'] == 1) {
 		$MiPDF->Addpage();
 		
 		$MiPDF->SetFont('NewsGotT', 'B', 12);
-		$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+		$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 		$MiPDF->Ln(5);
 		
 		
@@ -72,7 +72,7 @@ if ($_POST['pdf'] == 1) {
 		$MiPDF->SetTextColor(255, 255, 255);
 		$MiPDF->SetFillColor(61, 61, 61);
 		
-		$MiPDF->Row(array('Unidad', 'Nº', 'Alumno/a', 'Asignatura', 'Observaciones'), 0, 6);	
+		$MiPDF->Row(array('Unidad', 'NÂº', 'Alumno/a', 'Asignatura', 'Observaciones'), 0, 6);	
 		
 		$result = mysqli_query($db_con, "SELECT DISTINCT alma.unidad, FALUMNOS.NC, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, alma.matriculas, asignaturas.abrev FROM pendientes, asignaturas, alma, FALUMNOS WHERE asignaturas.codigo = pendientes.codigo AND FALUMNOS.claveal=alma.claveal AND alma.claveal = pendientes.claveal AND alma.unidad NOT LIKE '%p-%' AND asignaturas.codigo = '$valor' and alma.unidad not like '1%' AND abrev LIKE  '%\_%' ORDER BY alma.curso, alma.unidad, nc");
 		
@@ -132,7 +132,7 @@ echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th
 	/*$sql = "SELECT distinct alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, alma.unidad, FALUMNOS.nc, asignaturas.nombre
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE pendientes.codigo='".$pendi[0]."' and alma.claveal = pendientes.claveal and alma.claveal = FALUMNOS.claveal
-AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' and asignaturas.nombre not like 'Ámbito %'  ORDER BY alma.curso, unidad, nc, alma.Apellidos, alma.Nombre";*/
+AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' and asignaturas.nombre not like 'Ãmbito %'  ORDER BY alma.curso, unidad, nc, alma.Apellidos, alma.Nombre";*/
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
 FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo

@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// AquÌ empieza la justificaciÛn.
+// Aqu√≠ empieza la justificaci√≥n.
 // Buscamos registros siguiendo a cal.php
 // Datos complementarios para el formulario
 $borrajusti = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
@@ -14,7 +14,7 @@ if ($falta=="J")
 	$deljusti = "DELETE FROM FALTAS WHERE FECHA = '$year-$month-$today' and CLAVEAL = '$alumno' and FALTA = 'J'";
 	mysqli_query($db_con, $deljusti) or die("No se ha podido eliminar la Falta Justificada.<br> Ponte en contacto con quien pueda arreglarlo..");
 }
-// AquÌ empieza la justificaciÛn.
+// Aqu√≠ empieza la justificaci√≥n.
 else
 {
 	$justifica0 = "SELECT FALTA, FALTAS.NC, FALUMNOS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno'";
@@ -37,7 +37,7 @@ else
 
 		}
 	}
-	// S i el tutor quiere justificar una falta antes de que haya sido introducida en la base de datos, procedemos a rellenar las horas marcadas de ese dÌa con la "J".
+	// S i el tutor quiere justificar una falta antes de que haya sido introducida en la base de datos, procedemos a rellenar las horas marcadas de ese d√≠a con la "J".
 	elseif($_POST['Enviar']=="Registrar"){
 		foreach ($_POST as $clave => $valor){
 			if (strstr($clave,"_")==TRUE) {
@@ -62,7 +62,7 @@ else
 		$fecha44 = $today."-".$month."-".$year;
 		$fecha_fiesta= strtotime($fecha33);
 
-		// Fiestas del AÒo, Vacaciones, etc.
+		// Fiestas del A√±o, Vacaciones, etc.
 		$comienzo_del_curso = strtotime($config['curso_inicio']);
 		$final_del_curso = strtotime($config['curso_fin']);
 		$dia_festivo="";
@@ -73,7 +73,7 @@ else
 		}
 		if($dia_festivo=='1')
 		{
-			$mens_fecha = "No es posible poner o justificar Faltas en un <b>DÌa Festivo</b> o en <b>Vacaciones</b>. Comprueba la Fecha: <b>$today-$month-$year</b>";
+			$mens_fecha = "No es posible poner o justificar Faltas en un <b>D√≠a Festivo</b> o en <b>Vacaciones</b>. Comprueba la Fecha: <b>$today-$month-$year</b>";
 			if($year and $month and $today){$mens_fecha.=": ".$fecha44;}
 			$mens_fecha.=".</p>";
 		}
@@ -84,7 +84,7 @@ else
 			$mens_fecha = "No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha: <b>$today-$month-$year</b>.";
 		}
 
-		// Excluimos S·bados y Domingos;
+		// Excluimos S√°bados y Domingos;
 		elseif (($ndia ['wday']== "0") or ($ndia ['wday']== "6")) {
 		}
 			
@@ -100,7 +100,7 @@ else
 			// Excluimos otras posibilidades de error.
 			if ($unidad == "") {
 				echo '<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>Parece que tenemos un problema: no has seleccionado el Grupo, Alumno o DÌa para justificar las Faltas de Asistencia. Si lo has hecho, quiz·s deberÌas buscar ayuda si este mensaje aparece de nuevo.</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>Parece que tenemos un problema: no has seleccionado el Grupo, Alumno o D√≠a para justificar las Faltas de Asistencia. Si lo has hecho, quiz√°s deber√≠as buscar ayuda si este mensaje aparece de nuevo.</div></div>';
 			}
 			else {
 				for ($i=1;$i<7;$i++)
@@ -170,7 +170,7 @@ else
 				}
 			}
 			if ($ctrl==0) {
-				echo '<div align="center"><div class="alert alert-danger alert-block fade in"><button type="button" class="close" data-dismiss="alert">&times;</button>Debes marcar al menos una hora de ausencia para poder justificarla posteriormente, y no has marcado ninguna en elcuadro de di·logo que ha aparecido anteriormente.</div></div>';
+				echo '<div align="center"><div class="alert alert-danger alert-block fade in"><button type="button" class="close" data-dismiss="alert">&times;</button>Debes marcar al menos una hora de ausencia para poder justificarla posteriormente, y no has marcado ninguna en elcuadro de di√°logo que ha aparecido anteriormente.</div></div>';
 			}
 		}
 	}

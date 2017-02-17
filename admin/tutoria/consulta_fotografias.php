@@ -52,10 +52,10 @@ if (isset($_POST['enviar'])) {
 		// Eliminamos posibles imagenes que hayan en la tabla
 		mysqli_query($db_con, "DELETE FROM fotos WHERE nombre='".$claveal.".jpg'");
 		
-		// Insertamos la foto en la tabla, esto es útil para la página externa
-		mysqli_query($db_con, "INSERT fotos (nombre, datos, fecha, tamaño) VALUES ('".$claveal.".jpg', '$file_content', '".date('Y-m-d H:i:s')."', '".$file_size."')");
+		// Insertamos la foto en la tabla, esto es Ãºtil para la pÃ¡gina externa
+		mysqli_query($db_con, "INSERT fotos (nombre, datos, fecha, tamaÃ±o) VALUES ('".$claveal.".jpg', '$file_content', '".date('Y-m-d H:i:s')."', '".$file_size."')");
 		
-		$msg_success = "La fotografía se ha actualizado.";
+		$msg_success = "La fotografÃ­a se ha actualizado.";
 	}
 	
 }
@@ -94,7 +94,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Fotografías de los alumnos</small></h2>
+			<h2>TutorÃ­a de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>FotografÃ­as de los alumnos</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
 		
@@ -123,7 +123,7 @@ include("menu.php");
 					<form method="post" action="" enctype="multipart/form-data">
 						
 						<fieldset>
-							<legend>Actualizar la fotografía del alumno/a</legend>
+							<legend>Actualizar la fotografÃ­a del alumno/a</legend>
 							
 							<div class="form-group">
 								<label for="alumno">Alumno/a</label>
@@ -142,7 +142,7 @@ include("menu.php");
 							</div>
 							
 							<div class="form-group">
-								<label for="foto">Fotografía (formato JPEG)</label>
+								<label for="foto">FotografÃ­a (formato JPEG)</label>
 								<input type="file" id="foto" name="foto" accept="image/jpeg">
 							</div>
 							
@@ -160,18 +160,18 @@ include("menu.php");
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-6">
 			
-				<h3>Información sobre las fotografías</h3>
+				<h3>InformaciÃ³n sobre las fotografÃ­as</h3>
 				
-				<p>Utilizamos esta página para subir las fotos de los alumnos de la Tutoría. Preparamos en primer lugar las fotos que hemos hecho a los alumnos, en formato JPG; seleccionamos un alumno en el desplegable; hacemos click sobre el botón de <em>Seleccionar archivo</em> y elegimos el archivo de foto correspondiente al alumno en cuestion; hacemos click sobre el boton de <em>Actualizar</em>.</p>
+				<p>Utilizamos esta pÃ¡gina para subir las fotos de los alumnos de la TutorÃ­a. Preparamos en primer lugar las fotos que hemos hecho a los alumnos, en formato JPG; seleccionamos un alumno en el desplegable; hacemos click sobre el botÃ³n de <em>Seleccionar archivo</em> y elegimos el archivo de foto correspondiente al alumno en cuestion; hacemos click sobre el boton de <em>Actualizar</em>.</p>
 				
 				<p>La foto debe cumplir la norma especificada:<p>
 				 	
 				<ul>
-					<li>Tener el fondo de un único color, liso y claro.</li>
-					<li>La foto ha de ser reciente y tener menos de 6 meses de antigüedad.</li>
+					<li>Tener el fondo de un Ãºnico color, liso y claro.</li>
+					<li>La foto ha de ser reciente y tener menos de 6 meses de antigÃ¼edad.</li>
 					<li>Foto tipo carnet, la imagen no puede estar inclinada, tiene que mostrar la cara claramente de frente.</li>
-					<li>Fotografía de cerca que incluya la cabeza y parte superior de los hombros, la cara ocuparía un 70-80% de la fotografía.</li>
-					<li>Fotografía perfectamente enfocada y clara.</li>
+					<li>FotografÃ­a de cerca que incluya la cabeza y parte superior de los hombros, la cara ocuparÃ­a un 70-80% de la fotografÃ­a.</li>
+					<li>FotografÃ­a perfectamente enfocada y clara.</li>
 				</ul>
 			
 			</div><!-- /.col-sm-6 -->

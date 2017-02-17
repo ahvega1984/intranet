@@ -12,7 +12,7 @@ include("menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-<h2>Material del Centro <small> Selección de Departamento</small></h2>
+<h2>Material del Centro <small> SelecciÃ³n de Departamento</small></h2>
 </div>
 <div class="row">
 <div class="col-sm-4 col-sm-offset-4"><br />
@@ -31,7 +31,7 @@ include("menu.php");
 	}
 	?>
 	<option>-------------------------------</option>
-	<option>Plan de Autoprotección</option>
+	<option>Plan de AutoprotecciÃ³n</option>
 	<option>Plan de Biblioteca</option>
 	<option>Plan Espacio de Paz</option>
 	<option>Plan de Deporte en la Escuela</option>

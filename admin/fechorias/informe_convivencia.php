@@ -63,7 +63,7 @@ for ($i = 0; $i <= 3; $i++)
     <th>Expulsiones</th>
     <th>Alumnos Expulsados</th>
   <th>Expulsi&oacute;n del Aula</th>
-    <th>Acciones Tutor韆</th>
+    <th>Acciones Tutor铆a</th>
     <th>Informes</th>
         <th>Comunicaciones</th>
 </tr>
@@ -209,7 +209,7 @@ for ($i = 0; $i <= 3; $i++)
  //mysqli_query($db_con, "truncate table absentismo");
  for($z=1;$z<13;$z++)
  {
-// Creaci髇 de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
+// Creaci贸n de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
  $SQLTEMP = "create table absentismo$z SELECT claveal, falta, (count(*)) AS numero, unidad FROM FALTAS where falta = 'F' and MONTH(fecha) = '$z' group by claveal";
  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
  mysqli_query($db_con, "insert into absentismo select * from absentismo$z where numero > '25'");
@@ -255,7 +255,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 </div>
 <div class="tab-pane fade in" id="tab2">
 
-<br /><h3>Informaci髇 por Nivel</h3>
+<br /><h3>Informaci贸n por Nivel</h3>
 <br />
 
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -524,7 +524,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 
 
 <br />
-<h3>Informaci髇 por Grupo</h3>
+<h3>Informaci贸n por Grupo</h3>
 
 <br>
  <h4 class="text-info">Curso <?php echo $config['curso_actual']; ?></h4>
@@ -722,7 +722,7 @@ if (mysqli_num_rows($ini0)):
 <table class="table table-striped" align="left" style="width:800px">
 <tr>
   <th>Tipo de Problema</th>
-  <th>N鷐ero</th>
+  <th>N煤mero</th>
 </tr>
 <?php
 while ($ini = mysqli_fetch_array($ini0)){
@@ -750,7 +750,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') ==
 ?>
 <div class="tab-pane fade in" id="tab4">
 
-<br /><h3>Informaci髇 por Profesor</h3>
+<br /><h3>Informaci贸n por Profesor</h3>
 <br />
 
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -815,7 +815,7 @@ for ($i = 0; $i < 4; $i++)
 <table class="table table-bordered table-striped table-hover" style="width:auto">
 <thead>
 <tr>
-<th>Profesor</th><th width="62">N鷐ero</th>
+<th>Profesor</th><th width="62">N煤mero</th>
 </tr>
 </thead>
 <tbody>
@@ -913,7 +913,7 @@ for ($i = 0; $i < 4; $i++)
   <thead>
   <tr>
     <th>Tipo de Problema</th>
-    <th width="62">N鷐ero</th>
+    <th width="62">N煤mero</th>
     <th width="72">Gravedad</th>
   </tr>
   </thead>

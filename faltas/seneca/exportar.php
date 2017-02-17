@@ -14,7 +14,7 @@ include("../menu.php");
 </div>
 <br />
 <?php
-// Borramos faltas de alumnos que no están matriculados
+// Borramos faltas de alumnos que no estÃ¡n matriculados
 mysqli_query($db_con,"delete from FALTAS where claveal not in (select distinct claveal from alma)");
 
 if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}
@@ -41,7 +41,7 @@ $ni=0;
 while (false !== ($file = readdir($handle))) {
 
 //header('Content-Type: text/xml');
-$doc = new DOMDocument('1.0', 'iso-8859-1');
+$doc = new DOMDocument('1.0', 'UTF-8');
 /*Cargo el XML*/
 $doc->load( './origen/'.$file );
 
@@ -118,7 +118,7 @@ $pepito2=fwrite($fp1,$xml);
 if ($ni==0) {
 	echo '<div align="center""><div class="alert alert-danger alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-	Parece que no hay archivos que se puedan procesar en el directorio /faltas/seneca/origen/. Asegúrate de que el directorio contiene los archivos exportados desde Séneca..
+	Parece que no hay archivos que se puedan procesar en el directorio /faltas/seneca/origen/. AsegÃºrate de que el directorio contiene los archivos exportados desde SÃ©neca..
 			</div></div><br />';
 include("../../pie.php");
 			
@@ -129,7 +129,7 @@ exit();
 ?>
 <div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio /exportado/. <br />Puedes proceder a importarlos a Séneca.
+	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio /exportado/. <br />Puedes proceder a importarlos a SÃ©neca.
 			</div></div><br />
 <?php
 }

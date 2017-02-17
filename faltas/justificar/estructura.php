@@ -1,5 +1,5 @@
  <?php
-// Justificación de las faltas.
+// JustificaciÃ³n de las faltas.
 if ($_POST['F']==1 or $_GET['F']==1) {
 	include("justifica.php");
 }
@@ -22,7 +22,7 @@ echo "<legend align='center'>Selecciona Tutor</legend>";
 				echo "<div class='form-group col-md-12'>         
 <SELECT name='profesor' onchange='submit()' class='form-control'>
               <OPTION></OPTION>";
-		        // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
+		        // Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
 		        $profe = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES order by TUTOR asc");
 		        if ($filaprofe = mysqli_fetch_array($profe))
 		        {
@@ -110,7 +110,7 @@ echo "</td></tr></table><br />";
 		$nivel = $filatutor[0];
 		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$nivel</span></h4><br />";
 		echo '<div class="well">';
-// Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
+// Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
 		$nivelgrupo0 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc");
 		$todos = mysqli_num_rows($nivelgrupo0);
 	function IS_ODD($number) { return($number & 1); }

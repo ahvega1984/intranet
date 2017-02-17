@@ -12,7 +12,7 @@ if (isset($_GET['verTodas']) && $_GET['verTodas'] == 1) {
 	$verTodas = 1;
 }
 
-$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
+$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. EnseÃ±anzas BilingÃ¼es', 'Ãrea ArtÃ­stica', 'Ãrea CientÃ­fico-TecnolÃ³gica', 'Ãrea Social-LingÃ¼Ã­stica', 'Ãrea FormaciÃ³n Profesional');
 
 // ELIMINAR ACTAS
 if (isset($_GET['eliminar_depto'])) {
@@ -24,7 +24,7 @@ if (isset($_GET['eliminar_depto'])) {
 	else $msg_success = "Las actas han sido eliminadas correctamente.";
 }
 
-// URI módulo
+// URI mÃ³dulo
 if (isset($_GET['verTodas'])) {
 	$uri = 'index.php?verTodas=1&amp;';
 }
@@ -46,14 +46,14 @@ include ("menu.php");
 		
 		<div class="col-sm-12">
 			
-			<h3>Órganos del centro</h3>
+			<h3>Ã“rganos del centro</h3>
 			
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
-						<th class="col-sm-3">Órgano</th>
+						<th class="col-sm-3">Ã“rgano</th>
 						<th class="col-sm-4">Secretario / Coordinador</th>
-						<th class="col-sm-2 text-center">Nº Actas / Impresas</th>
+						<th class="col-sm-2 text-center">NÂº Actas / Impresas</th>
 						<th class="col-sm-2">Consultar acta</th>
 						<th class="col-sm-1">Opciones</th>
 					</tr>
@@ -65,11 +65,11 @@ include ("menu.php");
 						case 'DFEIE' : $secretario = $config['actas_depto']['secretario_dfeie']; break;
 						case 'Equipo directivo' : $secretario = $config['actas_depto']['secretario_ed']; break;
 						case 'ETCP' : $secretario = $config['actas_depto']['secretario_etcp']; break;
-						case 'Coord. Enseñanzas Bilingües' : $secretario = $config['actas_depto']['secretario_ceb']; break;
-						case 'Área Artística' : $secretario = $config['actas_depto']['secretario_aca']; break;
-						case 'Área Científico-Tecnológica' : $secretario = $config['actas_depto']['secretario_acct']; break;
-						case 'Área Social-Lingüística' : $secretario = $config['actas_depto']['secretario_acsl']; break;
-						case 'Área Formación Profesional' : $secretario = $config['actas_depto']['secretario_afp']; break;
+						case 'Coord. EnseÃ±anzas BilingÃ¼es' : $secretario = $config['actas_depto']['secretario_ceb']; break;
+						case 'Ãrea ArtÃ­stica' : $secretario = $config['actas_depto']['secretario_aca']; break;
+						case 'Ãrea CientÃ­fico-TecnolÃ³gica' : $secretario = $config['actas_depto']['secretario_acct']; break;
+						case 'Ãrea Social-LingÃ¼Ã­stica' : $secretario = $config['actas_depto']['secretario_acsl']; break;
+						case 'Ãrea FormaciÃ³n Profesional' : $secretario = $config['actas_depto']['secretario_afp']; break;
 					}
 					
 					$total = 0;
@@ -102,7 +102,7 @@ include ("menu.php");
 								<ul class="dropdown-menu">
 									<?php mysqli_data_seek($result, 0); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
-									<li><a href="pdf.php?id=<?php echo $row['id']; ?>"><?php echo ($row['impreso']) ? '<span class="fa fa-check-circle fa-fw"></span>' : '<span class="fa fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row['numero'].' - '.$row['fecha']; ?></a></li>
+									<li><a href="pdf.php?id=<?php echo $row['id']; ?>"><?php echo ($row['impreso']) ? '<span class="fa fa-check-circle fa-fw"></span>' : '<span class="fa fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nÂº <?php echo $row['numero'].' - '.$row['fecha']; ?></a></li>
 									<?php endwhile; ?>
 									<li class="divider"></li>
 									<?php if (! $verTodas): ?>
@@ -133,7 +133,7 @@ include ("menu.php");
 					<tr>
 						<th class="col-sm-3">Departamento</th>
 						<th class="col-sm-4">Jefe de Departamento</th>
-						<th class="col-sm-2 text-center">Nº Actas / Impresas</th>
+						<th class="col-sm-2 text-center">NÂº Actas / Impresas</th>
 						<th class="col-sm-2">Consultar acta</th>
 						<th class="col-sm-1">Opciones</th>
 					</tr>
@@ -184,7 +184,7 @@ include ("menu.php");
 								<ul class="dropdown-menu">
 									<?php mysqli_data_seek($result_actas_depto, 0); ?>
 									<?php while ($row_actas = mysqli_fetch_array($result_actas_depto)): ?>
-									<li><a href="pdf.php?id=<?php echo $row_actas['id']; ?>"><?php echo ($row_actas['impreso']) ? '<span class="fa fa-check-circle fa-fw"></span>' : '<span class="fa fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row_actas['numero'].' - '.$row_actas['fecha']; ?></a></li>
+									<li><a href="pdf.php?id=<?php echo $row_actas['id']; ?>"><?php echo ($row_actas['impreso']) ? '<span class="fa fa-check-circle fa-fw"></span>' : '<span class="fa fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nÂº <?php echo $row_actas['numero'].' - '.$row_actas['fecha']; ?></a></li>
 									<?php endwhile; ?>
 									<li class="divider"></li>
 									<?php if (! $verTodas): ?>
@@ -207,7 +207,7 @@ include ("menu.php");
 			
 			<?php if ($mostrar_alerta): ?>
 			<div class="alert alert-warning">
-				<strong>Advertencia:</strong> Los Departamentos mostrados en esta página han sido creados a partir de la información aportada en la Administración de la Intranet. Si la relación de Departamentos y Jefes de Departamentos no es correcta, diríjase a <a href="../../xml/jefe/gest_dep.php" class="alert-link">Gestión de Departamentos</a> para modificar los Departamentos del centro y a <a href="../../config/cargos.php" class="alert-link">Perfiles de los profesores</a> para asignar el perfil de Jefe de Departamento.
+				<strong>Advertencia:</strong> Los Departamentos mostrados en esta pÃ¡gina han sido creados a partir de la informaciÃ³n aportada en la AdministraciÃ³n de la Intranet. Si la relaciÃ³n de Departamentos y Jefes de Departamentos no es correcta, dirÃ­jase a <a href="../../xml/jefe/gest_dep.php" class="alert-link">GestiÃ³n de Departamentos</a> para modificar los Departamentos del centro y a <a href="../../config/cargos.php" class="alert-link">Perfiles de los profesores</a> para asignar el perfil de Jefe de Departamento.
 			</div>
 			<?php endif; ?>
 			
@@ -235,10 +235,10 @@ include ("menu.php");
 					  backdrop: true,
 					  closeButton: true,
 					  animate: true,
-					  title: "Confirmación para imprimir",
+					  title: "ConfirmaciÃ³n para imprimir",
 					});
 					
-					bootbox.confirm("Esta acción bloqueará permanentemente la edición de las actas de este departamento. ¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la Administración de la Intranet.", function(result) {
+					bootbox.confirm("Esta acciÃ³n bloquearÃ¡ permanentemente la ediciÃ³n de las actas de este departamento. Â¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la AdministraciÃ³n de la Intranet.", function(result) {
 					    if (result) {
 					    	document.location.href = link;
 					    }
@@ -252,10 +252,10 @@ include ("menu.php");
 					  backdrop: true,
 					  closeButton: true,
 					  animate: true,
-					  title: "Confirmación para eliminar",
+					  title: "ConfirmaciÃ³n para eliminar",
 					});
 					
-					bootbox.confirm("Esta acción eliminará permanentemente las actas de este departamento. ¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la Administración de la Intranet.", function(result) {
+					bootbox.confirm("Esta acciÃ³n eliminarÃ¡ permanentemente las actas de este departamento. Â¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la AdministraciÃ³n de la Intranet.", function(result) {
 					    if (result) {
 					    	document.location.href = link;
 					    }

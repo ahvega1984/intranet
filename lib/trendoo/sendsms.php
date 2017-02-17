@@ -72,7 +72,7 @@ class Trendoo_SMS {
 			switch ($this->message[$i]) {
 				case '|':
 				case '^':
-				case '€':
+				case 'â¬':
 				case '}':
 				case '{':
 				case '[':

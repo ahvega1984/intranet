@@ -215,13 +215,13 @@ $(document).ready(function() {
 	"language": {
 		            "lengthMenu": "_MENU_",
 		            "zeroRecords": "Sin resultados.",
-		            "info": "Página _PAGE_ de _PAGES_",
+		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 		            "infoEmpty": "No hay resultados disponibles.",
 		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 		            "search": "",
 		            "paginate": {
 		                  "first": "Primera",
-		                  "next": "Última",
+		                  "next": "Ãšltima",
 		                  "next": "",
 		                  "previous": ""
 		                }

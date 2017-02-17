@@ -5,7 +5,7 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 	$unidad="";
   // Cursos en total
 $cursos = mysqli_query($db_con, "select distinct unidad from FALUMNOS order by unidad");
@@ -33,11 +33,11 @@ unset($data);
 while($datatmp = mysqli_fetch_array($lista)) { 
 	$data[] = array(
 				'num'=>$datatmp[1],
-				'nombre'=>$datatmp[0],
+				'nombre'=>utf8_decode($datatmp[0]),
 				);
 }
 $titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NC</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c1'=>'   ',
 				'c2'=>'   ',
@@ -59,8 +59,8 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $unidad\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+$txttit = "Lista del Grupo ".utf8_decode($unidad)."\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

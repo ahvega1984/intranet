@@ -25,9 +25,9 @@ if (isset($_POST['fecha_guardia'])) $fecha_guardia = mysqli_real_escape_string($
 if (isset($_POST['hora_guardia'])) $hora = mysqli_real_escape_string($db_con, $_POST['hora_guardia']);
 if (isset($_POST['turno_guardia'])) $turno = mysqli_real_escape_string($db_con, $_POST['turno_guardia']);
 
-// COMPROBACIÓN DEL FORMULARIO
+// COMPROBACIÃ“N DEL FORMULARIO
 
-// Campos vacíos
+// Campos vacÃ­os
 if (empty($_POST['profesor']) || empty($_POST['ausente']) || empty($_POST['fecha_guardia']) || empty($_POST['hora_guardia']) || empty($_POST['turno_guardia']) || (isset($_POST['diasdif']) && $_POST['diasdif'] > 2)) {
 
 	$msg_error = "<h4>Error al procesar el formulario</h4>\n<ul>";
@@ -37,7 +37,7 @@ if (empty($_POST['profesor']) || empty($_POST['ausente']) || empty($_POST['fecha
 	if (empty($_POST['fecha_guardia'])) $msg_error .= "<li>Fecha de la guardia - No has seleccionado la fecha de la guardia.</li>\n";
 	if (empty($_POST['hora_guardia'])) $msg_error .= "<li>Hora de la guardia - No has seleccionado la hora de la guardia.</li>\n";
 	if (empty($_POST['turno_guardia'])) $msg_error .= "<li>Turno de la guardia - No has seleccionado el turno de la guardia.</li>\n";
-	if (isset($_POST['diasdif']) && $_POST['diasdif'] > 2) $msg_error .= "<li>Plazo de registro - Estás intentando registrar una guardia con dos días o más de diferencia respecto a la fecha de la guardia, y eso no es posible. Si por motivo justificado necesitas hacerlo, ponte en contacto con algún miembro del Equipo directivo.</li>\n";
+	if (isset($_POST['diasdif']) && $_POST['diasdif'] > 2) $msg_error .= "<li>Plazo de registro - EstÃ¡s intentando registrar una guardia con dos dÃ­as o mÃ¡s de diferencia respecto a la fecha de la guardia, y eso no es posible. Si por motivo justificado necesitas hacerlo, ponte en contacto con algÃºn miembro del Equipo directivo.</li>\n";
 
 	$msg_error .= "</ul>\n";
 }
@@ -51,7 +51,7 @@ else {
 	$diasem = date('w', mktime(0, 0, 0, $mes, $dia, $anno));
 	$fechahoy = date('Y-m-d H:i:s');
 	
-	// Comprobamos si el usuario está actualizando los datos o comprobando la validez del formulario.
+	// Comprobamos si el usuario estÃ¡ actualizando los datos o comprobando la validez del formulario.
 	if (isset($_POST['accion'])) {
 		
 		if ($_POST['accion'] == 'actualizar') {
@@ -86,10 +86,10 @@ else {
 				
 			}
 			
-			// Ya ha registrado la guardia a este profesor pero en otro turno, se le da la opción de modificar el turno.
+			// Ya ha registrado la guardia a este profesor pero en otro turno, se le da la opciÃ³n de modificar el turno.
 			elseif (nomprofesor($row['profesor']) == nomprofesor($profesor) && $row['turno'] != $turno) {
 				
-				$msg_warning = "<h4>Guardia registrada</h4>\n<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."ª hora</strong> en la ".texto_turno($row['turno']).". ¿Quieres cambiar el turno?</p>\n";
+				$msg_warning = "<h4>Guardia registrada</h4>\n<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."Âª hora</strong> en la ".texto_turno($row['turno']).". Â¿Quieres cambiar el turno?</p>\n";
 				
 				$datos_registrados = array(
 					'id' => $row['id'],
@@ -107,29 +107,29 @@ else {
 			
 			// Ya ha registrado la guardia a otro profesor y la hora completa
 			elseif (nomprofesor($row['profesor']) != nomprofesor($profesor) && $row['turno'] == 1) {
-				$msg_error = "<h4>Guardia registrada</h4>\n<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."ª hora</strong>.</p>\n";
+				$msg_error = "<h4>Guardia registrada</h4>\n<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."Âª hora</strong>.</p>\n";
 			}
 			
 			// Ya ha registrado la guardia a otro profesor pero no la hora completa
 			elseif (nomprofesor($row['profesor']) != nomprofesor($profesor) && $row['turno'] != 1) {
 				
-				// Si hay varios registros significa que están asignados ambos turnos
+				// Si hay varios registros significa que estÃ¡n asignados ambos turnos
 				if ($num_reg > 1) {
 				
-					$msg_error = "<h4>Guardia registrada</h4>\n<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."ª hora</strong> en la ".texto_turno($row['turno']).".</p>\n";
+					$msg_error = "<h4>Guardia registrada</h4>\n<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."Âª hora</strong> en la ".texto_turno($row['turno']).".</p>\n";
 					
 					$row = mysqli_fetch_array($result); // Obtenemos el segundo registro
 					
-					$msg_error .= "<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."ª hora</strong> en la ".texto_turno($row['turno']).".</p>\n";
+					$msg_error .= "<p><strong>".nomprofesor($row['profe_aula'])."</strong> ya ha sido sustituido por <strong>".nomprofesor($row['profesor'])."</strong> el <strong>".strftime("%A, %e de %B de %Y", strtotime($fecha_guardia))."</strong> a <strong>".$row['hora']."Âª hora</strong> en la ".texto_turno($row['turno']).".</p>\n";
 
 					
 				}
-				// En otro caso, ofrecemos la opción de registrar el turno disponible
+				// En otro caso, ofrecemos la opciÃ³n de registrar el turno disponible
 				else {
 					
 					$turno = ($row['turno'] == 2) ? 3 : 2;
 					
-					$msg_warning = "<h4>Guardia registrada</h4>\n<p>Ya ha sido registrada esta guardia en este turno. Queda sin asignar el turno de la ".texto_turno($turno).". ¿Quieres asignar la guardia en el turno disponible?</p>\n";
+					$msg_warning = "<h4>Guardia registrada</h4>\n<p>Ya ha sido registrada esta guardia en este turno. Queda sin asignar el turno de la ".texto_turno($turno).". Â¿Quieres asignar la guardia en el turno disponible?</p>\n";
 				
 					$datos_registrados = array(
 						'id' => $row['id'],
@@ -199,7 +199,7 @@ include("menu.php");
 				<?php echo $msg_error; ?>
 			</div>
 
-			<a class="btn btn-primary" href="javascript:history.go(-1);">Volver atrás</a>
+			<a class="btn btn-primary" href="javascript:history.go(-1);">Volver atrÃ¡s</a>
 			<?php else: ?>
 			
 			<?php if (isset($msg_warning)): ?>
@@ -214,7 +214,7 @@ include("menu.php");
 			</div>
 			<?php endif; ?>
 
-			<h3>Información de la guardia</h3>
+			<h3>InformaciÃ³n de la guardia</h3>
 
 			<table class="table table-bordered table-striped">
 				<?php if (isset($datos_registrados)): ?>
@@ -257,9 +257,9 @@ include("menu.php");
 					</tr>
 					<tr>
 						<th>Hora</th>
-						<td><span class="text-success"><?php echo $hora; ?>ª hora</span></td>
+						<td><span class="text-success"><?php echo $hora; ?>Âª hora</span></td>
 						<?php if (isset($datos_registrados)): ?>
-						<td><span class="text-warning"><?php echo $datos_registrados['hora']; ?>ª hora</span></td>
+						<td><span class="text-warning"><?php echo $datos_registrados['hora']; ?>Âª hora</span></td>
 						<?php endif; ?>
 					</tr>
 					<tr>

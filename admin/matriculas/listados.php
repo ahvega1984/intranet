@@ -8,7 +8,7 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-# hasta aquí lo del pdf
+# hasta aquÃ­ lo del pdf
 $options_center = array(
 				'justification' => 'center'
 			);
@@ -80,7 +80,7 @@ if ($curso=="3ESO") {
 	$opt = "
 	
 	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Cultura Clásica,	5 => Taller T.I.C. III,	6 => Taller de Cerámica, 7 => Taller de Teatro
+	1 => AlemÃ¡n 2Âº Idioma,	2 => Cambios Sociales y GÃ©nero,	3 => FrancÃ©s 2Âº Idioma,	4 => Cultura ClÃ¡sica,	5 => Taller T.I.C. III,	6 => Taller de CerÃ¡mica, 7 => Taller de Teatro
 	";
 	
 	$data[] = array(
@@ -96,7 +96,7 @@ if ($curso=="3ESO") {
 				'c8'=>$datatmp[8],
 				);
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c9'=>'Rel.',
 				'c2'=>'Opt1',
@@ -112,13 +112,13 @@ if ($curso=="3ESO") {
 if ($curso=="2ESO") {
 
 		$act = "
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Inglés, 2 => Actividades de refuerzo de Lengua Castellana, 3 => Actividades de refuerzo de Matemáticas,		4 => Ampliación: Taller T.I.C. II";	
+	Actividades de Refuerzo y AmpliaciÃ³n:
+	1 => Actividades de refuerzo de InglÃ©s, 2 => Actividades de refuerzo de Lengua Castellana, 3 => Actividades de refuerzo de MatemÃ¡ticas,		4 => AmpliaciÃ³n: Taller T.I.C. II";	
 		
 		$opt = "
 	
 	Optativas:
-	1 => Alemán 2º Idioma, 2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Métodos de la Ciencia";
+	1 => AlemÃ¡n 2Âº Idioma, 2 => Cambios Sociales y GÃ©nero,	3 => FrancÃ©s 2Âº Idioma,	4 => MÃ©todos de la Ciencia";
 	
 	$data[] = array(
 				'num'=>$nc,
@@ -132,7 +132,7 @@ if ($curso=="2ESO") {
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c7'=>'Rel.',
 				'c2'=>'Opt1',
@@ -146,13 +146,13 @@ if ($curso=="2ESO") {
 
 if ($curso=="1ESO") {
 	$act = "
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Inglés, 2 => Actividades de refuerzo de Lengua Castellana, 3 => Actividades de refuerzo de Matemáticas,		4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro";		
+	Actividades de Refuerzo y AmpliaciÃ³n:
+	1 => Actividades de refuerzo de InglÃ©s, 2 => Actividades de refuerzo de Lengua Castellana, 3 => Actividades de refuerzo de MatemÃ¡ticas,		4 => AmpliaciÃ³n: Taller T.I.C., 5 => AmpliaciÃ³n: Taller de Teatro";		
 	
 		$opt = "
 					
 	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género, 3 => Francés 2º Idioma,	4 => Tecnología Aplicada";
+	1 => AlemÃ¡n 2Âº Idioma,	2 => Cambios Sociales y GÃ©nero, 3 => FrancÃ©s 2Âº Idioma,	4 => TecnologÃ­a Aplicada";
 	
 	$data[] = array(
 				'num'=>$nc,
@@ -166,7 +166,7 @@ if ($curso=="1ESO") {
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c7'=>'Rel.',
 				'c2'=>'Opt1',
@@ -183,28 +183,28 @@ if ($curso=="4ESO") {
 		$opt = "
 	
 	Optativas Itinerario 1:
-	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Informática
+	1 => AlemÃ¡n 2Âº Idioma,	2 => FrancÃ©s 2Âº Idioma,	3 => InformÃ¡tica
 	";
 	}
 if ($datatmp[7]=="2") {
 		$opt = "
 	
 	Optativas Itinerario 2:
-	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Informática, 4 => Ed. Plástica y Visual
+	1 => AlemÃ¡n 2Âº Idioma,	2 => FrancÃ©s 2Âº Idioma,	3 => InformÃ¡tica, 4 => Ed. PlÃ¡stica y Visual
 	";
 	}
 if ($datatmp[7]=="3") {
 		$opt = "
 	
 	Optativas Itinerario 3:
-	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Informática,	4 => Ed. Plástica y Visual
+	1 => AlemÃ¡n 2Âº Idioma,	2 => FrancÃ©s 2Âº Idioma,	3 => InformÃ¡tica,	4 => Ed. PlÃ¡stica y Visual
 	";
 	}
 if ($datatmp[7]=="4") {
 		$opt = "
 	
 	Optativas Itinerario 4:
-	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Tecnología
+	1 => AlemÃ¡n 2Âº Idioma,	2 => FrancÃ©s 2Âº Idioma,	3 => TecnologÃ­a
 	";
 	}	
 	
@@ -220,7 +220,7 @@ if ($datatmp[7]=="4") {
 				);
 
 	$titles = array(
-				'num'=>'<b>Nº</b>',
+				'num'=>'<b>NÂº</b>',
 				'nombre'=>'<b>Alumno</b>',
 				'c6'=>'Rel.',
 				'It.'=>'Itiner.',

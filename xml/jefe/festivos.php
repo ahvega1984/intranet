@@ -8,7 +8,7 @@ include("../../menu.php");
 	<div class="container">
 	
 		<div class="page-header">
-			<h2>Administración <small> Días festivos</small></h2>
+			<h2>AdministraciÃ³n <small> DÃ­as festivos</small></h2>
 		</div>
 	
 		<div id="status-loading" class="text-center">
@@ -23,11 +23,11 @@ include("../../menu.php");
 				// Borramos datos
 				mysqli_query($db_con, "truncate table festivos");	
 				
-				// Importamos los datos del fichero CSV en la tabña alma.
+				// Importamos los datos del fichero CSV en la tabÃ±a alma.
 				$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('
 				<div align="center"><div class="alert alert-success alert-block fade in" align="left">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
-				No se ha podido abrir el fichero de importación<br> Asegúrate de que su formato es correcto y no está vacío.
+				No se ha podido abrir el fichero de importaciÃ³n<br> AsegÃºrate de que su formato es correcto y no estÃ¡ vacÃ­o.
 							</div></div><br />	'); 
 				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 				{
@@ -47,7 +47,7 @@ include("../../menu.php");
 				</div>
 				
 				<div class="text-center">
-					<a href="../index.php" class="btn btn-primary">Volver a Administración</a>
+					<a href="../index.php" class="btn btn-primary">Volver a AdministraciÃ³n</a>
 				</div>
 				<?php
 				}

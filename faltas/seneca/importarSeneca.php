@@ -23,7 +23,7 @@ if(!isset($_GET['admin'])) {
 
 <div class="container"><!-- TITULO DE LA PAGINA -->
 <div class="page-header">
-<h2>ImportaciÛn de faltas de asistencia</h2>
+<h2>Importaci√≥n de faltas de asistencia</h2>
 </div>
 
 <?php
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
 			$grupo = strtoupper(substr($curso[0],2,1));
 
 
-			$doc = new DOMDocument('1.0', 'iso-8859-1');
+			$doc = new DOMDocument('1.0', 'UTF-8');
 			$doc->load( './origen/'.$archivo );
 
 			// Fechas de inicio y fin
@@ -78,8 +78,8 @@ if (isset($_POST['submit'])) {
 			if ($draw_html == 0) {
 				echo '
 		        <div class="alert alert-info">
-		        	Importando faltas de asistencia desde el dÌa <strong>'.$fecha_desde.'</strong> hasta el dÌa <strong>'.$fecha_hasta.'</strong>.
-		        	Esta acciÛn sobreescribir· los datos existentes en ese periodo de tiempo.
+		        	Importando faltas de asistencia desde el d√≠a <strong>'.$fecha_desde.'</strong> hasta el d√≠a <strong>'.$fecha_hasta.'</strong>.
+		        	Esta acci√≥n sobreescribir√° los datos existentes en ese periodo de tiempo.
 		        </div>';
 			}
 
@@ -106,13 +106,13 @@ if (isset($_POST['submit'])) {
 				$X_MATRICULA = $tag_xmatricula->item(0)->nodeValue;
 				$C_NUMESCOLAR = $tag_cnumescolar->item(0)->nodeValue;
 
-				// Obtenemos el n˙mero de lista
+				// Obtenemos el n√∫mero de lista
 				$result = mysqli_query($db_con, "SELECT NC FROM FALUMNOS WHERE CLAVEAL = '$C_NUMESCOLAR' LIMIT 1");
 				$row = mysqli_fetch_assoc($result);
 				$nc_alumno = $row['NC'];
 				mysqli_free_result($result);
 
-				// Obtenemos las asignaturas en las que est· matriculado el alumno
+				// Obtenemos las asignaturas en las que est√° matriculado el alumno
 				$result = mysqli_query($db_con, "SELECT combasi FROM alma WHERE claveal = '$C_NUMESCOLAR' LIMIT 1");
 				$row = mysqli_fetch_assoc($result);
 				$combasi = rtrim($row['combasi'],':');
@@ -155,7 +155,7 @@ if (isset($_POST['submit'])) {
 					}
 					
 					for ($i = $inicio; $i < $fin; $i++) {
-						// Obtenemos el cÛdigo del profesor y de la asignatura que se imparte en el dÌa y hora
+						// Obtenemos el c√≥digo del profesor y de la asignatura que se imparte en el d√≠a y hora
 						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
 						
 						$codasig="";
@@ -206,14 +206,14 @@ mysqli_query($db_con,"delete from FALTAS where nc='0'");
 	echo '</ul>';
 	echo '</div>';
 	echo '<br>';
-	echo '<a href="importarSeneca.php" class="btn btn-primary">Realizar otra importaciÛn</a> ';
+	echo '<a href="importarSeneca.php" class="btn btn-primary">Realizar otra importaci√≥n</a> ';
 	echo '<a href="../index.php" class="btn btn-default">Volver</a>';
 }
 else {
 	?>
 	<?php $result = mysqli_query($db_con, "SELECT * FROM FALTAS"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
-	<div class="alert alert-warning">Ya existe informaciÛn en la base de datos. Este proceso sobreescribir· la informaciÛn de la Intranet. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciÛn de los datos.</div>
+	<div class="alert alert-warning">Ya existe informaci√≥n en la base de datos. Este proceso sobreescribir√° la informaci√≥n de la Intranet. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaci√≥n de los datos.</div>
 	<?php endif; ?>
 
 <div class="row">
@@ -223,7 +223,7 @@ else {
 <div class="well">
 <form action="" method="POST" enctype="multipart/form-data">
 
-<fieldset><legend>ImportaciÛn de faltas de asistencia</legend>
+<fieldset><legend>Importaci√≥n de faltas de asistencia</legend>
 
 <div class="form-group"><label for="archivo"><span class="text-info">Exportacion_Faltas_Alumnado.zip</span></label>
 <input type="file" id="archivo" name="archivo" accept="application/zip">
@@ -245,15 +245,15 @@ else {
 
 <div class="col-sm-6">
 
-<h3>InformaciÛn de importaciÛn de datos</h3>
+<h3>Informaci√≥n de importaci√≥n de datos</h3>
 
 <p>Este apartado se encarga de importar los faltas de asistencia de los
 alumnos matriculados en el centro.</p>
 
-<p>Para obtener el archivo de exportaciÛn de Faltas de Asistencia debe
-dirigirse al apartado <strong>Utilidades</strong>, <strong>ImportaciÛn/ExportaciÛn
-de datos</strong>. Seleccione <strong>ExportaciÛn de Faltas del Alumnado</strong>.
-Seleccione una fecha comprendida en un rango de un mes y aÒada todas las
+<p>Para obtener el archivo de exportaci√≥n de Faltas de Asistencia debe
+dirigirse al apartado <strong>Utilidades</strong>, <strong>Importaci√≥n/Exportaci√≥n
+de datos</strong>. Seleccione <strong>Exportaci√≥n de Faltas del Alumnado</strong>.
+Seleccione una fecha comprendida en un rango de un mes y a√±ada todas las
 unidades de todos los cursos del centro. Proceda a descargar el archivo
 comprimido.</p>
 </div>

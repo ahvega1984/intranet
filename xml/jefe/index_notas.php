@@ -33,11 +33,11 @@ if (strlen($eval)>1) {
 		include("../../menu.php");
 		die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<h5>ATENCIÓN:</h5>
-		No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
+		<h5>ATENCIÃ“N:</h5>
+		No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
 		</div></div><br />
 		<div align="center">
-		<input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+		<input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 		</div>'); 
 	}
 		  
@@ -54,7 +54,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Importación de calificaciones por evaluación</small></h2>
+		<h2>AdministraciÃ³n <small>ImportaciÃ³n de calificaciones por evaluaciÃ³n</small></h2>
 	</div>
 	
 	<!-- SCAFFOLDING -->
@@ -67,15 +67,15 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="">
 					<fieldset>
-						<legend>Importación de calificaciones por evaluación</legend>
+						<legend>ImportaciÃ³n de calificaciones por evaluaciÃ³n</legend>
 						
 						<div class="form-group">
-							<label for="eval"><span class="text-info">Evaluación</span></label>
+							<label for="eval"><span class="text-info">EvaluaciÃ³n</span></label>
 							<select class="form-control" id="eval" name="eval" required>
 								<option value=""></option>
-								<option value="0ª Evaluación">Evaluación Inicial</option>
-								<option value="1ª Evaluación">1ª Evaluación</option>
-								<option value="2ª Evaluación">2ª Evaluación</option>
+								<option value="0Âª EvaluaciÃ³n">EvaluaciÃ³n Inicial</option>
+								<option value="1Âª EvaluaciÃ³n">1Âª EvaluaciÃ³n</option>
+								<option value="2Âª EvaluaciÃ³n">2Âª EvaluaciÃ³n</option>
 								<option value="Junio">Junio (Ordinaria)</option>
 								<option value="Septiembre">Septiembre (Extraordinaria)</option>
 							</select>
@@ -101,9 +101,9 @@ include("../../menu.php");
 		<!-- COLUMNA DERECHA -->
 		<div class="col-sm-6">
 			
-			<h3>Información sobre la importación</h3>
+			<h3>InformaciÃ³n sobre la importaciÃ³n</h3>
 			
-			<p>Para obtener el archivo de exportación de calificaciones debes dirigirte a Séneca, y luego en el Menú a <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Selecciona <strong>Exportación de Calificaciones</strong>. Seleccion luego la convocatoria y añade todas las unidades de todos los cursos del centro. Procede a descargar el archivo comprimido.<p>
+			<p>Para obtener el archivo de exportaciÃ³n de calificaciones debes dirigirte a SÃ©neca, y luego en el MenÃº a <strong>Utilidades</strong>, <strong>ImportaciÃ³n/ExportaciÃ³n de datos</strong>. Selecciona <strong>ExportaciÃ³n de Calificaciones</strong>. Seleccion luego la convocatoria y aÃ±ade todas las unidades de todos los cursos del centro. Procede a descargar el archivo comprimido.<p>
 			
 		</div><!-- /.col-sm-6 -->
 		

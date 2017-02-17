@@ -1,7 +1,7 @@
 <?php
 require_once('bootstrap.php');
 
-header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=UTF-8');
 // Fichero que realiza la consulta en la base de datos y devuelve los resultados
 if(isset($_POST["word"]))
 {

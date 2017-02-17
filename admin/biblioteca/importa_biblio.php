@@ -10,7 +10,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Biblioteca <small> Importación de libros desde Abies</small></h2>
+  <h2>Biblioteca <small> ImportaciÃ³n de libros desde Abies</small></h2>
 </div>
 <br>
 
@@ -21,7 +21,7 @@ include("menu.php");
 if (isset($_POST['enviar1'])) {	
 
 ini_set('auto_detect_line_endings', true);
-$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die ("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>");
+$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die ("<br><blockquote>No se ha podido abrir el fichero.<br> AsegÃºrate de que su formato es correcto.</blockquote>");
 mysqli_query($db_con, "drop table biblioteca_seg");
 mysqli_query($db_con, "create table biblioteca_seg select * from biblioteca");
 mysqli_query($db_con, "drop table biblioteca");
@@ -62,7 +62,7 @@ echo "<div align='center' class='text-success'><b>Se han importado un total de "
 if (isset($_POST['enviar2'])) {	
 
 ini_set('auto_detect_line_endings', true);
-$fp = fopen ($_FILES['archivo2']['tmp_name'] , "r" ) or die ("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>");
+$fp = fopen ($_FILES['archivo2']['tmp_name'] , "r" ) or die ("<br><blockquote>No se ha podido abrir el fichero.<br> AsegÃºrate de que su formato es correcto.</blockquote>");
 mysqli_query($db_con, "drop table biblioteca_lectores_seg");
 mysqli_query($db_con, "create table biblioteca__lectores_seg select * from biblioteca_lectores");
 mysqli_query($db_con, "drop table biblioteca_lectores");

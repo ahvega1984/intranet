@@ -22,8 +22,8 @@
 						<p>Seleccionamos el Nivel y, en su caso, los Grupos correspondientes. Los 
 						campos del formulario marcados con un asterisco rojo son obligatorios.</p>
 						<p>Los Libros de Texto pueden ser consultados por todos los profesores 
-						dentro de la Intranet, pero también se trasladan a la Página del Centro, 
-						desde la cual pueden ser consultados por las Librerías y los Padres de 
+						dentro de la Intranet, pero tambiÃ©n se trasladan a la PÃ¡gina del Centro, 
+						desde la cual pueden ser consultados por las LibrerÃ­as y los Padres de 
 						los alumnos. La consulta puede realizarse por Nivel o por Departamento.</p>
 					</div>
 					<div class="modal-footer">

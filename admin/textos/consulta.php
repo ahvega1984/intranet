@@ -61,7 +61,7 @@ include 'menu.php';
       	<form method="post" action="">
       		
       		<fieldset>
-      			<legend>Criterios de búsqueda</legend>
+      			<legend>Criterios de bÃºsqueda</legend>
       			
       			<div class="form-group">
       				<label for="nivel">Curso</label>
@@ -108,7 +108,7 @@ include 'menu.php';
 				<table class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
-							<th>Título</th>
+							<th>TÃ­tulo</th>
 							<th>Autor</th>
 							<th>Editorial</th>
 							<th>Departamento</th>
@@ -142,7 +142,7 @@ include 'menu.php';
 			</div>
 			<?php else: ?>
 			
-			<h3>No se han encontrado resultados según los criterios de búsqueda.</h3>
+			<h3>No se han encontrado resultados segÃºn los criterios de bÃºsqueda.</h3>
 			<br>
 			<br>
 			
@@ -150,7 +150,7 @@ include 'menu.php';
 			
 			<div class="hidden-print">
 				<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
-				<a href="consulta.php" class="btn btn-default">Nueva búsqueda</a>
+				<a href="consulta.php" class="btn btn-default">Nueva bÃºsqueda</a>
 			</div>
 			
 		</div><!-- /.col-sm-12 -->

@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 function limpiar_string($string)
 {
-	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
 if (isset($_POST['btnGuardar'])) {
@@ -13,16 +13,16 @@ if (isset($_POST['btnGuardar'])) {
 	$prefCoordinador	= limpiar_string($_POST['prefCoordinador']);
 	$prefNotificaciones	= limpiar_string($_POST['prefNotificaciones']);
 
-	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
+	// CREACIÃ“N DEL ARCHIVO DE CONFIGURACIÃ“N
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE CENTRO TIC\r\n");
+		fwrite($file, "\r\n// CONFIGURACIÃ“N MÃ“DULO DE CENTRO TIC\r\n");
 		fwrite($file, "\$config['tic']['coordinador']\t= '$prefCoordinador';\r\n");
 		fwrite($file, "\$config['tic']['notificaciones']\t= $prefNotificaciones;\r\n");
 		
-		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuraciÃ³n");
 		
 		fclose($file);
 		
@@ -35,7 +35,7 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-// Buscamos al coordinador TIC en el horario. La consulta busca a la persona que más horas tenga asignadas, por si hay centros
+// Buscamos al coordinador TIC en el horario. La consulta busca a la persona que mÃ¡s horas tenga asignadas, por si hay centros
 // con horas de Coord. TIC repartidas a varios profesores o chanchullos varios.
 $result = mysqli_query($db_con, "SELECT prof, COUNT(*) AS horas FROM `horw` WHERE c_asig = '281' GROUP BY prof ORDER BY horas DESC");
 $row = mysqli_fetch_array($result);
@@ -91,7 +91,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefNotificaciones" class="col-sm-4 control-label">Notificar al Coordinador TIC de una nueva incidencia por correo electrónico</label>
+							<label for="prefNotificaciones" class="col-sm-4 control-label">Notificar al Coordinador TIC de una nueva incidencia por correo electrÃ³nico</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefNotificaciones" name="prefNotificaciones">
 									<option value="0" <?php echo (isset($config['tic']['notificaciones']) && $config['tic']['notificaciones'] == 0) ? 'selected' : ''; ?>>Habilitado</option>

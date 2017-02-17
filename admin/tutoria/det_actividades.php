@@ -36,7 +36,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 }
 ?>
   <div align="center">
-  <br><h3>Información completa de Actividad Extraescolar
+  <br><h3>InformaciÃ³n completa de Actividad Extraescolar
   </h3><br />
   
   <?php
@@ -61,7 +61,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 		<td><?php echo substr($datos[11],0,-1);?></td>
 	</tr>
 	<tr>
-		<th>Descripción</th>
+		<th>DescripciÃ³n</th>
 		<td><?php echo $datos[3];?></td>
 	</tr>
 	<tr>
@@ -76,7 +76,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 		<th>Horario</th>
 		<td><?php 
 		if ($datos[5]=="00:00:00") {
-			echo "Todo el día.";
+			echo "Todo el dÃ­a.";
 		}
 		else{
 		echo $datos[5]." - ".$datos[7];
@@ -99,7 +99,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 			echo "NO";
 		}
 		else{
-			echo "SÍ";
+			echo "SÃ";
 		}	
 		?></td>
 	</tr>

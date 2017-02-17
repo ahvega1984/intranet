@@ -4,13 +4,13 @@
 $feed = new SimplePie();
 	 
 $feed->set_feed_url("http://www.juntadeandalucia.es/educacion/portals/delegate/rss/ced/portalconsejeria/-/-/-/true/OR/true/cm_modified/DESC/");
-$feed->set_output_encoding('ISO-8859-1');
+$feed->set_output_encoding('UTF-8');
 $feed->enable_cache(false);
 $feed->set_cache_duration(600);
 $feed->init();
 $feed->handle_content_type();
 
-($feed->get_title()) ? $feed_title = $feed->get_title() : $feed_title = 'Novedades - Consejería Educación';
+($feed->get_title()) ? $feed_title = $feed->get_title() : $feed_title = 'Novedades - ConsejerÃ­a EducaciÃ³n';
 
 $first_items = array();
 $items_per_feed = 5;
@@ -23,7 +23,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="iso-8859-1">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
@@ -62,7 +62,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 			
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"><span class="sr-only">Cambiar navegación</span>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"><span class="sr-only">Cambiar navegaciÃ³n</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -76,8 +76,8 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 				<ul class="nav navbar-nav">
 					<li <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')) ? 'class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/index.php">Inicio</a></li>
 					<li <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/upload/')) ? 'class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/upload/">Documentos</a></li>
-					<li class="hidden-xs"><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
-					<li class="visible-xs"><a href="https://www.juntadeandalucia.es/educacion/seneca/seneca/senecamovil" target="_blank">Séneca</a></li>
+					<li class="hidden-xs"><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">SÃ©neca</a></li>
+					<li class="visible-xs"><a href="https://www.juntadeandalucia.es/educacion/seneca/seneca/senecamovil" target="_blank">SÃ©neca</a></li>
 				</ul>
 		
 				<div class="navbar-right">
@@ -104,7 +104,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li class="divider"></li>
 								<?php endforeach; ?>
 								<?php else: ?>
-								<li><p class="text-center text-muted">Este módulo no está disponible en estos momentos. Disculpen las molestias.</p></li>
+								<li><p class="text-center text-muted">Este mÃ³dulo no estÃ¡ disponible en estos momentos. Disculpen las molestias.</p></li>
 								<li class="divider"></li>
 								<?php endif; ?>
 								<li><a class="text-center"
@@ -121,7 +121,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 							</a>
 							
 							<ul class="dropdown-menu dropdown-messages">
-								<li class="dropdown-header"><h5>Últimos mensajes</h5></li>
+								<li class="dropdown-header"><h5>Ãšltimos mensajes</h5></li>
 								<li class="divider"></li>
 								<?php $result_mens = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
 								<?php if(mysqli_num_rows($result_mens)): ?>
@@ -159,7 +159,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 							</ul>
 						</li>
 						
-						<!-- MENÚ DE USUARIO -->
+						<!-- MENÃš DE USUARIO -->
 						<li class="dropdown" id="bs-tour-usermenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<span class="fa fa-user-circle-o fa-fw"></span> <?php echo $idea; ?> <b class="caret"></b> </a>
 							
@@ -178,7 +178,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 										
 										<span style="font-weight: bold;"><?php echo $pr; ?></span><br>
 										<small class="text-muted">
-											Último acceso: 
+											Ãšltimo acceso: 
 											<?php
 											$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$idea."' order by fecha desc limit 2");
 											$num = 0;
@@ -197,8 +197,8 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 									</div>
 								</li>
 								<li class="divider hidden-xs"></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fa fa-lock fa-fw"></span> Cambiar contraseña</a></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fa fa-camera fa-fw"></span> Cambiar fotografía</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fa fa-lock fa-fw"></span> Cambiar contraseÃ±a</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fa fa-camera fa-fw"></span> Cambiar fotografÃ­a</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="fa fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
 								<li class="divider"></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/salir.php"><span class="fa fa-sign-out fa-fw"></span> Desconectar</a></li>

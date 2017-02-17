@@ -70,7 +70,7 @@ if (!$claveal) {
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Expediente académico del alumno/a <small> Curso académico: <?php echo $c_escolar?></small></h2>
+			<h2>Expediente acadÃ©mico del alumno/a <small> Curso acadÃ©mico: <?php echo $c_escolar?></small></h2>
 			<h3 class="text-info"><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
 		
@@ -115,16 +115,16 @@ if (!$claveal) {
 						  <dt>Fecha de nacimiento</dt>
 						  <dd><?php echo ($row['fecha'] != "") ? $row['fecha']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Edad</dt>
-						  <dd><?php echo ($row['edad'] != "") ? $row['edad'].' años': '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($row['edad'] != "") ? $row['edad'].' aÃ±os': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Domicilio</dt>
 						  <dd><?php echo ($row['domicilio'] != "") ? $row['domicilio']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Nacionalidad</dt>
 						  <dd><?php echo ($row['nacionalidad'] != "") ? $row['nacionalidad']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Teléfono</dt>
+						  <dt>TelÃ©fono</dt>
 						  <dd><?php echo ($row['telefono'] != "") ? '<a href="tel:'.$row['telefono'].'">'.$row['telefono'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Teléfono urgencias</dt>
+						  <dt>TelÃ©fono urgencias</dt>
 						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Correo electrónico</dt>
+						  <dt>Correo electrÃ³nico</dt>
 							<?php 
 							if ($row['correo'] != "") {
 								$correo = '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>';
@@ -146,20 +146,20 @@ if (!$claveal) {
 					<div class="col-sm-6">
 
 						<dl class="dl-horizontal">
-						  <dt><abbr data-bs="tooltip" title="Número de Identificación Escolar">N.I.E.</abbr></dt>
+						  <dt><abbr data-bs="tooltip" title="NÃºmero de IdentificaciÃ³n Escolar">N.I.E.</abbr></dt>
 						  <dd><?php echo ($row['claveal'] != "") ? $row['claveal']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Nº Expediente</dt>
+						  <dt>NÂº Expediente</dt>
 						  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Año académico</dt>
+						  <dt>AÃ±o acadÃ©mico</dt>
 						  <dd><?php echo $c_escolar; ?></dd>
 						  <dt>Curso</dt>
 						  <dd><?php echo ($row['curso'] != "") ? $row['curso']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Unidad</dt>
 						  <dd><?php echo ($row['unidad'] != "") ? $row['unidad']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Tutor</dt>
-						  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'ISO-8859-1'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'UTF-8'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Repetidor/a</dt>
-						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
+						  <dd><?php echo ($row['matriculas'] > 1) ? 'SÃ­': 'No'; ?></dd>
 						</dl>
 						
 					</div><!-- /.col-sm-6 -->
@@ -200,7 +200,7 @@ if (!$claveal) {
 				  <?php endif; ?>
 				  <?php if (!($tutoria == "" && $todos == "")): ?>
 				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3)) $tab4 = 1; ?>
-				  <li <?php echo ($tab4) ? 'class="active"' : ''; ?>><a href="#tutoria" role="tab" data-toggle="tab">Informes de tutoría</a></li>
+				  <li <?php echo ($tab4) ? 'class="active"' : ''; ?>><a href="#tutoria" role="tab" data-toggle="tab">Informes de tutorÃ­a</a></li>
 				  <?php endif; ?>
 				  <?php if (!($horarios == "" && $todos == "")): ?>
 				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3) && !isset($tab4)) $tab5 = 1; ?>
@@ -256,7 +256,7 @@ if (!$claveal) {
 		</div>
 		<?php else: ?>
 		
-		<h3>No hay información sobre el alumno/a en el curso seleccionado.</h3>
+		<h3>No hay informaciÃ³n sobre el alumno/a en el curso seleccionado.</h3>
 		
 		<?php endif; ?>
 	

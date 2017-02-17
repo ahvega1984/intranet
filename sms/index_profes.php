@@ -30,7 +30,7 @@ function contar(form,name) {
 <div class="container">
 
 <div class="page-header">
-  <h2>SMS <small> Envío de mensajes</small></h2>
+  <h2>SMS <small> EnvÃ­o de mensajes</small></h2>
 </div>
 <br>
 <div class="row">
@@ -44,8 +44,8 @@ if($submit0 == "Enviar SMS")
 if(empty($text)){
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto e inténtalo de nuevo.
+			<h4>ATENCIÃ“N:</h4>
+No has escrito ningÃºn texto para el Mensaje.<br />Vuelve atrÃ¡s, redacta el texto e intÃ©ntalo de nuevo.
           </div></div>';
 		  exit();
 }
@@ -88,7 +88,7 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 		else {
 			echo "
 			<div class=\"alert alert-error\">
-				<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$num_movil.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+				<strong>Error:</strong> No se pudo enviar el SMS al telÃ©fono (+34) ".$num_movil.". Corrija la informaciÃ³n de contacto del alumno/a en SÃ©neca e importe los datos nuevamente.
 			</div>
 			<br>";
 		}
@@ -146,7 +146,7 @@ echo "<div class='form-group'>
 <div class="col-sm-4">
 <div class="well">
 <div class='form-group'>
-<label>Selección de Profesores<?php echo "<span class='text-info'>: $unidad</span>"; ?></label>
+<label>SelecciÃ³n de Profesores<?php echo "<span class='text-info'>: $unidad</span>"; ?></label>
         <?php
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   
@@ -169,8 +169,8 @@ echo "<div class='form-group'>
  else {
 	 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado.
+			<h4>ATENCIÃ“N:</h4>
+El mÃ³dulo de envÃ­o de SMS debe ser activado en la ConfiguraciÃ³n general de la Intranet para poder acceder a estas pÃ¡ginas, y ahora mismo estÃ¡ desactivado.
           </div></div>';
  }
 ?> 

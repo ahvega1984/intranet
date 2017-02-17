@@ -25,7 +25,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   echo '</h3>
 </div>';
 
- echo "<table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td>";
+ echo "<table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>ExpulsiÃ³n del Centro</td><td class='amonestacion-escrita'>AmonestaciÃ³n escrita</td><td class='expulsion-aula'>ExpulsiÃ³n del aula</td>";
  if ($config['mod_convivencia']==1) { 
  echo "<td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td>";
  }
@@ -65,14 +65,14 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		$fin_aula=$row[18];
 		$ident=$row[19];
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
-		{$caducada="Sí";} else {$caducada="No";}
+		{$caducada="SÃ­";} else {$caducada="No";}
 		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";
-				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
+				if($medida == "AmonestaciÃ³n escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
 				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
 				
 				if($aula_conv > 0){

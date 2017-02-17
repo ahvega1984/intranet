@@ -30,7 +30,7 @@ $unidad_al = $unid[0];
 				<th>&nbsp;</th>
 				<th>Lunes</th>
 				<th>Martes</th>
-				<th>Miércoles</th>
+				<th>MiÃ©rcoles</th>
 				<th>Jueves</th>
 				<th>Viernes</th>
 			</tr>

@@ -9,7 +9,7 @@
 		include_once '../../menu.php';
 		echo '<br />
 <div class="page-header">
-<h2>Administraci髇. <small> Preparaci髇 de la Importaci髇 del Horario a S閚eca</small></h2>
+<h2>Administraci贸n. <small> Preparaci贸n de la Importaci贸n del Horario a S茅neca</small></h2>
 </div>
 <br />
 <div class="container">
@@ -21,8 +21,8 @@
 		
 		echo  "<div align'center><div class='alert alert-danger alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
-El archivo generado por el programa generador de horarios ha sido procesado y se ha creado una copia modificada preparada para subir a S閚eca. 
-<br>Los mesajes que aparecen m醩 abajo indican los cambios realizados y las advertencias sobre problemas que podr韆s encontrar al importar los datos a S閚eca.
+El archivo generado por el programa generador de horarios ha sido procesado y se ha creado una copia modificada preparada para subir a S茅neca. 
+<br>Los mesajes que aparecen m谩s abajo indican los cambios realizados y las advertencias sobre problemas que podr铆as encontrar al importar los datos a S茅neca.
 </div></div>";		
 	}
 	
@@ -78,7 +78,7 @@ El archivo generado por el programa generador de horarios ha sido procesado y se
 							if ($depurar==1) {
 							echo  "<br /><div align'center><div class='alert alert-success alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
-El c骴igo de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) no corresponde al Curso $uni[1], sino este c骴igo: <strong>$asig_corta</strong>. <br><span clas='text-warning'>C骴igo sustitu韉o..</span>
+El c贸digo de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) no corresponde al Curso $uni[1], sino este c贸digo: <strong>$asig_corta</strong>. <br><span clas='text-warning'>C贸digo sustitu铆do..</span>
 </div></div>";	
 							}				
 							$codigos->item(5)->nodeValue = $asig_corta;
@@ -105,7 +105,7 @@ No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em
 				if ($depurar==1) {
 				echo  "<br /><div align'center><div class='alert alert-danger alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
-<strong>$uni[2]</strong>: No existe ninguna asignatura con este c骴igo (<u>$X_MATERIAOMG</u>) en la tabla de asignaturas de la base de datos.
+<strong>$uni[2]</strong>: No existe ninguna asignatura con este c贸digo (<u>$X_MATERIAOMG</u>) en la tabla de asignaturas de la base de datos.
 </div></div>";	
 				}
 			}

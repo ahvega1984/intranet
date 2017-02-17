@@ -71,8 +71,8 @@ function al_con_nie($db_con, $var_nie, $var_grupo) {
 if (isset($_POST['listOfItems'])){
 	$result = mysqli_query($db_con, "UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 	
-	if(!$result) $msg_error = "La asignaci髇 de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
-	else $msg_success = "La asignaci髇 de puestos en el aula se ha actualizado correctamente.";	
+	if(!$result) $msg_error = "La asignaci贸n de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
+	else $msg_success = "La asignaci贸n de puestos en el aula se ha actualizado correctamente.";	
 }
 
 
@@ -82,8 +82,8 @@ $result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$
 if (! mysqli_num_rows($result)) {
 	mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
 	
-	if(!$result) $msg_error = "La asignaci髇 de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
-	else $msg_success = "La asignaci髇 de puestos en el aula se ha guardado correctamente.";	
+	if(!$result) $msg_error = "La asignaci贸n de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
+	else $msg_success = "La asignaci贸n de puestos en el aula se ha guardado correctamente.";	
 }
 else {
 	$row = mysqli_fetch_array($result);
@@ -197,7 +197,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutor韆 de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Asignaci髇 de mesas en el aula</small></h2>
+			<h2>Tutor铆a de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Asignaci贸n de mesas en el aula</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
 		

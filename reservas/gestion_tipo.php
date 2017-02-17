@@ -3,10 +3,10 @@ require('../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
-$page_header = "Reservas <small>AdministraciÛn de recursos</small>";
+$page_header = "Reservas <small>Administraci√≥n de recursos</small>";
 
 
-// ENVÕO DE FORMULARIO
+// ENV√çO DE FORMULARIO
 if (isset($_POST['aceptar'])) {
 
 	// LIMPIAMOS CARACTERES
@@ -14,10 +14,10 @@ if (isset($_POST['aceptar'])) {
 	$nombre_recurso	= mysqli_real_escape_string($db_con, trim($_POST['nombre_recurso']));
 	$obs_recurso 	= mysqli_real_escape_string($db_con, trim($_POST['obs_recurso']));
 	
-	// COMPROBAMOS QUE LOS CAMPOS OBLIGATORIOS NO EST…N VACÕOS
+	// COMPROBAMOS QUE LOS CAMPOS OBLIGATORIOS NO EST√âN VAC√çOS
 	if (! empty($nombre_recurso)) {
 	
-		// COMPROBAMOS SI SE TRATA DE UNA EDICI”N DE RECURSOS O INSERCI”N
+		// COMPROBAMOS SI SE TRATA DE UNA EDICI√ìN DE RECURSOS O INSERCI√ìN
 		if (isset($id_recurso)) {
 			
 			$result = mysqli_query($db_con, "SELECT id FROM reservas_tipos WHERE id='$id_recurso' LIMIT 1");
@@ -33,7 +33,7 @@ if (isset($_POST['aceptar'])) {
 		else {
 			$result_insert = mysqli_query($db_con, "INSERT INTO reservas_tipos (tipo, observaciones) VALUES ('$nombre_recurso', '$obs_recurso')");
 			
-			if (! $result_insert) $msg_error = 'No se ha podido aÒadir el recurso. Error: '.mysqli_error($db_con);
+			if (! $result_insert) $msg_error = 'No se ha podido a√±adir el recurso. Error: '.mysqli_error($db_con);
 			else $msg_success = 'El recurso ha sido creado';
 		}
 	}

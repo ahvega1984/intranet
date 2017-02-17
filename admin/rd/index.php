@@ -8,7 +8,7 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. EnseÒanzas Biling¸es', '¡rea ArtÌstica', '¡rea CientÌfico-TecnolÛgica', '¡rea Social-Ling¸Ìstica', '¡rea FormaciÛn Profesional');
+$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Ense√±anzas Biling√ºes', '√Årea Art√≠stica', '√Årea Cient√≠fico-Tecnol√≥gica', '√Årea Social-Ling√º√≠stica', '√Årea Formaci√≥n Profesional');
 
 $bloquea_campos = 0;
 
@@ -36,7 +36,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		$existe_secretario_dfeie = mysqli_num_rows($result);
 		
 		if ((! isset($config['actas_depto']['secretario_dfeie']) || $config['actas_depto']['secretario_dfeie'] == "") && ! $existe_secretario_dfeie) {
-			$msg_alerta = "No se ha definido al secretario del Departamento de FormaciÛn, EvaluaciÛn e InnovaciÛn Educativa en los perfiles de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al secretario del Departamento de Formaci√≥n, Evaluaci√≥n e Innovaci√≥n Educativa en los perfiles de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		elseif (isset($config['actas_depto']['secretario_dfeie'])) {
@@ -49,7 +49,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 			$bloquea_campos = 0;
 		}
 		
-		$titulo = 'Departamento de FormaciÛn, EvaluaciÛn e InnovaciÛn Educativa';
+		$titulo = 'Departamento de Formaci√≥n, Evaluaci√≥n e Innovaci√≥n Educativa';
 		$esOrgano = 1;
 	}
 	
@@ -58,7 +58,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		acl_acceso($_SESSION['cargo'], array('1'));
 		
 		if ((! isset($config['actas_depto']['secretario_ed']) || $config['actas_depto']['secretario_ed'] == "") && ! isset($config['directivo_secretaria'])) {
-			$msg_alerta = "No se ha definido al secretario del Equipo Directivo en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al secretario del Equipo Directivo en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		elseif (isset($config['actas_depto']['secretario_ed'])) {
@@ -79,51 +79,51 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		acl_acceso($_SESSION['cargo'], array('1','9'));
 		
 		if (! isset($config['actas_depto']['secretario_etcp']) || $config['actas_depto']['secretario_etcp'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Equipo TÈcnico de CoordinaciÛn PedagÛgica en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al secretario del Equipo T√©cnico de Coordinaci√≥n Pedag√≥gica en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_etcp'];
 		}
 		
-		$titulo = 'Equipo TÈcnico de CoordinaciÛn PedagÛgica';
+		$titulo = 'Equipo T√©cnico de Coordinaci√≥n Pedag√≥gica';
 		$esOrgano = 1;
 	}
 	
-	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSE—ANZAS BILING‹ES
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSE√ëANZAS BILING√úES
 	if ($departamento == 'CEB') {
 		if (! isset($config['actas_depto']['secretario_ceb']) || $config['actas_depto']['secretario_ceb'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Equipo de CoordinaciÛn de EnseÒanzas Biling¸es en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al secretario del Equipo de Coordinaci√≥n de Ense√±anzas Biling√ºes en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_ceb'];
 		}
 		
-		$titulo = 'Equipo de CoordinaciÛn de EnseÒanzas Biling¸es';
+		$titulo = 'Equipo de Coordinaci√≥n de Ense√±anzas Biling√ºes';
 		$esOrgano = 1;
 	}
 	
-	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSE—ANZAS BILING‹ES
-	if ($departamento == 'Coord. EnseÒanzas Biling¸es') {
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL EQ. COORD. ENSE√ëANZAS BILING√úES
+	if ($departamento == 'Coord. Ense√±anzas Biling√ºes') {
 		acl_acceso($_SESSION['cargo'], array('1','a'));
 		
 		if (! isset($config['actas_depto']['secretario_ceb']) || $config['actas_depto']['secretario_ceb'] == "") {
-			$msg_alerta = "No se ha definido al secretario del Equipo de CoordinaciÛn de EnseÒanzas Biling¸es en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al secretario del Equipo de Coordinaci√≥n de Ense√±anzas Biling√ºes en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
 			$jefe_departamento = $config['actas_depto']['secretario_ceb'];
 		}
 		
-		$titulo = 'Equipo de CoordinaciÛn de EnseÒanzas Biling¸es';
+		$titulo = 'Equipo de Coordinaci√≥n de Ense√±anzas Biling√ºes';
 		$esOrgano = 1;
 	}
 	
-	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ¡REA DE COMPETENCIA ARTÕSTICA
-	if ($departamento == '¡rea ArtÌstica') {
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL √ÅREA DE COMPETENCIA ART√çSTICA
+	if ($departamento == '√Årea Art√≠stica') {
 		if (! isset($config['actas_depto']['secretario_aca']) || $config['actas_depto']['secretario_aca'] == "") {
-			$msg_alerta = "No se ha definido al coordinador del ¡rea de Competencia ArtÌstica en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al coordinador del √Årea de Competencia Art√≠stica en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -134,14 +134,14 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 			}
 		}
 		
-		$titulo = '¡rea de Competencia ArtÌstica';
+		$titulo = '√Årea de Competencia Art√≠stica';
 		$esOrgano = 1;
 	}
 	
-	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ¡REA DE COMPETENCIA CIENTIFICO-TECNOL”GICA
-	if ($departamento == '¡rea CientÌfico-TecnolÛgica') {
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL √ÅREA DE COMPETENCIA CIENTIFICO-TECNOL√ìGICA
+	if ($departamento == '√Årea Cient√≠fico-Tecnol√≥gica') {
 		if (! isset($config['actas_depto']['secretario_acct']) || $config['actas_depto']['secretario_acct'] == "") {
-			$msg_alerta = "No se ha definido al coordinador del ¡rea de Competencia CientÌfico-TecnolÛgica en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al coordinador del √Årea de Competencia Cient√≠fico-Tecnol√≥gica en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -152,14 +152,14 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 			}
 		}
 		
-		$titulo = '¡rea de Competencia CientÌfico-TecnolÛgica';
+		$titulo = '√Årea de Competencia Cient√≠fico-Tecnol√≥gica';
 		$esOrgano = 1;
 	}
 	
-	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ¡REA DE COMPETENCIA SOCIAL-LING‹ISTICA
-	if ($departamento == '¡rea Social-Ling¸Ìstica') {
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL √ÅREA DE COMPETENCIA SOCIAL-LING√úISTICA
+	if ($departamento == '√Årea Social-Ling√º√≠stica') {
 		if (! isset($config['actas_depto']['secretario_acsl']) || $config['actas_depto']['secretario_acsl'] == "") {
-			$msg_alerta = "No se ha definido al coordinador del ¡rea de Competencia Social-Ling¸istica en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al coordinador del √Årea de Competencia Social-Ling√ºistica en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -170,14 +170,14 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 			}
 		}
 		
-		$titulo = '¡rea de Competencia Social-Ling¸istica';
+		$titulo = '√Årea de Competencia Social-Ling√ºistica';
 		$esOrgano = 1;
 	}
 	
-	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ¡REA DE FORMACI”N PROFESIONAL
-	if ($departamento == '¡rea FormaciÛn Profesional') {
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL √ÅREA DE FORMACI√ìN PROFESIONAL
+	if ($departamento == '√Årea Formaci√≥n Profesional') {
 		if (! isset($config['actas_depto']['secretario_afp']) || $config['actas_depto']['secretario_afp'] == "") {
-			$msg_alerta = "No se ha definido al coordinador del ¡rea de FormaciÛn Profesional en la configuraciÛn de la aplicaciÛn ni en las preferencias del mÛdulo.";
+			$msg_alerta = "No se ha definido al coordinador del √Årea de Formaci√≥n Profesional en la configuraci√≥n de la aplicaci√≥n ni en las preferencias del m√≥dulo.";
 			$bloquea_campos = 1;
 		}
 		else {
@@ -188,7 +188,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 			}
 		}
 		
-		$titulo = '¡rea de FormaciÛn Profesional';
+		$titulo = '√Årea de Formaci√≥n Profesional';
 		$esOrgano = 1;
 	}
 	
@@ -257,7 +257,7 @@ if (isset($_GET['eliminar_id'])) {
 }
 	
 
-// URI mÛdulo
+// URI m√≥dulo
 if (isset($_GET['organo'])) {
 	$uri = 'index.php?organo='.$_GET['organo'].'&amp;';
 }
@@ -284,7 +284,7 @@ include ("menu.php");
 				<div class="col-md-6 col-lg-5">
 					<select class="form-control input-lg text-info" id="departamento" name="departamento" onchange="submit()">
 						<option value=""></option>
-						<optgroup label="”rganos del centro">
+						<optgroup label="√ìrganos del centro">
 							<?php foreach($organos as $organo): ?>
 							<option value="<?php echo $organo; ?>"<?php echo (isset($departamento) && $departamento == $organo) ? ' selected' : ''; ?>><?php echo $organo; ?></option>
 							<?php endforeach; ?>
@@ -349,13 +349,13 @@ include ("menu.php");
 							mysqli_free_result($result);
 						}
 						
-						// N˙mero ˙ltima acta
+						// N√∫mero √∫ltima acta
 						$result = mysqli_query($db_con, "SELECT MAX(numero) FROM r_departamento WHERE departamento = '$departamento'");
 						$row = mysqli_fetch_row($result);
 						$numero_acta = $row[0] + 1;
 						mysqli_free_result($result);
 						
-						// Hora reuniÛn
+						// Hora reuni√≥n
 						$result = mysqli_query($db_con, "SELECT hora, hora_inicio FROM tramos WHERE tramos.hora = (SELECT horw.hora FROM horw WHERE prof = '$jefe_departamento' AND c_asig = '51')");
 						if (mysqli_num_rows($result)) {
 							$row = mysqli_fetch_array($result);
@@ -391,7 +391,7 @@ include ("menu.php");
 							<div class="col-sm-4">
 								
 								<div class="form-group" id="datetimepicker1">
-									<label for="fecha_reunion">Fecha de la reuniÛn</label>
+									<label for="fecha_reunion">Fecha de la reuni√≥n</label>
 									<div class="input-group">
 										<input type="text" class="form-control" id="fecha_reunion" name="fecha_reunion" value="<?php echo (isset($fecha_reunion)) ? $fecha_reunion : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" <?php echo ($bloquea_campos) ? 'disabled' : 'required'; ?>>
 										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
@@ -403,7 +403,7 @@ include ("menu.php");
 							<div class="col-sm-2">
 								
 								<div class="form-group">
-									<label for="num_acta">N∫ Acta</label>
+									<label for="num_acta">N¬∫ Acta</label>
 									<input type="text" class="form-control" id="num_acta" name="num_acta" value="<?php echo ($numero_acta > 1) ? $numero_acta : '1'; ?>" <?php echo ($bloquea_campos) ? 'disabled' : 'required'; ?>>
 								</div>
 								
@@ -415,9 +415,9 @@ include ("menu.php");
 $html_textarea = "<p>".$titulo."</p>
 <p>".$config['centro_denominacion']." (".$config['centro_localidad'].")</p>
 <p>Curso escolar: ".$config['curso_actual']."</p>
-<p>Acta n∫ NUMERO_ACTA</p>
+<p>Acta n¬∫ NUMERO_ACTA</p>
 <p><br></p>
-<p style=\"text-align: center;\"><strong style=\"text-decoration: underline;\">ACTA DE REUNI”N DEL ".mb_strtoupper($titulo, 'ISO-8859-1')."</strong></p>
+<p style=\"text-align: center;\"><strong style=\"text-decoration: underline;\">ACTA DE REUNI√ìN DEL ".mb_strtoupper($titulo, 'UTF-8')."</strong></p>
 <p><br></p>
 <p>En ".$config['centro_localidad'].", a las ".$hora_reunion." horas del FECHA_DE_LA_REUNION, se re&uacute;ne el ".$titulo." del ".$config['centro_denominacion']." de ".$config['centro_localidad'].", con el siguiente <span style=\"text-decoration: underline;\">orden del d&iacute;a</span>:</p>
 <p><br></p>
@@ -431,7 +431,7 @@ $html_textarea = "<p>".$titulo."</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
-<p>Sin m·s asuntos que tratar, se levanta la sesiÛn a las ".$hora_fin_reunion." horas.</p>
+<p>Sin m√°s asuntos que tratar, se levanta la sesi√≥n a las ".$hora_fin_reunion." horas.</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
@@ -472,7 +472,7 @@ $html_textarea = "<p>".$titulo."</p>
 						<tr>
 							<td>
 								<?php echo strftime('%d-%m-%Y', strtotime($row['fecha'])); ?><br />
-								<small class="text-muted">Acta n∫ <?php echo $row['numero']; ?></small>
+								<small class="text-muted">Acta n¬∫ <?php echo $row['numero']; ?></small>
 							</td>
 							<td>
 								<?php if ($bloquea_campos): ?>
@@ -494,7 +494,7 @@ $html_textarea = "<p>".$titulo."</p>
 				</table>
 
 				<?php else: ?>
-				<p class="lead text-muted text-center">No se ha registrado ning˙n acta en este departamento.</p>
+				<p class="lead text-muted text-center">No se ha registrado ning√∫n acta en este departamento.</p>
 				<?php endif; ?>
 						
 			</div>
@@ -525,12 +525,12 @@ $html_textarea = "<p>".$titulo."</p>
 		});
 		
 		
-		var numacta = 'n∫ NUMERO_ACTA';
+		var numacta = 'n¬∫ NUMERO_ACTA';
 		var fecha = 'FECHA_DE_LA_REUNION';
 		
 		function reemplazar_numacta() {
 			texto = $(".note-editable").html();
-			valor_numacta = "n∫ "+$('#num_acta').val();
+			valor_numacta = "n¬∫ "+$('#num_acta').val();
 		    texto = texto.replace(numacta, valor_numacta);
 		    numacta = valor_numacta;
 		    $(".note-editable").html(texto).text();
@@ -571,13 +571,13 @@ $html_textarea = "<p>".$titulo."</p>
 			"language": {
 	            "lengthMenu": "_MENU_",
 	            "zeroRecords": "Sin resultados.",
-	            "info": "P·gina _PAGE_ de _PAGES_",
+	            "info": "P√°gina _PAGE_ de _PAGES_",
 	            "infoEmpty": "No hay resultados disponibles.",
 	            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	            "search": "",
 	            "paginate": {
 	                  "first": "Primera",
-	                  "next": "⁄ltima",
+	                  "next": "√öltima",
 	                  "next": "",
 	                  "previous": ""
 	                }

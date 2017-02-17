@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de tutoría activos</p><br />";
+echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de tutorÃ­a activos</p><br />";
 $resultcurs = mysqli_query($db_con, $SQLcurso3);
 while($rowcurs = mysqli_fetch_array($resultcurs))
 {
@@ -11,7 +11,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$texto_asig="";
 	$c_asig="";
 	
-	// Problema con asignaturas comunes de Bachillerato con distinto código
+	// Problema con asignaturas comunes de Bachillerato con distinto cÃ³digo
 	/*if(strlen($rowcurs[2])>15){
 		$rowcurs[2] = substr($rowcurs[2],0,15);
 	}*/
@@ -107,7 +107,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" style="color: #333;">Informe de tutoría<br><small><?php echo "$row1[2] $row1[1]";?></small></h4>
+<h4 class="modal-title" style="color: #333;">Informe de tutorÃ­a<br><small><?php echo "$row1[2] $row1[1]";?></small></h4>
 </div>
 <div class="modal-body"><?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
@@ -122,7 +122,7 @@ if(mysqli_num_rows($datos) > 0)
 	}
 }
 else{
-	echo "<p style='color:#08c'>Los profesores no han rellenado aún su informe de tutoría.</p>";
+	echo "<p style='color:#08c'>Los profesores no han rellenado aÃºn su informe de tutorÃ­a.</p>";
 }
 ?></div>
 <div class="modal-footer"><a href="#" class="btn btn-primary"

@@ -15,7 +15,7 @@ endif;
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Consulta Informes de Tránsito <small>Alumnado de Primaria</small></h2>
+		<h2 style="display:inline;">Consulta Informes de TrÃ¡nsito <small>Alumnado de Primaria</small></h2>
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
@@ -31,11 +31,11 @@ endif;
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Las celdas que contienen datos numéricos variables o bolitas de colores 
+						<p>Las celdas que contienen datos numÃ©ricos variables o bolitas de colores 
 						(diversos tipos de dificultades propios de un alumno, p. ej.) presentan 
-						información sobre el texto simbolizado por el número o la bolita colocando el 
-						cursor encima de la celda. Aparecerá entonces el texto correspondiente a la 
-						opción numérica o el color de la bola.</p>
+						informaciÃ³n sobre el texto simbolizado por el nÃºmero o la bolita colocando el 
+						cursor encima de la celda. AparecerÃ¡ entonces el texto correspondiente a la 
+						opciÃ³n numÃ©rica o el color de la bola.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -97,34 +97,34 @@ endif;
 			$dat = mysqli_fetch_array($col1);
 			$dato = $dat[0];
 			$tt="";
-			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"1")==TRUE) {$ttd = "Tiene carencias en aprendizajes básicos. <br>";}
+			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"1")==TRUE) {$ttd = "Tiene carencias en aprendizajes bÃ¡sicos. <br>";}
 			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"2")==TRUE) {$ttd.= "Tiene dificultades en la lectura. <br>";}
-			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"3")==TRUE) {$ttd.= "Tiene dificultades de comprensión oral / escrita. <br>";}
-			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"4")==TRUE) {$ttd.= "Tiene dificultades de expresión oral / escrita. <br>";}
-			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"5")==TRUE) {$ttd.= "Tiene dificultades de razonamiento matemático. <br>";}
-			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"6")==TRUE) {$ttd.= "Tiene dificultades en hábitos /  método de estudio. <br>";}
-			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"7")==TRUE) {$ttd.= "Tiene dificultades de cálculo. <br>";}
+			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"3")==TRUE) {$ttd.= "Tiene dificultades de comprensiÃ³n oral / escrita. <br>";}
+			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"4")==TRUE) {$ttd.= "Tiene dificultades de expresiÃ³n oral / escrita. <br>";}
+			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"5")==TRUE) {$ttd.= "Tiene dificultades de razonamiento matemÃ¡tico. <br>";}
+			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"6")==TRUE) {$ttd.= "Tiene dificultades en hÃ¡bitos /  mÃ©todo de estudio. <br>";}
+			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"7")==TRUE) {$ttd.= "Tiene dificultades de cÃ¡lculo. <br>";}
 			if (stristr($tipo,"dificulta")==TRUE and strlen($dato)>0) {$tt=" id='dific' data-bs='tooltip' data-html='true' title='$ttd'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}
 				
 			if (stristr($tipo,"expuls")==TRUE and $dato==2) {$tt=" data-bs='tooltip' title='El alumno ha sido expulsado.'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}elseif(stristr($tipo,"expuls")==TRUE and strlen($dato)==1){$tt="";$dato='';}
 			
 			if (stristr($tipo,"exento")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Alumnado que por sus dificultades no se le recomienda cursar optativa'";$dato='<span class="fa fa-circle" style="color: green;"></span>';}
 		
-			if (stristr($tipo,"acompa")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Se aconseja asistencia al Programa de Acompañamiento Escolar'";$dato='<span class="fa fa-circle" style="color: green;"></span>';}
+			if (stristr($tipo,"acompa")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Se aconseja asistencia al Programa de AcompaÃ±amiento Escolar'";$dato='<span class="fa fa-circle" style="color: green;"></span>';}
 			
-			if (stristr($tipo,"asiste")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='El alumno presenta faltas de asistencia.'";$dato='<span class="fa fa-circle" style="color: yellow;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==2){$tt=" data-bs='tooltip' title='El alumno falta más de lo normal'";$dato='<span class="fa fa-circle" style="color: orange;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==3){$tt=" data-bs='tooltip' title='El alumno es absentista'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}
+			if (stristr($tipo,"asiste")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='El alumno presenta faltas de asistencia.'";$dato='<span class="fa fa-circle" style="color: yellow;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==2){$tt=" data-bs='tooltip' title='El alumno falta mÃ¡s de lo normal'";$dato='<span class="fa fa-circle" style="color: orange;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==3){$tt=" data-bs='tooltip' title='El alumno es absentista'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}
 						
-			if (stristr($tipo,"nacion")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='No conoce el español'";}
-			if (stristr($tipo,"nacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Nociones básicas de español'";}
-			if (stristr($tipo,"nacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Dificultades lectoescritiras en español'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='No conoce el espaÃ±ol'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Nociones bÃ¡sicas de espaÃ±ol'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Dificultades lectoescritiras en espaÃ±ol'";}
 			if (stristr($tipo,"nacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Puede seguir el Curriculum'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==5) {$tt = " data-bs='tooltip' title='Líder'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==5) {$tt = " data-bs='tooltip' title='LÃ­der'";}
 			if (stristr($tipo,"integra")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Integrado'";}
 			if (stristr($tipo,"integra")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Poco integrado'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Se aísla'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Se aÃ­sla'";}
 			if (stristr($tipo,"integra")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='Alumno rechazado'";}
-			if (stristr($tipo,"relacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Colaboración constante de la familia'";}
-			if (stristr($tipo,"relacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Colaboración sólo cuando el Centro la ha solicitado'";}
+			if (stristr($tipo,"relacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='ColaboraciÃ³n constante de la familia'";}
+			if (stristr($tipo,"relacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='ColaboraciÃ³n sÃ³lo cuando el Centro la ha solicitado'";}
 			if (stristr($tipo,"relacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Demanda constante por parte de los Padres'";}
 			if (stristr($tipo,"disruptivo")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Nunca'";}
 			if (stristr($tipo,"disruptivo")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Ocasionalmente'";}
@@ -143,7 +143,7 @@ endif;
 		$notas="";
 				if ($dat1>0) {
 				$notas='<span class="fa fa-circle" style="color: orange;"></span>';
-				$tt=" data-bs='tooltip' title='Hay observaciones o notas sobre Actitud, Relación del Centro con la familia, etc.'";
+				$tt=" data-bs='tooltip' title='Hay observaciones o notas sobre Actitud, RelaciÃ³n del Centro con la familia, etc.'";
 				}
 				
 				$col3 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and (tipo = 'orientacion' and dato not like '')");		
@@ -155,7 +155,7 @@ endif;
 				
 		echo "<td $tt>$notas</td>";		
 		
-		// COLUMNA DE ORIENTACIÓN ¿?		
+		// COLUMNA DE ORIENTACIÃ“N Â¿?		
 		echo "<td></td>";
 		
 		echo "</tr>";
@@ -182,14 +182,14 @@ endif;
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+	  		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "Ãšltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

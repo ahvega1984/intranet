@@ -9,12 +9,12 @@ include("../../menu.php");
 	<div class="container">
 		
 		<div class="page-header">
-		  <h2>AdministraciÛn <small>ImportaciÛn de Personal de AdministraciÛn y Servicios</small></h2>
+		  <h2>Administraci√≥n <small>Importaci√≥n de Personal de Administraci√≥n y Servicios</small></h2>
 		</div>
 		
 		
 		<div class="alert alert-info hidden-print">
-			<strong>InformaciÛn:</strong> Las nuevas incorporaciones aparecen marcadas en verde.
+			<strong>Informaci√≥n:</strong> Las nuevas incorporaciones aparecen marcadas en verde.
 		</div>
 		
 		<div id="status-loading" class="text-center">
@@ -33,7 +33,7 @@ include("../../menu.php");
 							<th>DNI</th>
 							<th>Departamento</th>
 							<th>Usuario IdEA</th>
-							<th>ContraseÒa</th>
+							<th>Contrase√±a</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,7 +43,7 @@ include("../../menu.php");
 								$file = fopen($_FILES['archivo']['tmp_name'], "r");
 								
 								$conectores = array("(", ")", "de ", "del ", "de la ", "de los ", "de las ", "y ", "y de ");
-								$acentos_no_permitidos = array("·","È","Ì","Û","˙","¡","…","Õ","”","⁄");
+								$acentos_no_permitidos = array("√°","√©","√≠","√≥","√∫","√Å","√â","√ç","√ì","√ö");
 								$acentos_permitidos = array("a","e","i","o","u","A","E","I","O","U");
 								
 								$linea = 1;
@@ -61,7 +61,7 @@ include("../../menu.php");
 										
 										// Si no tiene asignado usuario IdEA, lo creamos
 										if(empty($pas_idea)) {
-											$nombre_sanitizado = mb_convert_case($pas_nombre, MB_CASE_LOWER, 'ISO-8859-1');
+											$nombre_sanitizado = mb_convert_case($pas_nombre, MB_CASE_LOWER, 'UTF-8');
 											$nombre_sanitizado = str_replace($conectores, "", $nombre_sanitizado);
 											$nombre_sanitizado = str_replace($acentos_no_permitidos, $acentos_permitidos, $nombre_sanitizado);
 											
@@ -83,10 +83,10 @@ include("../../menu.php");
 											
 											$clase = '';
 											if(! $usuarioExiste) {
-												// INCORPORACI”N EN TABLA DEPARTAMENTOS
+												// INCORPORACI√ìN EN TABLA DEPARTAMENTOS
 												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Administracion', '7', '".$pas_idea."')");
 												
-												// INCORPORACI”N EN TABLA C_PROFES
+												// INCORPORACI√ìN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
 												
 												$clase = ' class="success"';
@@ -102,7 +102,7 @@ include("../../menu.php");
 										}
 										
 										// Auxiliar de Conversacion = '';
-										if(stristr($pas_departamento, 'Auxiliar de ConversaciÛn') == TRUE) {
+										if(stristr($pas_departamento, 'Auxiliar de Conversaci√≥n') == TRUE) {
 										
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
@@ -112,7 +112,7 @@ include("../../menu.php");
 												// TABLA DEPARTAMENTOS
 												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Auxiliar de Conversacion', '', '".$pas_idea."')");
 												
-												// INCORPORACI”N EN TABLA C_PROFES
+												// INCORPORACI√ìN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
 											
 												$clase = ' class="success"';
@@ -138,7 +138,7 @@ include("../../menu.php");
 												// TABLA DEPARTAMENTOS
 												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Educador', '', '".$pas_idea."')");
 												
-												// INCORPORACI”N EN TABLA C_PROFES
+												// INCORPORACI√ìN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
 											
 												$clase = ' class="success"';
@@ -153,8 +153,8 @@ include("../../menu.php");
 											echo "</tr>\n";
 										}
 										
-										// Mentor acompaÒante = '';
-										if(stristr($pas_departamento, 'Mentor acompaÒante') == TRUE) {
+										// Mentor acompa√±ante = '';
+										if(stristr($pas_departamento, 'Mentor acompa√±ante') == TRUE) {
 											
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
@@ -162,9 +162,9 @@ include("../../menu.php");
 											$clase = '';
 											if(! $usuarioExiste) {
 												// TABLA DEPARTAMENTOS
-												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Mentor acompaÒante', '', '".$pas_idea."')");
+												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Mentor acompa√±ante', '', '".$pas_idea."')");
 												
-												// INCORPORACI”N EN TABLA C_PROFES
+												// INCORPORACI√ìN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
 											
 												$clase = ' class="success"';
@@ -173,7 +173,7 @@ include("../../menu.php");
 											echo "<tr".$clase.">\n";
 											echo "<td>".$pas_nombre."</td>\n";
 											echo "<td>".$pas_dni."</td>\n";
-											echo "<td>Mentor acompaÒante</td>\n";
+											echo "<td>Mentor acompa√±ante</td>\n";
 											echo "<td>".$pas_idea."</td>\n";
 											echo "<td>".$pas_dni."</td>\n";
 											echo "</tr>\n";
@@ -191,7 +191,7 @@ include("../../menu.php");
 												// TABLA DEPARTAMENTOS
 												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."',  'Conserjeria', '6', '".$pas_idea."')");
 												
-												// INCORPORACI”N EN TABLA C_PROFES
+												// INCORPORACI√ìN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
 											
 												$clase = ' class="success"';
@@ -243,7 +243,7 @@ include("../../menu.php");
 				
 				<div class="hidden-print">
 					<a class="btn btn-primary" href="javascript:print();">Imprimir</a>
-					<a class="btn btn-default" href="../index.php">Volver a AdministraciÛn</a>
+					<a class="btn btn-default" href="../index.php">Volver a Administraci√≥n</a>
 				</div>
 			
 			</div><!-- /.col-sm-12 -->

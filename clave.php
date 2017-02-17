@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 	$codigo3_has_error = 0;
 	$correo_has_error = 0;
 	
-	// Comprobamos que los campos no estÈn vacÌos
+	// Comprobamos que los campos no est√©n vac√≠os
 	if(empty($correo) || empty($codigo2) || empty($codigo3)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 		$codigo2_has_error = 1;
@@ -35,47 +35,47 @@ if (isset($_POST['submit'])) {
 		$correo_has_error = 1;
 	}
 	else {
-		// Comprobamos si se cumple los requisitos de seguridad de la contraseÒa
+		// Comprobamos si se cumple los requisitos de seguridad de la contrase√±a
 		if (! validarContrasena($codigo2)) {	
-			$msg_error = "La contraseÒa no cumple con los requisitos de seguridad.";
+			$msg_error = "La contrase√±a no cumple con los requisitos de seguridad.";
 			$codigo2_has_error = 1;
 		}
 		else {
-			// Comprobamos que las contraseÒas coinciden
+			// Comprobamos que las contrase√±as coinciden
 			if($codigo2 !== $codigo3) {
-				$msg_error = "Las contraseÒas no coinciden.";
+				$msg_error = "Las contrase√±as no coinciden.";
 				$codigo2_has_error = 1;
 				$codigo3_has_error = 1;
 			}
 			else {
-				// Comprobamos que la direcciÛn de correo electrÛnico sea v·lida
+				// Comprobamos que la direcci√≥n de correo electr√≥nico sea v√°lida
 				if(! validarCorreo($correo)) {
-					$msg_error = "La direcciÛn de correo electrÛnico no es v·lida.";
+					$msg_error = "La direcci√≥n de correo electr√≥nico no es v√°lida.";
 					$correo_has_error = 1;
 				}
 				elseif (! is_numeric($movil) || strlen($movil) != 9 || substr($movil, 0, 1) != '6' && substr($movil, 0, 1) != '7') {	
-					$msg_error = "El n˙mero de telÈfono mÛvil no es v·lido.";
+					$msg_error = "El n√∫mero de tel√©fono m√≥vil no es v√°lido.";
 					$movil_has_error = 1;
 				}
 				else {
-					// Obtenemos el hash de la contraseÒa
+					// Obtenemos el hash de la contrase√±a
 					$hash = sha1($codigo2);
 					
 					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo', telefono='$movil' WHERE profesor='".$_SESSION['profi']."'");
 					
 					// Comprobamos si se ha relizado la consulta a la base de datos
 					if(!$result) {
-						$msg_error = "No se ha podido cambiar la contraseÒa, asÌ que mejor te pongas en contacto con quien pueda arreglar el asunto.";
+						$msg_error = "No se ha podido cambiar la contrase√±a, as√≠ que mejor te pongas en contacto con quien pueda arreglar el asunto.";
 					}
 					else {
 						$_SESSION['cambiar_clave'] = 0;
 						
 						if (isset($_GET['tour']) && $_GET['tour']) {
-							// Redirigimos a la p·gina de fotografÌa
+							// Redirigimos a la p√°gina de fotograf√≠a
 							header("Location:"."admin/fotos/fotos_profes.php?tour=1");
 						}
 						else {
-							// Redirigimos a la p·gina principal
+							// Redirigimos a la p√°gina principal
 							header("Location:"."index.php");
 						}
 					}
@@ -95,7 +95,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Lo primero es lo primero. Cambie la contraseÒa y aÒada su correo electrÛnico.' : 'Cambiar la contraseÒa'; ?></h2>
+			<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Lo primero es lo primero. Cambie la contrase√±a y a√±ada su correo electr√≥nico.' : 'Cambiar la contrase√±a'; ?></h2>
 		</div>
 		
 		<!-- MENSAJES -->
@@ -122,37 +122,37 @@ include("menu.php");
 						  </div>
 						  
 						  <div id="form-group-codigo2"  class="form-group">
-						    <label for="codigo2" class="col-sm-4 control-label">Nueva contraseÒa</label>
+						    <label for="codigo2" class="col-sm-4 control-label">Nueva contrase√±a</label>
 						    <div class="col-sm-8">
-						      <input type="password" class="form-control" id="codigo2" name="codigo2" placeholder="Nueva contraseÒa" maxlength="20">
+						      <input type="password" class="form-control" id="codigo2" name="codigo2" placeholder="Nueva contrase√±a" maxlength="20">
 						    </div>
 						  </div>
 						  
 						  <div id="form-group-codigo3"  class="form-group">
-						    <label for="codigo3" class="col-sm-4 control-label">Repita la contraseÒa</label>
+						    <label for="codigo3" class="col-sm-4 control-label">Repita la contrase√±a</label>
 						    <div class="col-sm-8">
-						      <input type="password" class="form-control" id="codigo3" name="codigo3" placeholder="Repita la contraseÒa" maxlength="20">
+						      <input type="password" class="form-control" id="codigo3" name="codigo3" placeholder="Repita la contrase√±a" maxlength="20">
 						    </div>
 						  </div>
 						  
 						  <div id="form-group-email" class="form-group">
-						    <label for="correo" class="col-sm-4 control-label">Correo electrÛnico</label>
+						    <label for="correo" class="col-sm-4 control-label">Correo electr√≥nico</label>
 						    <div class="col-sm-8">
-						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrÛnico" value="<?php echo $row['correo'];?>" maxlength="64">
+						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electr√≥nico" value="<?php echo $row['correo'];?>" maxlength="64">
 						    </div>
 						  </div>
 
 						   <div id="form-group-movil" class="form-group">
-						    <label for="movil" class="col-sm-4 control-label">TelÈfono mÛvil</label>
+						    <label for="movil" class="col-sm-4 control-label">Tel√©fono m√≥vil</label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control" id="movil" name="movil" placeholder="N˙mero de mÛvil" value="<?php echo $row['telefono'];?>" maxlength="9">
+						      <input type="text" class="form-control" id="movil" name="movil" placeholder="N√∫mero de m√≥vil" value="<?php echo $row['telefono'];?>" maxlength="9">
 						    </div>
 						  </div>
 							
 							
 							<div class="form-group">
 							  <div class="col-sm-8 col-sm-offset-4">
-							    <button type="submit" class="btn btn-primary" name="submit">Cambiar la contraseÒa</button>
+							    <button type="submit" class="btn btn-primary" name="submit">Cambiar la contrase√±a</button>
 							  </div>
 							</div>
 						</fieldset>
@@ -165,17 +165,17 @@ include("menu.php");
 			
 			<div class="col-sm-6">
 				
-				<h3>Utilice una contraseÒa segura</h3>
+				<h3>Utilice una contrase√±a segura</h3>
 				
-				<p>A partir de este momento tendr·s que usar tu nombre de usuario IdEA y esta clave para acceder a la intranet. La direcciÛn de correo electrÛnico se usar· para las notificaciones y para reiniciar la contraseÒa en caso de olvido.</p>
+				<p>A partir de este momento tendr√°s que usar tu nombre de usuario IdEA y esta clave para acceder a la intranet. La direcci√≥n de correo electr√≥nico se usar√° para las notificaciones y para reiniciar la contrase√±a en caso de olvido.</p>
 				
 				<p>La clave debe cumplir las siguientes condiciones:</p>
 				
 				<ul class="">
-					<li>Tener al menos una longitud de 8 caracteres y 20 como m·ximo.</li>
-					<li>Contener al menos una letra, un n˙mero y un signo de puntuaciÛn o un sÌmbolo.</li>
-					<li>Los sÌmbolos aceptados son !"#$%&amp;'()*+,-./:;&raquo;=>?@[\]^_`{|}~</li>
-					<li>Las letras acentuadas y las eÒes no est·n admitidas.</li>
+					<li>Tener al menos una longitud de 8 caracteres y 20 como m√°ximo.</li>
+					<li>Contener al menos una letra, un n√∫mero y un signo de puntuaci√≥n o un s√≠mbolo.</li>
+					<li>Los s√≠mbolos aceptados son !"#$%&amp;'()*+,-./:;&raquo;=>?@[\]^_`{|}~</li>
+					<li>Las letras acentuadas y las e√±es no est√°n admitidas.</li>
 					<li>No ser similar al nombre de usuario.</li>
 					<li>No ser similar a su D.N.I. o pasaporte.</li>
 				</ul>

@@ -27,18 +27,18 @@ include("menu.php");
 							<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 						</div>
 						<div class="modal-body">
-							<p>Esta p·gina tiene varias funciones. En primer lugar, ofrece informaciÛn detallada de un 
-							problema de convivencia registrado por un Profesor. Presenta tambiÈn datos numÈricos sobre 
+							<p>Esta p√°gina tiene varias funciones. En primer lugar, ofrece informaci√≥n detallada de un 
+							problema de convivencia registrado por un Profesor. Presenta tambi√©n datos num√©ricos sobre 
 							los problemas y tipos de problema del alumno. En la parte inferior tenemos una tabla donde 
 							se recoge el historial delictivo del alumno.</p>
 							<p>En la parte derecha nos encontramos, si pertenecemos al Equipo directivo, un par de 
 							formularios para expulsar al alumno del Centro o expulsarlo al Aula de Convivencia una serie 
-							de horas o dÌas. La fecha de la expulsiÛn no debe ser inmediata, considerando que los 
-							Profesores del Equipo educativo del alumno que va a ser expulsado necesitar·n alg˙n tiempo 
-							para rellenar su Informe de Tareas de tal modo que Èste trabaje durante su ausencia.</p>
-							<p>TambiÈn nos encontramos una serie de botones para imprimir partes oficiales relacionados 
+							de horas o d√≠as. La fecha de la expulsi√≥n no debe ser inmediata, considerando que los 
+							Profesores del Equipo educativo del alumno que va a ser expulsado necesitar√°n alg√∫n tiempo 
+							para rellenar su Informe de Tareas de tal modo que √©ste trabaje durante su ausencia.</p>
+							<p>Tambi√©n nos encontramos una serie de botones para imprimir partes oficiales relacionados 
 							con el problema registrado, en caso de que necesitemos hacerlo. Generan documentos oficiales 
-							preparados para ser enviados a los Padres del alumno, por lo que su uso est· limitado a 
+							preparados para ser enviados a los Padres del alumno, por lo que su uso est√° limitado a 
 							Tutores y Equipo directivo.</p>
 						</div>
 						<div class="modal-footer">
@@ -77,7 +77,7 @@ include("expulsiones.php");
 if (strlen($mensaje)>"0") {
 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>'.
+			<h5>ATENCI√ìN:</h5>'.
             $mensaje.'
           </div></div>';
 }
@@ -134,7 +134,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
             ?>
         <table class="table table-striped">
           <tr>
-            <th colspan="5"><h4>InformaciÛn detallada sobre el Problema</h4></th>
+            <th colspan="5"><h4>Informaci√≥n detallada sobre el Problema</h4></th>
           </tr>
           <tr>
             <th>NOMBRE</th>
@@ -185,7 +185,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         <div align="center"><a href="../informes/index.php?claveal=<?php echo $claveal;?>&todos=1" target="_blank" class="btn btn-primary">
         Ver Informe del Alumno
         </a> 
-        <a href="../jefatura/index.php?alumno=<?php echo $apellidos.", ".$nombre;?>&unidad=<?php echo $unidad;?>&grupo=<?php echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervenciÛn de Jefatura</a></div>
+        <a href="../jefatura/index.php?alumno=<?php echo $apellidos.", ".$nombre;?>&unidad=<?php echo $unidad;?>&grupo=<?php echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervenci√≥n de Jefatura</a></div>
     </div>
     <hr>
     <br />
@@ -225,7 +225,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	if (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) {
 	?>
     
-    <div class="well"><h4>ExpulsiÛn del alumno</h4><br>
+    <div class="well"><h4>Expulsi√≥n del alumno</h4><br>
     <form id="form1" name="form1" method="post" action="detfechorias.php" class="">
       <div class="form-group">
 	<label> N&ordm; de D&iacute;as:</label>
@@ -310,7 +310,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 
  <?php if ($config['mod_convivencia']==1) { ?>
  <div class="well">
-    <h4>ExpulsiÛn al Aula de convivencia </h4><br>
+    <h4>Expulsi√≥n al Aula de convivencia </h4><br>
     <form id="form2" name="form2" method="post" action="detfechorias.php" >
       
       <div class="form-group">
@@ -388,7 +388,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     <?php } ?>
    <div>
    <div class="well">
-    <h4>ImpresiÛn de partes</h4><br>
+    <h4>Impresi√≥n de partes</h4><br>
     <?php
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {

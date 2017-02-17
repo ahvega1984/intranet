@@ -117,7 +117,7 @@ INDEX (  `id_matriculas` )
 					elseif ($i=="17") {}
 					else{
 						if ($control[$i]==$control[$i-1]) {}else{
-							$text_t.= "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+							$text_t.= "<li><span class='text-error'>SÃ©neca:</span> ".$control[$i]." ==> <span class='text-error'>MatrÃ­cula:</span> ".$control[$i-1]."</li>";
 						}
 					}
 				}
@@ -216,7 +216,7 @@ foreach($_GET as $key_get => $val_get)
 <div class="container">
 
 <div class="page-header">
-<h2>Matriculación de alumnos <small> Alumnos/as matriculados en ESO</small></h2>
+<h2>MatriculaciÃ³n de alumnos <small> Alumnos/as matriculados en ESO</small></h2>
 </div>
 <br>
 
@@ -229,7 +229,7 @@ if (isset($_GET['borrar'])) {
 	mysqli_query($db_con, "delete from matriculas where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_backup.
+El alumno ha sido borrado de la tabla de matrÃ­culas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_backup.
 </div></div><br />' ;
 }
 if (isset($_GET['copia'])) {
@@ -243,7 +243,7 @@ if (isset($_GET['copia'])) {
 	mysqli_query($db_con, "delete from matriculas_backup where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los datos originales de la matrícula del alumno han sido correctamente restaurados.
+Los datos originales de la matrÃ­cula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
 }
 if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
@@ -251,8 +251,8 @@ if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 	if ($curso) {$extra=" curso='$curso' ";}else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No has seleccionado el Nivel. Así no podemos seguir...
+			<h5>ATENCIÃ“N:</h5>
+No has seleccionado el Nivel. AsÃ­ no podemos seguir...
 </div></div>' ;
 		exit();
 	}
@@ -332,18 +332,18 @@ if (!($orden)) {
 
 	include 'procesado.php';
 
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
-	$opt3 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
-	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
+	$opt1 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","TecnologÃ­a Aplicada");
+	$opt2 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma");
+	$opt3 = array("AlemÃ¡n 2Âº Idioma","Cambios Sociales y GÃ©nero", "FrancÃ©s 2Âº Idioma","Cultura ClÃ¡sica", "Taller T.I.C. III", "Taller de CerÃ¡mica", "Taller de Teatro");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C.", "AmpliaciÃ³n: Taller de Teatro");
+	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Taller T.I.C. II", "AmpliaciÃ³n: Taller de Teatro II");
+	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de MatemÃ¡ticas", "Actividades de refuerzo de InglÃ©s", "AmpliaciÃ³n: Lengua", "AmpliaciÃ³n: MatemÃ¡ticas", "AmpliaciÃ³n: InglÃ©s");
 		
-	$it41 = array("(Bachillerato de Ciencias)", "Matemáticas Académicas", "Tecnología (Sólo Ingeniería y Arquitectura)", "Física y Química", "Biología y Geología", "Economía");
-	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matemáticas Académicas", "Latín", "Economía");
-	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
+	$it41 = array("(Bachillerato de Ciencias)", "MatemÃ¡ticas AcadÃ©micas", "TecnologÃ­a (SÃ³lo IngenierÃ­a y Arquitectura)", "FÃ­sica y QuÃ­mica", "BiologÃ­a y GeologÃ­a", "EconomÃ­a");
+	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "MatemÃ¡ticas AcadÃ©micas", "LatÃ­n", "EconomÃ­a");
+	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "MatemÃ¡ticas Aplicadas", "TecnologÃ­a", "Ciencias Aplicadas a la Actividad Profesional", "IniciaciÃ³n a la Actividad Emprendedora y Empresarial");
 
-	$opt4=array("Alemán2" => "Alemán 2º Idioma", "Francés2" => "Francés 2º Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. Plástica y Visual", "Música" => "Música");
+	$opt4=array("AlemÃ¡n2" => "AlemÃ¡n 2Âº Idioma", "FrancÃ©s2" => "FrancÃ©s 2Âº Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. PlÃ¡stica y Visual", "MÃºsica" => "MÃºsica");
 
 	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
 	
@@ -359,7 +359,7 @@ if (!($orden)) {
 	if(mysqli_num_rows($cons) < 1){
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 </div></div><br />' ;
 	}
@@ -459,7 +459,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
 		if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrÃ­cula del alumno '> </i></a>";
 		}
 
 		if ($curso=='4ESO') {
@@ -467,7 +467,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if (mysqli_num_rows($back4)>0) {
 				$id4 = mysqli_fetch_array($back4);
 				$respaldo = '1';
-				$backup="<a href='consultas_bach.php?copia=1&id=$id4[0]&id_4=$id&curso=$curso&consulta=1'><i class='fa fa-refresh text-warning' rel='Tooltip' title='Restaurar datos originales de la matrícula de Bachillerato'> </i> <span class=text-warning>(B)</span></a>";
+				$backup="<a href='consultas_bach.php?copia=1&id=$id4[0]&id_4=$id&curso=$curso&consulta=1'><i class='fa fa-refresh text-warning' rel='Tooltip' title='Restaurar datos originales de la matrÃ­cula de Bachillerato'> </i> <span class=text-warning>(B)</span></a>";
 			}
 		}
 
@@ -510,7 +510,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="1ESO") {
 				echo '<td>';
 				$clg = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal'");
-				if (mysqli_num_rows($clg)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank' data-bs='tooltip' title='Alumno de Primaria con Informe de Tránsito' class='text-info'>$colegio</a>";}else{ echo $colegio;}
+				if (mysqli_num_rows($clg)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank' data-bs='tooltip' title='Alumno de Primaria con Informe de TrÃ¡nsito' class='text-info'>$colegio</a>";}else{ echo $colegio;}
 				echo '</td>';
 			}
 			if (strstr($religion,"Cat")==TRUE) {
@@ -558,7 +558,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 
 			if ($n_curso=="4") {
-				if($optativas4 == 'Biología y Geología'){$opt44 = 'BG';}elseif($optativas4 == 'Economía'){$opt44 = 'ECO';}elseif(stristr($optativas4,'Ciencias Aplicadas')==TRUE){$opt44 = 'CAAP';}elseif(stristr($optativas4,'Iniciaci')==TRUE){$opt44 = 'IAEE';}else{$optativas4="";}
+				if($optativas4 == 'BiologÃ­a y GeologÃ­a'){$opt44 = 'BG';}elseif($optativas4 == 'EconomÃ­a'){$opt44 = 'ECO';}elseif(stristr($optativas4,'Ciencias Aplicadas')==TRUE){$opt44 = 'CAAP';}elseif(stristr($optativas4,'Iniciaci')==TRUE){$opt44 = 'IAEE';}else{$optativas4="";}
 				echo '<td>'.$opt44.'</td>';
 			}
 
@@ -618,11 +618,11 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 					$promociona="";
-					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene T’tulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene TÂ’tulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
 
 					$rp_cur="";
 					if ($promociona == "1" and $n_curso==$curs_ant) {
-						$rp_cur = "<i class='fa fa-exclamation-circle text-danger' data-bs='tooltip' title='El alumno ha promocionado y su matrícula debe ser restaurada'> </i>";
+						$rp_cur = "<i class='fa fa-exclamation-circle text-danger' data-bs='tooltip' title='El alumno ha promocionado y su matrÃ­cula debe ser restaurada'> </i>";
 					}
 
 			if ($n_curso>1) {
@@ -637,7 +637,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 
-					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene T’tulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene TÂ’tulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
 					
 					if (date('m')>'05' and date('m')<'09'){
 					foreach ($tr_not as $val_asig) {
@@ -686,7 +686,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			$disr = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal' and (tipo='disruptivo' and dato='2')");
 			if (mysqli_num_rows($disr)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank'><span class='label label-info' data-bs='tooltip' title='Alumno disruptivo de Primaria con Problemas de Convivencia'>Disrup.</span></a>";}
 			$disr1 = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal' and (tipo='integra' and dato='4')");
-			if (mysqli_num_rows($disr1)>0) {echo "<br><a href='informe_transito.php?claveal=$claveal' target='_blank'><span class='label label-warning' data-bs='tooltip' title='Viene de Primaria con Problemas de Integración en el Aula'>Integra</span></a>";}
+			if (mysqli_num_rows($disr1)>0) {echo "<br><a href='informe_transito.php?claveal=$claveal' target='_blank'><span class='label label-warning' data-bs='tooltip' title='Viene de Primaria con Problemas de IntegraciÃ³n en el Aula'>Integra</span></a>";}
 			// Problemas de Convivencia
 			if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-important'>$n_fechorias</span></a>";}
 			elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
@@ -710,11 +710,11 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />";
 
-	// Control del envío de datos
+	// Control del envÃ­o de datos
 
 	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
 
-	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
+	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir CarÃ¡tulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
 
 	if(count($grupo_actua)=='1'){
 		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hdden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hdden-print' />
@@ -737,7 +737,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					//echo "select act1 from matriculas where $extra and act1 = '$i': ".${num_act.$i}."<br>";
 				}
 			}
-			$rel = mysqli_query($db_con, "select religion from matriculas where $extra and religion like '%Católica%'");
+			$rel = mysqli_query($db_con, "select religion from matriculas where $extra and religion like '%CatÃ³lica%'");
 
 			$num_rel = mysqli_num_rows($rel);
 
@@ -762,12 +762,12 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			style="width: auto">
 			<tr>
 			<?php
-			echo "<th>Religión</th>";
+			echo "<th>ReligiÃ³n</th>";
 			if ($curso=="1ESO" OR $curso=="2ESO"){
-				echo "<th>Exención</th>";
+				echo "<th>ExenciÃ³n</th>";
 			}
 			if ($curso=="3ESO" OR $curso=="2ESO"){
-				echo "<th>Diversificación</th>";
+				echo "<th>DiversificaciÃ³n</th>";
 			}
 			for ($i=1;$i<$num_opt+1;$i++){
 				echo "<th>Optativa$i</th>";
@@ -927,13 +927,13 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
   </script>
   <?php
-  // Control del envío de datos
+  // Control del envÃ­o de datos
 
   if (($mes_submit>5 and $mes_submit<9)) {
   	?>
 		<script type="text/javascript">
 function confirmacion2() {
-	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN ORDINARIA. Los alumnos que cumplen con los criterios de Promoción propios de su Nivel aparecen marcados en la columna como <<SI/NO>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
+	var answer = confirm("ATENCIÃ“N\n EstÃ¡s a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÃ–N ORDINARIA. Los alumnos que cumplen con los criterios de PromociÃ³n propios de su Nivel aparecen marcados en la columna como <<SI/NO>>.\n Si estÃ¡s seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
 	if (answer){
 return true;
 	}
@@ -948,7 +948,7 @@ return false;
   	?>
 		<script type="text/javascript">
 function confirmacion2() {
-	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN EXTRAORDINARIA. Todos los alumnos han sido marcados en la columna <<SI/NO>> de acuerdo a los datos de promoción registrados en Séneca.\n Por motivos de seguridad, se va acrear una copia de respaldo de los datos originales de la matrícula de aquellos alumnos que NO promocionan. Estos datos pueden ser recuperados en todo momento pulsando el botón <<Restaurar>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
+	var answer = confirm("ATENCIÃ“N\n EstÃ¡s a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÃ–N EXTRAORDINARIA. Todos los alumnos han sido marcados en la columna <<SI/NO>> de acuerdo a los datos de promociÃ³n registrados en SÃ©neca.\n Por motivos de seguridad, se va acrear una copia de respaldo de los datos originales de la matrÃ­cula de aquellos alumnos que NO promocionan. Estos datos pueden ser recuperados en todo momento pulsando el botÃ³n <<Restaurar>>.\n Si estÃ¡s seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
 	if (answer){
 return true;
 	}

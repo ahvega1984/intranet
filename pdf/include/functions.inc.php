@@ -4,7 +4,7 @@
  * @link    http://dompdf.github.com/
  * @author  Benj Carson <benjcarson@digitaljunkies.ca>
  * @author  Helmut Tischer <htischer@weihenstephan.org>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @author  Fabien MÃ©nager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
@@ -363,14 +363,14 @@ if (!extension_loaded('mbstring')) {
   }
   
   if (!function_exists('mb_detect_encoding')) {
-    function mb_detect_encoding($data, $encoding_list = array('iso-8859-1'), $strict = false) {
-      return 'iso-8859-1';
+    function mb_detect_encoding($data, $encoding_list = array('UTF-8'), $strict = false) {
+      return 'UTF-8';
     }
   }
   
   if (!function_exists('mb_detect_order')) {
-    function mb_detect_order($encoding_list = array('iso-8859-1')) {
-      return 'iso-8859-1';
+    function mb_detect_order($encoding_list = array('UTF-8')) {
+      return 'UTF-8';
     }
   }
   
@@ -380,12 +380,12 @@ if (!extension_loaded('mbstring')) {
         return true;
       }
       
-      return 'iso-8859-1';
+      return 'UTF-8';
     }
   }
 
   if (!function_exists('mb_strlen')) {
-    function mb_strlen($str, $encoding = 'iso-8859-1') {
+    function mb_strlen($str, $encoding = 'UTF-8') {
       switch (str_replace('-', '', strtolower($encoding))) {
         case "utf8": return strlen(utf8_encode($str));
         case "8bit": return strlen($str);
@@ -419,7 +419,7 @@ if (!extension_loaded('mbstring')) {
   }
   
   if (!function_exists('mb_substr')) {
-    function mb_substr($string, $start, $length = null, $encoding = 'iso-8859-1') {
+    function mb_substr($string, $start, $length = null, $encoding = 'UTF-8') {
       if ( is_null($length) ) {
         return substr($string, $start);
       }
@@ -429,7 +429,7 @@ if (!extension_loaded('mbstring')) {
   }
   
   if (!function_exists('mb_substr_count')) {
-    function mb_substr_count($haystack, $needle, $encoding = 'iso-8859-1') {
+    function mb_substr_count($haystack, $needle, $encoding = 'UTF-8') {
       return substr_count($haystack, $needle);
     }
   }
@@ -454,7 +454,7 @@ if (!extension_loaded('mbstring')) {
   if (!function_exists('mb_list_encodings')) {
     function mb_list_encodings() {
       return array(
-        "ISO-8859-1",
+        "UTF-8",
         "UTF-8",
         "8bit",
       );

@@ -3,7 +3,7 @@
  * @package dompdf
  * @link    http://dompdf.github.com/
  * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @author  Fabien MÃ©nager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
@@ -614,7 +614,7 @@ class DOMPDF {
       $quirksmode = ($tokenizer->getTree()->getQuirksMode() > HTML5_TreeBuilder::NO_QUIRKS);
     }
     else {
-      // loadHTML assumes ISO-8859-1 unless otherwise specified, but there are
+      // loadHTML assumes UTF-8 unless otherwise specified, but there are
       // bugs in how DOMDocument determines the actual encoding. Converting to
       // HTML-ENTITIES prior to import appears to resolve the issue.
       // http://devzone.zend.com/1538/php-dom-xml-extension-encoding-processing/ (see #4)

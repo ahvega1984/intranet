@@ -2,14 +2,14 @@
 
 $total0 = count($_POST);
 $clavesw = array_values($_POST);
-// Misma operación que en el fichero insertar.php
+// Misma operaciÃ³n que en el fichero insertar.php
 $x=4;
 while($x < $total0 - 2)
 {
 	// Dividimos los valores en grupos de 6, cada uno conteniendo todos los datos necesarios para una hora de un dia de la semana, con su fecha, nivel grupo, etc.
 $trozos0 = array_slice($clavesw, $x, 6);
 
-// Pasamos fecha española a formato MySql
+// Pasamos fecha espaÃ±ola a formato MySql
 $fecha0 = explode('-',$trozos0[0]);
 $dia0 = $fecha0[0];
 $mes = $fecha0[1];

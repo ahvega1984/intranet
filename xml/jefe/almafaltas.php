@@ -12,7 +12,7 @@ include '../../menu.php';
 <div class="container">
 
 	<div class="page-header">
-		<h2>Administración <small> Creación de la tabla de alumnos</small></h2>
+		<h2>AdministraciÃ³n <small> CreaciÃ³n de la tabla de alumnos</small></h2>
 	</div>
 	
 	<div id="status-loading" class="text-center">
@@ -45,7 +45,7 @@ include '../../menu.php';
 			mysqli_query($db_con, "DROP TABLE FALUMNOS_seg") ;
 			mysqli_query($db_con, "create table FALUMNOS_seg select * from FALUMNOS");
 			
-			// Creación de la tabla alma
+			// CreaciÃ³n de la tabla alma
 			$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
@@ -90,11 +90,11 @@ include '../../menu.php';
 					// echo $alumnos;
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>ATENCIÓN:</legend>
+						<legend>ATENCIÃ“N:</legend>
 			No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
 			</div></div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>');
 			
 					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
@@ -104,11 +104,11 @@ include '../../menu.php';
 			
 					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+						<h5>ATENCIÃ“N:</h5>
+			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
 			</div></div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>'); 
 
 					while (!feof($fp))
@@ -130,17 +130,17 @@ include '../../menu.php';
 
 					if ($n_col_tabla!=$num_col) { 
 
-						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
+						// Restauramos Copia de Seguridad porque SÃ©neca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
 						mysqli_query($db_con, "insert into FALUMNOS select * from FALUMNOS_seg");
 						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas. 
-						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicación o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
+						<h5>ATENCIÃ“N:</h5>
+						No se han podido importar los datos de los alumnos porque SÃ©neca ha modificado la estructura del archivo RegAlum.txt, bien porque ha aÃ±adido algÃºn campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas. 
+						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicaciÃ³n o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
 						</div></div><br />
 						<div align="center">
-						  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+						  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 						</div>';
 						?>
 									</div><!-- /.well -->
@@ -174,7 +174,7 @@ include '../../menu.php';
 								$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
 							}
 							$dato=substr($dato,0,strlen($dato)-2);
-							$lineasalto.=$dato;
+							$lineasalto.=utf8_encode($dato);
 							$lineasalto.=");";
 							mysqli_query($db_con, $lineasalto);
 						}
@@ -207,7 +207,7 @@ include '../../menu.php';
 			";
 					mysqli_query($db_con, $crear);
 					
-					// índices
+					// Ã­ndices
 					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
 					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
 					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
@@ -236,26 +236,26 @@ include '../../menu.php';
 						mysqli_query($db_con, $actualiza1P);
 					}
 			
-					// Eliminación de campos innecesarios por repetidos
+					// EliminaciÃ³n de campos innecesarios por repetidos
 					$SQL3 = "ALTER TABLE alma
 			  DROP `apellido1`,
 			  DROP `Alumno/a`,
 			  DROP `apellido2`";
 					$result3 = mysqli_query($db_con, $SQL3);
 			
-					// Eliminación de alumnos dados de baja
+					// EliminaciÃ³n de alumnos dados de baja
 					$SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
 					$result4 = mysqli_query($db_con, $SQL4);
 			
 					include("exportacodigos.php");
 			
 					// Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-			$SQL6 = "delete FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%P.C.P.I.$' or curso like '%F.P.B.$') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%' and ESTADOMATRICULA not like 'Pendiente de confirma%')";
+					$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%F.P.B%') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%' and ESTADOMATRICULA not like 'Pendiente de confirma%' and ESTADOMATRICULA not like 'Traslad%') or (COMBASI IS NULL and ESTADOMATRICULA like 'Traslad%')";
 					$result6 = mysqli_query($db_con, $SQL6);
 			
 					// Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-					$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA not like '' and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%'  and ESTADOMATRICULA not like 'Pendiente de confirm%'";
-					mysqli_query($db_con, $SQL7);
+					//$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA not like '' and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%'  and ESTADOMATRICULA not like 'Pendiente de confirm%'";
+					//mysqli_query($db_con, $SQL7);
 			
 					// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 					$SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
@@ -265,11 +265,11 @@ include '../../menu.php';
 					mysqli_query($db_con, "DROP TABLE almafaltas");
 					mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>ATENCIÓN:</legend>
+						<legend>ATENCIÃ“N:</legend>
 			No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
 			</div></div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>');
 			
 					// Claveal primaria e indice
@@ -311,7 +311,7 @@ include '../../menu.php';
 					// Eliminamos temporales
 					mysqli_query($db_con, "drop table almafaltas");
 					
-					// Copia de la primera versión de alma
+					// Copia de la primera versiÃ³n de alma
 					mysqli_query($db_con, "DROP TABLE alma_primera");
 					mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
 					mysqli_query($db_con, "create table alma_primera select * from alma");
@@ -335,14 +335,14 @@ include '../../menu.php';
 				else{
 					echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>ATENCIÓN:</legend>
-			Parece que te estás olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
+						<legend>ATENCIÃ“N:</legend>
+			Parece que te estÃ¡s olvidando de enviar todos los archivos con los datos de los alumnos. AsegÃºrate de enviar ambos archivos descargados desde SÃ©neca.
 			</div></div><br />';
 				}
 				?>
 				
 				<div class="text-center">
-					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
+					 <a href="../index.php" class="btn btn-primary">Volver a AdministraciÃ³n</a>
 				</div>
 			
 			</div><!-- /.well -->

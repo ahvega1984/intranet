@@ -21,20 +21,20 @@ if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {
 }
 else {
 	$evaluaciones = array(
-		'1EV' => '1ª Evaluación',
-		'2EV' => '2ª Evaluación',
-		'3EV' => '3ª Evaluación',
+		'1EV' => '1Âª EvaluaciÃ³n',
+		'2EV' => '2Âª EvaluaciÃ³n',
+		'3EV' => '3Âª EvaluaciÃ³n',
 		'Ord' => 'Ordinaria',
 		'FFP' => 'Final FP',
 		'Ext' => 'Extraordinaria',
-		'FE1' => 'Final Excepcional 1ª Convocatoria',
-		'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
-		'OT1' => 'Obtención título ESO (Primer año)',
-		'FE2' => 'Final Excepcional 2ª Convocatoria',
-		'OT2' => 'Obtención título ESO (Segundo año)',
-		'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
-		'EVI' => 'Evaluación inicial',
-		'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
+		'FE1' => 'Final Excepcional 1Âª Convocatoria',
+		'5CV' => '5Âº Convocatoria Extraordinaria de EvaluaciÃ³n',
+		'OT1' => 'ObtenciÃ³n tÃ­tulo ESO (Primer aÃ±o)',
+		'FE2' => 'Final Excepcional 2Âª Convocatoria',
+		'OT2' => 'ObtenciÃ³n tÃ­tulo ESO (Segundo aÃ±o)',
+		'EP1' => 'EvaluaciÃ³n de pendientes 1Âª Convovatoria',
+		'EVI' => 'EvaluaciÃ³n inicial',
+		'EP2' => 'EvaluaciÃ³n de pendientes 2Âª Convovatoria',
 	);
 }
 
@@ -112,7 +112,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Evaluaciones <small>Actas de sesiones de evaluación</small></h2>
+			<h2>Evaluaciones <small>Actas de sesiones de evaluaciÃ³n</small></h2>
 		</div>
 		
 		<!-- MENSAJES -->
@@ -149,7 +149,7 @@ include("menu.php");
 								<div class="col-sm-4">
 								
 									<div class="form-group">
-										<label for="evaluacion">Evaluación</label>
+										<label for="evaluacion">EvaluaciÃ³n</label>
 										<input type="hidden" name="evaluacion" value="<?php echo $evaluacion ?>">
 										<input type="text" class="form-control" id="texto_evaluacion" name="texto_evaluacion" value="<?php echo $evaluaciones[$evaluacion]; ?>" readonly>
 									</div>
@@ -171,7 +171,7 @@ include("menu.php");
 										<label for="tutor">Tutor/a</label>
 										<?php $result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$curso'"); ?>
 										<?php $row = mysqli_fetch_array($result); ?>
-										<?php $tutor = mb_convert_case($row['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?>
+										<?php $tutor = mb_convert_case($row['tutor'], MB_CASE_TITLE, "UTF-8"); ?>
 										<input type="text" class="form-control" id="tutor" name="tutor" value="<?php echo $tutor; ?>" readonly>
 									</div>
 								
@@ -231,7 +231,7 @@ include("menu.php");
 								<th>#</th>
 								<th>Unidad</th>
 								<th>Tutor/a</th>
-								<th>Evaluación</th>
+								<th>EvaluaciÃ³n</th>
 								<th>Fecha</th>
 								<th>&nbsp;</th>
 							</tr>
@@ -241,7 +241,7 @@ include("menu.php");
 							<tr>
 								<td><?php echo $row['id']; ?></td>
 								<td><?php echo $row['unidad']; ?></td>
-								<td><?php echo mb_convert_case($row['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></td>
+								<td><?php echo mb_convert_case($row['tutor'], MB_CASE_TITLE, "UTF-8"); ?></td>
 								<td><?php echo $evaluaciones[$row['evaluacion']]; ?></td>
 								<td><?php echo $row['fecha']; ?></td>
 								<td>
@@ -257,7 +257,7 @@ include("menu.php");
 					</table>
 					<?php else: ?>
 					
-					<h3>No se ha redactado ningún acta de sesión de evaluación.</h3>
+					<h3>No se ha redactado ningÃºn acta de sesiÃ³n de evaluaciÃ³n.</h3>
 					<br>
 					<br>
 					
@@ -290,14 +290,14 @@ include("menu.php");
 		
 		"language": {
 		            "lengthMenu": "_MENU_",
-		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-		            "info": "Página _PAGE_ de _PAGES_",
+		            "zeroRecords": "No se ha encontrado ningÃºn resultado con ese criterio.",
+		            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 		            "infoEmpty": "No hay resultados disponibles.",
 		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 		            "search": "Buscar: ",
 		            "paginate": {
 		                  "first": "Primera",
-		                  "next": "Última",
+		                  "next": "Ãšltima",
 		                  "next": "",
 		                  "previous": ""
 		                }

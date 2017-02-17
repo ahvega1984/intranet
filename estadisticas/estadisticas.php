@@ -18,8 +18,8 @@ if (acl_permiso($carg, array('1'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'profesor' => utf8_encode($table_row['nombre']),
-				'departamento' => utf8_encode($table_row['departamento'])
+				'profesor' => $table_row['nombre'],
+				'departamento' => $table_row['departamento']
 			);
 			
 			array_push($table, $table2);
@@ -42,11 +42,11 @@ if (acl_permiso($carg, array('1'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idfechoria' => utf8_encode($table_row['id']),
-				'claveal' => utf8_encode($table_row['claveal']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'problema' => utf8_encode($table_row['asunto']),
-				'profesor' => utf8_encode($table_row['informa'])
+				'idfechoria' => $table_row['id'],
+				'claveal' => $table_row['claveal'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'problema' => $table_row['asunto'],
+				'profesor' => $table_row['informa']
 			);
 			
 			array_push($table, $table2);
@@ -71,13 +71,13 @@ if (acl_permiso($carg, array('1'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idfechoria' => utf8_encode($table_row['id']),
-				'claveal' => utf8_encode($table_row['claveal']),
-				'unidad' => utf8_encode($table_row['unidad']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'problema' => utf8_encode($table_row['asunto']),
-				'inicio' => utf8_encode($table_row['inicio']),
-				'fin' => utf8_encode($table_row['fin'])
+				'idfechoria' => $table_row['id'],
+				'claveal' => $table_row['claveal'],
+				'unidad' => $table_row['unidad'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'problema' => $table_row['asunto'],
+				'inicio' => $table_row['inicio'],
+				'fin' => $table_row['fin']
 			);
 			
 			array_push($table, $table2);
@@ -90,13 +90,13 @@ if (acl_permiso($carg, array('1'))) {
 		$table1 = array();
 		while ($table_row = mysqli_fetch_array($result1)) {
 			$table2 = array(
-				'idfechoria' => utf8_encode($table_row['id']),
-				'claveal' => utf8_encode($table_row['claveal']),
-				'unidad' => utf8_encode($table_row['unidad']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'problema' => utf8_encode($table_row['asunto']),
-				'inicio' => utf8_encode($table_row['inicio']),
-				'fin' => utf8_encode($table_row['fin'])
+				'idfechoria' => $table_row['id'],
+				'claveal' => $table_row['claveal'],
+				'unidad' => $table_row['unidad'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'problema' => $table_row['asunto'],
+				'inicio' => $table_row['inicio'],
+				'fin' => $table_row['fin']
 			);
 			
 			array_push($table1, $table2);
@@ -121,10 +121,10 @@ if (acl_permiso($carg, array('1'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idvisita' => utf8_encode($table_row['id']),
-				'unidad' => utf8_encode($table_row['unidad']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'tutor' => utf8_encode($table_row['tutor'])
+				'idvisita' => $table_row['id'],
+				'unidad' => $table_row['unidad'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'tutor' => $table_row['tutor']
 			);
 			
 			array_push($table, $table2);
@@ -148,9 +148,9 @@ if (acl_permiso($carg, array('1'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idea' => utf8_encode($table_row['profesor']),
-				'profesor' => utf8_encode($table_row['nombre']),
-				'numero' => utf8_encode($table_row['num'])
+				'idea' => $table_row['profesor'],
+				'profesor' => $table_row['nombre'],
+				'numero' => $table_row['num']
 			);
 			
 			array_push($table, $table2);
@@ -181,10 +181,10 @@ if (acl_permiso($carg, array('2'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'claveal' => utf8_encode($table_row['claveal']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'hora' => utf8_encode($table_row['hora']),
-				'falta' => utf8_encode($table_row['falta'])
+				'claveal' => $table_row['claveal'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'hora' => $table_row['hora'],
+				'falta' => $table_row['falta']
 			);
 			
 			array_push($table, $table2);
@@ -208,11 +208,11 @@ if (acl_permiso($carg, array('2'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idfechoria' => utf8_encode($table_row['id']),
-				'claveal' => utf8_encode($table_row['claveal']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'problema' => utf8_encode($table_row['asunto']),
-				'profesor' => utf8_encode($table_row['informa'])
+				'idfechoria' => $table_row['id'],
+				'claveal' => $table_row['claveal'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'problema' => $table_row['asunto'],
+				'profesor' => $table_row['informa']
 			);
 			
 			array_push($table, $table2);
@@ -237,13 +237,13 @@ if (acl_permiso($carg, array('2'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idfechoria' => utf8_encode($table_row['id']),
-				'claveal' => utf8_encode($table_row['claveal']),
-				'unidad' => utf8_encode($table_row['unidad']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'problema' => utf8_encode($table_row['asunto']),
-				'inicio' => utf8_encode($table_row['inicio']),
-				'fin' => utf8_encode($table_row['fin'])
+				'idfechoria' => $table_row['id'],
+				'claveal' => $table_row['claveal'],
+				'unidad' => $table_row['unidad'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'problema' => $table_row['asunto'],
+				'inicio' => $table_row['inicio'],
+				'fin' => $table_row['fin']
 			);
 			
 			array_push($table, $table2);
@@ -256,13 +256,13 @@ if (acl_permiso($carg, array('2'))) {
 		$table1 = array();
 		while ($table_row = mysqli_fetch_array($result1)) {
 			$table2 = array(
-				'idfechoria' => utf8_encode($table_row['id']),
-				'claveal' => utf8_encode($table_row['claveal']),
-				'unidad' => utf8_encode($table_row['unidad']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'problema' => utf8_encode($table_row['asunto']),
-				'inicio' => utf8_encode($table_row['inicio']),
-				'fin' => utf8_encode($table_row['fin'])
+				'idfechoria' => $table_row['id'],
+				'claveal' => $table_row['claveal'],
+				'unidad' => $table_row['unidad'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'problema' => $table_row['asunto'],
+				'inicio' => $table_row['inicio'],
+				'fin' => $table_row['fin']
 			);
 			
 			array_push($table1, $table2);
@@ -287,10 +287,10 @@ if (acl_permiso($carg, array('2'))) {
 		$table = array();
 		while ($table_row = mysqli_fetch_array($result)) {
 			$table2 = array(
-				'idvisita' => utf8_encode($table_row['id']),
-				'unidad' => utf8_encode($table_row['unidad']),
-				'alumno' => utf8_encode($table_row['nombre'].' '.$table_row['apellidos']),
-				'tutor' => utf8_encode($table_row['tutor'])
+				'idvisita' => $table_row['id'],
+				'unidad' => $table_row['unidad'],
+				'alumno' => $table_row['nombre'].' '.$table_row['apellidos'],
+				'tutor' => $table_row['tutor']
 			);
 			
 			array_push($table, $table2);

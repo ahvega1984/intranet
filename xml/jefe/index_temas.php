@@ -47,7 +47,7 @@ include("../../menu.php");
 
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Cambiar tema de la aplicaci髇</h2>
+		<h2>Cambiar tema de la aplicaci贸n</h2>
 	</div>
 	
 	<?php echo $mens; ?>
@@ -65,7 +65,7 @@ include("../../menu.php");
 							<div class="form-group">
 								<label for="tema">Selecciona el tema</label>
 								<select class="form-control" id="tema" name="tema">
-									<optgroup label="Temas de la aplicaci髇">
+									<optgroup label="Temas de la aplicaci贸n">
 										<?php $d = dir("../../css/temas/"); ?>
 										<?php while (false !== ($entry = $d->read())): ?>
 										<?php if (stristr($entry,".css")==TRUE and !($entry=="bootstrap.min.css")): ?>
@@ -83,7 +83,7 @@ include("../../menu.php");
 							<div class="checkbox">
 								<label>
 									<input type="checkbox" name="fondo" value="1" <?php if($_SESSION ['fondo']=="navbar-inverse"){echo "checked";}?>>
-									Invertir colores de la Barra de Navegaci髇
+									Invertir colores de la Barra de Navegaci贸n
 								</label>
 							</div>
 							
@@ -98,12 +98,12 @@ include("../../menu.php");
 						
 						<br>
 					
-						<p class="help-block">El aspecto que presentan las p醙inas de la Intranet puede ser 
-						modificado mediante temas. La aplicaci髇 contiene un conjunto de temas que modifican 
-						los distintos elementos que constituyen su presentaci髇 visual: el tipo de letra, los 
-						fondos, botones, etiquetas, colores de los distintos elementos, barra de navegaci髇, 
+						<p class="help-block">El aspecto que presentan las p谩ginas de la Intranet puede ser 
+						modificado mediante temas. La aplicaci贸n contiene un conjunto de temas que modifican 
+						los distintos elementos que constituyen su presentaci贸n visual: el tipo de letra, los 
+						fondos, botones, etiquetas, colores de los distintos elementos, barra de navegaci贸n, 
 						etc. Puedes probar los distintos temas que suministramos seleccionando uno de ellos 
-						de la lista desplegable, pulsando el bot髇 para enviar los datos y observando los 
+						de la lista desplegable, pulsando el bot贸n para enviar los datos y observando los 
 						cambios. Puedes cambiar de tema tantas veces como quieras ya que no afecta al 
 						funcionamiento de la Intranet.</p>
 					</form>

@@ -20,29 +20,29 @@
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Este m骴ulo incluye varias funciones propias de un Centro con proyecto 
-						TIC. La primera de todas es la presentaci髇 de un formulario para registrar 
-						incidencias en el uso de las TIC (conexi髇, aver韆 de m醧uinas, problemas 
+						<p>Este m贸dulo incluye varias funciones propias de un Centro con proyecto 
+						TIC. La primera de todas es la presentaci贸n de un formulario para registrar 
+						incidencias en el uso de las TIC (conexi贸n, aver铆a de m谩quinas, problemas 
 						de software, etc.). Las incidencias pueden ser vistas y filtradas, y 
-						tambi閚 editadas por parte del autor de la incidencia y el Coordinador TIC.</p>
+						tambi茅n editadas por parte del autor de la incidencia y el Coordinador TIC.</p>
 						<p>Los perfiles de profesores y alumnos nos ofrecen los datos (Usuario y 
-						Contrase馻) para el acceso a la red Andared, la Plataforma Educativa o Moodle. 
-						La aplicaci髇 crea una tabla en la Base de Datos con los nombres de usuario y 
-						contrase馻 de alumnos y profesores al importar y actualizar los datos de ambos, 
-						y crea un par de archivos de texto preparados para la importaci髇 masiva de 
+						Contrase帽a) para el acceso a la red Andared, la Plataforma Educativa o Moodle. 
+						La aplicaci贸n crea una tabla en la Base de Datos con los nombres de usuario y 
+						contrase帽a de alumnos y profesores al importar y actualizar los datos de ambos, 
+						y crea un par de archivos de texto preparados para la importaci贸n masiva de 
 						los mismos en Gesuser, Moodle, etc.</p>
 						<p>El Perfil del Profesor nos presenta nuestro nombre de usuario y clave de 
 						acceso en Andared y sus servicios. <br>El Perfil del Alumno nos presenta los 
 						mismos datos para los alumnos de nuestros grupos, de tal manera que podamos 
-						ofrec閞selo, por ejemplo, para el acceso a Moodle. Un formulario nos presenta 
+						ofrec茅rselo, por ejemplo, para el acceso a Moodle. Un formulario nos presenta 
 						nuestros Grupos y Asignaturas en el Curso Escolar para seleccionar. Si un alumno 
 						al que damos clase no aparece en el listado, seguramente el problema se encuentra 
-						en un error de matriculaci髇 del mismo (no se ha matriculado en nuestra 
-						asignatura). Es conveniente comunicar este dato a la Administraci髇 del Centro.</p>
-						<p>Las Estad韘ticas TIC nos ofrecen los datos de uso de ordenadores y profesores 
+						en un error de matriculaci贸n del mismo (no se ha matriculado en nuestra 
+						asignatura). Es conveniente comunicar este dato a la Administraci贸n del Centro.</p>
+						<p>Las Estad铆sticas TIC nos ofrecen los datos de uso de ordenadores y profesores 
 						tal como queda reflejado en el sistema de reservas de los mismos. Los ordenadores 
-						o carros con port醫iles deben haber sido registrados durante la instalaci髇, o 
-						a trav閟 de Administraci髇 de la Intranet  --> Configuraci髇 de la aplicaci髇.</p>
+						o carros con port谩tiles deben haber sido registrados durante la instalaci贸n, o 
+						a trav茅s de Administraci贸n de la Intranet  --> Configuraci贸n de la aplicaci贸n.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -63,7 +63,7 @@
 			</li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'protocolo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="protocolo.php">Protocolo de uso</a></li>
 			<li><a href="Guia_Rapida_SDI1.pdf" target="_blank">Manual de la SDI</a></li>
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'estadisticas.php')==TRUE) ? ' class="active"' : ''; ?>><a href="estadisticas.php">Estad韘ticas TIC</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'estadisticas.php')==TRUE) ? ' class="active"' : ''; ?>><a href="estadisticas.php">Estad铆sticas TIC</a></li>
 		</ul>
 		
 	</div>

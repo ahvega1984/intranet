@@ -39,13 +39,13 @@ include("../../menu.php");
 							<th>&nbsp;</th>
 							<th>Lunes</th>
 							<th>Martes</th>
-							<th>Miércoles</th>
+							<th>MiÃ©rcoles</th>
 							<th>Jueves</th>
 							<th>Viernes</th>
 						</tr>
 					</thead>
 					<tbody>
-					<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", R => "R", 4 => "4ª", 5 => "5ª", 6 => "6ª"); ?>
+					<?php $horas = array(1 => "1Âª", 2 => "2Âª", 3 => "3Âª", R => "R", 4 => "4Âª", 5 => "5Âª", 6 => "6Âª"); ?>
 					<?php foreach($horas as $hora => $desc): ?>
 						<tr>
 							<th><?php echo $desc; ?></th>

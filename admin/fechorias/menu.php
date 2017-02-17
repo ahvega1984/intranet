@@ -26,7 +26,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	Registrar Problema</a></li>
 	<li <?php echo $activo3;?>><a
 		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/lfechorias.php">
-	Últimos Problemas</a></li>
+	Ãšltimos Problemas</a></li>
 	<li <?php echo $activo4;?>><a
 		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/expulsados.php">
 	Alumnos expulsados</a></li>
@@ -37,7 +37,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 		<li><a href="lfechorias3.php">General</a></li>
-		<li><a href="lfechorias3b.php">Tras última Expulsión del Centro</a></li>
+		<li><a href="lfechorias3b.php">Tras Ãºltima ExpulsiÃ³n del Centro</a></li>
 	</ul>
 	</li>
 	<?php

@@ -103,7 +103,7 @@ for ($i=0;$i<$num_a;$i++){
 					else{
 						if ($sms->validate()){
 							$sms_enviado=1;
-						// Env韔 de SMS	
+						// Env铆o de SMS	
 							$sms->send();
 							if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
 								}
@@ -111,7 +111,7 @@ for ($i=0;$i<$num_a;$i++){
 						// Registro de SMS		
 						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
 
-						// Registro de Tutor韆
+						// Registro de Tutor铆a
 						$fecha2 = date ( 'Y-m-d' );
 						$observaciones = $message;
 						$accion = "Env&iacute;o de SMS";
@@ -124,7 +124,7 @@ for ($i=0;$i<$num_a;$i++){
 				else {
 					echo "
 					<div class=\"alert alert-error\">
-						<strong>Error:</strong> No se pudo enviar el SMS al tel閒ono (+34) ".$mobile.". Corrija la informaci髇 de contacto del alumno/a en S閚eca e importe los datos nuevamente.
+						<strong>Error:</strong> No se pudo enviar el SMS al tel茅fono (+34) ".$mobile.". Corrija la informaci贸n de contacto del alumno/a en S茅neca e importe los datos nuevamente.
 					</div>
 					<br>";
 				}
@@ -133,7 +133,7 @@ for ($i=0;$i<$num_a;$i++){
 
 		// FIN SMS
 
-		// Env韔 de Email
+		// Env铆o de Email
 	 $cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
 	 $cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");
 	 if(mysqli_num_rows($cor_alma)>0){
@@ -165,19 +165,19 @@ for ($i=0;$i<$num_a;$i++){
 	 	 $message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	 	 $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 	 	 $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
-	 	 $message = str_replace('{{titulo}}', 'Comunicaci髇 de Problemas de Convivencia', $message);
-	 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir informaci髇 m醩 detallada en la p醙ina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcci髇 de correo. Si necesita mayor informaci髇 sobre el contenido de este mensaje, p髇gase en contacto con Jefatura de Estudios.', $message);
+	 	 $message = str_replace('{{titulo}}', 'Comunicaci贸n de Problemas de Convivencia', $message);
+	 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir informaci贸n m谩s detallada en la p谩gina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcci贸n de correo. Si necesita mayor informaci贸n sobre el contenido de este mensaje, p贸ngase en contacto con Jefatura de Estudios.', $message);
 	 	 
 	 	 $mail->msgHTML($message);
-	 	 $mail->Subject = $config['centro_denominacion'].' - Comunicaci髇 de Problemas de Convivencia';
-	 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir informaci髇 m醩 detallada en la p醙ina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcci髇 de correo. Si necesita mayor informaci髇 sobre el contenido de este mensaje, p髇gase en contacto con Jefatura de Estudios.';
+	 	 $mail->Subject = $config['centro_denominacion'].' - Comunicaci贸n de Problemas de Convivencia';
+	 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir informaci贸n m谩s detallada en la p谩gina del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta direcci贸n de correo. Si necesita mayor informaci贸n sobre el contenido de este mensaje, p贸ngase en contacto con Jefatura de Estudios.';
 
 	 	 $mail->AddAddress($correo, $nombre_alumno);
 	 	 if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
 			}
 			else{
 				$mail->Send();	
-				// Registro de Tutor韆
+				// Registro de Tutor铆a
 				$fecha2 = date ( 'Y-m-d' );
 				$observaciones = $message;
 				$accion = "Env&iacute;o de SMS";

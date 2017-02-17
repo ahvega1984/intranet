@@ -3,7 +3,7 @@
 
 // Eliminamos de FALTAS las faltas borradas por el profesor. La tarea es cosa del fichero borrar.php
 include("borrar.php");
-// ConexiÛn
+// Conexi√≥n
 
 // Contamos el total de variables que se han enviado desde el Formulario.
 $total = count($_POST);
@@ -15,7 +15,7 @@ $trozos = explode("_ ",$profesor) ;
 $id = $trozos[0];
 $profesores = $trozos[1];
 
-// Luego habr· que separar del total los dos campos que molestan para formar los bloques de 6 variables: profesor al principio y enviar al final. Por eso restamos 2.
+// Luego habr√° que separar del total los dos campos que molestan para formar los bloques de 6 variables: profesor al principio y enviar al final. Por eso restamos 2.
 while($i < $total - 2)
 {
 
@@ -34,17 +34,17 @@ while($i < $total - 2)
 		$fecha0 = explode('-',$trozos[0]);
 		$dia0 = $fecha0[0];
 		$mes = $fecha0[1];
-		$aÒo = $fecha0[2];
-		$fecha1 = $aÒo . "-" . $mes . "-" . $dia0;
-		$fecha11 = $dia0 . "-" . $mes . "-" . $aÒo;
-		$fecha2 = mktime(0,0,0,$mes,$dia0,$aÒo);
+		$a√±o = $fecha0[2];
+		$fecha1 = $a√±o . "-" . $mes . "-" . $dia0;
+		$fecha11 = $dia0 . "-" . $mes . "-" . $a√±o;
+		$fecha2 = mktime(0,0,0,$mes,$dia0,$a√±o);
 		$fecha22 = strtotime($config['curso_inicio']);
 		$diames = date("j");
 		$nmes = date("n");
 		$nano = date("Y");
 		$hoy1 = mktime(0,0,0,$nmes,$diames,$nano);
 
-		// Fiestas del AÒo, Vacaciones, etc.
+		// Fiestas del A√±o, Vacaciones, etc.
 		$comienzo_del_curso = strtotime($config['curso_inicio']);
 		$final_del_curso = strtotime($config['curso_fin']);
 
@@ -55,7 +55,7 @@ while($i < $total - 2)
 		}
 		if($dia_festivo=='1')
 		{
-			$mens_fecha = "No es posible poner o justificar Faltas en un <b>DÌa Festivo</b> o en <b>Vacaciones</b>. Comprueba la Fecha: <b>$fecha11</b>";
+			$mens_fecha = "No es posible poner o justificar Faltas en un <b>D√≠a Festivo</b> o en <b>Vacaciones</b>. Comprueba la Fecha: <b>$fecha11</b>";
 		}
 		elseif ($fecha2 < $fecha22) {
 			$mens_fecha = "No es posible poner o justificar Faltas del Curso Anterior.<br>Comprueba la Fecha: <b>$fecha11</b>.";
@@ -64,27 +64,27 @@ while($i < $total - 2)
 			$mens_fecha = "No es posible poner o justificar Faltas en el Futuro.<br>Comprueba la Fecha: <b>$fecha11</b>.";
 		}
 		else {
-			// Pasamos fecha espaÒola a formato MySql
+			// Pasamos fecha espa√±ola a formato MySql
 			$fecha0 = explode('-',$trozos[0]);
 			$dia0 = $fecha0[0];
 			$mes = $fecha0[1];
-			$aÒo = $fecha0[2];
-			$fecha1 = $aÒo . "-" . $mes . "-" . $dia0;
+			$a√±o = $fecha0[2];
+			$fecha1 = $a√±o . "-" . $mes . "-" . $dia0;
 
 			// Caso de faltas para TODOS los alumnos en una hora
 			if ($trozos[2] == "T" OR $trozos[2] == "t") {
-				// Buscamos en FALUMNOS los datos que necesitamos, claveal y nc, porque los dem·s los cogemos del formulario.
+				// Buscamos en FALUMNOS los datos que necesitamos, claveal y nc, porque los dem√°s los cogemos del formulario.
 				$claveT ="select CLAVEAL, NC from FALUMNOS where unidad = '$trozos[3]'  order by NC";
 				$claveT0 = mysqli_query($db_con, $claveT);
 				while ($claveT1 = mysqli_fetch_array($claveT0))
 				{
 					$clavealT = $claveT1[0];
 					$ncT = $claveT1[1];
-					// Comprobamos si se est· volviendo a meter una falta que ya ha sido metida.
+					// Comprobamos si se est√° volviendo a meter una falta que ya ha sido metida.
 					$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and FECHA = '$fecha1' and FALTA = 'F'";
 					$duplicadosT0 = mysqli_query($db_con, $duplicadosT);
 					$duplicadosT1 = mysqli_num_rows($duplicadosT0);
-					// O si hay al menos una justicaciÛn introducida por el Tutor en ese dÌa
+					// O si hay al menos una justicaci√≥n introducida por el Tutor en ese d√≠a
 					$jt ="select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and FECHA = '$fecha1' and FALTA = 'J'";
 					$jt0 = mysqli_query($db_con, $jt);
 					$jt1 = mysqli_num_rows($jt0);
@@ -101,26 +101,26 @@ while($i < $total - 2)
 						}
 					}
 					// Expulsado del Centro o Aula de Convivencia en la fecha
-					$hay_expulsiÛn="";
+					$hay_expulsi√≥n="";
 					$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$clavealT' and ((expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1')))");
 					if (mysqli_num_rows($exp) > '0') {
-								$hay_expulsiÛn = 1;
+								$hay_expulsi√≥n = 1;
 					}
 
 					if ($hay_actividad==1){
-						$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque est·n registrados en una Actividad Extraescolar programada.";
+						$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque est√°n registrados en una Actividad Extraescolar programada.";
 					}
-					elseif ($hay_expulsiÛn==1){
-						$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque expulsados del Centro o est·n en el Aula de Convivencia.";
+					elseif ($hay_expulsi√≥n==1){
+						$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque expulsados del Centro o est√°n en el Aula de Convivencia.";
 					}
 					else{
 						// Si la falta no se ha metido, insertamos los datos.
 						if ($duplicadosT1 == "0" and $jt1 == "0") {
-							$semana = date( mktime(0, 0, 0, $mes, $dia0, $aÒo));
+							$semana = date( mktime(0, 0, 0, $mes, $dia0, $a√±o));
 							$hoy = getdate($semana);
 							$nombredia = $hoy[wday];
 
-							// Comprobamos problema de varios cÛdigos en Bachillerato y otro
+							// Comprobamos problema de varios c√≥digos en Bachillerato y otro
 							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_asig' limit 1) and grupo like '$trozos[3]' and abrev not like '%\_%'");
 							while($cod_bch = mysqli_fetch_array($asig_bach)){
 							$comb = mysqli_query($db_con,"select * from alma where claveal='$clavealT' and combasi like '%$cod_bch[0]%'");
@@ -133,7 +133,7 @@ while($i < $total - 2)
 									$codigo_asignatura = $cod_asig;
 								}
 
-							/*// Comprobamos problema de cÛdigo en Bachillerato
+							/*// Comprobamos problema de c√≥digo en Bachillerato
 							$bch = mysqli_query($db_con,"select curso from alma where unidad = '$trozos[3]'");
 							$cur_bach = mysqli_fetch_array($bch);
 							$curso_bach = $cur_bach[0];
@@ -152,7 +152,7 @@ while($i < $total - 2)
 							mysqli_query($db_con, $t0) or die("No se ha podido insertar datos");
 						}
 						if ($jt1 > 0) {
-							$mens4.="El Tutor ya ha justificado las Faltas del Alumno N∫ <b >$ncT</b> de <b >$trozos[3]</b> en ese dÌa.<br>";
+							$mens4.="El Tutor ya ha justificado las Faltas del Alumno N¬∫ <b >$ncT</b> de <b >$trozos[3]</b> en ese d√≠a.<br>";
 						}
 					}
 				}
@@ -161,7 +161,7 @@ while($i < $total - 2)
 				// Cortamos los NC de los alumnos, en caso de que haya varias faltas.
 				$nnc = explode(".",trim($trozos[2],"."));
 				$nnc1 = array($nnc);
-				// Contamos el n˙mero de faltas puestas.
+				// Contamos el n√∫mero de faltas puestas.
 				$num =count($nnc);
 				// Recorremos los distintos NC.
 				$c = 0;
@@ -172,23 +172,23 @@ while($i < $total - 2)
 					$clave0 = mysqli_query($db_con, $clave);
 					$clave1 = mysqli_fetch_row($clave0);
 					$claveal = $clave1[0];
-					// Si la falta tiene formato numÈrico, continamos (en el formato numÈrico se excluyen signos como "-" o ",", por si el profe separa las faltas de otra manera que la correcta).
+					// Si la falta tiene formato num√©rico, continamos (en el formato num√©rico se excluyen signos como "-" o ",", por si el profe separa las faltas de otra manera que la correcta).
 					if (is_numeric($nc))
 					{
 						// Si no existe el alumno, porque su CLAVEAL no aparece...
 						if ( strlen($claveal) < 5)
 						{
 							// mensaje de error: no existe el Alumno.
-							$mens1.="<b>$nc</b> no es el n˙mero de ning˙n alumno de <b>$trozos[3]</b>.<br>";
+							$mens1.="<b>$nc</b> no es el n√∫mero de ning√∫n alumno de <b>$trozos[3]</b>.<br>";
 						}
 						else {
 
-							// Si hemos pasado los filtros, hay que comprobar si se est· volviendo a meter una falta que ya ha sido metida.
+							// Si hemos pasado los filtros, hay que comprobar si se est√° volviendo a meter una falta que ya ha sido metida.
 							$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]' and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and FALTA = 'F'";
 							//echo $duplicados."<br>";
 							$duplicados0 = mysqli_query($db_con, $duplicados);
 							$duplicados1 = mysqli_num_rows($duplicados0);
-							// O si hay al menos una justicaciÛn introducida por el Tutor en ese dÌa
+							// O si hay al menos una justicaci√≥n introducida por el Tutor en ese d√≠a
 							$jt ="select NC from FALTAS where unidad = '$trozos[3]' and NC = '$nc' and FECHA = '$fecha1' and FALTA = 'J'";
 							$jt0 = mysqli_query($db_con, $jt);
 							$jt1 = mysqli_num_rows($jt0);
@@ -206,17 +206,17 @@ while($i < $total - 2)
 							}
 
 							// Expulsado del Centro o Aula de Convivencia en la fecha
-							$hay_expulsiÛn="";
+							$hay_expulsi√≥n="";
 							$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$claveal' and ((expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1')))");
 							if (mysqli_num_rows($exp) > '0') {
-										$hay_expulsiÛn = 1;
+										$hay_expulsi√≥n = 1;
 							}
 
 							if ($hay_actividad==1){
-								$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque est·n registrados en una Actividad Extraescolar programada.";
+								$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque est√°n registrados en una Actividad Extraescolar programada.";
 							}
-							elseif ($hay_expulsiÛn==1){
-								$mens_fecha = "No es posible poner Falta a alguno de los alumnos porque est·n expulsados del Centro o en el Aula de Convivencia.";
+							elseif ($hay_expulsi√≥n==1){
+								$mens_fecha = "No es posible poner Falta a alguno de los alumnos porque est√°n expulsados del Centro o en el Aula de Convivencia.";
 					}
 							else{
 								
@@ -224,20 +224,20 @@ while($i < $total - 2)
 								if ($duplicados1 > 0 or $jt1 > 0)
 								{
 									$duplicados2 = mysqli_fetch_row($duplicados0);
-									// La falta est· justificada
+									// La falta est√° justificada
 									if ($jt1 > 0) {
-										$mens3.="El Tutor ya ha justificado las Faltas del Alumno N∫ <b>$nc</b> de <b>$trozos[3]</b> en ese dÌa.<br>";
+										$mens3.="El Tutor ya ha justificado las Faltas del Alumno N¬∫ <b>$nc</b> de <b>$trozos[3]</b> en ese d√≠a.<br>";
 									}
 									// La falta ha sido metida ya.
 									elseif ($duplicados2[1] == "F") {
 									}
 								}
 								else{
-									$semana = date( mktime(0, 0, 0, $mes, $dia0, $aÒo));
+									$semana = date( mktime(0, 0, 0, $mes, $dia0, $a√±o));
 									$hoy = getdate($semana);
 									$nombredia = $hoy[wday];
 
-									// Comprobamos problema de varios cÛdigos en Bachillerato y otro
+									// Comprobamos problema de varios c√≥digos en Bachillerato y otro
 									$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_asig' limit 1) and grupo like '$trozos[3]' and abrev not like '%\_%'");
 									while($cod_bch = mysqli_fetch_array($asig_bach)){
 									$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
@@ -250,7 +250,7 @@ while($i < $total - 2)
 											$codigo_asignatura = $cod_asig;
 										}
 
-									/*// Comprobamos problema de cÛdigo en Bachillerato
+									/*// Comprobamos problema de c√≥digo en Bachillerato
 									$bch = mysqli_query($db_con,"select curso from alma where unidad = '$trozos[3]'");
 									$cur_bach = mysqli_fetch_array($bch);
 									$curso_bach = $cur_bach[0];
@@ -272,8 +272,8 @@ while($i < $total - 2)
 						}
 					}
 					else {
-						// Mensaje de error: no es un n˙mero correcto, porque no existe ("45", o un alumno que se ha dado de baja, o bien porque se han incluido letras o signos inv·lidos)
-						$mens2.="<b>$nc</b> no es el n˙mero de ning˙n alumno de <b>$trozos[3]</b>.<br>";
+						// Mensaje de error: no es un n√∫mero correcto, porque no existe ("45", o un alumno que se ha dado de baja, o bien porque se han incluido letras o signos inv√°lidos)
+						$mens2.="<b>$nc</b> no es el n√∫mero de ning√∫n alumno de <b>$trozos[3]</b>.<br>";
 					}
 					$c++;
 				}

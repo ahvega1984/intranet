@@ -43,18 +43,18 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Este módulo permite registrar las sustituciones de profesores ausentes que hemos
-						hecho en su aula (guardias de aula). Aparece de entrada el número de sustituciones
+						<p>Este mÃ³dulo permite registrar las sustituciones de profesores ausentes que hemos
+						hecho en su aula (guardias de aula). Aparece de entrada el nÃºmero de sustituciones
 						de todos los miembros del Equipo de Guardia. Si hacemos click sobre el nombre de un
-						Compañero de guardia aparecen en la parte inferior de la página las sustituciones que
-						ha realizado ese profesor. Hay que tener en cuenta que en la selección de profesores
-						a sustituir sólo aparecen los profesores que tienen hora lectiva en ese momento
-						según el horario importado en la Intranet.</p>	
-						<p>Al registrar una sustitución cualquier compañero de la Guardia, aparece señalada
-						en la parte superior de la página de tal modo que todos los compañeros puedan ver
-						quién ha sustituido a quien en un aula durante esa hora.</p>
-						<p>El archivo de configuración que se encuentra en el directorio intranet/admin/guardias/ permite elegir entre presentar opciones de guardias de media hora o sólo hora completa. La opción por defecto presenta la posibiidad de elegir entre media y hora completa. Edítalo para ocultar el desplegable y forzar las guardias de hora completa.</p>
-						<p>Las sustituciones sólo pueden registrarse hasta dos días después de realizarse.
+						CompaÃ±ero de guardia aparecen en la parte inferior de la pÃ¡gina las sustituciones que
+						ha realizado ese profesor. Hay que tener en cuenta que en la selecciÃ³n de profesores
+						a sustituir sÃ³lo aparecen los profesores que tienen hora lectiva en ese momento
+						segÃºn el horario importado en la Intranet.</p>	
+						<p>Al registrar una sustituciÃ³n cualquier compaÃ±ero de la Guardia, aparece seÃ±alada
+						en la parte superior de la pÃ¡gina de tal modo que todos los compaÃ±eros puedan ver
+						quiÃ©n ha sustituido a quien en un aula durante esa hora.</p>
+						<p>El archivo de configuraciÃ³n que se encuentra en el directorio intranet/admin/guardias/ permite elegir entre presentar opciones de guardias de media hora o sÃ³lo hora completa. La opciÃ³n por defecto presenta la posibiidad de elegir entre media y hora completa. EdÃ­talo para ocultar el desplegable y forzar las guardias de hora completa.</p>
+						<p>Las sustituciones sÃ³lo pueden registrarse hasta dos dÃ­as despuÃ©s de realizarse.
 						Si nos olvidamos de hacerlo, tendremos que pedir al Equipo Directivo que nos la
 						registren.</p>
 					</div>
@@ -76,7 +76,7 @@ include("menu.php");
 				<form method="post" action="procesa_guardias.php">
 					
 					<fieldset>
-						<legend>Información de la guardia</legend>
+						<legend>InformaciÃ³n de la guardia</legend>
 						
 						<input type="hidden" name="profesor" value="<?php echo nomprofesor($pr); ?>">
 						<input type="hidden" name="diasdif" value="<?php echo $diasdif; ?>">
@@ -98,7 +98,7 @@ include("menu.php");
 								<div class="form-group">
 									<label for="hora">Hora</label>
 									<input type="hidden" name="hora_guardia" value="<?php echo $hora; ?>">
-									<p class="form-control text-info"><?php echo $hora; ?>ª hora</p>
+									<p class="form-control text-info"><?php echo $hora; ?>Âª hora</p>
 								</div>
 							
 							</div>
@@ -116,7 +116,7 @@ include("menu.php");
 							</select>
 						</div>
 						
-						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?>
+						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1Âª media hora', 3 => '2Âª media hora'); ?>
 						
 						<div class="form-group">
 							<label class="turno_guardia">Turno:</label> 
@@ -145,7 +145,7 @@ include("menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h4>Sustituciones realizadas durante la <?php echo $hora; ?>ª hora del <?php echo strftime("%A", strtotime($fechaselec)); ?></h4>
+			<h4>Sustituciones realizadas durante la <?php echo $hora; ?>Âª hora del <?php echo strftime("%A", strtotime($fechaselec)); ?></h4>
 			
 			<?php $result = mysqli_query($db_con, "SELECT prof FROM horw WHERE dia = '$diasem' AND hora = '$hora' AND c_asig = '25' AND a_asig <> 'GUCON' ORDER BY prof ASC"); ?>
 			<?php if (mysqli_num_rows($result)): ?>
