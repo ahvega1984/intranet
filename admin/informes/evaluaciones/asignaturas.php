@@ -198,9 +198,7 @@ include("menu.php");
 							<th>Totales</th>
 							<th><?php echo $total_alumnos; ?></th>
 							<?php for ($i = 0; $i < $num_columnas; $i++): ?>
-							<!--
 							<th class="text-center"><?php echo ${matriculados.$i}; ?></th>
-							-->
 							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?></th>
 							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?></th>
 							<?php unset(${matriculados.$i}); ?>
@@ -235,9 +233,7 @@ include("menu.php");
 						</tr>
 						<tr>
 							<?php for ($i = 0; $i < count($evaluacion['asignaturas']); $i++): ?>
-							<!--
 							<th class="text-center" width="4.14%"><abbr data-bs="tooltip" title="Matriculados">M.</abbr></th>
-							-->
 							<th class="text-center" width="4.14%"><abbr data-bs="tooltip" title="Aprobados">A.</abbr></th>
 							<th class="text-center" width="4.14%"><abbr data-bs="tooltip" title="Suspensos">S.</abbr></th>
 							<?php endfor; ?>
@@ -250,9 +246,7 @@ include("menu.php");
 							<td><?php echo $evaluacion['total_alumnos']; ?></td>
 							<?php for ($i = 0; $i < count($evaluacion['asignaturas']); $i++): ?>
 							<?php if ($evaluacion['asignaturas'][$i]['matriculados'] < 0): ?>
-							<!--
 							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['matriculados'] = 0; ?></td>
-							-->
 							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['aprobados'] = 0; ?></td>
 							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['suspensos'] = 0; ?></td>
 							<?php else: ?>
@@ -282,9 +276,7 @@ include("menu.php");
 							<th>Totales</th>
 							<th><?php echo $total_alumnos; ?></th>
 							<?php for ($i = 0; $i < $num_columnas; $i++): ?>
-							<!--
 							<th class="text-center"><?php echo ${matriculados.$i}; ?></th>
-							-->
 							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?></th>
 							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?></th>
 							<?php unset(${matriculados.$i}); ?>
