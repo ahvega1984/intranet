@@ -35,9 +35,8 @@ foreach($_POST as $clave => $valor)
 {
 	if(strlen(strstr($clave,"falta_")) > 0)
 	{
-		$nc0 = explode("_",$clave);
+		$nc0 = explode("_", $clave, 2);
 		$nc = $nc0[1];
-		// Nivel y grupo
 		$unidad = $nc0[2];
 
 		$clave1 = "select claveal from FALUMNOS where NC = '$nc' and unidad = '$unidad'";

@@ -15,11 +15,7 @@ $evaluaciones = array('evi' => 'notas0', '1ev' => 'notas1', '2ev' => 'notas2', '
 $evaluacionSinNotas = 1;
 $resultados_evaluaciones = array();
 
-<<<<<<< HEAD
 // Consultamos la evaluaciÃ³n seleccionada
-=======
-// Consultamos la evaluación seleccionada
->>>>>>> origin/master
 $result = mysqli_query($db_con, "SELECT * FROM notas WHERE ".$evaluaciones[$evaluacion_seleccionada]." IS NOT NULL");
 $existenNotas = mysqli_num_rows($result);
 mysqli_free_result($result);
@@ -32,12 +28,7 @@ if ($existenNotas) {
 		$resultados_evaluaciones = mysqli_fetch_all($result_informe2, MYSQLI_ASSOC);
 	}
 	else {
-		
-<<<<<<< HEAD
 		// Creamos las tablas necesarias para el funcionamiento del mÃ³dulo
-=======
-		// Creamos las tablas necesarias para el funcionamiento del módulo
->>>>>>> origin/master
 		mysqli_query($db_con, "CREATE TABLE `informe_evaluaciones_unidades_".$evaluacion_seleccionada."` (
 		  `idcurso` int(12) NOT NULL,
 		  `idunidad` int(12) NOT NULL,
@@ -83,11 +74,7 @@ if ($existenNotas) {
 			$unidades['promocionan'] = 0;
 			$unidades['titulan'] = 0;
 			
-<<<<<<< HEAD
 			// Obtenemos el nÃºmero de alumnos
-=======
-			// Obtenemos el número de alumnos
->>>>>>> origin/master
 			$result_alumnos_unidad = mysqli_query($db_con, "SELECT alma.claveal1, notas.".$evaluaciones[$evaluacion_seleccionada]." FROM alma JOIN notas ON alma.claveal1 = notas.claveal WHERE alma.unidad = '".$unidades['nomunidad']."' AND alma.curso = '".$unidades['nomcurso']."'");
 			$unidades['total_alumnos'] = mysqli_num_rows($result_alumnos_unidad);
 			
@@ -134,17 +121,10 @@ if ($existenNotas) {
 				if ($suspensos < 3) $unidades['promocionan']++;
 				
 				// Comprobamos si titula
-<<<<<<< HEAD
 				if (stristr($curso, '4Âº de E.S.O.') == true) {
 					if ($suspensos == 0) $unidades['titulan']++;
 				}
 				else if (stristr($curso, '2Âº de Bachillerato') == true) {
-=======
-				if (stristr($curso, '4º de E.S.O.') == true) {
-					if ($suspensos == 0) $unidades['titulan']++;
-				}
-				else if (stristr($curso, '2º de Bachillerato') == true) {
->>>>>>> origin/master
 					if ($suspensos == 0) $unidades['titulan']++;
 				}
 				else {
@@ -152,8 +132,7 @@ if ($existenNotas) {
 				}
 				
 			}
-			
-<<<<<<< HEAD
+
 			// Cambiamos el nÃºmero de alumnos que promocionan por el porcentaje
 			$unidades['promocionan'] = ($unidades['promocionan'] * 100) / $unidades['total_alumnos'];
 			
@@ -161,15 +140,6 @@ if ($existenNotas) {
 			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_unidades_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `repiten_alumnos`, `cero_suspensos`, `uno_suspensos`, `dos_suspensos`, `tres_suspensos`, `cuatro_suspensos`, `cinco_suspensos`, `seis_suspensos`, `siete_suspensos`, `ocho_suspensos`, `nueve_o_mas_suspensos`, `promocionan`, `titulan`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".$unidades['repiten_alumnos']."', '".$unidades['cero_suspensos']."', '".$unidades['uno_suspensos']."', '".$unidades['dos_suspensos']."', '".$unidades['tres_suspensos']."', '".$unidades['cuatro_suspensos']."', '".$unidades['cinco_suspensos']."', '".$unidades['seis_suspensos']."', '".$unidades['siete_suspensos']."', '".$unidades['ocho_suspensos']."', '".$unidades['nueve_o_mas_suspensos']."', '".$unidades['promocionan']."', '".$unidades['titulan']."');");
 			
 			// AÃ±adimos la informaciÃ³n al array
-=======
-			// Cambiamos el número de alumnos que promocionan por el porcentaje
-			$unidades['promocionan'] = ($unidades['promocionan'] * 100) / $unidades['total_alumnos'];
-			
-			// Añadimos a la base de datos
-			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_unidades_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `repiten_alumnos`, `cero_suspensos`, `uno_suspensos`, `dos_suspensos`, `tres_suspensos`, `cuatro_suspensos`, `cinco_suspensos`, `seis_suspensos`, `siete_suspensos`, `ocho_suspensos`, `nueve_o_mas_suspensos`, `promocionan`, `titulan`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".$unidades['repiten_alumnos']."', '".$unidades['cero_suspensos']."', '".$unidades['uno_suspensos']."', '".$unidades['dos_suspensos']."', '".$unidades['tres_suspensos']."', '".$unidades['cuatro_suspensos']."', '".$unidades['cinco_suspensos']."', '".$unidades['seis_suspensos']."', '".$unidades['siete_suspensos']."', '".$unidades['ocho_suspensos']."', '".$unidades['nueve_o_mas_suspensos']."', '".$unidades['promocionan']."', '".$unidades['titulan']."');");
-			
-			// Añadimos la información al array
->>>>>>> origin/master
 			array_push($resultados_evaluaciones, $unidades);
 		}
 		
@@ -182,34 +152,23 @@ if ($existenNotas) {
 
 
 include("../../../menu.php");
+include("menu.php");
 ?>
 	
-	<div class="container">
+	<div class="container-fluid">
 		
 		<div class="page-header">
-<<<<<<< HEAD
-			<h2>Informes de evaluaciones <small>EstadÃ­sticas de calificaciones</small></h2>
-=======
-			<h2>Informes de evaluaciones <small>Estadísticas de calificaciones</small></h2>
->>>>>>> origin/master
+			<h2>Informes de evaluaciones <small>EstadÃ­sticas por niveles</small></h2>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-10">
 				<ul class="nav nav-pills">
-<<<<<<< HEAD
 				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], 'evi') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=evi">EvaluaciÃ³n Inicial</a></li>
 				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '1ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=1ev">1Âª EvaluaciÃ³n</a></li>
 				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '2ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=2ev">2Âª EvaluaciÃ³n</a></li>
 				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], 'ord') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ord">EvaluaciÃ³n Ordinaria</a></li>
 				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], 'ext') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ext">EvaluaciÃ³n Extraordinaria</a></li>
-=======
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], 'evi') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=evi">Evaluación Inicial</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '1ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=1ev">1ª Evaluación</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '2ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=2ev">2ª Evaluación</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], 'ord') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ord">Evaluación Ordinaria</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], 'ext') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ext">Evaluación Extraordinaria</a></li>
->>>>>>> origin/master
 				</ul>
 			</div>
 			
@@ -229,11 +188,7 @@ include("../../../menu.php");
 				<?php if ($evaluacionSinNotas): ?>
 				<div class="text-center">
 					<br><br><br>
-<<<<<<< HEAD
 					<p class="lead">No se han importado las notas de esta evaluaciÃ³n</p>
-=======
-					<p class="lead">No se han importado las notas de esta evaluación</p>
->>>>>>> origin/master
 					<br><br><br><br>
 				</div>
 				<?php else: ?>
@@ -249,20 +204,22 @@ include("../../../menu.php");
 				<?php if ($flag == 1): ?>
 				</tbody>
 					<tfoot>
-						<th>Totales</th>
-						<th><?php echo $total_alumnos; ?></th>
-						<th><?php echo $repiten_alumnos; ?></th>
-						<th><?php echo $cero_suspensos; ?></th>
-						<th><?php echo $uno_suspensos; ?></th>
-						<th><?php echo $dos_suspensos; ?></th>
-						<th><?php echo $tres_suspensos; ?></th>
-						<th><?php echo $cuatro_suspensos; ?></th>
-						<th><?php echo $cinco_suspensos; ?></th>
-						<th><?php echo $seis_suspensos; ?></th>
-						<th><?php echo $siete_suspensos; ?></th>
-						<th><?php echo $ocho_suspensos; ?></th>
-						<th><?php echo $nueve_o_mas_suspensos; ?></th>
-						<th><span class="<?php echo round($promocionan/($num_unidades-1)) > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($promocionan/($num_unidades-1)); ?> %</span> / <?php echo $titulan; ?></th>
+						<tr>
+							<th>Totales</th>
+							<th><?php echo $total_alumnos; ?></th>
+							<th><?php echo $repiten_alumnos; ?></th>
+							<th><?php echo $cero_suspensos; ?></th>
+							<th><?php echo $uno_suspensos; ?></th>
+							<th><?php echo $dos_suspensos; ?></th>
+							<th><?php echo $tres_suspensos; ?></th>
+							<th><?php echo $cuatro_suspensos; ?></th>
+							<th><?php echo $cinco_suspensos; ?></th>
+							<th><?php echo $seis_suspensos; ?></th>
+							<th><?php echo $siete_suspensos; ?></th>
+							<th><?php echo $ocho_suspensos; ?></th>
+							<th><?php echo $nueve_o_mas_suspensos; ?></th>
+							<th><span class="<?php echo round($promocionan/($num_unidades-1)) > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($promocionan/($num_unidades-1)); ?> %</span> / <?php echo $titulan; ?></th>
+						</tr>
 					</tfoot>
 				</table>
 				
@@ -291,7 +248,7 @@ include("../../../menu.php");
 				
 				<h4 class="text-info"><?php echo $evaluacion['nomcurso']; ?></h4>
 				
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="font-size: 11px;">
 					<thead>
 						<tr>
 							<th width="9.15%">Unidad</th>
@@ -352,20 +309,22 @@ include("../../../menu.php");
 				
 				</tbody>
 					<tfoot>
-						<th>Totales</th>
-						<th><?php echo $total_alumnos; ?></th>
-						<th><?php echo $repiten_alumnos; ?></th>
-						<th><?php echo $cero_suspensos; ?></th>
-						<th><?php echo $uno_suspensos; ?></th>
-						<th><?php echo $dos_suspensos; ?></th>
-						<th><?php echo $tres_suspensos; ?></th>
-						<th><?php echo $cuatro_suspensos; ?></th>
-						<th><?php echo $cinco_suspensos; ?></th>
-						<th><?php echo $seis_suspensos; ?></th>
-						<th><?php echo $siete_suspensos; ?></th>
-						<th><?php echo $ocho_suspensos; ?></th>
-						<th><?php echo $nueve_o_mas_suspensos; ?></th>
-						<th><span class="<?php echo round($promocionan/($num_unidades-1)) > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($promocionan/($num_unidades-1)); ?> %</span> / <?php echo $titulan; ?></th>
+						<tr>
+							<th>Totales</th>
+							<th><?php echo $total_alumnos; ?></th>
+							<th><?php echo $repiten_alumnos; ?></th>
+							<th><?php echo $cero_suspensos; ?></th>
+							<th><?php echo $uno_suspensos; ?></th>
+							<th><?php echo $dos_suspensos; ?></th>
+							<th><?php echo $tres_suspensos; ?></th>
+							<th><?php echo $cuatro_suspensos; ?></th>
+							<th><?php echo $cinco_suspensos; ?></th>
+							<th><?php echo $seis_suspensos; ?></th>
+							<th><?php echo $siete_suspensos; ?></th>
+							<th><?php echo $ocho_suspensos; ?></th>
+							<th><?php echo $nueve_o_mas_suspensos; ?></th>
+							<th><span class="<?php echo round($promocionan/($num_unidades-1)) > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($promocionan/($num_unidades-1)); ?> %</span> / <?php echo $titulan; ?></th>
+						</tr>
 					</tfoot>
 				</table>
 				<?php endif; ?>
