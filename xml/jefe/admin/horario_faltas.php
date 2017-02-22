@@ -24,8 +24,8 @@ $sql="INSERT INTO horw_faltas (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a
 $sql.=" VALUES ( ";
 foreach ($data as $indice=>$clave){
 if($indice=="5"){
-	$clave=mb_strtoupper($clave,'iso-8859-1');
-	$clave=mb_strtolower($clave,'iso-8859-1');
+	$clave=mb_strtoupper($clave,'UTF-8');
+	$clave=mb_strtolower($clave,'UTF-8');
 	$clave=ucwords($clave);
 }
 $sql.="'".trim($clave)."', ";

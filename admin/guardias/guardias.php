@@ -110,7 +110,7 @@ exit();
 			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$sustituido', '$g_fecha', '$g_fecha', '$hora', '', NOW(), '', '')");	
 		}
 
-			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
+			$r_profe = mb_strtoupper($profeso, "UTF-8");
 			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
 			
 				echo '<div align="center"><div class="alert alert-success alert-block fade in">
