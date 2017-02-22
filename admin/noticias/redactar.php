@@ -19,6 +19,7 @@ if (isset($_POST['enviar'])) {
 	$fecha_pub = $_POST['fecha_pub'];
 	$clase = $_POST['clase'];
 	$ndias = $_POST['ndias'];
+	//echo "Número de días: ".$ndias;
 	$intranet = $_POST['intranet'];
 	$principal = $_POST['principal'];
 	$pagina = $intranet.$principal;
@@ -27,11 +28,6 @@ if (isset($_POST['enviar'])) {
 	}
 	else {
 		
-		if ($ndias != 0 && !intval($ndias)) {
-			$msg_error = "Debe indicar el número de días que desea que la noticia sea destacada.";
-		}
-		else {
-			
 			if ($ndias == 0) $fechafin = '';
 			else $fechafin = date("Y-m-d", strtotime("$fecha_pub +$ndias days"));
 			
@@ -52,13 +48,10 @@ if (isset($_POST['enviar'])) {
 					if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysqli_error($db_con);
 					else $msg_success = "La noticia ha sido publicada correctamente.";
 				}
-			}
-			
-		}
-		
+			}	
+		}	
 	}
 	
-}
 
 // OBTENEMOS LOS DATOS SI SE OBTIENE EL ID DE LA NOTICIA
 if (isset($id) && (int) $id) {
