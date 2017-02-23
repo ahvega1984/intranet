@@ -39,7 +39,7 @@ elseif ($registro){
 	$asunto='Retraso injustificado en la devoluci&oacute;n de material a la biblioteca del centro';
 	$informa='Jefatura de Estudios';
 	$grave='grave';
-	$medida='Amonestaci&oacute;n escrita';
+	$medida='Amonestación escrita';
 	$expulsionaula='0';
 	$enviado='1';
 	$recibido='1';
@@ -48,7 +48,7 @@ elseif ($registro){
 
 	foreach ($_POST as $ide => $valor) {      if(($ide != 'registro') and (!empty( $valor))){
 			
-		include ("../pdf/u");
+		include ("../pdf/fpdf.php");
 		define ( 'FPDF_FONTPATH', '../pdf/font/' );
 		// Variables globales para el encabezado y pie de pagina
 		$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
@@ -102,7 +102,7 @@ elseif ($registro){
 
 		# creamos el nuevo objeto partiendo de la clase ampliada
 		$MiPDF->SetMargins(25,20,20);
-		# ajustamos al 100% la visualizaciíƒÂ³n
+		# ajustamos al 100% la visualización
 		$MiPDF->SetDisplayMode ( 'fullpage' );
 		$hoy= date ('d-m-Y',time());
 		$titulo1 = "COMUNICACIÓN DE AMONESTACIÓN ESCRITA";
