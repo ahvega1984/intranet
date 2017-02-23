@@ -42,11 +42,13 @@ for ($i = 0; $i <= 3; $i++)
   
   if($i > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($i == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -62,7 +64,7 @@ for ($i = 0; $i <= 3; $i++)
   <th>Muy Graves</th>
     <th>Expulsiones</th>
     <th>Alumnos Expulsados</th>
-  <th>Expulsi&oacute;n del Aula</th>
+  <th>Expulsión del Aula</th>
     <th>Acciones Tutoría</th>
     <th>Informes</th>
         <th>Comunicaciones</th>
@@ -269,11 +271,13 @@ for ($a = 0; $a < 4; $a++)
   
   if($a > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($a == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -302,11 +306,13 @@ for ($i = 0; $i < 4; $i++)
   
   if($i > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($i == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -531,6 +537,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 <?php
  
  $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+ mysqli_query($db_con,"SET NAMES 'utf8'");
 
  $cursos0 = "select distinct curso, unidad from alma order by curso";
  $cursos1 = mysqli_query($db_con, $cursos0);
@@ -765,11 +772,13 @@ for ($b = 0; $b < 4; $b++)
   
   if($b > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($b == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -798,11 +807,13 @@ for ($i = 0; $i < 4; $i++)
   
   if($i > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($i == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -861,11 +872,13 @@ for ($c = 0; $c < 4; $c++)
   
   if($c > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($c == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -893,11 +906,13 @@ for ($i = 0; $i < 4; $i++)
   
   if($i > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
     $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
   if ($i == 0) {
     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    mysqli_query($db_con,"SET NAMES 'utf8'");
     $haydatos = 1;
   }
   
@@ -954,6 +969,7 @@ while ($total = mysqli_fetch_array($tot)){
 </div>
 <?php 
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
+mysqli_query($db_con,"SET NAMES 'utf8'");
 include("../../pie.php");?>
  <script>
 function espera( ) {

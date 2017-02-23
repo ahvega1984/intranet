@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,11 +18,7 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> importación de la Jornada Escolar del centro</small></h2>
 <div class="row">
 <br />
-<?
- // Conexión 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-mysqli_select_db($db_con, $db);
-
+<?php
 // Creamos tabla 
 
 mysqli_query($db_con, "drop table jornada");	
@@ -58,7 +54,7 @@ fclose($handle);
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Los datos se han importado correctamente.
 			</div></div>
-			<?
+			<?php
 
 $borrarvacios = "delete from jornada where minutos = ''";
 mysqli_query($db_con, $borrarvacios);

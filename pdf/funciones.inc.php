@@ -1,4 +1,4 @@
-<?
+<?php
 
 //////////
 // Comprueba si es fecha en formato dd/mm/aaaa o dd-mm-aaaa

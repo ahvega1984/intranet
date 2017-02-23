@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 include("../../../config.php");
 // COMPROBAMOS LA SESION
@@ -25,7 +25,7 @@ include("../../../menu.php");
 </div>
 <br />
 <div align="center">
-<?
+<?php
 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {

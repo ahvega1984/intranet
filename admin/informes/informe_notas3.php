@@ -25,6 +25,7 @@ if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 		$anio_escolar = $exp_c_escolar[0];
 		
 		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+		mysqli_query($db_con,"SET NAMES 'utf8'");
 	}
 	if (empty($f_curso)){
 		$f_curso = $config['curso_actual'];

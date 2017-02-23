@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 include("../../config.php");
 include_once('../../config/version.php');
@@ -43,7 +43,7 @@ header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 ?>
-<?
+<?php
 include("../../menu.php");
 ?>
 <br />
@@ -53,7 +53,7 @@ include("../../menu.php");
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
-<?
+<?php
 mysqli_query($db_con, "drop TABLE pendientes");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   id int(11) NOT NULL auto_increment,

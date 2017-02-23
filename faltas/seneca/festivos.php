@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,10 +18,7 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> Días festivos y vacaciones</small></h2>
 </div>
 <br />
-<?
- // Conexión 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-mysqli_select_db($db_con, $db);
+<?php 
 
 // Borramos datos
 mysqli_query($db_con, "truncate table festivos");	
@@ -48,7 +45,7 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Los datos se han importado correctamente.
 			</div></div><br /> 
-			<?
+			<?php
 			}
 ?>
 <br />

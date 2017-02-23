@@ -1,4 +1,4 @@
-<?
+<?php
 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {

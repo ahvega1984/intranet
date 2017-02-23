@@ -233,6 +233,7 @@ if (isset($_POST['instalar']))
 		include(CONFIG_FILE);
 		
 		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass']);
+		mysqli_query($db_con,"SET NAMES 'utf8'");
 		
 		if (mysqli_connect_errno())
 		{

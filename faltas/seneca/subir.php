@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -19,7 +19,7 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> Actualizar datos de Séneca</small></h2>
   </div>
 <br />
-<?
+<?php
 if ($_POST['enviar']=="Aceptar") {
 	// Eliminamos archivos antiguos si existieran.
 	$d = dir("origen/");
