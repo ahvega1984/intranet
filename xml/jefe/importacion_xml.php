@@ -33,9 +33,9 @@ include_once '../../config.php';
 	el nombre del departamento
  * ----------------------------------------------------------------------*/
 function limpiarNombreDepartamento($departamento) {
-	$departamento = str_replace("(InglÃ©s)","",$departamento);
-	$departamento = str_replace("(FrancÃ©s)","",$departamento);
-	$departamento = str_replace("(AlemÃ¡n)","",$departamento);
+	$departamento = str_replace("(Inglés)","",$departamento);
+	$departamento = str_replace("(Francés)","",$departamento);
+	$departamento = str_replace("(Alemán)","",$departamento);
 	$departamento = str_replace("P.E.S.","",$departamento);
 	$departamento = str_replace("P.T.F.P","",$departamento);
 	$departamento = str_replace("(Secundaria)","",$departamento);
@@ -121,8 +121,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cursos` (
 		
 		mysqli_query($db_con, "TRUNCATE TABLE cursos") or die("No existe la tabla Cursos. No podemos continuar.");
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[1]->grupo_datos as $curso) {
-			$idcurso = utf8_decode($curso->dato[0]);
-			$nomcurso = utf8_decode($curso->dato[1]);
+			$idcurso = $curso->dato[0];
+			$nomcurso = $curso->dato[1];
 			
 			$result = mysqli_query($db_con, "INSERT cursos (idcurso, nomcurso) VALUES ('$idcurso','$nomcurso')");
 			if (!$result) echo '<span class="text-danger">ERROR en la Importación</span><br>';
@@ -153,14 +153,14 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[7]->grupo_datos as $tramos) {
 			
-			$idunidad = utf8_decode($tramos->dato[0]);
-			$nomunidad = utf8_decode($tramos->dato[1]);
-			$idcurso = utf8_decode($tramos->dato[2]);
+			$idunidad = $tramos->dato[0];
+			$nomunidad = $tramos->dato[1];
+			$idcurso = $tramos->dato[2];
 			
 			$result = mysqli_query($db_con, "INSERT unidades (idunidad, nomunidad, idcurso) VALUES ('$idunidad','$nomunidad','$idcurso')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
-			// VacÃ­a los bÃºferes de escritura de PHP
+			// Vací­a los búferes de escritura de PHP
 			
 			
 			flush();
@@ -185,9 +185,9 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[2]->grupo_datos as $materias) {
 		
-			$idmateria = utf8_decode($materias->dato[1]);
-			$nommateria = utf8_decode($materias->dato[2]);
-			$idcurso = utf8_decode($materias->dato[0]);
+			$idmateria = $materias->dato[1];
+			$nommateria = $materias->dato[2];
+			$idcurso = $materias->dato[0];
 			
 			$result = mysqli_query($db_con, "SELECT nomcurso FROM cursos WHERE idcurso='$idcurso'");
 			$nomcurso = mysqli_fetch_array($result);
@@ -195,7 +195,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			$result = mysqli_query($db_con, "INSERT materias_seneca (idmateria, nommateria, idcurso) VALUES ('$nommateria','$idmateria','$idcurso')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
-			// VacÃ­a los bÃºferes de escritura de PHP
+			// Vací­a los búferes de escritura de PHP
 			
 			
 			flush();
@@ -221,16 +221,16 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 	
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[3]->grupo_datos as $actividades) {
 			
-			$regular = utf8_decode($actividades->dato[0]);
-			$idactividad = utf8_decode($actividades->dato[1]);
-			$nomactividad = utf8_decode($actividades->dato[2]);
-			$requnidad = utf8_decode($actividades->dato[3]);
-			$reqmateria = utf8_decode($actividades->dato[4]);
+			$regular = $actividades->dato[0];
+			$idactividad = $actividades->dato[1];
+			$nomactividad = $actividades->dato[2];
+			$requnidad = $actividades->dato[3];
+			$reqmateria = $actividades->dato[4];
 			
 			$result = mysqli_query($db_con, "INSERT actividades_seneca (regactividad, idactividad, nomactividad, requnidadactividad, reqmateriaactividad) VALUES ('$regular',$idactividad,'$nomactividad','$requnidad','$reqmateria')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
-			// VacÃ­a los bÃºferes de escritura de PHP
+			// Vací­a los búferes de escritura de PHP
 			
 			
 			flush();
@@ -255,15 +255,15 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 	
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[4]->grupo_datos as $actividades) {
 			
-			$iddependencia = utf8_decode($actividades->dato[0]);
-			$nomdependencia = utf8_decode($actividades->dato[1]);
+			$iddependencia = $actividades->dato[0];
+			$nomdependencia = $actividades->dato[1];
 			
 			$result = mysqli_query($db_con, "INSERT dependencias (iddependencia, nomdependencia, descdependencia, reservadependencia) VALUES ('$iddependencia','$nomdependencia','$nomdependencia',0)");
 			
 			if(mysqli_errno()==1062) mysqli_query($db_con, "UPDATE dependencias SET nomdependecia='$nomdependencia' WHERE iddependencia='$iddependencia'");
 			elseif(mysqli_errno()!=0) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
-			// VacÃ­a los bÃºferes de escritura de PHP
+			// Vací­a los búferes de escritura de PHP
 			
 			
 			flush();
@@ -291,10 +291,10 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		$i = 1;
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[6]->grupo_datos as $tramos) {
 		
-			$idtramo = utf8_decode($tramos->dato[0]);
-			$nomtramo = utf8_decode($tramos->dato[1]);
-			$horini = utf8_decode($tramos->dato[2]);
-			$horfin = utf8_decode($tramos->dato[3]);
+			$idtramo = $tramos->dato[0];
+			$nomtramo = $tramos->dato[1];
+			$horini = $tramos->dato[2];
+			$horfin = $tramos->dato[3];
 			
 			$div_ini = floor($horini / 60);
 			$rest_ini = $horini % 60;
@@ -320,7 +320,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			
 			$i++;
 			
-			// VacÃ­a los bÃºferes de escritura de PHP
+			// Vací­a los búferes de escritura de PHP
 			
 			
 			flush();
@@ -347,10 +347,10 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 	
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[8]->grupo_datos as $tramos) {
 		
-			$idprofesor = utf8_decode($tramos->dato[0]);
-			$ape1profesor = utf8_decode($tramos->dato[3]);
-			$ape2profesor = utf8_decode($tramos->dato[4]);
-			$nomprofesor = utf8_decode($tramos->dato[5]);
+			$idprofesor = $tramos->dato[0];
+			$ape1profesor = $tramos->dato[3];
+			$ape2profesor = $tramos->dato[4];
+			$nomprofesor = $tramos->dato[5];
 			if (strlen($ape2profesor)>0) {
 				$ape2profesor=" ".$ape2profesor;
 			}
@@ -358,14 +358,14 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 				$ape2profesor="";
 			}
 			$nombre_profesor = $ape1profesor.$ape2profesor.", ".$nomprofesor;
-			$deptoprofesor = limpiarNombreDepartamento(utf8_decode($tramos->dato[2]));
+			$deptoprofesor = limpiarNombreDepartamento($tramos->dato[2]);
 			
 			$result = mysqli_query($db_con, "INSERT profesores_seneca (idprofesor, nomprofesor, deptoprofesor) VALUES ($idprofesor,'$nombre_profesor','$deptoprofesor')");
 			
 			if(mysqli_errno()==1062) mysqli_query($db_con, "UPDATE profesores_seneca SET nomprofesor='$nombre_profesor', deptoprofesor='$deptoprofesor' WHERE idprofesor=$idprofesor");
 			elseif(mysqli_errno()!=0) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
-			// VacÃ­a los bÃºferes de escritura de PHP
+			// Vací­a los búferes de escritura de PHP
 			flush();
 			ob_flush();
 		}

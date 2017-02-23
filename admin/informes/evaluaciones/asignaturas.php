@@ -51,7 +51,12 @@ if ($existenNotas) {
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 	*/
 		// Obtenemos las unidades del centro
-		$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
+		if ($evaluacion_seleccionada == 'evi') {
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE 'E.S.O.' OR cursos.nomcurso LIKE 'Bachillerato' ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
+		}
+		else {
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
+		}
 		$row_unidades = mysqli_fetch_all($result_unidades, MYSQLI_ASSOC);
 		
 		foreach ($row_unidades as $unidades) {
