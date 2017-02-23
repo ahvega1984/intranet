@@ -1,6 +1,9 @@
 <?php
 require('../bootstrap.php');
 
+$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
+$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+
 $result = mysqli_query($db_con, "SELECT grupo FROM profesores WHERE profesor ='".$_SESSION['profi']."'");
 $unidades = array(); 
 while ($row = mysqli_fetch_array($result)) {
@@ -605,6 +608,8 @@ function delete_dir($location)
 function normalize_filename($name)
 {
 	global $file_name_max_caracters, $invalidchars;
+	$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
+	$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 	$name = stripslashes($name);
 
@@ -615,6 +620,7 @@ function normalize_filename($name)
 	}
 
 	$name = substr($name, 0, $file_name_max_caracters);
+	$name = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $name);
 	
 	return $name;
 }
@@ -801,10 +807,10 @@ if($index=='publico') {
 		$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
 		while ($row = mysqli_fetch_array($result)) {
 		
-			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], 0777);
+			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']))) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']), 0777);
 			
 			// Se puede eliminar esta linea en futuras actualizaciones...
-			if(file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) rename($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], $config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad']);
+			if(file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) rename($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], $config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']));
 		}
 		mysqli_free_result($result);
 		
@@ -820,15 +826,15 @@ if($index=='publico') {
 		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Auxiliar de Conversaci_n' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
 		while ($row = mysqli_fetch_array($result)) {
 		
-			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) mkdir($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], 0777);
+			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']))) mkdir($config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']), 0777);
 			
 			// Se puede eliminar esta linea en futuras actualizaciones...
-			if(file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) rename($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], $config['mod_documentos_dir'].'/Departamentos/'.$row['departamento']);
+			if(file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) rename($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], $config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']));
 		}
 		mysqli_free_result($result);
 	}
 	else {
-		delete_dir($config['mod_documentos_dir'].'/Departamentos');
+		//delete_dir($config['mod_documentos_dir'].'/Departamentos');
 	}
  
 }

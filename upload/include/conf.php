@@ -57,7 +57,7 @@ $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
 );
 }
-elseif(strstr(rawurldecode($_GET['directory']), $_SESSION['dpt']) == TRUE)
+elseif(strstr(rawurldecode(str_replace($caracteres_no_permitidos, $caracteres_permitidos, $_GET['directory'])), str_replace($caracteres_no_permitidos, $caracteres_permitidos, $_SESSION['dpt'])) == TRUE)
 {
 $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
