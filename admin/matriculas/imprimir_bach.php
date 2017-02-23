@@ -295,11 +295,11 @@ foreach ($pags as $pag_pdf){
 		mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp` (
   		`clave` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   		`valor` int(1) NOT NULL default '0'
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp2` (
   		`clave` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   		`valor` int(1) NOT NULL default '0'
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
 
 

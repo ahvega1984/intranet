@@ -39,7 +39,7 @@ mysqli_query($db_con, "CREATE TABLE if not exists `biblioteca` (
   `tipoEjemplar` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `ubicacion` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ");
 
 $reg=0;
 
@@ -74,7 +74,7 @@ mysqli_query($db_con, "CREATE TABLE if not exists `biblioteca_lectores` (
   `Nombre` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `Grupo` varchar(6) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ");
 
 $reg=0;
 

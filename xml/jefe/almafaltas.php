@@ -85,7 +85,7 @@ include '../../menu.php';
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL  
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci";
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci";
 			
 					// echo $alumnos;
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">

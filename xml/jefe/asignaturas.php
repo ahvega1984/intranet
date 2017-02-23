@@ -19,7 +19,7 @@
 			  `nombre` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
 			  `abreviatura` varchar(4) CHARACTER SET latin1 DEFAULT NULL,
 			  `orden` varchar(4) CHARACTER SET latin1 DEFAULT NULL
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
 			
 				// Claveal primaria e índice
 				mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");

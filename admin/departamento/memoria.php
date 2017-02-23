@@ -34,7 +34,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mem_dep` (
   `p19` longtext COLLATE latin1_spanish_ci NOT NULL,
   `p20` longtext COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`departamento`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 // Miembros
 $depto=$_SESSION ['dpt'];
 $dep0 = mysqli_query($db_con, "select nombre from departamentos where departamento = '$depto'");

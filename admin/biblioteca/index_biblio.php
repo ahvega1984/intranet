@@ -17,7 +17,7 @@ $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
   `amonestacion` varchar(2) collate latin1_spanish_ci NOT NULL default 'NO',
   `sms` varchar(2) collate latin1_spanish_ci NOT NULL default 'NO',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci";
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 mysqli_query($db_con, $crea);
 
  $result = mysqli_query($db_con,"SHOW COLUMNS FROM morosos");

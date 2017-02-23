@@ -45,7 +45,7 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
   `tamaño` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
 	}
 	// Comprobamos estado del directorio con las fotos.
 

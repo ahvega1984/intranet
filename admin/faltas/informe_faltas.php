@@ -32,7 +32,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
   `num_profes` tinyint(4) NOT NULL,
   `hora` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
 ?>
 
 <br>

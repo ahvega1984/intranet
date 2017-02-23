@@ -63,7 +63,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   PRIMARY KEY  (id),
   KEY  claveal (claveal),
   KEY codigo (codigo)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
 
 $cur = mysqli_query($db_con,"select claveal, combasi, unidad, curso from alma where curso not like '1%'");
 while ($uni = mysqli_fetch_array($cur)) {

@@ -40,7 +40,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_temp` (
   KEY `id_tareas` (`id_tareas`),
   KEY `asignatura` (`asignatura`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
 
 // Control de tutores
 $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$profes'");

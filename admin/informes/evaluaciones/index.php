@@ -47,7 +47,7 @@ if ($existenNotas) {
 		  `promocionan` decimal(5,2) NOT NULL,
 		  `titulan` tinyint(4) NOT NULL,
 		  PRIMARY KEY(`idcurso`,`idunidad`)
-		) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 		
 		// Obtenemos las unidades del centro
 		$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");

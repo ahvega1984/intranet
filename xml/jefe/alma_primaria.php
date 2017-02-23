@@ -58,7 +58,7 @@ if($_FILES['archivo1']){
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL ,
  `COLEGIO` varchar( 32 ) default NULL 
- ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ";
+ ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ";
 
  
  //echo $alumnos;
@@ -237,7 +237,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
 `id` int(11) NOT NULL,
   `colegio` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `pass` varchar(254) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
 mysqli_query($db_con,"ALTER TABLE `transito_control`
  ADD PRIMARY KEY (`id`)");
 mysqli_query($db_con,"ALTER TABLE `transito_control`
@@ -273,7 +273,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
   `claveal` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
   `tipo` varchar(24) COLLATE latin1_spanish_ci NOT NULL,
   `dato` text COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ");
  mysqli_query($db_con,"ALTER TABLE `transito_datos`
  ADD PRIMARY KEY (`id`)");
  mysqli_query($db_con,"ALTER TABLE `transito_datos`
@@ -283,7 +283,7 @@ mysqli_query($db_con,"drop table transito_tipo");
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_tipo` (
 `id` int(11) NOT NULL,
   `tipo` varchar(24) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
 mysqli_query($db_con,"ALTER TABLE `transito_tipo`
  ADD PRIMARY KEY (`id`);");
 mysqli_query($db_con,"ALTER TABLE `transito_tipo`

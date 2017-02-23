@@ -14,7 +14,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario_categorias` (
   `color` char(7) collate latin1_spanish_ci NOT NULL,
   `espublico` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;") or die(mysqli_error($db_con));
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;") or die(mysqli_error($db_con));
 
 
 echo "Creando base de datos <strong>calendario</strong><br>";
@@ -36,7 +36,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
   `fechareg` datetime NOT NULL,
   `profesorreg` varchar(60) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;") or die(mysqli_error($db_con));
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;") or die(mysqli_error($db_con));
 
 
 echo "Creando calendarios públicos<br>";

@@ -6,7 +6,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `AsignacionMesasTICtmp` (
   `agrupamiento` varchar(50) NOT NULL default '',
   `c_asig` varchar(30) NOT NULL,
   KEY `prof` (`prof`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
 
 $borrar = mysqli_query($db_con, "truncate table AsignacionMesasTIC") ;
 

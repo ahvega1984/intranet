@@ -25,7 +25,7 @@ while ($servic = mysqli_fetch_array($srv0)) {
 	$user.="`$usr` smallint(3) default NULL, ";
 }
 $user.="PRIMARY KEY  (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci";
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
 mysqli_query($db_con, $user);
 

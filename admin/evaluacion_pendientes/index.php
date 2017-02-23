@@ -23,7 +23,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
   `materia` varchar(8) NOT NULL,
   `nota` tinyint(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 }
 
 $depto = $_SESSION ['dpt'];

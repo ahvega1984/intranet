@@ -59,7 +59,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_temp` (
   KEY `id_tareas` (`id_tareas`),
   KEY `asignatura` (`asignatura`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
 
 $query = "SELECT id, claveal, unidad, duracion, nombre, apellidos, FECHA FROM tareas_alumnos order by FECHA desc";
 $result = mysqli_query($db_con, $query);

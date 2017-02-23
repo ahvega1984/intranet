@@ -9,7 +9,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones` (
   `profesor` text COLLATE latin1_spanish_ci NOT NULL,
   `calificaciones` text COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`unidad`,`asignatura`,`evaluacion`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 
 
 if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {

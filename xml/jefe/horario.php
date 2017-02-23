@@ -98,7 +98,7 @@ else {
 					  PRIMARY KEY (`id`),
 					  KEY `prof` (`prof`),
 					  KEY `c_asig` (`c_asig`)
-					) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci";
+					) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 	mysqli_query($db_con, $crea) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 					            <button type="button" class="close" data-dismiss="alert">&times;</button>
 								<h5>ATENCIÃâN:</h5>

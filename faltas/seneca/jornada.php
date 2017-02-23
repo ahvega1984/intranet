@@ -32,7 +32,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `jornada` (
   `hora_inicio` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
   `hora_fin` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
   `minutos` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
 // Importamos los datos del fichero CSV en la tabña alma.
 $handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('

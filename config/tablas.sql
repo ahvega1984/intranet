@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `absentismo` (
   `serv_sociales` text collate latin1_spanish_ci,
   PRIMARY KEY  (`id`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci COMMENT='absentismo_seg' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='absentismo_seg' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `acceso_dias` (
   `fecha` date NOT NULL,
   `numero` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `acceso` (
   `clase` tinyint(1) NOT NULL,
   `observaciones` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `actividadalumno` (
   `claveal` varchar(12) collate latin1_spanish_ci NOT NULL default '',
   `cod_actividad` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `actividades` (
   `confirmado` tinyint(1) NOT NULL default '0',
   `justificacion` text collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `actividades_seneca` (
   `requnidadactividad` char(1) collate latin1_spanish_ci NOT NULL,
   `reqmateriaactividad` char(1) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`idactividad`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `actualizacion` (
   `modulo` varchar(128) collate latin1_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY  (`d`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `alma` (
   KEY `CLAVEAL1` (`CLAVEAL1`),
   KEY `NOMBRE` (`NOMBRE`),
   KEY `APELLIDOS` (`APELLIDOS`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `alma_primaria` (
   `SEXO` varchar(1) collate latin1_spanish_ci default NULL,
   `COLEGIO` varchar(32) collate latin1_spanish_ci default NULL,
   KEY `CLAVEAL` (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `alumnos` (
   `nombre` varchar(71) collate latin1_spanish_ci default NULL,
   `unidad` varchar(255) collate latin1_spanish_ci default NULL,
   `claveal` varchar(8) collate latin1_spanish_ci default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
   `CURSO` varchar(128) collate latin1_spanish_ci default NULL,
   KEY `CODIGO` (`CODIGO`),
   KEY `ABREV` (`ABREV`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -264,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `ausencias` (
   KEY `inicio` (`inicio`),
   KEY `fin` (`fin`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `biblioteca` (
   `tipoEjemplar` varchar(128) collate latin1_spanish_ci NOT NULL,
   `ubicacion` varchar(32) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `biblioteca_lectores` (
   `Nombre` varchar(32) collate latin1_spanish_ci NOT NULL,
   `Grupo` varchar(6) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `cal` (
   `idact` varchar(32) collate latin1_spanish_ci default NULL,
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `eventdate` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `calendario` (
   `confirmado` tinyint(1) NOT NULL,
   `observaciones` text collate latin1_spanish_ci,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -367,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `calendario_categorias` (
   `color` char(7) collate latin1_spanish_ci NOT NULL,
   `espublico` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `calificaciones` (
   `abreviatura` varchar(4) collate latin1_spanish_ci default NULL,
   `orden` varchar(4) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`codigo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) collate latin1_spanish_ci NOT NULL default '',
   `cargo` varchar(8) collate latin1_spanish_ci NOT NULL default '0',
   KEY `dni` (`dni`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -411,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `control` (
   `correo` varchar(128) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `control_matriculas` (
   `claveal` varchar(12) collate latin1_spanish_ci NOT NULL,
   `pass` varchar(254) collate latin1_spanish_ci NOT NULL,
   `correo` varchar(128) collate latin1_spanish_ci default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `convivencia` (
   `observaciones` text collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -458,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `control_acceso` (
 `fecha` date NOT NULL,
 `observaciones` TEXT NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -471,7 +471,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `idcurso` int(12) unsigned NOT NULL,
   `nomcurso` varchar(80) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`idcurso`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -491,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `telefono` INT(11) NULL,
   PRIMARY KEY  (`id`),
   KEY `PROFESOR` (`PROFESOR`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -505,7 +505,7 @@ CREATE TABLE IF NOT EXISTS `datos` (
   `nota` text collate latin1_spanish_ci NOT NULL,
   `ponderacion` char(3) collate latin1_spanish_ci default NULL,
   `claveal` varchar(12) collate latin1_spanish_ci NOT NULL default ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -519,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `datos_primaria` (
   `nombre` varchar(30) collate latin1_spanish_ci default NULL,
   `padre` varchar(78) collate latin1_spanish_ci default NULL,
   `dnitutor` varchar(255) collate latin1_spanish_ci default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -534,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `DEPARTAMENTO` varchar(80) collate latin1_spanish_ci default NULL,
   `CARGO` varchar(5) collate latin1_spanish_ci default NULL,
   `idea` varchar(12) collate latin1_spanish_ci default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -547,7 +547,7 @@ CREATE TABLE IF NOT EXISTS `departamentos_seneca` (
   `iddepartamento` int(2) unsigned NOT NULL auto_increment,
   `nomdepartamento` varchar(80) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`iddepartamento`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -562,7 +562,7 @@ CREATE TABLE IF NOT EXISTS `dependencias` (
   `descdependencia` varchar(80) collate latin1_spanish_ci default NULL,
   `reservadependencia` int(1) NOT NULL default '0',
   PRIMARY KEY  (`iddependencia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -582,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `depto_pedidos` (
   `entregado` tinyint(1) NOT NULL DEFAULT '0',
   `vistoSecretaria` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -597,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `depto_pedidos_detalles` (
   `cantidad` tinyint(3) unsigned NOT NULL,
   `importe` decimal(10,2) unsigned NOT NULL,
   PRIMARY KEY (`id`,`id_pedido`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -617,7 +617,7 @@ CREATE TABLE IF NOT EXISTS `diario` (
   `calendario` int(1) default NULL,
   `profesor` varchar(64) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -633,7 +633,7 @@ CREATE TABLE IF NOT EXISTS `evaluaciones` (
   `profesor` text collate latin1_spanish_ci NOT NULL,
   `calificaciones` blob NOT NULL,
   PRIMARY KEY  (`unidad`,`asignatura`,`evaluacion`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -650,7 +650,7 @@ CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `texto_acta` text collate latin1_spanish_ci NOT NULL,
   `impresion` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -667,7 +667,7 @@ CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
   `materia` varchar(8) collate latin1_spanish_ci NOT NULL,
   `nota` tinyint(2) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -684,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
   `campo` varchar(10) collate latin1_spanish_ci NOT NULL,
   `valor` text collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -709,7 +709,7 @@ CREATE TABLE IF NOT EXISTS `FALTAS` (
   KEY `FECHA` (`FECHA`),
   KEY `FALTA` (`FALTA`),
   KEY `CLAVEAL` (`CLAVEAL`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -724,7 +724,7 @@ CREATE TABLE IF NOT EXISTS `FALUMNOS` (
   `APELLIDOS` char(30) collate latin1_spanish_ci default NULL,
   `NOMBRE` char(24) collate latin1_spanish_ci default NULL,
   `unidad` varchar(64) collate latin1_spanish_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -761,7 +761,7 @@ CREATE TABLE IF NOT EXISTS `Fechoria` (
   KEY `grave` (`grave`),
   KEY `expulsion` (`expulsion`),
   KEY `expulsionaula` (`expulsionaula`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -776,7 +776,7 @@ CREATE TABLE IF NOT EXISTS `festivos` (
   `docentes` char(2) collate latin1_spanish_ci NOT NULL default '',
   `ambito` varchar(10) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY `fecha` (`fecha`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -793,7 +793,7 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   `tamaño` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `nombre` (`nombre`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -809,7 +809,7 @@ CREATE TABLE IF NOT EXISTS `FTUTORES` (
   `observaciones2` text collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`unidad`),
   KEY `TUTOR` (`TUTOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -826,7 +826,7 @@ CREATE TABLE IF NOT EXISTS `grupos` (
   `alumnos` varchar(124) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -845,7 +845,7 @@ CREATE TABLE IF NOT EXISTS `guardias` (
   `fecha_guardia` date NOT NULL default '0000-00-00',
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -862,7 +862,7 @@ CREATE TABLE IF NOT EXISTS `hermanos` (
   PRIMARY KEY  (`id`),
   KEY `telefono` (`telefono`),
   KEY `telefonourgencia` (`telefonourgencia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -890,7 +890,7 @@ CREATE TABLE IF NOT EXISTS `horw` (
   PRIMARY KEY  (`id`),
   KEY `prof` (`prof`),
   KEY `c_asig` (`c_asig`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -916,7 +916,7 @@ CREATE TABLE IF NOT EXISTS `horw_faltas` (
   `n_grupo` varchar(10) collate latin1_spanish_ci NOT NULL default '',
   `clase` varchar(16) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -939,7 +939,7 @@ CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   PRIMARY KEY  (`ID`),
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `F_ENTREV` (`F_ENTREV`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -957,7 +957,7 @@ CREATE TABLE IF NOT EXISTS `infotut_profesor` (
   PRIMARY KEY  (`id`),
   KEY `id_alumno` (`id_alumno`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -975,7 +975,7 @@ CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
   `observaciones` text collate latin1_spanish_ci NOT NULL,
   `accion` varchar(64) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -998,7 +998,7 @@ CREATE TABLE IF NOT EXISTS `inventario` (
   `DEPARTAMENTO` varchar(80) collate latin1_spanish_ci default NULL,
   `profesor` varchar(48) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1012,7 +1012,7 @@ CREATE TABLE IF NOT EXISTS `inventario_clases` (
   `familia` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   `clase` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=49 ;
 
 --
 -- Volcado de datos para la tabla `inventario_clases`
@@ -1077,7 +1077,7 @@ CREATE TABLE IF NOT EXISTS `inventario_lugares` (
   `id` int(11) NOT NULL auto_increment,
   `lugar` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=21 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=21 ;
 
 --
 -- Volcado de datos para la tabla `inventario_lugares`
@@ -1118,7 +1118,7 @@ CREATE TABLE IF NOT EXISTS `jornada` (
   `hora_fin` varchar(5) collate latin1_spanish_ci NOT NULL,
   `minutos` int(11) NOT NULL,
   PRIMARY KEY  (`tramo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1134,7 +1134,7 @@ CREATE TABLE IF NOT EXISTS `listafechorias` (
   `medidas2` mediumtext collate latin1_spanish_ci,
   `tipo` varchar(10) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=83 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=83 ;
 
 --
 -- Volcado de datos para la tabla `listafechorias`
@@ -1207,7 +1207,7 @@ CREATE TABLE IF NOT EXISTS `maquinas` (
   `numero` int(2) default NULL,
   `observaciones` varchar(128) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1224,7 +1224,7 @@ CREATE TABLE IF NOT EXISTS `materias` (
   `GRUPO` varchar(6) collate latin1_spanish_ci default NULL,
   `id` int(11) NOT NULL,
   PRIMARY KEY (`CODIGO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1239,7 +1239,7 @@ CREATE TABLE IF NOT EXISTS `materias_seneca` (
   `abrevmateria` varchar(8) collate latin1_spanish_ci default NULL,
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY  (`idmateria`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1319,7 +1319,7 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
   `matematicas3` char(1) collate latin1_spanish_ci NOT NULL,
   `ciencias4` char(1) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -1394,7 +1394,7 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `opt_aut26` int(1) NOT NULL,
   `opt_aut27` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -1427,7 +1427,7 @@ CREATE TABLE IF NOT EXISTS `mem_dep` (
   `p19` longtext collate latin1_spanish_ci NOT NULL,
   `p20` longtext collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`DEPARTAMENTO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1449,7 +1449,7 @@ CREATE TABLE IF NOT EXISTS `mensajeria` (
   `esborradodestino` tinyint(1) NOT NULL default '0',
   `adjunto` text collate latin1_spanish_ci,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1472,7 +1472,7 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   `unidad` varchar(64) collate latin1_spanish_ci NOT NULL,
   `archivo` varchar(255) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1489,7 +1489,7 @@ CREATE TABLE IF NOT EXISTS `mens_profes` (
   `recibidojefe` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id_profe`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1508,7 +1508,7 @@ CREATE TABLE IF NOT EXISTS `mens_texto` (
   `oculto` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `profesor` (`origen`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1528,7 +1528,7 @@ CREATE TABLE IF NOT EXISTS `morosos` (
   `amonestacion` varchar(2) collate latin1_spanish_ci NOT NULL default 'NO',
   `sms` varchar(2) collate latin1_spanish_ci NOT NULL default 'NO',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1544,7 +1544,7 @@ CREATE TABLE IF NOT EXISTS `notas` (
   `notas3` varchar(200) collate latin1_spanish_ci default NULL,
   `notas4` varchar(200) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1569,7 +1569,7 @@ CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   `color` varchar(7) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1588,7 +1588,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `fechafin` date default NULL,
   `pagina` tinyint(2) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1603,7 +1603,7 @@ CREATE TABLE IF NOT EXISTS `nuevas` (
   `nombre` varchar(128) collate latin1_spanish_ci NOT NULL,
   `texto` varchar(128) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1616,7 +1616,7 @@ CREATE TABLE IF NOT EXISTS `ocultas` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `aula` varchar(48) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1638,7 +1638,7 @@ CREATE TABLE IF NOT EXISTS `partestic` (
   `estado` varchar(12) collate latin1_spanish_ci NOT NULL default 'activo',
   `nincidencia` varchar(10) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`parte`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1655,7 +1655,7 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   PRIMARY KEY  (`id`),
   KEY `claveal` (`claveal`),
   KEY `codigo` (`codigo`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1670,7 +1670,7 @@ CREATE TABLE IF NOT EXISTS `profesores` (
   `grupo` varchar(255) collate latin1_spanish_ci default NULL,
   `profesor` varchar(255) collate latin1_spanish_ci default NULL,
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1684,7 +1684,7 @@ CREATE TABLE IF NOT EXISTS `profesores_seg` (
   `materia` varchar(255) collate latin1_spanish_ci default NULL,
   `grupo` varchar(255) collate latin1_spanish_ci default NULL,
   `profesor` varchar(255) collate latin1_spanish_ci default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1700,7 +1700,7 @@ CREATE TABLE IF NOT EXISTS `profesores_seneca` (
   `correoprofesor` varchar(80) collate latin1_spanish_ci default NULL,
   `telefonoprofesor` char(9) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`idprofesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1713,7 +1713,7 @@ CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
   `unidad` varchar(10) collate latin1_spanish_ci NOT NULL,
   `puestos` text collate latin1_spanish_ci,
   PRIMARY KEY  (`unidad`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1728,7 +1728,7 @@ CREATE TABLE IF NOT EXISTS `reg_intranet` (
   `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
   `ip` varchar(15) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1743,7 +1743,7 @@ CREATE TABLE IF NOT EXISTS `reg_paginas` (
   `pagina` text collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `id_reg` (`id_reg`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1760,7 +1760,7 @@ CREATE TABLE IF NOT EXISTS `reg_principal` (
   `claveal` varchar(10) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1783,7 +1783,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `event7` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   `servicio` varchar(32) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1799,7 +1799,7 @@ CREATE TABLE IF NOT EXISTS `reservas_elementos` (
   `oculto` tinyint(1) NOT NULL default '0',
   `observaciones` varchar(255) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1819,7 +1819,7 @@ CREATE TABLE IF NOT EXISTS `reservas_hor` (
   `hora7` varchar(24) collate latin1_spanish_ci default NULL,
   `servicio` varchar(32) collate latin1_spanish_ci NOT NULL,
   KEY `dia` (`dia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1833,7 +1833,7 @@ CREATE TABLE IF NOT EXISTS `reservas_tipos` (
   `tipo` varchar(254) collate latin1_spanish_ci NOT NULL,
   `observaciones` varchar(255) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `reservas_tipos`
@@ -1860,7 +1860,7 @@ CREATE TABLE IF NOT EXISTS `r_departamento` (
   `impreso` tinyint(1) NOT NULL,
   `numero` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1876,7 +1876,7 @@ CREATE TABLE IF NOT EXISTS `sms` (
   `mensaje` varchar(160) collate latin1_spanish_ci NOT NULL default '',
   `profesor` varchar(48) collate latin1_spanish_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1899,7 +1899,7 @@ CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `APELLIDOS` (`APELLIDOS`),
   KEY `NOMBRE` (`NOMBRE`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1918,7 +1918,7 @@ CREATE TABLE IF NOT EXISTS `tareas_profesor` (
   PRIMARY KEY  (`id`),
   KEY `id_alumno` (`id_alumno`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1932,7 +1932,7 @@ CREATE TABLE IF NOT EXISTS `temas` (
   `tema` varchar(64) collate latin1_spanish_ci NOT NULL,
   `fondo` varchar(16) collate latin1_spanish_ci NOT NULL,
   UNIQUE KEY `idea` (`idea`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1955,7 +1955,7 @@ CREATE TABLE IF NOT EXISTS `Textos` (
   `Clase` varchar(8) collate latin1_spanish_ci NOT NULL default 'Texto',
   `isbn` varchar(18) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1974,7 +1974,7 @@ CREATE TABLE IF NOT EXISTS `textos_alumnos` (
   `curso` varchar(7) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1996,7 +1996,7 @@ CREATE TABLE IF NOT EXISTS `textos_gratis` (
   `utilizado` char(2) collate latin1_spanish_ci NOT NULL default '',
   `nivel` varchar(48) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2013,7 +2013,7 @@ CREATE TABLE IF NOT EXISTS `tramos` (
   `hora_inicio` varchar(5) collate latin1_spanish_ci NOT NULL,
   `hora_fin` varchar(5) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`tramo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -2027,7 +2027,7 @@ CREATE TABLE IF NOT EXISTS `transito_control` (
   `colegio` varchar(128) collate latin1_spanish_ci NOT NULL,
   `pass` varchar(254) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2042,7 +2042,7 @@ CREATE TABLE IF NOT EXISTS `transito_datos` (
   `tipo` varchar(24) character set latin1 collate latin1_spanish_ci NOT NULL,
   `dato` text character set latin1 collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2055,7 +2055,7 @@ CREATE TABLE IF NOT EXISTS `transito_tipo` (
   `id` int(11) NOT NULL auto_increment,
   `tipo` varchar(24) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2081,7 +2081,7 @@ CREATE TABLE IF NOT EXISTS `tutoria` (
   PRIMARY KEY  (`id`),
   KEY `claveal` (`claveal`),
   KEY `tutor` (`tutor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2095,7 +2095,7 @@ CREATE TABLE IF NOT EXISTS `unidades` (
   `nomunidad` varchar(10) collate latin1_spanish_ci NOT NULL,
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY  (`idunidad`,`idcurso`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -2109,7 +2109,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(25) collate latin1_spanish_ci NOT NULL default '',
   `password` varchar(50) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2127,7 +2127,7 @@ CREATE TABLE IF NOT EXISTS `usuarioalumno` (
   `claveal` varchar(12) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY (`usuario`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -2141,4 +2141,4 @@ CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
   `nombre` varchar(64) default NULL,
   `perfil` varchar(10) default NULL,
   PRIMARY KEY (`usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;

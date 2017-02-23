@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
   `campo` varchar(10) collate latin1_spanish_ci NOT NULL,
   `valor` text collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1
 ");
 
 $curso = $_SESSION['mod_tutoria']['unidad'];
