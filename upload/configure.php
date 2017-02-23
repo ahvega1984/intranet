@@ -1,14 +1,14 @@
 <?php
 define('IN_PHPATM', true);
 include('include/conf.php');
-include('include/common.'.$phpExt);
+include('include/common.php');
 
 function print_configure_page()
 {
 	global $mess, $font, $normalfontcolor, $selectedfontcolor, $homeurl, $languages;
 	global $uploadcentercaption,$logged_user_name,$mail_functions_enabled;
 	global $tablecolor,$bordercolor,$headercolor,$headerfontcolor;
-	global $mailinfopage, $phpExt;
+	global $mailinfopage;
 
 
 	echo "<br>
@@ -21,13 +21,13 @@ function print_configure_page()
 	$handle = opendir('include');
 	while (false !== ($filename = readdir($handle)))
 	{
-		if(eregi("\.txt$|\.htm$|\.html$",$filename))
+		if(preg_match("\.txt$|\.htm$|\.html$",$filename))
 		{
-			if (!is_dir("include/$filename") && !eregi('^index\.', $filename))
+			if (!is_dir("include/$filename") && !preg_match('^index\.', $filename))
 			{
 				echo"
 					<tr>
-					<td align=\"left\" bgColor=\"$tablecolor\"><font size=\"1\" face=\"$font\" color=\"$normalfontcolor\"><a href=\"configure.{$phpExt}?action=".ACTION_EDITFILE."&filename=$filename&".SID."\">$filename</a></font></td>
+					<td align=\"left\" bgColor=\"$tablecolor\"><font size=\"1\" face=\"$font\" color=\"$normalfontcolor\"><a href=\"configure.php?action=".ACTION_EDITFILE."&filename=$filename&".SID."\">$filename</a></font></td>
 					</tr>";
 			}
 		}
@@ -40,7 +40,7 @@ function show_file_editor($filename)
 {
 	global $mess, $font, $normalfontcolor, $selectedfontcolor, $languages;
 	global $tablecolor,$bordercolor,$headercolor,$headerfontcolor;
-	global $phpExt;
+
 
 	if (!file_exists("include/$filename"))
 		return;
@@ -57,7 +57,7 @@ function show_file_editor($filename)
 	</tr>
 	<tr>
 	  <td align=\"center\" bgColor=\"$tablecolor\">
-	    <form name=\"".ACTION_EDITFILE."\" action=\"configure.$phpExt?".SID."\" enctype=\"multipart/form-data\" method=\"post\" style=\"margin: 0\">
+	    <form name=\"".ACTION_EDITFILE."\" action=\"configure.$?".SID."\" enctype=\"multipart/form-data\" method=\"post\" style=\"margin: 0\">
 	      <input type=\"hidden\" name=\"action\" value=\"".ACTION_SAVEFILE."\">
 	      <input type=\"hidden\" name=\"filename\" value=\"$filename\">
 	      <textarea class=\"vform\" name=\"filebody\" cols=\"82\" rows=\"20\">$filebody</textarea>
@@ -98,13 +98,13 @@ function show_default($message)
 //----------------------------------------------------------------------------
 if ($logged_user_name == '')
 {
-	header($header_location.'login.'.$phpExt.'?'.SID);
+	header($header_location.'login.php'.'?'.SID);
 	exit;
 }
 
 if ($user_status != ADMIN)
 {
-	header($header_location.'index.'.$phpExt.'?'.SID);
+	header($header_location.'index.php'.'?'.SID);
 	exit;
 }
 

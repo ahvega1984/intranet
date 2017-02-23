@@ -325,7 +325,7 @@ function barcode_outhtml($code, $bars, $scale = 1, $total_y = 0, $space = ''){
 function barcode_encode_genbarcode($code,$encoding){
     global $genbarcode_loc;
     /* delete EAN-13 checksum */
-    if (eregi("^ean$", $encoding) && strlen($code)==13) $code=substr($code,0,12);
+    if (preg_match("^ean$", $encoding) && strlen($code)==13) $code=substr($code,0,12);
     if (!$encoding) $encoding="ANY";
     $encoding=ereg_replace("[|\\]", "_", $encoding);
     $code=ereg_replace("[|\\]", "_", $code);
@@ -378,15 +378,15 @@ function barcode_encode_genbarcode($code,$encoding){
 function barcode_encode($code,$encoding){
     global $genbarcode_loc;
     if (
-		((eregi("^ean$", $encoding)
+		((preg_match("^ean$", $encoding)
 		 && ( strlen($code)==12 || strlen($code)==13)))
 		 
-		|| (($encoding) && (eregi("^isbn$", $encoding))
+		|| (($encoding) && (preg_match("^isbn$", $encoding))
 		 && (( strlen($code)==9 || strlen($code)==10) ||
 		 (((ereg("^978", $code) && strlen($code)==12) ||
 		  (strlen($code)==13)))))
 
-		|| (( !isset($encoding) || !$encoding || (eregi("^ANY$", $encoding) ))
+		|| (( !isset($encoding) || !$encoding || (preg_match("^ANY$", $encoding) ))
 		 && (ereg("^[0-9]{12,13}$", $code)))
 	      
 		){
@@ -426,8 +426,8 @@ function barcode_print($code, $encoding="ANY", $scale = 2 ,$mode = "png" ){
     $bars=barcode_encode($code,$encoding);
     if (!$bars) return;
     if (!$mode) $mode="png";
-    if (eregi($mode,"^(text|txt|plain)$")) print barcode_outtext($bars['text'],$bars['bars']);
-    elseif (eregi($mode,"^(html|htm)$")) print barcode_outhtml($bars['text'],$bars['bars'], $scale,0, 0);
+    if (preg_match($mode,"^(text|txt|plain)$")) print barcode_outtext($bars['text'],$bars['bars']);
+    elseif (preg_match($mode,"^(html|htm)$")) print barcode_outhtml($bars['text'],$bars['bars'], $scale,0, 0);
     else barcode_outimage($bars['text'],$bars['bars'],$scale, $mode);
     return $bars;
 }
