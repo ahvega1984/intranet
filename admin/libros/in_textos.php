@@ -22,16 +22,18 @@ $nombre_nivel = $_FILES['archivo']['name'];
  $base0 = "delete from textos_gratis where nivel = '$nivel'";
  mysqli_query($db_con, $base0);
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
-$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>"); 
+$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>");
+$linea = 1;
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
-$datos1 = "INSERT INTO textos_gratis (materia, isbn, ean, editorial, titulo, ano, caducado, importe, utilizado, nivel) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". trim(utf8_encode($data1[2])) . "\",\"". trim(utf8_encode($data1[3])) . "\",\"". trim(utf8_encode($data1[4])) . "\",\"". trim(utf8_encode($data1[5])) . "\",\"". trim(utf8_encode($data1[6])) . "\",\"". trim(utf8_encode($data1[7])) . "\",\"". trim(utf8_encode($data1[8])) . "\",\"". $nivel . "\")";
-// echo $datos1."<br>";
-mysqli_query($db_con, $datos1);
+if ($linea > 8) {
+	$datos1 = "INSERT INTO textos_gratis (materia, isbn, ean, editorial, titulo, ano, caducado, importe, utilizado, nivel) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". trim(utf8_encode($data1[2])) . "\",\"". trim(utf8_encode($data1[3])) . "\",\"". trim(utf8_encode($data1[4])) . "\",\"". trim(utf8_encode($data1[5])) . "\",\"". trim(utf8_encode($data1[6])) . "\",\"". trim(utf8_encode($data1[7])) . "\",\"". trim(utf8_encode($data1[8])) . "\",\"". $nivel . "\")";
+	// echo $datos1."<br>";
+	mysqli_query($db_con, $datos1);
+}
+$linea++;
 }
 fclose($handle);
-$borrarvacios = "delete from textos_gratis where editorial = ''";
-mysqli_query($db_con, $borrarvacios);
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla de Libros de Texto Gratuitos: los datos de '.$nombre_nivel.' han sido introducidos correctamente.
