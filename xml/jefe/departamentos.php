@@ -62,8 +62,8 @@ include("../../menu.php");
 				$dep_mod = str_replace("P.E.S.","",$dep_mod);
 				$dep_mod = str_replace(" P.T.F.P","",$dep_mod);
 				$dep_mod = str_replace("(Secundaria)","",$dep_mod);
-				$dep_mod = trim(utf8_encode($dep_mod));
-				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim($data1[1]) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\")";
+				$dep_mod = trim($dep_mod);
+				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". $dep_mod . "\",\"". trim($data1[5]) . "\")";
 				mysqli_query($db_con, $datos1);
 				}
 				fclose($handle);

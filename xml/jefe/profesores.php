@@ -65,7 +65,7 @@ include("../../menu.php");
 							$dato.= "\"". trim($valor) . "\", ";
 						}
 						$dato=substr($dato,0,strlen($dato)-2);
-						$lineasalto.=utf8_encode($dato);
+						$lineasalto.=$dato;
 						$lineasalto.=");";
 						mysqli_query($db_con, $lineasalto);
 					}

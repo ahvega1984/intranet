@@ -16,13 +16,13 @@ if (isset($_SESSION['profi'])) {
 }
 
 include('actualizar.php');
-
+mysqli_query($db_con,"SET NAMES 'utf8'");
 
 // Entramos
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-
+	
 	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
 
 	$usuarioExiste = mysqli_num_rows($pass0);

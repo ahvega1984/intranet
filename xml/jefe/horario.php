@@ -112,21 +112,21 @@ else {
 	$i=0;
 	foreach ($xml->BLOQUE_DATOS->grupo_datos[1]->grupo_datos as $profesor) {
 
-		$idprofesor = utf8_decode($profesor->dato[0]);
+		$idprofesor = $profesor->dato[0];
 		$num_prof+=1;
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[1]->grupo_datos[$i]->grupo_datos as $horario) {
 			$nombre_asignatura="";
 			$abrev = "";
 			$codigo_asig="";
 
-			$diasemana = utf8_decode($horario->dato[0]);
-			$idtramo = utf8_decode($horario->dato[1]);
+			$diasemana = $horario->dato[0];
+			$idtramo = $horario->dato[1];
 			$tram = mysqli_query($db_con, "select hora from tramos where tramo = '$idtramo'");
 			$tram_hor = mysqli_fetch_row($tram);
 			$hora = $tram_hor[0];
 
-			if (utf8_decode($horario->dato[2]) == "") $iddependencia = "NULL";
-			else $iddependencia = utf8_decode($horario->dato[2]);
+			if ($horario->dato[2] == "") $iddependencia = "NULL";
+			else $iddependencia = $horario->dato[2];
 
 			// Nombre y detalles de la dependencia
 			$depen = mysqli_query($db_con,"select nomdependencia, descdependencia from dependencias where iddependencia = '$iddependencia'");
@@ -135,9 +135,9 @@ else {
 			$descdependencia = $dependenci[1];
 
 
-			if (utf8_decode($horario->dato[3]) == "") {$idunidad=""; $grupo=''; $curso='';}
+			if ($horario->dato[3] == "") {$idunidad=""; $grupo=''; $curso='';}
 			else {
-				$idunidad = utf8_decode($horario->dato[3]);
+				$idunidad = $horario->dato[3];
 				$unid = mysqli_query($db_con, "select nomunidad, nomcurso from unidades, cursos where  cursos.idcurso = unidades.idcurso
 				AND unidades.idunidad  = '$idunidad'");
 				$unidad = mysqli_fetch_row($unid);
@@ -145,13 +145,13 @@ else {
 				$curso = $unidad[1];
 			}
 
-			$idactividad = utf8_decode($horario->dato[10]);
+			$idactividad = $horario->dato[10];
 
-			if (utf8_decode($horario->dato[5]) == "") {$idmateria="";}
-			else {$idmateria = utf8_decode($horario->dato[5]);}
+			if ($horario->dato[5] == "") {$idmateria="";}
+			else {$idmateria = $horario->dato[5];}
 
-			if (utf8_decode($horario->dato[4]) == "") {$idcurso="";}
-			else {$idcurso = utf8_decode($horario->dato[4]);}
+			if ($horario->dato[4] == "") {$idcurso="";}
+			else {$idcurso = $horario->dato[4];}
 
 			if ($idunidad == "" or $idmateria =="") {
 

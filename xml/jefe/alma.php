@@ -167,7 +167,7 @@ include("../../menu.php");
 									$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
 								}
 							$dato=substr($dato,0,strlen($dato)-2);
-							$lineasalto.=utf8_encode($dato);
+							$lineasalto.=$dato;
 							$lineasalto.=");";
 							$consulta=explode(',',$lineasalto);
 							//Comprobamos que la matrícula no haya sido anulada para añadirla

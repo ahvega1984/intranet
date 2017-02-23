@@ -15,8 +15,8 @@ $cur = mysqli_query($db_con,"select claveal, combasi, unidad, curso from alma wh
 while ($uni = mysqli_fetch_array($cur)) {
 	$claveal = $uni[0];
 	$combasi = $uni[1];
-	$unidad = utf8_encode($uni[2]);
-	$curso = utf8_encode($uni[3]);
+	$unidad = $uni[2];
+	$curso = $uni[3];
 	
 $trozos1 = explode(":", $combasi);
  foreach ($trozos1 as $asig)

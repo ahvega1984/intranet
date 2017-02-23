@@ -41,7 +41,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$profe=ucwords(mb_strtolower($profe));
 
 	$data[] = array(
-				'nombre'=>utf8_decode($profe),
+				'nombre'=>$profe,
 				'c1'=>$c1,
 				'c2'=>$c2,
 				'c3'=>$c3,

@@ -88,7 +88,8 @@ if (! mysqli_num_rows($actua)) {
 
 	}
 	
-	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
+	mysqli_query($db_con,"SET NAMES 'utf8'");
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Codificación a UTF-8', NOW())");
 }

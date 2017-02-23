@@ -7,7 +7,7 @@ else $evaluacion_seleccionada = 'evi';
 
 // Si el usuario desea eliminar los datos y recalcular
 if (isset($_GET['recalcular']) && $_GET['recalcular']) {
-	mysqli_query($db_con, "DROP TABLE `informe_evaluaciones_unidades_".$evaluacion_seleccionada."`;");
+	mysqli_query($db_con, "DROP TABLE `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`;");
 }
 
 // Inicializamos variables
@@ -52,10 +52,10 @@ if ($existenNotas) {
 	*/
 		// Obtenemos las unidades del centro
 		if ($evaluacion_seleccionada == 'evi') {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%' ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%' ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
 		}
 		else {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
 		}
 		
 		$row_unidades = array();

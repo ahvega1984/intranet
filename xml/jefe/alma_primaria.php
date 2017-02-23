@@ -128,8 +128,8 @@ $row = 1;
       $dato.= "\"". trim($valor) . "\", ";
         }
     $dato=substr($dato,0,strlen($dato)-2); 
-    $lineasalto.=utf8_encode($dato); 
-    $lineasalto.=utf8_encode(", \"C.E.I.P. $colegio\"");
+    $lineasalto.=$dato; 
+    $lineasalto.=", \"C.E.I.P. $colegio\"";
     $lineasalto.=");";
   //  echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);

@@ -174,7 +174,7 @@ include '../../menu.php';
 								$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
 							}
 							$dato=substr($dato,0,strlen($dato)-2);
-							$lineasalto.=utf8_encode($dato);
+							$lineasalto.=$dato;
 							$lineasalto.=");";
 							mysqli_query($db_con, $lineasalto);
 						}
