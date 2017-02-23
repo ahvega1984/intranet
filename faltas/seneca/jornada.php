@@ -24,9 +24,9 @@ include("../menu.php");
 mysqli_query($db_con, "drop table jornada");	
 
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `jornada` (
-  `tramo` varchar(24) COLLATE latin1_spanish_ci NOT NULL,
-  `hora_inicio` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
-  `hora_fin` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
+  `tramo` varchar(24) COLLATE utf8_general_ci NOT NULL,
+  `hora_inicio` varchar(5) COLLATE utf8_general_ci NOT NULL,
+  `hora_fin` varchar(5) COLLATE utf8_general_ci NOT NULL,
   `minutos` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
@@ -43,7 +43,7 @@ while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 		if (strstr($data1[0],"5")==TRUE) {	$data1[0]="4";	}
 		if (strstr($data1[0],"6")==TRUE) {	$data1[0]="5";	}
 		if (strstr($data1[0],"7")==TRUE) {	$data1[0]="6";	}
-	$datos1 = "INSERT INTO jornada VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\")";
+	$datos1 = "INSERT INTO jornada VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". trim(utf8_encode($data1[2])) . "\",\"". trim(utf8_encode($data1[3])) . "\")";
 mysqli_query($db_con, $datos1);	
 	}
 }

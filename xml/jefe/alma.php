@@ -79,7 +79,7 @@ include("../../menu.php");
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL  
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ";
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
 			
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -164,10 +164,10 @@ include("../../menu.php");
 							$tr=explode("|",$linea);						
 							$lineasalto = "INSERT INTO alma VALUES (";
 								foreach ($tr as $valor){
-									$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
+									$dato.= "\"". mysqli_real_escape_string($db_con, trim(utf8_encode($valor))) . "\", ";
 								}
 							$dato=substr($dato,0,strlen($dato)-2);
-							$lineasalto.=utf8_encode($dato);
+							$lineasalto.=$dato;
 							$lineasalto.=");";
 							$consulta=explode(',',$lineasalto);
 							//Comprobamos que la matrícula no haya sido anulada para añadirla

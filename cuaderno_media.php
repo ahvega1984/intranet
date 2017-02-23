@@ -86,8 +86,8 @@ if(empty($curso))
 	include("index.php");
 	exit;
 }
-mysqli_query($db_con, "ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
-mysqli_query($db_con,"ALTER TABLE `datos` CHANGE `nota` `nota` TEXT CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+mysqli_query($db_con, "ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL DEFAULT  '' ");
+mysqli_query($db_con,"ALTER TABLE `datos` CHANGE `nota` `nota` TEXT CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL DEFAULT ''");
 
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";

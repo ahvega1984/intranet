@@ -25,7 +25,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,utf8_encode('CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE'),0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -120,9 +120,9 @@ $MiPDF->Addpage();
 #### Cabecera con dirección
 $MiPDF->SetFont('NewsGotT','',12);
 $MiPDF->SetTextColor(0,0,0);
-$MiPDF->Text(120,55,utf8_decode($tutor));
-$MiPDF->Text(120,60,utf8_decode($domicilio));
-$MiPDF->Text(120,65,utf8_decode($codigo)." (".utf8_decode($localidad).")");
+$MiPDF->Text(120,55,$tutor);
+$MiPDF->Text(120,60,$domicilio);
+$MiPDF->Text(120,65,$codigo." (".$localidad.")");
 ###
 
 if (!($mal=='1')){

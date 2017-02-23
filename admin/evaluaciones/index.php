@@ -3,11 +3,11 @@ require('../../bootstrap.php');
 
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones` (
-  `unidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
-  `asignatura` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
-  `evaluacion` char(3) COLLATE latin1_spanish_ci NOT NULL,
-  `profesor` text COLLATE latin1_spanish_ci NOT NULL,
-  `calificaciones` text COLLATE latin1_spanish_ci NOT NULL,
+  `unidad` varchar(64) COLLATE utf8_general_ci NOT NULL,
+  `asignatura` varchar(64) COLLATE utf8_general_ci NOT NULL,
+  `evaluacion` char(3) COLLATE utf8_general_ci NOT NULL,
+  `profesor` text COLLATE utf8_general_ci NOT NULL,
+  `calificaciones` text COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`unidad`,`asignatura`,`evaluacion`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 

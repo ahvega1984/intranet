@@ -60,15 +60,15 @@ $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $MiPDF->SetFont('NewsGotT', 'B', 12);
 $MiPDF->Cell(25, 5, 'Alumno/a: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
-$MiPDF->Cell(80, 5, utf8_encode($row['apellidos']).', '.utf8_encode($row['nombre']), 0, 0, 'L', 0 );
+$MiPDF->Cell(80, 5, $row['apellidos'].', '.$row['nombre'], 0, 0, 'L', 0 );
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-$MiPDF->Cell(40, 5, utf8_encode('Fecha de expulsión: '), 0, 0, 'L', 0);
+$MiPDF->Cell(40, 5, 'Fecha de expulsión: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
 $MiPDF->Cell(55, 5, strftime('%e de %B de %Y',strtotime($row['fecha'])), 0, 0, 'L', 0 );
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-$MiPDF->Cell(15, 5, utf8_encode('Días: '), 0, 0, 'L', 0);
+$MiPDF->Cell(15, 5, 'Días: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
 $MiPDF->Cell(15, 5, $row['duracion'], 0, 1, 'L', 0 );
 
@@ -82,7 +82,7 @@ $MiPDF->Cell(85, 5, $row['unidad'], 0, 0, 'L', 0 );
 $MiPDF->SetFont('NewsGotT', 'B', 12);
 $MiPDF->Cell(20, 5, 'Tutor/a: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
-$MiPDF->Cell(40, 5, utf8_encode(mb_convert_case($row['tutor'], MB_CASE_TITLE, "UTF-8")), 0, 1, 'L', 0 );
+$MiPDF->Cell(40, 5, mb_convert_case($row['tutor'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'L', 0 );
 
 $MiPDF->Ln(5);
 

@@ -27,17 +27,17 @@ mysqli_query($db_con, "create table biblioteca_seg select * from biblioteca");
 mysqli_query($db_con, "drop table biblioteca");
 mysqli_query($db_con, "CREATE TABLE if not exists `biblioteca` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Autor` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
-  `Titulo` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
-  `Editorial` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
-  `ISBN` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
-  `Tipo` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
+  `Autor` varchar(128) COLLATE utf8_general_ci NOT NULL,
+  `Titulo` varchar(128) COLLATE utf8_general_ci NOT NULL,
+  `Editorial` varchar(128) COLLATE utf8_general_ci NOT NULL,
+  `ISBN` varchar(15) COLLATE utf8_general_ci NOT NULL,
+  `Tipo` varchar(64) COLLATE utf8_general_ci NOT NULL,
   `anoEdicion` int(4) NOT NULL,
-  `extension` varchar(8) COLLATE latin1_spanish_ci NOT NULL,
+  `extension` varchar(8) COLLATE utf8_general_ci NOT NULL,
   `serie` int(11) NOT NULL,
-  `lugaredicion` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
-  `tipoEjemplar` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
-  `ubicacion` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `lugaredicion` varchar(48) COLLATE utf8_general_ci NOT NULL,
+  `tipoEjemplar` varchar(128) COLLATE utf8_general_ci NOT NULL,
+  `ubicacion` varchar(32) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ");
 
@@ -68,11 +68,11 @@ mysqli_query($db_con, "create table biblioteca__lectores_seg select * from bibli
 mysqli_query($db_con, "drop table biblioteca_lectores");
 mysqli_query($db_con, "CREATE TABLE if not exists `biblioteca_lectores` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Codigo` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
-  `DNI` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
-  `Apellidos` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
-  `Nombre` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `Grupo` varchar(6) COLLATE latin1_spanish_ci NOT NULL,
+  `Codigo` varchar(12) COLLATE utf8_general_ci NOT NULL,
+  `DNI` varchar(12) COLLATE utf8_general_ci NOT NULL,
+  `Apellidos` varchar(48) COLLATE utf8_general_ci NOT NULL,
+  `Nombre` varchar(32) COLLATE utf8_general_ci NOT NULL,
+  `Grupo` varchar(6) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ");
 

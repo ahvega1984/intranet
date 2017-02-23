@@ -35,7 +35,7 @@ include("../../menu.php");
 				  `CARGO` varchar(16) default NULL,
 				  `IDEA` varchar(12) NOT NULL default '',
 				   KEY `NOMBRE` (`NOMBRE`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 				if(isset($_POST['actualizar'])){	
 				}
 				else{
@@ -55,15 +55,15 @@ include("../../menu.php");
 				</div><br />'); 
 				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 				{
-				$dep_mod = trim($data1[2]);
+				$dep_mod = trim(utf8_encode($data1[2]));
 				$dep_mod = str_replace("(Inglés)","",$dep_mod);
 				$dep_mod = str_replace("(Francés)","",$dep_mod);
 				$dep_mod = str_replace("(Alemán)","",$dep_mod);
 				$dep_mod = str_replace("P.E.S.","",$dep_mod);
 				$dep_mod = str_replace(" P.T.F.P","",$dep_mod);
 				$dep_mod = str_replace("(Secundaria)","",$dep_mod);
-				$dep_mod = trim(utf8_encode($dep_mod));
-				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim($data1[1]) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\")";
+				$dep_mod = trim($dep_mod);
+				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\")";
 				mysqli_query($db_con, $datos1);
 				}
 				fclose($handle);

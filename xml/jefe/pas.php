@@ -51,10 +51,10 @@ include("../../menu.php");
 									
 									// Saltamos la cabecera del fichero txt
 									if ($linea > 8) {
-										$pas_nombre			= mysqli_real_escape_string($db_con, trim($row[0]));
-										$pas_dni			= mysqli_real_escape_string($db_con, trim($row[1]));
-										$pas_departamento	= mysqli_real_escape_string($db_con, trim($row[2]));
-										$pas_idea			= mysqli_real_escape_string($db_con, trim($row[5]));
+										$pas_nombre			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[0])));
+										$pas_dni			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[1])));
+										$pas_departamento	= mysqli_real_escape_string($db_con, trim(utf8_encode($row[2])));
+										$pas_idea			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[5])));
 										
 										// Sanitizamos el DNI
 										(strlen($pas_dni) < 9) ? $pas_dni_sanitizado = '0'.$pas_dni : $pas_dni_sanitizado = $pas_dni;

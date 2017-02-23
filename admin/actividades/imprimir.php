@@ -64,7 +64,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,utf8_encode('CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE'),0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -135,11 +135,11 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->SetY(45);
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(75, 5, 'Fecha:  '.date('d.m.Y'), 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, utf8_encode($alumno[2]), 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno[2], 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 8, 'Ref.:     Act/'.$id, 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $alumno[3], 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, utf8_encode($alumno[4].' '.mb_strtoupper($alumno[6], 'UTF-8')), 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno[4].' '.mb_strtoupper($alumno[6], 'UTF-8'), 0, 1, 'L', 0 );
 	$MiPDF->Cell(0, 0, 'Asunto: '.$actividad, 0, 1, 'L', 0 );
 	$MiPDF->Ln(7);
 	

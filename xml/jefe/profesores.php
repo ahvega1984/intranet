@@ -62,10 +62,10 @@ include("../../menu.php");
 			
 						foreach ($tr as $valor){
 							$valor = str_replace("&nbsp;","",$valor);
-							$dato.= "\"". trim($valor) . "\", ";
+							$dato.= "\"". trim(utf8_encode($valor)) . "\", ";
 						}
 						$dato=substr($dato,0,strlen($dato)-2);
-						$lineasalto.=utf8_encode($dato);
+						$lineasalto.=$dato;
 						$lineasalto.=");";
 						mysqli_query($db_con, $lineasalto);
 					}

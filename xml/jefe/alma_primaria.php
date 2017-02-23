@@ -58,7 +58,7 @@ if($_FILES['archivo1']){
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL ,
  `COLEGIO` varchar( 32 ) default NULL 
- ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ";
+ ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
 
  
  //echo $alumnos;
@@ -125,11 +125,11 @@ $row = 1;
     $tr=explode("|",$linea);
     
     foreach ($tr as $valor){ 
-      $dato.= "\"". trim($valor) . "\", ";
+      $dato.= "\"". trim(utf8_encode($valor)) . "\", ";
         }
     $dato=substr($dato,0,strlen($dato)-2); 
-    $lineasalto.=utf8_encode($dato); 
-    $lineasalto.=utf8_encode(", \"C.E.I.P. $colegio\"");
+    $lineasalto.=$dato; 
+    $lineasalto.=", \"C.E.I.P. $colegio\"";
     $lineasalto.=");";
   //  echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);
@@ -235,8 +235,8 @@ Parece que te estás olvidando de enviar el archivo con los datos de los alumnos
 mysqli_query($db_con,"drop table transito_control");
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
 `id` int(11) NOT NULL,
-  `colegio` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
-  `pass` varchar(254) COLLATE latin1_spanish_ci NOT NULL
+  `colegio` varchar(128) COLLATE utf8_general_ci NOT NULL,
+  `pass` varchar(254) COLLATE utf8_general_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
 mysqli_query($db_con,"ALTER TABLE `transito_control`
  ADD PRIMARY KEY (`id`)");
@@ -270,9 +270,9 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  }
  mysqli_query($db_con,"CREATE TABLE `transito_datos` (
 `id` int(11) NOT NULL,
-  `claveal` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
-  `tipo` varchar(24) COLLATE latin1_spanish_ci NOT NULL,
-  `dato` text COLLATE latin1_spanish_ci NOT NULL
+  `claveal` varchar(12) COLLATE utf8_general_ci NOT NULL,
+  `tipo` varchar(24) COLLATE utf8_general_ci NOT NULL,
+  `dato` text COLLATE utf8_general_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ");
  mysqli_query($db_con,"ALTER TABLE `transito_datos`
  ADD PRIMARY KEY (`id`)");
@@ -282,7 +282,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
 mysqli_query($db_con,"drop table transito_tipo"); 
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_tipo` (
 `id` int(11) NOT NULL,
-  `tipo` varchar(24) COLLATE latin1_spanish_ci NOT NULL
+  `tipo` varchar(24) COLLATE utf8_general_ci NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
 mysqli_query($db_con,"ALTER TABLE `transito_tipo`
  ADD PRIMARY KEY (`id`);");

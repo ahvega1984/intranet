@@ -7,15 +7,15 @@ include("../../menu.php");
 include("menu.php");
 
 $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
-  `id` varchar(10) collate latin1_spanish_ci NOT NULL,
-  `curso` varchar(50) collate latin1_spanish_ci NOT NULL,
-  `apellidos` varchar(60) collate latin1_spanish_ci NOT NULL,
-  `nombre` varchar(25) collate latin1_spanish_ci NOT NULL,
-  `ejemplar` varchar(100) collate latin1_spanish_ci NOT NULL,
-  `devolucion` varchar(10) collate latin1_spanish_ci NOT NULL,
+  `id` varchar(10) collate utf8_general_ci NOT NULL,
+  `curso` varchar(50) collate utf8_general_ci NOT NULL,
+  `apellidos` varchar(60) collate utf8_general_ci NOT NULL,
+  `nombre` varchar(25) collate utf8_general_ci NOT NULL,
+  `ejemplar` varchar(100) collate utf8_general_ci NOT NULL,
+  `devolucion` varchar(10) collate utf8_general_ci NOT NULL,
   `hoy` date NOT NULL,
-  `amonestacion` varchar(2) collate latin1_spanish_ci NOT NULL default 'NO',
-  `sms` varchar(2) collate latin1_spanish_ci NOT NULL default 'NO',
+  `amonestacion` varchar(2) collate utf8_general_ci NOT NULL default 'NO',
+  `sms` varchar(2) collate utf8_general_ci NOT NULL default 'NO',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 mysqli_query($db_con, $crea);

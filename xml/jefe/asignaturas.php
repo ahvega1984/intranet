@@ -19,7 +19,7 @@
 			  `nombre` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
 			  `abreviatura` varchar(4) CHARACTER SET latin1 DEFAULT NULL,
 			  `orden` varchar(4) CHARACTER SET latin1 DEFAULT NULL
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 			
 				// Claveal primaria e índice
 				mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");
@@ -43,10 +43,10 @@
 							 este nos entregara una lista de todos los
 							 nodos encontrados */
 							$cursos = $doc->getElementsByTagName( "D_OFERTAMATRIG");
-							$cur = utf8_encode($cursos->item(0)->nodeValue);
+							$cur = $cursos->item(0)->nodeValue;
 							
 							$unidades = $doc->getElementsByTagName( "T_NOMBRE");
-							$unidad = utf8_encode($unidades->item(0)->nodeValue);
+							$unidad = $unidades->item(0)->nodeValue;
 							
 							$materias = $doc->getElementsByTagName( "MATERIA" );
 			
@@ -64,9 +64,9 @@
 								 */
 								$codigo = $codigos->item(0)->nodeValue;
 								$nombres = $materia->getElementsByTagName( "D_MATERIAC" );
-								$nombre = utf8_encode($nombres->item(0)->nodeValue);
+								$nombre = $nombres->item(0)->nodeValue;
 								$abrevs = $materia->getElementsByTagName( "T_ABREV" );
-								$abrev = utf8_encode($abrevs->item(0)->nodeValue);
+								$abrev = $abrevs->item(0)->nodeValue;
 								mysqli_query($db_con, "INSERT INTO  `materias_temp` (
 			`CODIGO` ,
 			`NOMBRE` ,
@@ -96,15 +96,14 @@
 										 usaria $codigos->getAttribute('atributo');
 										 */
 										$codigos0 = $calificacion->getElementsByTagName( "X_CALIFICA" );
-										$codigo0 = utf8_encode($codigos0->item(0)->nodeValue);
+										$codigo0 = $codigos0->item(0)->nodeValue;
 										$nombres0 = $calificacion->getElementsByTagName( "D_CALIFICA" );
-										$nombre0 = utf8_encode($nombres0->item(0)->nodeValue);
+										$nombre0 = $nombres0->item(0)->nodeValue;
 										$abrevs0 = $calificacion->getElementsByTagName( "T_ABREV" );
-										$abrev0 = utf8_encode($abrevs0->item(0)->nodeValue);
+										$abrev0 = $abrevs0->item(0)->nodeValue;
 										$ordenes0 = $calificacion->getElementsByTagName( "N_ORDEN" );
-										$orden0 = utf8_encode($ordenes0->item(0)->nodeValue);
-										// $nombre_utf = utf8_decode($nombre0);
-										mysqli_query($db_con, "INSERT INTO  `calificaciones_temp` VALUES ('$codigo0',  '$nombre',  '$abrev0',  '$orden0')");
+										$orden0 = $ordenes0->item(0)->nodeValue;
+										mysqli_query($db_con, "INSERT INTO  `calificaciones_temp` VALUES ('$codigo0',  '$nombre0',  '$abrev0',  '$orden0')");
 									}
 								}
 								
@@ -135,9 +134,9 @@
 			
 				$pr1 = mysqli_query($db_con, "select * from materias");
 				while ($pr10 = mysqli_fetch_array($pr1)){
-					$nombr = utf8_encode($pr10[1]);
-					$abre = utf8_encode($pr10[2]);
-					$cu = utf8_encode($pr10[3]);
+					$nombr = $pr10[1];
+					$abre = $pr10[2];
+					$cu = $pr10[3];
 					$id = $pr10[5];
 					mysqli_query($db_con, "update materias set nombre = '$nombr', curso = '$cu', abrev = '$abre' where id = '$id'");
 				}

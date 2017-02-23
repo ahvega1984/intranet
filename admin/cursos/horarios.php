@@ -13,7 +13,7 @@ include("../../menu.php");
 if (strlen($_GET['claveal'])>1) {
 	// Asignaturas
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `asig_tmp` (
-  `claveal` varchar(12) collate latin1_spanish_ci NOT NULL,
+  `claveal` varchar(12) collate utf8_general_ci NOT NULL,
   `codigo` int(6) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 mysqli_query($db_con,"TRUNCATE TABLE asig_tmp");

@@ -36,11 +36,11 @@ else {
 mysqli_query($db_con, "
 CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
   `id` int(11) NOT NULL auto_increment,
-  `unidad` varchar(32) collate latin1_spanish_ci NOT NULL,
-  `evaluacion` varchar(32) collate latin1_spanish_ci NOT NULL,
-  `alumno` varchar(10) collate latin1_spanish_ci NOT NULL,
-  `campo` varchar(10) collate latin1_spanish_ci NOT NULL,
-  `valor` text collate latin1_spanish_ci NOT NULL,
+  `unidad` varchar(32) collate utf8_general_ci NOT NULL,
+  `evaluacion` varchar(32) collate utf8_general_ci NOT NULL,
+  `alumno` varchar(10) collate utf8_general_ci NOT NULL,
+  `campo` varchar(10) collate utf8_general_ci NOT NULL,
+  `valor` text collate utf8_general_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1
 ");

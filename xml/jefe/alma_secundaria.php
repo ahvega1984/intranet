@@ -58,7 +58,7 @@ if($_FILES['archivo1']){
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL ,
  `COLEGIO` varchar( 32 ) default NULL 
- ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ";
+ ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
 
  
  //echo $alumnos;
@@ -125,11 +125,11 @@ $row = 1;
     $tr=explode("|",$linea);
     
     foreach ($tr as $valor){ 
-      $dato.= "\"". trim($valor) . "\", ";
+      $dato.= "\"". trim(utf8_encode($valor)) . "\", ";
         }
     $dato=substr($dato,0,strlen($dato)-2); 
-    $lineasalto.=utf8_encode($dato); 
-    $lineasalto.=utf8_encode(", \"I.E.S. $colegio\"");
+    $lineasalto.=$dato; 
+    $lineasalto.=", \"I.E.S. $colegio\"";
     $lineasalto.=");";
     //echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);

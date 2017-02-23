@@ -63,7 +63,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_temp` (
   KEY `id_infotut` (`id_infotut`),
   KEY `asignatura` (`asignatura`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 
 $query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno order by F_ENTREV desc";
 $result = mysqli_query($db_con, $query);

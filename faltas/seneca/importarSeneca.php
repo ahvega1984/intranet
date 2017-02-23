@@ -71,9 +71,9 @@ if (isset($_POST['submit'])) {
 			$tag_xunidad 		= $doc->getElementsByTagName("X_UNIDAD");
 			$tag_tnombre		= $doc->getElementsByTagName("T_NOMBRE");
 			$X_OFERTAMATRIG 	= $tag_xofertamatrig->item(0)->nodeValue;
-			$D_OFERTAMATRIG		= utf8_decode($tag_dofertamatrig->item(0)->nodeValue);
+			$D_OFERTAMATRIG		= $tag_dofertamatrig->item(0)->nodeValue;
 			$X_UNIDAD			= $tag_xunidad->item(0)->nodeValue;
-			$T_NOMBRE			= utf8_decode($tag_tnombre->item(0)->nodeValue);
+			$T_NOMBRE			= $tag_tnombre->item(0)->nodeValue;
 
 			if ($draw_html == 0) {
 				echo '

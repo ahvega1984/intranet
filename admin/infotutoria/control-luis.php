@@ -47,7 +47,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_temp` (
   KEY `id_infotut` (`id_infotut`),
   KEY `asignatura` (`asignatura`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 // Control de tutores
 $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$profes'");
 if (mysqli_num_rows($tut)>0) {

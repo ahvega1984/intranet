@@ -113,7 +113,7 @@ function importarDatos($db_con) {
 		 * ----------------------------------------------------------------------*/
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cursos` (
   `idcurso` int(12) unsigned NOT NULL,
-  `nomcurso` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+  `nomcurso` varchar(80) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		
@@ -142,7 +142,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cursos` (
 		 * ----------------------------------------------------------------------*/
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `idunidad` int(12) unsigned NOT NULL,
-  `nomunidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
+  `nomunidad` varchar(64) COLLATE utf8_general_ci NOT NULL,
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY (`idunidad`,`idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
@@ -173,8 +173,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		 * ----------------------------------------------------------------------*/
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `materias_seneca` (
   `idmateria` int(12) unsigned NOT NULL,
-  `nommateria` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
-  `abrevmateria` varchar(8) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nommateria` varchar(80) COLLATE utf8_general_ci NOT NULL,
+  `abrevmateria` varchar(8) COLLATE utf8_general_ci DEFAULT NULL,
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY (`idmateria`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
@@ -207,11 +207,11 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			CREACIÓN DE LA TABLA ACTIVIDADES
 		 * ----------------------------------------------------------------------*/
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actividades_seneca` (
-  `regactividad` char(1) COLLATE latin1_spanish_ci NOT NULL,
+  `regactividad` char(1) COLLATE utf8_general_ci NOT NULL,
   `idactividad` int(12) unsigned NOT NULL,
-  `nomactividad` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
-  `requnidadactividad` char(1) COLLATE latin1_spanish_ci NOT NULL,
-  `reqmateriaactividad` char(1) COLLATE latin1_spanish_ci NOT NULL,
+  `nomactividad` varchar(100) COLLATE utf8_general_ci NOT NULL,
+  `requnidadactividad` char(1) COLLATE utf8_general_ci NOT NULL,
+  `reqmateriaactividad` char(1) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`idactividad`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 				
@@ -243,8 +243,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		 * ----------------------------------------------------------------------*/
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `dependencias` (
   `iddependencia` int(12) unsigned NOT NULL,
-  `nomdependencia` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `descdependencia` varchar(80) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nomdependencia` varchar(30) COLLATE utf8_general_ci NOT NULL,
+  `descdependencia` varchar(80) COLLATE utf8_general_ci DEFAULT NULL,
   `reservadependencia` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`iddependencia`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
@@ -277,11 +277,11 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS tramos (
   `tramo` int(6) unsigned NOT NULL,
-  `hora` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+  `hora` varchar(80) COLLATE utf8_general_ci NOT NULL,
   `horini` int(4) unsigned NOT NULL,
   `horfin` int(4) unsigned NOT NULL,
-  `hora_inicio` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
-  `hora_fin` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
+  `hora_inicio` varchar(5) COLLATE utf8_general_ci NOT NULL,
+  `hora_fin` varchar(5) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`tramo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		mysqli_query($db_con, "truncate TABLE tramos");				
@@ -334,10 +334,10 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		 * ----------------------------------------------------------------------*/
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `profesores_seneca` (
   `idprofesor` int(9) unsigned NOT NULL,
-  `nomprofesor` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
-  `deptoprofesor` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
-  `correoprofesor` varchar(80) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `telefonoprofesor` char(9) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `nomprofesor` varchar(64) COLLATE utf8_general_ci NOT NULL,
+  `deptoprofesor` varchar(80) COLLATE utf8_general_ci NOT NULL,
+  `correoprofesor` varchar(80) COLLATE utf8_general_ci DEFAULT NULL,
+  `telefonoprofesor` char(9) COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`idprofesor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		
@@ -376,9 +376,9 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		 * ----------------------------------------------------------------------*/
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamentos_seneca` (
   `iddepartamento` int(2) unsigned NOT NULL AUTO_INCREMENT,
-  `nomdepartamento` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
+  `nomdepartamento` varchar(80) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`iddepartamento`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 			
 		$tabla = 'departamentos_seneca'; // Descripción del trabajo para la barra de progreso
 		

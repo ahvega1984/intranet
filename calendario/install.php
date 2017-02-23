@@ -8,10 +8,10 @@ echo "Creando base de datos <strong>calendario_categorias</strong><br>";
 mysqli_query($db_con, "DROP TABLE `calendario_categorias`");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario_categorias` (
   `id` int(11) NOT NULL auto_increment,
-  `nombre` varchar(30) collate latin1_spanish_ci NOT NULL,
+  `nombre` varchar(30) collate utf8_general_ci NOT NULL,
   `fecha` date NOT NULL,
-  `profesor` varchar(80) collate latin1_spanish_ci NOT NULL,
-  `color` char(7) collate latin1_spanish_ci NOT NULL,
+  `profesor` varchar(80) collate utf8_general_ci NOT NULL,
+  `color` char(7) collate utf8_general_ci NOT NULL,
   `espublico` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;") or die(mysqli_error($db_con));
@@ -22,19 +22,19 @@ mysqli_query($db_con, "DROP TABLE `calendario`");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
   `id` int(11) NOT NULL auto_increment,
   `categoria` int(11) NOT NULL,
-  `nombre` varchar(120) collate latin1_spanish_ci NOT NULL,
-  `descripcion` longtext collate latin1_spanish_ci NOT NULL,
+  `nombre` varchar(120) collate utf8_general_ci NOT NULL,
+  `descripcion` longtext collate utf8_general_ci NOT NULL,
   `fechaini` date default NULL,
   `horaini` time default NULL,
   `fechafin` date default NULL,
   `horafin` time default NULL,
-  `lugar` varchar(180) collate latin1_spanish_ci NOT NULL,
-  `departamento` text collate latin1_spanish_ci default NULL,
-  `profesores` text collate latin1_spanish_ci default NULL,
-  `unidades` text collate latin1_spanish_ci default NULL,
-  `asignaturas` text collate latin1_spanish_ci default NULL,
+  `lugar` varchar(180) collate utf8_general_ci NOT NULL,
+  `departamento` text collate utf8_general_ci default NULL,
+  `profesores` text collate utf8_general_ci default NULL,
+  `unidades` text collate utf8_general_ci default NULL,
+  `asignaturas` text collate utf8_general_ci default NULL,
   `fechareg` datetime NOT NULL,
-  `profesorreg` varchar(60) collate latin1_spanish_ci NOT NULL,
+  `profesorreg` varchar(60) collate utf8_general_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;") or die(mysqli_error($db_con));
 

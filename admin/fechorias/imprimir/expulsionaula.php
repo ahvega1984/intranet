@@ -62,7 +62,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,utf8_encode('CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE'),0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -115,12 +115,12 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->SetY(45);
 	$MiPDF->SetFont ( 'NewsGotT', '', 12 );
 	$MiPDF->Cell(75, 5, 'Fecha:  '.$hoy, 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, utf8_encode($padre), 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $padre, 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 12, 'Ref.:     Fec/'.$row['id'], 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, utf8_encode($direccion), 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $direccion, 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $codpostal.' '.utf8_encode(mb_strtoupper($provincia, 'UTF-8')), 0, 1, 'L', 0 );
-	$MiPDF->Cell(0, 12, 'Asunto: '.utf8_encode($titulo), 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $codpostal.' '.mb_strtoupper($provincia, 'UTF-8'), 0, 1, 'L', 0 );
+	$MiPDF->Cell(0, 12, 'Asunto: '.$titulo, 0, 1, 'L', 0 );
 	$MiPDF->Ln(10);
 	
 	// CUERPO DE LA CARTA
@@ -138,7 +138,7 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Cell (55, 20, '', 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell (90, 5, 'Fdo. '.utf8_encode($padre), 0, 0, 'C', 0 );
+	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0 );
 	
 	// RECIBI
