@@ -41,7 +41,7 @@ function clean_path($path)
 //
 function is_viewable($filename)
 {
-	if(eregi('\.txt$|\.sql$|\.php$|\.php3$|\.phtml$|\.htm$|\.html$|\.cgi$|\.pl$|\.js$|\.css$|\.inc$', $filename))
+	if(preg_match('\.txt$|\.sql$|\.php$|\.php3$|\.phtml$|\.htm$|\.html$|\.cgi$|\.pl$|\.js$|\.css$|\.inc$', $filename))
 		return TRUE;
 
 	return FALSE;
@@ -51,7 +51,7 @@ function is_viewable($filename)
 //
 function is_image($filename)
 {
-	if (eregi("\.png$|\.bmp$|\.jpg$|\.jpeg$|\.gif$", $filename))
+	if (preg_match("\.png$|\.bmp$|\.jpg$|\.jpeg$|\.gif$", $filename))
 		return TRUE;
 
 	return FALSE;
@@ -62,7 +62,7 @@ function is_image($filename)
 //
 function is_browsable($filename)
 {
-	if(eregi("\.zip$", $filename))
+	if(preg_match("\.zip$", $filename))
 		return TRUE;
 
 	return FALSE;
@@ -99,7 +99,7 @@ function get_mimetype_img($filename)
 		reset($mimetypes);
 		while (list($key, $value) = each($mimetypes))
 		{
-			if (eregi($key.'$', $filename))
+			if (preg_match($key.'$', $filename))
 			{
 				return $value['img'];
 			}
@@ -119,7 +119,7 @@ function mime_type($filename)
 	reset($mimetypes);
 	while (list($key, $value) = each($mimetypes))
 	{
-		if (eregi($key.'$', $filename))
+		if (preg_match($key.'$', $filename))
 		{
 			return $value['mime'];
 		}
@@ -225,7 +225,6 @@ function page_header($title)
 //
 function place_message($title, $message, $link)
 {
-	global $phpExt;
 	global $mess, $font, $normalfontcolor, $selectedfontcolor, $homeurl;
 	global $uploadcentercaption, $logged_user_name, $user_status, $page_title;
 	global $tablecolor, $bordercolor, $headercolor, $headerfontcolor;
@@ -279,12 +278,12 @@ function place_message($title, $message, $link)
 	              <a href=\"$link?".SID."\"><img src=\"images/refresh.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[97]\" border=\"0\" /></a>&nbsp;";
 	if ($user_status == ADMIN)
 	{
-		echo "    <a href=\"configure.".$phpExt."?".SID."\"><img src=\"images/config.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[132]\" border=\"0\" /></a>&nbsp;
-				  <a href=\"usrmanag.".$phpExt."?".SID."\"><img src=\"images/users.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[137]\" border=\"0\" /></a>&nbsp;";
+		echo "    <a href=\"configure.php?".SID."\"><img src=\"images/config.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[132]\" border=\"0\" /></a>&nbsp;
+				  <a href=\"usrmanag.php?".SID."\"><img src=\"images/users.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[137]\" border=\"0\" /></a>&nbsp;";
 	}
 	if ($user_status != ANONYMOUS)
 	{
-		echo "    <a href=\"login.".$phpExt."?".SID."\"><img src=\"images/user.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[81]\" border=\"0\" /></a>&nbsp;";
+		echo "    <a href=\"login.php?".SID."\"><img src=\"images/user.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[81]\" border=\"0\" /></a>&nbsp;";
 	}
 	echo "       </td>
 	             <td align=\"right\" valign=\"middle\" width=\"10%\">";
@@ -446,7 +445,7 @@ function userslist($order = "name")
   $handle=opendir($users_folder_name);
   while (false !== ($filename = readdir($handle)))
   {
-    if (substr($filename,0,1) != '.' && !eregi('^index\.', $filename))
+    if (substr($filename,0,1) != '.' && !preg_match('^index\.', $filename))
     {
       if (!is_dir("$users_folder_name/$filename"))
       {
@@ -612,7 +611,7 @@ class MIME_MAIL {
 
   function send($to)
   {
-  	global $use_smtp, $phpExt;
+  	global $use_smtp;
 
   	if (!$use_smtp)
 	{
@@ -622,7 +621,7 @@ class MIME_MAIL {
 	{
 		if (!defined('SMTP_INCLUDED'))
 		{
-			include('include/smtp.'.$phpExt);
+			include('include/smtp.php');
 		}
 		$result = smtpmail($to, $this->subject, ' ', $this->_build());
 	}
@@ -656,7 +655,7 @@ function add_file($filename)
 function split_dir($directory)
 {
 	global $index;
-	global $uploads_folder_name, $direction, $order, $phpExt;
+	global $uploads_folder_name, $direction, $order;
 
 	$directory = clean_path($directory);
 	if (!file_exists("$uploads_folder_name/$directory"))
@@ -667,14 +666,14 @@ function split_dir($directory)
 	$arr = explode("/", $directory);
 
 	$address = '';
-	$nav="<a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order\">Inicio</a>";
+	$nav="<a href=\"index.php?index=$index&direction=$direction&order=$order\">Inicio</a>";
 	foreach ($arr as $value)
 	{
 		if ($address == '')
 			$address.="$value";
 		else
 			$address.="/$value";
-		$nav.=" / <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$address\">$value</a>";
+		$nav.=" / <a href=\"index.php?index=$index&direction=$direction&order=$order&directory=$address\">$value</a>";
 	}
 
 	return($nav);
@@ -707,7 +706,7 @@ function available_languages($folder)
 	$handle = opendir($folder);
 	while (false !== ($filename = readdir($handle)))
 	{
-		if (eregi('\.lang$', $filename))
+		if (preg_match('\.lang$', $filename))
 		{
 			$fp = @fopen("$folder/$filename", "r");
 	  		if ($fp)

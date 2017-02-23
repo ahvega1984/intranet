@@ -2,7 +2,7 @@
 
 define('IN_PHPATM', true);
 include('include/conf.php');
-include('include/functions.'.$phpExt);
+include('include/functions.php');
 
 $image = $_GET['image'];
 

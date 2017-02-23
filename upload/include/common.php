@@ -5,13 +5,13 @@ if ( !defined('IN_PHPATM') )
 	die("Hacking attempt");
 }
 
-include('include/functions.'.$phpExt);
+include('include/functions.php');
 
 $header_location = ( @preg_match('/Microsoft|WebSTAR|Xitami/', getenv('SERVER_SOFTWARE')) ) ? 'Refresh: 0; URL=' : 'Location: ';
 
 if (is_ip_blocked(getenv('REMOTE_ADDR')))
 {
-	header($header_location.'ipblocked.'.$phpExt);
+	header($header_location.'ipblocked.php');
 	exit;
 }
 
@@ -100,6 +100,6 @@ if (!isset($languages) || !is_array($languages))
 	}
 }
 $timeoffset = -$GMToffset + $languages[$language]['TimeZone'];
-require("${languages_folder_name}/${language}.${phpExt}");
+require("${languages_folder_name}/${language}.php");
 
 ?>

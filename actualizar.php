@@ -51,7 +51,7 @@ if (! mysqli_num_rows($actua)) {
 	@fecha: 23 de febrero de 2017
 */
 
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Codificación a UTF-8'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Codificacion a UTF-8'");
 if (! mysqli_num_rows($actua)) {
 	$result_tables = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."`");
 	
@@ -89,5 +89,5 @@ if (! mysqli_num_rows($actua)) {
 	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
 	mysqli_query($db_con,"SET NAMES 'utf8'");
 	
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Codificación a UTF-8', NOW())");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Codificacion a UTF-8', NOW())");
 }

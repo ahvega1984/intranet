@@ -1,8 +1,8 @@
 <?php
 require('../bootstrap.php');
 
-$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
-$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
+$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 $result = mysqli_query($db_con, "SELECT grupo FROM profesores WHERE profesor ='".$_SESSION['profi']."'");
 $unidades = array(); 
@@ -14,7 +14,7 @@ mysqli_free_result($result);
 
 define('IN_PHPATM', true);
 include('include/conf.php');
-include('include/common.'.$phpExt);
+include('include/common.php');
 
 //
 //
@@ -170,7 +170,7 @@ function scan_dir_for_digest($current_dir, &$message)
 		{
 			if(is_dir("$current_dir/$filename"))
 			{
-		      	if (eregi($hidden_dirs, $filename) && !$showhidden)
+		      	if (preg_match($hidden_dirs, $filename) && !$showhidden)
 		      	{
 		      		continue;
 		      	}
@@ -229,7 +229,7 @@ function init($directory)
 	if (!is_dir($uploads_folder_name))
 	{
 		echo "$mess[196]<br><br>
-			  <a href=\"index.$phpExt?".SID."\">$mess[29]</a>\n";
+			  <a href=\"index.php?".SID."\">$mess[29]</a>\n";
 		exit;
 	}
 
@@ -289,7 +289,7 @@ function listing($current_dir)
 	while (false !== ($filename = readdir($handle)))
     {
 	    if ($filename != '.' && $filename != '..'
-//	    	&& !eregi("\.desc$|\.dlcnt$|^index\.", $filename)
+//	    	&& !preg_match("\.desc$|\.dlcnt$|^index\.", $filename)
 	    	&& show_hidden_files($filename))
 		{
 			$filesize=filesize("$current_dir/$filename");
@@ -372,7 +372,7 @@ function contents_dir($current_dir, $directory)
 {
 	global $index;
 	global $font,$direction,$order,$totalsize,$mess,$tablecolor,$lightcolor;
-	global $file_out_max_caracters,$normalfontcolor, $phpExt, $hidden_dirs, $showhidden;
+	global $file_out_max_caracters,$normalfontcolor, $hidden_dirs, $showhidden;
 	global $comment_max_caracters,$datetimeformat, $logged_user_name;
 	global $user_status,$activationcode,$max_filesize_to_mail,$mail_functions_enabled, $timeoffset, $grants;
 	
@@ -393,12 +393,12 @@ function contents_dir($current_dir, $directory)
       if (is_dir("$current_dir/$filename"))
       {
 
-      	if (eregi($hidden_dirs, $filename) && !$showhidden)
+      	if (preg_match($hidden_dirs, $filename) && !$showhidden)
       	{
       		continue;
       	}
 
-        $filenameandpath = "index.$phpExt?index=$index&direction=$direction&order=$order&directory=";
+        $filenameandpath = "index.php?index=$index&direction=$direction&order=$order&directory=";
 
         if ($directory != '')
         	$filenameandpath .= "$directory/";
@@ -439,14 +439,14 @@ function contents_dir($current_dir, $directory)
 			{
 				if (!is_dir("$current_dir/$filename"))
 				{
-					echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+					echo "<a href=\"index.php?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 			    }
 			    else
 			    {
 			    	if ($grants[$user_status][DELALL])
 			    	{
 			    		if ((! in_array($filename, $dir_protegidos) && ! in_array($directory, $subdir_protegidos)) || (in_array($directory, $subdir_protegidos) && stristr($_SESSION['cargo'],'1') == TRUE)) {
-					    	echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+					    	echo "<a href=\"index.php?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 							}
 						}
 			    }
@@ -502,7 +502,7 @@ function contents_dir($current_dir, $directory)
 				
 				
 				// DESCARGAR ARCHIVO
-				echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fa fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+				echo "<a href=\"index.php?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fa fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 			}
 				
 				if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
@@ -545,7 +545,7 @@ function list_dir($directory)
 {
 	global $mess,$direction,$uploads_folder_name;
 	global $font,$order,$totalsize,$tablecolor,$headercolor,$bordercolor;
-	global $headerfontcolor, $normalfontcolor, $phpExt;
+	global $headerfontcolor, $normalfontcolor;
 	$directory = clean_path($directory);
 	$current_dir = init($directory);
 	$filenameandpath = ($directory != '') ? "&directory=".$directory : '';
@@ -608,8 +608,8 @@ function delete_dir($location)
 function normalize_filename($name)
 {
 	global $file_name_max_caracters, $invalidchars;
-	$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
-	$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+	$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
+	$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 	$name = stripslashes($name);
 
@@ -631,7 +631,7 @@ function show_contents() {
 	global $index;
 	global $current_dir,$directory,$uploads_folder_name,$mess,$direction,$timeoffset;
 	global $order,$totalsize,$font,$tablecolor,$bordercolor,$headercolor;
-	global $headerfontcolor,$normalfontcolor,$user_status, $grants, $phpExt;
+	global $headerfontcolor,$normalfontcolor,$user_status, $grants;
 
 	switch ($index) {
 		default :
@@ -679,8 +679,8 @@ function show_contents() {
 	</div>
 	<?php
 	echo "  <ul class=\"nav nav-tabs\">\n";
-	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Documentos públicos</a></li>\n";
-	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Documentos personales</a></li>\n";
+	echo "    <li $activo1><a href=\"index.php?index=publico\">Documentos públicos</a></li>\n";
+	echo "    <li $activo2><a href=\"index.php?index=privado\">Documentos personales</a></li>\n";
 	echo "  </ul>\n";
 	
 	echo "   <div class=\"page-header\">\n";
@@ -697,7 +697,7 @@ function show_contents() {
 	    if ($directory == $name || $name == '.') $name = '';
 	    
 			echo "<div class=\"text-uppercase\">\n";
-			echo "  <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$name\">\n";
+			echo "  <a href=\"index.php?index=$index&direction=$direction&order=$order&directory=$name\">\n";
 			echo "   <i class=\"fa fa-chevron-up iconf-fixed-width\"></i>\n";
 			echo "  </a>\n";
 			echo split_dir("$directory");
@@ -914,7 +914,7 @@ switch($action)
 
 		$filename = basename($filename);
 
-      	if (eregi($hidden_dirs, $filename) && !$showhidden)
+      	if (preg_match($hidden_dirs, $filename) && !$showhidden)
       	{
       		include("../menu.php");
       		show_contents();
@@ -1017,7 +1017,7 @@ switch($action)
 		echo "<img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" align=\"ABSMIDDLE\">\n";
 		echo "".$filenametoview."<br><br><hr>\n";
 		echo "<a href=\"javascript:window.print()\"><i class='fa fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
+		echo "<a href=\"index.php?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
 		echo "<a href=\"javascript:window.close()\"><i class='fa fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "</h4>\n";
 
@@ -1054,11 +1054,11 @@ switch($action)
 		}
 		else
 		{
-			echo "<img src=\"getimg.${phpExt}?image=$directory/$filename\">\n";
+			echo "<img src=\"getimg.php?image=$directory/$filename\">\n";
 		}
 		echo "<hr>\n";
 		echo "<a href=\"javascript:window.print()\"><i class='fa fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=$filename&directory=$directory\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
+		echo "<a href=\"index.php?action=downloadfile&filename=$filename&directory=$directory\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
 		echo "<a href=\"javascript:window.close()\"><i class='fa fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "<hr></center>\n";
 		echo "</body>\n";
@@ -1111,12 +1111,12 @@ switch($action)
 				if ($userfile_name != '' && $userfile_size !=0)
 				{
 					$userfile_name = normalize_filename($userfile_name);
-					if (file_exists("$destination/$userfile_name") || eregi($rejectedfiles, $userfile_name) || ($size_kb > $max_allowed_filesize))
+					if (file_exists("$destination/$userfile_name") || preg_match($rejectedfiles, $userfile_name) || ($size_kb > $max_allowed_filesize))
 					{
 						if ($size_kb > $max_allowed_filesize)
 							$message="$mess[38] <b>$userfile_name</b> $mess[50] ($max_allowed_filesize Kb)!";
 						else
-							if (eregi($rejectedfiles, $userfile_name))  // If file is script
+							if (preg_match($rejectedfiles, $userfile_name))  // If file is script
 								$message=sprintf($mess[49], "<b>$userfile_name</b>");
 							else
 								$message="$mess[38] <b>$userfile_name</b> $mess[39]";
@@ -1174,7 +1174,7 @@ switch($action)
 			break;
 		}
 
-		if (!eregi("^http://|^ftp://", $fileurl))
+		if (!preg_match("^http://|^ftp://", $fileurl))
 		{
 			place_header($mess[202]);
 			include("../menu.php");
@@ -1192,7 +1192,7 @@ switch($action)
 			break;
 		}
 
-		if (file_exists("$destination/$filename") || eregi($rejectedfiles, basename($filename)))
+		if (file_exists("$destination/$filename") || preg_match($rejectedfiles, basename($filename)))
 		{
 			place_header("$mess[38] <b>$filename</b> $mess[39]");
 			include("../menu.php");
@@ -1202,7 +1202,7 @@ switch($action)
 
 		}
 
-		if (eregi($rejectedfiles, basename($filename)))
+		if (preg_match($rejectedfiles, basename($filename)))
 		{
 			place_header(sprintf($mess[49], "<b>$filename</b>"));
 			include("../menu.php");
@@ -1231,7 +1231,7 @@ switch($action)
 
 		if (is_dir("$current_dir/$filename"))
 		{
-	      	if (eregi($hidden_dirs, $userfile) && !$showhidden)
+	      	if (preg_match($hidden_dirs, $userfile) && !$showhidden)
 	      	{
 	      		place_header($mess[206]);
 	      		include("../menu.php");
@@ -1254,7 +1254,7 @@ switch($action)
 
 		if ($grants[$user_status][MODALL] || ($upl_user == $logged_user_name && $grants[$user_status][MODOWN]))
 		{
-			if (!eregi($rejectedfiles, $userfile))
+			if (!preg_match($rejectedfiles, $userfile))
 			{
 				if (!file_exists("$current_dir/$userfile") || $filename == $userfile)
 				{

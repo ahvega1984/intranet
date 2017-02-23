@@ -5,15 +5,10 @@ if ( !defined('IN_PHPATM') )
 	die("Hacking attempt");
 }
 
-//
-//
-$phpExt = 'php';
 
 //
-//
-include('include/constants.'.$phpExt);
-//include("../../config.php");
-//
+include('include/constants.php');
+
 //
 $homeurl = $config['dominio']."/intranet/upload/index.php";
 
