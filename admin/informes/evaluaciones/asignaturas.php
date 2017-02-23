@@ -23,9 +23,9 @@ mysqli_free_result($result);
 if ($existenNotas) {
 	
 	// Comprobamos si se ha creado el informe
-	$result_informe2 = mysqli_query($db_con, "SELECT * FROM `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` JOIN cursos ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idcurso = cursos.idcurso JOIN unidades ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idunidad = unidades.idunidad");
-	if (mysqli_num_rows($result_informe2)) {
-		$resultados_evaluaciones = mysqli_fetch_all($result_informe2, MYSQLI_ASSOC);
+	$result_informe = mysqli_query($db_con, "SELECT * FROM `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` JOIN cursos ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idcurso = cursos.idcurso JOIN unidades ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idunidad = unidades.idunidad");
+	if (mysqli_num_rows($result_informe)) {
+		while ($row_resultados_evaluaciones = mysqli_fetch_array($result_informe, MYSQLI_ASSOC)) $resultados_evaluaciones[] = $row_resultados_evaluaciones;
 	}
 	else {
 	/*
@@ -52,12 +52,14 @@ if ($existenNotas) {
 	*/
 		// Obtenemos las unidades del centro
 		if ($evaluacion_seleccionada == 'evi') {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE 'E.S.O.' OR cursos.nomcurso LIKE 'Bachillerato' ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%' ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
 		}
 		else {
 			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY cursos.nomcurso ASC, unidades.nomunidad ASC");
 		}
-		$row_unidades = mysqli_fetch_all($result_unidades, MYSQLI_ASSOC);
+		
+		$row_unidades = array();
+		while ($row = mysqli_fetch_array($result_unidades, MYSQLI_ASSOC)) $row_unidades[] = $row;
 		
 		foreach ($row_unidades as $unidades) {
 			
@@ -69,7 +71,9 @@ if ($existenNotas) {
 			
 			// Obtenemos las asignaturas de la unidad
 			$result_asignaturas_unidad = mysqli_query($db_con, "SELECT DISTINCT codigo, nombre, abrev FROM materias WHERE curso = '".$unidades['nomcurso']."' AND abrev NOT LIKE '%\_%' ORDER BY codigo ASC");
-			$row_asignaturas_unidad = mysqli_fetch_all($result_asignaturas_unidad, MYSQLI_ASSOC);
+			
+			$row_asignaturas_unidad = array();
+			while ($row = mysqli_fetch_array($result_asignaturas_unidad, MYSQLI_ASSOC)) $row_asignaturas_unidad[] = $row;
 			
 			$columna = 0;
 			foreach ($row_asignaturas_unidad as $asignatura) {
@@ -86,7 +90,9 @@ if ($existenNotas) {
 				$unidades['total_alumnos'] = mysqli_num_rows($result_alumnos_unidad);
 				
 				// Obtenemos las notas de los alumnos
-				$row_alumnos_unidad = mysqli_fetch_all($result_alumnos_unidad, MYSQLI_ASSOC);
+				$row_alumnos_unidad = array();
+				while ($row = mysqli_fetch_array($result_alumnos_unidad, MYSQLI_ASSOC)) $row_alumnos_unidad[] = $row;
+				
 				foreach ($row_alumnos_unidad as $alumno) {
 
 					$alumno[$evaluaciones[$evaluacion_seleccionada]] = rtrim($alumno[$evaluaciones[$evaluacion_seleccionada]], ';');
