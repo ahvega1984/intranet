@@ -715,7 +715,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 <br />
 <?php 
 $tabla = 'tmp_'.$grupo;
-$temp = mysqli_query($db_con, "create table `$tabla` select Fechoria.asunto from Fechoria, alma where Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
+$temp = mysqli_query($db_con, "CREATE TABLE `$tabla` SELECT Fechoria.asunto FROM Fechoria, alma WHERE Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
 $ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by asunto");
 if (mysqli_num_rows($ini0)): 
 ?>
@@ -738,8 +738,8 @@ while ($ini = mysqli_fetch_array($ini0)){
  endif;
  echo '<hr style="width:800px">
 <br />';
-mysqli_query($db_con, "drop table `$tabla`");
   }
+  mysqli_query($db_con, "DROP TABLE `$tabla`");
   ?>
  </div>
 
