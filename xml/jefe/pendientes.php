@@ -3,13 +3,13 @@
 mysqli_query($db_con, "drop TABLE pendientes");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   id int(11) NOT NULL auto_increment,
-  claveal varchar(9) collate latin1_spanish_ci NOT NULL default '',
-  codigo varchar(8) collate latin1_spanish_ci NOT NULL default '',
-  grupo varchar(32) collate latin1_spanish_ci NOT NULL default '',  
+  claveal varchar(9) collate utf8_general_ci NOT NULL default '',
+  codigo varchar(8) collate utf8_general_ci NOT NULL default '',
+  grupo varchar(32) collate utf8_general_ci NOT NULL default '',  
   PRIMARY KEY  (id),
   KEY  claveal (claveal),
   KEY codigo (codigo)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 
 $cur = mysqli_query($db_con,"select claveal, combasi, unidad, curso from alma where curso not like '1%'");
 while ($uni = mysqli_fetch_array($cur)) {

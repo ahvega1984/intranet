@@ -58,7 +58,6 @@ if (! mysqli_num_rows($actua)) {
 	while ($row_table = mysqli_fetch_array($result_tables)) {
 		mysqli_query($db_con, "ALTER TABLE `".$row_table[0]."` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci");
 		mysqli_query($db_con, "ALTER TABLE ".$row_table[0]." ENGINE=MyISAM");
-		mysql_query("OPTIMIZE TABLE '".$row_table[0]."'");
 		mysqli_query($db_con, "ALTER DATABASE `".$config['db_name']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 	}
 	
@@ -76,7 +75,6 @@ if (! mysqli_num_rows($actua)) {
 			while ($row_table = mysqli_fetch_array($result_tables)) {
 				mysqli_query($db_con, "ALTER TABLE `".$row_table[0]."` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci");
 				mysqli_query($db_con, "ALTER TABLE ".$row_table[0]." ENGINE=MyISAM");
-				mysql_query("OPTIMIZE TABLE '".$row_table[0]."'");
 				mysqli_query($db_con, "ALTER DATABASE `".$config['db_name_c201'.$i]."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 			}
 			

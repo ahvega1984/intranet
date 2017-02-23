@@ -4,10 +4,10 @@ require('../../bootstrap.php');
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `unidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
-  `evaluacion` char(3) COLLATE latin1_spanish_ci NOT NULL,
+  `unidad` varchar(64) COLLATE utf8_general_ci NOT NULL,
+  `evaluacion` char(3) COLLATE utf8_general_ci NOT NULL,
   `fecha` date NOT NULL,
-  `texto_acta` text COLLATE latin1_spanish_ci NOT NULL,
+  `texto_acta` text COLLATE utf8_general_ci NOT NULL,
   `impresion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;");

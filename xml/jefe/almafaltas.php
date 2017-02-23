@@ -85,13 +85,13 @@ include '../../menu.php';
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL  
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci";
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
 			
 					// echo $alumnos;
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<legend>ATENCIÓN:</legend>
-			No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
+			No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema. '.mysqli_error($db_con).'
 			</div></div><br />
 			<div align="center">
 			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />

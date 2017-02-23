@@ -12,6 +12,7 @@ error_reporting(0);
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, 'es_ES');
 
+$server_name = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME'];
 
 define('INTRANET_DIRECTORY', __DIR__);
 define('CONFIG_FILE', INTRANET_DIRECTORY . '/config.php');
@@ -29,7 +30,7 @@ if (file_exists(CONFIG_FILE)) {
 	
 	if ($num_lineas > 78) {
 		unlink(CONFIG_FILE);
-		header('Location:'.'http://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php?update=1');
+		header('Location:'.'http://'.$server_name.'/intranet/config/index.php?update=1');
 		exit;
 	}
 	
@@ -43,18 +44,21 @@ if (file_exists(CONFIG_FILE)) {
 }
 else {
 	
+	
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php');
+	        header('Location:'.'https://'.$server_name.'/intranet/config/index.php');
 	        exit();
 	    } 
 	}
 	else {
-		header('Location:'.'http://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php');
+		header('Location:'.'http://'.$server_name.'/intranet/config/index.php');
 		exit();
 	}
 	
 }
+
+unset($server_name);
 
 // CONEXIÓN A LA BASE DE DATOS
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 

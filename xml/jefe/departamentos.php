@@ -35,7 +35,7 @@ include("../../menu.php");
 				  `CARGO` varchar(16) default NULL,
 				  `IDEA` varchar(12) NOT NULL default '',
 				   KEY `NOMBRE` (`NOMBRE`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE latin1_spanish_ci ");
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 				if(isset($_POST['actualizar'])){	
 				}
 				else{

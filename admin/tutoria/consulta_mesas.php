@@ -32,8 +32,8 @@ else {
 
 // TABLA DE PUESTOS
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
-  `unidad` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
-  `puestos` text COLLATE latin1_spanish_ci,
+  `unidad` varchar(10) COLLATE utf8_general_ci NOT NULL,
+  `puestos` text COLLATE utf8_general_ci,
   PRIMARY KEY (`unidad`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
