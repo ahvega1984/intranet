@@ -43,7 +43,7 @@ while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 		if (strstr($data1[0],"5")==TRUE) {	$data1[0]="4";	}
 		if (strstr($data1[0],"6")==TRUE) {	$data1[0]="5";	}
 		if (strstr($data1[0],"7")==TRUE) {	$data1[0]="6";	}
-	$datos1 = "INSERT INTO jornada VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\")";
+	$datos1 = "INSERT INTO jornada VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". trim(utf8_encode($data1[2])) . "\",\"". trim(utf8_encode($data1[3])) . "\")";
 mysqli_query($db_con, $datos1);	
 	}
 }

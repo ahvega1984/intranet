@@ -25,7 +25,7 @@ $nombre_nivel = $_FILES['archivo']['name'];
 $handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>"); 
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
-$datos1 = "INSERT INTO textos_gratis (materia, isbn, ean, editorial, titulo, ano, caducado, importe, utilizado, nivel) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\",\"". trim($data1[4]) . "\",\"". trim($data1[5]) . "\",\"". trim($data1[6]) . "\",\"". trim($data1[7]) . "\",\"". trim($data1[8]) . "\",\"". $nivel . "\")";
+$datos1 = "INSERT INTO textos_gratis (materia, isbn, ean, editorial, titulo, ano, caducado, importe, utilizado, nivel) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". trim(utf8_encode($data1[2])) . "\",\"". trim(utf8_encode($data1[3])) . "\",\"". trim(utf8_encode($data1[4])) . "\",\"". trim(utf8_encode($data1[5])) . "\",\"". trim(utf8_encode($data1[6])) . "\",\"". trim(utf8_encode($data1[7])) . "\",\"". trim(utf8_encode($data1[8])) . "\",\"". $nivel . "\")";
 // echo $datos1."<br>";
 mysqli_query($db_con, $datos1);
 }

@@ -125,7 +125,7 @@ $row = 1;
     $tr=explode("|",$linea);
     
     foreach ($tr as $valor){ 
-      $dato.= "\"". trim($valor) . "\", ";
+      $dato.= "\"". trim(utf8_encode($valor)) . "\", ";
         }
     $dato=substr($dato,0,strlen($dato)-2); 
     $lineasalto.=$dato; 

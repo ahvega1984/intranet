@@ -57,7 +57,7 @@ El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' 
 	foreach ($campo as $indice=>$clave){
 		
 		if ($indice<11) {
-			$sql.="'".trim($clave)."', ";
+			$sql.="'".trim(utf8_encode($clave))."', ";
 		}
 	}
 	$sql=substr($sql,0,strlen($sql)-2);

@@ -2038,9 +2038,9 @@ CREATE TABLE IF NOT EXISTS `transito_control` (
 DROP TABLE IF EXISTS `transito_datos`;
 CREATE TABLE IF NOT EXISTS `transito_datos` (
   `id` int(11) NOT NULL auto_increment,
-  `claveal` varchar(12) character set latin1 collate utf8_general_ci NOT NULL,
-  `tipo` varchar(24) character set latin1 collate utf8_general_ci NOT NULL,
-  `dato` text character set latin1 collate utf8_general_ci NOT NULL,
+  `claveal` varchar(12) collate utf8_general_ci NOT NULL,
+  `tipo` varchar(24) collate utf8_general_ci NOT NULL,
+  `dato` text collate utf8_general_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -2081,7 +2081,7 @@ CREATE TABLE IF NOT EXISTS `tutoria` (
   PRIMARY KEY  (`id`),
   KEY `claveal` (`claveal`),
   KEY `tutor` (`tutor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci PACK_KEYS=0 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2097,19 +2097,6 @@ CREATE TABLE IF NOT EXISTS `unidades` (
   PRIMARY KEY  (`idunidad`,`idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` tinyint(4) unsigned NOT NULL auto_increment,
-  `username` varchar(25) collate utf8_general_ci NOT NULL default '',
-  `password` varchar(50) collate utf8_general_ci NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

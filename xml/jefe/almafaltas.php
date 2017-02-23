@@ -171,7 +171,7 @@ include '../../menu.php';
 							$tr=explode("|",$linea);
 				
 							foreach ($tr as $valor){
-								$dato.= "\"". mysqli_real_escape_string($db_con, trim($valor)) . "\", ";
+								$dato.= "\"". mysqli_real_escape_string($db_con, trim(utf8_encode($valor))) . "\", ";
 							}
 							$dato=substr($dato,0,strlen($dato)-2);
 							$lineasalto.=$dato;

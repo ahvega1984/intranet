@@ -261,7 +261,7 @@ if (isset($_POST['instalar']))
 			}
 			else {
 				// CREACIÓN DE LA BASE DE DATOS
-				mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_name` DEFAULT CHARACTER SET latin1 COLLATE utf8_general_ci");
+				mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 				mysqli_select_db($db_con, $db_name);
 				
 				// IMPORTACIÓN DE TABLAS

@@ -33,7 +33,7 @@ include("../../menu.php");
 				{
 				$tr = explode("/",trim($data1[0]));
 				$fecha="$tr[2]-$tr[1]-$tr[0]";
-				$datos1 = "INSERT INTO festivos ( `fecha` , `nombre` , `ambito` , `docentes` ) VALUES (\"". $fecha . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\")";
+				$datos1 = "INSERT INTO festivos ( `fecha` , `nombre` , `ambito` , `docentes` ) VALUES (\"". $fecha . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". trim(utf8_encode($data1[2])) . "\",\"". trim(utf8_encode($data1[3])) . "\")";
 				mysqli_query($db_con, $datos1);
 				}
 				fclose($handle);
