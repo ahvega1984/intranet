@@ -48,7 +48,7 @@ elseif ($registro){
 
 	foreach ($_POST as $ide => $valor) {      if(($ide != 'registro') and (!empty( $valor))){
 			
-		include ("../pdf/fpdf.php");
+		include ("../pdf/u");
 		define ( 'FPDF_FONTPATH', '../pdf/font/' );
 		// Variables globales para el encabezado y pie de pagina
 		$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
@@ -102,10 +102,10 @@ elseif ($registro){
 
 		# creamos el nuevo objeto partiendo de la clase ampliada
 		$MiPDF->SetMargins(25,20,20);
-		# ajustamos al 100% la visualizaciÃƒÂ³n
+		# ajustamos al 100% la visualizaciíƒÂ³n
 		$MiPDF->SetDisplayMode ( 'fullpage' );
 		$hoy= date ('d-m-Y',time());
-		$titulo1 = utf8_decode("COMUNICACIÓN DE AMONESTACIÓN ESCRITA");
+		$titulo1 = "COMUNICACIÓN DE AMONESTACIÓN ESCRITA";
 
 		for($i=0; $i <= count($valor)-1; $i++){ $j+=1; //echo $valor[$i];
 		$duplicado= mysqli_query($db_con, "select amonestacion from morosos where id=$valor[$i]");
@@ -114,7 +114,7 @@ elseif ($registro){
 		if($duplicados[0]=='NO'){//echo"Ya has registrado las amonestaciones";
 
 			$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar registro");
-			//localizo el alumno a travÃ©s de la id de la tabla morosos.
+			//localizo el alumno a través de la id de la tabla morosos.
 
 			$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id=$valor[$i]") or die ("error al localizar alumno");
 			while($alu=mysqli_fetch_array($al)){
@@ -131,14 +131,14 @@ elseif ($registro){
 					$dia= date ('Y-m-d',time());
 					$clave=$clav[0];// echo $clave.'---'. $dia;
 					$unidad=$clav[1]; //echo $nivel;
-					//insertamos, por fÃ­n, la fechorÃ­a
-					$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechorÃ­a");
+					//insertamos, por fí­n, la fechorí­a
+					$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechorí­a");
 
-					//ahora registramos la intervencion en la tabla tutorÃ­a, debido al tema de los SMS
+					//ahora registramos la intervencion en la tabla tutorí­a, debido al tema de los SMS
 
 					$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 
-					// aquÃ­ irÃ­a el envÃ­o de sms
+					// aquí­ irí­a el enví­o de sms
 
 
 
@@ -150,37 +150,40 @@ elseif ($registro){
 
 
 
-					// aquÃ­ generamos el pdf con todas las amonestaciones
-					$nombre=utf8_decode($nombre);
-					$apellido=utf8_decode($apellido);
+					// aquí­ generamos el pdf con todas las amonestaciones
+					$nombre = $nombre;
+					$apellido = $apellid);
 
-					$cuerpo1 = utf8_decode("Muy SeÃ±or/Sra. mÃ­o/a:
+					$cuerpo1 = "Muy Señor/Sra. mí­o/a:
 
-Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno del grupo $curso ha sido amonestado/a por \"Retraso injustificado en la devoluciÃ³n de material a la biblioteca del centro\"");
-					$cuerpo2 = utf8_decode("Asimismo, le comunico que, segÃºn contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento OrgÃ¡nico de los Institutos de EducaciÃ³n Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podrÃ­a imponÃ©rsele otra medida de correcciÃ³n que podrÃ­a llegar a ser la suspensiÃ³n del derecho de asistencia al Centro.");
-					$cuerpo3 = utf8_decode("----------------------------------------------------------------------------------------------------------------------------------------------
+Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno del grupo $curso ha sido amonestado/a por \"Retraso injustificado en la devolución de material a la biblioteca del centro\"";
 
-En $config['centro_localidad'], a _________________________________
+					$cuerpo2 = "Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podrí­a imponérsele otra medida de corrección que podrí­a llegar a ser la suspensión del derecho de asistencia al Centro.";
+					
+					$cuerpo3 = "----------------------------------------------------------------------------------------------------------------------------------------------
+
+En ".$config['centro_localidad'].", a _________________________________
 Firmado: El Padre/Madre/Representante legal:
 
 
 
-D./DÃ±a _____________________________________________________________________
-D.N.I ___________________________");
-					$cuerpo4 = utf8_decode("
+D./Dña _____________________________________________________________________
+D.N.I ___________________________";
+
+					$cuerpo4 = "
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-COMUNICACIÃ“N DE AMONESTACIÃ“N ESCRITA
+COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 
-	El alumno/a $nombre $apellido del grupo $curso, ha sido amonestado/a con fecha $hoy con falta grave, recibiendo la notificaciÃ³n mediante comunicaciÃ³n escrita de la misma para entregarla al padre/madre/representante legal.
+	El alumno/a $nombre $apellido del grupo $curso, ha sido amonestado/a con fecha $hoy con falta grave, recibiendo la notificación mediante comunicación escrita de la misma para entregarla al padre/madre/representante legal.
 
                                                                          Firma del alumno/a:
 	
-");
+";
 
 					# insertamos la primera pagina del documento
 					$MiPDF->Addpage ();
-					#### Cabecera con direcciÃ³n
+					#### Cabecera con dirección
 					$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 					$MiPDF->SetTextColor ( 0, 0, 0 );
 					$MiPDF->SetTextColor ( 0, 0, 0 );

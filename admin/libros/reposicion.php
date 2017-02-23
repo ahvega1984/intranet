@@ -25,7 +25,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,utf8_encode('CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE'),0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -74,12 +74,12 @@ $sqlasig="SELECT distinct asignaturas.nombre, textos_gratis.titulo, textos_grati
 $resulasig=mysqli_query($db_con, $sqlasig);
 #recogida de variables.
 $hoy=formatea_fecha(date('Y-m-d'));
-$alumno=utf8_decode($registroal[0]);
-$unidad=utf8_decode($registroal[1]);
-$domicilio=utf8_decode($registroal[2]);
-$localidad=utf8_decode($registroal[3]);
+$alumno=$registroal[0];
+$unidad=$registroal[1];
+$domicilio=$registroal[2];
+$localidad=$registroal[3];
 $codigo=$registroal[4];
-$tutor=utf8_decode("Tutor/a: ".$registroal[5]);
+$tutor="Tutor/a: ".$registroal[5];
 $fecha = date('d/m/Y');
 $texto2=" Se debe reponer o en su caso abonar el importe indicado ";
 

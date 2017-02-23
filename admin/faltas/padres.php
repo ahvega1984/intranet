@@ -30,7 +30,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(90);
-		$this->Cell(80,4,utf8_encode('CONSEJERÍA DE EDUCACIÓN'),0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(90);
 		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -186,10 +186,10 @@ Atentamente le saluda la Dirección del Centro.
 #### Cabecera con dirección
 	$MiPDF->SetFont('Times','',10);
 	$MiPDF->SetTextColor(0,0,0);
-	$MiPDF->Text(120,35,utf8_decode($padre));
-	$MiPDF->Text(120,39,utf8_decode($direcion));
-	$MiPDF->Text(120,43,utf8_decode($localidad));
-	$MiPDF->Text(120,47,utf8_decode($provincia));
+	$MiPDF->Text(120,35,$padre);
+	$MiPDF->Text(120,39,$direcion);
+	$MiPDF->Text(120,43,$localidad);
+	$MiPDF->Text(120,47,$provincia);
 	$MiPDF->Text(120,58,$fecha);
 	
 	#Cuerpo.
