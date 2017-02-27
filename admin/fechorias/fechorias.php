@@ -262,11 +262,12 @@ $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE or (stristr($_SESSION['cargo'],'c') == TRUE and stristr($asunto,"Biblioteca")==TRUE)){
+
+if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSION['cargo'],'1') == TRUE or (stristr($_SESSION['cargo'],'c') == TRUE and stristr($asunto,"Biblioteca")==TRUE)){
 		$ahora = mktime();
 		$tr_f = explode("-",$fecha);
 		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+604800;
-		if ($ahora < $antes) {
+		if ($ahora < $antes or stristr($_SESSION['cargo'],'1') == TRUE) {
 			echo "<A HREF='infechoria.php?id=$id&nombre=$claveal'><i class='fa fa-pencil fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";
 		}
 	echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></i></a>";

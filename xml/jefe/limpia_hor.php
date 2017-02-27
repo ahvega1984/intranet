@@ -94,7 +94,7 @@ mysqli_query($db_con,"create table if not exists horw_backup select * from horw 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
 echo "<p class='lead text-important text-danger' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";
 
-$hor0 = "select id, prof, a_grupo, asig from horw where a_grupo in (select nomunidad from unidades) and asig not like 'OPTATIVA EXENTOS'";
+$hor0 = "select id, prof, a_grupo, asig from horw where a_grupo in (select nomunidad from unidades) and asig not like 'OPTATIVA EXENTOS' and c_asig not in (select idactividad from actividades_seneca)";
 $hor1 = mysqli_query($db_con, $hor0);
 echo "<ul>";
 while($hor = mysqli_fetch_array($hor1))
@@ -141,7 +141,7 @@ echo "<li>$pro[0]</li>";
 echo "</ul></div>";
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in"><br />
       <button type="button" class="close" data-dismiss="alert">&times;</button>
-Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
+Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes los Profesores y Departamentos si no lo has hecho ya antes de limpiar el horario.
 </div></div>';
 
 ?>
@@ -149,7 +149,7 @@ Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en
   <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
 </div>
 </div>
-</div>
+</div> 
 </div>
 </div>
 
