@@ -460,7 +460,7 @@ include("cuaderno/menu_cuaderno.php");
 					while ($curso11 = mysqli_fetch_array($curso20))
 					{
 						if ($num_cursos>1) {
-							$col_total=$cols+1;
+							$col_total=$cols+2;
 							if ($extra_sen1==1) {$col_total+=1;}
 							if ($extra_sen2==1) {$col_total+=1;}
 							if ($extra_sen3==1) {$col_total+=1;}
