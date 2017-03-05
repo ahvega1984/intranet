@@ -183,8 +183,8 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-			        <button type="submit" class="btn btn-danger" formaction="post/eliminarEvento.php?mes='.$mes.'&anio='.$anio.'">Eliminar</button>
 			        <button type="submit" class="btn btn-primary">Modificar</button>
+			        <button type="submit" class="btn btn-danger" formaction="post/eliminarEvento.php?mes='.$mes.'&anio='.$anio.'">Eliminar</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
@@ -456,8 +456,8 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			endif;
 
 			echo '<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Modificar</button>
 				        <button type="submit" class="btn btn-danger" formaction="post/eliminarEvento.php?mes='.$mes.'&anio='.$anio.'">Eliminar</button>
-				        <button type="submit" class="btn btn-primary">Modificar</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->

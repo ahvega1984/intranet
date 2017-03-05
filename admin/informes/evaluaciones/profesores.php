@@ -23,6 +23,7 @@ else {
 }
 
 
+
 // Si el usuario desea eliminar los datos y recalcular
 if (isset($_GET['recalcular']) && $_GET['recalcular']) {
 	mysqli_query($db_con, "DROP TABLE `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`;");
@@ -146,9 +147,10 @@ if ($existenNotas) {
 				$columna++;
 			}
 
-			
+			/*
 			// Añadimos a la base de datos
-			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `asignaturas`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".serialize($unidades['asignaturas'])."');");
+			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `repiten_alumnos`, `cero_suspensos`, `uno_suspensos`, `dos_suspensos`, `tres_suspensos`, `cuatro_suspensos`, `cinco_suspensos`, `seis_suspensos`, `siete_suspensos`, `ocho_suspensos`, `nueve_o_mas_suspensos`, `promocionan`, `titulan`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".$unidades['repiten_alumnos']."', '".$unidades['cero_suspensos']."', '".$unidades['uno_suspensos']."', '".$unidades['dos_suspensos']."', '".$unidades['tres_suspensos']."', '".$unidades['cuatro_suspensos']."', '".$unidades['cinco_suspensos']."', '".$unidades['seis_suspensos']."', '".$unidades['siete_suspensos']."', '".$unidades['ocho_suspensos']."', '".$unidades['nueve_o_mas_suspensos']."', '".$unidades['promocionan']."', '".$unidades['titulan']."');");
+			*/
 			
 			// Añadimos la información al array
 			array_push($resultados_evaluaciones, $unidades);
@@ -176,7 +178,7 @@ include("menu.php");
 	<div class="container-fluid">
 		
 		<div class="page-header">
-			<h2>Informes de evaluaciones <small>Estadísticas por asignaturas</small></h2>
+			<h2>Informes de evaluaciones <small>Estadísticas por profesores</small></h2>
 		</div>
 		
 		<div class="row">
@@ -200,17 +202,17 @@ include("menu.php");
 				<?php endif; ?>
 				
 				<ul class="nav nav-pills">
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=evi') == true || stristr($_SERVER['REQUEST_URI'], '?evaluacion=') == false) ? ' class="active"' : ''; ?>><a href="?evaluacion=evi<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Inicial</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=1ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=1ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">1ª Evaluación</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=2ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=2ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">2ª Evaluación</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=ord') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ord<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Ordinaria</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=ext') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ext<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Extraordinaria</a></li>
+				<li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=evi') == true || stristr($_SERVER['REQUEST_URI'], '?evaluacion=') == false) ? ' class="active"' : ''; ?>><a href="?evaluacion=evi<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Inicial</a></li>
+				<li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=1ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=1ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">1ª Evaluación</a></li>
+				<li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=2ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=2ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">2ª Evaluación</a></li>
+				<li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=ord') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ord<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Ordinaria</a></li>
+				<li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=ext') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ext<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Extraordinaria</a></li>
 				</ul>
 			</div>
 			
 			<div class="col-sm-2 hidden-print">
 				<?php if (! $evaluacionSinNotas): ?>
-				<a href="asignaturas.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fa fa-refresh fa-fw"></span> Recalcular</a>
+				<a href="index.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fa fa-refresh fa-fw"></span> Recalcular</a>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -334,6 +336,6 @@ include("menu.php");
 	</div>
 
 	<?php include("../../../pie.php"); ?>
-	
+
 </body>
 </html>
