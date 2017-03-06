@@ -35,7 +35,7 @@ foreach($_POST as $clave => $valor)
 {
 	if(strlen(strstr($clave,"falta_")) > 0)
 	{
-		$nc0 = explode("_", $clave, 2);
+		$nc0 = explode("_", $clave, 3);
 		$nc = $nc0[1];
 		$unidad = $nc0[2];
 
