@@ -101,11 +101,11 @@ if($detalles == '1')
 	<tr>
 		<th>Autorizada</th>
 		<td><?php
-		if ($datos[9]=="0") {
-			echo "NO";
+		if ($datos['confirmado']=="1") {
+			echo "SÍ";
 		}
 		else{
-			echo "SÍ";
+			echo "NO";
 		}	
 		?></td>
 	</tr>
