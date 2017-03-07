@@ -113,7 +113,7 @@ if (! mysqli_num_rows($result)) {
 	exit();
 }
 else {
-	$editar = mysqli_query($db_con, "UPDATE calendario SET categoria='$calendario_evento', nombre='$nombre_evento', descripcion='$descripcion_evento', fechaini='$fechaini_evento_sql', horaini='$horaini_evento', fechafin='$fechafin_evento_sql', horafin='$horafin_evento', lugar='$lugar_evento', departamento='$string_departamento', profesores='$string_profesores', unidades='$string_unidad', asignaturas='$string_asignatura', fechareg='$fechareg_evento', profesorreg='$profesorreg_evento', observaciones='$observaciones_evento' WHERE id=$id_evento") or die (mysqli_error($db_con));
+	$editar = mysqli_query($db_con, "UPDATE calendario SET categoria='$calendario_evento', nombre='$nombre_evento', descripcion='$descripcion_evento', fechaini='$fechaini_evento_sql', horaini='$horaini_evento', fechafin='$fechafin_evento_sql', horafin='$horafin_evento', lugar='$lugar_evento', departamento='$string_departamento', profesores='$string_profesores', unidades='$string_unidad', asignaturas='$string_asignatura', profesorreg='$profesorreg_evento', observaciones='$observaciones_evento' WHERE id=$id_evento") or die (mysqli_error($db_con));
 	if (! $editar) {
 		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoEdicion');
 		exit();
