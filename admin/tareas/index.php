@@ -157,7 +157,7 @@ echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='
 
 if (strstr($si_al,"1")==FALSE) {
  			echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o
-'> </i> No hay Informes de Tareas activos para ti. </p>";
+'> </i> No hay Informes de Tareas activos para ti. </p></div>";
  		} 		
 ?>
 </div>

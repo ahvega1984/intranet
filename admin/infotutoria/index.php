@@ -139,11 +139,10 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 
 if (strstr($si_al,"1")==FALSE) {
  			echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o
-'> </i> No hay Informes de Tutoría activos para ti. </p>";
+'> </i> No hay Informes de Tutoría activos para ti. </p></div>";
  		} 	
 ?>
-  	</div>  
-  </div>
+  </div>  
   </div>
   </div>
 <?php include("../../pie.php");?>
