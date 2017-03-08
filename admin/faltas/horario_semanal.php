@@ -9,7 +9,7 @@ $unidad = $_POST['unidad'];
 require('../../pdf/mc_table.php');
 
 $pdf = new PDF_MC_Table();
-$pdf->Open();
+//$pdf->Open();
 $pdf->SetMargins(11,10,11);
 $pdf->SetDisplayMode('fullpage');
 

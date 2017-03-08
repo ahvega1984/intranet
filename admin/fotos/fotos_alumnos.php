@@ -10,7 +10,7 @@ $curso = $_POST['curso'];
 require('../../pdf/mc_table.php');
 
 $pdf = new PDF_MC_Table();
-$pdf->Open();
+//$pdf->Open();
 $pdf->SetMargins(13,10,13);
 $pdf->SetDisplayMode('fullpage');
 
