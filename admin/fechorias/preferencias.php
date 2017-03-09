@@ -10,6 +10,7 @@ function limpiar_string($string)
 
 if (isset($_POST['btnGuardar'])) {
 	
+	$prefNotificacionPadres	= limpiar_string($_POST['prefNotificacionPadres']);
 	$prefMostrarDescripcion	= limpiar_string($_POST['prefMostrarDescripcion']);
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
@@ -18,6 +19,7 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "<?php \r\n");
 		
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE PROBLEMAS DE CONVIVENCIA\r\n");
+		fwrite($file, "\$config['convivencia']['notificaciones_padres']\t= $prefNotificacionPadres;\r\n");
 		fwrite($file, "\$config['convivencia']['mostrar_descripcion']\t= $prefMostrarDescripcion;\r\n");
 		
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
@@ -70,7 +72,17 @@ include("menu.php");
 						<legend>Preferencias</legend>
 						
 						<div class="form-group">
-							<label for="prefMediaHora" class="col-sm-4 control-label">Descripción del problema en impresión de partes</label>
+							<label for="prefNotificacionPadres" class="col-sm-4 control-label">Enviar notificación a padres</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefNotificacionPadres" name="prefNotificacionPadres">
+									<option value="1" <?php echo (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+									<option value="0" <?php echo (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="prefMostrarDescripcion" class="col-sm-4 control-label">Descripción del problema en impresión de partes</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefMostrarDescripcion" name="prefMostrarDescripcion">
 									<option value="0" <?php echo (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
