@@ -36,7 +36,7 @@ if ($row)
 			
 			<div class="hidden-print">
 				<a href="pdf.php?id=<?php echo $row['id']; ?>&imprimir=1" class="btn btn-primary">Imprimir</a>
-				<a href="add.php" class="btn btn-default">Volver</a>
+				<a href="registrar.php" class="btn btn-default">Volver</a>
 			</div>
 			
  		</div>
