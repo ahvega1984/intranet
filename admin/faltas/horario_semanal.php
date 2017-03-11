@@ -80,7 +80,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$i=0;
 	while ($alumno = mysqli_fetch_array($result)) {
 		if ($i%2==0) $somb='DF'; else $somb='';
-		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,40),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
+		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,39),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
 		
 		$pdf->SetLineWidth(0.6); // Grosor de linea
 		for ($j=0; $j<6; $j++) {
