@@ -31,7 +31,7 @@ include("../../menu.php");
 					mysqli_query($db_con, "create table horw_seg select * from horw");
 					mysqli_query($db_con, "create table horw_seg_faltas select * from horw_faltas");
 			
-					mysqli_query($db_con, "create table if not exists horw_var select * from horw");
+					mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS horw_var select * from horw");
 					mysqli_query($db_con, "truncate table horw_var");
 					// BacKup de la tabla profesores
 					mysqli_query($db_con, "drop table profesores_seg");

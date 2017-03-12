@@ -40,7 +40,7 @@ if (isset($_POST['listado_total'])) {
 if (isset($_POST['imprimir'])) {	
 
 	mysqli_query($db_con, "drop table if exists matriculas_temp");
-	mysqli_query($db_con, "CREATE TABLE if not exists  `matriculas_bach_temp` (
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -86,7 +86,7 @@ if (isset($_POST['cambios'])) {
 	include("menu.php");
 	echo "<br>";
 	mysqli_query($db_con, "drop table if exists matriculas_bach_temp");
-	mysqli_query($db_con, "CREATE TABLE if not exists `matriculas_bach_temp` (
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
