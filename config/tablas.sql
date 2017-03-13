@@ -4,7 +4,7 @@
 
 DROP TABLE IF EXISTS `absentismo`;
 CREATE TABLE IF NOT EXISTS `absentismo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `mes` char(2) NOT NULL DEFAULT '',
   `numero` bigint(21) NOT NULL DEFAULT '0',
@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `absentismo` (
   `tutoria` mediumtext,
   `orientacion` mediumtext,
   `serv_sociales` mediumtext,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -24,13 +24,13 @@ CREATE TABLE IF NOT EXISTS `absentismo` (
 
 DROP TABLE IF EXISTS `acceso`;
 CREATE TABLE IF NOT EXISTS `acceso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` varchar(10) NOT NULL,
   `fecha` date NOT NULL,
   `clase` tinyint(1) NOT NULL,
   `observaciones` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -40,10 +40,10 @@ CREATE TABLE IF NOT EXISTS `acceso` (
 
 DROP TABLE IF EXISTS `acceso_dias`;
 CREATE TABLE IF NOT EXISTS `acceso_dias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
-  `numero` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`fecha`)
+  `numero` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
@@ -54,11 +54,11 @@ CREATE TABLE IF NOT EXISTS `acceso_dias` (
 
 DROP TABLE IF EXISTS `actividadalumno`;
 CREATE TABLE IF NOT EXISTS `actividadalumno` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
-  `cod_actividad` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `cod_actividad` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -69,12 +69,12 @@ CREATE TABLE IF NOT EXISTS `actividadalumno` (
 DROP TABLE IF EXISTS `actividades_seneca`;
 CREATE TABLE IF NOT EXISTS `actividades_seneca` (
   `regactividad` char(1) NOT NULL,
-  `idactividad` int(12) UNSIGNED NOT NULL,
+  `idactividad` int(11) UNSIGNED NOT NULL,
   `nomactividad` varchar(100) NOT NULL,
   `requnidadactividad` char(1) NOT NULL,
   `reqmateriaactividad` char(1) NOT NULL,
   PRIMARY KEY (`idactividad`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -84,11 +84,11 @@ CREATE TABLE IF NOT EXISTS `actividades_seneca` (
 
 DROP TABLE IF EXISTS `actualizacion`;
 CREATE TABLE IF NOT EXISTS `actualizacion` (
-  `d` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `modulo` varchar(128) NOT NULL,
   `fecha` datetime NOT NULL,
-  PRIMARY KEY (`d`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `alma` (
   `SEXO` varchar(1) DEFAULT NULL,
   `FECHAMATRICULA` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `alma_primera` (
   `NACIONALIDAD` varchar(32) DEFAULT NULL,
   `SEXO` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -199,8 +199,8 @@ DROP TABLE IF EXISTS `alumnos`;
 CREATE TABLE IF NOT EXISTS `alumnos` (
   `nombre` varchar(71) DEFAULT NULL,
   `unidad` varchar(255) DEFAULT NULL,
-  `claveal` varchar(8) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `claveal` varchar(12) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
   `ABREV` varchar(10) DEFAULT NULL,
   `CURSO` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`CODIGO`,`CURSO`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -225,17 +225,17 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
 
 DROP TABLE IF EXISTS `ausencias`;
 CREATE TABLE IF NOT EXISTS `ausencias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` varchar(64) NOT NULL DEFAULT '',
   `inicio` date NOT NULL DEFAULT '0000-00-00',
   `fin` date NOT NULL DEFAULT '0000-00-00',
-  `horas` int(11) NOT NULL DEFAULT '0',
+  `horas` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `tareas` mediumtext NOT NULL,
   `ahora` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `archivo` varchar(186) NOT NULL,
   `Observaciones` mediumtext,
-  PRIMARY KEY (`id`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `ausencias` (
 
 DROP TABLE IF EXISTS `biblioteca`;
 CREATE TABLE IF NOT EXISTS `biblioteca` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `Autor` varchar(128) NOT NULL,
   `Titulo` varchar(128) NOT NULL,
   `Editorial` varchar(128) NOT NULL,
@@ -253,12 +253,12 @@ CREATE TABLE IF NOT EXISTS `biblioteca` (
   `Tipo` varchar(64) NOT NULL,
   `anoEdicion` int(4) NOT NULL,
   `extension` varchar(8) NOT NULL,
-  `serie` int(11) NOT NULL,
+  `serie` int(11) UNSIGNED NOT NULL,
   `lugaredicion` varchar(48) NOT NULL,
   `tipoEjemplar` varchar(128) NOT NULL,
   `ubicacion` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -268,14 +268,14 @@ CREATE TABLE IF NOT EXISTS `biblioteca` (
 
 DROP TABLE IF EXISTS `biblioteca_lectores`;
 CREATE TABLE IF NOT EXISTS `biblioteca_lectores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `Codigo` varchar(12) NOT NULL,
   `DNI` varchar(12) NOT NULL,
   `Apellidos` varchar(48) NOT NULL,
   `Nombre` varchar(32) NOT NULL,
   `Grupo` varchar(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -285,8 +285,8 @@ CREATE TABLE IF NOT EXISTS `biblioteca_lectores` (
 
 DROP TABLE IF EXISTS `calendario`;
 CREATE TABLE IF NOT EXISTS `calendario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `categoria` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `categoria` int(11) UNSIGNED NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `descripcion` longtext NOT NULL,
   `fechaini` date DEFAULT NULL,
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `calendario` (
   `confirmado` tinyint(1) NOT NULL,
   `observaciones` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -313,14 +313,14 @@ CREATE TABLE IF NOT EXISTS `calendario` (
 
 DROP TABLE IF EXISTS `calendario_categorias`;
 CREATE TABLE IF NOT EXISTS `calendario_categorias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
   `fecha` date NOT NULL,
   `profesor` varchar(80) NOT NULL,
   `color` char(7) NOT NULL,
-  `espublico` int(11) NOT NULL DEFAULT '0',
+  `espublico` int(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `calificaciones` (
   `abreviatura` varchar(4) DEFAULT NULL,
   `orden` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `cargo` varchar(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dni`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -358,12 +358,12 @@ CREATE TABLE IF NOT EXISTS `cargos` (
 
 DROP TABLE IF EXISTS `control`;
 CREATE TABLE IF NOT EXISTS `control` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL,
   `pass` varchar(254) NOT NULL,
   `correo` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -373,12 +373,12 @@ CREATE TABLE IF NOT EXISTS `control` (
 
 DROP TABLE IF EXISTS `control_matriculas`;
 CREATE TABLE IF NOT EXISTS `control_matriculas` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `claveal` varchar(12) NOT NULL,
   `pass` varchar(254) NOT NULL,
   `correo` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -388,15 +388,15 @@ CREATE TABLE IF NOT EXISTS `control_matriculas` (
 
 DROP TABLE IF EXISTS `convivencia`;
 CREATE TABLE IF NOT EXISTS `convivencia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `claveal` int(8) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL,
   `dia` int(1) NOT NULL DEFAULT '0',
   `hora` char(1) NOT NULL DEFAULT '0',
   `trabajo` int(1) NOT NULL DEFAULT '0',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   `observaciones` mediumtext NOT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -406,10 +406,10 @@ CREATE TABLE IF NOT EXISTS `convivencia` (
 
 DROP TABLE IF EXISTS `cursos`;
 CREATE TABLE IF NOT EXISTS `cursos` (
-  `idcurso` int(12) UNSIGNED NOT NULL,
+  `idcurso` int(11) UNSIGNED NOT NULL,
   `nomcurso` varchar(80) NOT NULL,
   PRIMARY KEY (`idcurso`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -419,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
 
 DROP TABLE IF EXISTS `c_profes`;
 CREATE TABLE IF NOT EXISTS `c_profes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pass` varchar(48) DEFAULT NULL,
   `PROFESOR` varchar(48) DEFAULT NULL,
   `dni` varchar(9) NOT NULL DEFAULT '',
@@ -427,9 +427,8 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `correo` varchar(64) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
-  PRIMARY KEY (`id`,`idea`),
-  KEY `PROFESOR` (`PROFESOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -443,7 +442,7 @@ CREATE TABLE IF NOT EXISTS `datos` (
   `nota` mediumtext NOT NULL,
   `ponderacion` char(3) DEFAULT NULL,
   `claveal` varchar(12) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -457,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `datos_primaria` (
   `nombre` varchar(30) DEFAULT NULL,
   `padre` varchar(78) DEFAULT NULL,
   `dnitutor` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -472,9 +471,8 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `DEPARTAMENTO` varchar(80) DEFAULT NULL,
   `CARGO` varchar(10) DEFAULT NULL,
   `idea` varchar(12) NOT NULL DEFAULT '',
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idea`,`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idea`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -487,7 +485,7 @@ CREATE TABLE IF NOT EXISTS `departamentos_seneca` (
   `iddepartamento` int(2) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nomdepartamento` varchar(80) NOT NULL,
   PRIMARY KEY (`iddepartamento`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -497,12 +495,12 @@ CREATE TABLE IF NOT EXISTS `departamentos_seneca` (
 
 DROP TABLE IF EXISTS `dependencias`;
 CREATE TABLE IF NOT EXISTS `dependencias` (
-  `iddependencia` int(12) UNSIGNED NOT NULL,
+  `iddependencia` int(11) UNSIGNED NOT NULL,
   `nomdependencia` varchar(30) NOT NULL,
   `descdependencia` varchar(80) DEFAULT NULL,
   `reservadependencia` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`iddependencia`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -523,7 +521,7 @@ CREATE TABLE IF NOT EXISTS `depto_pedidos` (
   `entregado` tinyint(1) NOT NULL DEFAULT '0',
   `vistoSecretaria` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -539,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `depto_pedidos_detalles` (
   `cantidad` tinyint(3) UNSIGNED NOT NULL,
   `importe` decimal(10,2) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`,`id_pedido`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -555,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `evaluaciones` (
   `profesor` mediumtext NOT NULL,
   `calificaciones` blob NOT NULL,
   PRIMARY KEY (`unidad`,`asignatura`,`evaluacion`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -572,7 +570,7 @@ CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `texto_acta` mediumtext NOT NULL,
   `impresion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -582,14 +580,14 @@ CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
 
 DROP TABLE IF EXISTS `evalua_pendientes`;
 CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `evaluacion` tinyint(1) NOT NULL,
-  `claveal` varchar(8) NOT NULL,
+  `claveal` varchar(12) NOT NULL,
   `codigo` int(6) NOT NULL,
   `materia` varchar(8) NOT NULL,
   `nota` tinyint(2) DEFAULT NULL,
-  PRIMARY KEY (`id`,`evaluacion`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -599,14 +597,14 @@ CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
 
 DROP TABLE IF EXISTS `evalua_tutoria`;
 CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `unidad` varchar(32) NOT NULL,
   `evaluacion` varchar(32) NOT NULL,
   `alumno` varchar(10) NOT NULL,
   `campo` varchar(10) NOT NULL,
   `valor` mediumtext NOT NULL,
   PRIMARY KEY (`id`,`evaluacion`,`alumno`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -616,8 +614,8 @@ CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
 
 DROP TABLE IF EXISTS `FALTAS`;
 CREATE TABLE IF NOT EXISTS `FALTAS` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `unidad` varchar(64) NOT NULL,
   `NC` tinyint(2) NOT NULL,
   `FECHA` date DEFAULT NULL,
@@ -626,8 +624,8 @@ CREATE TABLE IF NOT EXISTS `FALTAS` (
   `PROFESOR` int(7) DEFAULT NULL,
   `CODASI` varchar(10) DEFAULT NULL,
   `FALTA` char(1) DEFAULT NULL,
-  PRIMARY KEY (`id`,`CLAVEAL`,`NC`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -637,14 +635,14 @@ CREATE TABLE IF NOT EXISTS `FALTAS` (
 
 DROP TABLE IF EXISTS `faltas_control`;
 CREATE TABLE IF NOT EXISTS `faltas_control` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` tinyint(4) NOT NULL,
-  `alumno` int(11) NOT NULL,
-  `asignatura` int(11) NOT NULL,
+  `alumno` int(11) UNSIGNED NOT NULL,
+  `asignatura` int(11) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
   `num_profes` tinyint(4) NOT NULL,
   `hora` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`,`profesor`,`alumno`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
@@ -655,9 +653,11 @@ CREATE TABLE IF NOT EXISTS `faltas_control` (
 
 DROP TABLE IF EXISTS `faltas_profes`;
 CREATE TABLE IF NOT EXISTS `faltas_profes` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` char(2) DEFAULT NULL,
-  `numero` bigint(21) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `numero` bigint(21) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -667,13 +667,13 @@ CREATE TABLE IF NOT EXISTS `faltas_profes` (
 
 DROP TABLE IF EXISTS `FALUMNOS`;
 CREATE TABLE IF NOT EXISTS `FALUMNOS` (
-  `CLAVEAL` char(12) NOT NULL DEFAULT '',
+  `claveal` varchar(12) NOT NULL DEFAULT '',
   `NC` double NOT NULL,
   `APELLIDOS` char(30) DEFAULT NULL,
   `NOMBRE` char(24) DEFAULT NULL,
   `unidad` varchar(64) NOT NULL,
-  PRIMARY KEY (`CLAVEAL`,`NC`,`unidad`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`CLAVEAL`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -683,13 +683,13 @@ CREATE TABLE IF NOT EXISTS `FALUMNOS` (
 
 DROP TABLE IF EXISTS `FALUMNOS_primero`;
 CREATE TABLE IF NOT EXISTS `FALUMNOS_primero` (
-  `claveal` char(12) NOT NULL DEFAULT '',
+  `claveal` varchar(12) NOT NULL DEFAULT '',
   `nc` double NOT NULL,
   `apellidos` char(30) DEFAULT NULL,
   `nombre` char(24) DEFAULT NULL,
   `unidad` varchar(64) NOT NULL,
-  PRIMARY KEY (`claveal`,`nc`,`unidad`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -704,7 +704,7 @@ CREATE TABLE IF NOT EXISTS `Fechoria` (
   `ASUNTO` text COLLATE utf8_general_ci  NOT NULL,
   `NOTAS` text COLLATE utf8_general_ci  NOT NULL,
   `INFORMA` varchar(48) COLLATE utf8_general_ci  NOT NULL DEFAULT '',
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `grave` varchar(10) COLLATE utf8_general_ci  NOT NULL DEFAULT '',
   `medida` varchar(148) COLLATE utf8_general_ci  NOT NULL DEFAULT '',
   `expulsion` tinyint(2) NOT NULL DEFAULT '0',
@@ -720,7 +720,7 @@ CREATE TABLE IF NOT EXISTS `Fechoria` (
   `horas` varchar(10) COLLATE utf8_general_ci  DEFAULT '123R456',
   `confirmado` tinyint(1) DEFAULT NULL,
   `tareas` char(2) COLLATE utf8_general_ci  DEFAULT NULL,
-  PRIMARY KEY (`CLAVEAL`,`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
@@ -731,12 +731,13 @@ CREATE TABLE IF NOT EXISTS `Fechoria` (
 
 DROP TABLE IF EXISTS `festivos`;
 CREATE TABLE IF NOT EXISTS `festivos` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   `nombre` varchar(64) NOT NULL DEFAULT '',
   `docentes` char(2) NOT NULL DEFAULT '',
   `ambito` varchar(10) NOT NULL DEFAULT '',
-  PRIMARY KEY (`fecha`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -746,12 +747,12 @@ CREATE TABLE IF NOT EXISTS `festivos` (
 
 DROP TABLE IF EXISTS `fotos`;
 CREATE TABLE IF NOT EXISTS `fotos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(18) NOT NULL DEFAULT '',
   `datos` mediumblob NOT NULL,
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `tamaño` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`,`nombre`)
+  `tamaño` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
 
 -- --------------------------------------------------------
@@ -767,7 +768,7 @@ CREATE TABLE IF NOT EXISTS `FTUTORES` (
   `observaciones1` mediumtext NOT NULL,
   `observaciones2` mediumtext NOT NULL,
   PRIMARY KEY (`unidad`,`TUTOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -782,8 +783,8 @@ CREATE TABLE IF NOT EXISTS `grupos` (
   `asignatura` int(6) NOT NULL DEFAULT '0',
   `curso` varchar(32) NOT NULL DEFAULT '',
   `alumnos` varchar(124) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`profesor`,`asignatura`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -793,7 +794,7 @@ CREATE TABLE IF NOT EXISTS `grupos` (
 
 DROP TABLE IF EXISTS `guardias`;
 CREATE TABLE IF NOT EXISTS `guardias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` varchar(64) NOT NULL DEFAULT '',
   `profe_aula` varchar(64) NOT NULL DEFAULT '',
   `dia` tinyint(1) NOT NULL DEFAULT '0',
@@ -801,8 +802,8 @@ CREATE TABLE IF NOT EXISTS `guardias` (
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `fecha_guardia` date NOT NULL DEFAULT '0000-00-00',
   `turno` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -815,8 +816,8 @@ CREATE TABLE IF NOT EXISTS `hermanos` (
   `telefono` varchar(255) DEFAULT NULL,
   `telefonourgencia` varchar(255) DEFAULT NULL,
   `hermanos` bigint(21) NOT NULL DEFAULT '0',
-  KEY `telefono` (`telefono`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY `telefono` (`telefono`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -826,7 +827,7 @@ CREATE TABLE IF NOT EXISTS `hermanos` (
 
 DROP TABLE IF EXISTS `horw`;
 CREATE TABLE IF NOT EXISTS `horw` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `dia` char(1) NOT NULL DEFAULT '',
   `hora` char(2) NOT NULL DEFAULT '',
   `a_asig` varchar(8) NOT NULL DEFAULT '',
@@ -841,8 +842,8 @@ CREATE TABLE IF NOT EXISTS `horw` (
   `nivel` varchar(10) NOT NULL DEFAULT '',
   `n_grupo` varchar(10) NOT NULL DEFAULT '',
   `clase` varchar(16) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`prof`,`c_prof`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -862,8 +863,8 @@ CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   `FECHA_REGISTRO` date NOT NULL DEFAULT '0000-00-00',
   `valido` tinyint(1) NOT NULL DEFAULT '1',
   `motivo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`,`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -873,13 +874,13 @@ CREATE TABLE IF NOT EXISTS `infotut_alumno` (
 
 DROP TABLE IF EXISTS `infotut_profesor`;
 CREATE TABLE IF NOT EXISTS `infotut_profesor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_alumno` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_alumno` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `asignatura` varchar(64) NOT NULL DEFAULT '',
   `informe` mediumtext NOT NULL,
-  PRIMARY KEY (`id`,`id_alumno`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -889,15 +890,15 @@ CREATE TABLE IF NOT EXISTS `infotut_profesor` (
 
 DROP TABLE IF EXISTS `intervenciones_profesores`;
 CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `idea` varchar(10) NOT NULL,
   `nombre` varchar(64) NOT NULL,
   `fecha` date NOT NULL,
   `causa` varchar(64) NOT NULL,
   `observaciones` mediumtext NOT NULL,
   `accion` varchar(64) NOT NULL,
-  PRIMARY KEY (`id`,`idea`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -907,20 +908,20 @@ CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
 
 DROP TABLE IF EXISTS `inventario`;
 CREATE TABLE IF NOT EXISTS `inventario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `clase` varchar(48) NOT NULL DEFAULT '',
   `lugar` varchar(48) NOT NULL DEFAULT '',
   `descripcion` mediumtext NOT NULL,
   `marca` varchar(32) NOT NULL DEFAULT '',
   `modelo` varchar(48) NOT NULL DEFAULT '',
   `serie` varchar(24) NOT NULL DEFAULT '',
-  `unidades` int(11) NOT NULL DEFAULT '0',
+  `unidades` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `fecha` varchar(10) NOT NULL DEFAULT '',
   `ahora` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `DEPARTAMENTO` varchar(80) NOT NULL,
   `profesor` varchar(48) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`DEPARTAMENTO`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -930,11 +931,11 @@ CREATE TABLE IF NOT EXISTS `inventario` (
 
 DROP TABLE IF EXISTS `inventario_clases`;
 CREATE TABLE IF NOT EXISTS `inventario_clases` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `familia` varchar(64) NOT NULL DEFAULT '',
   `clase` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -944,10 +945,10 @@ CREATE TABLE IF NOT EXISTS `inventario_clases` (
 
 DROP TABLE IF EXISTS `inventario_lugares`;
 CREATE TABLE IF NOT EXISTS `inventario_lugares` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `lugar` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -962,8 +963,8 @@ CREATE TABLE IF NOT EXISTS `listafechorias` (
   `medidas` varchar(64) DEFAULT NULL,
   `medidas2` longtext,
   `tipo` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`ID`,`fechoria`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -978,9 +979,9 @@ CREATE TABLE IF NOT EXISTS `materias` (
   `ABREV` varchar(10) DEFAULT NULL,
   `CURSO` varchar(128) DEFAULT NULL,
   `GRUPO` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`CODIGO`,`GRUPO`,`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -990,12 +991,12 @@ CREATE TABLE IF NOT EXISTS `materias` (
 
 DROP TABLE IF EXISTS `materias_seneca`;
 CREATE TABLE IF NOT EXISTS `materias_seneca` (
-  `idmateria` int(12) UNSIGNED NOT NULL,
+  `idmateria` int(11) UNSIGNED NOT NULL,
   `nommateria` varchar(80) NOT NULL,
   `abrevmateria` varchar(8) DEFAULT NULL,
-  `idcurso` int(12) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idmateria`,`nommateria`,`idcurso`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `idcurso` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`idmateria`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1005,8 +1006,8 @@ CREATE TABLE IF NOT EXISTS `materias_seneca` (
 
 DROP TABLE IF EXISTS `matriculas`;
 CREATE TABLE IF NOT EXISTS `matriculas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `claveal` varchar(8) NOT NULL DEFAULT '',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL DEFAULT '',
   `apellidos` varchar(36) NOT NULL DEFAULT '',
   `nombre` varchar(24) NOT NULL DEFAULT '',
   `nacido` varchar(24) NOT NULL DEFAULT '',
@@ -1074,8 +1075,8 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
   `divorcio` varchar(64) DEFAULT NULL,
   `matematicas3` char(1) NOT NULL,
   `ciencias4` char(1) NOT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1085,8 +1086,8 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
 
 DROP TABLE IF EXISTS `matriculas_bach`;
 CREATE TABLE IF NOT EXISTS `matriculas_bach` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `claveal` varchar(8) NOT NULL DEFAULT '',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL DEFAULT '',
   `apellidos` varchar(36) NOT NULL DEFAULT '',
   `nombre` varchar(24) NOT NULL DEFAULT '',
   `nacido` varchar(24) NOT NULL DEFAULT '',
@@ -1147,9 +1148,9 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `opt_aut24` int(1) NOT NULL,
   `opt_aut25` int(1) NOT NULL,
   `opt_aut26` int(1) NOT NULL,
-  `opt_aut27` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `opt_aut27` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1182,7 +1183,7 @@ CREATE TABLE IF NOT EXISTS `mem_dep` (
   `p19` longtext NOT NULL,
   `p20` longtext NOT NULL,
   PRIMARY KEY (`DEPARTAMENTO`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1195,7 +1196,7 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dni` varchar(10) NOT NULL DEFAULT '',
-  `claveal` int(12) NOT NULL DEFAULT '0',
+  `claveal` varchar(12) NOT NULL DEFAULT '0',
   `asunto` mediumtext NOT NULL,
   `texto` mediumtext NOT NULL,
   `ip` varchar(15) NOT NULL DEFAULT '',
@@ -1204,8 +1205,8 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   `correo` varchar(72) DEFAULT NULL,
   `unidad` varchar(64) NOT NULL,
   `archivo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1216,12 +1217,12 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
 DROP TABLE IF EXISTS `mens_profes`;
 CREATE TABLE IF NOT EXISTS `mens_profes` (
   `id_profe` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_texto` int(11) NOT NULL,
+  `id_texto` int(11) UNSIGNED NOT NULL,
   `profesor` varchar(64) NOT NULL,
   `recibidoprofe` tinyint(1) NOT NULL DEFAULT '0',
   `recibidojefe` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_profe`,`id_texto`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_profe`,`id_texto`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1238,8 +1239,8 @@ CREATE TABLE IF NOT EXISTS `mens_texto` (
   `texto` longtext NOT NULL,
   `destino` mediumtext NOT NULL,
   `oculto` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`,`origen`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1259,7 +1260,7 @@ CREATE TABLE IF NOT EXISTS `morosos` (
   `amonestacion` varchar(2) NOT NULL DEFAULT 'NO',
   `sms` varchar(2) NOT NULL DEFAULT 'NO',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1277,7 +1278,7 @@ CREATE TABLE IF NOT EXISTS `notas` (
   `notas4` varchar(200) DEFAULT NULL,
   `promociona` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1287,7 +1288,7 @@ CREATE TABLE IF NOT EXISTS `notas` (
 
 DROP TABLE IF EXISTS `notas_cuaderno`;
 CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   `nombre` varchar(64) NOT NULL DEFAULT '',
@@ -1300,8 +1301,8 @@ CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   `orden` tinyint(2) NOT NULL DEFAULT '0',
   `Tipo` varchar(32) DEFAULT NULL,
   `color` varchar(7) NOT NULL,
-  PRIMARY KEY (`id`,`profesor`,`asignatura`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1311,7 +1312,7 @@ CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
 
 DROP TABLE IF EXISTS `noticias`;
 CREATE TABLE IF NOT EXISTS `noticias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `slug` mediumtext NOT NULL,
   `content` longtext NOT NULL,
   `contact` varchar(255) DEFAULT NULL,
@@ -1320,7 +1321,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `fechafin` date DEFAULT NULL,
   `pagina` tinyint(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1335,7 +1336,7 @@ CREATE TABLE IF NOT EXISTS `nuevas` (
   `nombre` varchar(128) NOT NULL,
   `texto` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1348,7 +1349,7 @@ CREATE TABLE IF NOT EXISTS `ocultas` (
   `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `aula` varchar(48) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1358,7 +1359,7 @@ CREATE TABLE IF NOT EXISTS `ocultas` (
 
 DROP TABLE IF EXISTS `partestic`;
 CREATE TABLE IF NOT EXISTS `partestic` (
-  `parte` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parte` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `unidad` varchar(64) NOT NULL,
   `carro` char(2) DEFAULT NULL,
   `nserie` varchar(15) NOT NULL DEFAULT '',
@@ -1369,8 +1370,8 @@ CREATE TABLE IF NOT EXISTS `partestic` (
   `descripcion` mediumtext NOT NULL,
   `estado` varchar(12) NOT NULL DEFAULT 'activo',
   `nincidencia` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`parte`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
+  PRIMARY KEY (`parte`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1380,12 +1381,12 @@ CREATE TABLE IF NOT EXISTS `partestic` (
 
 DROP TABLE IF EXISTS `pendientes`;
 CREATE TABLE IF NOT EXISTS `pendientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `claveal` varchar(9) NOT NULL DEFAULT '',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL DEFAULT '',
   `codigo` varchar(8) NOT NULL DEFAULT '',
   `grupo` varchar(32) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`claveal`,`codigo`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1399,9 +1400,8 @@ CREATE TABLE IF NOT EXISTS `profesores` (
   `materia` varchar(255) DEFAULT NULL,
   `grupo` varchar(255) DEFAULT NULL,
   `profesor` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`profesor`,`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`profesor`,`grupo`,`materia`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1417,7 +1417,7 @@ CREATE TABLE IF NOT EXISTS `profesores_seneca` (
   `correoprofesor` varchar(80) DEFAULT NULL,
   `telefonoprofesor` char(9) DEFAULT NULL,
   PRIMARY KEY (`idprofesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1427,11 +1427,11 @@ CREATE TABLE IF NOT EXISTS `profesores_seneca` (
 
 DROP TABLE IF EXISTS `reg_intranet`;
 CREATE TABLE IF NOT EXISTS `reg_intranet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ip` varchar(15) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`profesor`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
 
 -- --------------------------------------------------------
@@ -1442,10 +1442,10 @@ CREATE TABLE IF NOT EXISTS `reg_intranet` (
 
 DROP TABLE IF EXISTS `reg_paginas`;
 CREATE TABLE IF NOT EXISTS `reg_paginas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_reg` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_reg` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `pagina` mediumtext NOT NULL,
-  PRIMARY KEY (`id`,`id_reg`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
 
 -- --------------------------------------------------------
@@ -1456,13 +1456,13 @@ CREATE TABLE IF NOT EXISTS `reg_paginas` (
 
 DROP TABLE IF EXISTS `reg_principal`;
 CREATE TABLE IF NOT EXISTS `reg_principal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pagina` mediumtext NOT NULL,
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ip` varchar(15) NOT NULL DEFAULT '',
-  `claveal` varchar(10) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `claveal` varchar(12) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1484,8 +1484,8 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `event6` varchar(64) NOT NULL DEFAULT '',
   `event7` varchar(64) NOT NULL DEFAULT '',
   `servicio` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`,`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1495,13 +1495,13 @@ CREATE TABLE IF NOT EXISTS `reservas` (
 
 DROP TABLE IF EXISTS `reservas_elementos`;
 CREATE TABLE IF NOT EXISTS `reservas_elementos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `elemento` varchar(128) NOT NULL,
   `id_tipo` tinyint(2) NOT NULL,
   `oculto` tinyint(1) NOT NULL DEFAULT '0',
   `observaciones` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`,`elemento`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1521,7 +1521,7 @@ CREATE TABLE IF NOT EXISTS `reservas_hor` (
   `hora7` varchar(24) DEFAULT NULL,
   `servicio` varchar(32) NOT NULL,
   PRIMARY KEY (`dia`,`servicio`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1531,11 +1531,11 @@ CREATE TABLE IF NOT EXISTS `reservas_hor` (
 
 DROP TABLE IF EXISTS `reservas_tipos`;
 CREATE TABLE IF NOT EXISTS `reservas_tipos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo` varchar(254) NOT NULL,
   `observaciones` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`,`tipo`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1545,16 +1545,16 @@ CREATE TABLE IF NOT EXISTS `reservas_tipos` (
 
 DROP TABLE IF EXISTS `r_departamento`;
 CREATE TABLE IF NOT EXISTS `r_departamento` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `contenido` longtext NOT NULL,
   `jefedep` varchar(255) DEFAULT NULL,
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `DEPARTAMENTO` varchar(80) NOT NULL,
   `fecha` date NOT NULL,
   `impreso` tinyint(1) NOT NULL,
-  `numero` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`DEPARTAMENTO`,`numero`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `numero` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1570,9 +1570,9 @@ CREATE TABLE IF NOT EXISTS `r_departamento_backup` (
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `departamento` varchar(48) NOT NULL,
   `fecha` date NOT NULL,
-  `numero` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`departamento`,`numero`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `numero` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1587,8 +1587,8 @@ CREATE TABLE IF NOT EXISTS `sms` (
   `telefono` mediumtext NOT NULL,
   `mensaje` varchar(160) NOT NULL DEFAULT '',
   `profesor` varchar(48) DEFAULT NULL,
-  PRIMARY KEY (`id`,`fecha`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1607,8 +1607,8 @@ CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
   `FIN` date NOT NULL DEFAULT '0000-00-00',
   `DURACION` smallint(2) NOT NULL DEFAULT '3',
   `PROFESOR` varchar(40) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`,`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1618,14 +1618,14 @@ CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
 
 DROP TABLE IF EXISTS `tareas_profesor`;
 CREATE TABLE IF NOT EXISTS `tareas_profesor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_alumno` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_alumno` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `asignatura` varchar(64) NOT NULL DEFAULT '',
   `tarea` mediumtext NOT NULL,
   `confirmado` char(2) DEFAULT NULL,
-  PRIMARY KEY (`id`,`id_alumno`,`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1639,7 +1639,7 @@ CREATE TABLE IF NOT EXISTS `temas` (
   `tema` varchar(64) NOT NULL,
   `fondo` varchar(16) NOT NULL,
   PRIMARY KEY (`idea`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1661,8 +1661,8 @@ CREATE TABLE IF NOT EXISTS `Textos` (
   `Obligatorio` varchar(12) NOT NULL DEFAULT '',
   `Clase` varchar(8) NOT NULL DEFAULT 'Texto',
   `isbn` varchar(18) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`Nivel`,`Asignatura`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1672,15 +1672,15 @@ CREATE TABLE IF NOT EXISTS `Textos` (
 
 DROP TABLE IF EXISTS `textos_alumnos`;
 CREATE TABLE IF NOT EXISTS `textos_alumnos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `claveal` int(12) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL DEFAULT '0',
   `materia` int(5) NOT NULL DEFAULT '0',
   `estado` char(1) NOT NULL DEFAULT '',
   `devuelto` char(1) DEFAULT '0',
   `fecha` datetime DEFAULT '0000-00-00 00:00:00',
   `curso` varchar(32) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`claveal`,`materia`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1690,7 +1690,7 @@ CREATE TABLE IF NOT EXISTS `textos_alumnos` (
 
 DROP TABLE IF EXISTS `textos_gratis`;
 CREATE TABLE IF NOT EXISTS `textos_gratis` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `materia` varchar(64) NOT NULL DEFAULT '',
   `isbn` int(10) NOT NULL DEFAULT '0',
   `ean` int(14) NOT NULL DEFAULT '0',
@@ -1698,11 +1698,11 @@ CREATE TABLE IF NOT EXISTS `textos_gratis` (
   `titulo` varchar(96) NOT NULL DEFAULT '',
   `ano` year(4) NOT NULL DEFAULT '0000',
   `caducado` char(2) NOT NULL DEFAULT '',
-  `importe` int(11) NOT NULL DEFAULT '0',
+  `importe` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `utilizado` char(2) NOT NULL DEFAULT '',
   `nivel` varchar(48) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`,`materia`,`nivel`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1718,8 +1718,8 @@ CREATE TABLE IF NOT EXISTS `tramos` (
   `horfin` int(4) UNSIGNED NOT NULL,
   `hora_inicio` varchar(5) NOT NULL,
   `hora_fin` varchar(5) NOT NULL,
-  PRIMARY KEY (`tramo`,`hora`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`tramo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1729,11 +1729,11 @@ CREATE TABLE IF NOT EXISTS `tramos` (
 
 DROP TABLE IF EXISTS `transito_control`;
 CREATE TABLE IF NOT EXISTS `transito_control` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `colegio` varchar(128) NOT NULL,
   `pass` varchar(254) NOT NULL,
-  PRIMARY KEY (`id`,`colegio`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1743,12 +1743,12 @@ CREATE TABLE IF NOT EXISTS `transito_control` (
 
 DROP TABLE IF EXISTS `transito_datos`;
 CREATE TABLE IF NOT EXISTS `transito_datos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL,
   `tipo` varchar(24) NOT NULL,
   `dato` mediumtext NOT NULL,
-  PRIMARY KEY (`id`,`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1758,10 +1758,10 @@ CREATE TABLE IF NOT EXISTS `transito_datos` (
 
 DROP TABLE IF EXISTS `transito_tipo`;
 CREATE TABLE IF NOT EXISTS `transito_tipo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo` varchar(24) NOT NULL,
-  PRIMARY KEY (`id`,`tipo`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1771,7 +1771,7 @@ CREATE TABLE IF NOT EXISTS `transito_tipo` (
 
 DROP TABLE IF EXISTS `tutoria`;
 CREATE TABLE IF NOT EXISTS `tutoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `apellidos` varchar(42) NOT NULL DEFAULT '',
   `nombre` varchar(24) NOT NULL DEFAULT '',
@@ -1784,7 +1784,7 @@ CREATE TABLE IF NOT EXISTS `tutoria` (
   `orienta` tinyint(1) NOT NULL DEFAULT '0',
   `prohibido` tinyint(1) NOT NULL DEFAULT '0',
   `jefatura` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`,`claveal`,`tutor`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
 
 -- --------------------------------------------------------
@@ -1795,11 +1795,11 @@ CREATE TABLE IF NOT EXISTS `tutoria` (
 
 DROP TABLE IF EXISTS `unidades`;
 CREATE TABLE IF NOT EXISTS `unidades` (
-  `idunidad` int(12) UNSIGNED NOT NULL,
+  `idunidad` int(11) UNSIGNED NOT NULL,
   `nomunidad` varchar(10) NOT NULL,
-  `idcurso` int(12) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idunidad`,`nomunidad`,`idcurso`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `idcurso` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`idunidad`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1815,8 +1815,8 @@ CREATE TABLE IF NOT EXISTS `usuarioalumno` (
   `perfil` char(1) NOT NULL DEFAULT '',
   `unidad` varchar(64) NOT NULL DEFAULT '',
   `claveal` varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY (`claveal`,`usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1830,4 +1830,4 @@ CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
   `nombre` varchar(64) DEFAULT NULL,
   `perfil` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`usuario`,`nombre`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
