@@ -1,6 +1,10 @@
 <?php
 require('../../../bootstrap.php');
 
+if (file_exists('../config.php')) {
+	include('../config.php');
+}
+
 $tutor = $_SESSION ['profi'];
 // Consulta  en curso.
 
@@ -13,25 +17,25 @@ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FAL
   Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, tutor, Fechoria.id from Fechoria, FALUMNOS, alma, listafechorias, FTUTORES where FTUTORES.unidad = alma.unidad and Fechoria.claveal = alma.claveal and Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC" );
 
 if ($row = mysqli_fetch_array ( $result )) {
-	$apellidos = $row [0];
-	$nombre = $row [1];
-	$unidad = $row [2];
-	$fecha = $row [3];
-	$notas = $row [4];
-	$asunto = $row [5];
-	$informa = $row [6];
-	$grave = $row [7];
-	$medida = $row [8];
-	$medidas2 = $row [9];
-	$expulsion = $row [10];
-	$tutoria = $row [11];
-	$claveal = $row [12];
-	$padre = $row [13];
-	$direccion = $row [14];
-	$localidad = $row [15];
-	$codpostal = $row [16];
-	$provincia = $row [17];
-	$tutor = $row [18];
+	$apellidos = $row[0];
+	$nombre = $row[1];
+	$unidad = $row[2];
+	$fecha = $row[3];
+	$notas = $row[4];
+	$asunto = $row[5];
+	$informa = $row[6];
+	$grave = $row[7];
+	$medida = $row[8];
+	$medidas2 = $row[9];
+	$expulsion = $row[10];
+	$tutoria = $row[11];
+	$claveal = $row[12];
+	$padre = $row[13];
+	$direccion = $row[14];
+	$localidad = $row[15];
+	$codpostal = $row[16];
+	$provincia = $row[17];
+	$tutor = $row[18];
 }
 
 $tr_tut = explode(", ", $tutor);
@@ -100,7 +104,14 @@ $MiPDF->SetDisplayMode ( 'fullpage' );
 $titulo = "Comunicación de expulsión del aula";
 $cuerpo = "Muy Srs. nuestros:
 
-Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." a su hijo/a $nombre $apellidos, alumno/a del grupo $unidad, le ha sido impuesta la suspensión del derecho de asistencia a clase tras haber sido expulsado del aula por el profesor $profesor por el siguiente motivo: \"$asunto\".
+Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." a su hijo/a $nombre $apellidos, alumno/a del grupo $unidad, le ha sido impuesta la suspensión del derecho de asistencia a clase tras haber sido expulsado del aula por el profesor $profesor por el siguiente motivo: \"$asunto\"";
+if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($notas)) {
+	$cuerpo .= " por el siguiente motivo: ".$notas;
+}
+else {
+	$cuerpo .= ".";
+}
+$cuerpo .= "
 
 Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.
 
@@ -146,11 +157,11 @@ for($i = 0; $i < 1; $i ++) {
 	
 	$MiPDF->Ln(8);
 	$MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
-	$MiPDF->Ln(5);
+	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
 	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
-	$MiPDF->Ln(5);
+	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );

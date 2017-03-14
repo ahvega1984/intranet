@@ -74,14 +74,14 @@ while($i < $total - 2)
 			// Caso de faltas para TODOS los alumnos en una hora
 			if ($trozos[2] == "T" OR $trozos[2] == "t") {
 				// Buscamos en FALUMNOS los datos que necesitamos, claveal y nc, porque los demás los cogemos del formulario.
-				$claveT ="select CLAVEAL, NC from FALUMNOS where unidad = '$trozos[3]'  order by NC";
+				$claveT ="select alma.CLAVEAL, NC from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$trozos[3]' and combasi like '%$cod_asig:%' order by NC";
 				$claveT0 = mysqli_query($db_con, $claveT);
 				while ($claveT1 = mysqli_fetch_array($claveT0))
 				{
 					$clavealT = $claveT1[0];
 					$ncT = $claveT1[1];
 					// Comprobamos si se está volviendo a meter una falta que ya ha sido metida.
-					$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and FECHA = '$fecha1' and FALTA = 'F'";
+					$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]' and NC = '$ncT' and FECHA = '$fecha1' and FALTA = 'F'";
 					$duplicadosT0 = mysqli_query($db_con, $duplicadosT);
 					$duplicadosT1 = mysqli_num_rows($duplicadosT0);
 					// O si hay al menos una justicación introducida por el Tutor en ese día
@@ -168,7 +168,8 @@ while($i < $total - 2)
 				while ($c < ($num)) {
 					$nc = $nnc[$c];
 					// Para cada falta, comprobamos si existe el alumno, o sea, si tiene CLAVEAL en FALUMNOS.
-					$clave ="select CLAVEAL from FALUMNOS where unidad = '$trozos[3]'  AND NC = '$nc'";
+					$clave ="select alma.CLAVEAL from alma, FALUMNOS where alma.unidad = '$trozos[3]' and combasi like '%$cod_asig:%' AND NC = '$nc'";
+					//$clave ="select CLAVEAL from FALUMNOS where unidad = '$trozos[3]'  AND NC = '$nc'";
 					$clave0 = mysqli_query($db_con, $clave);
 					$clave1 = mysqli_fetch_row($clave0);
 					$claveal = $clave1[0];

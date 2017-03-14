@@ -50,7 +50,7 @@ while ($dep = mysqli_fetch_array($dep0)) {
 	$miembros.=$jefe.$cl."<br>\n\n";
 }
 // Actividades
-$act0 = mysqli_query($db_con, "select distinct actividad, grupos, fecha from actividades where departamento = '$depto'");
+$act0 = mysqli_query($db_con, "select distinct nombre, unidades, fechaini from calendario where categoria='2' and departamento = '$depto'");
 //echo "select nombre from departamentos where departamento = '$depto'";
 if (mysqli_num_rows($act0)>0) {
 	$activ.= "Las actividades complementarias y extraescolares realizadas por el Departamento son las siguientes:<br><br>";

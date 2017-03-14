@@ -1,6 +1,10 @@
 <?php
 require('../../../bootstrap.php');
 
+if (file_exists('../config.php')) {
+	include('../config.php');
+}
+
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if (isset($_POST['expulsion'])) { $expulsion = $_POST['expulsion']; }
@@ -68,19 +72,20 @@ mysqli_query($db_con, $actualizar );
 $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, Fechoria.id from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC" );
 if ($row = mysqli_fetch_array ( $result )) {
 	$idfec = $row['id'];
-	$apellidos = $row [0];
-	$nombre = $row [1];
-	$unidad = $row [2];
-	$fecha = $row [3];
-	$grave = $row [7];
-	$expulsion = $row [10];
-	$claveal = $row [12];
-	$tfno = $row [13];
-	$tfno_u = $row [14];
-	$padre = $row ['padre'];
-	$direccion = $row ['domicilio'];
-	$codpostal = $row ['codpostal'];
-	$provincia = $row ['provinciaresidencia'];
+	$apellidos = $row[0];
+	$nombre = $row[1];
+	$unidad = $row[2];
+	$fecha = $row[3];
+	$notas = $row[4];
+	$grave = $row[7];
+	$expulsion = $row[10];
+	$claveal = $row[12];
+	$tfno = $row[13];
+	$tfno_u = $row[14];
+	$padre = $row['padre'];
+	$direccion = $row['domicilio'];
+	$codpostal = $row['codpostal'];
+	$provincia = $row['provinciaresidencia'];
 }
 
 $fecha2 = date ( 'Y-m-d' );
@@ -99,8 +104,8 @@ Acuerda:
 
 1.- Tipificar la conducta de este alumno(a) como contraria a las normas de convivencia del Centro, suponiendo falta $grave.
 2.- Imponer las siguientes correcciones:
-     Amonestación que constará en el expediente individual del alumno/a. 
-    Suspensión del derecho de asistencia a clase por un periodo de $expulsion días lectivos, desde el $inicio1 hasta el $fin1, ambos inclusive, sin que ello implique la pérdida de evaluación. Durante esos días, el alumno/a deberá permanecer en su domicilio durante el horario escolar realizando los deberes o trabajos que tenga encomendados. La no realización de las tareas supone el incumplimiento de la corrección por lo que dicha conducta se considerará gravemente perjudicial para la convivencia y, como consecuencia, conllevaría la imposición de una nueva medida correctora.
+    - Amonestación que constará en el expediente individual del alumno/a. 
+    - Suspensión del derecho de asistencia a clase por un periodo de $expulsion días lectivos, desde el $inicio1 hasta el $fin1, ambos inclusive, sin que ello implique la pérdida de evaluación. Durante esos días, el alumno/a deberá permanecer en su domicilio durante el horario escolar realizando los deberes o trabajos que tenga encomendados. La no realización de las tareas supone el incumplimiento de la corrección por lo que dicha conducta se considerará gravemente perjudicial para la convivencia y, como consecuencia, conllevaría la imposición de una nueva medida correctora.
 
 NOTA: El padre, madre o representante legal podrá presentar en el registro de entrada del Centro, en el plazo de dos días lectivos, una reclamación dirigida a la Dirección del Centro contra las correcciones impuestas.
 
@@ -142,7 +147,7 @@ En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fe
 	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($config['directivo_direccion'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0 );
 	
   
-$result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
+$result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
 $num = mysqli_num_rows($result1);
 
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
@@ -155,12 +160,15 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 0, 24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 0, 24");
 
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
-$dato = "$row[0]   $row[1]";
+$dato = "$row[0]   $row[1].";
+if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
+	$dato .= " Motivo: ".$row['notas'];
+}
 $MiPDF->Ln ( 4 );
 $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
                 }
@@ -178,12 +186,15 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 25, 24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 25, 24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
 $pr = explode(", ",$row[2]);
-$dato = "$row[0]   $row[1]";
+$dato = "$row[0]   $row[1].";
+if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
+	$dato .= " Motivo: ".$row['notas'];
+}
 $MiPDF->Ln ( 4 );
 $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );             
                 }
@@ -202,12 +213,15 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 50,24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 50,24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
 $pr = explode(", ",$row[2]);
-$dato = "$row[0]   $row[1]";
+$dato = "$row[0]   $row[1].";
+if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
+	$dato .= " Motivo: ".$row['notas'];
+}
 $MiPDF->Ln ( 4 );
 $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
                 }
@@ -226,12 +240,15 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 75,24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 75,24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
 $pr = explode(", ",$row[2]);
-$dato = "$row[0]   $row[1]";
+$dato = "$row[0]   $row[1].";
+if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
+	$dato .= " Motivo: ".$row['notas'];
+}
 $MiPDF->Ln ( 4 );
 $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
                 }
@@ -242,17 +259,17 @@ $txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo ".$unidad.", he r
 
 $MiPDF->Ln(8);
 $MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
-$MiPDF->Ln(5);
+$MiPDF->Ln(3);
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
-	$MiPDF->Ln(5);
-	
-	$MiPDF->SetFont('NewsGotT', '', 12);
-	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
-	$MiPDF->Ln(15);
-	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
+$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
+$MiPDF->Ln(3);
+
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
+$MiPDF->Ln(15);
+$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
+$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
 
             
 $MiPDF->Output ();

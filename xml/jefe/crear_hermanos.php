@@ -10,7 +10,7 @@ $sel0 = mysqli_query($db_con, "select unidad, claveal, hermanos_temp.telefono, h
 while ($sel=mysqli_fetch_array($sel0)) {
 	$dup0=mysqli_query($db_con, "select claveal from alma where telefono = '$sel[2]' and telefonourgencia = '$sel[3]' and unidad = '$sel[0]'");
 	$numero = mysqli_num_rows($dup0);
-	if (mysqli_num_rows($dup0)>'1') {
+	if (mysqli_num_rows($dup0)>'1' and $sel[2] > 0 and $sel[3] > 0) {
 		mysqli_query($db_con, "insert into hermanos_temp2 (telefono, telefonourgencia, hermanos ) VALUES ('$sel[2]','$sel[3]','$numero')");
 	}
 }

@@ -6,20 +6,20 @@
 				mysqli_query($db_con, "drop table materias");
 			
 				// Crear la tabla temporal donde guardar todas las asignaturas de todos los gruposy la tabla del sistema de calificaciones
-				$crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
+				$crear = "CREATE TABLE IF NOT EXISTS `materias_temp` (
 				`CODIGO` varchar( 10 ) default NULL ,
 			 	`NOMBRE` varchar( 64 ) default NULL ,
 			 	`ABREV` varchar( 10 ) default NULL ,
 				`CURSO` varchar( 128 ) default NULL,
 				`GRUPO` varchar( 255 ) default NULL
-				)" ;
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci" ;
 				mysqli_query($db_con, $crear);
-				mysqli_query($db_con, "CREATE TABLE if not exists `calificaciones_temp` (
+				mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calificaciones_temp` (
 			  `codigo` varchar(5) CHARACTER SET latin1 NOT NULL DEFAULT '',
 			  `nombre` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
 			  `abreviatura` varchar(4) CHARACTER SET latin1 DEFAULT NULL,
 			  `orden` varchar(4) CHARACTER SET latin1 DEFAULT NULL
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci");
 			
 				// Claveal primaria e índice
 				mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");

@@ -89,7 +89,7 @@ while($asigna = mysqli_fetch_array($asig0))
 mysqli_query($db_con, "OPTIMIZE TABLE `horw`");
 
 // Tabla donde recoger los datos eliminados del horario por si es necesario recuperalos
-mysqli_query($db_con,"create table if not exists horw_backup select * from horw where hora='99'");
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS horw_backup select * from horw where hora='99'");
 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
 echo "<p class='lead text-important text-danger' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";

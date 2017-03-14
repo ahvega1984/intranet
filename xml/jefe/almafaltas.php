@@ -206,11 +206,6 @@ include '../../menu.php';
 			ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 			";
 					mysqli_query($db_con, $crear);
-					
-					// índices
-					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
-					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
-					mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
 			
 					// Apellidos unidos formando un solo campo.
 					$SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";

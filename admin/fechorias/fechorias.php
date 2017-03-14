@@ -173,7 +173,7 @@ exit();
     
 if (isset($submit1))
 	{			
-mysqli_query($db_con, "create table if not exists FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
 $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
   // echo $query0;
   $result = mysqli_query($db_con, $query0);
