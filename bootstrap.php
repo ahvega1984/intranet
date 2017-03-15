@@ -10,7 +10,7 @@ session_start();
 // CONFIGURACIÓN INICIAL
 error_reporting(0);
 date_default_timezone_set('Europe/Madrid');
-setlocale(LC_TIME, 'es_ES');
+setlocale(LC_TIME, 'es_ES.UTF-8');
 
 $server_name = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME'];
 

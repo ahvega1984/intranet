@@ -94,9 +94,9 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 		$i++;
 	}
 
-	// En una hoja caben 34 filas, si es menor aï¿½adimos el cuadrante de faltas en otra hoja;
-	// en otro caso, la tabla aparecerï¿½ a continuaciï¿½n del listado de alumnos.
-	if ($i<34) $pdf->AddPage('L','A4');
+	// En una hoja caben 32 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
+	// en otro caso, la tabla aparecerá a continuación del listado de alumnos.
+	if ($i<32) $pdf->AddPage('L','A4');
 	else $pdf->Ln(5);
 	
 	$pdf->SetLineWidth(0.2);
