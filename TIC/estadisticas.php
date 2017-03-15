@@ -38,22 +38,24 @@ while ($row = mysqli_fetch_array($result)) {
 	while ($elm1 = mysqli_fetch_array($srv0)) {
 		$n_elm = $elm1[0];
 		
-		$result1 = mysqli_query($db_con, "SELECT eventdate FROM reservas WHERE servicio='$n_elm' and date(eventdate) > date('".$config['curso_inicio']."') AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
-
+		$result1 = mysqli_query($db_con, "SELECT eventdate FROM reservas WHERE servicio='$n_elm' and date(eventdate) > date('".$config['curso_inicio']."') and date(eventdate)<=NOW() AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
+		
 		$dias_profesor = mysqli_num_rows($result1);
 
 		if ($dias_profesor > 0) {
 				
 			$result2 = mysqli_query($db_con, "SELECT profesor FROM usuario WHERE profesor='$profesor'");
-				
-			if (!mysqli_num_rows($result2)) {
-				
-				foreach ($ar as $key => $srv_sin){	
+			
+			foreach ($ar as $key => $srv_sin){	
 					$n_srv = str_replace($key,$srv_sin,$n_elm);
 				}	
+
+			if (!mysqli_num_rows($result2)) {
+					
 				mysqli_query($db_con, "INSERT INTO usuario SET profesor='$profesor', $n_srv='$dias_profesor'");
 			}
 			else {
+				
 				mysqli_query($db_con, "UPDATE usuario SET $n_srv='$dias_profesor' WHERE profesor='$profesor'");
 			}
 				
