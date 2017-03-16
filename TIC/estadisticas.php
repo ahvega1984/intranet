@@ -89,16 +89,17 @@ include("../TIC/menu.php");
 
 <?php
 $srv = mysqli_query($db_con,"select distinct elemento from reservas_elementos where id_tipo = '1' order by elemento");
+$num_car = mysqli_num_rows($srv)+6;
 while ($elm = mysqli_fetch_array($srv)):
 $rc_tic = $elm[0];
 ?> 
-<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `reservas` WHERE DATE(eventdate) > date('".$config['curso_inicio']."') and servicio='$rc_tic'"); ?>
+<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `reservas` WHERE DATE(eventdate) > date('".$config['curso_inicio']."') and DATE(eventdate) <= NOW() and servicio='$rc_tic'"); ?>
 <?php $n_dias = mysqli_num_rows($result); ?> 
 <?php $n_horas = 0; ?> <?php if ($n_dias): ?>
 <?php while ($row = mysqli_fetch_array($result)): ?> 
-<?php $result1 = mysqli_query($db_con, "SELECT * FROM reservas WHERE servicio='$rc_tic' and eventdate='".$row['eventdate']."'"); ?>
+<?php $result1 = mysqli_query($db_con, "SELECT * FROM reservas WHERE servicio='$rc_tic' and eventdate='".$row['eventdate']."'");?>
 <?php $row1 = mysqli_fetch_array($result1); ?> 
-<?php for ($j = 3; $j < 10; $j++): ?>
+<?php for ($j = 4; $j < $num_car; $j++):?>
 <?php if(!empty($row1[$j])): ?> 
 <?php $n_horas = $n_horas+1; ?> 
 <?php endif; ?>
