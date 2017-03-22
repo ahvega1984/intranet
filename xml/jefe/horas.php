@@ -36,9 +36,8 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$c7 = ' 	
 	';
 	$profes = explode(', ',$datatmp[0]);
-	$profe = $profes[0].'
-'.$profes[1];
-	$profe=ucwords(mb_strtolower($profe));
+	$profe = utf8_decode($profes[0].'
+'.$profes[1]);
 
 	$data[] = array(
 				'nombre'=>$profe,
