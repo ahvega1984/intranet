@@ -262,7 +262,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$unidadn = $datatmp[6];
 	$mat="";
 	$asignat = substr($datatmp[1],0,strlen($datatmp[1])-1);
-	$asignat = $datatmp[1];
+	$asignat = rtrim($datatmp[1], ':');
 	$asig0 = explode(":",$asignat);
 		foreach($asig0 as $asignatura){			
 		$consulta = "select distinct abrev, curso from asignaturas where codigo = '$asignatura' and curso like '%$unidadn%' limit 1";
@@ -272,6 +272,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 		$curs=substr($abrev0[1],0,2);
 		$mat.=$abrev0[0]."; ";
 		}
+		$mat = rtrim($mat, '; ');
 //	echo $mat."<br>";		
 	$ixx = $datatmp[2];
 	
