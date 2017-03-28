@@ -1398,7 +1398,7 @@ DROP TABLE IF EXISTS `profesores`;
 CREATE TABLE IF NOT EXISTS `profesores` (
   `nivel` varchar(255) DEFAULT NULL,
   `materia` varchar(255) DEFAULT NULL,
-  `grupo` varchar(64) DEFAULT NULL,
+  `grupo` varchar(255) DEFAULT NULL,
   `profesor` varchar(255) NOT NULL,
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
