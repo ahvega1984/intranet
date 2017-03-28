@@ -36,10 +36,10 @@ $curso_a = mysqli_fetch_array($crs);
 if(stristr($curso_a[0],"Bachill")==TRUE){$matr = 'matriculas_bach';}elseif(stristr($curso_a[0],"E.S.O.")==TRUE){$matr = 'matriculas';}
 
 if ($config['mod_matriculacion']==1) {
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, alma.curso, bilinguismo FROM FALUMNOS, alma, $matr WHERE alma.claveal=FALUMNOS.claveal and $matr.claveal=FALUMNOS.claveal and alma.unidad='".$_GET['unidad']."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, alma.curso, bilinguismo FROM FALUMNOS, alma, $matr WHERE alma.claveal=FALUMNOS.claveal and $matr.claveal=FALUMNOS.claveal and alma.unidad='".$_GET['unidad']."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 	}	
 	else{
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and alma.unidad='".$_GET['unidad']."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and alma.unidad='".$_GET['unidad']."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 	}
 
 // echo $sqldatos;
@@ -91,23 +91,29 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo ".$_GET['unidad']."\n";
+$txttit = "Lista del Grupo ".utf8_decode($_GET['unidad'])."\n";
 $txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
-$pdf->ezNewPage();
 	}
-		
-foreach ($_POST['unidad'] as $unida){
+
+if (isset($_POST['unidad']) && ! empty($_POST['unidad'])) $unidades_seleccionadas = $_POST['unidad'];
+else {
+	$result_cursos = mysqli_query($db_con, "select distinct unidad from FALUMNOS order by unidad");
+	$unidades_seleccionadas = array();
+	while ($row = mysqli_fetch_array($result_cursos)) $unidades_seleccionadas[] = $row[0];
+}
+
+foreach ($unidades_seleccionadas as $unida){
 $tr_c = explode(" -> ",$unida);
-$tr_unidad = utf8_decode($tr_c[0]);
+$tr_unidad = $tr_c[0];
 $cod_asig = $tr_c[2];
 $tr_codasi = explode("-",$tr_c[2]);
 $n_uni+=1;
-$cuenta = count($_POST['unidad']);
+$cuenta = count($unidades_seleccionadas);
 
 if ($tr_codasi[0]=="2" or $tr_codasi[0]=="21") {
 }
@@ -166,7 +172,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
 	}
-if ($hay_sel==0 or in_array($datatmp[1],$hay_alumno) or $_POST['todos']=="1") {
+if ($hay_sel==0 or in_array($datatmp[1],$hay_alumno)) {
 $data[] = array(
 				'num'=>$datatmp[1],
 				'nombre'=>utf8_decode($datatmp[0]),
@@ -196,8 +202,8 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $tr_unidad $text2\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
+$txttit = "Lista del Grupo ".utf8_decode($tr_unidad)."\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";
 $pdf->ezText($txttit, 13,$options_center);
 
 $pdf->ezTable($data, $titles, '', $options);
@@ -269,7 +275,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 //	echo $mat."<br>";		
 	$ixx = $datatmp[2];
 	
-if ($hay_sel==0 or in_array($datatmp[2],$hay_alumno) or $_POST['todos']=="1") {
+if ($hay_sel==0 or in_array($datatmp[2],$hay_alumno)) {
 	$data[] = array(
 				'num'=>$ixx,
 				'nombre'=>utf8_decode($datatmp[0]),
@@ -290,8 +296,8 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>500
 			);
-$txttit = "<b>Alumnos del grupo: $tr_unidad $text2</b>\n";
-$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";	
+$txttit = "<b>Alumnos del grupo: ".utf8_decode($tr_unidad)."</b>\n";
+$txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_actual'].".\n";	
 $pdf->ezText($txttit, 12,$options_center);
 
 $pdf->ezTable($data, $titles, '', $options);

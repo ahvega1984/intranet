@@ -77,7 +77,7 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>775
 			);
-$txttit = "<b>Datos del grupo ".$grupo1."</b>\n";
+$txttit = "<b>Datos del grupo ".utf8_decode($grupo1)."</b>\n";
 	
 $pdf->ezText($txttit, 14,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
