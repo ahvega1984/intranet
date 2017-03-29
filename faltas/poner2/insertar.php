@@ -168,10 +168,9 @@ while($i < $total - 2)
 				while ($c < ($num)) {
 					$nc = $nnc[$c];
 					// Para cada falta, comprobamos si existe el alumno, o sea, si tiene CLAVEAL en FALUMNOS.
-					$clave ="select alma.CLAVEAL from alma, FALUMNOS where alma.unidad = '$trozos[3]' and combasi like '%$cod_asig:%' AND NC = '$nc'";
-					//$clave ="select CLAVEAL from FALUMNOS where unidad = '$trozos[3]'  AND NC = '$nc'";
+					$clave ="select alma.CLAVEAL from alma, FALUMNOS where alma.claveal=FALUMNOS.claveal and alma.unidad = '$trozos[3]' and combasi like '%$cod_asig:%' AND NC = '$nc'";
 					$clave0 = mysqli_query($db_con, $clave);
-					$clave1 = mysqli_fetch_row($clave0);
+					$clave1 = mysqli_fetch_array($clave0);
 					$claveal = $clave1[0];
 					// Si la falta tiene formato numérico, continamos (en el formato numérico se excluyen signos como "-" o ",", por si el profe separa las faltas de otra manera que la correcta).
 					if (is_numeric($nc))
@@ -183,7 +182,7 @@ while($i < $total - 2)
 							$mens1.="<b>$nc</b> no es el número de ningún alumno de <b>$trozos[3]</b>.<br>";
 						}
 						else {
-
+							
 							// Si hemos pasado los filtros, hay que comprobar si se está volviendo a meter una falta que ya ha sido metida.
 							$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]' and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and FALTA = 'F'";
 							//echo $duplicados."<br>";
