@@ -223,7 +223,7 @@ $menu = array(
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
-						'href'   => 'admin/informes/informe_notas1.php',
+						'href'   => 'admin/informes/evaluaciones/index.php',
 						'titulo' => 'Informe sobre las Evaluaciones'
 					),
 					array(

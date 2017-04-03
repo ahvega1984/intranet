@@ -26,7 +26,7 @@ else {
 
 // Si el usuario desea eliminar los datos y recalcular
 if (isset($_GET['recalcular']) && $_GET['recalcular']) {
-	mysqli_query($db_con, "DROP TABLE `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`;");
+	mysqli_query($db_con, "DROP TABLE `informe_evaluaciones_pendientes_".$evaluacion_seleccionada."`;");
 }
 
 // Inicializamos variables
@@ -42,7 +42,7 @@ mysqli_free_result($result);
 if ($existenNotas) {
 	
 	// Comprobamos si se ha creado el informe
-	$result_informe = mysqli_query($db_con, "SELECT * FROM `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` JOIN cursos ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idcurso = cursos.idcurso JOIN unidades ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idunidad = unidades.idunidad");
+	$result_informe = mysqli_query($db_con, "SELECT * FROM `informe_evaluaciones_pendientes_".$evaluacion_seleccionada."` JOIN cursos ON `informe_evaluaciones_pendientes_".$evaluacion_seleccionada."`.idcurso = cursos.idcurso JOIN unidades ON `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."`.idunidad = unidades.idunidad");
 	if (mysqli_num_rows($result_informe)) {
 		$i = 0;
 		while ($row_resultados_evaluaciones = mysqli_fetch_array($result_informe, MYSQLI_ASSOC)) {
@@ -58,7 +58,7 @@ if ($existenNotas) {
 	}
 	else {
 		// Creamos las tablas necesarias para el funcionamiento del módulo
-		mysqli_query($db_con, "CREATE TABLE `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` (
+		mysqli_query($db_con, "CREATE TABLE `informe_evaluaciones_pendientes_".$evaluacion_seleccionada."` (
 		  `idcurso` int(12) NOT NULL,
 		  `idunidad` int(12) NOT NULL,
 		  `total_alumnos` tinyint(4) NOT NULL,
@@ -68,10 +68,10 @@ if ($existenNotas) {
 		
 		// Obtenemos las unidades del centro
 		if ($evaluacion_seleccionada == 'evi') {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%' ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso NOT LIKE '1%' AND (cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%') ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
 		}
 		else {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso NOT LIKE '1%' ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
 		}
 		
 		$row_unidades = array();
@@ -86,7 +86,7 @@ if ($existenNotas) {
 			$unidad = $unidades['nomunidad'];
 			
 			// Obtenemos las asignaturas de la unidad
-			$result_asignaturas_unidad = mysqli_query($db_con, "SELECT DISTINCT codigo, nombre, abrev FROM materias WHERE curso = '".$unidades['nomcurso']."' AND abrev NOT LIKE '%\_%' ORDER BY codigo ASC");
+			$result_asignaturas_unidad = mysqli_query($db_con, "SELECT DISTINCT codigo, nombre, abrev FROM materias WHERE curso = '".$unidades['nomcurso']."' AND abrev LIKE '%\_%' ORDER BY codigo ASC");
 			
 			$row_asignaturas_unidad = array();
 			while ($row = mysqli_fetch_array($result_asignaturas_unidad, MYSQLI_ASSOC)) $row_asignaturas_unidad[] = $row;
@@ -146,11 +146,9 @@ if ($existenNotas) {
 				
 				$columna++;
 			}
-
-			/*
+			
 			// Añadimos a la base de datos
-			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_asignaturas_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `repiten_alumnos`, `cero_suspensos`, `uno_suspensos`, `dos_suspensos`, `tres_suspensos`, `cuatro_suspensos`, `cinco_suspensos`, `seis_suspensos`, `siete_suspensos`, `ocho_suspensos`, `nueve_o_mas_suspensos`, `promocionan`, `titulan`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".$unidades['repiten_alumnos']."', '".$unidades['cero_suspensos']."', '".$unidades['uno_suspensos']."', '".$unidades['dos_suspensos']."', '".$unidades['tres_suspensos']."', '".$unidades['cuatro_suspensos']."', '".$unidades['cinco_suspensos']."', '".$unidades['seis_suspensos']."', '".$unidades['siete_suspensos']."', '".$unidades['ocho_suspensos']."', '".$unidades['nueve_o_mas_suspensos']."', '".$unidades['promocionan']."', '".$unidades['titulan']."');");
-			*/
+			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_pendientes_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `asignaturas`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".serialize($unidades['asignaturas'])."');");
 			
 			// Añadimos la información al array
 			array_push($resultados_evaluaciones, $unidades);
@@ -178,7 +176,7 @@ include("menu.php");
 	<div class="container-fluid">
 		
 		<div class="page-header">
-			<h2>Informes de evaluaciones <small>Estadísticas por profesores</small></h2>
+			<h2>Informes de evaluaciones <small>Estadísticas por alumnos con pendientes</small></h2>
 		</div>
 		
 		<div class="row">
@@ -212,7 +210,7 @@ include("menu.php");
 			
 			<div class="col-sm-2 hidden-print">
 				<?php if (! $evaluacionSinNotas): ?>
-				<a href="index.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fa fa-refresh fa-fw"></span> Recalcular</a>
+				<a href="pendientes.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fa fa-refresh fa-fw"></span> Recalcular</a>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -245,10 +243,11 @@ include("menu.php");
 					<tfoot>
 						<tr>
 							<th>Totales</th>
-							<th><?php echo $total_alumnos; ?></th>
 							<?php for ($i = 0; $i < $num_columnas; $i++): ?>
+							<th class="text-center text-success"><?php echo ${matriculados.$i}; ?></th>
 							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?></th>
 							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?></th>
+							<?php unset(${matriculados.$i}); ?>
 							<?php unset(${aprobados.$i}); ?>
 							<?php unset(${suspensos.$i}); ?>
 							<?php endfor; ?>
@@ -268,18 +267,18 @@ include("menu.php");
 				
 				<h4 class="text-info"><?php echo $evaluacion['nomcurso']; ?></h4>
 				
-				<table class="table table-bordered table-hover" style="font-size: 11px;">
+				<table class="table table-bordered table-hover" style="<?php echo (count($evaluacion['asignaturas']) < 9) ? 'width: auto; ' : ''; ?> font-size: 11px;">
 					<thead>
 						<tr>
 							<th width="65" rowspan="2">Unidad</th>
-							<th width="35" rowspan="2">T.A.</th>
 							<?php for ($i = 0; $i < count($evaluacion['asignaturas']); $i++): ?>
-							<th class="text-center" colspan="2"><abbr data-bs="tooltip" data-html="true" title="<?php echo $evaluacion['asignaturas'][$i]['nombre']; ?><br>[Cód.: <?php echo $evaluacion['asignaturas'][$i]['codigo']; ?>]"><?php echo $evaluacion['asignaturas'][$i]['abrev']; ?></abbr></th>
+							<th class="text-center" colspan="3"><abbr data-bs="tooltip" data-html="true" title="<?php echo $evaluacion['asignaturas'][$i]['nombre']; ?><br>[Cód.: <?php echo $evaluacion['asignaturas'][$i]['codigo']; ?>]"><?php echo $evaluacion['asignaturas'][$i]['abrev']; ?></abbr></th>
 							<?php endfor; ?>
 						</tr>
 						<tr>
 							<?php for ($i = 0; $i < count($evaluacion['asignaturas']); $i++): ?>
-							<?php $tamano_celda = ((100 / count($evaluacion['asignaturas'])) / 2); ?>
+							<?php if (count($evaluacion['asignaturas']) < 9) $tamano_celda = '50px'; else $tamano_celda = ((100 / count($evaluacion['asignaturas'])) / 3); ?>
+							<th class="text-center" width="<?php echo $tamano_celda; ?>%"><abbr data-bs="tooltip" title="Matriculados">M.</abbr></th>
 							<th class="text-center" width="<?php echo $tamano_celda; ?>%"><abbr data-bs="tooltip" title="Aprobados">A.</abbr></th>
 							<th class="text-center" width="<?php echo $tamano_celda; ?>%"><abbr data-bs="tooltip" title="Suspensos">S.</abbr></th>
 							<?php unset($tamano_celda); ?>
@@ -290,12 +289,13 @@ include("menu.php");
 				<?php endif; ?>
 						<tr>
 							<th><?php echo $evaluacion['nomunidad']; ?></th>
-							<td><?php echo $evaluacion['total_alumnos']; ?></td>
 							<?php for ($i = 0; $i < count($evaluacion['asignaturas']); $i++): ?>
 							<?php if ($evaluacion['asignaturas'][$i]['matriculados'] < 0): ?>
+							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['matriculados'] = 0; ?></td>
 							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['aprobados'] = 0; ?></td>
 							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['suspensos'] = 0; ?></td>
 							<?php else: ?>
+							<td class="text-center"><?php echo $evaluacion['asignaturas'][$i]['matriculados']; ?></td>
 							<td class="text-center text-success"><?php echo $evaluacion['asignaturas'][$i]['aprobados']; ?></td>
 							<td class="text-center text-danger"><?php echo $evaluacion['asignaturas'][$i]['suspensos']; ?></td>
 							<?php endif; ?>
@@ -306,6 +306,7 @@ include("menu.php");
 				$total_alumnos += $evaluacion['total_alumnos'];
 				$num_columnas = count($evaluacion['asignaturas']);
 				for ($i = 0; $i < count($evaluacion['asignaturas']); $i++) {
+					${matriculados.$i} += $evaluacion['asignaturas'][$i]['matriculados'];
 					${aprobados.$i} += $evaluacion['asignaturas'][$i]['aprobados'];
 					${suspensos.$i} += $evaluacion['asignaturas'][$i]['suspensos'];
 				}
@@ -318,10 +319,11 @@ include("menu.php");
 					<tfoot>
 						<tr>
 							<th>Totales</th>
-							<th><?php echo $total_alumnos; ?></th>
 							<?php for ($i = 0; $i < $num_columnas; $i++): ?>
+							<th class="text-center"><?php echo ${matriculados.$i}; ?></th>
 							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?></th>
 							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?></th>
+							<?php unset(${matriculados.$i}); ?>
 							<?php unset(${aprobados.$i}); ?>
 							<?php unset(${suspensos.$i}); ?>
 							<?php endfor; ?>
