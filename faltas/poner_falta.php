@@ -193,7 +193,7 @@ else{
 }
 
 if (empty($tiempo)) {
-	$tiempo="5000";
+	$tiempo="2000";
 }
 ?> 
 

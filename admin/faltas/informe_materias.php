@@ -71,15 +71,15 @@ while ($grp = mysqli_fetch_array($unidades)) {
   $num_navidadJ = mysqli_num_rows($navidadJ);
   $total_navidad = ($num_navidadF+$num_navidadJ)/$num_asig;
 
-  $santaF = mysqli_query($db_con,"select * from FALTAS where falta='F' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '% Semana Santa' limit 1)");
+  $santaF = mysqli_query($db_con,"select * from FALTAS where falta='F' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '%Semana Santa' limit 1)");
   $num_santaF = mysqli_num_rows($santaF);
-  $santaJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '% Semana Santa' limit 1)");
+  $santaJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '%Semana Santa' limit 1)");
   $num_santaJ = mysqli_num_rows($santaJ);
   $total_santa = ($num_santaF+$num_santaJ)/$num_asig;
 
-  $veranoF = mysqli_query($db_con,"select * from FALTAS where falta='F' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
+  $veranoF = mysqli_query($db_con,"select * from FALTAS where falta='F' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '%Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
   $num_veranoF = mysqli_num_rows($veranoF);
-  $veranoJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
+  $veranoJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '%Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
   $num_veranoJ = mysqli_num_rows($veranoJ);
   $total_verano = ($num_veranoF+$num_veranoJ)/$num_asig;
 ?>

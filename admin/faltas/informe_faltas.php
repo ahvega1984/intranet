@@ -15,7 +15,7 @@ include("../../faltas/menu.php");
 </div>
 
 <div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo (minutos) la primera vez que se realiza esta consulta.</small><br><br></span>
 </div>
 
 <div id="wrap" class="row" style="display: none;">
@@ -25,7 +25,7 @@ include("../../faltas/menu.php");
 <?php 
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
 `id` int(11) NOT NULL auto_increment,
-  `profesor` tinyint(4) NOT NULL,
+  `profesor` int(7) NOT NULL,
   `alumno` int(11) NOT NULL,
   `asignatura` int(11) NOT NULL,
   `fecha` date NOT NULL,
