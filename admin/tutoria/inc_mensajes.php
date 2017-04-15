@@ -20,7 +20,7 @@
 		<?php while ($row = mysqli_fetch_array($result)): ?>
 		<tr>
 			<td><a href="#mensaje<?php echo $i; ?>" data-toggle="modal"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
-			<td><?php $tr_dia = explode(" ",$row['ahora']); echo $tr_dia[0]; ?></td>
+			<td nowrap><?php $tr_dia = explode(" ",$row['ahora']); echo $tr_dia[0]; ?></td>
 		</tr>
 		<?php $i++; ?>
 		<?php endwhile; ?>

@@ -21,7 +21,7 @@
 		<?php while ($row2 = mysqli_fetch_array($result1)): ?>
 		<tr>
 			<td><a href="../fechorias/fechorias.php?claveal=<?php echo $row['claveal']; ?>&submit1=1"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
-			<td><span class="<?php echo (stristr($row2['grave'], 'grave') == true) ? 'text-danger' : 'text-info'; ?>"><?php echo strftime('%e %b',strtotime($row2['fecha'])); ?></span></td>
+			<td nowrap><span class="<?php echo (stristr($row2['grave'], 'grave') == true) ? 'text-danger' : 'text-info'; ?>"><?php echo strftime('%e %b',strtotime($row2['fecha'])); ?></span></td>
 			<?php $result2 = mysqli_query($db_con, "SELECT Fechoria.claveal FROM Fechoria WHERE Fechoria.claveal='".$row['claveal']."'"); ?>
 			<td class="text-center"><div class="badge"><?php echo mysqli_num_rows($result2); ?></div></td>
 		</tr>
