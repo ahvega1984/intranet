@@ -435,6 +435,12 @@ include("../menu.php"); ?>
 				</div>
 				
 				<br class="hidden-print">
+
+				<?php if ($_GET['msg_cal'] and $_GET['msg_cal']==1 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
+				<div class="alert alert-danger alert-block hidden-print">
+					<strong>Error: <br></strong> Estás intentando registrar una actividad para un Grupo que ya tiene planificada otra en el mismo día, y eso no está permitido. Si crees que hay un error, ponte en contacto con el Equipo directivo.
+				</div>
+				<?php endif; ?>
 				
 				<?php if ($_GET['msg'] && $_GET['msg'] != "EventoPendienteConfirmacion"): ?>
 				<div class="alert alert-danger alert-block hidden-print">

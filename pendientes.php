@@ -34,6 +34,72 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 <?php endif; ?>
 
 <?php
+
+// Comprobar actividades en elcalendario
+$hoy = date("Y-m-d");
+
+// Calendario personal
+$cal_personal = mysqli_query($db_con,"select * from calendario where categoria like (select distinct id from calendario_categorias where profesor = '".$_SESSION['ide']."') and fechaini = '$hoy'");
+if (mysqli_num_rows($cal_personal)>0) {
+		echo '
+<div id="alert_cal" class="alert alert-info">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<p class="lead"><span class="fa fa-calendar fa-fw"></span> Actividades en el Calendario</p>
+	<p>En tu Calendario personal aparecen actividades registradas para hoy. </p>
+	<br>
+	<ul>';
+	while($cal_pers = mysqli_fetch_array($cal_personal))
+	{
+		$actividad = $cal_pers['nombre'];
+		$id = $cal_pers['id'];
+		$unidad = $cal_pers['unidades'];
+		?>
+<li><?php echo $unidad." ";?>
+	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a>
+<br>
+</li>
+		<?php
+	}
+		echo "</ul>";
+	echo "</div>";
+	}
+
+// Actividades extraescolares
+$cur_prof = mysqli_query($db_con,"select distinct grupo, profesor from profesores where profesor = '".$_SESSION['profi']."'");
+while ($c_prof = mysqli_fetch_array($cur_prof)) {
+	$unidad = $c_prof[0];
+	$profe_profe = $c_prof[1];
+
+$cal1 = "select * from calendario where categoria='2' and unidades like '%$unidad;%' and date(fechaini) = '$hoy'";
+$cal2 = mysqli_query($db_con, $cal1);
+if(mysqli_num_rows($cal2) > 0)
+{
+	echo '
+<div id="alert_cal" class="alert alert-info">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<p class="lead"><span class="fa fa-calendar fa-fw"></span> Actividades en el Calendario</p>
+	<p>En el Calendario del Centro aparecen actividades extraescolares asociadas a tus grupos para hoy. </p>
+	<br>
+	<ul>';
+	while($cal = mysqli_fetch_array($cal2))
+	{
+		$actividad = $cal['nombre'];
+		$id = $cal['id'];
+		?>
+<li><?php echo $unidad.": ";?>
+	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a>
+<br>
+</li>
+		<?php
+	}
+		echo "</ul>";
+	echo "</div>";
+}
+
+}
+?>
+
+<?php
 // Alumnos expulsados que vuelven
 if (isset($_GET['id_tareas'])) {
 	$id_tareas = $_GET['id_tareas'];
@@ -574,7 +640,6 @@ como no leído</button>
 	<?php
 	}
 }
-
 
 if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
 	echo "<br>";

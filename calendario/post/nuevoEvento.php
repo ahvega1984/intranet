@@ -9,6 +9,7 @@ if (! isset($_POST['cmp_nombre'])) {
 	exit();
 }
 
+
 // Limpiamos variables
 $nombre_evento = mysqli_real_escape_string($db_con, $_POST['cmp_nombre']);
 $fechadiacomp_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_diacomp']);
@@ -38,6 +39,17 @@ $horafin_evento = trim($horafin_evento);
 $descripcion_evento = trim($descripcion_evento);
 $lugar_evento = trim($lugar_evento);
 
+// Comprobamos si hay actividades para ese grupo el mismo día
+foreach ($unidades_evento as $grupo_cal) {
+	$fecha_extra = cambia_fecha($fechaini_evento);
+	$grupo_cal = trim($grupo_cal);
+	
+	$chk = mysqli_query($db_con,"select * from calendario where categoria = '2' and fechaini = '$fecha_extra' and unidades like '%$grupo_cal;%'");
+		if (mysqli_num_rows($chk)>0) {
+			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=1');
+			exit();
+		}
+}
 
 if ($fechadiacomp_evento == '') $fechadiacomp_evento = 0;
 else $fechadiacomp_evento = 1;

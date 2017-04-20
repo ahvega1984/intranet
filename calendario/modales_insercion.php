@@ -149,7 +149,7 @@
         				</optgroup>
         				<?php endif; ?>
         				
-        				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
+        				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') and date('m')!=='05' and date('m')!=='06'): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>

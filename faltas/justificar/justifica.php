@@ -17,7 +17,7 @@ if ($falta=="J")
 // Aquí empieza la justificación.
 else
 {
-	$justifica0 = "SELECT FALTA, FALTAS.NC, FALUMNOS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno'";
+	$justifica0 = "SELECT FALTA, FALTAS.NC, FALUMNOS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTA='F'";
 	// echo $justifica0."<br>";
 	$justifica1 = mysqli_query($db_con, $justifica0);
 	if (mysqli_num_rows($justifica1) > 0) {
@@ -27,7 +27,7 @@ else
 					$tr_dia = explode("_",$clave);					
 					if ($valor==$faltones[3]) {
 						$justificacion = "UPDATE  FALTAS SET  FALTA =  'J' WHERE  FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTAS.FALTA = 'F' and hora='$valor'";
-						//echo $justificacion."<br>";
+						// echo $justificacion."<br>";
 						mysqli_query($db_con, $justificacion);
 					}
 				}
