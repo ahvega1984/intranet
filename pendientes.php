@@ -37,6 +37,7 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 // Comprobar actividades en elcalendario
 $hoy = date("Y-m-d");
+$dia_semana = date('w');
 
 // Calendario personal
 $cal_personal = mysqli_query($db_con,"select * from calendario where categoria like (select distinct id from calendario_categorias where profesor = '".$_SESSION['ide']."') and fechaini = '$hoy'");
@@ -64,8 +65,9 @@ if (mysqli_num_rows($cal_personal)>0) {
 	echo "</div>";
 	}
 
-// Actividades extraescolares
-$cur_prof = mysqli_query($db_con,"select distinct grupo, profesor from profesores where profesor = '".$_SESSION['profi']."'");
+if ($dia_semana > 0 and $dia_semana < 6) {
+	// Actividades extraescolares
+$cur_prof = mysqli_query($db_con,"select distinct a_grupo, prof from horw_faltas where prof = '".$_SESSION['profi']."' and dia = '$dia_semana'");
 while ($c_prof = mysqli_fetch_array($cur_prof)) {
 	$unidad = $c_prof[0];
 	$profe_profe = $c_prof[1];
@@ -95,8 +97,9 @@ if(mysqli_num_rows($cal2) > 0)
 		echo "</ul>";
 	echo "</div>";
 }
-
 }
+}
+
 ?>
 
 <?php
