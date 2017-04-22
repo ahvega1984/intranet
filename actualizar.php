@@ -91,3 +91,22 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Codificacion a UTF-8', NOW())");
 }
+
+/*
+	@descripcion: Ampliación de las columnas de calificaciones en tabla nota
+	@fecha: 22 de abril de 2017
+*/
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ancho columnas en tabla notas'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE  `notas` 
+		CHANGE  `notas0`  `notas0` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+		CHANGE  `notas1`  `notas1` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+		CHANGE  `notas2`  `notas2` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+		CHANGE  `notas3`  `notas3` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+		CHANGE  `notas4`  `notas4` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ancho columnas en tabla notas', NOW())");
+	
+}
