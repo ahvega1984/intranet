@@ -262,19 +262,24 @@ echo "".$tipo20[0]."</label></div>";
 		<div class="col-sm-6">
 		<?php } else{ ?>
 		<div class="col-sm-12">
-		<?php } ?>
+		<?php }
+		$n_cur = substr($curso,0,1);
+ 		?>
 			<div class="form-group"><label>Optativa </label><select name="optativ" class="form-control">
 			<?php
 			if ($optativ) {
-				echo "<option>$optativ</option>";
+				$n_p = substr($optativ,-1);
+				echo "<option value='$optativ'>".${opt.$n_cur}[$n_p]."</option>";
 			}
 			?>
-				<option></option>
+			<option></option>
 			<?php if ($curso=="1ESO") { $n_optati = '5';}elseif ($curso=="2ESO") { $n_optati = '4';}elseif ($curso=="3ESO") { $n_optati = '8';}else{$n_optati = '6';}
+			$n_o=0;
 			for ($i=1; $i < $n_optati; $i++) { 
 			?>
-				<option><?php echo "optativa".$i;?></option>
+			<option value="<?php echo "optativa".$i;?>"><?php echo ${opt.$n_cur}[$n_o];?></option>
 			<?php
+			$n_o++;
 			}
 			?>
 			</select></div>

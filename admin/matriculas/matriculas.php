@@ -144,19 +144,8 @@ array(
 ),
 );
 
-// OPTATIVAS Y MODALIDADES DE LOS DISTINTOS NIVELES
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
-	$opt3 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras (Se debe elegir Alemán o Francés como Optativa)");
-	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
-	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
-		
-	$it41 = array("(Bachillerato de Ciencias)", "Matemáticas Académicas", "Tecnología (Sólo Ingeniería y Arquitectura)", "Física y Química", "Biología y Geología", "Economía");
-	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matemáticas Académicas", "Latín", "Economía");
-	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
-
-	$opt4=array("Alemán2" => "Alemán 2º Idioma", "Francés2" => "Francés 2º Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. Plástica y Visual", "Música" => "Música");
+// Archivo con los arrays de las asigntauras optativas.
+include 'asignaturas.php';
 
 // Se han enviado datos para procesar....
 if(isset($_POST['enviar'])){
@@ -889,7 +878,7 @@ exit();
 		<tr>
 			<th class="active text-center" colspan="2">
 			<span class="text-uppercase">Asignatura optativa</span>
-			<p class="help-block"><small>(marca con 1, 2, 3, y 4 por orden de preferencia)</small></p></th>
+			<p class="help-block"><small>(marca con 1, 2, 3, y 4 por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.)</small></p></th>
 			<th class="active text-center" colspan="2"><span
 				class="text-uppercase">Programa de Refuerzo o Ampliación</span>
 			<p class="help-block"><small>Se elige una asignatura de refuerzo si el alumno tiene
@@ -1021,10 +1010,10 @@ exit();
 		<!-- OPTATIVAS: 4 ESO -->
 		<?php else: ?>
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">Elección de
-			Itinerario de 4º de ESO<p class="help-block">
+			<th class="active text-center" colspan="4"><span class='text-uppercase'>Elección de
+			Itinerario de 4º de ESO</span><p class="help-block">
 			<small>(Debes marcar un Itinerario y luego seleccionar una
-			asignatura optativa si procede)</small></p></th>
+			asignatura optativa si procede. Todos los alumnos cursan 2 optativas, excepto en el Itinerario 1 (Ciencias y Arquitectura) que cursan 1 sola asignatura. En caso de que no haya un número suficiente de alumnos en la asignatura elegida, se asignará la siguiente opción.)</small></p></th>
 		</tr>
 		<tr>
 			<td class="text-center" colspan="4">

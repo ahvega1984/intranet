@@ -4,6 +4,8 @@ ini_set("session.gc_maxlifetime",1800);
 
 require('../../bootstrap.php');
 
+// Archivo con los arrays de las asigntauras optativas.
+include 'asignaturas.php';
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
 {
@@ -331,20 +333,7 @@ if (!($orden)) {
 	}
 
 	include 'procesado.php';
-
-	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
-	$opt3 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
-	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
-		
-	$it41 = array("(Bachillerato de Ciencias)", "Matemáticas Académicas", "Tecnología (Sólo Ingeniería y Arquitectura)", "Física y Química", "Biología y Geología", "Economía");
-	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matemáticas Académicas", "Latín", "Economía");
-	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
-
-	$opt4=array("Alemán2" => "Alemán 2º Idioma", "Francés2" => "Francés 2º Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. Plástica y Visual", "Música" => "Música");
-
+	
 	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
 	
 	if ($curso=="1ESO"){$num_opt = count($opt1);}elseif ($curso=="2ESO"){$num_opt = count($opt2);}elseif ($curso=="3ESO"){$num_opt = count($opt3);}else{$num_opt = count($opt4);}
@@ -405,10 +394,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if ($n_curso=="3") {
 			echo '<th>Mat.</th>';
 		}
-		for ($i=1;$i<$num_opt+1;$i++)
-		{
-			echo "<th>Opt".$i."</th>";
-		}
+		
+		echo "<th>Opt1</th><th>Opt2</th>";
+		
 		if ($n_curso<4) {
 			echo '<th>Act.</th>';
 		}
@@ -567,13 +555,43 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($n_curso=="3") {
 				echo '<td>'.$matematicas3.'</td>';
 			}
+
+			echo "<td align='center' style='background-color:#efdefd;'>";
+			$n_o1=0;
 			for ($i=1;$i<$num_opt+1;$i++)
 			{
 				if (${optativa.$i} == '0') {${optativa.$i}="";}
-				echo "<td align='center'";
-				if(${optativa.$i}=='1'){echo " style='background-color:#efdefd;'";}
-				echo ">".${optativa.$i}."</td>";
+				if (${optativa.$i}=="1") {
+					$a_opt1 = str_ireplace("y", "", ${opt.$n_curso}[$n_o1]);
+					$a_opt1 = str_ireplace("de", "", ${opt.$n_curso}[$n_o1]);					
+					$wrd1 = explode(" ", $a_opt1);
+					$acr1 = "";
+					foreach ($wrd1 as $w1) {
+					  $acr1.= $w1[0];
+					}
+				}
+				$n_o1++;
 			}
+			echo $acr1."</td>";
+
+			echo "<td align='center'>";
+			$n_o2=0;
+			for ($i=1;$i<$num_opt+1;$i++)
+			{
+				if (${optativa.$i} == '0') {${optativa.$i}="";}
+				if (${optativa.$i}=="2") {
+					$a_opt2 = str_ireplace("y", "", ${opt.$n_curso}[$n_o2]);	
+					$a_opt2 = str_ireplace("de", "", ${opt.$n_curso}[$n_o2]);				
+					$wrd2 = explode(" ", $a_opt2);
+					$acr2 = "";
+					foreach ($wrd2 as $w2) {
+					  $acr2.= $w2[0];
+					}
+				}
+				$n_o2++;
+			}
+			echo $acr2."</td>";
+
 
 			if ($n_curso<4) {
 				if ($act1==0) {
