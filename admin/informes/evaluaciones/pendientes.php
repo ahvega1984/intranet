@@ -245,8 +245,8 @@ include("menu.php");
 							<th>Totales</th>
 							<?php for ($i = 0; $i < $num_columnas; $i++): ?>
 							<th class="text-center text-success"><?php echo ${matriculados.$i}; ?></th>
-							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?></th>
-							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?></th>
+							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?><br><small>(<?php echo number_format((${aprobados.$i} * 100) / ${matriculados.$i}, 0); ?>%)</small></th>
+							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?><br><small>(<?php echo number_format((${suspensos.$i} * 100) / ${matriculados.$i}, 0); ?>%)</small></th>
 							<?php unset(${matriculados.$i}); ?>
 							<?php unset(${aprobados.$i}); ?>
 							<?php unset(${suspensos.$i}); ?>
@@ -296,8 +296,8 @@ include("menu.php");
 							<td class="text-center active"><?php $evaluacion['asignaturas'][$i]['suspensos'] = 0; ?></td>
 							<?php else: ?>
 							<td class="text-center"><?php echo $evaluacion['asignaturas'][$i]['matriculados']; ?></td>
-							<td class="text-center text-success"><?php echo $evaluacion['asignaturas'][$i]['aprobados']; ?></td>
-							<td class="text-center text-danger"><?php echo $evaluacion['asignaturas'][$i]['suspensos']; ?></td>
+							<td class="text-center text-success"><?php echo $evaluacion['asignaturas'][$i]['aprobados']; ?><br><small>(<?php echo number_format(($evaluacion['asignaturas'][$i]['aprobados'] * 100) / $evaluacion['asignaturas'][$i]['matriculados'], 0); ?>%)</small></td>
+							<td class="text-center text-danger"><?php echo $evaluacion['asignaturas'][$i]['suspensos']; ?><br><small>(<?php echo number_format(($evaluacion['asignaturas'][$i]['suspensos'] * 100) / $evaluacion['asignaturas'][$i]['matriculados'], 0); ?>%)</small></td>
 							<?php endif; ?>
 							<?php endfor; ?>
 						</tr>
@@ -321,8 +321,8 @@ include("menu.php");
 							<th>Totales</th>
 							<?php for ($i = 0; $i < $num_columnas; $i++): ?>
 							<th class="text-center"><?php echo ${matriculados.$i}; ?></th>
-							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?></th>
-							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?></th>
+							<th class="text-center text-success"><?php echo ${aprobados.$i}; ?><br><small>(<?php echo number_format((${aprobados.$i} * 100) / ${matriculados.$i}, 0); ?>%)</small></th>
+							<th class="text-center text-danger"><?php echo ${suspensos.$i}; ?><br><small>(<?php echo number_format((${suspensos.$i} * 100) / ${matriculados.$i}, 0); ?>%)</small></th>
 							<?php unset(${matriculados.$i}); ?>
 							<?php unset(${aprobados.$i}); ?>
 							<?php unset(${suspensos.$i}); ?>
