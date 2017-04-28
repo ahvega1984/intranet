@@ -50,7 +50,8 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
 $hay = mysqli_query($db_con,"select max(fecha) from faltas_control");
 if (mysqli_num_rows($hay)>0) {
   $ultima = mysqli_fetch_array($hay);
-  $extra = "and date(fecha) > '$ultima[0]'";
+  $d_dias= date('Y-m-d', strtotime('-10 day'));
+  $extra = "and date(fecha) > '$ultima[0]' and date(fecha) < '$d_dias'";
 }
 
 // Creamos tabla temporal
@@ -60,6 +61,7 @@ $num_horas="";
 
 $rc = mysqli_query($db_con,"select * from faltas_tmp");
 while ($nrec = mysqli_fetch_array($rc)) {
+
 
 $rec = mysqli_query($db_con,"select * from FALTAS where claveal='$nrec[0]' and fecha = '$nrec[1]' and falta not like 'R' order by hora");
 $num_horas = mysqli_num_rows($rec);
@@ -87,7 +89,10 @@ while ($fl = mysqli_fetch_array($prof_flt)) {
 
               $num_profes = mysqli_num_rows($prf);
                 while($prfe = mysqli_fetch_array($prf)){
-                mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','$num_profes','$i')");
+                $pr_act = mysqli_query($db_con,"select * from alma where claveal='$nrec[0]' and combasi like '%$prfe[1]:%'"); 
+                if (mysqli_num_rows($pr_act)>0) {
+                  mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','1','$i')");
+                }
                 }
             }
         }
