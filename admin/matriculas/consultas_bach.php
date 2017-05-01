@@ -451,7 +451,11 @@ if (!($orden)) {
 		<?php
 		echo '<th class="hidden-print" style="align:center">Sí NO</th>';
 		?>
+		<!-- Se han producido cambios en la matrícula -->
+		<th class="hidden-print">Camb.</th>
+		<!-- Problemas de convivencia y comportamiento -->
 		<th class="hidden-print">Conv.</th>
+		<!-- Datos diversos: observaciones, enfermedades, foto, etc. -->
 		<th class="hidden-print">Otros</th>
 	</tr>
 	<?php
@@ -646,9 +650,9 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			}
 			echo "</td>";
 
-//		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
-//		if($revisado=="1"){echo " checked";}
-//		echo ' /></td>';
+		echo '<td class="hidden-print text-center"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+		if($revisado=="1"){echo " checked";}
+		echo ' /></td>';
 			echo "<td class='hidden-print'>";
 // Problemas de Convivencia
 if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1'><span class='badge badge-important' target='blank'>$n_fechorias</span></a>";}

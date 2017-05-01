@@ -1,20 +1,20 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
 $pa = explode(", ", $row[10]);
-$papa = "$pa[1] $pa[0]";
+//$papa = $pa[1]." ".$pa[0];
 $hoy = formatea_fecha(date('Y-m-d'));
-$titulo4 = "AUTORIZACIÓN  PARA FOTOS Y GRABACIONES";
-$autoriza_fotos="
+$titulo4 = utf8_decode("AUTORIZACIÓN  PARA FOTOS Y GRABACIONES");
+$autoriza_fotos=utf8_decode("
 D./Dª $papa, con DNI $row[11], representante legal del alumno/a $row[3] $row[2]
 AUTORIZA al ".$config['centro_denominacion']." a fotografiar o grabar con video a su hijo o hija con fines educativos 
 y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
-";
-$titulo5 = "		
+");
+$titulo5 = utf8_decode("		
 En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª
-NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
+NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.");
 
 // Fotos
 	$MiPDF->Addpage ();
@@ -33,32 +33,32 @@ NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
 	$MiPDF->Multicell ( 0, 6, $titulo5, 0, 'C', 0 );
 	$MiPDF->Ln ( 10 );
 
-$titulo_religion = "SOLICITUD PARA CURSAR LAS ENSEÑANZAS DE RELIGIÓN";
+$titulo_religion = utf8_decode("SOLICITUD PARA CURSAR LAS ENSEÑANZAS DE RELIGIÓN");
 $an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
-$autoriza_religion="
+$autoriza_religion=utf8_decode("
 D./Dª $papa, como padre, madre o tutor legal del alumno/a $row[3] $row[2] del curso ".$n_curso."º de ESO del ".$config['centro_denominacion'].", en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
 
 SOLICITA:
 
 Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente esta decisión, la enseñanza de Religión:
 x $religion
-";
-$firma_religion = "		
+");
+$firma_religion = utf8_decode("		
 En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª
-";
-$final_religion="
-SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
-$direccion_junta = "
+");
+$final_religion=utf8_decode("
+SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------");
+$direccion_junta = utf8_decode("
 Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
 Telf. 95 506 40 00. Fax: 95 506 40 03.
-e-mail: informacion.ced@juntadeandalucia.es
-";
+e-mail: informacion.ced@juntadeandalucia.es");
+
 // Religion
 
 if (substr($religion, 0, 1)=="R") {
@@ -71,9 +71,9 @@ if (substr($religion, 0, 1)=="R") {
 	$MiPDF->Multicell ( 0, 6, $autoriza_religion, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
 	$MiPDF->Multicell ( 0, 6, $firma_religion, 0, 'C', 0 );
-	$MiPDF->Ln ( 8 );
+	$MiPDF->Ln ( 6 );
 	$MiPDF->Multicell ( 0, 6, $final_religion, 0, 'L', 0 );
-	$MiPDF->Ln ( 5 );
+	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'Times', '', 9  );
 	$MiPDF->Multicell ( 0, 6, $direccion_junta, 0, 'L', 0 );
 }
@@ -118,7 +118,7 @@ while ($hij_bach = mysqli_fetch_array($hijos_bach)){
 }	
 
 	
-	$tit_ampa = '
+	$tit_ampa = utf8_decode('
 I.E.S. MONTERROSO
 Avda. Sto. Tomás de Aquino s/n
 29680 ESTEPONA
@@ -127,22 +127,23 @@ ampamonterroso@gmail.com
 
      Como cada año, la labor del A.M.P.A. comienza informando a las madres y padres de la necesidad de pertenecer a la Asociación, pues con su aportación y colaboración ayudamos a la gran tarea que supone EDUCAR A NUESTROS HIJAS E HIJOS. Son muchas las cosas que hacemos pero más las que se pueden llevar a cabo, con el compromiso e implicación de toda la comunidad educativa: padres y madres, profesorado y alumnado.
      Para más información de las actividades del A.M.P.A. consultar página www.iesmonterroso.org  pinchando en A.M.P.A, o directamente accediendo al blog   http://ampamonterroso.blogspot.com/ 
-     La  cuota  de  la Asociación  de  Madres  y  Padres  es  de  12 euros por  familia y por curso.  La  pertenencia  a la   A.M.P.A  es voluntaria. Las  madres,  padres o tutores  de  los  alumnos/as  que  deseen  pertenecer a la  A.M.P.A  deberán  presentar  este  impreso.';
+     La  cuota  de  la Asociación  de  Madres  y  Padres  es  de  12 euros por  familia y por curso.  La  pertenencia  a la   A.M.P.A  es voluntaria. Las  madres,  padres o tutores  de  los  alumnos/as  que  deseen  pertenecer a la  A.M.P.A  deberán  presentar  este  impreso.');
 	
 	$ampa2 = '
-Nombre del Padre, Madre o Tutor Legal: '.$papa.'. DNI: '.$dnipapa.'
+Nombre del Padre, Madre o Tutor Legal: '.$papa.'. 
+DNI: '.$dnipapa.'
 '.$domicilio.'
 '.$telefono1.'
 '.$correo.'
 
 NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escolar.'
 ';
-	$ampa31='EXCLUSIVO  PARA ALUMNOS  QUE  VAN  A  CURSAR 1º, 2º, 3º y 4º DE E.S.O.';
-	$ampa3 = '     Os recordamos que  es OBLIGATORIO el uso de la Agenda Escolar del Instituto para 1º, 2º, 3º y 4º de E.S.O., necesaria para el contacto permanente entre el profesorado y familia.  La Agenda será entregada gratuitamente a los alumnos que se hagan socios en el momento de la matriculación.
+	$ampa31=utf8_decode('EXCLUSIVO  PARA ALUMNOS  QUE  VAN  A  CURSAR 1º, 2º, 3º y 4º DE E.S.O.');
+	$ampa3 = utf8_decode('     Os recordamos que  es OBLIGATORIO el uso de la Agenda Escolar del Instituto para 1º, 2º, 3º y 4º de E.S.O., necesaria para el contacto permanente entre el profesorado y familia.  La Agenda será entregada gratuitamente a los alumnos que se hagan socios en el momento de la matriculación.
    
      Un cordial saludo.
 	
-	';
+	');
 
 	if ($num_hijos=="0" and $num_hijos_bach=="0") {
 		$hijo1 = "$row[3] $row[2]";
@@ -174,14 +175,15 @@ NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escol
 	#Cuerpo.
 	$MiPDF->Image ( '../../img/ampa.jpg', 8, 8, 170, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
-	$MiPDF->Cell(168,8,"ASOCIACIÓN DE MADRES Y PADRES BACCALAUREATUS",1,1,'C');
+	$MiPDF->Cell(168,8,utf8_decode("ASOCIACIÓN DE MADRES Y PADRES BACCALAUREATUS"),1,1,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
 	$MiPDF->Ln ( 4 );
 	$MiPDF->Multicell ( 0, 6, $tit_ampa, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->Multicell ( 0, 6, $ampa2, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
+	$MiPDF->Multicell ( 0, 6, utf8_decode($ampa2), 0, 'L', 0 );
+	$MiPDF->Ln ( 5 );
 	$MiPDF->Multicell ( 0, 6, $ampa31, 1, 'L', 1 );
+	$MiPDF->Ln ( 3 );
 	$MiPDF->Multicell ( 0, 6, $ampa3, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
 	

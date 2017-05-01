@@ -1013,7 +1013,7 @@ exit();
 			<th class="active text-center" colspan="4"><span class='text-uppercase'>Elección de
 			Itinerario de 4º de ESO</span><p class="help-block">
 			<small>(Debes marcar un Itinerario y luego seleccionar una
-			asignatura optativa si procede. Todos los alumnos cursan 2 optativas, excepto en el Itinerario 1 (Ciencias y Arquitectura) que cursan 1 sola asignatura. En caso de que no haya un número suficiente de alumnos en la asignatura elegida, se asignará la siguiente opción.)</small></p></th>
+			asignatura optativa si procede.)</small></p></th>
 		</tr>
 		<tr>
 			<td class="text-center" colspan="4">

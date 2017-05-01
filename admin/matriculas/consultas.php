@@ -407,11 +407,17 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if ($n_curso>1) {
 			echo '<th class="hdden-print">SI |NO </th>';
 		}
-//		echo '<th class="hdden-print">Rev.</th>';
+
+		// Cambios producidos en la matrícula
+		echo '<th class="hdden-print">Camb.</th>';
+		// Hay copia de seguridad porque se han modificado datos y se guarda copia original de 1ª matriculación
 		echo '<th class="hdden-print">Copia</th>';
+		// Eliminar matrícula
 		echo '<th class="hdden-print">Borrar</th>';
 		?>
+		<!-- Problemas de convivencia y comportamiento -->
 		<th class="hdden-print">Conv.</th>
+		<!-- Datos diversos: observaciones, enfermedades, foto, etc. -->
 		<th class="hdden-print">Otros</th>
 	</thead>
 	<tbody>
@@ -688,9 +694,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					echo "<span class='text-muted'> $val_notas</span>";
 				echo "</td>";
 			}
-//			echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
-//			if($revisado=="1"){echo " checked";}
-//			echo ' /></td>';
+			echo '<td class="hdden-print text-center"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+			if($revisado=="1"){echo " checked";}
+			echo ' /></td>';
 			echo "<td class='hdden-print'>";
 			if ($respaldo=='1') {
 				echo $backup." ".$rp_cur;

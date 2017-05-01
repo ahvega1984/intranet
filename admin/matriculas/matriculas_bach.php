@@ -155,28 +155,7 @@ ADD  `opt_aut26` INT( 1 ) NOT NULL");
 	}
 
 // Asignaturas y Modalidades
-// 1 BACHILLERATO
-$it1 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
-
-$opt11=array( "CC11" => "Cultura Científica 1", "TIC11" => "Tecnologías de Información y Comunicación 1", "ROB11" => "Robótica 1");
-$opt12=array("CC12" => "Cultura Científica 2", "TIC12" => "Tecnologías de Información y Comunicación 2");
-$opt13=array("LUN13" => "Literatura Universal 3","HMC13" => "Historia del Mundo Contemporáneo 3");
-$opt14=array("LUN14" => "Literatura Universal 4","HMC14" => "Historia del Mundo Contemporáneo 4");
-
-// 2 BACHILLERATO
-$it2 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
-
-$it21 = array("Bachillerato de Ciencias", "Arquitectura e Ingeniería y Ciencias", "Matemáticas II", "Física", "Dibujo Técnico II");
-$it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Matemáticas II", "Química", "Biología");
-$it23 = array("Bachillerato de Humanidades", "Humanidades", "Latín II", "Historia del Arte");
-$it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y Jurídicas", "Matemáticas de las Ciencias Sociales II", "Geografía");
-
-$opt21=array("TIN21" => "Tecnología Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "Psicología 1", "GEO21" => "Geología 1", "TIC21" => "TIC 1 II", "AL21" => "Alemán 2º Idioma 1", "FR21" => "Francés 2º Idioma 1", "ING21" => "Inglés 2º Idioma 1");
-$opt22=array("TIN22" => "Tecnología Industrial 2 II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente 2", "PSI22" => "Psicología 2", "GEO22" => "Geología 2", "TIC22" => "TIC 2 II", "AL22" => "Alemán 2º Idioma 2", "FR22" => "Francés 2º Idioma 2", "ING22" => "Inglés 2º Idioma 2");
-$opt23=array( "TIC23" => "TIC II 3", "AL23" => "Alemán 2º Idioma 3", "FR23" => "Francés 2º Idioma 3", "ING23" => "Inglés 2º Idioma 3");
-$opt24=array( "TIC24" => "TIC II 4", "FAG24" => "Fundamentos de Administracción y Gestión 4", "AL24" => "Alemán 2º Idioma 4", "FR24" => "Francés 2º Idioma 4", "ING24" => "Inglés 2º Idioma 4");
-
-$opt_aut2=array("opt_aut21" => "Educación Física", "opt_aut22" => "Estadística", "opt_aut23" => "Introducción Ciencias de la Salud", "opt_aut24" => "Alemán 2º Idioma", "opt_aut25" => "Francés 2º Idioma", "opt_aut26" => "Inglés 2º Idioma", "opt_aut27" => "Electrotecnia");
+include 'asignaturas_bach.php';
 
 // Se procesan los datos enviados ppor el formulario
 if(isset($_POST['enviar'])){
@@ -1027,36 +1006,26 @@ if ($dni or $claveal or $id) {
 		</tr>
 
 		<tr>
-		<?php for ($i = 1; $i <= 4; $i++): ?>
+			<?php for ($i = 1; $i <= 4; $i++): ?>
 			<td>
 			<div class="text-left">
 			<p><?php echo ${it2.$i}[2]; ?></p>
 			<p><?php echo ${it2.$i}[3]; ?></p>
-			<?php if($i<3){echo ${it2.$i}[4];} else{ ?>
-			<hr>
-			<div class="form-group">
-			<div class="radio">
-			<label> 
-			<input type="radio"	value="Griego II" name="optativa2" 
-			<?php echo ($optativa2 == 'Griego II' and $itinerario2 == $i) ? 'checked' : ''; ?>
-			>
-			Griego II 
-			</label>
-			</div>
-			<div class="radio">
-			<label> 
-			<input type="radio"	value="Economia de la Empresa" name="optativa2"	
-			<?php echo ($optativa2 == 'Economia de la Empresa' and $itinerario2 == $i) ? 'checked' : ''; ?>
-			>
-			Economía de la Empresa 
-			</label>
-			<br>
-			<small class="help-block">(Selecciona una de las materias)</small>
-			</div>
-			</div>
-
-			<?php } ?>
-			</div>
+			<?php 
+			if($i<3){
+				echo ${it2.$i}[4];
+			} 
+			elseif($i==3){
+				echo ${it2.$i}[4];
+			?>
+			<input type="hidden" value="Griego II" name="optativa2">
+			<?php } 
+			elseif($i==4){
+				echo ${it2.$i}[4];
+			?>
+			<input type="hidden" value="Economía de la Empresa" name="optativa2">
+			<?php } 
+			 ?>
 			</td>
 			<?php endfor; ?>
 		</tr>
@@ -1094,8 +1063,9 @@ if ($dni or $claveal or $id) {
 			<?php endfor; ?>
 		</tr>
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 2º de Bachillerato (2 horas)<p class="help-block">
-			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)</small></p></th>
+			<th class="active text-center" colspan="4"><span class="text-uppercase">Asignaturas Optativas de 2º de Bachillerato (2 horas)</span>
+				<p class="help-block">
+			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc. Todos los alumnos cursan 2 optativas, excepto en el Itinerario 1 (Ciencias y Arquitectura) que cursan 1 sola asignatura. En caso de que no haya un número suficiente de alumnos en la asignatura elegida, se asignará la siguiente opción.)</small></p></th>
 		</tr>
 		<tr>
 			<td style="border-top: 0; text-align:left; <?php if(stristr($adv, "optativa libre")==TRUE) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
@@ -1125,8 +1095,9 @@ if ($dni or $claveal or $id) {
 		<!-- ASIGNATURAS OPTATIVAS DE PRIMERO DE BACHILLERATO -->
 		
 		<tr id="no_repite1">
-			<th class="active text-center text-uppercase" colspan="4">
-			Opciones de matriculación en 1º de Bachillerato<p class="help-block"><small>
+			<th class="active text-center" colspan="4">
+			<span class="text-uppercase">Opciones de matriculación en 1º de Bachillerato</span>
+			<p class="help-block"><small>
 			(Para solicitar una modalidad o vía diferente a la que ya has
 			cursado debes pasar por Jefatura de Estudios)</small></p></th>
 		</tr>
@@ -1141,8 +1112,8 @@ if ($dni or $claveal or $id) {
 </tr>
 <tr>
 <tr>
-	<td style="background-color: #eee;" colspan="4">
-	<strong>Religión, Educación para la Ciudadanía o Cultura Científica</strong>
+	<td style="background-color: #eee;" colspan="4" class="text-center">
+	<strong><span class="text-uppercase">Religión, Educación para la Ciudadanía o Cultura Científica</span></strong>
 	</td>
 </tr>
 <tr>
@@ -1188,8 +1159,8 @@ if ($dni or $claveal or $id) {
 
 
 		<tr>
-	<td style="background-color: #eee;" colspan="4">
-	<strong>Modalidades y Optativas de 1º Bachillerato</strong>
+	<td style="background-color: #eee;" colspan="4" class="text-center">
+	<strong><span class="text-uppercase">Modalidades y Optativas de 1º Bachillerato</span></strong>
 	</td>
 </tr>
 		
