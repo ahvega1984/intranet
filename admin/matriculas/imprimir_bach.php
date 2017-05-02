@@ -76,13 +76,35 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 
 	 
 // Asignaturas y Modalidades
-include 'asignaturas_bach.php';
+
+// 1 BACHILLERATO
+$it1 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
+
+$opt11=array( "CC11" => "Cultura Científica 1", "TIC11" => "Tecnologías de Información y Comunicación 1");
+$opt12=array("CC12" => "Cultura Científica 2", "TIC12" => "Tecnologías de Información y Comunicación 2");
+$opt13=array("LUN13" => "Literatura Universal 3","HMC13" => "Historia del Mundo Contemporáneo 3");
+$opt14=array("LUN14" => "Literatura Universal 4","HMC14" => "Historia del Mundo Contemporáneo 4");
+
+// 2 BACHILLERATO
+$it2 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
+
+$it21 = array("Bachillerato de Ciencias", "Arquitectura e Ingeniería y Ciencias", "Matemáticas II", "Física", "Dibujo Técnico II");
+$it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Matemáticas II", "Química", "Biología");
+$it23 = array("Bachillerato de Humanidades", "Humanidades", "Latín II", "Historia del Arte");
+$it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y Jurídicas", "Matemáticas de las Ciencias Sociales II", "Geografía");
+
+$opt21=array("TIN21" => "Tecnología Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "Psicología 1", "GEO21" => "Geología 1", "TIC21" => "TIC 1 II", "AL21" => "Alemán 2º Idioma 1", "FR21" => "Francés 2º Idioma 1", "ING21" => "Inglés 2º Idioma 1");
+$opt22=array("TIN22" => "Tecnología Industrial 2 II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente 2", "PSI22" => "Psicología 2", "GEO22" => "Geología 2", "TIC22" => "TIC 2 II", "AL22" => "Alemán 2º Idioma 2", "FR22" => "Francés 2º Idioma 2", "ING22" => "Inglés 2º Idioma 2");
+$opt23=array( "TIC23" => "TIC II 3", "AL23" => "Alemán 2º Idioma 3", "FR23" => "Francés 2º Idioma 3", "ING23" => "Inglés 2º Idioma 3");
+$opt24=array( "TIC24" => "TIC II 4", "FAG24" => "Fundamentos de Administracción y Gestión 4", "AL24" => "Alemán 2º Idioma 4", "FR24" => "Francés 2º Idioma 4", "ING24" => "Inglés 2º Idioma 4");
+
+$opt_aut2=array("opt_aut21" => "Educación Física", "opt_aut22" => "Estadística", "opt_aut23" => "Introducción Ciencias de la Salud", "opt_aut24" => "Alemán 2º Idioma", "opt_aut25" => "Francés 2º Idioma", "opt_aut26" => "Inglés 2º Idioma", "opt_aut27" => "Electrotecnia 1");
 
 
-$observaciones= "OBSERVACIONES: ".$observaciones;
-$fecha_total = $fecha;
-$texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
-if ($hermanos == '' or $hermanos == '0') { $hermanos = ""; }
+	 $observaciones= "OBSERVACIONES: ".$observaciones;
+	 $fecha_total = $fecha;
+	 $texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
+	 if ($hermanos == '' or $hermanos == '0') { $hermanos = ""; }
 	 
 }
 $fech = explode(" ",$fecha_total);
@@ -129,17 +151,17 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
 	$titulo2 = "MATRÍCULA DE ". $n_curso."º DE BACHILLERATO";
-	$MiPDF->Multicell ( 0, 4, utf8_decode($titulo2), 0, 'C', 0 );
+	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'C', 0 );
 
 	$MiPDF->Ln ( 5 );
 	$MiPDF->SetFont ( 'Times', '', 7 );
-	$MiPDF->Cell(21,6,utf8_decode("Nº MATRÍCULA: "),0);
+	$MiPDF->Cell(21,6,"Nº MATRÍCULA: ",0);
 	$MiPDF->Cell(24,6,"",1);
 	$adv = "         ANTES DE FIRMAR ESTE IMPRESO, COMPRUEBE QUE CORRESPONDE A LA
 	        ETAPA EDUCATIVA EN LA QUE DESEA REALIZAR LA MATRÍCULA.
 	        ESTA MATRÍCULA ESTÁ CONDICIONADA A LA COMPROBACIÓN DE LOS DATOS,  DE CUYA
 	        VERACIDAD SE RESPONSABILIZA LA PERSONA FIRMANTE. ";
-	$MiPDF->MultiCell(120, 3, utf8_decode($adv),0,'L',0);
+	$MiPDF->MultiCell(120, 3, $adv,0,'L',0);
 	$MiPDF->Ln ( 4 );
 	$MiPDF->SetFont ( 'Times', '', 10 );
 	$MiPDF->Cell(5,6,"1",1,0,'C',1);
@@ -148,12 +170,12 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(84,5,"APELLIDOS",0,0,"C");
 	$MiPDF->Cell(84,5,"NOMBRE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,5,utf8_decode($datos_ya->apellidos),1,0,'C');
-	$MiPDF->Cell(84,5,utf8_decode($datos_ya->nombre),1,0,'C');
+	$MiPDF->Cell(84,5,$datos_ya->apellidos,1,0,'C');
+	$MiPDF->Cell(84,5,$datos_ya->nombre,1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(40,5,"FECHA NACIMIENTO",0,0,"C");
 	$MiPDF->Cell(26,5,"DNI/NIE",0,0,"C");
-	$MiPDF->Cell(26,5,utf8_decode("TELÉFONO"),0,0,"C");
+	$MiPDF->Cell(26,5,"TELÉFONO",0,0,"C");
 	$MiPDF->Cell(35,5,"NACIONALIDAD",0,0,"C");
 	$MiPDF->Cell(21,5,"HERMANOS",0,0,"C");
 	$MiPDF->Cell(20,5,"SEXO",0,0,"C");
@@ -161,7 +183,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(40,5,$nacimiento,1,0,'C');
 	$MiPDF->Cell(26,5,$datos_ya->dni,1,0,'C');
 	$MiPDF->Cell(26,5,$datos_ya->telefono1,1,0,'C');
-	$MiPDF->Cell(35,5,utf8_decode($nacionalidad),1,0,'C');
+	$MiPDF->Cell(35,5,$nacionalidad,1,0,'C');
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
 	$MiPDF->Ln ( 8 );
@@ -170,17 +192,17 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(15,5,"C.P.",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(100,5,utf8_decode($datos_ya->domicilio),1,0,'C');
-	$MiPDF->Cell(25,5,utf8_decode($datos_ya->localidad),1,0,'C');
+	$MiPDF->Cell(100,5,$datos_ya->domicilio,1,0,'C');
+	$MiPDF->Cell(25,5,$datos_ya->localidad,1,0,'C');
 	$MiPDF->Cell(15,5,$config['centro_codpostal'],1,0,'C');
 	$MiPDF->Cell(28,5,$config['centro_provincia'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 
-	$MiPDF->Cell(84,5,utf8_decode("CORREO ELECTRÓNICO DE CONTACTO"),0,0,"C");
+	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
 	$MiPDF->Cell(84,5,"Transporte Escolar",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,5,$datos_ya->correo,1,0,'C');
-	$MiPDF->Cell(84,5,utf8_decode($datos_ya->ruta_este.$datos_ya->ruta_oeste),1,0,'C');
+	$MiPDF->Cell(84,5,$datos_ya->ruta_este.$datos_ya->ruta_oeste,1,0,'C');
 		
 	$MiPDF->Ln ( 9 );
 	$MiPDF->Cell(5,6,"2",1,0,'C',1);
@@ -189,19 +211,19 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 1(con quien este convive)",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,utf8_decode($datos_ya->padre),1,0,'C');
+	$MiPDF->Cell(140,5,$datos_ya->padre,1,0,'C');
 	$MiPDF->Cell(28,5,$datos_ya->dnitutor,1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 2",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,utf8_decode($datos_ya->madre),1,0,'C');
+	$MiPDF->Cell(140,5,$datos_ya->madre,1,0,'C');
 	$MiPDF->Cell(28,5,$datos_ya->dnitutor2,1,0,'C');
 
 	
 	$MiPDF->Ln ( 9 );
 	$MiPDF->Cell(5,6,"3",1,0,'C',1);
-	$MiPDF->Cell(163,6,utf8_decode("DATOS DE MATRÍCULA"),1,0,'C',1);
+	$MiPDF->Cell(163,6,"DATOS DE MATRÍCULA",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(76,5,"CENTRO DOCENTE EN EL QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
@@ -216,19 +238,19 @@ foreach ($pags as $pag_pdf){
 	
 	if ($curso=="2BACH") {
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
-	$MiPDF->Cell(84,6,utf8_decode("RELIGIÓN O ALTERNATIVA"),0,0,'C');
+	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
-	$MiPDF->Cell(84,5,utf8_decode($idioma1),1,0,'C');
-	$MiPDF->Cell(84,5,utf8_decode($religion),1,0,'C');	
+	$MiPDF->Cell(84,5,$idioma1,1,0,'C');
+	$MiPDF->Cell(84,5,$religion,1,0,'C');	
 	}
 	else{
-	$MiPDF->Cell(56,6,utf8_decode("1º IDIOMA EXTRANJERO"),0,0,'C');
-	$MiPDF->Cell(56,6,utf8_decode("2º IDIOMA EXTRANJERO"),0,0,'C');
-	$MiPDF->Cell(56,6,utf8_decode("RELIGIÓN O ALTERNATIVA"),0,0,'C');
+	$MiPDF->Cell(56,6,"1º IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"2º IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
-	$MiPDF->Cell(56,5,utf8_decode($idioma1),1,0,'C');
-	$MiPDF->Cell(56,5,utf8_decode($idioma2),1,0,'C');
-	$MiPDF->Cell(56,5,utf8_decode($religion),1,0,'C');
+	$MiPDF->Cell(56,5,$idioma1,1,0,'C');
+	$MiPDF->Cell(56,5,$idioma2,1,0,'C');
+	$MiPDF->Cell(56,5,$religion,1,0,'C');
 	}
 	$MiPDF->Ln ( 8 );
 	
@@ -281,6 +303,7 @@ foreach ($pags as $pag_pdf){
 
 
 
+
 			foreach (${opt2.$itinerario2} as $key=>$val){
 				$n_z+=1;		
 				$opt_b = mysqli_query($db_con, "select optativa2b$n_z from matriculas_bach where id = '$id'");
@@ -311,17 +334,17 @@ foreach ($pags as $pag_pdf){
 
 
 	//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
-	$MiPDF->Cell(78,5,utf8_decode($n_curso."º DE BACH. ( ".$mod_registro." )"),1,0,'C');
-	$MiPDF->MultiCell(90,5,utf8_decode($opt),1);
+	$MiPDF->Cell(78,5,$n_curso."º DE BACH. ( ".$mod_registro." )",1,0,'C');
+	$MiPDF->MultiCell(90,5,$opt,1);
 	if ($curso=="2BACH") {
 	$MiPDF->Ln ( 2 );
 	$MiPDF->Cell(165,5,"MATERIAS OPTATIVAS",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->MultiCell(168,5,utf8_decode($opt_2b),1);
+	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	}
     if ($n_curso=="1" and $bilinguismo=="Si") {
     	$MiPDF->Ln ( 3 );
-    	$MiPDF->Cell(165,5,utf8_decode("Alumno con Enseñanzas Bilingües"),1,0,"C");
+    	$MiPDF->Cell(165,5,"Alumno con Enseñanzas Bilingües",1,0,"C");
     	$MiPDF->Ln ( 7 );
 	}
 	else{
@@ -340,10 +363,10 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 9 );
 	$nota = "NOTA: Para la primera matriculación del alumnado en el centro docente se aportará documento acreditativo de la fecha de nacimimiento del alumno/a y documento de estar en posesión de los requisitos académicos establecidos en la legislación vigente.";
 	$MiPDF->SetFont ( 'Times', 'B', 8 );
-	$MiPDF->MultiCell(168,5,utf8_decode($nota),0);
+	$MiPDF->MultiCell(168,5,$nota,0);
 	$MiPDF->SetFont ( 'Times', '', 7 );
 	$MiPDF->Ln ( 3 );		
-	$MiPDF->MultiCell(168, 3, utf8_decode($datos_junta),1,'L',1);
+	$MiPDF->MultiCell(168, 3, $datos_junta,1,'L',1);
 }
 
 	# insertamos la primera pagina del documento

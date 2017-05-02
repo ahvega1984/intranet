@@ -75,7 +75,6 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
 
-
 	include 'asignaturas.php';
 
 	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp` (
@@ -121,21 +120,22 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 }
 	 
 	 
-	 $observaciones= utf8_decode("OBSERVACIONES: ".$row['observaciones']);
-	 $texto_exencion= utf8_decode("El alumno solicita la exención de la Asignatura Optativa");
+	 
+	 $observaciones= "OBSERVACIONES: ".$row['observaciones'];
+	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
 	 $curso = $row['curso'];
 	 $fecha_total = $row['fecha'];
 	 $transporte = $row['transporte'];
 	 $ruta_este = $row['ruta_este'];
 	 $ruta_oeste = $row['ruta_oeste'];
-	 $texto_transporte = utf8_decode("Transporte escolar: $ruta_este$ruta_oeste.");
+	 $texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
 	 $sexo = $row['sexo'];
 	 if ($row['hermanos'] == '' or $row['hermanos'] == '0') { $hermanos = ""; } else{ $hermanos = $row['hermanos']; }
 	 
-	 $nacionalidad = utf8_decode($row['nacionalidad']);
+	 $nacionalidad = $row['nacionalidad'];
 	 $itinerario = $row['itinerario'];
-	 $optativas4 = utf8_decode($row['optativas4']);
+	 $optativas4 = $row['optativas4'];
 }
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
@@ -143,27 +143,27 @@ $fecha = $fech[0];
 $an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $hoy = formatea_fecha(date('Y-m-d'));
-$titulo_documentacion = utf8_decode("DOCUMENTACIÓN NECESARIA PARA LA MATRICULACIÓN");
-$documentacion = utf8_decode("1. Fotocopia del D.N.I. Obligatorio por ley para todo alumnado mayor de 14 años. Si el alumnado es menor de 14 años y no se dispone de D.N.I., se admitirá una fotocopia del Libro de Familia o Certificado de Nacimiento.
+$titulo_documentacion = "DOCUMENTACIÓN NECESARIA PARA LA MATRICULACIÓN";
+$documentacion = "1. Fotocopia del D.N.I. Obligatorio por ley para todo alumnado mayor de 14 años. Si el alumnado es menor de 14 años y no se dispone de D.N.I., se admitirá una fotocopia del Libro de Familia o Certificado de Nacimiento.
 2. El alumnado procedente de otros Institutos o de Colegios no adscritos a nuestro Centro deben aportar el Certificado de expediente académico..
 3. Los alumnos que se matriculen a partir de 3º de ESO tienen que abonar 2 euros para la cuota obligatoria del Seguro Escolar.
 4. Cuota voluntaria de 12 euros para la Asociación de Padres y Madres del Centro.
-");
-$datos_junta = utf8_decode("PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, al fichero 'Séneca. Datos personales y académicos del alumnado', con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en centros dependientes de la Conserjería de Educación, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Conserjería de Educación de la Junta de Andalucía en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana 41071 SEVILLA");
+";
+$datos_junta = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, al fichero 'Séneca. Datos personales y académicos del alumnado', con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en centros dependientes de la Conserjería de Educación, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Conserjería de Educación de la Junta de Andalucía en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana 41071 SEVILLA";
 
 // Normas de telefonía móvil
-$titulo_moviles = utf8_decode("SOBRE EL USO DE TELÉFONOS MÓVILES Y OTROS DISPOSITIVOS EN EL CENTRO");
+$titulo_moviles = "SOBRE EL USO DE TELÉFONOS MÓVILES Y OTROS DISPOSITIVOS EN EL CENTRO";
 
-$texto_moviles=utf8_decode("
+$texto_moviles="
            Estimadas familias:
 
      Les informamos de que está prohibido el uso de teléfonos móviles y otros dispositivos de grabación/reproducción multimedia por parte del alumnado durante el horario escolar. Dicha medida es consecuencia de salvaguardar la intimidad tanto del alumnado como del profesorado, quienes pudieran ver vulnerados sus derechos de protección por grabaciones y/o difusiones de imágenes capturadas de forma ajena a su voluntad. Por este motivo, recordamos que la utilización de estos aparatos está prohibida en el Centro. En caso de que algún alumno sea sorprendido con cualquier dispositivo electrónico, este le será requisado aplicándose las medidas que en materia de convivencia hay estipuladas en nuestro Reglamento al efecto.
      El teléfono móvil en el Centro es absolutamente innecesario y constituye un elemento perturbador del clima de estudio y trabajo en el mismo. En aquellos casos en los que el alumnado tenga que comunicarse con la familia (que se entienden como situaciones graves o de urgencia), los teléfonos del Centro están siempre a disposición del alumnado. 
-     Por último anunciar que dado que se ha dejado claro que están prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.");
+     Por último anunciar que dado que se ha dejado claro que están prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
 
-$final_moviles=utf8_decode("
+$final_moviles="
 D./Dª. $papa, con DNI número ".$row['dnitutor'].", padre/madre/tutor legal del alumno/ a ".$row['nombre']." ".$row['apellidos']." del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
-");
+";
 $firma_moviles="
 Firmado,
 
@@ -179,19 +179,19 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFillColor(230,230,230);
 	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
-	$titulo2 = utf8_decode("EDUCACIÓN SECUNDARIA OBLIGATORIA                                                           MATRICULA");
+	$titulo2 = "EDUCACIÓN SECUNDARIA OBLIGATORIA                                                           MATRICULA";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'L', 0 );
 
 	$MiPDF->Ln ( 8 );
 	$MiPDF->SetFont ( 'Times', '', 7 );
-	$MiPDF->Cell(21,6,utf8_decode("Nº MATRÍCULA: "),0);
+	$MiPDF->Cell(21,6,"Nº MATRÍCULA: ",0);
 	$MiPDF->Cell(24,6,"",1);
-	$adv = utf8_decode("         ANTES DE FIRMAR ESTE IMPRESO, COMPRUEBE QUE CORRESPONDE A LA
+	$adv = "         ANTES DE FIRMAR ESTE IMPRESO, COMPRUEBE QUE CORRESPONDE A LA
 	        ETAPA EDUCATIVA EN LA QUE DESEA REALIZAR LA MATRÍCULA.
 	        ESTA MATRÍCULA ESTÁ CONDICIONADA A LA COMPROBACIÓN DE LOS DATOS,  DE CUYA
-	        VERACIDAD SE RESPONSABILIZA LA PERSONA FIRMANTE. ");
+	        VERACIDAD SE RESPONSABILIZA LA PERSONA FIRMANTE. ";
 	$MiPDF->MultiCell(120, 3, $adv,0,'L',0);
-	$MiPDF->Ln ( 4 );
+	$MiPDF->Ln ( 5 );
 	$MiPDF->SetFont ( 'Times', '', 10 );
 	$MiPDF->Cell(5,6,"1",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS PERSONALES DEL ALUMNO",1,0,'C',1);
@@ -199,17 +199,17 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(84,5,"APELLIDOS",0,0,"C");
 	$MiPDF->Cell(84,5,"NOMBRE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,5,utf8_decode($row['apellidos']),1,0,'C');
-	$MiPDF->Cell(84,5,utf8_decode($row['nombre']),1,0,'C');
+	$MiPDF->Cell(84,5,$row['apellidos'],1,0,'C');
+	$MiPDF->Cell(84,5,$row['nombre'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(40,5,"FECHA NACIMIENTO",0,0,"C");
 	$MiPDF->Cell(26,5,"DNI/NIE",0,0,"C");
-	$MiPDF->Cell(26,5,utf8_decode("TELÉFONO"),0,0,"C");
+	$MiPDF->Cell(26,5,"TELÉFONO",0,0,"C");
 	$MiPDF->Cell(35,5,"NACIONALIDAD",0,0,"C");
 	$MiPDF->Cell(21,5,"HERMANOS",0,0,"C");
 	$MiPDF->Cell(20,5,"SEXO",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(40,5,utf8_decode($nacimiento),1,0,'C');
+	$MiPDF->Cell(40,5,$nacimiento,1,0,'C');
 	$MiPDF->Cell(26,5,$row['dni'],1,0,'C');
 	$MiPDF->Cell(26,5,$row['telefono1'],1,0,'C');
 	$MiPDF->Cell(35,5,$nacionalidad,1,0,'C');
@@ -221,17 +221,17 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(15,5,"C.P.",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(100,5,utf8_decode($row['domicilio']),1,0,'C');
-	$MiPDF->Cell(25,5,utf8_decode($row['localidad']),1,0,'C');
-	$MiPDF->Cell(15,5,utf8_decode($config['centro_codpostal']),1,0,'C');
+	$MiPDF->Cell(100,5,$row['domicilio'],1,0,'C');
+	$MiPDF->Cell(25,5,$row['localidad'],1,0,'C');
+	$MiPDF->Cell(15,5,$config['centro_codpostal'],1,0,'C');
 	$MiPDF->Cell(28,5,$config['centro_provincia'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 		
-	$MiPDF->Cell(84,5,utf8_decode("CORREO ELECTRÓNICO DE CONTACTO"),0,0,"C");
+	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
 	$MiPDF->Cell(84,5,"Transporte Escolar",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,5,$row['correo'],1,0,'C');
-	$MiPDF->Cell(84,5,utf8_decode($ruta_est.$ruta_oeste),1,0,'C');
+	$MiPDF->Cell(84,5,$ruta_est.$ruta_oeste,1,0,'C');
 	
 	$MiPDF->Ln ( 10 );
 	$MiPDF->Cell(5,6,"2",1,0,'C',1);
@@ -240,19 +240,19 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 1(con quien este convive)",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,utf8_decode($row['padre']),1,0,'C');
+	$MiPDF->Cell(140,5,$row['padre'],1,0,'C');
 	$MiPDF->Cell(28,5,$row['dnitutor'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 2",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,utf8_decode($row['madre']),1,0,'C');
+	$MiPDF->Cell(140,5,$row['madre'],1,0,'C');
 	$MiPDF->Cell(28,5,$row['dnitutor2'],1,0,'C');
 
 	
 	$MiPDF->Ln ( 10 );
 	$MiPDF->Cell(5,6,"3",1,0,'C',1);
-	$MiPDF->Cell(163,6,utf8_decode("DATOS DE MATRÍCULA"),1,0,'C',1);
+	$MiPDF->Cell(163,6,"DATOS DE MATRÍCULA",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(76,5,"CENTRO DOCENTE EN EL QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
@@ -266,20 +266,21 @@ for($i=1;$i<3;$i++){
 	$extra_it="";
 	if($itinerario==1){$extra_it="(".$row['ciencias4'].")";}
 	if(strlen($optativas4)>1){$extra_it.=" - $optativas4";}	
-	if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}elseif ($n_curso == '3') { $extra=utf8_decode("3ESO (Matemáticas $matematicas3)");}else{$extra=$curso;}
+	if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}elseif ($n_curso == '3') { $extra="3ESO (Matemáticas $matematicas3)";}else{$extra=$curso;}
 	
        $MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
-	$MiPDF->Cell(84,6,utf8_decode("RELIGIÓN O ALTERNATIVA"),0,0,'C');
+	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
-	$MiPDF->Cell(84,5,utf8_decode($idioma),1,0,'C');
-	$MiPDF->Cell(84,5,utf8_decode($religion),1,0,'C');	
+	$MiPDF->Cell(84,5,$idioma,1,0,'C');
+	$MiPDF->Cell(84,5,$religion,1,0,'C');	
 	$MiPDF->Ln ( 7);
 	
 	$MiPDF->Cell(60,5,"CURSO EN QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Cell(108,5,"MATERIAS OPTATIVAS DEL CURSO EN QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(60,5,$extra,1,0,'C');
-	$MiPDF->MultiCell(108,5,utf8_decode($opt),1);
+	
+	$MiPDF->MultiCell(108,5,$opt,1);
 	$MiPDF->Ln ( 4 );
 	$f_hoy = "        En ".$config['centro_localidad'].", a ".$hoy;
 	$sello = "                                  Sello del Centro";
@@ -287,11 +288,11 @@ for($i=1;$i<3;$i++){
 	$firma_padre= "  Firma del representante o Guardador legal 1";
 	$MiPDF->Cell(84,8,$firma_padre,0);	
 	$MiPDF->Cell(84, 8, $firma_centro,0);
-	$MiPDF->Ln ( 18);
+	$MiPDF->Ln ( 20);
 	$MiPDF->Cell(84, 8, $f_hoy,0);
 	$MiPDF->Cell(84, 8, $sello,0);
 	$MiPDF->Ln ( 9 );
-	$nota = utf8_decode("NOTA: Para la primera matriculación del alumnado en el centro docente se aportará documento acreditativo de la fecha de nacimimiento del alumno/a y documento de estar en posesión de los requisitos académicos establecidos en la legislación vigente.");
+	$nota = "NOTA: Para la primera matriculación del alumnado en el centro docente se aportará documento acreditativo de la fecha de nacimimiento del alumno/a y documento de estar en posesión de los requisitos académicos establecidos en la legislación vigente.";
 	$MiPDF->SetFont ( 'Times', 'B', 8 );
 	$MiPDF->MultiCell(168,5,$nota,0);
 	$MiPDF->SetFont ( 'Times', '', 7 );

@@ -46,39 +46,38 @@ $id = "";
 $id = $id_ar[0];
 $result = mysqli_query($db_con, "select * from matriculas where id = '$id'");
 if ($row = mysqli_fetch_array ( $result )) {
-	$apellidos = utf8_decode("Apellidos del Alumno: ". $row['apellidos']);
-	 $nombre= utf8_decode("Nombre: ".$row['nombre']);
-	 $nacido= utf8_decode("Nacido en: ".$row['nacido']);
+	$apellidos = "Apellidos del Alumno: ". $row['apellidos'];
+	 $nombre= "Nombre: ".$row['nombre'];
+	 $nacido= "Nacido en: ".$row['nacido'];
 	 $nacimiento = cambia_fecha($row['nacimiento']);
-	 $provincia= utf8_decode("Provincia: ".$row['provincia']);
+	 $provincia= "Provincia de: ".$row['provincia'];
 	 $fecha_nacimiento= "Fecha de Nacimiento: $nacimiento";
-	 $domicilio= utf8_decode("Domicilio: ".$row['domicilio']);
-	 $localidad= utf8_decode("Localidad: ".$row['localidad']);
+	 $domicilio= "Domicilio: ".$row['domicilio'];
+	 $localidad= "Localidad: ".$row['localidad'];
 	 $dni= "DNI del alumno: ".$row['dni'];
-	 $padre= utf8_decode("Apellidos y nombre del Tutor legal 1: ".$row['padre']);
+	 $padre= "Apellidos y nombre del Tutor legal 1: ".$row['padre'];
 	 $pa = explode(", ", $row['padre']);
-	 $papa = utf8_decode("$pa[1] $pa[0]");
+	 $papa = "$pa[1] $pa[0]";
 	 $dnitutor= "DNI: ".$row['dnitutor'];
-	 $madre= utf8_decode("Apellidos y nombre del Tutor legal 2: ".$row['madre']);
+	 $madre= "Apellidos y nombre del Tutor legal 2: ".$row['madre'];
 	 $dnitutor2= "DNI: ".$row['dnitutor2'];
-	 $telefono1= utf8_decode("Teléfono Casa: ".$row['telefono1']);
-	 $telefono2= utf8_decode("Teléfono Móvil: ".$row['telefono2']);
+	 $telefono1= "Teléfono Casa: ".$row['telefono1'];
+	 $telefono2= "Teléfono Móvil: ".$row['telefono2'];
 	 $telefonos="$telefono1\n   $telefono2";
-	 $idioma = utf8_decode($row['idioma']);
-	 $religion = utf8_decode($row['religion']);
+	 $idioma = $row['idioma'];
+	 $religion = $row['religion'];
 	 $itinerario = $row['itinerario'];
-	 $optativas4 = utf8_decode($row['optativas4']);
-	 $matematicas3 = utf8_decode($row['matematicas3']);
-	 $ciencias4 = utf8_decode($row['ciencias4']);
+	 $optativas4 = $row['optativas4'];
+	 $matematicas3 = $row['matematicas3'];
+	 $ciencias4 = $row['ciencias4'];
 
-	 if ($row['colegio'] == "Otro Centro") { $colegio= utf8_decode("Centro de procedencia:  ".$row['otrocolegio']); }else{	 utf8_decode($colegio= "Centro de procedencia:  ".$row['colegio']); }
-	 $correo= utf8_decode("Correo electrónico de padre o madre: ".$row['correo']);
+	 if ($row['colegio'] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row['otrocolegio']; }else{	 $colegio= "Centro de procedencia:  ".$row['colegio']; }
+	 $correo= "Correo electrónico de padre o madre: ".$row['correo'];
 
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
-
-	include 'asignaturas.php';
+include 'asignaturas.php';
 
 
 	for ($i=1;$i<8;$i++){
@@ -87,14 +86,14 @@ if ($row = mysqli_fetch_array ( $result )) {
 		if ($n_curso==4) {
 			foreach ($opt4 as $abrev => $val) {
 				if ($n_o==$ni) {
-					${optativa.$i} = utf8_decode($row['optativa'.$i]." - ".$val);
+					${optativa.$i} = $row['optativa'.$i]." - ".$val;
 				}
 				$n_o++;
 			}
 			
 		}
 		else{
-			${optativa.$i} = utf8_decode($row['optativa'.$i]." - ".${opt.$n_curso}[$ni]);
+			${optativa.$i} = $row['optativa'.$i]." - ".${opt.$n_curso}[$ni];
 		}
 	}
 
@@ -102,10 +101,10 @@ if ($row = mysqli_fetch_array ( $result )) {
 	for ($i=1;$i<8;$i++)
 	 {
 	 	if ($row['act1'] == $i) {
-	 		${act.$i} = utf8_decode(" X  " . ${a.$n_curso}[$i-1]);
+	 		${act.$i} = " X  " . ${a.$n_curso}[$i-1];
 	 	}
 	 	else{
-	 		${act.$i} = utf8_decode("      ".${a.$n_curso}[$i-1]);
+	 		${act.$i} = "      ".${a.$n_curso}[$i-1];
 	 	}
 	 }
 	 
@@ -113,18 +112,18 @@ if ($row = mysqli_fetch_array ( $result )) {
 	for ($i=1;$i<8;$i++){
 		$ni = $i-1;
 		$ncr = $n_curso-1;
-			${optativa2.$i} = utf8_decode($row['optativa2'.$i]." - ".${opt.$ncr}[$ni]);
+			${optativa2.$i} = $row['optativa2'.$i]." - ".${opt.$ncr}[$ni];
 	}
 	 
 	 for ($i=1;$i<8;$i++)
 	 {
 	 	$nca = $n_curso-1;
 	 	if ($row['act21'] == $i) {
-	 		${act2.$i} = utf8_decode(" X  " . ${a.$nca}[$i-1]);
+	 		${act2.$i} = " X  " . ${a.$nca}[$i-1];
 
 	 	}
 	 	else{
-	 		${act2.$i} = utf8_decode("      ".${a.$nca}[$i-1]);
+	 		${act2.$i} = "      ".${a.$nca}[$i-1];
 	 	}
 	 }
 
@@ -132,30 +131,45 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 	for ($i=1;$i<7;$i++)
 	 {
 	 	if ($row['act1'] == $i) {
-			${act2.$i} = utf8_decode(" X  " . $a21[$i-1]);	
+			${act2.$i} = " X  " . $a21[$i-1];	
 		 }
 		 else{
-	 		${act2.$i} = utf8_decode("      ".$a21[$i-1]);
+	 		${act2.$i} = "      ".$a21[$i-1];
 	 	}
 	 }
 	}
 
-	 $observaciones= utf8_decode("OBSERVACIONES: ".$row['observaciones']);
-	 $texto_exencion= utf8_decode("El alumno solicita la exención de la Asignatura Optativa");
+	 $observaciones= "OBSERVACIONES: ".$row['observaciones'];
+	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
 	 $curso = $row['curso'];
 	 $fecha_total = $row['fecha'];
 	 $transporte = $row['transporte'];
 	 $ruta_este = $row['ruta_este'];
 	 $ruta_oeste = $row['ruta_oeste'];
-	 $texto_transporte = utf8_decode("Transporte escolar: $ruta_este$ruta_oeste.");
+	 $texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
 	 $sexo = $row['sexo'];
 	 if ($row['hermanos'] == '' or $row['hermanos'] == '0') { $hermanos = ""; } else{ $hermanos = $row['hermanos']; }
 	 
-	 $nacionalidad = utf8_decode($row['nacionalidad']);
+	 $nacionalidad = $row['nacionalidad'];
 	 $itinerario = $row['itinerario'];
-	 $optativas4 = utf8_decode($row['optativas4']);
+	 $optativas4 = $row['optativas4'];
 }
+$fech = explode(" ",$fecha_total);
+$fecha = $fech[0];
+$titulo1 = "SOLICITUD DE MATRÍCULA EN ".$n_curso."º DE E.S.O.";
+$an = substr($config['curso_actual'],0,4);
+$an1 = $an+1;
+$hoy = formatea_fecha(date('Y-m-d'));
+$cuerpo3 = "En ".$config['centro_localidad'].", a $hoy
+Firma del Padre/Madre/Representante legal D/Dª
+
+
+
+Fdo. D/Dª ---------------------------------------------
+que asegura la veracidad de los datos registrados en el formulario.
+";
+$datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, el ".$config['centro_denominacion']." le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, a nuestra base de datos, con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en nuestro Centro, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría del Instituto en ".$config['centro_direccion'].", ".$config['centro_codpostal']." ".$config['centro_localidad'].", Málaga";
 
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage ();
@@ -205,7 +219,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	}
 	$MiPDF->Ln ( 10 );
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",1,0,'L',1);
-	$MiPDF->Cell(84,6,utf8_decode("ENSEÑANZA DE RELIGIÓN O ALTERNATIVA"),1,0,'L',1);
+	$MiPDF->Cell(84,6,"ENSEÑANZA DE RELIGIÓN O ALTERNATIVA",1,0,'L',1);
 	$MiPDF->Ln ( 6);
 	$MiPDF->Cell(84,8,$idioma,0);
 	$MiPDF->Cell(84,8,$religion,0);
@@ -222,7 +236,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	if(stristr($itinerario,"1")==TRUE){$extra_it="1 (".$ciencias4.")";}
 	else{$extra_it=$itinerario." ";}
 	//echo $ciencias4;
-	if(strlen($optativas4)>1){$extra_it.=utf8_decode(" - $optativas4");}	
+	if(strlen($optativas4)>1){$extra_it.=" - $optativas4";}	
 	//if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}
 	
 	$MiPDF->Cell(168,6,"ITINERARIO $extra_it.",1,0,'C',1);
@@ -235,7 +249,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	}
 	if($n_curso=='3'){
 	if ($matematicas3=="A") {
-		$mat_3=utf8_decode("Matemáticas Académicas (Bachillerato)");}elseif($matematicas3=="B"){$mat_3=utf8_decode("Matemáticas Aplicadas (Formación Profesional)");
+		$mat_3="Matemáticas Académicas (Bachillerato)";}elseif($matematicas3=="B"){$mat_3="Matemáticas Aplicadas (Formación Profesional)";
 		}
 	$MiPDF->Cell(168,6,$mat_3,1,0,'C',0);
 	$MiPDF->Ln ( 5 );
@@ -303,7 +317,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 
 	if (substr($curso, 0, 1) == 2 or substr($curso, 0, 1) == 3 or substr($curso, 0, 1) == 4){
 	$MiPDF->Ln ( 7 );
-	$MiPDF->Cell(168,6,utf8_decode("ASIGNATURAS DE ".$n_curso2."º DE ESO"),1,0,'C',1);
+	$MiPDF->Cell(168,6,"ASIGNATURAS DE ".$n_curso2."º DE ESO",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
 	$MiPDF->Cell(84,6,"ASIGNATURA OPTATIVA",1,0,'L',1);
 	$MiPDF->Cell(84,6,"PROGRAMA DE REFUERZO O ALTERNATIVO",1,0,'L',1);
