@@ -294,16 +294,20 @@ Los datos se han actualizado correctamente.
 							<th>Inicio</th>
 							<th>Fin</th>
 							<th>Horas</th>
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE or $_SESSION['profi'] == $row['profesor']): ?>	
-							<th>&nbsp;</th>
-							<?php endif; ?>
+						
 						</tr>
 					</thead>
 					<tbody>
 						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
-							<td nowrap><a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
+							<td nowrap>
+								<?php if(stristr($_SESSION['cargo'],'1') == TRUE or (mb_strtoupper($_SESSION['profi']) == mb_strtoupper($row['profesor']))): ?>	
+							<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
+									<span class="fa fa-trash-o fa-fw fa-lg pull-right" data-bs="tooltip" title="Borrar"></span>
+							</a>
+						<?php endif; ?>
+							<a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
 							<td>
@@ -314,13 +318,7 @@ Los datos se han actualizado correctamente.
 							}
 							}; ?>
 							</td>
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE or $_SESSION['profi'] == $row['profesor']): ?>							
-							<td>
-								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
-								</a>
-								</td>
-							<?php endif; ?>							
+													
 						</tr>
 						<?php endwhile; ?>
 					</tbody>
