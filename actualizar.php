@@ -110,3 +110,17 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ancho columnas en tabla notas', NOW())");
 	
 }
+
+/*
+	@descripcion: Modificación asuntos reiteración de faltas leves
+	@fecha: 05 de mayo de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reiteracion de faltas leves'");
+if (! mysqli_num_rows($actua)) {
+
+	
+	mysqli_query($db_con,"UPDATE `Fechoria` SET `ASUNTO` = 'Reiteración de cinco o más faltas leves' WHERE `ASUNTO` = 'Reiteración en el mismo trimestre de cinco o más faltas leves';");
+	mysqli_query($db_con,"UPDATE `listafechorias` SET `fechoria` = 'Reiteración de cinco o más faltas leves' WHERE `ID` = 41;");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Reiteracion de faltas leves', NOW())");
+}

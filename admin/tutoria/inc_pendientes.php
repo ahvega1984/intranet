@@ -11,7 +11,7 @@ if(! (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria'
 			$alumno = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
 				
 			$rowa = mysqli_fetch_array ( $alumno );
-			$asunto = "Reiteración en el mismo trimestre de cinco o más faltas leves";
+			$asunto = "Reiteración de cinco o más faltas leves";
 			$medida = "Amonestación escrita";
 			$apellidos = trim ( $rowa [0] );
 			$nombre = trim ( $rowa [1] );

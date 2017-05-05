@@ -94,7 +94,7 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefAmonReiteracion" class="col-sm-4 control-label">Amonestación escrita automática por reiteración en el mismo trimestre de cinco o más faltas leves</label>
+							<label for="prefAmonReiteracion" class="col-sm-4 control-label">Amonestación escrita automática por reiteración de cinco o más faltas leves</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefAmonReiteracion" name="prefAmonReiteracion">
 									<option value="0" <?php echo (isset($config['tutoria']['amonestacion_reiteracion']) && $config['tutoria']['amonestacion_reiteracion'] == 0) ? 'selected' : ''; ?>>Habilitado</option>
