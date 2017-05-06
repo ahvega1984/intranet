@@ -118,7 +118,6 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reiteracion de faltas leves'");
 if (! mysqli_num_rows($actua)) {
 
-	
 	mysqli_query($db_con,"UPDATE `Fechoria` SET `ASUNTO` = 'Reiteración de cinco o más faltas leves' WHERE `ASUNTO` = 'Reiteración en el mismo trimestre de cinco o más faltas leves';");
 	mysqli_query($db_con,"UPDATE `listafechorias` SET `fechoria` = 'Reiteración de cinco o más faltas leves' WHERE `ID` = 41;");
 
