@@ -1,5 +1,4 @@
 .DS_Store
-*.espressostorage
 .settings
 .project
 *.xml
@@ -13,8 +12,6 @@ cache/*
 *.gz
 pdf/lib/fonts/log.htm
 .buildpath
-*.sublime-project
-*.sublime-workspace
 xml/primaria/*.txt
 *.txt
 php.ini
