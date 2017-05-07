@@ -258,51 +258,52 @@ echo "".$tipo20[0]."</label></div>";
 
 <div class="col-sm-3">
 	<div class="row">
-		<?php if ($curso=="4ESO"){ ?>
 		<div class="col-sm-6">
-		<?php } else{ ?>
-		<div class="col-sm-12">
-		<?php }
+		
+		<?php
 		$n_cur = substr($curso,0,1);
  		?>
-			<div class="form-group"><label>Optativa </label><select name="optativ" class="form-control">
+			<div class="form-group"><label>Optativa 1</label><select name="optativ" class="form-control">
 			<?php
+			$n_p0="";
 			if ($optativ) {
-				$n_p = substr($optativ,-1);
-				echo "<option value='$optativ'>".${opt.$n_cur}[$n_p]."</option>";
+				$n_p0 = substr($optativ,-1)-1;
+				echo "<option value='$optativ'>".${opt.$n_cur}[$n_p0]."</option>";
 			}
 			?>
 			<option></option>
-			<?php if ($curso=="1ESO") { $n_optati = '5';}elseif ($curso=="2ESO") { $n_optati = '4';}elseif ($curso=="3ESO") { $n_optati = '8';}else{$n_optati = '6';}
-			$n_o=0;
-			for ($i=1; $i < $n_optati; $i++) { 
-			?>
-			<option value="<?php echo "optativa".$i;?>"><?php echo ${opt.$n_cur}[$n_o];?></option>
 			<?php
-			$n_o++;
+			$i=0;
+			foreach (${opt.$n_cur} as $val) {
+			$i++;
+			?>
+			<option value="<?php echo "optativa".$i;?>"><?php echo $val;?></option>
+			<?php
 			}
 			?>
 			</select></div>
 		</div>
-		<?php if ($curso=="4ESO"){ ?>
 		<div class="col-sm-6">
 			<div class="form-group"><label>Optativa 2</label><select name="optativ2" class="form-control">
 			<?php
-			if ($optativ) {
-				echo "<option>$optativ2</option>";
+			$n_p1="";
+			if ($optativ2) {
+				$n_p1 = substr($optativ2,-1)-1;
+				echo "<option value='$optativ2'>".${opt.$n_cur}[$n_p1]."</option>";
 			}
 			?>
 				<option></option>
-			<?php if ($curso=="1ESO") { $n_optati = '5';}elseif ($curso=="2ESO") { $n_optati = '4';}elseif ($curso=="3ESO") { $n_optati = '8';}else{$n_optati = '6';}
-			for ($i=1; $i < $n_optati; $i++) { 
+			<?php 
+			$i=0;
+			foreach (${opt.$n_cur} as $val) {
+			$i++;
 			?>
-				<option><?php echo "optativa".$i;?></option>
+				<option value="<?php echo "optativa".$i;?>"><?php echo $val;?></option>
 			<?php
 			}
 			?>
 			</select></div>
 		</div>
-		<?php } ?>
 	</div>
 </div>
 
@@ -426,6 +427,9 @@ echo "".$tipo20[0]."</label></div>";
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="divorcio"> Divorcio
+</label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="revisado"> Cambios
 </label>
 </div>
 </div>

@@ -223,7 +223,7 @@ foreach($_GET as $key_get => $val_get)
 <br>
 
 <?php
-echo '<div  class="hdden-print">';
+echo '<div  class="hidden-print">';
 include 'filtro.php';
 echo "</div>";
 if (isset($_GET['borrar'])) {
@@ -269,8 +269,22 @@ $n_curso = substr($curso, 0, 1);
 if ($diversificacio=="Si") { $extra.=" and diversificacion = '1'";	}elseif ($diversificacio=="No"){ $extra.=" and diversificacion = '0'"; }
 if ($exencio=="Si") { $extra.=" and exencion = '1'";	}elseif ($exencio=="No") { $extra.=" and exencion = '0'"; }
 if ($promocion=="Promociona") { $extra.=" and promociona = '1'";	}elseif($promocion=="Repite"){$extra.=" and promociona = '2'";}
-if ($optativ) { $extra.=" and $optativ = '1'";}
-if ($optativ2) { $extra.=" and $optativ2 = '2'";}
+
+if ($n_curso=='4') {
+	if ($optativ) {
+		$op41=substr($optativ, -1);
+		$extra.=" and optativa1 = '$op41'";
+	}
+	if ($optativ2) {
+		$op42=substr($optativ2, -1);
+		$extra.=" and optativa2 = '$op42'";
+	}
+}
+else{
+	if ($optativ) { $extra.=" and $optativ = '1'";}
+	if ($optativ2) { $extra.=" and $optativ2 = '2'";}
+}
+
 if ($religio) { $extra.=" and religion = '$religio'";}
 if ($letra_grup) { $extra.=" and letra_grupo = '$letra_grup'";}
 if ($_POST['grupo_actua']) {
@@ -295,7 +309,8 @@ if ($itinerari and $n_curso=='4') {
 		$cienci = substr($itinerari,3,1);
 		$extra.=" and itinerario = '$it1' and ciencias4 = '$cienci'";
 	}
-	else{$extra.=" and itinerario = '$itinerari'";}}
+	else{$extra.=" and itinerario = '$itinerari'";}
+}
 if ($optativ4 and $n_curso=='4') { $extra.=" and optativas4 = '$optativ4'";}
 if ($matematica3 and $n_curso=='3') { $extra.=" and matematicas3 = '$matematica3'";}
 if ($ciencia4 and $n_curso=='4') { $extra.=" and ciencias4 = '$ciencias4'";}
@@ -402,23 +417,23 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		?>
 
-		<th class="hdden-print">Opciones</th>
+		<th class="hidden-print">Opciones</th>
 		<?php
 		if ($n_curso>1) {
-			echo '<th class="hdden-print">SI |NO </th>';
+			echo '<th class="hidden-print">SI |NO </th>';
 		}
 
 		// Cambios producidos en la matrícula
-		echo '<th class="hdden-print">Camb.</th>';
+		echo '<th class="hidden-print">Camb.</th>';
 		// Hay copia de seguridad porque se han modificado datos y se guarda copia original de 1ª matriculación
-		echo '<th class="hdden-print">Copia</th>';
+		echo '<th class="hidden-print">Copia</th>';
 		// Eliminar matrícula
-		echo '<th class="hdden-print">Borrar</th>';
+		echo '<th class="hidden-print">Borrar</th>';
 		?>
 		<!-- Problemas de convivencia y comportamiento -->
-		<th class="hdden-print">Conv.</th>
+		<th class="hidden-print">Conv.</th>
 		<!-- Datos diversos: observaciones, enfermedades, foto, etc. -->
-		<th class="hdden-print">Otros</th>
+		<th class="hidden-print">Otros</th>
 	</thead>
 	<tbody>
 	<?php
@@ -563,39 +578,99 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 
 			echo "<td align='center' style='background-color:#efdefd;'>";
-			$n_o1=0;
-			for ($i=1;$i<$num_opt+1;$i++)
-			{
+			$num_opt = count(${opt.$n_curso});
+			$i=0;
+			if ($n_curso<4) {
+				foreach (${opt.$n_cur} as $key=>$val) {
+				$i++;
 				if (${optativa.$i} == '0') {${optativa.$i}="";}
 				if (${optativa.$i}=="1") {
-					$a_opt1 = str_ireplace("y", "", ${opt.$n_curso}[$n_o1]);
-					$a_opt1 = str_ireplace("de", "", ${opt.$n_curso}[$n_o1]);					
+					$a_opt1 = str_ireplace(" y ", " ", $val);
+					$a_opt1 = str_ireplace(" de ", " ", $val);					
 					$wrd1 = explode(" ", $a_opt1);
 					$acr1 = "";
+					$num_w = count($wrd1);
+					if ($num_w>1) {
+						$acr1 = "";
 					foreach ($wrd1 as $w1) {
 					  $acr1.= $w1[0];
+						}
+					}
+					else{
+						$acr1 = strtoupper(substr($val,0,3));
+						}
+				}
+			}
+			}
+			else{
+				foreach (${opt.$n_cur} as $key=>$val) {
+				$i++;
+				if ($optativa1==$i) {
+					$a_opt1 = str_ireplace(" y ", " ", $val);
+					$a_opt1 = str_ireplace(" de ", " ", $val);					
+					$wrd1 = explode(" ", $a_opt1);
+					$acr1 = "";
+					$num_w = count($wrd1);
+					if ($num_w>1) {
+						$acr1 = "";
+					foreach ($wrd1 as $w1) {
+					  $acr1.= $w1[0];
+						}
+					}
+					else{
+						$acr1 = strtoupper(substr($val,0,3));
+						}
 					}
 				}
-				$n_o1++;
 			}
+			
 			echo $acr1."</td>";
 
 			echo "<td align='center'>";
-			$n_o2=0;
-			for ($i=1;$i<$num_opt+1;$i++)
-			{
+			$num_opt = count(${opt.$n_curso});
+			$i=0;
+			if ($n_curso<4) {
+				foreach (${opt.$n_cur} as $key=>$val) {
+				$i++;
 				if (${optativa.$i} == '0') {${optativa.$i}="";}
 				if (${optativa.$i}=="2") {
-					$a_opt2 = str_ireplace("y", "", ${opt.$n_curso}[$n_o2]);	
-					$a_opt2 = str_ireplace("de", "", ${opt.$n_curso}[$n_o2]);				
+					$a_opt2 = str_ireplace(" y ", " ", $val);
+					$a_opt2 = str_ireplace(" de ", " ", $val);					
 					$wrd2 = explode(" ", $a_opt2);
-					$acr2 = "";
+					$num_w = count($wrd2);
+					if ($num_w>1) {
+						$acr2 = "";
 					foreach ($wrd2 as $w2) {
 					  $acr2.= $w2[0];
+						}
+					}
+					else{
+						$acr2 = strtoupper(substr($val,0,3));
 					}
 				}
-				$n_o2++;
 			}
+			}
+			else{
+				foreach (${opt.$n_cur} as $key=>$val) {
+				$i++;
+				if ($optativa2==$i) {
+					$a_opt2 = str_ireplace(" y ", " ", $val);
+					$a_opt2 = str_ireplace(" de ", " ", $val);					
+					$wrd2 = explode(" ", $a_opt2);
+					$num_w = count($wrd2);
+					if ($num_w>1) {
+						$acr2 = "";
+					foreach ($wrd2 as $w2) {
+					  $acr2.= $w2[0];
+						}
+					}
+					else{
+						$acr2 = strtoupper(substr($val,0,3));
+						}
+					}
+				}
+			}
+			
 			echo $acr2."</td>";
 
 
@@ -605,7 +680,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				}
 				echo '<td><input name="act1-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $act1 .'" /></td>';
 			}
-			echo '<td class="hdden-print">';
+			echo '<td class="hidden-print">';
 			if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
 			$contr = mysqli_query($db_con, "select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
 			$control = mysqli_fetch_array($contr);
@@ -650,7 +725,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					}
 
 			if ($n_curso>1) {
-				echo "<td style='background-color:#efeefd' class='hdden-print' nowrap>";
+				echo "<td style='background-color:#efeefd' class='hidden-print' nowrap>";
 
 					$val_notas="";
 					$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
@@ -694,19 +769,19 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					echo "<span class='text-muted'> $val_notas</span>";
 				echo "</td>";
 			}
-			echo '<td class="hdden-print text-center"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+			echo '<td class="hidden-print text-center"><input name="revisado-'. $id .'" type="checkbox" value="1" onClick="submit()"';
 			if($revisado=="1"){echo " checked";}
 			echo ' /></td>';
-			echo "<td class='hdden-print'>";
+			echo "<td class='hidden-print'>";
 			if ($respaldo=='1') {
 				echo $backup." ".$rp_cur;
 			}
 			echo "</td>";
-			echo "<td class='hdden-print'>";
+			echo "<td class='hidden-print'>";
 			echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
 			echo "</td>";
 
-			echo "<td class='hdden-print'>";
+			echo "<td class='hidden-print'>";
 			$disr = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal' and (tipo='disruptivo' and dato='2')");
 			if (mysqli_num_rows($disr)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank'><span class='label label-info' data-bs='tooltip' title='Alumno disruptivo de Primaria con Problemas de Convivencia'>Disrup.</span></a>";}
 			$disr1 = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal' and (tipo='integra' and dato='4')");
@@ -717,7 +792,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
 			// Fin de Convivencia.
 			echo "</td>";
-			echo "<td class='hdden-print' nowrap>";
+			echo "<td class='hidden-print' nowrap>";
 			if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
 			if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 			if(!empty($divorcio)){
@@ -736,13 +811,13 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 	// Control del envío de datos
 
-	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
+	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hidden-print' onclick='confirmacion2()' /><br>";
 
-	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
+	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
 
 	if(count($grupo_actua)=='1'){
-		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hdden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hdden-print' />
-		&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hdden-print' />";
+		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />
+		&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hidden-print' />";
 		}
 		echo "</div></form>";
 		?>
@@ -765,10 +840,19 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 			$num_rel = mysqli_num_rows($rel);
 
-			for ($i=1;$i<$num_opt+1;$i++){
+			if ($curso=="4ESO") {
+				for ($i=1;$i<$num_opt+1;$i++){
+				${opta.$i} = mysqli_query($db_con, "select optativa1 from matriculas where $extra and optativa1 = '$i'");
+				${num_opta.$i} = mysqli_num_rows(${opta.$i});
+				}
+			}
+			else{
+				for ($i=1;$i<$num_opt+1;$i++){
 				${opta.$i} = mysqli_query($db_con, "select optativa$i from matriculas where $extra and optativa$i = '1'");
 				${num_opta.$i} = mysqli_num_rows(${opta.$i});
 			}
+			}
+			
 
 			if ($curso=="2ESO" OR $curso=="3ESO"){
 				$diver = mysqli_query($db_con, "select diversificacion from matriculas where $extra and diversificacion = '1'");
@@ -793,6 +877,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="3ESO" OR $curso=="2ESO"){
 				echo "<th>Diversificación</th>";
 			}
+
 			for ($i=1;$i<$num_opt+1;$i++){
 				echo "<th>Optativa$i</th>";
 			}
@@ -868,7 +953,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	?>
 
 		<br />
-		<table class="table table-striped table-bordered hdden-print"
+		<table class="table table-striped table-bordered hidden-print"
 			align="center" style="width: auto">
 			<tr>
 				<td><?php
@@ -904,7 +989,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		</table>
 		<?php
 		if ($n_curso<4){
-			echo '<table class="table table-striped table-bordered hdden-print" align="center" style="width:auto"><tr>
+			echo '<table class="table table-striped table-bordered hidden-print" align="center" style="width:auto"><tr>
 <td>';
 			foreach (${a.$n_curso} as $nombre_a => $valora){
 				$nombre_act=$nombre_a+1;
@@ -917,6 +1002,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	}
 	?>
 		</div>
+	</div>
 		<?php include("../../pie.php"); ?>
 		<script language="javascript">
 		 if (document.form2.curso.value=="1ESO"){ 

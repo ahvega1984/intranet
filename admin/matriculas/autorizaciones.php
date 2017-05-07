@@ -50,12 +50,9 @@ $firma_religion = "
 En ".$config['centro_localidad'].", a $hoy
 
 
-Firmado. D./Dª
-";
-$final_religion="
-SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
-$direccion_junta = "
-Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
+Firmado. D./Dª";
+$final_religion="SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
+$direccion_junta = "Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
 Telf. 95 506 40 00. Fax: 95 506 40 03.
 e-mail: informacion.ced@juntadeandalucia.es
 ";

@@ -315,7 +315,6 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
-	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
 	$MiPDF->Ln ( 8 );
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
@@ -326,7 +325,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Multicell ( 0, 6, $texto_moviles, 0, 'L', 0 );
 	$MiPDF->Ln ( 1 );
 	$MiPDF->Multicell ( 0, 6, $final_moviles, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
+	$MiPDF->Ln ( 1 );
 	$MiPDF->Multicell ( 0, 6, $firma_moviles, 0, 'C', 0 );
 	
 	include("autorizaciones.php");

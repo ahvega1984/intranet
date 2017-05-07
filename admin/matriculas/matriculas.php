@@ -1,6 +1,6 @@
 <?php
 require('../../bootstrap.php');
-
+variables();
 acl_acceso($_SESSION['cargo'], array(1, 7));
 
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
@@ -214,11 +214,12 @@ if(isset($_POST['enviar'])){
 			}
 		}
 	}
+	
 	if (($itinerario == '1' or $itinerario == '3') and empty($optativas4)) {
 		$vacios.= "optativas4, ";
 		$num+=1;
 	}
-			if ($itinerario == '1' and empty($ciencias4)) {
+		if ($itinerario == '1' and empty($ciencias4)) {
 		$vacios.= "ciencias de 4 ESO, ";
 		$num+=1;
 	}
@@ -248,7 +249,12 @@ if(isset($_POST['enviar'])){
 		$msg_error .= ". Rellena los campos mencionados y envía los datos de nuevo para poder registrar tu solicitud correctamente.";
 	}
 	else{
-		if (substr($curso,0,1)<5){
+		if (substr($curso,0,1)==4){
+			if ($optativa1==$optativa2) {
+				$opt_rep4 = 1;
+			}					
+		}
+		else{
 			for ($i = 1; $i < 8; $i++) {
 				for ($z = $i+1; $z < 8; $z++) {
 					if (${optativa.$i}>0) {
@@ -291,6 +297,9 @@ if(isset($_POST['enviar'])){
 		elseif ($opt_rep=="1"){
 			$msg_error = "Parece que has seleccionado el mismo número de preferencia para varias optativas, y cada optativa debe tener un número de preferencia distinto. Elige las optativas sin repetir el número de preferencia e inténtalo de nuevo.";
 		}
+		elseif ($opt_rep4=="1"){
+			$msg_error = "Parece que has seleccionado erroneamente la misma optativa en 4º de la ESO. Elige las optativas sin repetirlas e inténtalo de nuevo.";
+		}
 		elseif ($opt_rep2=="1"){
 			$msg_error = "Parece que has seleccionado el mismo número de preferencia para varias optativas del curso anterior, y cada optativa debe tener un número de preferencia distinto. Elige las optativas del curso anterior sin repetir el número de preferencia e inténtalo de nuevo.";
 		}
@@ -307,6 +316,7 @@ if(isset($_POST['enviar'])){
 				if(!($itinerario=='1') and !($itinerario=='3')){$optativas4="";}
 				if (empty($foto)) { $foto = "0";}
 				$insert = "update matriculas set apellidos='$apellidos', nombre='$nombre', nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio='$domicilio', localidad='$localidad', dni='$dni', padre='$padre', dnitutor='$dnitutor', madre='$madre', dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', religion='$religion', colegio='$colegio', optativa1='$optativa1', optativa2='$optativa2', optativa3='$optativa3', optativa4='$optativa4', otrocolegio='$otrocolegio', letra_grupo='$letra_grupo', idioma='$idioma',  religion = '$religion', act1='$act1', observaciones='$observaciones', exencion='$exencion', bilinguismo='$bilinguismo', observaciones = '$observaciones', optativa21='$optativa21', optativa22='$optativa22', optativa23='$optativa23', optativa24='$optativa24', act21='$act21', act22='$act22', act23='$act23', act24='$act24', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', optativas4 = '$optativas4', itinerario = '$itinerario', optativa5='$optativa5', optativa6='$optativa6', optativa7='$optativa7', diversificacion='$diversificacion', optativa25='$optativa25', optativa26='$optativa26', optativa27='$optativa27', enfermedad = '$enfermedad', otraenfermedad = '$otraenfermedad', foto='$foto', divorcio='$divorcio', matematicas3 = '$matematicas3', ciencias4 = '$ciencias4' where id = '$ya[0]'";
+				//echo $insert."<br>";
 				mysqli_query($db_con, $insert);
 			}
 			else{
@@ -1046,7 +1056,7 @@ exit();
 							<div class="radio">
 							<label> <input type="radio"
 				id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 1){echo " checked";} ?> value="1"> 
+							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'> 
 							<strong>Ingenieria y Arquitectura</strong>
 							</label>
 							</div>
@@ -1054,7 +1064,7 @@ exit();
 							<div class="radio">
 							<label> <input type="radio"
 				id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 2){echo " checked";} ?> value="2"> 
+							<?php if($ciencias4 == 2){echo " checked";} ?> value="2" onClick='document.getElementById("optativa2").disabled=false;'> 
 							<strong>Ciencias de la Salud y de la Tierra</strong>
 							</label>
 							</div>
@@ -1116,24 +1126,46 @@ exit();
 		</tr>
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4º de ESO<p class="help-block">
-			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)<br><span class="text-info text-lowercase">La Opción de <em>Ingeniería y Arquitectura</em> del Itinerario de Ciencias tiene <b>1 materia optativa</b>; la Opción de <em>Ciencias de la Salud</em> tiene <b>2 materia optativas</b>.</span></small></p></th>
+			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)<br><span class="text-info text-lowercase">La Opción de <em>Ingeniería y Arquitectura</em> del Itinerario de Ciencias tiene <b>1 materia optativa</b>; la Opción de <em>Ciencias de la Salud</em> tiene <b>2 materias optativas</b>.</span></small></p></th>
 		</tr>
 		<tr>
-			<td style="border-top: 0; <?php if(stristr($adv, "optativa de 4")==TRUE) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
-			<div class="form-horizontal">
+			<td style="border-top: 0;" colspan="4" >
+			<div class="form-horizontal <?php echo (isset($opt_rep4) && $opt_rep4 == 1) ? 'has-error"' : '' ; ?>">
+
 			<?php $num1 = ""; ?>
-			<?php foreach ($opt4 as $opt_1): ?>
-			<?php $num1 += 1; ?>
-			<div class="<?php if($num1==4){echo "col-sm-3";}else{echo "col-sm-2";}?>"><select class="form-control" id="optativa<?php echo $num1;?>" name="optativa<?php echo $num1;?><?php echo (isset($opt_rep) && $opt_rep == 1) ? 'has-error"' : '';?>">
-				<option value=""></option>
-				<?php for ($z = 1; $z < 6; $z++): ?>
-				<option value="<?php echo $z;?>"<?php echo (${optativa.$num1} == $z) ? 'selected':'';?>><?php echo $z; ?></option>
-				<?php endfor; ?>
-			</select>
+			<div class="col-sm-6">
 			<label class="col-sm-12 control-label">
-			<div class="text-left"><?php echo $opt_1; ?></div>
-			</label></div>
-			<?php endforeach; ?> 
+			<div class="text-left">Optativa 1</div>
+			</label>
+			<select class="form-control" id="optativa1" name="optativa1" required>
+				<option value=""></option>
+				<?php foreach ($opt4 as $key=>$val): ?>
+				<?php $num1++; ?>
+				<option value="<?php echo $num1;?>"<?php echo ($optativa1 == $num1) ? 'selected':'';?>><?php echo $val; ?></option>
+				<?php endforeach; ?>
+			</select>
+
+			
+			</div>
+
+			<?php $num2 = ""; ?>
+			<div class="col-sm-6">
+			<label class="col-sm-12 control-label">
+			<div class="text-left">Optativa 2</div>
+			</label>
+			<select class="form-control" id="optativa2" name="optativa2" required <?php if($ciencias4==1){ echo "disabled";}?>>
+				<option value=""></option>
+				<?php foreach ($opt4 as $key2=>$val2): ?>
+				<?php $num2++; ?>
+				<?php if (stristr($val2, "idioma")==FALSE): ?>				
+				<option value="<?php echo $num2;?>"<?php echo ($optativa2 == $num2) ? 'selected':'';?>><?php echo $val2; ?></option>
+				<?php endif; ?>
+				<?php endforeach; ?>
+			</select>
+
+			
+			</div>
+			
 			</div>
 			</td>
 		</tr>
@@ -1170,16 +1202,18 @@ exit();
 		</tr>
 		<tr>
 
-			<td colspan="1" <?php echo $extra_css;?>>
-			<div class="form-horizontal"><?php $num1 = ""; ?> <?php for($i = 1; $i < 8; $i++): ?>
-			<?php if (substr($curso, 0, 1)-1 == $i): ?> <?php foreach (${opt.$i} as $opt_1): ?>
-			<?php if(stristr($vacios, "optativa$num1") or (isset($opt_rep2) && $opt_rep2 == 1)){$extra_css = ' style="background-color: #F2F5A9;"';}?>
+			<td colspan="1">
+			<div class="form-horizontal">
+				<?php $num1 = ""; ?> 
+			<?php for($i = 1; $i < 8; $i++): ?>
+			<?php if (substr($curso, 0, 1)-1 == $i): ?> 
+			<?php foreach (${opt.$i} as $opt_1): ?>
 
 			<?php $num1 += 1; ?>
-			<div class="form-group" <?php echo $extra_css;?>>
+			<div class="form-group">
 			<div class="col-sm-4"><select class="form-control"
 				id="optativa2<?php echo $num1; ?>"
-				name="optativa2<?php echo $num1; ?>">
+				name="optativa2<?php echo $num1; ?>" required>
 				<option value=""></option>
 				<?php for ($z = 1; $z < 8; $z++): ?>
 				<option value="<?php echo $z; ?>"

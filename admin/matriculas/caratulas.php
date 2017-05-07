@@ -120,24 +120,12 @@ include 'asignaturas.php';
 	 	$nca = $n_curso-1;
 	 	if ($row['act21'] == $i) {
 	 		${act2.$i} = " X  " . ${a.$nca}[$i-1];
-
 	 	}
 	 	else{
 	 		${act2.$i} = "      ".${a.$nca}[$i-1];
 	 	}
 	 }
 
-	 if ($n_curso == '4'){
-	 	for ($i=1;$i<7;$i++)
-	 {
-	 	if ($row['act1'] == $i) {
-			${act2.$i} = " X  " . $a21[$i-1];	
-		 }
-		 else{
-	 		${act2.$i} = "      ".$a21[$i-1];
-	 	}
-	 }
-	}
 
 	 $observaciones= "OBSERVACIONES: ".$row['observaciones'];
 	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
