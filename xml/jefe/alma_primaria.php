@@ -11,7 +11,7 @@ include("../../menu.php");
   <h2>Administración <small> Alumnos de Primaria</small></h2>
 </div>
 <br />
-<div class="well well-large" style="width:600px;margin:auto;text-align:left">
+<div class="well well-large" style="width:900px;margin:auto;text-align:left">
 <?php
 if($_FILES['archivo1']){
 
@@ -81,15 +81,12 @@ No se ha podido crear el índice de la tabla. Busca ayuda.
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
-  // Borramos archivos antiguos
-$d = opendir('../primaria/'); 
-while (false !== ($f = readdir($d))) {
-if (stristr($f, ".txt")){
-	//echo "$f<br>";
-	unlink($f);
-} 
-}
-closedir($d);
+$files = glob('../primaria/*'); 
+  foreach($files as $file)
+  { 
+    if(is_file($file) and stristr($file, "index")==FALSE)
+      unlink($file); 
+  }
 
 // Descomprimimos el zip de las calificaciones en el directorio exporta/
 include('../../lib/pclzip.lib.php');   
@@ -103,7 +100,8 @@ $archive = new PclZip($_FILES['archivo1']['tmp_name']);
 if ($handle = opendir('../primaria')) {
    while (false !== ($file = readdir($handle))) {   	
       if ($file != "." && $file != ".." && $file != ".txt") { 
-      $colegio = substr($file,0,-4); 
+      $colegio = str_ireplace(".txt", "", $file);
+     // echo "$colegio<br>"; 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
 
 $fp = fopen ('../primaria/'.$file , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -131,7 +129,7 @@ $row = 1;
     $lineasalto.=$dato; 
     $lineasalto.=", \"C.E.I.P. $colegio\"";
     $lineasalto.=");";
-  //  echo $lineasalto."<br>";
+    //echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);
 }
 fclose($fp);
@@ -231,102 +229,33 @@ Parece que te estás olvidando de enviar el archivo con los datos de los alumnos
 </div></div><br />';
 }
 
-// Creamos tabla de colegios para Fichas de Tránsito
-mysqli_query($db_con,"drop table transito_control");
-mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
-`id` int(11) NOT NULL,
-  `colegio` varchar(128) COLLATE utf8_general_ci NOT NULL,
-  `pass` varchar(254) COLLATE utf8_general_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
-mysqli_query($db_con,"ALTER TABLE `transito_control`
- ADD PRIMARY KEY (`id`)");
-mysqli_query($db_con,"ALTER TABLE `transito_control`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
-
-// Apellidos unidos formando un solo campo.
-  $SQL6 = "SELECT distinct colegio FROM  alma_primaria";
+// Datos de acceso para los colegios en la tabla transito_control.
+  $SQL6 = "SELECT distinct colegio FROM alma_primaria";
   $result6 = mysqli_query($db_con, $SQL6);
  while  ($row6 = mysqli_fetch_array($result6))
  {
- 	$num++;
  	$n_cole = trim($row6[0]); 	
- 	$n_cole=str_replace("C.E.I.P. ","",$n_cole);
- 	$pass=str_replace(" ", "", $n_cole)."_".$config['centro_codigo'];
- 	$pass=str_replace("á", "a", $pass);
- 	$pass=str_replace("é", "e", $pass);
- 	$pass=str_replace("í", "i", $pass);
- 	$pass=str_replace("ó", "o", $pass);
- 	$pass=str_replace("ú", "u", $pass);
- 	$pass=str_replace("Á", "A", $pass);
- 	$pass=str_replace("É", "E", $pass);
- 	$pass=str_replace("Í", "I", $pass);
- 	$pass=str_replace("Ó", "O", $pass);
- 	$pass=str_replace("Ú", "U", $pass);
- 	$pass=str_replace("ñ", "n", $pass);
- 	$pass=str_replace("Ñ", "N", $pass);
- 	$pass=strtolower($pass);
-	$n_pass=sha1($pass);	
-	mysqli_query($db_con, "INSERT INTO transito_control VALUES ('$num','$n_cole','$n_pass')");
- }
- mysqli_query($db_con,"CREATE TABLE `transito_datos` (
-`id` int(11) NOT NULL,
-  `claveal` varchar(12) COLLATE utf8_general_ci NOT NULL,
-  `tipo` varchar(24) COLLATE utf8_general_ci NOT NULL,
-  `dato` text COLLATE utf8_general_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ");
- mysqli_query($db_con,"ALTER TABLE `transito_datos`
- ADD PRIMARY KEY (`id`)");
- mysqli_query($db_con,"ALTER TABLE `transito_datos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
+ 	$n_cole=str_replace("C.E.I.P.","",$n_cole);
+  $n_cole=trim($n_cole);
 
-mysqli_query($db_con,"drop table transito_tipo"); 
-mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_tipo` (
-`id` int(11) NOT NULL,
-  `tipo` varchar(24) COLLATE utf8_general_ci NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
-mysqli_query($db_con,"ALTER TABLE `transito_tipo`
- ADD PRIMARY KEY (`id`);");
-mysqli_query($db_con,"ALTER TABLE `transito_tipo`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1");
-mysqli_query($db_con,"INSERT INTO `transito_tipo` (`id`, `tipo`) VALUES
-(1, 'repeticion'),
-(2, 'susp1'),
-(3, 'susp2'),
-(4, 'susp3'),
-(5, 'leng'),
-(6, 'mat'),
-(7, 'ing'),
-(8, 'con'),
-(9, 'edfis'),
-(10, 'mus'),
-(11, 'plas'),
-(12, 'asiste'),
-(13, 'dificultad'),
-(14, 'refuerzo'),
-(15, 'necreflen'),
-(16, 'necrefmat'),
-(17, 'necrefing'),
-(18, 'exento'),
-(19, 'acompanamiento'),
-(20, 'areasadcurrsign'),
-(21, 'areasadcurrnosign'),
-(22, 'necareasadcurrsign'),
-(23, 'necareasadcurrnosign'),
-(24, 'PT_AL'),
-(25, 'PT_AL_aula'),
-(26, 'nacion'),
-(27, 'atal'),
-(28, 'necatal'),
-(29, 'integra'),
-(30, 'actitud'),
-(31, 'funciona'),
-(32, 'relacion'),
-(33, 'norelacion'),
-(34, 'disruptivo'),
-(35, 'expulsion'),
-(36, 'observaciones'),
-(37, 'orientacion');
-");
+  $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
+  $caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+
+ 	$pass=str_replace(" ", "", $n_cole)."_".$config['centro_codigo'];
+  $pass = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $pass);
+
+  $pass=strtolower($pass);
+	$n_pass=sha1($pass);	
+
+  $ya=mysqli_query($db_con,"select * from transito_control where colegio = '$n_cole'");
+  if (mysqli_num_rows($ya)>0) {}else{
+  mysqli_query($db_con, "INSERT INTO transito_control VALUES ('','$n_cole','$n_pass')");
+      }
+  }
+
+  // Borramos datos del curso anterior
+  mysqli_query($db_con,"truncate table transito_datos");  
+  
 ?>
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />

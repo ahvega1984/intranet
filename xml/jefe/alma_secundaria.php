@@ -82,14 +82,12 @@ No se ha podido crear el índice de la tabla. Busca ayuda.
 </div>');
 
   // Borramos archivos antiguos
-$d = opendir('../secundaria/'); 
-while (false !== ($f = readdir($d))) {
-if (stristr($f, ".txt")){
-	//echo "$f<br>";
-	unlink($f);
-} 
-}
-closedir($d);
+$files = glob('../secundaria/*'); 
+  foreach($files as $file)
+  { 
+    if(is_file($file) and stristr($file, "index")==FALSE)
+      unlink($file); 
+  }
 
 // Descomprimimos el zip de las calificaciones en el directorio exporta/
 include('../../lib/pclzip.lib.php');   

@@ -1056,7 +1056,7 @@ exit();
 							<div class="radio">
 							<label> <input type="radio"
 				id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'> 
+							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true; document.getElementById("optativa2").value = "3"'> 
 							<strong>Ingenieria y Arquitectura</strong>
 							</label>
 							</div>
