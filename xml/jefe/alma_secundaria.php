@@ -49,7 +49,7 @@ if($_FILES['archivo1']){
  `NOMBRETUTOR2` varchar( 255 ) default NULL ,
  `SEXOTUTOR2` varchar( 255 ) default NULL ,
  `LOCALIDADNACIMIENTO` varchar( 255 ) default NULL ,
-  `FECHAMATRICULA` varchar( 255 ) default NULL ,
+ `ANOMATRICULA` varchar( 4 ) default NULL ,
  `MATRICULAS` varchar( 255 ) default NULL ,
  `OBSERVACIONES` varchar( 255 ) default NULL,
  `PROVINCIANACIMIENTO` varchar( 255 ) default NULL ,
@@ -57,7 +57,8 @@ if($_FILES['archivo1']){
  `EDAD` varchar( 2 ) default NULL ,
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL ,
- `COLEGIO` varchar( 32 ) default NULL 
+ `FECHAMATRICULA` varchar( 255 ) default NULL,
+ `COLEGIO` varchar( 96 ) default NULL 
  ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
 
  

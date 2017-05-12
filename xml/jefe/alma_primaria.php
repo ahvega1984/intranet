@@ -49,7 +49,7 @@ if($_FILES['archivo1']){
  `NOMBRETUTOR2` varchar( 255 ) default NULL ,
  `SEXOTUTOR2` varchar( 255 ) default NULL ,
  `LOCALIDADNACIMIENTO` varchar( 255 ) default NULL ,
-  `FECHAMATRICULA` varchar( 255 ) default NULL ,
+ `ANOMATRICULA` varchar( 4 ) default NULL ,
  `MATRICULAS` varchar( 255 ) default NULL ,
  `OBSERVACIONES` varchar( 255 ) default NULL,
  `PROVINCIANACIMIENTO` varchar( 255 ) default NULL ,
@@ -57,7 +57,8 @@ if($_FILES['archivo1']){
  `EDAD` varchar( 2 ) default NULL ,
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL ,
- `COLEGIO` varchar( 32 ) default NULL 
+ `FECHAMATRICULA` varchar( 255 ) default NULL,
+ `COLEGIO` varchar( 96 ) default NULL 
  ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
 
  
@@ -133,12 +134,8 @@ $row = 1;
     mysqli_query($db_con, $lineasalto);
 }
 fclose($fp);
-
-
-
-
       }
-      
+     
    }
    closedir($handle);
 }  
@@ -229,6 +226,9 @@ Parece que te estás olvidando de enviar el archivo con los datos de los alumnos
 </div></div><br />';
 }
 
+// Borramos datos del curso anterior
+  mysqli_query($db_con,"truncate table transito_datos");  
+
 // Datos de acceso para los colegios en la tabla transito_control.
   $SQL6 = "SELECT distinct colegio FROM alma_primaria";
   $result6 = mysqli_query($db_con, $SQL6);
@@ -253,9 +253,6 @@ Parece que te estás olvidando de enviar el archivo con los datos de los alumnos
       }
   }
 
-  // Borramos datos del curso anterior
-  mysqli_query($db_con,"truncate table transito_datos");  
-  
 ?>
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />

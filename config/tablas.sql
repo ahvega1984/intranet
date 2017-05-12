@@ -1744,12 +1744,12 @@ CREATE TABLE IF NOT EXISTS `transito_control` (
 
 DROP TABLE IF EXISTS `transito_datos`;
 CREATE TABLE IF NOT EXISTS `transito_datos` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL,
   `tipo` varchar(24) NOT NULL,
   `dato` mediumtext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+  PRIMARY KEY (`id`,`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -1759,10 +1759,49 @@ CREATE TABLE IF NOT EXISTS `transito_datos` (
 
 DROP TABLE IF EXISTS `transito_tipo`;
 CREATE TABLE IF NOT EXISTS `transito_tipo` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(24) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
+
+INSERT INTO `transito_tipo` (`id`, `tipo`) VALUES
+(1, 'repeticion'),
+(2, 'susp1'),
+(3, 'susp2'),
+(4, 'susp3'),
+(5, 'leng'),
+(6, 'mat'),
+(7, 'ing'),
+(8, 'con'),
+(9, 'edfis'),
+(10, 'mus'),
+(11, 'plas'),
+(12, 'asiste'),
+(13, 'dificultad'),
+(14, 'refuerzo'),
+(15, 'necreflen'),
+(16, 'necrefmat'),
+(17, 'necrefing'),
+(18, 'exento'),
+(19, 'acompanamiento'),
+(20, 'areasadcurrsign'),
+(21, 'areasadcurrnosign'),
+(22, 'necareasadcurrsign'),
+(23, 'necareasadcurrnosign'),
+(24, 'PT_AL'),
+(25, 'PT_AL_aula'),
+(26, 'nacion'),
+(27, 'atal'),
+(28, 'necatal'),
+(29, 'integra'),
+(30, 'actitud'),
+(31, 'funciona'),
+(32, 'relacion'),
+(33, 'norelacion'),
+(34, 'disruptivo'),
+(35, 'expulsion'),
+(36, 'observaciones'),
+(37, 'orientacion');
 
 -- --------------------------------------------------------
 
