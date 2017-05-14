@@ -110,7 +110,7 @@ if (isset($_POST['permanente'])) {
 	$post_perm = "INSERT INTO reservas_hor  VALUES 
 ('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST[
 'day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST
-['day_event6']."','".$_POST['day_event7']."','".$servicio."')";
+['day_event6']."','".$_POST['day_event7']."','".$servicio."','')";
 	$exec_permanente = mysqli_query($db_con, $post_perm) or die("Could not 
 Post INSERT Event to database!");
 

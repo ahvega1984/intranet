@@ -83,7 +83,7 @@ include("../../menu.php");
 			<div class="hidden-print">
 				<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
 				<a class="btn btn-default" href="chorarios.php">Volver</a>
-				<a class="btn btn-info" href="hor_guardias.php">Estadísticas</a>
+				<a class="btn btn-info" href="../guardias/informe_guardias.php">Estadísticas</a>
 			</div>
 		
 		</div><!-- /.col-sm-12 -->

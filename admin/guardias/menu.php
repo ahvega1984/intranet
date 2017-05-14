@@ -11,7 +11,7 @@ if (acl_permiso($_SESSION['cargo'], array(1))) {
 	if (strstr($_SERVER['REQUEST_URI'],'procesa_guardias.php')==TRUE) {$activo1 = ' class="active" ';}
 	if (strstr($_SERVER['REQUEST_URI'],'consulta_profesores.php')==TRUE) {$activo2 = ' class="active" ';}
 	if (strstr($_SERVER['REQUEST_URI'],'consulta_fechas.php')==TRUE) {$activo3 = ' class="active" ';}
-	if (strstr($_SERVER['REQUEST_URI'],'hor_guardias.php')==TRUE) {$activo4 = ' class="active" ';}
+	if (strstr($_SERVER['REQUEST_URI'],'informe_guardias.php')==TRUE) {$activo4 = ' class="active" ';}
 ?>
 	<div class="container hidden-print">
 		
@@ -23,7 +23,7 @@ if (acl_permiso($_SESSION['cargo'], array(1))) {
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/index_admin.php">Registrar guardia</a></li>
 			<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php">Consulta por profesores</a></li>
 			<li <?php echo $activo3;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_fechas.php">Consulta por fechas</a></li>
-			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/hor_guardias.php?menu=guardias">Informe sobre las Guardias</a></li>
+			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/informe_guardias.php?menu=guardias">Informe sobre las Guardias</a></li>
 		</ul>
 	</div>
 <?php

@@ -236,7 +236,7 @@ $menu = array(
 						'modulo' => $config['mod_asistencia'],
 					),
 					array(
-						'href'   => 'admin/cursos/hor_guardias.php',
+						'href'   => 'admin/guardias/informe_guardias.php',
 						'titulo' => 'Informe sobre Guardias',
 						'modulo' => $config['mod_horarios'],
 					),
@@ -495,7 +495,13 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'sms/index.php',
 						'titulo' => 'Mensajes SMS',
-						'cargos'  => array('1'),
+						'cargos'  => array('1', '8'),
+						'modulo' => $config['mod_sms'],
+					),
+					array(
+						'href'   => 'sms/index.php?unidad='.$_SESSION['mod_tutoria']['unidad'].'',
+						'titulo' => 'Mensajes SMS',
+						'cargos'  => array('2'),
 						'modulo' => $config['mod_sms'],
 					),
 				),

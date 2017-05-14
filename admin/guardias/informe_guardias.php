@@ -79,6 +79,7 @@ Profesor
 #
 </th>
 </thead>
+
 <?php
 $query = mysqli_query($db_con, $sql);
 while ($arr = mysqli_fetch_array($query)) {
@@ -95,7 +96,7 @@ while ($arr = mysqli_fetch_array($query)) {
 	if (mysqli_num_rows($conviven)>0) {$convi =  "<span class='text-warning' style='font-size:18px'>*</span>";}
 	if (mysqli_num_rows($recreo)>0) { $recr =  "<span class='text-info' style='font-size:18px'>*</span>";}
 	
-	echo "<tr><td>".nomprofesor($arr[0])."</td><td class='col-sm-2'>$arr[1]  $bibl $convi $recr</td></tr>";
+	echo "<tr><td><a href='consulta_profesores.php?profesor=".nomprofesor($arr[0])."''>".nomprofesor($arr[0])."</td><td class='col-sm-2'>$arr[1]  $bibl $convi $recr</td></tr>";
 	$num_gu+=$arr[1];
 	$num_prof+=1;
 }
@@ -189,6 +190,8 @@ Profesor
 $query_reg = mysqli_query($db_con, $sql_reg);
 while ($arr_reg = mysqli_fetch_array($query_reg)) {
 	
+	$num_hr=mysqli_query($db_con, "select * from horw where c_asig='25' and prof = '$arr_reg[0]'");
+	$num_horw = mysqli_num_rows($num_hr);
 	$num_g0=mysqli_query($db_con, "select turno from guardias where profesor = '$arr_reg[0]'");
 	$cont = 0;
 	while ($reg = mysqli_fetch_array($num_g0))
@@ -201,7 +204,9 @@ while ($arr_reg = mysqli_fetch_array($query_reg)) {
 			$cont = $cont + 1;
 	}
 
-echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$cont</td></tr>";
+//echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$cont</td></tr>";
+echo "<tr><td><a href='consulta_profesores.php?profesor=".nomprofesor($arr_reg[0])."''>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>".$cont."</td><td class='col-sm-2 text-muted'>".$num_horw."</tr></a>";
+
 
 //$num_gureg+=$arr_reg[1];
 $num_gureg+=$cont;

@@ -123,3 +123,18 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Reiteracion de faltas leves', NOW())");
 }
+
+/*
+	@descripcion: Ancho de las columnas de horas en la tabla reservas_hor
+	@fecha: 13 de mayo de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ancho columna tabla reservas_hor'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE `reservas_hor` CHANGE `hora1` `hora1` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `hora2` `hora2` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `hora3` `hora3` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `hora4` `hora4` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `hora5` `hora5` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `hora6` `hora6` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `hora7` `hora7` VARCHAR(96) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+	mysqli_query($db_con,"ALTER TABLE `reservas_hor` ADD `id` INT UNSIGNED NOT NULL AUTO_INCREMENT AFTER `servicio`, ADD PRIMARY KEY (`id`)");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ancho columna tabla reservas_hor', NOW())");
+}
+
+

@@ -440,6 +440,10 @@ include("../menu.php"); ?>
 				<div class="alert alert-danger alert-block hidden-print">
 					<strong>Error: <br></strong> Estás intentando registrar una actividad para un Grupo que ya tiene planificada otra en el mismo día, y eso no está permitido. Si crees que hay un error, ponte en contacto con el Equipo directivo.
 				</div>
+			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==11 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
+				<div class="alert alert-danger alert-block hidden-print">
+					<strong>ATENCIÓN: <br></strong> Estás creando una actividad para un grupo que ya tiene otra registrada en ese mismo día. <em><strong>Si la actividad es un examen</strong></em> procura buscar otra fecha si te resulta posible, con el fin de mejorar el calendario de ese grupo. 
+				</div>
 				<?php endif; ?>
 				
 				<?php if ($_GET['msg'] && $_GET['msg'] != "EventoPendienteConfirmacion"): ?>

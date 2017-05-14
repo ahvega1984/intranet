@@ -51,10 +51,24 @@ include("../../menu.php");
 					<tbody>
 						<tr>
 						<?php for($i = 1; $i < 7; $i++): ?>
-							<td><?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' AND a_aula NOT LIKE 'ACO%' AND a_aula NOT LIKE 'DI%' ORDER BY n_aula ASC"); ?>
-							<?php while ($row = mysqli_fetch_array($result)): ?> <?php $grupo = mysqli_query($db_con, "SELECT a_grupo FROM horw where a_aula = '$row[0]' AND dia='$dia' AND hora='$i' AND c_asig NOT LIKE '25' ORDER BY a_grupo ASC"); ?>
+							<td>
+								<?php
+								$week = date('W');
+								$year = date('Y');
+								$primer_dia = date('Y-m-d', strtotime($year . 'W' . str_pad($week , 2, '0', STR_PAD_LEFT)));
+								$dia_sem = $dia-1;
+								$nuevafecha = strtotime ( '+'.$dia_sem.' day' , strtotime ( $primer_dia ) ) ;
+								$fecha_dia = date ( 'Y-m-d' , $nuevafecha );
+								?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' AND a_aula NOT LIKE 'ACO%' AND a_aula NOT LIKE 'DI%' ORDER BY n_aula ASC"); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?> 
+							<?php $grupo = mysqli_query($db_con, "SELECT a_grupo FROM horw where a_aula = '$row[0]' AND dia='$dia' AND hora='$i' AND c_asig NOT LIKE '25' ORDER BY a_grupo ASC"); ?>
 				
-							<?php $asig = mysqli_fetch_array($grupo); ?> <?php if($asig['a_grupo'] == ''): ?>
+							<?php $asig = mysqli_fetch_array($grupo); ?> 
+
+							<?php $res = mysqli_query($db_con,"select * from reservas where date(eventdate) = '$fecha_dia' and event".$i." not like '' and servicio = '$row[0]'");
+							$ya_reserva = mysqli_num_rows($res); ?>
+							<?php if($asig['a_grupo'] == '' and $ya_reserva !== '1'): ?>
 							<p><a href="hor_aulas.php?aula=<?php echo $row['n_aula']; ?>"><?php echo $row['n_aula']; ?></a></p>
 							<?php endif; ?> <?php endwhile; ?></td>
 							<?php endfor; ?>
