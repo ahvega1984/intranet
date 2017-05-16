@@ -419,7 +419,14 @@ class=\"help-block text-info\">Asignada por horario</p>";
 		}
 		elseif (strlen($num_aula_hor[0])>0) {
 			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p 
-class=\"help-block text-danger\">Asignada por Dirección</p>";
+class=\"help-block text-danger\">Asignada por Dirección";
+		if (strlen(${event_event.$i})>0) {
+				echo ": <span class='text-info'>".${event_event.$i}."</span>";
+			}
+			else{
+				echo ": <span class='text-warning'>".$num_aula_hor[0]."</span>";
+			}
+ 			echo "</p>";
 		}
 		else
 		{
@@ -430,8 +437,7 @@ class=\"help-block text-danger\">Asignada por Dirección</p>";
 				$result1 = mysqli_query($db_con, $SQL);
 				while($row1 = mysqli_fetch_array($result1)){
 					$profesor = $row1[0];
-					echo "<option>" . $profesor . 
-"</option>";
+					echo "<option>" . $profesor . "</option>";
 				}
 				echo "</select>";
 			}
