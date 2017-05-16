@@ -44,81 +44,25 @@ foreach($_POST as $clave => $valor)
 		$clave2 = mysqli_fetch_row($clave0);
 		$claveal = $clave2[0];
 
-		$diames = date("j");
-		$nmes = date("n");
-		$nano = date("Y");
-		$hoy_hoy = mktime(0,0,0,$nmes,$diames,$nano);
-
-		$fecha0 = explode('-',$hoy);
-		$dia0 = $fecha0[0];
-		$mes0 = $fecha0[1];
-		$ano0 = $fecha0[2];
-
-		$hoy2 = strtotime($hoy);
-
-		$comienzo_del_curso = strtotime($config['curso_inicio']);
-		
-		// Tiene actividad extraescolar en la fecha
-		$hay_actividad="";
-		$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
-		if (mysqli_num_rows($extraescolar) > '0') {
-			while($actividad = mysqli_fetch_array($extraescolar)){
-				$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where hora = '$hora') and horafin>= (select hora_fin from tramos where hora = '$hora')");
-				if (mysqli_num_rows($tr)>0) {
-					$hay_actividad = 1;
-				}
-			}
-		}
-		
-		// Es festivo
-		$fiesta=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$hoy')");
-
-		if (mysqli_num_rows($fiesta) > '0') {
-			$dia_festivo='1';
-		}
-		
-		$hoy_num = strtotime($hoy);
-		$inicio_num = strtotime($config['curso_inicio']);
-		$fin_num = strtotime($config['curso_fin']);
-		//echo "$hoy_num $inicio_num $fin_num";
-		if (($hoy_num < $inicio_num) or ($hoy_num > $fin_num)) {
-			$mens_fecha = "Sólo es posible poner Faltas en el <b>Curso Escolar actual</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
-		}
-		elseif($dia_festivo=='1')
-		{
-			$mens_fecha = "No es posible poner Faltas en un <b>Día Festivo</b> o en <b>Vacaciones</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
-		}
-		elseif ($hoy2 > $hoy_hoy) {
-			$mens_fecha = "No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha: <b>$hoy</b>.";
-		}
-		elseif ($hoy2 < $comienzo_del_curso) {
-			$mens_fecha = "No es posible poner Faltas del <b>Curso Anterior</b>.<br>Comprueba la Fecha: <b>$hoy</b>.";
-		}
-		elseif ($hay_actividad==1){
-			$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque están registrados en una Actividad Extraescolar programada.";
-		}
-		else{
-
 			// Comprobamos problema de varios códigos en Bachillerato y otros
 
-				$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
-					while($cod_bch = mysqli_fetch_array($asig_bach)){
-					$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
-					if (mysqli_num_rows($comb)>0) {
-							$codigo_asignatura = $cod_bch[0];
-						}
-					}					
-					if (strlen($codigo_asignatura)>0) {}
-						else{
-							$codigo_asignatura = $codasi;
-						}
+			$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
+				while($cod_bch = mysqli_fetch_array($asig_bach)){
+				$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
+				if (mysqli_num_rows($comb)>0) {
+						$codigo_asignatura = $cod_bch[0];
+					}
+				}					
+				if (strlen($codigo_asignatura)>0) {}
+					else{
+						$codigo_asignatura = $codasi;
+					}
 
-			// Insertamos las faltas de TODOS los alumnos.
-			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
-			// echo $t0;
-			$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
-			$count += mysqli_affected_rows();
-		}
+		// Insertamos las faltas de TODOS los alumnos.
+		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
+		// echo $t0;
+		$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
+		$count += mysqli_affected_rows();	
 
 	}
 }

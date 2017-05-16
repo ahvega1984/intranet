@@ -373,6 +373,32 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 				$fecha_hoy = date('Y')."-".date('m')."-".date('d');
 
+				// Festivos, curso escolar y futuro
+				$diames = date("j");
+				$nmes = date("n");
+				$nano = date("Y");
+				$hoy_hoy = mktime(0,0,0,$nmes,$diames,$nano);
+
+				$fecha0 = explode('-',$hoy);
+				$dia0 = $fecha0[0];
+				$mes0 = $fecha0[1];
+				$ano0 = $fecha0[2];
+
+				$hoy2 = strtotime($hoy);
+
+				$comienzo_del_curso = strtotime($config['curso_inicio']);
+				
+				// Es festivo
+				$fiesta=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$hoy')");
+
+				if (mysqli_num_rows($fiesta) > '0') {
+					$dia_festivo='1';
+				}
+				
+				$hoy_num = strtotime($hoy);
+				$inicio_num = strtotime($config['curso_inicio']);
+				$fin_num = strtotime($config['curso_fin']);
+
 				// Tiene actividad extraescolar en la fecha
 				$hay_actividad="";
 				$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$row[0]' and cod_actividad in (select id from calendario where date(fechaini) <= date('$hoy') and date(fechafin) >= date('$hoy'))");
@@ -417,6 +443,12 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Alumno expulsado del Centro o en el Aula de Convivencia"';
 				}
+				elseif ($hoy2 > $hoy_hoy) {
+					$chkF = 'id="disable" disabled';
+					$chkJ = 'id="disable" disabled';
+					$chkR = 'id="disable" disabled';
+					$chkT = 'data-bs="tooltip" data-placement="right" data-html="true" title="No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha."';
+				}		
 				?>
 
 <div style="width: 120px; display: inline;" <?php echo $chkT; ?>><span
