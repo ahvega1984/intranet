@@ -39,18 +39,23 @@ $horafin_evento = trim($horafin_evento);
 $descripcion_evento = trim($descripcion_evento);
 $lugar_evento = trim($lugar_evento);
 
+if($fechaini_evento > $fechafin_evento) {
+header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
+exit();
+}
+
 foreach ($unidad_asignatura_evento as $grupo_cal) {
 	$fecha_extra = cambia_fecha($fechaini_evento);
 	$tr_gr = explode(" => ", $grupo_cal);
 	$gr_cal = $tr_gr[0];
 
+// Comprobamos si hay exámenes para ese grupo el mismo día
 	$chk_exam = mysqli_query($db_con,"select * from calendario where categoria > '2' and fechaini = '$fecha_extra' and unidades like '%$gr_cal;%'");
 		if (mysqli_num_rows($chk_exam)>0) {
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
 			exit();
 		}
 	}
-
 
 // Comprobamos si hay actividades para ese grupo el mismo día
 foreach ($unidades_evento as $grupo_cal) {
