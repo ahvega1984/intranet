@@ -94,21 +94,14 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
   // echo $SQLTEMP."<br>";
   $resultTEMP= mysqli_query($db_con, $SQLTEMP);
   mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
-  $SQLTEMPJ = "create table faltastemp3 SELECT CLAVEAL, falta, (count(*)) AS numero
-	  FROM  FALTAS where falta = 'J' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha)
-	<= '$fechasp3' group by claveal";
-  $resultTEMPJ = mysqli_query($db_con, $SQLTEMPJ);
-  	mysqli_query($db_con, "ALTER TABLE faltastemp3 ADD INDEX ( claveal ) ");
+
     $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE falta = 'F' and numero >= '$numero'";
    
   $result0 = mysqli_query($db_con, $SQL0);
   if(mysqli_num_rows($result0)>"0"){
 while  ($row0 = mysqli_fetch_array($result0)):
 $claveal = $row0[0];
-// Justificadas
-$SQLJ = "select faltastemp3.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta,  faltastemp3.numero from faltastemp3, FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and faltastemp3.claveal = FALTAS.claveal and FALTAS.falta = 'J' and FALTAS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos";
-  	$resultJ = mysqli_query($db_con, $SQLJ);
-  	$rowJ = mysqli_fetch_array($resultJ);
+
 // No justificadas
  $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
 FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD,
@@ -127,24 +120,8 @@ $nojustidias = "";
 	$direcion =  $rowF[7];
 	$localidad = $rowF[8]." ".$rowF[9];
 	$provincia =  $rowF[11];
-// Días con Faltas Justificadas
-$SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and date(FALTAS.fecha )>= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' order by fecha";
-		$result3 = mysqli_query($db_con, $SQL2);
-		$justi = mysqli_fetch_array($result3);
-		if ($justi[0] == "")
-		{
-		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fecha12 y $fecha22.";}
-		else
-		{
-		$result2 = mysqli_query($db_con, $SQL2);
-		$justi1 = "El Alumno ha justificado su falta de asistencia al Centro los siguientes días entre el $fechasp11 y el $fechasp31: ";
-		while ($rowsql = mysqli_fetch_array($result2)):
-		$fechaj = explode("-", $rowsql[0]);
-		$fecha2 = $fechaj[2]."-".$fechaj[1]."-".$fechaj[0];
-		$justidias.=$fecha2." ";
-		endwhile;
-		}
-		$justi2=$justidias;
+
+
 // Días con Faltas No Justificadas
 $SQL3 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' order by fecha";
 	$justi3 = "Los días en los que el Alumno no ha justificado su ausencia del Centro son los siguientes:";
@@ -170,10 +147,7 @@ $justi3
 	}
 	else
 	{
-$cuerpo2="$justi1
-$justi2
-
-$justi3
+$cuerpo2="$justi3
 ";	
 	}
 	$cuerpo3 = "Ante las reiteradas faltas de asistencia a clase de su hijo/a pongo en su conocimiento que esta situación atenta contra los derechos del niño/a a una escolarización obligatoria y continuada.
@@ -210,7 +184,7 @@ Atentamente le saluda la Dirección del Centro.
 	$MiPDF->Ln(6);
 	$MiPDF->Multicell(0,4,'Jefe de Estudios:                    Sello del Centro                   Director/a:',0,'C',0);
 	$MiPDF->Ln(16);
-	$MiPDF->Multicell(0,4,$config['directivo_jefatura'].'                                             '.$config['directivo_direccion'],0,'C',0);
+	$MiPDF->Multicell(0,4,'          '.$config['directivo_jefatura'].'                                                   '.$config['directivo_direccion'],0,'C',0);
 	endwhile;
 	}
 	$MiPDF->Output();
