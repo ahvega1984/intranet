@@ -68,7 +68,7 @@ include("../../menu.php");
 
 							<?php $res = mysqli_query($db_con,"select * from reservas where date(eventdate) = '$fecha_dia' and event".$i." not like '' and servicio = '$row[0]'");
 							$ya_reserva = mysqli_num_rows($res);?>
-							<?php if($asig['a_grupo'] == '' and $ya_reserva <> '1'): ?>
+							<?php if($asig['a_grupo'] == '' and $ya_reserva != 1): ?>
 							<p><a href="hor_aulas.php?aula=<?php echo $row['n_aula']; ?>"><?php echo $row['n_aula']; ?></a></p>
 							<?php endif; ?> <?php endwhile; ?></td>
 							<?php endfor; ?>

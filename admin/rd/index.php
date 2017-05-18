@@ -18,6 +18,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	
 	if (isset($_POST['departamento'])) {
 		$departamento = mysqli_real_escape_string($db_con, $_POST['departamento']);
+		$titulo = 'Departamento de '.$departamento;
 		
 		if (! acl_permiso($_SESSION['cargo'], array('1')) && $dpto != $_POST['departamento']) {
 			acl_acceso();
