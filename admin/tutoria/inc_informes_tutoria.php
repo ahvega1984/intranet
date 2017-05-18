@@ -17,7 +17,7 @@
 		<?php while ($row = mysqli_fetch_array($result)): ?>
 		<tr>
 			<td><a href="../infotutoria/infocompleto.php?id=<?php echo $row['id']; ?>"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
-			<td><?php echo strftime('%e %b',strtotime($row['f_entrev'])); ?></td>
+			<td><?php echo $row['f_entrev']; ?></td>
 		</tr>
 		<?php endwhile; ?>
 		<?php mysqli_free_result($result); ?>
