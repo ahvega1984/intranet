@@ -51,10 +51,10 @@ mysqli_query($db_con,"insert into horw_seg_faltas select * from horw_faltas");
 
 mysqli_query($db_con,"truncate table horw");
 
-// Claveal primaria e �ndice
+// Claveal primaria e índice
 
 while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
-	// Mientras hay l�neas que leer... si necesitamos a�dir s�lo las clases hay que hacer aqu� un if ($data[9]!='')
+	// Mientras hay líneas que leer... si necesitamos añadir solo las clases hay que hacer aquí un if ($data[9]!='')
 	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo,nivel,n_grupo) ";
 	$sql.=" VALUES ( ";
 	foreach ($data as $indice=>$clave){
@@ -87,7 +87,7 @@ mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
 
 
 
-// Cambiamos los numeros de Horw para dejarlos en orden alfab�tico.
+// Cambiamos los numeros de Horw para dejarlos en orden alfabético.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
 while($hor_profe = mysqli_fetch_array($hor)){
 	$np+=1;
@@ -96,7 +96,7 @@ while($hor_profe = mysqli_fetch_array($hor)){
 	$sql1 = mysqli_query($db_con, $sql);
 }
 
-// Limpiez de codigos
+// Limpieza de codigos
 $h1 = mysqli_query($db_con, "select id, c_asig, a_grupo, asig, unidades.idcurso, nomcurso from horw, unidades, cursos where a_grupo=nomunidad and unidades.idcurso=cursos.idcurso and a_grupo not like ''");
 while ($h2 = mysqli_fetch_array($h1)) {
 	$id_horw = $h2[0];
@@ -127,11 +127,11 @@ mysqli_query($db_con, "truncate table horw_faltas");
 mysqli_query($db_con, "insert into horw_faltas select * from horw");
 mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
-	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a S�neca y consigamos los datos reales de los mismos
+	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
 	$tabla_profes =mysqli_query($db_con,"select * from profesores");
 	if (mysql_num_rows($tabla_profes) > 0) {}
 	else{
-		// Recorremos la tabla Profesores bajada de S�neca
+		// Recorremos la tabla Profesores bajada de Séneca
 		$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo like '1%' or a_grupo like '2%' or a_grupo like '3%' or a_grupo like '4%' order by prof");
 		while ($prf =mysqli_fetch_array($pro)) {
 			$materia = $prf[0];

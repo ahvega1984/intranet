@@ -6,11 +6,11 @@ if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	if ($num_col != 13) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>Atenci�n:</legend>
-El archivo de Horwin que est�s intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Aseg�rate de que el archivo de Horwin sigue las instrucciones de la imagen, y vuelve a intentarlo.
+			<legend>Atención:</legend>
+El archivo de Horwin que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horwin sigue las instrucciones de la imagen, y vuelve a intentarlo.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><br />';
 		exit();
 	}
@@ -27,10 +27,10 @@ mysqli_query($db_con,"insert into horw_seg_faltas select * from horw_faltas");
 
 mysqli_query($db_con,"truncate table horw");
 
-// Claveal primaria e �ndice
+// Claveal primaria e índice
 
 while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
-	// Mientras hay l�neas que leer... si necesitamos a�dir s�lo las clases hay que hacer aqu� un if ($data[9]!='')
+	// Mientras hay líneas que leer... si necesitamos añadir solo las clases hay que hacer aquí un if ($data[9]!='')
 	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo,nivel,n_grupo) ";
 	$sql.=" VALUES ( ";
 	foreach ($data as $indice=>$clave){
@@ -41,16 +41,16 @@ while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	 echo $sql."<br>";
 	mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI�N:</h5>
+			<h5>ATENCIÓN:</h5>
 No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');	
 }
 fclose ( $fp );
 
-// Eliminamos el Recreo como 4� Hora.
+// Eliminamos el Recreo como 4ª Hora.
 $recreo = "DELETE FROM horw WHERE hora ='4'";
 mysqli_query($db_con,$recreo);
 $hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
@@ -67,7 +67,7 @@ mysqli_query($db_con, "trunca table horw_faltas");
 mysqli_query($db_con, "insert into horw_faltas select * from horw");
 mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
-// Cambiamos los numeros de Horw para dejarlos en orden alfab�tico.
+// Cambiamos los numeros de Horw para dejarlos en orden alfabético.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
 while($hor_profe = mysqli_fetch_array($hor)){
 	$np+=1;
@@ -79,11 +79,11 @@ while($hor_profe = mysqli_fetch_array($hor)){
 }
 
 	
-// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a S�neca y consigamos los datos reales de los mismos
+// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
 $tabla_profes =mysqli_query($db_con,"select * from profesores");
 if (mysql_num_rows($tabla_profes) > 0) {}
 else{
-	// Recorremos la tabla Profesores bajada de S�neca
+	// Recorremos la tabla Profesores bajada de Séneca
 	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo like '1%' or a_grupo like '2%' or a_grupo like '3%' or a_grupo like '4%' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
@@ -107,5 +107,5 @@ $tabla_tut =mysqli_query($db_con,"select * from FTUTORES");
 if(mysql_num_rows($tabla_tut) > 0){}
 else{
 	mysql_query("insert into FTUTORES (nivel, grupo, tutor) select distinct nivel, n_grupo, prof from horw where a_asig like '%TUT%'");
-
-	?>
+}
+?>
