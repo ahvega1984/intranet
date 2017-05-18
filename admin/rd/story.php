@@ -36,7 +36,7 @@ if ($row)
 			
 			<div class="hidden-print">
 				<a href="pdf.php?id=<?php echo $row['id']; ?>&imprimir=1" class="btn btn-primary">Imprimir</a>
-				<a href="registrar.php" class="btn btn-default">Volver</a>
+				<a href="index.php" class="btn btn-default">Volver</a>
 			</div>
 			
  		</div>
@@ -64,7 +64,7 @@ else
 				
 				<div class="alert alert-danger alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
-		            <h4>ATENCIÓN:</h4>No tiene permiso o no se encuentra el acta en la base de datos.
+		            <h4>ATENCIÃ“N:</h4>No tiene permiso o no se encuentra el acta en la base de datos.
           		</div>
           	</div>
         </div>
