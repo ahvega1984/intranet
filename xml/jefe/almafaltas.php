@@ -84,7 +84,8 @@ include '../../menu.php';
 			 `EDAD` varchar( 2 ) default NULL ,
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
-			 `FECHAMATRICULA` varchar( 255 ) default NULL  
+			 `FECHAMATRICULA` varchar( 255 ) default NULL,
+			 PRIMARY KEY (`CLAVEAL`)  
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
 			
 					// echo $alumnos;
