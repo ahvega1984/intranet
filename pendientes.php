@@ -54,9 +54,10 @@ if (mysqli_num_rows($cal_personal)>0) {
 		$actividad = $cal_pers['nombre'];
 		$id = $cal_pers['id'];
 		$unidad = $cal_pers['unidades'];
+		$desc = $cal_pers['descripcion'];
 		?>
 <li><?php echo $unidad." ";?>
-	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a>
+	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"  data-bs="tooltip" title="<?php echo $desc; ?>"><?php echo stripslashes($actividad); ?></a>
 <br>
 </li>
 		<?php

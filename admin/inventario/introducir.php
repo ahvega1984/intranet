@@ -12,15 +12,6 @@ include("menu.php");
   <h2>Material del Centro <small> Inventario</small></h2>
 </div>
 <?php
-/*if (empty($departamento) or stristr ( $_SESSION ['cargo'], '1' ) == FALSE){
-	$departamento=$_SESSION['dpt'];
-	$departament=$departamento;
-}
-else{
-	$departament="Dirección";
-}
-*/
-
 if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE and empty($departamento)){
 	$departament="Dirección";
 	$departamento=$departament;
@@ -158,7 +149,7 @@ else{
 }
 ?>
 <?php
-$it = mysqli_query($db_con, "select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
+$it = mysqli_query($db_con, "select inventario_clases.clase, marca, modelo, unidades, inventario.id, inventario.descripcion from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
 if (mysqli_num_rows($it)>0) {
 	echo '<legend>Inventario: ';
 	if($departamento){echo "<span style=color:#9d261d>".$departamento."</span>";}
@@ -175,7 +166,7 @@ while($item = mysqli_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><?php echo $item[0];?></td><td><?php echo $marca;?></td><td><?php echo $item[3];?></td><td align=right>
+<tr><td><?php echo $item[0];?></td><td data-bs='tooltip' title='<?php echo $item[5]; ?>'><?php echo $marca;?></td><td><?php echo $item[3];?></td><td align=right>
 <?php
 if ($j_s == '') {
 ?>
