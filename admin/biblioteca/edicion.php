@@ -65,15 +65,19 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 	$causa='Otras';
 	$accion='Envío de SMS';
 
-	foreach ($_POST as $ide => $valor) {      
-		if(($ide != 'registro') and (!empty( $valor)))
+foreach ($_POST as $ide => $valor) {      
+if(($ide != 'registro') and (!empty( $valor)))
 		{ 
 $envio='';
 for($i=0; $i <= count($valor)-1; $i++)
 { 
 $j+=1; 
+/*
 $duplicado= mysqli_query($db_con, "select amonestacion from morosos where id='$valor[$i]'");
 $duplicados=mysqli_fetch_array($duplicado);
+*/
+
+$duplicados[0]='NO';
 
 if($duplicados[0]=='NO'){
 
@@ -151,11 +155,11 @@ if (isset($_POST['sms'])) {
 				<div class=\"alert alert-error\">
 					<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
 				</div>
-				<br>";			}
-
+				<br>";			
+				}
+			}
 		}
 	}
-}
 }
 	}
 	elseif ($j==0)     {

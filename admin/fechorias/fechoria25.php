@@ -73,8 +73,19 @@ for ($i=0;$i<$num_a;$i++){
 		$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$config['dominio'];
 
 		// SMS
+		// Comprobamos si el mismo profesor está enviando varias veces el SMS
+
+		$ya_sms = mysqli_query($db_con, "select * from sms where profesor = '".$_SESSION['profi']."' and date(fecha)='$fecha3' and mensaje like '%falta contra las normas%' and (telefono = '$tfno' or telefono = '$tfno_u')");
+		if (mysqli_num_rows($ya_sms)>0) {
+			$sms_ya = 1;
+			}
+		else{
+			$sms_ya = 0;
+			}
 		
-		if ($config['mod_sms'] && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
+		// Enviamos
+
+		if ($config['mod_sms'] && $sms_ya = 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
 
 			$hora_f = date ( "G" );
 			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {

@@ -114,7 +114,8 @@ if (mysqli_num_rows($si) > 0)
 		echo "<tr><TD> $row[3] $row[2]</td>
    <TD colspan='1' nowrap style='vertical-align:middle'><span class='label label-success'>Informe ya rellenado</span></td>";
    echo "<TD> 
-			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'> </i></a>";			
+			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'> </i></a>";
+   echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip'  title='Redactar Informe'> </i> </a>";		
    if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
    	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
    }
