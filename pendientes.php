@@ -327,6 +327,8 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 
 // Informes de tutoria
 $count03=0;
+$count033=0;
+
 $SQLcurso3 = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tutor%'";
 //echo $SQLcurso3."<br>";
 $resultcurso3 = mysqli_query($db_con, $SQLcurso3);
@@ -364,13 +366,30 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	}
 
 	if($c_asig3){
-		$hoy = date('Y-m-d');
-		//echo $hoy;
 
-		$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and
-	 date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
-	 //echo $query3."<br>";
-		$result3 = mysqli_query($db_con, $query3);
+	$hoy = date('Y-m-d');
+
+	$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
+
+	$query33 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno WHERE date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and apellidos like 'Informe general%' ORDER BY F_ENTREV asc";
+	//echo $query3."<br>";
+	
+	$result3 = mysqli_query($db_con, $query3);
+	$result33 = mysqli_query($db_con, $query33);
+
+		if (mysqli_num_rows($result33) > 0) {
+			while($row33 = mysqli_fetch_array($result33))
+			{
+			$si033 = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row33[0]' and asignatura = '$asignatura3'");
+					if (mysqli_num_rows($si033) > 0)
+					{ }
+					else
+					{
+						$count033 = $count033 + 1;
+					}
+				}
+			}
+
 		if (mysqli_num_rows($result3) > 0)
 		{
 			while($row3 = mysqli_fetch_array($result3))
@@ -426,7 +445,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 					else
 					{
 						$count03 = $count03 + 1;
-					}
+					}						
 				}
 			}
 		}
@@ -457,7 +476,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE
 		$count04 = $count04 + 1;
 	}
 }
-if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
+if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0' OR $count033 > '0')) OR (($count04 > '0'))){
 	?>
 
 	<?php
@@ -466,6 +485,9 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
 	}
 	if (isset($count03)) {
 		if($count03 > '0'){include("modulos/informes.php");}
+	}
+	if (isset($count033)) {
+		if($count033 > '0'){include("modulos/informes_generales.php");}
 	}
 	if (isset($count04)) {
 		if($count04 > '0'){include("modulos/absentismo.php");}
@@ -645,7 +667,7 @@ como no leído</button>
 	}
 }
 
-if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
+if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count033 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
 	echo "<br>";
 }
 else {

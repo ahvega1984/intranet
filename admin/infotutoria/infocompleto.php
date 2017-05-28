@@ -69,7 +69,15 @@ if (file_exists($foto)) {
 
 echo '
 	<div class="media-body">
-    <h2>'.$dalumno[0].', '.$dalumno[1].' <small>Unidad: 
+    <h2>';
+if (stristr($dalumno[0],"Informe")==TRUE) {
+	echo "Informe general de Grupo";
+}
+else{
+	echo $dalumno[0].', '.$dalumno[1];
+}
+    
+ echo ' <small>Unidad: 
 '.$dalumno[2].'</small></h2>
     <h4 class="text-warning">Fecha de visita: '.strftime('%e de %B de 
 %Y',strtotime($dalumno[5])).'</h4>

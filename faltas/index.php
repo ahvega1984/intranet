@@ -469,9 +469,11 @@ while($hora2 = mysqli_fetch_row($hora0))
 				echo "</span></label></td>";
 				?>
 <td><?php 
-$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
+//$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
+//Cuaderno correcta
+$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and ($fal_e) and claveal='$row[0]' and falta='F'");
 
-$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
+$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and ($fal_e) and claveal='$row[0]' and falta='J'");
 $f_faltaT = mysqli_num_rows($faltaT_F);
 $f_justiT = mysqli_num_rows($faltaT_J);
 ?>

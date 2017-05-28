@@ -58,7 +58,7 @@ $luis1 = mysqli_query($db_con, "select distinct grupo from profesores where prof
 while ($luis = mysqli_fetch_array($luis1)) {
   $unidad = $luis[0];
 
-$query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' order by F_ENTREV desc";
+$query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' and apellidos not like 'Informe general%' order by F_ENTREV desc";
 //echo $query;
 $result = mysqli_query($db_con, $query);
 

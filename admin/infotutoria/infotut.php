@@ -14,7 +14,12 @@ else {
 
 include("../../menu.php");
 include("menu.php");
-
+?>
+<style type="text/css">
+ option{
+padding-right: 5px; }
+</style>
+<?php
 $prof = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysqli_fetch_array($prof);
 $tutor = $fprof[0];
@@ -53,23 +58,29 @@ else
 </div>
 	<?php
 }
-?> <?php
+?> 
+<?php
 echo "<form name='alumno' method='POST' action='activar.php' role='form'>";
 
 echo "<div class='form-group'>
 <label>Alumno </label>";
 echo"<select name='alumno' class='form-control'>";
 echo "<OPTION></OPTION>";
-if ($unidad == ""){ echo "<OPTION></OPTION>";}
+echo '<optgroup label="Informes de todo el Grupo">';
+echo "<OPTION value='Informe de Grupo'>Informe general del Grupo</OPTION>";
+echo "</optgroup>";
+
+if ($unidad == ""){}
 else
 {
+	echo '<optgroup label="Informes de Alumnos">';
 	$alumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
 	while($falumno = mysqli_fetch_array($alumno))
 	{
-	 echo "<OPTION>$falumno[1], $falumno[2] --> $falumno[0]</OPTION>";
+	 echo "<OPTION value='$falumno[1], $falumno[2] --> $falumno[0]'>$falumno[1], $falumno[2]</OPTION>";
 	}
 }
-echo "</select></div>";
+echo "</optgroup></select></div>";
 
 if ($unidad == ""){ echo "";}
 else
@@ -91,10 +102,10 @@ else
 </div>
 
 <div class="form-group">
-	<label for="motivo">Motivo de la reunión</label>
+	<label for="motivo">Motivo/Causa del Informe</label>
 	<textarea class="form-control" id="motivo" name="motivo" rows="3"></textarea>
 </div>
-
+<input type="hidden" name = 'grupo' value="<?php echo $unidad;?>" class="btn btn-primary">
 <?php if (acl_permiso($carg, array('1', '7'))): ?>
 <input type=submit value="Activar informe" class="btn btn-primary">
 <?php if (isset($_GET['unidad']) || isset($_POST['unidad'])): ?>

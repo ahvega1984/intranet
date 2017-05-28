@@ -69,28 +69,36 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$nuevafecha = strtotime ( '-2 day' , strtotime ( $hoy ) ) ;
 	$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 
-// Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en el campo combasi	
+// Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en el campo combasi; o bien si hay un Informe general de Grupo activo.	
 	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, valido FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$nuevafecha' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
-	//echo $query."<br>";
+	$query_g = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, motivo FROM infotut_alumno WHERE date(F_ENTREV)>='$nuevafecha' and infotut_alumno.unidad = '$grupo' and apellidos like 'Informe %' ORDER BY F_ENTREV asc";
+	//echo $query_g."<br>";
+
 	$result = mysqli_query($db_con, $query);
+	$result_g = mysqli_query($db_con, $query_g);
+
 	$result0 = mysqli_query($db_con, "select tutor, unidad from FTUTORES where unidad = '$grupo'" );
 	$row0 = mysqli_fetch_array ( $result0 );	
 	$tuti = mb_strtoupper($row0[0]);
 	$tuti_grupo = $row0[1];
-	if (mysqli_num_rows($result) < 1){ }
-	else{
-		$si_al.=1;	
-echo "<form name='consulta' method='POST' action='tutoria.php'>";
-//$num_informe = mysqli_num_rows($sql1);
-echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
-echo "<div class='table-responsive'><table align=left class='table'><tr class='active'>";
-echo "<th>Alumno</th>
-<th>Cita padres</th>
-<th>Fecha alta</th>
-<th></th>
-<th></th>
-</tr>";
-$count = "";
+	if (mysqli_num_rows($result) > 0 or mysqli_num_rows($result_g) > 0){
+	$si_al.=1;	
+	echo "<form name='consulta' method='POST' action='tutoria.php'>";
+	//$num_informe = mysqli_num_rows($sql1);
+	echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
+	echo "<div class='table-responsive'><table align=left class='table'><tr class='active'>";
+	echo "<th>Alumno</th>
+	<th>Cita padres</th>
+	<th>Fecha alta</th>
+	<th></th>
+	<th></th>
+	</tr>";
+
+	$count = "";
+	$count_g = "";
+
+	// Informe de un alumno
+	
 	while($row = mysqli_fetch_array($result))
 	{
 		$validado="";
@@ -131,6 +139,39 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
    echo "</td>
    </tr>";		
 	}	
+
+	// Informe de Grupo
+
+	while($row = mysqli_fetch_array($result_g))
+	{
+	$count_g = $count_g + 1;
+
+	echo "<tr><TD>
+	$row[5]</td>
+   <TD>$row[3]</td>
+   <TD>$row[4] </td>
+   <td>";
+	 echo "
+	 <input type='hidden' name='profesor' value='$profesor'>";
+		 if (mysqli_num_rows($si) > 0 and $count < 1)
+		{} else{ 
+		//echo "$grupo == ".$_SESSION['mod_tutoria']['unidad'];
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
+			if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']) and ($grupo == $_SESSION['mod_tutoria']['unidad']))) {
+				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''>
+				<i class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Borrar Informe' > </i> </a> 	";
+			}
+		}	
+		 
+	  if (mysqli_num_rows($si) > 0 and $count_g < 1)
+		{} else{ 
+echo "&nbsp;<a href='informar_general.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip'  title='Redactar Informe'> </i> </a>";
+				}
+		echo "</td><td>";	
+   echo "</td>
+   </tr>";		
+	}
+
 	echo "</table></div>";
 	 
 	echo "</form><hr>";
