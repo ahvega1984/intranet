@@ -9,31 +9,16 @@ include("menu.php");
 $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
   `id` varchar(10) collate utf8_general_ci NOT NULL,
   `curso` varchar(50) collate utf8_general_ci NOT NULL,
-  `apellidos` varchar(60) collate utf8_general_ci NOT NULL,
-  `nombre` varchar(25) collate utf8_general_ci NOT NULL,
-  `ejemplar` varchar(100) collate utf8_general_ci NOT NULL,
+  `apellidos` varchar(96) collate utf8_general_ci NOT NULL,
+  `nombre` varchar(64) collate utf8_general_ci NOT NULL,
+  `ejemplar` varchar(250) collate utf8_general_ci NOT NULL,
   `devolucion` varchar(10) collate utf8_general_ci NOT NULL,
   `hoy` date NOT NULL,
   `amonestacion` varchar(2) collate utf8_general_ci NOT NULL default 'NO',
   `sms` varchar(2) collate utf8_general_ci NOT NULL default 'NO',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
-mysqli_query($db_con, $crea);
-
- $result = mysqli_query($db_con,"SHOW COLUMNS FROM morosos");
- if (mysqli_num_rows($result) > 0) {
-     while ($row = mysqli_fetch_array($result)) {
-         if($row[1]=='varchar(10)'){
-         $actua = 1;
-         }
-       }
-     }
- 
- if($actua==1){}
- else{
-     mysqli_query($db_con,"ALTER TABLE  `morosos` CHANGE  `id`  `id` VARCHAR( 10 ) NOT NULL");
-     }
-     
+mysqli_query($db_con, $crea); 
      
 ?>
 	<div class="container">

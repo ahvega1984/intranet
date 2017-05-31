@@ -1,6 +1,5 @@
 <?php
 require('../../bootstrap.php');
-variables();
 acl_acceso($_SESSION['cargo'], array(1, 7));
 
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
@@ -80,8 +79,8 @@ array(
 												'nombre' => 'Benamara - Benavista',
 ),
 array(
-												'id'     => 'Bel Ai',
-												'nombre' => 'Bel Ai',
+												'id'     => 'Bel-Air',
+												'nombre' => 'Bel-Air',
 ),
 array(
 												'id'     => 'Parada Bus Portillo Cancelada',
@@ -231,6 +230,7 @@ if(isset($_POST['enviar'])){
 		$vacios.= "sexo, ";
 		$num+=1;
 	}
+	
 	// Control de errores
 	if($num > 0){
 		$adv = substr($vacios,0,-2);
@@ -252,7 +252,10 @@ if(isset($_POST['enviar'])){
 		if (substr($curso,0,1)==4){
 			if ($optativa1==$optativa2) {
 				$opt_rep4 = 1;
-			}					
+			}	
+			if ($itinerario == '1' and $ciencias4 =='1' and $optativa1 == '3') {
+				$opt_rep4 = 1;
+			}				
 		}
 		else{
 			for ($i = 1; $i < 8; $i++) {
@@ -684,7 +687,7 @@ exit();
 			<div class="form-group"><label for="hermanos">Nº de hermanos</label>
 			<input type="number" class="form-control" id="hermanos"
 				name="hermanos"
-				value="<?php echo (isset($hermanos)) ? $hermanos : '0'; ?>" min="0"
+				value="<?php echo (isset($hermanos)) ? $hermanos : '1'; ?>" min="1"
 				max="99" maxlength="2"></div>
 			</td>
 		</tr>
@@ -1125,8 +1128,12 @@ exit();
 			</td>
 		</tr>
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4º de ESO<p class="help-block">
-			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)<br><span class="text-info text-lowercase">La Opción de <em>Ingeniería y Arquitectura</em> del Itinerario de Ciencias tiene <b>1 materia optativa</b>; la Opción de <em>Ciencias de la Salud</em> tiene <b>2 materias optativas</b>.</span></small></p></th>
+			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4º de ESO
+			<p class="help-block">
+			<small>(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.).<br> 
+				<span class="text-warning">
+					Todos los alumnos cursan 2 optativas, excepto la Opción de <mark><em>Ingeniería y Arquitectura</em></mark> del Itinerario de Ciencias que cursa 1 sola pues todos cursan TIC.
+				</span></small></p></th>
 		</tr>
 		<tr>
 			<td style="border-top: 0;" colspan="4" >
@@ -1203,8 +1210,8 @@ exit();
 		<tr>
 
 			<td colspan="1">
-			<div class="form-horizontal">
-				<?php $num1 = ""; ?> 
+			<div class="form-horizontal <?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '' ; ?>">
+				<?php $num1 = "";?> 
 			<?php for($i = 1; $i < 8; $i++): ?>
 			<?php if (substr($curso, 0, 1)-1 == $i): ?> 
 			<?php foreach (${opt.$i} as $opt_1): ?>
@@ -1224,8 +1231,12 @@ exit();
 				class="col-sm-8 control-label">
 			<div class="text-left"><?php echo $opt_1; ?></div>
 			</label></div>
-
-			<?php echo ($num1 == 4) ? '</div></td><td colspan="1"><div class="form-horizontal">' : ''; ?>
+			<?php 
+			if ($opt_rep2 == 1) {
+				$extr_error = 'has-error';
+			}
+			?>
+			<?php echo ($num1 == 4) ? '</div></td><td colspan="1"><div class="form-horizontal '.$extr_error.'">' : ''; ?>
 
 			<?php endforeach; ?> <?php endif; ?> <?php endfor; ?></div>
 			</td>

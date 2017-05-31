@@ -67,21 +67,13 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 
 foreach ($_POST as $ide => $valor) {      
 if(($ide != 'registro') and (!empty( $valor)))
-		{ 
+{ 
 $envio='';
 for($i=0; $i <= count($valor)-1; $i++)
 { 
 $j+=1; 
-/*
-$duplicado= mysqli_query($db_con, "select amonestacion from morosos where id='$valor[$i]'");
-$duplicados=mysqli_fetch_array($duplicado);
-*/
 
-$duplicados[0]='NO';
-
-if($duplicados[0]=='NO'){
-
-	$envio='-'.$valor[$i]; 
+$envio='-'.$valor[$i]; 
 
 if (isset($_POST['registro'])) {
 		$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id='$valor[$i]'") or die ("No se ha podido actualizar el registro");
@@ -103,7 +95,7 @@ if (isset($_POST['registro'])) {
 			$unidad=$clav[1]; //echo $nivel;
 			//insertamos, por fÃ­n, la fechorÃ­a
 if (isset($_POST['registro'])) {
-				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
+				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("Error al registrar fechoría");
 				//ahora registramos la intervencion en la tabla tutorÃ­a, debido al tema de los SMS
 				$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 			}
@@ -159,7 +151,6 @@ if (isset($_POST['sms'])) {
 				}
 			}
 		}
-	}
 }
 	}
 	elseif ($j==0)     {

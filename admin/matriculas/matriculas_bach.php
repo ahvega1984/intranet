@@ -79,8 +79,8 @@ array(
 												'nombre' => 'Benamara - Benavista',
 ),
 array(
-												'id'     => 'Bel Ai',
-												'nombre' => 'Bel Ai',
+												'id'     => 'Bel-Air',
+												'nombre' => 'Bel-Air',
 ),
 array(
 												'id'     => 'Parada Bus Portillo Cancelada',
@@ -700,7 +700,7 @@ if ($dni or $claveal or $id) {
 			<div class="form-group"><label for="hermanos">Nº de hermanos</label>
 			<input type="number" class="form-control" id="hermanos"
 				name="hermanos"
-				value="<?php echo (isset($hermanos)) ? $hermanos : '0'; ?>" min="0"
+				value="<?php echo (isset($hermanos)) ? $hermanos : '1'; ?>" min="1"
 				max="99" maxlength="2"></div>
 			</td>
 		</tr>
@@ -1065,7 +1065,7 @@ if ($dni or $claveal or $id) {
 		<tr>
 			<th class="active text-center" colspan="4"><span class="text-uppercase">Asignaturas Optativas de 2º de Bachillerato (2 horas)</span>
 				<p class="help-block">
-			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc. Todos los alumnos cursan 2 optativas, excepto en el Itinerario 1 (Ciencias y Arquitectura) que cursan 1 sola asignatura. En caso de que no haya un número suficiente de alumnos en la asignatura elegida, se asignará la siguiente opción.)</small></p></th>
+			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc. Todos los alumnos cursan 1 optativa. En caso de que no haya un número suficiente de alumnos en la asignatura elegida, se asignará la siguiente opción.)</small></p></th>
 		</tr>
 		<tr>
 			<td style="border-top: 0; text-align:left; <?php if(stristr($adv, "optativa libre")==TRUE) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
