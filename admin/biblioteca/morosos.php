@@ -36,13 +36,13 @@ No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o
 		$fecha_ed = $tr_f[2]."-".$tr_f[1]."-".$tr_f[0];
 		$hoy = date('Y-m-d');
 		
-		mysqli_query($db_con, "INSERT INTO morosos_tmp (id, curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[3]. "','". $data1[0]. "','". $data1[1]. "','". $data1[2] . "','". $data1[4] ."','". $fecha_ed ."', '".$hoy."')");		
+		mysqli_query($db_con, "INSERT INTO morosos_tmp (id, curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[3]. "','". utf8_encode($data1[0]). "','". utf8_encode($data1[1]). "','". utf8_encode($data1[2]) . "','". $data1[4] ."','". $fecha_ed ."', '".$hoy."')");		
 
-		$dup = mysqli_query($db_con, "select * from morosos where curso = '$data1[0]' and apellidos = '$data1[1]' and nombre = '$data1[2]' and ejemplar = '$data1[4]' and devolucion = '$fecha_ed'");
+		$dup = mysqli_query($db_con, "select * from morosos where curso = '".utf8_encode($data1[0]). "' and apellidos = '". utf8_encode($data1[1]). "' and nombre = '". utf8_encode($data1[2]). "' and ejemplar = '$data1[4]' and devolucion = '$fecha_ed'");
 
 		if (mysqli_num_rows($dup)>0) {}
 		else{
-			$datos1 = mysqli_query($db_con, "INSERT INTO morosos (id, curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[3]. "','". $data1[0]. "','". $data1[1]. "','". $data1[2] . "','". $data1[4] ."','". $fecha_ed ."', '".$hoy."')");
+			$datos1 = mysqli_query($db_con, "INSERT INTO morosos (id, curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[3]. "','". utf8_encode($data1[0]). "','". utf8_encode($data1[1]). "','". utf8_encode($data1[2]) . "','". utf8_encode($data1[4]) ."','". $fecha_ed ."', '".$hoy."')");
 		}
 	}
 
