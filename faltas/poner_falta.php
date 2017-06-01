@@ -103,7 +103,7 @@ Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
 			}
 
 			//Registramos sustitución en la tabla de Guardias
-			$horas=$_POST['hora'];
+/*			$horas=$_POST['hora'];
 			$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
 			if (mysqli_num_rows($gu)>0) {
 				$guardi = mysqli_fetch_row($gu);
@@ -121,7 +121,7 @@ Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
 Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
 </div>';
 			}	
-		}			
+		}	*/		
 	}
 
 if (empty($mens_fecha)) {
