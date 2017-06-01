@@ -697,7 +697,7 @@ if ($dni or $claveal or $id) {
 				maxlength="30"></div>
 			</td>
 			<td>
-			<div class="form-group"><label for="hermanos">Nº de hermanos</label>
+			<div class="form-group"><label for="hermanos">Nº de hijos</label>
 			<input type="number" class="form-control" id="hermanos"
 				name="hermanos"
 				value="<?php echo (isset($hermanos)) ? $hermanos : '1'; ?>" min="1"

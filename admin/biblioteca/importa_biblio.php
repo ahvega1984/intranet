@@ -48,14 +48,14 @@ echo "<legend align='center'>Listados de libros procesados</legend>";
 while (( $data = fgetcsv ( $fp , 1000, ';' )) !== FALSE ) {
 	$reg+=1;
 	$sql="	INSERT INTO  biblioteca (Autor, Titulo, Editorial, ISBN, Tipo, anoEdicion, extension, serie, lugaredicion, tipoEjemplar, Ubicacion) VALUES (";
-	$sql.="	'$data[0]',  '$data[1]',  '$data[2]',  '$data[3]',  '$data[4]',  '$data[5]',  '$data[6]',  '$data[7]',  '$data[8]',  '$data[9]',  '$data[10]')";
+	$sql.="	'".utf8_encode($data[0])."',  '".utf8_encode($data[1])."',  '".utf8_encode($data[2])."',  '".utf8_encode($data[3])."',  '".utf8_encode($data[4])."',  '".utf8_encode($data[5])."',  '".utf8_encode($data[6])."',  '".utf8_encode($data[7])."',  '".utf8_encode($data[8])."',  '".utf8_encode($data[9])."',  '".utf8_encode($data[10])."')";
 
 	mysqli_query($db_con, $sql);    
 } 
 fclose ( $fp ); 
 mysqli_query($db_con, "delete from biblioteca where titulo='' and editorial='' and ubicacion=''");
 mysqli_close();
-echo "<div align='center' class='text-success'><b>Se han importado un total de ",$reg," libros a la base de datos</b></div>";
+echo "<div align='center' class='text-success'><b>Se han importado un total de ".$reg." libros a la base de datos</b></div>";
 }
 
 
@@ -78,18 +78,18 @@ mysqli_query($db_con, "CREATE TABLE if not exists `biblioteca_lectores` (
 
 $reg=0;
 
-echo "<legend align='center'>Listados de libros procesados</legend>";
+echo "<legend align='center'>Listados de Lectores procesados</legend>";
 
 while (( $data = fgetcsv ( $fp , 1000, ';' )) !== FALSE ) {
 	$reg+=1;
 	$sql="	INSERT INTO  biblioteca_lectores (Codigo, DNI, Apellidos, Nombre, Grupo) VALUES (";
-	$sql.="	'$data[0]',  '$data[1]',  '$data[2]',  '$data[3]',  '$data[4]')";
+	$sql.="	'".utf8_encode($data[0])."',  '".utf8_encode($data[1])."',  '".utf8_encode($data[2])."',  '".utf8_encode($data[3])."',  '".utf8_encode($data[4])."')";
 	mysqli_query($db_con, $sql);    
 } 
 mysqli_query($db_con, "delete from biblioteca_lectores where grupo=''");
 fclose ( $fp ); 
 mysqli_close();
-echo "<div align='center' class='text-success'><b>Se han importado un total de ",$reg," Lectores a la base de datos</b></div>";
+echo "<div align='center' class='text-success'><b>Se han importado un total de ".$reg." Lectores a la base de datos</b></div>";
 }
 echo "</div></div></div></div>";
 ?>

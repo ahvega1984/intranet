@@ -77,7 +77,7 @@ mysqli_query($db_con, $crea);
 								
 								<div class="col-sm-6">
 									
-									<h3>Información sobre la importación</h3>
+									<h3>Información sobre la importación de Préstamos de Ejemplares</h3>
 									
 									<p>La importación de los Préstamos de ejemplares permite gestionar las Devoluciones de los libros como asuntos de Disciplina (considerar el retraso en la devolución como falta grave, enviar SMS de advertencia, etc.) en <em>Gestión de Préstamos</em>.</p>
 									
@@ -131,7 +131,7 @@ mysqli_query($db_con, $crea);
 							
 							<div class="col-sm-6">
 								
-								<h3>Información sobre la importación</h3>
+								<h3>Información sobre la importación de Fondos de la Biblioteca</h3>
 								
 								<p>La importación de los Fondos de la Biblioteca permite consultar en la Intranet, pero también en la página pública del Centro, los fondos de la Biblioteca del Centro.</p>
 								
@@ -184,7 +184,7 @@ mysqli_query($db_con, $crea);
 							
 							<div class="col-sm-6">
 								
-								<h3>Información sobre la importación</h3>
+								<h3>Información sobre la importación de Lectores de la Biblioteca</h3>
 								
 								<p>La importación de los Lectores permite incorporar el código del alumno en su Carnet, de tal modo que se pueda utilizar el Carnet también en la Biblioteca del Centro.</p>
 								
