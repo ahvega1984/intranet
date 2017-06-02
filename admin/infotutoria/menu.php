@@ -75,11 +75,11 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 				<li <?php echo $activo1;?>> <a href="index.php">Página de Informes de Tutoría</a></li>
 				
 				<?php if (isset($config['informe_tutoria']['activa_administrativo']) && $config['informe_tutoria']['activa_administrativo'] == 1): ?>
-				<?php if (acl_permiso($carg, array('1', '2', '7'))): ?>
+				<?php if (acl_permiso($carg, array('1', '2', '7', '8'))): ?>
 				<li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION['mod_tutoria']['unidad'])) {echo  "unidad=".$_SESSION['mod_tutoria']['unidad'];}?>">Activar Nuevo Informe</a></li>
 				<?php endif; ?>
 				<?php else: ?>
-				<?php if (acl_permiso($carg, array('1', '2'))): ?>
+				<?php if (acl_permiso($carg, array('1', '2', '8'))): ?>
 				<li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION['mod_tutoria']['unidad'])) {echo  "unidad=".$_SESSION['mod_tutoria']['unidad'];}?>">Activar Nuevo Informe</a></li>
 				<?php endif; ?>
 				<?php endif; ?>

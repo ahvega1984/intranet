@@ -6,10 +6,10 @@ if (file_exists('config.php')) {
 }
 
 if (isset($config['informe_tutoria']['activa_administrativo']) && $config['informe_tutoria']['activa_administrativo'] == 1) {
-	acl_acceso($_SESSION['cargo'], array(1, 2, 7));
+	acl_acceso($_SESSION['cargo'], array(1, 2, 7, 8));
 }
 else {
-	acl_acceso($_SESSION['cargo'], array(1, 2));
+	acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 }
 
 include("../../menu.php");

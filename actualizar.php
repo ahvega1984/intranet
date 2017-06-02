@@ -149,5 +149,18 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ancho columna tabla morosos', NOW())");
 }
 
+/*
+	@descripcion: Ancho de las columnas en la tabla lectores
+	@fecha: 02 de junio de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ancho columna tabla lectores'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE  `biblioteca_lectores` CHANGE  `Apellidos`  `Apellidos` VARCHAR( 96 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , CHANGE  `Nombre`  `Nombre` VARCHAR( 96 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , CHANGE  `Grupo`  `Grupo` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;
+");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ancho columna tabla lectores', NOW())");
+}
+
 
 
