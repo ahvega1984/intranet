@@ -85,7 +85,7 @@ for ($i=0;$i<$num_a;$i++){
 		
 		// Enviamos
 
-		if ($config['mod_sms'] && $sms_ya = 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
+		if ($config['mod_sms'] && $sms_ya == 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
 
 			$hora_f = date ( "G" );
 			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
