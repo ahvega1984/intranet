@@ -39,6 +39,10 @@ foreach($_POST as $clave => $valor)
 		$nc = $nc0[1];
 		$unidad = $nc0[2];
 
+		$nv = mysqli_query($db_con,"select distinct curso from alma where unidad='$unidad'");
+		$nivel_grupo = mysqli_fetch_row($nv);
+		$curso_grupo = $nivel_grupo[0];
+
 		$clave1 = "select claveal from FALUMNOS where NC = '$nc' and unidad = '$unidad'";
 		$clave0 = mysqli_query($db_con, $clave1);
 		$clave2 = mysqli_fetch_row($clave0);
@@ -80,6 +84,7 @@ if (!empty($_POST['profesor_ausente'])) {
 	
 	//Horas
 	$horas=$_POST['hora'];
+
 	// Registramos o actualizamos ausencia del profesor sustituído en la guardia
 	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1')");
 		if (mysqli_num_rows($ya) > '0') {
@@ -94,35 +99,37 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
           </div>';	
 			}
 			}
-			else{
-			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor_ausente', '$inicio1', '$fin1', '$horas', '', NOW(), '', '')");
-				echo '<div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
-          </div>';		
-			}
+		else{
+		$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor_ausente', '$inicio1', '$fin1', '$horas', '', NOW(), '', '')");
+			echo '<div class="alert alert-info">
+	    <button type="button" class="close" data-dismiss="alert">&times;</button>
+	Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
+	  </div>';		
+		}
 
-			//Registramos sustitución en la tabla de Guardias
-/*			$horas=$_POST['hora'];
-			$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
-			if (mysqli_num_rows($gu)>0) {
-				$guardi = mysqli_fetch_row($gu);
-				echo '<div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituído por un compañero de guardia: '.$guardi[1].'
-</div>';
-			}
-			else{
-			$r_profe = mb_strtoupper($profesor, "UTF-8");
-			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
-			if (mysqli_affected_rows($db_con) > 0) {
-			echo '<div class="alert alert-info alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	//Registramos sustitución en la tabla de Guardias
+		if (stristr($curso_grupo, "E.S.O.")) {		
+	$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
+		if (mysqli_num_rows($gu)>0) {
+			$guardi = mysqli_fetch_row($gu);
+			echo '<div class="alert alert-warning alert-block fade in">
+	    <button type="button" class="close" data-dismiss="alert">&times;</button>
+		<legend>ATENCIÓN:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituído por un compañero de guardia: '.$guardi[1].'
+	</div>';
+		}
+		else{
+		$r_profe = mb_strtoupper($profesor, "UTF-8");
+
+		mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
+		if (mysqli_affected_rows($db_con) > 0) {
+		echo '<div class="alert alert-info alert-block fade in">
+	    <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
 </div>';
 			}	
-		}	*/		
+		}			
 	}
+}
 
 if (empty($mens_fecha)) {
 	echo '<div class="alert alert-success alert-block fade in">

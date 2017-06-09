@@ -163,4 +163,16 @@ if (! mysqli_num_rows($actua)) {
 }
 
 
+/*
+	@descripcion: Ancho de las columnas en la tabla lectores
+	@fecha: 08 de junio de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nueva columna tabla matriculas_bach'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE  `matriculas_bach` ADD  `optativa2b9` TINYINT( 1 ) NULL");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nueva columna tabla matriculas_bach', NOW())");
+}
+
 
