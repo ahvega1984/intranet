@@ -184,14 +184,6 @@ if(isset($_POST['enviar'])){
 		
 
 		if ($key=="mod2"){
-
-			if ($mod2 > 2) {
-				if($optativa2 == ""){
-					$vacios.= "optativa2, ";
-					$opt_mod2=1;
-					$num+=1;
-				}	
-			}
 							
 			$n_o="";
 
