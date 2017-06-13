@@ -47,22 +47,51 @@ foreach( $claves as $clave )
 {	
 $clave2 = $clave->getElementsByTagName( "X_MATRICULA" );
 $clave3 = $clave2->item(0)->nodeValue;
-//$codigo = "";
+
+//Incorporamos alumnos que se han matriculado durante la última evaluación
+$vacio="";
+$hay = mysqli_query($db_con,"select * from notas where claveal='$clave3'");
+if (mysqli_num_rows($hay)>0) {
+}
+else{
+  $vacio = 1;
+}
+
 $materias = $clave->getElementsByTagName( "MATERIA_ALUMNO" );
 if ($directorio=="../exporta0") {
 $cod = "INSERT INTO notas (claveal,notas0) VALUES ('$clave3', '";
 }
 if ($directorio=="../exporta1") {
-$cod = "update notas set notas1 = '";
+  if ($vacio == 1) {
+    $cod = "INSERT INTO notas (claveal,notas1) VALUES ('$clave3', '";
+  }
+  else{
+    $cod = "update notas set notas1 = '";
+  }  
 }
 if ($directorio=="../exporta2") {
-	$cod = "update notas set notas2 = '";
+  if ($vacio == 1) {
+    $cod = "INSERT INTO notas (claveal,notas2) VALUES ('$clave3', '";
+  }
+  else{
+    $cod = "update notas set notas2 = '";
+  }  
 }
-if ($directorio=="../exportaO") {
-	$cod = "update notas set notas3 = '";
+if ($directorio=="../exporta0") {
+  if ($vacio == 1) {
+    $cod = "INSERT INTO notas (claveal,notas3) VALUES ('$clave3', '";
+  }
+  else{
+    $cod = "update notas set notas3 = '";
+  }  
 }
 if ($directorio=="../exportaE") {
-	$cod = "update notas set notas4 = '";
+  if ($vacio == 1) {
+    $cod = "INSERT INTO notas (claveal,notas4) VALUES ('$clave3', '";
+  }
+  else{
+    $cod = "update notas set notas4 = '";
+  }  
 }
 foreach( $materias as $materia )
 {		
@@ -74,14 +103,15 @@ $codigo.=":";
 $nota.=";";
 $cod.=$codigo.$nota;
 }
-if ($directorio=="../exporta0") {
+if ($directorio=="../exporta0" or $vacio==1) {
 $cod.="')";
 	}
 	else{
 $cod.="' where claveal = '$clave3'";
 	}
-// echo $cod.";<br>";
+
 mysqli_query($db_con, $cod);
+
 }   	       
 }
 }

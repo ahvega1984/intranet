@@ -336,15 +336,7 @@ if(isset($_POST['enviar'])){
 ';
 			$ruta_error = "";
 		}
-		elseif ($opt_rep=="1"){
-			echo '
-						<script> 
- alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado el mismo número de preferencia para varias optativas, y cada optativa debe tener un número de preferencia distinto.\nElige las optativas sin repetir el número de preferencia e inténtalo de nuevo.")
- </script>
-';
-		}
-		elseif ($opt_rep2=="1"){
+		elseif ($opt_rep=="1" or $opt_rep2=="1"){
 			echo '
 						<script> 
  alert("ATENCIÓN:\n';
@@ -1066,7 +1058,7 @@ if ($dni or $claveal or $id) {
 			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc. Todos los alumnos cursan 1 optativa. En caso de que no haya un número suficiente de alumnos en la asignatura elegida, se asignará la siguiente opción.)</small></p></th>
 		</tr>
 		<tr>
-			<td style="border-top: 0; text-align:left; <?php if(stristr($adv, "optativa libre")==TRUE) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
+			<td style="border-top: 0; text-align:left; <?php if($opt_rep2==1) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
 			<div class="form-horizontal">
 
 			<?php $num1 = ""; ?>

@@ -290,11 +290,11 @@ $extid = $n_sms[0]+1;
         <?php
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
-  $alumno = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
+  $alumno = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal, unidad FROM alma $alumno_sel order by APELLIDOS asc");
   
        while($falumno = mysqli_fetch_array($alumno)) 
 	   {
-	echo "<OPTION>$falumno[2] --> $falumno[0], $falumno[1]</OPTION>";
+	echo "<OPTION value='$falumno[2] --> $falumno[0], $falumno[1]'>$falumno[0], $falumno[1] ($falumno[3])</OPTION>";
 		}
 	echo  '</select></div>';
 		} 	

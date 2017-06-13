@@ -80,23 +80,17 @@ if ($row = mysqli_fetch_array ( $result )) {
 include 'asignaturas.php';
 
 
-	for ($i=1;$i<8;$i++){
-		$ni = $i-1;
-		$n_o = 0;
-		if ($n_curso==4) {
-			foreach ($opt4 as $abrev => $val) {
-				if ($n_o==$ni) {
-					${optativa.$i} = $row['optativa'.$i]." - ".$val;
-				}
-				$n_o++;
-			}
-			
+	if ($n_curso==4) {
+		$optativa1 = $row['optativa1'];
+		$optativa2 = $row['optativa2'];			
 		}
-		else{
-			${optativa.$i} = $row['optativa'.$i]." - ".${opt.$n_curso}[$ni];
+	else{
+		for ($i=1;$i<8;$i++){
+		$ni = $i-1;
+		$n_o = 0;		
+			${optativa.$i} = $row['optativa'.$i];
 		}
 	}
-
 
 	for ($i=1;$i<8;$i++)
 	 {
@@ -292,14 +286,8 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la L
 	elseif($n_curso=='4'){
 	$MiPDF->Cell(168,6,"ASIGNATURAS OPTATIVAS",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
-	$MiPDF->Cell(84,8,$optativa1,0);
-	$MiPDF->Cell(84,8,$optativa4,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa2,0);
-	$MiPDF->Cell(84,8,$optativa5,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa3,0);
-	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,"1. ".$opt4[$optativa1],0);
+	$MiPDF->Cell(84,8,"2. ".$opt4[$optativa2],0);
 	$MiPDF->Ln ( 5 );
 	}
 
