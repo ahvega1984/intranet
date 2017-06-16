@@ -42,12 +42,10 @@ $autoriza_religion="
 D./Dª $papa, como padre, madre o tutor legal del alumno/a $row[3] $row[2] del curso ".$n_curso."º de ESO del ".$config['centro_denominacion'].", en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
 
 SOLICITA:
-
 Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente esta decisión, la enseñanza de Religión:
 x $religion
 ";
-$firma_religion = "		
-En ".$config['centro_localidad'].", a $hoy
+$firma_religion = "En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª";

@@ -4,7 +4,7 @@
 	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
 	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
 	$opt3 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$opt4=array("Alemán 2º Idioma", "Francés 2º Idioma", "TIC", "Educación Plástica Visual", "Musica");
+	$opt4 = array("Alemán 2º Idioma", "Francés 2º Idioma", "TIC", "Educación Plástica Visual", "Musica");
 
 	// MODALIDADES
 	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras (Se debe elegir Alemán o Francés como Optativa)");

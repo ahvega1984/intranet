@@ -136,7 +136,7 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-
+// Alumnos sin matricularse
 if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
@@ -437,6 +437,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	</thead>
 	<tbody>
 	<?php
+	
 	while($consul = mysqli_fetch_array($cons)){
 		$backup="";
 		$respaldo='1';
@@ -480,6 +481,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 		}
 
+		
 		for ($i=1;$i<$num_opt+1;$i++)
 		{
 			${optativa.$i} = $consul['optativa'.$i];
@@ -583,7 +585,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($n_curso<4) {
 				foreach (${opt.$n_cur} as $key=>$val) {
 				$i++;
-				if (${optativa.$i} == '0') {${optativa.$i}="";}
+
+				if (${optativa.$i} == '0' or ${optativa.$i} == '') {${optativa.$i}=""; $acr1="";}
+
 				if (${optativa.$i}=="1") {
 					$a_opt1 = str_ireplace(" y ", " ", $val);
 					$a_opt1 = str_ireplace(" de ", " ", $val);					
@@ -605,6 +609,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			else{
 				foreach (${opt.$n_cur} as $key=>$val) {
 				$i++;
+				if ($optativa1 == '0' or $optativa1  == '') {$optativa1 =""; $acr1="";}
 				if ($optativa1==$i) {
 					$a_opt1 = str_ireplace(" y ", " ", $val);
 					$a_opt1 = str_ireplace(" de ", " ", $val);					
@@ -632,7 +637,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($n_curso<4) {
 				foreach (${opt.$n_cur} as $key=>$val) {
 				$i++;
-				if (${optativa.$i} == '0') {${optativa.$i}="";}
+				if (${optativa.$i} == '0' or ${optativa.$i} == '') {${optativa.$i}=""; $acr2="";}
+
 				if (${optativa.$i}=="2") {
 					$a_opt2 = str_ireplace(" y ", " ", $val);
 					$a_opt2 = str_ireplace(" de ", " ", $val);					
@@ -653,6 +659,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			else{
 				foreach (${opt.$n_cur} as $key=>$val) {
 				$i++;
+				if ($optativa2 == '0' or $optativa2  == '') {$optativa2 =""; $acr2="";}
 				if ($optativa2==$i) {
 					$a_opt2 = str_ireplace(" y ", " ", $val);
 					$a_opt2 = str_ireplace(" de ", " ", $val);					

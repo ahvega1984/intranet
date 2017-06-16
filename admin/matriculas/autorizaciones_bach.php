@@ -7,8 +7,7 @@ $titulo4 = "AUTORIZACIÓN  PARA FOTOS Y GRABACIONES";
 $autoriza_fotos="
 D./Dª $papa, con DNI $datos_ya->dnitutor, representante legal del alumno/a $datos_ya->nombre $datos_ya->apellidos
 AUTORIZA al ".$config['centro_denominacion']." a fotografiar o grabar con video a su hijo o hija con fines educativos 
-y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
-";
+y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. ";
 $titulo5 = "		
 En ".$config['centro_localidad'].", a $hoy
 
@@ -26,18 +25,15 @@ $autoriza_religion="
 D./Dª $papa, como padre, madre o tutor legal del alumno/a $datos_ya->nombre $datos_ya->apellidos del curso ".$n_curso."º de ESO del ".$config['centro_denominacion'].", en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
 
 SOLICITA:
-
 Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente esta decisión, la enseñanza de Religión:
-x $religion
-";
+x $religion";
 $firma_religion = "		
 En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª
 ";
-$final_religion="
-SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
+$final_religion="SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
 $direccion_junta = "
 Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
 Telf. 95 506 40 00. Fax: 95 506 40 03.

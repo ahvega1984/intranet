@@ -37,6 +37,7 @@ if (isset($_POST['listado_total'])) {
 	exit();
 }
 
+// Impresión de listas
 if (isset($_POST['imprimir'])) {	
 
 	mysqli_query($db_con, "drop table if exists matriculas_temp");
@@ -60,7 +61,7 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-//echo $_POST['imprimir_caratulas'];
+// Carátulas
 if (isset($_POST['caratulas'])) {
 	mysqli_query($db_con, "drop table if exists matriculas_bach_temp");
 	mysqli_query($db_con, "CREATE TABLE  `matriculas_bach_temp` (
@@ -81,6 +82,7 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
+// Cambios en la matrícula
 if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
@@ -148,12 +150,29 @@ INDEX (  `id_matriculas` )
 }
 
 
-
+// Alumnos sin matrícula
 if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
 	echo "<br>";
 	if ($curso=="1BACH") {
+		// Nuestro centro
+		$hay_tabla = mysqli_query($db_con,"select * from alma");
+		if (mysqli_num_rows($hay_tabla)>0) {
+
+		$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha, claveal from alma where claveal not in (select claveal from matriculas_bach) and curso like '4%' order by unidad, apellidos, nombre");
+
+		echo '<h3 align="center">Alumnos del Centro de '.$curso.' sin matricular.</h3><br />';
+		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
+		while ($cam = mysqli_fetch_array($camb)) {
+			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] </li>";
+
+		}
+		echo "</ul></div><br />";
+		}
+
+
+		// Otros centros adscritos
 		$hay_tabla = mysqli_query($db_con,"select * from alma_secundaria");
 		if (mysqli_num_rows($hay_tabla)>0) {
 

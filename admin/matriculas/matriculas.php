@@ -1112,7 +1112,7 @@ exit();
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" id="r2"
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciación Act. Emprend."
-				<?php echo ($optativas4 == 'Iniciación') ? 'checked' : '' ; ?>>
+				<?php echo ($optativas4 == 'Iniciación Act. Emprend.') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>
 			</div>

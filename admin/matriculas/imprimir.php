@@ -77,37 +77,35 @@ if ($row = mysqli_fetch_array ( $result )) {
 
 	include 'asignaturas.php';
 
-	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp` (
+	$opt="";
+
+	if ($n_curso==4) {
+		$opt = "1: ".$opt4[$row['optativa1']-1]."; ";
+	if ($itinerario==1 and $ciencias4==1) {}else{
+		$opt.= "2: ".$opt4[$row['optativa2']-1];
+	}
+	}	
+	else{
+		mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp` (
   		`clave` varchar(64) collate utf8_general_ci NOT NULL default '',
   		`valor` int(1) NOT NULL default '0'
 		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
-	for ($i=1;$i<8;$i++){
-		$ni = $i-1;
-		$n_o = 0;
-		if ($n_curso==4) {
-			foreach ($opt4 as $abrev => $val) {
-				if ($n_o==$ni and $row['optativa'.$i]>0) {
-					mysqli_query($db_con,"insert into temp (clave, valor) VALUES ( '$val','".$row['optativa'.$i]."')");
-				}
-				$n_o++;
-			}		
-		}
-		else{
+		for ($i=1;$i<8;$i++){
+			$ni = $i-1;
+			$n_o = 0;
 			if ($row['optativa'.$i]>0) {
 				mysqli_query($db_con,"insert into temp (clave, valor) VALUES ('".${opt.$n_curso}[$ni]."', '".$row['optativa'.$i]."')");
 			}
 		}
-	}
 
-	$opt="";
-	$o_p = mysqli_query($db_con,"select * from temp order by valor");
-				while($o_p0 = mysqli_fetch_array($o_p)){
-					$opt .= $o_p0[1].": ".$o_p0[0]."; ";	
+		$o_p = mysqli_query($db_con,"select * from temp order by valor");
+					while($o_p0 = mysqli_fetch_array($o_p)){
+						$opt .= $o_p0[1].": ".$o_p0[0]."; ";	
+					}
 
-				}
-	mysqli_query($db_con,"drop table temp");
-	
+		mysqli_query($db_con,"drop table temp");
+	}	
 
 	for ($i=1;$i<8;$i++)
 	 {
@@ -266,9 +264,11 @@ for($i=1;$i<3;$i++){
 	$extra_it="";
 	if($itinerario==1){$extra_it="(".$row['ciencias4'].")";}
 	if(strlen($optativas4)>1){$extra_it.=" - $optativas4";}	
-	if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}elseif ($n_curso == '3') { $extra="3ESO (Matemáticas $matematicas3)";}else{$extra=$curso;}
+	if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}
+	elseif ($n_curso == '3') { $extra="3ESO (Matemáticas $matematicas3)";}
+	else{$extra=$curso;}
 	
-       $MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
+    $MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
 	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
 	$MiPDF->Cell(84,5,$idioma,1,0,'C');
