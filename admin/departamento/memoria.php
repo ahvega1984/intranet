@@ -135,7 +135,10 @@ if (!isset($_POST[$nombre_del_campo]) or ($_POST[$nombre_del_campo]=='')){$_POST
 
 
 $actualiza = "UPDATE  mem_dep SET  ";
-for ($i=1; $i<=$n_preg; $i++){ $actualiza.="p".$i." = '".$_POST[$campos[$i-1]]."',";}
+for ($i=1; $i<=$n_preg; $i++){ 
+	$_POST[$campos[$i-1]] = mysqli_real_escape_string($db_con, $_POST[$campos[$i-1]]);
+	$actualiza.="p".$i." = '".$_POST[$campos[$i-1]]."',";
+}
 $actualiza.=" jefe = '".$profe."'";
 $actualiza.=" WHERE departamento =  '".$depto."' LIMIT 1 ";
 //echo $actualiza.'<br>';
