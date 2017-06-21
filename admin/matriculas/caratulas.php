@@ -3,6 +3,10 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 require("../../pdf/pdf_js.php");
 //require("../pdf/mc_table.php");
 
@@ -39,6 +43,9 @@ $MiPDF->SetDisplayMode ( 'fullpage' );
 if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
+
+include 'asignaturas.php';
+
 //echo "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" ;
 $result0 = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
 while ($id_ar = mysqli_fetch_array($result0)) {
@@ -77,18 +84,18 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
-include 'asignaturas.php';
-
 
 	if ($n_curso==4) {
-		$optativa1 = $row['optativa1'];
-		$optativa2 = $row['optativa2'];			
+		$nopt41 = $row['optativa1']-1;
+		$nopt42 = $row['optativa2']-1;
+		$optativa1 = $opt4[$nopt41];
+		$optativa2 = $opt4[$nopt42];			
 		}
 	else{
 		for ($i=1;$i<8;$i++){
 		$ni = $i-1;
 		$n_o = 0;		
-			${optativa.$i} = $row['optativa'.$i];
+			${optativa.$i} = $row['optativa'.$i].". ".${opt.$n_curso}[$ni];
 		}
 	}
 
@@ -106,18 +113,29 @@ include 'asignaturas.php';
 	for ($i=1;$i<8;$i++){
 		$ni = $i-1;
 		$ncr = $n_curso-1;
-			${optativa2.$i} = $row['optativa2'.$i]." - ".${opt.$ncr}[$ni];
+			${optativa2.$i} = $row['optativa2'.$i].". ".${opt.$ncr}[$ni];
 	}
 	 
 	 for ($i=1;$i<8;$i++)
 	 {
 	 	$nca = $n_curso-1;
-	 	if ($row['act21'] == $i) {
-	 		${act2.$i} = " X  " . ${a.$nca}[$i-1];
+	 	if ($n_curso==4) {
+		 	if ($row['act1'] == $i) {
+		 		${act2.$i} = " X  " . ${a.$nca}[$i-1];
+		 	}
+		 	else{
+		 		${act2.$i} = "      ".${a.$nca}[$i-1];
+		 	}
 	 	}
 	 	else{
-	 		${act2.$i} = "      ".${a.$nca}[$i-1];
-	 	}
+		 	
+		 	if ($row['act21'] == $i) {
+		 		${act2.$i} = " X  " . ${a.$nca}[$i-1];
+		 	}
+		 	else{
+		 		${act2.$i} = "      ".${a.$nca}[$i-1];
+		 	}
+	 	}	 	
 	 }
 
 
@@ -212,8 +230,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la L
 	$MiPDF->Ln ( 6 );
 	}
 	else{
-		if($n_curso=='4'){
-
+	if($n_curso=='4'){
 	$extra_it="";
 	if(stristr($itinerario,"1")==TRUE){$extra_it="1 (".$ciencias4.")";}
 	else{$extra_it=$itinerario." ";}
@@ -286,8 +303,10 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la L
 	elseif($n_curso=='4'){
 	$MiPDF->Cell(168,6,"ASIGNATURAS OPTATIVAS",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
-	$MiPDF->Cell(84,8,"1. ".$opt4[$optativa1],0);
-	$MiPDF->Cell(84,8,"2. ".$opt4[$optativa2],0);
+	$MiPDF->Cell(84,8,"1. ".$optativa1,0);
+	if (strlen($optativa2)>0) {
+	$MiPDF->Cell(84,8,"2. ".$optativa2,0);
+	}
 	$MiPDF->Ln ( 5 );
 	}
 
@@ -335,6 +354,9 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la L
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act26,0);
+		$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,substr($act27,0,46),0);
 		}
 	}
 

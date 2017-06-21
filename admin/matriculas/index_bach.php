@@ -3,6 +3,10 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1, 7));
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 include("../../menu.php");
 include("./menu.php");
 ?>

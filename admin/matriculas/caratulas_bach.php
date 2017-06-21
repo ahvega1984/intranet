@@ -3,6 +3,10 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 require("../../pdf/pdf_js.php");
 //require("../pdf/mc_table.php");
 

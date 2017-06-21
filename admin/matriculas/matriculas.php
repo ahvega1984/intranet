@@ -1,6 +1,11 @@
 <?php
 require('../../bootstrap.php');
+
 acl_acceso($_SESSION['cargo'], array(1, 7));
+
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}

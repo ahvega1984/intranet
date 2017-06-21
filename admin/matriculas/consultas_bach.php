@@ -6,6 +6,10 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1, 7, 8));
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
@@ -162,7 +166,7 @@ if (isset($_POST['sin_matricula'])) {
 
 		$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha, claveal from alma where claveal not in (select claveal from matriculas_bach) and curso like '4%' order by unidad, apellidos, nombre");
 
-		echo '<h3 align="center">Alumnos del Centro de '.$curso.' sin matricular.</h3><br />';
+		echo '<h3 align="center">Alumnos del Centro de 4º de ESO sin matricular.</h3><br />';
 		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
 			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] </li>";
@@ -183,8 +187,7 @@ if (isset($_POST['sin_matricula'])) {
 		while ($cam = mysqli_fetch_array($camb)) {
 			if(strlen($cam[6])>0){$cole = " ($cam[6])";}else{$cole="";}
 			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
-
-		}
+			}
 		echo "</ul></div><br />";
 		}
 	}
@@ -683,7 +686,7 @@ echo "</td>";
 		if ($respaldo=='1') {
 			echo $backup."&nbsp;".$rp_cur;
 		}
-		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>&nbsp;";
+		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>&nbsp;";
 
 if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
 if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}

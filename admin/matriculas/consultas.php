@@ -4,15 +4,14 @@ ini_set("session.gc_maxlifetime",1800);
 
 require('../../bootstrap.php');
 
-// Archivo con los arrays de las asigntauras optativas.
-include 'asignaturas.php';
+acl_acceso($_SESSION['cargo'], array(1, 7, 8));
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
-{
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-	exit;
+if (file_exists('config.php')) {
+	include('config.php');
 }
 
+// Archivo con los arrays de las asigntauras optativas.
+include 'asignaturas.php';
 
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
@@ -357,7 +356,7 @@ if (!($orden)) {
 	{
 		$sql.=", optativa$i";
 	}
-	$sql.=" from matriculas where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
+	$sql.=" from matriculas where ". $extra ." order by apellidos, nombre, curso, ". $orden ." grupo_actual";
 	// echo $sql;
 	$cons = mysqli_query($db_con, $sql);
 	if(mysqli_num_rows($cons) < 1){
@@ -785,7 +784,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 			echo "</td>";
 			echo "<td class='hidden-print'>";
-			echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
+			echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>";
 			echo "</td>";
 
 			echo "<td class='hidden-print'>";
