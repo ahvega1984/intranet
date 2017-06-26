@@ -256,12 +256,9 @@ foreach($_GET as $key_get => $val_get)
 // Asignaturas y Modalidades
 include 'asignaturas_bach.php';
 
-echo '<div  class="hidden-print">';
-
 $n_curso = substr($curso, 0, 1);
 include 'filtro_bach.php';
 
-echo "</div>";
 if (isset($_GET['borrar'])) {
 	mysqli_query($db_con, "insert into matriculas_bach_backup (select * from matriculas_bach where id = '$id')");
 	mysqli_query($db_con, "delete from matriculas_bach where id='$id'");

@@ -222,9 +222,7 @@ foreach($_GET as $key_get => $val_get)
 <br>
 
 <?php
-echo '<div  class="hidden-print">';
 include 'filtro.php';
-echo "</div>";
 if (isset($_GET['borrar'])) {
 	mysqli_query($db_con, "insert into matriculas_backup (select * from matriculas where id = '$id')");
 	mysqli_query($db_con, "delete from matriculas where id='$id'");

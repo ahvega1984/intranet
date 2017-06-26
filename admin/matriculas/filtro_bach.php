@@ -423,11 +423,13 @@ else{
 </div>			      
 
 </div>
-			      </div>
-			    </div>
-			  </div>
+</div>
+</div>
+</div>
 	
-			</div>
-			<input type="submit" name="consulta" value="Ver matrículas" alt="Introducir" class="btn btn-primary" />
+	<input type="submit" name="consulta" value="Ver matrículas" alt="Introducir" class="btn btn-primary hidden-print" />
+	
 </form>
+</div>
+
 <br />
