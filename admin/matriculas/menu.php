@@ -11,7 +11,7 @@ if (isset($_GET['cambios'])) {$cambios = $_GET['cambios'];}elseif (isset($_POST[
 if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}elseif (isset($_POST['sin_matricula'])) {$sin_matricula = $_POST['sin_matricula'];}else{$sin_matricula="";}
 ?>
 	
-	<div class="container">
+	<div class="container hidden-print">
 
 		<?php if (acl_permiso($carg, array('1'))): ?>
 		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>

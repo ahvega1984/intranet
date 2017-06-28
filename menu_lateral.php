@@ -260,6 +260,12 @@ $menu = array(
 				'href'   => 'xml/jefe/index_mayores.php',
 				'titulo' => 'Alumnos mayores de 18 años',
 				'cargos' => array('6'),
+			),
+			array(
+				'href'   => 'admin/matriculas/index.php',
+				'titulo' => 'Matriculación de alumnos',
+				'modulo'  => $config['mod_matriculacion'],
+				'meses'	 => array(6, 7, 8),
 			)
 		)
 	)
