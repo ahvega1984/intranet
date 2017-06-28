@@ -19,10 +19,6 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?php
-// Eliminamos de la tabla los alumnos que se han dado de baja
-mysqli_query($db_con,"delete from notas where claveal not in (select claveal1 from alma)");
-
-// Importamos datos en la tabla.
 $directorio = $_GET['directorio'];
 //echo $directorio."<br>";
 if ($directorio=="../exporta0") {
@@ -47,51 +43,22 @@ foreach( $claves as $clave )
 {	
 $clave2 = $clave->getElementsByTagName( "X_MATRICULA" );
 $clave3 = $clave2->item(0)->nodeValue;
-
-//Incorporamos alumnos que se han matriculado durante la última evaluación
-$vacio="";
-$hay = mysqli_query($db_con,"select * from notas where claveal='$clave3'");
-if (mysqli_num_rows($hay)>0) {
-}
-else{
-  $vacio = 1;
-}
-
+//$codigo = "";
 $materias = $clave->getElementsByTagName( "MATERIA_ALUMNO" );
 if ($directorio=="../exporta0") {
 $cod = "INSERT INTO notas (claveal,notas0) VALUES ('$clave3', '";
 }
 if ($directorio=="../exporta1") {
-  if ($vacio == 1) {
-    $cod = "INSERT INTO notas (claveal,notas1) VALUES ('$clave3', '";
-  }
-  else{
-    $cod = "update notas set notas1 = '";
-  }  
+$cod = "update notas set notas1 = '";
 }
 if ($directorio=="../exporta2") {
-  if ($vacio == 1) {
-    $cod = "INSERT INTO notas (claveal,notas2) VALUES ('$clave3', '";
-  }
-  else{
-    $cod = "update notas set notas2 = '";
-  }  
+	$cod = "update notas set notas2 = '";
 }
-if ($directorio=="../exporta0") {
-  if ($vacio == 1) {
-    $cod = "INSERT INTO notas (claveal,notas3) VALUES ('$clave3', '";
-  }
-  else{
-    $cod = "update notas set notas3 = '";
-  }  
+if ($directorio=="../exportaO") {
+	$cod = "update notas set notas3 = '";
 }
 if ($directorio=="../exportaE") {
-  if ($vacio == 1) {
-    $cod = "INSERT INTO notas (claveal,notas4) VALUES ('$clave3', '";
-  }
-  else{
-    $cod = "update notas set notas4 = '";
-  }  
+	$cod = "update notas set notas4 = '";
 }
 foreach( $materias as $materia )
 {		
@@ -103,15 +70,14 @@ $codigo.=":";
 $nota.=";";
 $cod.=$codigo.$nota;
 }
-if ($directorio=="../exporta0" or $vacio==1) {
+if ($directorio=="../exporta0") {
 $cod.="')";
 	}
 	else{
 $cod.="' where claveal = '$clave3'";
 	}
-
+// echo $cod.";<br>";
 mysqli_query($db_con, $cod);
-
 }   	       
 }
 }
