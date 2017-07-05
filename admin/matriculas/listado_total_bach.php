@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 acl_acceso($_SESSION['cargo'], array(1, 8));
 
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4');
+$pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas_bach where grupo_actual != '' order by curso, grupo_actual");
@@ -68,20 +68,57 @@ for ($i = 3; $i < 11; $i++) {
 
 		if (strstr($datatmp['religion'],"Cat")==TRUE) {
 			$religion ="X";
-		}
-		
-	$opt = utf8_decode('
-	
-	Itinerarios: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
+		}	
 
-	Optativas Itin. 1 y 2: 1 => Tecnología; 2 => Ciencias de la Tierra; 3 => Psicología; 4 => Geología; 5 => TIC; 6 => Alemán 2º Id; 7 => Francés 2º Id; 8 => Inglés 2º Id;
-	Optativas Itin. 3: 1 => TIC II; 2 => Alemán 2º Idioma; 3 => Francés 2º Idioma; 4 => Inglés 2º Idioma;
-	Optativas Itin. 4: 1 => TIC II; 2 => Fundamentos de Administracción y Gestión; 3 => Alemán 2º Idioma; 4 => Francés 2º Idioma; 5 => Inglés 2º Idioma;
-	
-	Optativas 2 horas: 1 => Ed. Física; 2 => Estadística; 3 => Ciencias de la Salud;
-	');
+	$opt="";
+	$it_gen="";
+	$num="";
+	$opt.= "\nItinerarios de 2º Bachillerato: ";
+	foreach ($it2 as $val) {
+		$num++;
+		$it_gen.="$num _ $val, ";
+	}
+	$opt.=$it_gen;
+	$opt = substr($opt, 0, -2);
+	$opt.=". \n";	
+
+	for ($i=1;$i<5;$i++) { 
+		${n_opt.$i}="";
+		${n_opt.$i}.= "\nOptativas del Itinerario $i: ";
+		$num="";
+		foreach (${opt2.$i} as $val) {
+			$val = str_replace(" 1","",$val);
+			$val = str_replace(" 2","",$val);
+			$val = str_replace(" 3","",$val);
+			$val = str_replace(" 4","",$val);
+			$num++;
+			$num_opt = $num;
+			${n_opt.$i}.="$num_opt. $val, ";
+		}
+		${n_opt.$i} = substr(${n_opt.$i}, 0, -2);
+		${n_opt.$i}.="; ";
+		$opt.=${n_opt.$i};
+	}
+	$opt.= "\n\nOptativas generales de 2º Bachillerato (2 horas): ";
+	$opt_gen="";
+	foreach ($opt_aut2 as $val) {
+		$num++;
+		$opt_gen.="$num => $val, ";
+	}
+	$opt.=$opt_gen;
+	$opt = substr($opt, 0, -2);
+	$opt.=". ";	
+
+	$opt = utf8_decode($opt);
+
 	$optas = $datatmp[2];
-	if (stristr($optas, "Econom")==TRUE) { $optas = "ECO"; }elseif(stristr($optas, "Grieg")==TRUE){ $optas = "GRI"; }
+	if (str_word_count($optas)>2) {
+		$optas = iniciales($optas);
+	}
+	else{
+		$optas = substr($optas, 0, 3);
+	}	
+
 	$data[] = array(
 				'num'=>$nc,
 				'nombre'=>utf8_decode($datatmp[0]).$bil,
@@ -132,17 +169,46 @@ if ($curso=="1BACH") {
 		elseif (strstr($datatmp['religion'],"Valo")==TRUE) {
 			$religion ="E. Ciud.";
 		}
-		$opt = utf8_decode('
-	
-	Itinerarios: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
-	
-	Optativas:
-	CC => Cultura Científica; TIC => Tecnologías de la Información y Comunicación; HMC => Historia del Mundo Contemporáneo.; LUN => Literatura Universal;
-		');
-	$optas = str_replace("1","",$datatmp[2]);
+		
+
+	$opt="";
+	$it_gen="";
+	$num="";
+
+	$opt.= "\nItinerarios de 1º Bachillerato: ";
+	foreach ($it1 as $val) {
+		$num++;
+		$it_gen.="$num => $val, ";
+	}
+	$opt.=$it_gen;
+	$opt = substr($opt, 0, -2);
+	$opt.=". \n";	
+
+	for ($i=1;$i<5;$i++) { 
+		${n_opt.$i}="";
+		${n_opt.$i}.= "\nOptativas del Itinerario $i: ";
+		$num="";
+		foreach (${opt1.$i} as $key=>$val) {
+			$val = str_replace(" 1","",$val);
+			$val = str_replace(" 2","",$val);
+			$val = str_replace(" 3","",$val);
+			$val = str_replace(" 4","",$val);
+			$num++;
+			${n_opt.$i}.="$key => $val, ";
+		}
+		${n_opt.$i} = substr(${n_opt.$i}, 0, -2);
+		${n_opt.$i}.="; ";
+		$opt.=${n_opt.$i};
+	}
+
+	$opt = utf8_decode($opt);
+
+	$optas = $datatmp[2];
+	$optas = str_replace("1","",$optas);
 	$optas = str_replace("2","",$optas);
 	$optas = str_replace("3","",$optas);
 	$optas = str_replace("4","",$optas);
+	
 	$data[] = array(
 				'num'=>$nc,
 				'nombre'=>utf8_decode($datatmp[0]).$bil,

@@ -44,7 +44,7 @@ if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
 
-include 'asignaturas.php';
+// include 'asignaturas.php';
 
 //echo "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" ;
 $result0 = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );

@@ -149,7 +149,7 @@ array(
 );
 
 // Archivo con los arrays de las asigntauras optativas.
-include 'asignaturas.php';
+// include 'asignaturas.php';
 
 // Se han enviado datos para procesar....
 if(isset($_POST['enviar'])){

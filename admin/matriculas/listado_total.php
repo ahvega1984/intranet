@@ -7,12 +7,20 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
+if (isset($_POST['grupo_actual'])) {
+	$grupo_actual = $_POST['grupo_actual'];
+	$sql = "select distinct curso, grupo_actual from matriculas where grupo_actual = '$grupo_actual[0]' and curso='$curso' order by curso, grupo_actual";
+}
+else{
+	$sql = "select distinct curso, grupo_actual from matriculas where grupo_actual != '' order by curso, grupo_actual";
+}
+
 require_once('../../pdf/class.ezpdf.php');
 
-$pdf =& new Cezpdf('a4');
+$pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-$tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas where grupo_actual != '' order by curso, grupo_actual");
+$tot = mysqli_query($db_con, $sql);
 while($total = mysqli_fetch_array($tot)){
 # hasta aquÃ­ lo del pdf
 $options_center = array(
@@ -110,17 +118,24 @@ if (strstr($datatmp['religion'],"Cat")==TRUE) {
 }
 
 if ($curso=="3ESO") {
+	$num="";
+	$act = "\nActividades de Refuerzo y Ampliación:
+	";
+	foreach ($a3 as $val) {
+		$num++;
+		$act.="$num => $val, ";
+	}
+	$act = utf8_decode(substr($act, 0, -2));
 
-	$act = utf8_decode("
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,4 => Ampliación: Lengua, 5 => Ampliación: Matemáticas, 6 => Ampliación: Inglés");
+	$opt = "\nOptativas:
+	";
+	$num="";
+	foreach ($opt3 as $val) {
+		$num++;
+		$opt.="$num => $val, ";
+	}
+	$opt = substr($opt, 0, -2);
 
-	$opt = utf8_decode("
-	
-	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Cultura Clásica, 5 => Taller T.I.C. III,	6 => Taller de Cerámica, 7 => Taller de Teatro
-	
-	Matemáticas: A => Mat. Académicas; B => Mat. Enseñanzas Aplicadas");
 	if ($div_3 == $grupo_actual) {
 			$data[] = array(
 				'num'=>$nc,
@@ -188,14 +203,24 @@ if ($curso=="3ESO") {
 
 if ($curso=="2ESO") {
 	
-		$act = utf8_decode("
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,4 => Ampliación: Taller T.I.C. II, 5 => Ampliación: Taller de Teatro II");	
-		
-		$opt = utf8_decode("
-	
-	Optativas:
-	1 => Alemán 2º Idioma, 2 => Cambios Sociales y Género,	3 => Francés 2º Idioma");
+	$act = "\nActividades de Refuerzo y Ampliación:
+	";
+	$num="";
+	foreach ($a2 as $val) {
+		$num++;
+		$act.="$num => $val, ";
+	}
+	$act = utf8_decode(substr($act, 0, -2));
+
+	$opt = "\nOptativas:
+	";
+	$num="";
+	foreach ($opt2 as $val) {
+		$num++;
+		$opt.="$num => $val, ";
+	}
+	$opt = substr($opt, 0, -2);
+
 	if ($div_3 == $grupo_actual) {
 				$data[] = array(
 				'num'=>$nc,
@@ -245,13 +270,24 @@ if ($curso=="2ESO") {
 
 
 if ($curso=="1ESO") {
-	$act = utf8_decode("
-	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro");			
-		$opt = utf8_decode("
-					
-	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género, 3 => Francés 2º Idioma,	4 => Tecnología Aplicada");
+
+	$act = "\nActividades de Refuerzo y Ampliación:
+	";
+	$num="";
+	foreach ($a1 as $val) {
+		$num++;
+		$act.="$num => $val, ";
+	}
+	$act = utf8_decode(substr($act, 0, -2));
+
+	$opt = "\nOptativas:
+	";
+	$num="";
+	foreach ($opt1 as $val) {
+		$num++;
+		$opt.="$num => $val, ";
+	}
+	$opt = substr($opt, 0, -2);
 	
 	$data[] = array(
 				'num'=>$nc,
@@ -278,19 +314,31 @@ if ($curso=="1ESO") {
 
 
 if ($curso=="4ESO") {
-
-		$opt = utf8_decode("
-	
-	Optativas Modalidad Itinerario 1 (Bachillerato de Ciencias -> Matemáticas Académicas):
-	1 => Tecnología,	2 => Física y Química,	3 => Biología y Geología, 4 => Economía.
-	Optativas Modalidad Itinerario 2 (Bachillerato de Humanidades y Ciencias Sociales -> Matemáticas Académicas):
-	1 => Latín,	2 => Economía.
-	Optativas Modalidad Itinerario 3 (Ciclos Formativos y Mundo Laboral -> Matemáticas Aplicadas):
-	1 => Tecnología,	2 => Ciencias Aplicadas a la Actividad Profesional,	3 => Iniciación a la Actividad Emprendedora y Empresaria.
-
-	Optativas Generales:
-	1 => Alemán 2º Idioma, 2 => Francés 2º Idioma, 3 => TIC, 4 => Ed. Plástica y Visual, 5 => Música.
-	");
+	$opt="";
+	for ($i=1;$i<4;$i++) { 
+		${n_opt.$i}="";
+		${n_opt.$i}.= "\nOptativas Modalidad Itinerario $i (".${it4.$i}[0]." -> ".${it4.$i}[1]."): ";
+		$num="";
+		foreach (${opt2.$i} as $val) {
+			$num++;
+			if ($num>2) {
+				$num_opt = $num-2;
+				${n_opt.$i}.="$num_opt => $val, ";
+			}			
+		}
+		${n_opt.$i} = substr(${n_opt.$i}, 0, -2);
+		${n_opt.$i}.="; ";
+		$opt.=${n_opt.$i};
+	}
+	$opt.=". ";
+	$opt.= "\nOptativas generales de 4 ESO: ";
+	foreach ($opt4 as $val) {
+		$num++;
+		$opt_gen.="$num => $val, ";
+	}
+	$opt.=$opt_gen;
+	$opt = substr($opt, 0, -2);
+	$opt.=". ";
 
 if ($datatmp['itinerario']==1) {
 	$extra_itin="(".$datatmp['ciencias4'].")";
@@ -298,10 +346,8 @@ if ($datatmp['itinerario']==1) {
 else{$extra_itin="";}
 
 $opt4="";
-if (stristr($datatmp['optativas4'],"Biolog")==TRUE) {$opt4="ByG";}
-if (stristr($datatmp['optativas4'],"Econo")==TRUE) {$opt4="ECO";}
-if (stristr($datatmp['optativas4'],"Aplicadas")==TRUE) {$opt4="CAAP";}
-if (stristr($datatmp['optativas4'],"Iniciaci")==TRUE) {$opt4="IAEE";}
+$opt4 = iniciales($datatmp['optativas4']);
+
 if ($datatmp['exencion']==1) {
 	$exencion = 'X';
 }
@@ -310,14 +356,11 @@ else{
 }
 $data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0].$bil,
+				'nombre'=>utf8_decode($datatmp[0].$bil),
 				'c8'=>$religion,
 				'It.'=>$datatmp['itinerario'].$extra_itin,
-				'c2'=>$datatmp[2],
-				'c3'=>$datatmp[3],
-				'c4'=>$datatmp[4],
-				'c5'=>$datatmp[5],
-				'c6'=>$datatmp[6],
+				'c2'=>$datatmp['optativa1'],
+				'c3'=>$datatmp['optativa2'],
 				'c7'=>$opt4,
 				'c9'=>$exencion,
 				);
@@ -329,9 +372,6 @@ $data[] = array(
 				'It.'=>'Itiner.',
 				'c2'=>'O1',
 				'c3'=>'O2',
-				'c4'=>'O3',
-				'c5'=>'O4',
-				'c6'=>'O5',
 				'c7'=>'OptGen',
 				'c9'=>'Ex.',
 			);
@@ -354,7 +394,7 @@ $txttit.= utf8_decode($config['centro_denominacion']).". Curso ".$config['curso_
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
-$pdf->ezText($opt, '10', $options);
+$pdf->ezText(utf8_decode($opt), '10', $options);
 if ($curso !== "4ESO") {
 	$pdf->ezText($act, '10', $options);
 }

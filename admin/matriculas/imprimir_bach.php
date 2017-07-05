@@ -81,7 +81,7 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 
 // Asignaturas y Modalidades
 
-include("asignaturas_bach.php");
+// include("asignaturas_bach.php");
 
 
 	 $observaciones= "OBSERVACIONES: ".$observaciones;

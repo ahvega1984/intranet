@@ -254,7 +254,7 @@ foreach($_GET as $key_get => $val_get)
 
 <?php
 // Asignaturas y Modalidades
-include 'asignaturas_bach.php';
+//include 'asignaturas_bach.php';
 
 $n_curso = substr($curso, 0, 1);
 include 'filtro_bach.php';

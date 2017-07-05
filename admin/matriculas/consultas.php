@@ -11,7 +11,7 @@ if (file_exists('config.php')) {
 }
 
 // Archivo con los arrays de las asigntauras optativas.
-include 'asignaturas.php';
+//// include 'asignaturas.php';
 
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
@@ -25,7 +25,7 @@ if (isset($_POST['listados'])) {
 			$cur_actual=$val;
 		}
 	}
-	include("listados.php");
+	include("listado_total.php");
 	exit();
 }
 
@@ -820,7 +820,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
 
 	if(count($grupo_actua)=='1'){
-		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />
+		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} 
+	else
+		{ 
+		echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />
 		&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hidden-print' />";
 		}
 		echo "</div></form>";

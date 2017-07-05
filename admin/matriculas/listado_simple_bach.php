@@ -8,7 +8,7 @@ if (file_exists('config.php')) {
 }
 
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4');
+$pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas_bach where grupo_actual != '' order by curso, grupo_actual");

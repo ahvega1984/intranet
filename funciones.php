@@ -327,4 +327,17 @@ function size_convert($size)
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
 }
 
+function iniciales($str) {
+    $ret = '';
+    $str = str_ireplace(" de ", " ", $str);
+    $str = str_ireplace(" del ", " ", $str);
+    $str = str_ireplace(" de la ", " ", $str);
+    $str = str_ireplace(" la ", " ", $str);
+    $str = str_ireplace(" el ", " ", $str);
+    $str = str_ireplace(" y ", " ", $str);
+    foreach (explode(' ', $str) as $word)
+        $ret .= strtoupper($word[0]);
+    return $ret;
+}
+
 unset($GLOBALS['db_con']);

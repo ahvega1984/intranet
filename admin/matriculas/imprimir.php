@@ -79,7 +79,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
 
-	include 'asignaturas.php';
+	// include 'asignaturas.php';
 
 	$opt="";
 

@@ -159,7 +159,7 @@ ADD  `opt_aut26` INT( 1 ) NOT NULL");
 	}
 
 // Asignaturas y Modalidades
-include 'asignaturas_bach.php';
+// include 'asignaturas_bach.php';
 
 // Se procesan los datos enviados ppor el formulario
 if(isset($_POST['enviar'])){
@@ -961,7 +961,20 @@ if ($dni or $claveal or $id) {
 		
 		
 		<td>
-		<?php if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico<br>Tecnología Industrial</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología<br>Anatomía Aplicada</p>";} elseif($i==3){echo "<p>Latín I<br>Griego I<br>Patrimonio Cultural y Artístico<br>TIC I</p>";} elseif($i==4){echo "<p>Matemáticas de las Ciencias Sociales<br>Economía<br>Cultura Emprendedora<br>TIC I</p>";}?>
+		<?php
+			if ($i==1) { 
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			}
+			elseif($i==2){
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			} 
+			elseif($i==3){
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			} 
+			elseif($i==4){
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			}
+		?>
 
 		<div class="form-group">
 		<select class="form-control" name="optativa1<?php echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
@@ -1175,7 +1188,20 @@ if ($dni or $claveal or $id) {
 		
 		
 		<td>
-		<?php if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico<br>Tecnología Industrial</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología<br>Anatomía Aplicada</p>";} elseif($i==3){echo "<p>Latín I<br>Griego I<br>Patrimonio Cultural y Artístico<br>TIC I</p>";} elseif($i==4){echo "<p>Matemáticas de las Ciencias Sociales<br>Economía<br>Cultura Emprendedora<br>TIC I</p>";}?>
+			<?php
+			if ($i==1) { 
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			}
+			elseif($i==2){
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			} 
+			elseif($i==3){
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			} 
+			elseif($i==4){
+				echo "<p>".${it1.$i}[2]."<br>".${it1.$i}[3]."<br>".${it1.$i}[4]."<br>".${it1.$i}[5]."</p>";
+			}
+			?>
 
 		<div class="form-group">
 		<select class="form-control" name="optativa1<?php echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
