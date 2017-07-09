@@ -234,7 +234,14 @@ if (! mysqli_num_rows($actua)) {
     		}
     			$c_aut2 = count($opt_aut2);
 
-	     		fwrite($archivo, "\n\n");    			
+	     		fwrite($archivo, "\n\n"); 
+
+				fwrite($archivo, "\$it11\t= array('Bachillerato de Ciencias','Arquitectura e Ingeniería y Ciencias','Matemáticas','Física y Química','Dibujo Técnico','Tecnología Industrial');\r\n");
+				fwrite($archivo, "\$it12\t= array('Bachillerato de Ciencias','Ciencias y Ciencias de la Salud','Matemáticas','Física y Química','Biología y Geología','Anatomía Aplicada');\r\n");
+				fwrite($archivo, "\$it13\t= array('Bachillerato de Humanidades','Humanidades','Latín','Patrimonio Cultural y Artístico','Griego','TIC');\r\n");
+				fwrite($archivo, "\$it14\t= array('Bachillerato de Ciencias Sociales','Ciencias Sociales y Jurídicas','Matemáticas de las Ciencias Sociales II','Economía','Cultura Emprendedora','TIC');\r\n");
+
+				fwrite($archivo, "\n\n");    			
 
 			    fwrite($archivo, "\$count_1\t= '$c_1';\r\n");
 				fwrite($archivo, "\$count_2\t= '$c_2';\r\n");

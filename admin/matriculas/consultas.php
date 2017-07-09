@@ -586,16 +586,12 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				if (${optativa.$i} == '0' or ${optativa.$i} == '') {${optativa.$i}=""; $acr1="";}
 
 				if (${optativa.$i}=="1") {
-					$a_opt1 = str_ireplace(" y ", " ", $val);
-					$a_opt1 = str_ireplace(" de ", " ", $val);					
-					$wrd1 = explode(" ", $a_opt1);
-					$acr1 = "";
+					$a_opt1 = iniciales($val);
+					$wrd1 = explode(" ", $val);
 					$num_w = count($wrd1);
 					if ($num_w>1) {
 						$acr1 = "";
-					foreach ($wrd1 as $w1) {
-					  $acr1.= $w1[0];
-						}
+						$acr1 = $a_opt1;					
 					}
 					else{
 						$acr1 = strtoupper(substr($val,0,3));
@@ -608,16 +604,12 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				$i++;
 				if ($optativa1 == '0' or $optativa1  == '') {$optativa1 =""; $acr1="";}
 				if ($optativa1==$i) {
-					$a_opt1 = str_ireplace(" y ", " ", $val);
-					$a_opt1 = str_ireplace(" de ", " ", $val);					
-					$wrd1 = explode(" ", $a_opt1);
-					$acr1 = "";
+					$a_opt1 = iniciales($val);
+					$wrd1 = explode(" ", $val);
 					$num_w = count($wrd1);
 					if ($num_w>1) {
 						$acr1 = "";
-					foreach ($wrd1 as $w1) {
-					  $acr1.= $w1[0];
-						}
+						$acr1 = $a_opt1;
 					}
 					else{
 						$acr1 = strtoupper(substr($val,0,3));
@@ -637,15 +629,12 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				if (${optativa.$i} == '0' or ${optativa.$i} == '') {${optativa.$i}=""; $acr2="";}
 
 				if (${optativa.$i}=="2") {
-					$a_opt2 = str_ireplace(" y ", " ", $val);
-					$a_opt2 = str_ireplace(" de ", " ", $val);					
-					$wrd2 = explode(" ", $a_opt2);
+					$a_opt2 = iniciales($val);
+					$wrd2 = explode(" ", $val);
 					$num_w = count($wrd2);
 					if ($num_w>1) {
 						$acr2 = "";
-					foreach ($wrd2 as $w2) {
-					  $acr2.= $w2[0];
-						}
+						$acr2 = $a_opt2;
 					}
 					else{
 						$acr2 = strtoupper(substr($val,0,3));
@@ -658,15 +647,12 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				$i++;
 				if ($optativa2 == '0' or $optativa2  == '') {$optativa2 =""; $acr2="";}
 				if ($optativa2==$i) {
-					$a_opt2 = str_ireplace(" y ", " ", $val);
-					$a_opt2 = str_ireplace(" de ", " ", $val);					
-					$wrd2 = explode(" ", $a_opt2);
+					$a_opt2 = iniciales($val);
+					$wrd2 = explode(" ", $val);
 					$num_w = count($wrd2);
 					if ($num_w>1) {
 						$acr2 = "";
-					foreach ($wrd2 as $w2) {
-					  $acr2.= $w2[0];
-						}
+						$acr2 = $a_opt2;
 					}
 					else{
 						$acr2 = strtoupper(substr($val,0,3));
