@@ -73,7 +73,7 @@ $menu = array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
 				'modulo'  => $config['mod_matriculacion'],
-				'meses'	 => array(6, 7, 8, 9),
+				'meses'	 => array(5, 6, 7, 8, 9),
 			)
 		)
 	),
@@ -276,11 +276,6 @@ $menu_trabajo =  array(
 		'menu_id' => 'trabajo',
 		'nombre'  => 'Trabajo',
 		'items'   => array (
-			array(
-				'href'   => 'admin/matriculas/index.php',
-				'titulo' => 'Matriculación de alumnos',
-				'cargos' => array('7'),
-			),
 			array(
 				'href'   => 'admin/actividades/indexextra.php',
 				'titulo' => 'Actividades extraescolares',

@@ -247,7 +247,7 @@ if(isset($_POST['enviar'])){
 		for ($i=1;$i<8;$i++){
 			$adv= str_replace("optativa2$i", "optativa de $cur_ant $i", $adv);
 		}
-		for ($i=1;$i<5;$i++){
+		for ($i=1;$i<8;$i++){
 			$adv= str_replace("optativa$i", "optativa de $cur_act  $i", $adv);
 		}
 		$msg_error .= " $adv";

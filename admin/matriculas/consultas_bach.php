@@ -395,7 +395,7 @@ if (!($orden)) {
 		{
 			$sql.=", optativa2b$i";
 		}
-		for ($i=1;$i<8;$i++){
+		for ($i=1;$i<9;$i++){
 			$sql.=", opt_aut2$i";
 		}
 	}
@@ -439,7 +439,7 @@ if (!($orden)) {
 		echo '<th>Mod.</th>';
 		if ($n_curso>1) {
 		echo "<th>Opt_2h</th>";
-			for ($i = 1; $i < 10; $i++) {
+			for ($i = 1; $i < 3; $i++) {
 				echo '<th>O'.$i.'</th>';
 			}
 		}
@@ -542,13 +542,21 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		//if ($optativa1 == '0') {${optativa.$i}="";}
 
 		if ($n_curso>1) {
-			for ($i = 1; $i < 8; $i++) {
+			for ($i = 1; $i < ($count_2b2+1); $i++) {
 				if (${opt_aut2.$i}=='1') {
 					echo '<td>'.$i.'</td>';
 				}
-			}		
-		for ($i = 1; $i < 10; $i++) {
-			echo '<td>'.${optativa2b.$i}.'</td>';
+			}	
+
+			for ($i = 1; $i < 10; $i++) {
+				if (${optativa2b.$i}=='1') {
+					echo '<td>'.$i.'</td>';
+				}
+			}
+			for ($i = 1; $i < 10; $i++) {
+				if (${optativa2b.$i}=='2') {
+					echo '<td>'.$i.'</td>';
+				}
 			}
 		}
 		else{
@@ -726,7 +734,7 @@ echo "<br>
 		$num_rel = mysqli_num_rows($rel);
 		//echo $num_rel;
 		if ($curso=="2BACH"){		
-		for ($i=1;$i<11;$i++){
+		for ($i=1;$i<10;$i++){
 			${optativ.$i} = mysqli_query($db_con, "select optativa2b$i from matriculas_bach where $extra and optativa2b$i = '1'");
 			${optativb.$i} = mysqli_num_rows(${optativ.$i});
 		}

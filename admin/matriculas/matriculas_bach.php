@@ -272,12 +272,12 @@ if(isset($_POST['enviar'])){
 		$num_cur_ant = $num_cur - 1;
 		$cur_act = substr($curso,0,1)."º de BACHILLERATO";
 		$cur_ant = $num_cur_ant . "º de BACHILLERATO";
-		for ($i=1;$i<8;$i++){
+		for ($i=1;$i<10;$i++){
 			$adv= str_replace("optativa$i", "optativa de $cur_ant $i", $adv);
 		}
-		for ($i=1;$i<5;$i++){
+/*		for ($i=1;$i<5;$i++){
 			$adv= str_replace("optativa$i", "optativa de $cur_act  $i", $adv);
-		}
+		}*/
 		echo $adv.'.\n';
 		echo 'Rellena los campos mencionados y envía los datos de nuevo para poder registrar tu solicitud correctamente.")
  </script>
@@ -295,7 +295,7 @@ if(isset($_POST['enviar'])){
 					}
 				}
 			}
-		for ($i = 1; $i < 8; $i++) {
+		for ($i = 1; $i < 9; $i++) {
 				for ($z = $i+1; $z < 8; $z++) {
 					if (${opt_aut2.$i}>0) {
 						if (${opt_aut2.$i}==${opt_aut2.$z}) {
@@ -1087,7 +1087,7 @@ if ($dni or $claveal or $id) {
 			<div class="col-sm-1">
 				<select class="form-control <?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '';?>" id="opt_aut2<?php echo $num1;?>" name="opt_aut2<?php echo $num1;?>">
 				<option value=""></option>
-				<?php for ($z = 1; $z < 8; $z++): ?>
+				<?php for ($z = 1; $z < 9; $z++): ?>
 				<option value="<?php echo $z;?>"<?php echo (${opt_aut2.$num1} == $z) ? 'selected':'';?>><?php echo $z; ?></option>
 				<?php endfor; ?>
 			</select>

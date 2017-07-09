@@ -1,3 +1,4 @@
+
 <?php
 require('../../bootstrap.php');
 
@@ -87,47 +88,7 @@ textarea.form-control {
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
-	 	
-	 	<!-- Button trigger modal -->
- 		<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
- 			<span class="fa fa-question fa-lg"></span>
- 		</a>
- 	
- 		<!-- Modal -->
- 		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
- 			<div class="modal-dialog modal-lg">
- 				<div class="modal-content">
- 					<div class="modal-header">
- 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
- 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
- 					</div>
- 					<div class="modal-body">
- 						<p>La Memoria de Tutoría ofrece a los Tutores un informe completo sobre 
- 						los datos más relevantes que se han generado a lo largo del Curso escolar 
- 						en relación con su Grupo de Alumnos. Presenta en primer lugar un conjunto 
- 						de datos estadísticos de carácter general, y otro más específico sobre 
- 						Problemas de Convivencia del Grupo. A partir de ahí, se muestran datos por 
- 						Alumno sobre Faltas de Asistencia, Problemas de Convivencia, Expulsiones, 
- 						Absentismo escolar, Visitas de Padres, Intervenciones del Tutor, 
- 						Actividades Extraescolares y estadísticas de calificaciones en las 
- 						distintas asignaturas del Tutor.</p>
- 						<p>En la parte superior derecha de la página aparece un botón con el título 
- 						'Redactar Observaciones finales'. Al hacer click sobre este botón se nos 
- 						presenta un cuadro de texto en el que procedemos a escribir la valoración 
- 						que el Tutor realiza sobre el Grupo y su Tutoría, así como cualquier otro 
- 						elemento que considere relevante. Una vez rellenado el campo de observaciones, 
- 						el botón cambia a 'Imprimir Memoria de Tutoría' y ya está lista para presentar 
- 						en Jefatura de Estudios. Las observaciones aparecen en la parte inferior de 
- 						la Memoria, y pueden ser editadas en todo momento hasta su impresión.</p>
- 					</div>
- 					<div class="modal-footer">
- 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
- 					</div>
- 				</div>
- 			</div>
- 		</div>
-	 
+		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>	 
 		<h4 class="text-info">Tutor: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 	</div>
 
@@ -151,8 +112,8 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  	else{
 		$boton = "Imprimir Memoria final de Tutoría"; $click="onClick=print();";}
  ?>
-  <div style="margin-bottom:0px;">
- <input type="button" class="btn btn-primary hidden-print pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
+  <div class="hidden-print" style="margin-bottom:0px; ">
+ <input type="button" class="btn btn-primary pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
 </div>
  
 <br>
@@ -543,30 +504,36 @@ include("inc_notas.php");
  ?>
 </div>
 </div>
-<?php
 
-if($imprimir == 1 || strlen($obs2[0]) > 1 || strlen($obs[1])> 1)
-{
-?>
 <a name="observaciones" id="obs"></a>
 <hr><br /><h3>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h3>
-
- <form action="" method="POST">
- <textarea class="form-control autosize hidden-print" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
- <div class="visible-print"><?php echo nl2br($obs2[0]);?></div>
- <hr>
+<?php if($imprimir == 1): ?>
+<form action="" method="POST">
+	<textarea class="form-control autosize" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
+<?php else: ?>
+	<?php echo nl2br($obs2[0]);?>
+<?php endif; ?>
+<hr>
 <br />
 <h3>
  Otras Observaciones</h3>
- <textarea class="form-control autosize hidden-print" name="observaciones2" rows="10"><?php echo $obs2[1];?></textarea>
- <div class="visible-print"><?php echo nl2br($obs2[1]);?></div>
+ <?php if($imprimir == 1): ?>
+ <textarea class="form-control autosize" name="observaciones2" rows="10"><?php echo $obs2[1];?></textarea>
+ <?php else: ?>
+ <?php echo nl2br($obs2[1]);?>
+ <?php endif; ?>
  <br />
 <input type="hidden" name="tutor" value="<?php echo $_SESSION['mod_tutoria']['tutor']; ?>">
 <input type="hidden" name="unidad" value="<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">
 <br />
+<div class="hidden-print">
+<?php if($imprimir == 1): ?>
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary hidden-print">
+ <?php endif; ?>
+ <input type="button" class="btn btn-primary pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
 </form>
+</div>
 <?php
 if((strlen($obs2[0]) > 1 || strlen($obs[1])> 1 ))
 {
@@ -581,7 +548,6 @@ if((strlen($obs2[0]) > 1 || strlen($obs[1])> 1 ))
 <p align="center">Fdo. <?php  echo $_SESSION['mod_tutoria']['tutor']; ?></p>
 <br />
 <?php
-}
 }
  ?>
  </div>

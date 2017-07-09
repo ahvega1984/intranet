@@ -164,7 +164,7 @@ if (! mysqli_num_rows($actua)) {
 
 
 /*
-	@descripcion: Ancho de las columnas en la tabla lectores
+	@descripcion: Ajustes en tabla de matrículas #1.
 	@fecha: 08 de junio de 2017
 */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nueva columna tabla matriculas_bach'");
@@ -173,6 +173,96 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con,"ALTER TABLE  `matriculas_bach` ADD  `optativa2b9` TINYINT( 1 ) NULL");
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nueva columna tabla matriculas_bach', NOW())");
+}
+
+/*
+	@descripcion: Ajustes en tabla de matrículas #2.
+	@fecha: 08 de julio de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Ajustes matriculas'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE  `matriculas_bach` ADD  `opt_aut28` INT( 1 ) NULL");
+
+	// Garantizar compatibilidad con viejo sistema de asignaturas. Eliminar con el nuevo curso 2017-18 y los archivos antiguos de asignaturas.
+
+	if (file_exists("admin/matriculas/config.php")) {}
+	else{
+	
+		include("admin/matriculas/asignaturas.php");
+    	include("admin/matriculas/asignaturas_bach.php");
+    	
+
+    	 $asignaturas = file("admin/matriculas/asignaturas.php");
+	     $asignaturas_bach = file("admin/matriculas/asignaturas_bach.php");
+
+	    // Abrir el archivo:
+	     $archivo = fopen("admin/matriculas/config.php", "w+");
+		     	fwrite($archivo, "<?php \r\n\r\n// CONFIGURACIÓN MÓDULO DE MATRICULACIÓN\r\n");
+				fwrite($archivo, "\$config['matriculas']['fecha_inicio']\t= '2017-06-05';\r\n");	
+				fwrite($archivo, "\$config['matriculas']['fecha_fin']\t= '2017-06-22';\r\n");    
+			// Guardar los cambios en el archivo:
+	     foreach( $asignaturas as $linea )
+	     	if (stristr($linea, "('INTRANET_DIRECTORY')")==TRUE) {
+	     	}
+	     	else{
+	     		fwrite($archivo, $linea);
+	     	}
+	     		fwrite($archivo, "\n\n");
+	     foreach( $asignaturas_bach as $linea2 )
+	     	if (stristr($linea2, "('INTRANET_DIRECTORY')")==TRUE) {
+	     		$linea2="<?php\n";	
+		        fwrite($archivo, $linea2);
+	     	}
+	     	elseif(stristr($linea2, "?>")==TRUE)
+	     	{}
+	     	else{
+	     		fwrite($archivo, $linea2);
+	     	}	
+
+	     	for ($i=1; $i < 5; $i++) { 
+    			${c_.$i} = count(${opt.$i});
+    		}
+    		for ($i=1; $i < 4; $i++) { 
+    			${ca_.$i} = count(${a.$i});
+    		}
+    		for ($i=1; $i < 5; $i++) { 
+    			${c_1.$i} = count(${opt1.$i});
+    		}
+    		for ($i=1; $i < 5; $i++) { 
+    			${c_2.$i} = count(${opt2.$i});
+    		}
+    			$c_aut2 = count($opt_aut2);
+
+	     		fwrite($archivo, "\n\n");    			
+
+			    fwrite($archivo, "\$count_1\t= '$c_1';\r\n");
+				fwrite($archivo, "\$count_2\t= '$c_2';\r\n");
+				fwrite($archivo, "\$count_3\t= '$c_3';\r\n");
+				fwrite($archivo, "\$count_4\t= '$c_4';\r\n");
+
+				fwrite($archivo, "\$count_a1\t= '$ca_1';\r\n");
+				fwrite($archivo, "\$count_a2\t= '$ca_2';\r\n");
+				fwrite($archivo, "\$count_a3\t= '$ca_3';\r\n");
+
+				fwrite($archivo, "\$count_11\t= '$c_11';\r\n");
+				fwrite($archivo, "\$count_12\t= '$c_12';\r\n");
+				fwrite($archivo, "\$count_13\t= '$c_13';\r\n");
+				fwrite($archivo, "\$count_14\t= '$c_14';\r\n");
+
+				fwrite($archivo, "\$count_21\t= '$c_21';\r\n");
+				fwrite($archivo, "\$count_22\t= '$c_22';\r\n");
+				fwrite($archivo, "\$count_23\t= '$c_23';\r\n");
+				fwrite($archivo, "\$count_24\t= '$c_24';\r\n");
+
+				fwrite($archivo, "\$count_2b2\t= '$c_aut2';\r\n");			
+
+				fwrite($archivo, "\n\n?>\n");
+
+     fclose($archivo);
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ajustes matriculas', NOW())");
 }
 
 

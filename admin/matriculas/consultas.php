@@ -348,7 +348,7 @@ if (!($orden)) {
 	
 	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
 	
-	if ($curso=="1ESO"){$num_opt = count($opt1);}elseif ($curso=="2ESO"){$num_opt = count($opt2);}elseif ($curso=="3ESO"){$num_opt = count($opt3);}else{$num_opt = count($opt4);}
+	if ($curso=="1ESO"){$num_opt = $count_1;}elseif ($curso=="2ESO"){$num_opt = $count_2;}elseif ($curso=="3ESO"){$num_opt = $count_3;}else{$num_opt = $count_4;}
 
 	for ($i=1;$i<$num_opt+1;$i++)
 	{
@@ -836,7 +836,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				$exen = mysqli_query($db_con, "select exencion from matriculas where $extra and exencion ='1'");
 				$num_exen = mysqli_num_rows($exen);
 
-				if ($curso=="1ESO"){$num_acti = "7";}elseif($curso=="2ESO"){$num_acti = "5";} elseif($curso=="3ESO"){$num_acti = "6";}
+				if ($curso=="1ESO"){$num_acti = $count_a1;}elseif($curso=="2ESO"){$num_acti = $count_a2;} elseif($curso=="3ESO"){$num_acti = $count_a3;}
 				for ($i=1;$i<$num_acti+1;$i++){
 					${acti.$i} = mysqli_query($db_con, "select act1 from matriculas where $extra and act1 = '$i'");
 					${num_act.$i} = mysqli_num_rows(${acti.$i});
