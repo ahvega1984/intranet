@@ -17,6 +17,7 @@ $fechaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_ini']);
 $horaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_hora_ini']);
 $fechafin_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_fin']);
 $horafin_evento = mysqli_real_escape_string($db_con, $_POST['cmp_hora_fin']);
+$todo_dia = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_diacomp']);
 $descripcion_evento = mysqli_real_escape_string($db_con, $_POST['cmp_descripcion']);
 $lugar_evento = mysqli_real_escape_string($db_con, $_POST['cmp_lugar']);
 $calendario_evento = mysqli_real_escape_string($db_con, $_POST['cmp_calendario']);
@@ -39,7 +40,7 @@ $horafin_evento = trim($horafin_evento);
 $descripcion_evento = trim($descripcion_evento);
 $lugar_evento = trim($lugar_evento);
 
-if($fechaini_evento > $fechafin_evento) {
+if($fechaini_evento > $fechafin_evento and !($todo_dia==1)) {
 header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
 exit();
 }

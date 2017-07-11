@@ -69,7 +69,7 @@
 					if ($val == "1" and $n_curso==$c_ahora and date('m')=="09" and $n_curso=='1') {
 						mysqli_query($db_con, "delete from matriculas_bach where id='$id_submit'");
 						mysqli_query($db_con, "insert into matriculas_bach (select * from matriculas_bach_backup where id = '$id_submit')");
-						mysqli_query($db_con, "update matriculas_bach set promociona='1' where id = '$id_submit'");
+						mysqli_query($db_con, "update matriculas_bach set promociona='0' where id = '$id_submit'");
 						mysqli_query($db_con, "delete from matriculas_bach_backup where id='$id_submit'");
 					}
 					else{

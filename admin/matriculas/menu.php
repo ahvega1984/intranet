@@ -13,8 +13,40 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 	
 	<div class="container hidden-print">
 
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Este módulo permite matricular a los alumnos a través de un formulario accesible desde internet. La matriculación puede realizarse a través de la propia intranet o bien desde la página pública del Centro. Este segundo método es el preferido para que los alumnos se registren masivamente, y la intranet se reserva para que la Dirección peueda matricular casos especiales (alumnos que no pertenecen al Centro, alumnos que se matriculan tarde, etc.). El módulo que permite el registro de datos desde la página pública está incluído en el código de nuestra página en este mismo repositorio <a href="https://github.com/IESMonterroso/pagina_del_centro">aquí</a>.</p>
+						<p>El módulo de la página pública se activa entre las fechas de inicio y fin que deben seleccionarse en las <em> <a href="preferencias.php">Opciones</a></em>. El módulo de la Intranet aparece en el menú de los perfiles Dirección, Orientación y Administración durante los meses que van de Junio a Diciembre, aunque la Dirección siempre puede acceder desde la <em>Administarción de la Intranet</em>. Tanto la intranet como la página pública contienen un formulario de registro idéntico. Si el alumno pertenece al Centro aparecen en primer lugar los datos personales y familiares que ya se habían registrado en Séneca. Si el alumno pertenece a un C.E.I.P. o I.E.S. adscritos hay que pedir al Director del mismo que nos envíe una copia de la exportación de alumnos desde Séneca (Alumnado --&gt; Alumnado --&gt; Alumnado del Centro --&gt; Aceptar (arriba a la derecha) --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano). Una vez tengamos los archivos de los centros adscritos debemos importarlos desde la página correspondiente en el menú <b>Herramientas</b>. Una vez comprobados los datos personales el alumno debe seleccionar las asignaturas optativas, actividades de refuerzo, religión, etc. Debe elegir las optativas y refuerzos tanto del siguiente curso como del mismo en el que ya se encuentra. De este modo, al importar las notas de la Evaluación Extraordinaria en Septiembre la matrícula se asigna automáticamente en función de si este ha promocionado de curso o no. <br>Cuando se alcanza la fecha de fin de matriculación ya podemos imprimir de forma masiva los formularios y autorizaciones de la matrícula para entregar a los alumnos.</p>
+						<p>Nosotros seguimos el siguiente método concreto durante el proceso. Durante el mes de Mayo se informa a los tutores de un nivel del proceso de registro de datos poniendo un ejemplo visual de un alumno. Los alumnos son informados por el tutor del proceso y se les recuerda el NIE. Durante las dos primeras semanas de Junio los alumnos se matriculan. Les dividimos en dos grupos: los de 1º y 2º de ESO realizan la matriculación en el aula con un carro de ordenadores portátiles o en las salas de Informática; los alumnos mayores lo hacen desde su casa. Los Directores de los Centros adscritos informan a los padres del proceso, y les ofrecen el NIE para se matriculen desde la página pública o pasen por nuestro Centro para que les registremos.<br>
+						Cuando el regsitro masivo ha terminado, se imprimen los formularios. Los Centros adscritos reciben el conjunto de matrículas de sus alumnos; los tutores los distribuyen para que los nenes los lleven a casa; los padres firman el impreso y lo devuelven al Centro; este nos devuelve el conjunto de los impresos para que los administrativos puedan porceder a la matriculación en Séneca. Nuestro alumnos reciben el formulario el mismo día en que se entregan las notas de la Evaluación Ordinaria y los libros de texto gratuitos, y entregan la matrícula firmada por sus padres en las fechas elegidas para cada nivel o grupos.</p>
+
+						<h5>Opciones del módulo</h5>
+						<p>Para utilizar el módulo de matriculación es necesario precisar tanto las fechas de inicio y fin del proceso de matrciculación como el nombre de itinerarios, optativas y actividades en los distintos niveles.<br>
+						<br>
+						La segunda parte se ocupa de los nombres de asignaturas en los distintos niveles. Cada Centro debe escribir las optativas y actividades que se imparten en su IES. Se ha mantenido el conjunto de asignaturas del IES Monterroso como base para trabajar y como ejemplo para simplificar la tarea. 
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<?php if (acl_permiso($carg, array('1'))): ?>
-		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right" style="margin-right:2px;"><span class="fa fa-cog fa-lg"></span></a>
 		<?php endif; ?>
 		
 		<ul class="nav nav-tabs">

@@ -237,7 +237,7 @@ if (isset($_GET['copia'])) {
 
 	mysqli_query($db_con, "delete from matriculas where id='$id'");
 	mysqli_query($db_con, "insert into matriculas (select * from matriculas_backup where id = '$id')");
-	mysqli_query($db_con, "update matriculas set promociona='1' where id = '$id'");
+	mysqli_query($db_con, "update matriculas set promociona='0' where id = '$id'");
 	mysqli_query($db_con, "update matriculas set confirmado='$confirma' where id='$id'");
 	mysqli_query($db_con, "delete from matriculas_backup where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -454,6 +454,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$itinerario = $consul['itinerario'];
 		$optativas4 = $consul['optativas4'];
 		$promociona = $consul['promociona'];
+		$promocion = $promociona;
 		$claveal = $consul['claveal'];
 		$ruta_este = $consul['ruta_este'];
 		$ruta_oeste = $consul['ruta_oeste'];
@@ -753,7 +754,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					
 					for ($i=1;$i<3;$i++){
 						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
-						if($promociona == $i){echo " checked";}
+						if($promociona == $i or $promocion == $i){echo " checked";}
 						echo " />&nbsp;";
 					}
 					echo "<span class='text-muted'> $val_notas</span>";
