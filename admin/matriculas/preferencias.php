@@ -138,6 +138,7 @@ if (isset($_POST['btnGuardar'])) {
 
 	$prefInicio	= limpiar_string($_POST['prefInicio']);
 	$prefFin	= limpiar_string($_POST['prefFin']);
+	$prefInformes	= limpiar_string($_POST['prefInformes']);
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen('config.php', 'w+'))
@@ -148,6 +149,8 @@ if (isset($_POST['btnGuardar'])) {
 
 		fwrite($file, "\$config['matriculas']['fecha_inicio']\t= '$prefInicio';\r\n");	
 		fwrite($file, "\$config['matriculas']['fecha_fin']\t= '$prefFin';\r\n");
+		fwrite($file, "\$config['matriculas']['transito']\t= '$prefInformes';\r\n");
+		
 
 
 		fwrite($file, "\$opt1\t= array($array_opt1);\r\n");
@@ -228,31 +231,6 @@ include("menu.php");
 <div class="container">
 
 	<div class="page-header">
-		<!-- Button trigger modal -->
-		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
-		</a>
-	
-		<!-- Modal -->
-		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
-					</div>
-					<div class="modal-body">
-						<p>Para utilizar el módulo de matriculación es necesario precisar tanto las fechas de inicio y fin del proceso de matrciculación como el nombre de itinerarios, optativas y actividades en los distintos niveles.<br>
-						Las fechas de inicio y fin afectan sobre todo a la página pública del Centro en la que se encuentra el formulario para que los alumnos se matriculen. El inicio del proceso cambia las contraseñas de acceso por el NIE durante el tiempo que dura el registro de datos. Esto quiere decir que el alumno entra en el formulario escribiendo el NIE en los dos campos: usuario y contraseña. Un mensaje explicativo aparece en la primera página junto con un botón que le envía al formulario. La fecha de fin devuelve las contraseñas a su estado original y oculta el botón de envío de datos para impedir que el alumno pueda modificarlos.<br>
-						La segunda parte se ocupa de los nombres de asignaturas en los distintos niveles. Cada Centro debe escribir las optativas y actividades que se imparten en su IES. Se ha mantenido el conjunto de asignaturas del IES Monterroso como base para trabajar y como ejemplo para simplificar la tarea. 
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
-					</div>
-				</div>
-			</div>
-		</div>
 		<h2>Matriculación de alumnos <small>Preferencias</small></h2>
 	</div>
 	
@@ -269,12 +247,13 @@ include("menu.php");
 	</div>
 	<?php endif; ?>
 
-		<div class="well">
 			<form class="form-horizontal" method="post" action="preferencias.php">
 									
 					<fieldset>
+						<div class="well">
 						<h3>Fechas de Matriculación para los alumnos del Centro<br></h3>
 						
+							<p class="help-block">Las fechas de Inicio y Fin indican a partir de qué momento se activa y cuando se desactiva el formulario de matriculación en la página pública del Centro para que los alumnos puedan comenzar a registrar los datos.</p>
 						<div class="form-group">							
 							<label for="prefInicio" class="col-sm-3 control-label">Fecha de inicio de Matriculación</label>
 							<div class="col-sm-3" id="datetimepicker1">
@@ -296,9 +275,26 @@ include("menu.php");
 							</div>
 							</div>
 						</div>
-					
-					<hr>
+					</div>
 
+					<br>
+
+					<div class="well">
+					<h3>Informes de Tránsito para alumnos de Primaria<br></h3>
+						<p class="help-block">El módulos de Informes de Tránsito lo utilizan los tutores de colegios de Primaria para rellenar los datos que luego gestionan el Dpto. de Orientación y Jefatura de Estudios. Supone que hemos importado los datos de los alumnos que nos han dado los directores de los colegios. Los tutores acceden al página en la dirección http://dominio_del_centro.com/transito, y usan la contraseña que les indique el director del Instituto.</p>	
+						<div class="form-group">												
+							<label for="prefInformes" class="col-sm-4 control-label">El Centro utiliza el módulo de Informes de Tránsito</label>
+							<div class="col-sm-3">
+  							<div class="checkbox">
+								<input name="prefInformes" type="checkbox" value="1" <?php if ($config['matriculas']['transito']==1) { echo "checked"; }  ?> id="prefInformes"> 
+							</div>
+							</div>							    
+						</div>
+						</div>
+
+					<br>
+
+					<div class="well">
 					<h3>Optativas, Refuerzos, Ampliaciones, Itinerarios<br></h3>
 					<br>
 					<ul class="nav nav-tabs">

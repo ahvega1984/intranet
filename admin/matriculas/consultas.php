@@ -414,7 +414,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		?>
 
-		<th class="hidden-print">Opciones</th>
+		<th class="hidden-print">Obs.</th>
 		<?php
 		if ($n_curso>1) {
 			echo '<th class="hidden-print">SI |NO </th>';
@@ -567,7 +567,16 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 
 			if ($n_curso=="4") {
-				if($optativas4 == 'Biología y Geología'){$opt44 = 'BG';}elseif($optativas4 == 'Economía'){$opt44 = 'ECO';}elseif(stristr($optativas4,'Ciencias Aplicadas')==TRUE){$opt44 = 'CAAP';}elseif(stristr($optativas4,'Iniciaci')==TRUE){$opt44 = 'IAEE';}else{$optativas4="";}
+				$wrd1 = explode(" ", $optativas4);
+					$num_w = count($wrd1);
+					if ($num_w>1) {
+						$opt44 = "";
+						$opt44 = iniciales($optativas4);;					
+					}
+					else{
+						$opt44 = strtoupper(substr($optativas4,0,3));
+						}
+
 				echo '<td>'.$opt44.'</td>';
 			}
 
