@@ -30,14 +30,24 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_
 <?php		
 // Borramos faltas para luego colocarlas de nuevo.
 $borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and (profesor = '$nprofe' or codasi = '$codasi') and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
+
 $db_pass = trim($clave);
+
+$unidades = "";
+$contador = "";
+$codasis = "";
+
 foreach($_POST as $clave => $valor)
 {
 	if(strlen(strstr($clave,"falta_")) > 0)
 	{
+		$contador++;
 		$nc0 = explode("_", $clave, 3);
 		$nc = $nc0[1];
 		$unidad = $nc0[2];
+		if (stristr($unidades, $unidad)==FALSE) {
+			$unidades.=$unidad."; ";
+		}
 
 		$nv = mysqli_query($db_con,"select distinct curso from alma where unidad='$unidad'");
 		$nivel_grupo = mysqli_fetch_row($nv);
@@ -52,6 +62,10 @@ foreach($_POST as $clave => $valor)
 
 			$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
 				while($cod_bch = mysqli_fetch_array($asig_bach)){
+					if (stristr($codasis, $codasi)==FALSE) {
+						$codasis.=$cod_bch[0].";";
+					}
+				
 				$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
 				if (mysqli_num_rows($comb)>0) {
 						$codigo_asignatura = $cod_bch[0];
@@ -70,6 +84,13 @@ foreach($_POST as $clave => $valor)
 
 	}
 }
+
+// Control de los profesores que registran o no faltas
+$unidades = substr($unidades,0,-2);
+$codasis = substr($codasis,0,-1);
+$dia_actual = date("Y-m-d");
+
+$control = mysqli_query($db_con,"insert into control_faltas VALUES ('','$nprofe','$unidades','$ndia','$hora','$hoy','$codasis','$contador','$dia_actual')");
 
 //Faltas en una Guardia
 if (!empty($_POST['profesor_ausente'])) {

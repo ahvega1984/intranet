@@ -272,4 +272,26 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Ajustes matriculas', NOW())");
 }
 
+/*
+	@descripcion: Tabla para control de faltas de asistencia
+	@fecha: 13 de julio de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla de control de faltas'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `control_faltas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `profesor` int(11) NOT NULL,
+  `unidad` varchar(128) COLLATE utf8_spanish_ci NOT NULL,
+  `dia` tinyint(1) NOT NULL,
+  `hora` tinyint(1) NOT NULL,
+  `fecha` date NOT NULL,
+  `asignatura` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  `numero` tinyint(2) NOT NULL,
+  `hoy` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla de control de faltas', NOW())");
+}
 

@@ -84,7 +84,6 @@ include ("../menu.php");
 				<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
 				<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
 				<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
-				<th><span data-bs="tooltip" title="Tutores de faltas de asistencia. Estos tutores se encargan de pasar a la Intranet las faltas que los profesores registran en su parte personal (Administracción de la Intranet --> Faltas de Asistencia -> Horario de faltas para profesores), que entregan los viernes en Jefatura o Conserjería. ">Faltas</span></th>
 				<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
 				<th><span data-bs="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
 				<th><span data-bs="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
@@ -191,15 +190,6 @@ include ("../menu.php");
 			
 			?>
 		  </select></td>
-				<td class="text-center"><input type="checkbox" name="<?php
-			echo $dni;
-			?>3"
-					value="3" 
-					<?php
-			if (stristr ( $car, '3' ) == TRUE) {
-				echo "checked";
-			}
-			?> /></td>
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>4"

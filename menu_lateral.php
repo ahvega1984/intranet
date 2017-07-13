@@ -328,15 +328,9 @@ $menu_trabajo =  array(
 						'titulo' => 'Poner faltas',
 					),
 					array(
-						'href'   => 'faltas/poner2/index.php',
-						'titulo' => 'Tutoría de Faltas',
-						'cargos' => array('1','3'),
-					),
-
-					array(
 						'href'   => 'faltas/justificar/index.php',
 						'titulo' => 'Justificar faltas',
-						'cargos' => array('1','2','3'),
+						'cargos' => array('1','2'),
 					),
 					array(
 						'href'   => 'admin/faltas/index.php',
