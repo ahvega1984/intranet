@@ -62,14 +62,14 @@ include("menu.php");
 									<div class="form-group">
 										<label for="curso">Unidad</label>
 										<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
-										<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo FROM profesores ORDER BY grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo AS unidad FROM profesores ORDER BY grupo ASC"); ?>
 										<?php else: ?>
-										<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad AS a_grupo FROM FTUTORES WHERE tutor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY unidad ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad FROM FTUTORES WHERE tutor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY unidad ASC"); ?>
 										<?php endif; ?>
 										<select class="form-control" id="curso" name="curso" onchange="submit()">
 											<option value=""></option>
 											<?php while ($row = mysqli_fetch_array($result)): ?>
-											<option value="<?php echo $row['a_grupo']; ?>" <?php echo (isset($curso) && $curso == $row['a_grupo']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?></option>
+											<option value="<?php echo $row['unidad']; ?>" <?php echo (isset($curso) && $curso == $row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
 											<?php endwhile; ?>
 										</select>
 									</div>
