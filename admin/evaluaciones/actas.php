@@ -1,47 +1,54 @@
 <?php
 require('../../bootstrap.php');
+require('inc_evaluaciones.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `unidad` varchar(64) COLLATE utf8_general_ci NOT NULL,
-  `evaluacion` char(3) COLLATE utf8_general_ci NOT NULL,
+  `unidad` varchar(64) NOT NULL,
+  `evaluacion` char(3) NOT NULL,
   `fecha` date NOT NULL,
-  `texto_acta` text COLLATE utf8_general_ci NOT NULL,
+  `texto_acta` mediumtext NOT NULL,
   `impresion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;");
-
-
-if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {
-	$evaluaciones = array(
-		'IN1' => 'Intermedia 1 (Febrero)',
-		'IN2' => 'Intermedia 2 (Mayo)'
-	);
-}
-else {
-	$evaluaciones = array(
-		'1EV' => '1ª Evaluación',
-		'2EV' => '2ª Evaluación',
-		'3EV' => '3ª Evaluación',
-		'Ord' => 'Ordinaria',
-		'FFP' => 'Final FP',
-		'Ext' => 'Extraordinaria',
-		'FE1' => 'Final Excepcional 1ª Convocatoria',
-		'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
-		'OT1' => 'Obtención título ESO (Primer año)',
-		'FE2' => 'Final Excepcional 2ª Convocatoria',
-		'OT2' => 'Obtención título ESO (Segundo año)',
-		'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
-		'EVI' => 'Evaluación inicial',
-		'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
-	);
-}
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 
 
 if (isset($_POST['curso'])) $curso = $_POST['curso'];
 if (isset($_POST['curso'])) $evaluacion = $_POST['evaluacion'];
 if (isset($_GET['id'])) $id = $_GET['id'];
+
+// Comprobamos el nivel educativo para cargar el modelo de acta predefinida por el centro
+$result = mysqli_query($db_con, "SELECT cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE unidades.nomunidad = '".$curso."' LIMIT 1");
+$row = mysqli_fetch_array($result);
+$nivel = $row['nomcurso'];
+if (stristr($nivel, 'E.S.O.') == true) {
+	if (! isset($config['evaluaciones']['acta_eso'])) {
+		$texto_acta = '<h4>1.- Acuerdos de carácter general sobre el grupo:</h4><table class="table table-bordered"><thead><tr><th width="30%"><br></th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Malo</th><th>Muy malo</th></tr></thead><tbody><tr><td class="active">Rendimiento global</td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active">Actitud general ante el estudio</td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active">Actitud ante las normas y la convivencia</td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active">Asistencia a clase</td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><b>Otros:</b></p><p><br></p><p><br></p><p><br></p><h4>2.- Acuerdos sobre el proceso individual</h4><p>2.1.- Necesidades educativas</p><table class="table table-bordered"><tbody><tr><td width="30%" class="active">Refuerzo educativo</td><td width="70%"><br></td></tr><tr><td class="active">A.C.I</td><td><br></td></tr><tr><td class="active">Propuestas entrada en el PMAR 2º / PMAR 3º / FP Básica</td><td><br></td></tr><tr><td class="active">Programa de enriquecimiento</td><td><br></td></tr><tr><td class="active">A tener en cuenta por el Depto. de Orientación</td><td><br></td></tr></tbody></table><p><br></p><h4>3.- Alumnos con problemas graves de convivencia y/o absentismo: <small>(marcar con X según cada caso)</small></h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th style="text-align: center; ">Faltas de asistencia</th><th style="text-align: center; ">Problemas disciplinarios</th></tr></thead><tbody><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center;"><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr></tbody></table><p><br></p><h4>4.- Otros alumnos con algún otro tipo de problema manifiesto (integración escolar, problemas con los compañeros, autoestima, ambiente familiar,...):</h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th>Tipo de problema</th></tr></thead><tbody><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>5.- Acuerdos tomados por el equipo docente:</h4><p><br></p><p><br></p><p><br></p><p><br></p><h4>Profesores asistentes</h4><table class="table table-bordered"><thead><tr><th>Nombre y apellidos</th><th>Firma</th><th>Nombre y apellidos</th><th>Firma</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>Profesores ausentes</h4><table class="table table-bordered"><thead><tr><th>Nombre y apellidos</th><th>Firma</th><th>Nombre y apellidos</th><th>Firma</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p>';
+	}
+	else {
+		$texto_acta = $config['evaluaciones']['acta_eso'];
+	}
+}
+else if (stristr($nivel, 'Bachillerato') == true) {
+	if (! isset($config['evaluaciones']['acta_bach'])) {
+		$texto_acta = '<h4>1.- Acuerdos o consideraciones sobre el proceso de evaluación final individual:</h4><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h4>2.- Alumnado que se considera no reúne perfil de hacer estudios de Bachillerato</h4><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h4>3.- Alumnado excelente a felicitar</h4><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><span style="color: inherit; font-size: 19px;">Profesores asistentes</span><br></p><table class="table table-bordered"><thead><tr><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>Profesores ausentes</h4><table class="table table-bordered"><thead><tr><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p>';
+	}
+	else {
+		$texto_acta = $config['evaluaciones']['acta_bach'];
+	}
+}
+else if (stristr($nivel, 'F.P.') == true) {
+	if (! isset($config['evaluaciones']['acta_fp'])) {
+		$texto_acta = '<h4>1.- Acuerdos o consideraciones sobre el proceso de evaluación individual</h4><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h4>Profesores asistentes</h4><table class="table table-bordered"><thead><tr><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>Profesores ausentes</h4><table class="table table-bordered"><thead><tr><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th><th style="background-color: rgb(236, 240, 241);">Nombre y apellidos</th><th style="background-color: rgb(236, 240, 241);">Firma</th></tr></thead><tbody><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><br></p>';
+	}
+	else {
+		$texto_acta = $config['evaluaciones']['acta_fp'];
+	}
+}
 
 
 // ENVIO DEL FORMULARIO
@@ -77,10 +84,10 @@ if (isset($_POST['submit'])) {
 
 // RECOGEMOS LOS DATOS SI SE TRATA DE UNA ACTUALIZACION
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
-	$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta FROM evaluaciones_actas WHERE id=$id LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta FROM evaluaciones_actas WHERE id = ".$id." LIMIT 1");
 	
 	if (!$result) {
-		$msg_error = "El acta a la que intenta acceder no existe.";
+		$msg_error = "El acta al que intenta acceder no existe.";
 		unset($id);
 	}
 	else {
@@ -95,7 +102,7 @@ if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
 
 // ELIMINAR UN ACTA
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'delete')) {
-	$result = mysqli_query($db_con, "DELETE FROM evaluaciones_actas WHERE id=$id LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM evaluaciones_actas WHERE id = ".$id." LIMIT 1");
 	
 	if (!$result) $msg_error = "El acta no ha podido ser eliminado. Error: ".mysqli_error($db_con);
 	else $msg_success = "El acta ha sido eliminado.";
@@ -112,7 +119,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Evaluaciones <small>Actas de sesiones de evaluación</small></h2>
+			<h2>Actas de evaluación <small>Actas de sesiones de evaluación</small></h2>
 		</div>
 		
 		<!-- MENSAJES -->

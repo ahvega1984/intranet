@@ -2,7 +2,7 @@
 ini_set("session.cookie_lifetime","5600");
 ini_set("session.gc_maxlifetime","7200");
 
-require('../../bootstrap.php');
+require('../../../bootstrap.php');
 
 if (file_exists('config.php')) {
 	include('config.php');
@@ -269,7 +269,7 @@ else {
 // PLUGINS
 $PLUGIN_DATATABLES = 1;
 
-include ("../../menu.php");
+include ("../../../menu.php");
 include ("menu.php");
 ?>
 
@@ -506,7 +506,7 @@ $html_textarea = "<p>".$titulo."</p>
 	</form>
 </div>
 
-<?php include("../../pie.php"); ?>
+<?php include("../../../pie.php"); ?>
 
 <script>  
 	$(function ()  

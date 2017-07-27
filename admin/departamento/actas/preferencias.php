@@ -1,5 +1,5 @@
 <?php
-require('../../bootstrap.php');
+require('../../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
@@ -51,7 +51,7 @@ if (file_exists('config.php')) {
 $exp_directivo_secretaria = explode(' ', $config['directivo_secretaria']);
 $directivo_secretaria = $exp_directivo_secretaria[0];
 
-include("../../menu.php");
+include("../../../menu.php");
 include("menu.php");
 ?>
 
@@ -197,7 +197,7 @@ include("menu.php");
 				
 				<button type="submit" class="btn btn-primary" name="btnGuardar">Guardar cambios</button>
 				<?php if (isset($_GET['esAdmin']) && $_GET['esAdmin'] == 1): ?>
-				<a href="../../../xml/index.php" class="btn btn-default">Volver</a>
+				<a href="../../../../xml/index.php" class="btn btn-default">Volver</a>
 				<?php else: ?>
 				<a href="index.php" class="btn btn-default">Volver</a>
 				<?php endif; ?>
@@ -212,7 +212,7 @@ include("menu.php");
 
 </div>
 
-<?php include("../../pie.php"); ?>
+<?php include("../../../pie.php"); ?>
 
 </body>
 </html>

@@ -22,7 +22,8 @@ pruebas/*
 
 prueba.php
 
-admin/rd/config.php
+admin/departamento/actas/config.php
+admin/actas/evaluacion/config.php
 
 admin/guardias/config.php
 

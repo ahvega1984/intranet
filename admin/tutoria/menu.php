@@ -100,7 +100,7 @@ $curso_tutor=$query2[0];
 		<li><a href="../infotutoria/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tutoría</a></li>
 		<li><a href="../tareas/infotut.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de tareas</a></li>
 		<li class="divider"></li>
-		
+		<li><a href="../evaluaciones/index.php">Actas de Evaluación</a></li>
 		<?php 
 		$inf_t = mysqli_query($db_con,"select idcurso from unidades where nomunidad = '".$_SESSION['mod_tutoria']['unidad']."'"); 
 		$id_t = mysqli_fetch_array($inf_t);

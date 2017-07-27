@@ -1,7 +1,7 @@
 <?php
 ini_set("memory_limit","1024M");
-require('../../bootstrap.php');
-require_once("../../pdf/dompdf_config.inc.php");
+require('../../../bootstrap.php');
+require_once("../../../pdf/dompdf_config.inc.php");
 
 define("DOMPDF_ENABLE_PHP", true);
 

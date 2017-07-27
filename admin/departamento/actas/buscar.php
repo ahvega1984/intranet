@@ -1,11 +1,11 @@
 <?php
-require('../../bootstrap.php');
+require('../../../bootstrap.php');
 
 
 $profesor = $_SESSION['profi'];
 
 
-include("../../menu.php");
+include("../../../menu.php");
 include("menu.php");
 
 if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
@@ -89,7 +89,7 @@ Lo sentimos, pero ninguna noticia responde a ese criterio de búsqueda.
 
 </div><?php
 
-include("../../pie.php");
+include("../../../pie.php");
 ?>
 
 </body>

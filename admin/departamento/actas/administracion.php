@@ -1,5 +1,5 @@
 <?php
-require('../../bootstrap.php');
+require('../../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
@@ -32,7 +32,7 @@ else {
 	$uri = 'index.php?';
 }
 
-include ("../../menu.php");
+include ("../../../menu.php");
 include ("menu.php");
 ?>
 
@@ -207,7 +207,7 @@ include ("menu.php");
 			
 			<?php if ($mostrar_alerta): ?>
 			<div class="alert alert-warning">
-				<strong>Advertencia:</strong> Los Departamentos mostrados en esta página han sido creados a partir de la información aportada en la Administración de la Intranet. Si la relación de Departamentos y Jefes de Departamentos no es correcta, diríjase a <a href="../../xml/jefe/gest_dep.php" class="alert-link">Gestión de Departamentos</a> para modificar los Departamentos del centro y a <a href="../../config/cargos.php" class="alert-link">Perfiles de los profesores</a> para asignar el perfil de Jefe de Departamento.
+				<strong>Advertencia:</strong> Los Departamentos mostrados en esta página han sido creados a partir de la información aportada en la Administración de la Intranet. Si la relación de Departamentos y Jefes de Departamentos no es correcta, diríjase a <a href="../../xml/jefe/gest_dep.php" class="alert-link">Gestión de Departamentos</a> para modificar los Departamentos del centro y a <a href="../../../config/cargos.php" class="alert-link">Perfiles de los profesores</a> para asignar el perfil de Jefe de Departamento.
 			</div>
 			<?php endif; ?>
 			
@@ -218,7 +218,7 @@ include ("menu.php");
 
 </div>
 
-<?php include("../../pie.php"); ?>
+<?php include("../../../pie.php"); ?>
 
 	<script>  
 	$(document).ready(function() {

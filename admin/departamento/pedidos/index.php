@@ -96,7 +96,7 @@ include("menu.php");
 									<!--
 									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-lg fa-fw"></span></a>
 									-->
-									<a href="../../rd/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
+									<a href="../../deparamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
 									<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
 								</td>
 							</tr>
@@ -137,7 +137,7 @@ include("menu.php");
 									<!--
 									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-lg fa-fw"></span></a>
 									-->
-									<a href="../../rd/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
+									<a href="../../departamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
 									<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
 								</td>
 							</tr>
@@ -179,7 +179,7 @@ include("menu.php");
 							<!--
 							<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-lg fa-fw"></span></a>
 							-->
-							<a href="../../rd/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
+							<a href="../../departamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
 							<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
 						</td>
 					</tr>

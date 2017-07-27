@@ -517,7 +517,7 @@ $menu_departamento = array(
 		'ncargos' => array('6', '7'),
 		'items'   => array(
 			array(
-				'href'   => 'admin/rd/index.php',
+				'href'   => 'admin/departamento/actas/index.php',
 				'titulo' => 'Actas del Departamento'
 			),
 			array(
@@ -561,39 +561,39 @@ $menu_actas = array(
 	'cargos' => array('1','4','9','a','f'),
 	'items'   => array (
 		array(
-			'href'   => 'admin/rd/index.php?organo=DFEIE',
+			'href'   => 'admin/departamento/actas/index.php?organo=DFEIE',
 			'titulo' => 'Actas del DFEIE',
 			'cargos'  => array('f')
 		),
 		array(
-			'href'   => 'admin/rd/index.php?organo=ETCP',
+			'href'   => 'admin/departamento/actas/index.php?organo=ETCP',
 			'titulo' => 'Actas del ETCP',
 			'cargos'  => array('9')
 		),
 		array(
-			'href'   => 'admin/rd/index.php?organo=Equipo directivo',
+			'href'   => 'admin/departamento/actas/index.php?organo=Equipo directivo',
 			'titulo' => 'Actas del Equipo Directivo',
 			'cargos'  => array('1')
 		),
 		array(
-			'href'   => 'admin/rd/index.php?organo=Coord. Enseñanzas Bilingües',
+			'href'   => 'admin/departamento/actas/index.php?organo=Coord. Enseñanzas Bilingües',
 			'titulo' => 'Actas de Ens. Bilingües',
 			'cargos'  => array('a')
 		),
 		array(
-			'href'   => 'admin/rd/administracion.php',
+			'href'   => 'admin/departamento/actas/administracion.php',
 			'titulo' => 'Administrar actas',
 			'cargos'  => array('1')
 		)
 	)
 );
 
-if (file_exists('./admin/rd/config.php')) {
-	include('./admin/rd/config.php');
+if (file_exists('./admin/departamento/actas/config.php')) {
+	include('./admin/departamento/actas/config.php');
 	
 	if (isset($config['actas_depto']['secretario_aca']) && $pr == $config['actas_depto']['secretario_aca']) {
 		$menu_actas_aca = array(
-			'href'   => 'admin/rd/index.php?organo=Área Artística',
+			'href'   => 'admin/departamento/actas/index.php?organo=Área Artística',
 			'titulo' => 'Actas del Área Ártística',
 			'ncargos'  => array('9')
 		);
@@ -603,7 +603,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_acct']) && $pr == $config['actas_depto']['secretario_acct']) {
 		$menu_actas_acct = array(
-			'href'   => 'admin/rd/index.php?organo=Área Científico-Tecnológica',
+			'href'   => 'admin/departamento/actas/index.php?organo=Área Científico-Tecnológica',
 			'titulo' => 'Actas del Área Científico-Tecnológica',
 			'ncargos'  => array('1')
 		);
@@ -613,7 +613,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_acsl']) && $pr == $config['actas_depto']['secretario_acsl']) {
 		$menu_actas_acsl = array(
-			'href'   => 'admin/rd/index.php?organo=Área Social-Lingüística',
+			'href'   => 'admin/departamento/actas/index.php?organo=Área Social-Lingüística',
 			'titulo' => 'Actas del Área Social-Lingüistica',
 			'ncargos'  => array('1')
 		);
@@ -623,7 +623,7 @@ if (file_exists('./admin/rd/config.php')) {
 	
 	if (isset($config['actas_depto']['secretario_afp']) && $pr == $config['actas_depto']['secretario_afp']) {
 		$menu_actas_afp = array(
-			'href'   => 'admin/rd/index.php?organo=Área Formación Profesional',
+			'href'   => 'admin/departamento/actas/index.php?organo=Área Formación Profesional',
 			'titulo' => 'Actas del Área Formación Profesional',
 			'ncargos'  => array('1')
 		);

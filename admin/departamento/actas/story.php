@@ -1,11 +1,11 @@
 <?php
-require('../../bootstrap.php');
+require('../../../bootstrap.php');
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
 
-include("../../menu.php");
+include("../../../menu.php");
 include("menu.php");
 
 
@@ -75,6 +75,6 @@ else
 }
 ?>
 
-<?php include("../../pie.php");?>
+<?php include("../../../pie.php");?>
 </body>
 </html>
