@@ -2,29 +2,38 @@
 
 <!-- MODULO DE NOTICIAS -->
 
-<h4><span class="fa fa-th-list fa-fw"></span> Noticias</h4><hr>
-<?php $result = mysqli_query($db_con, "SELECT id, slug, contact, timestamp, clase FROM noticias WHERE timestamp <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' ORDER BY timestamp DESC LIMIT 8"); ?>
+<h4><span class="fa fa-th-list fa-fw"></span> Noticias</h4>
+<hr>
+
+<!-- NOTICIAS DESTACADAS -->
+<?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria from noticias where pagina like '%1%' and fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC"); ?>
+<?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
+<article class="well">
+	<h4 class="media-heading h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><?php echo $row['titulo']; ?></a></h4>
+	<h6 class="text-muted"><?php echo ($row['categoria']) ? $row['categoria'] : 'Sin categoría'; ?>&nbsp;&nbsp;·&nbsp;&nbsp;<?php echo strftime('%e %B', (strtotime($row['fechapub']))); ?></h6>
+	<p><?php echo substr(strip_tags($row['contenido']), 0, 300).'...'; ?></p>
+</article>
+
+<hr>
+<?php endwhile; ?>
+<?php mysqli_free_result($result); ?>
+
+<!-- ÚLTIMAS NOTICIAS -->
+<?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria FROM noticias WHERE fechapub <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' AND id NOT IN (SELECT id FROM noticias WHERE pagina LIKE '%1%' AND fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC) ORDER BY fechapub DESC LIMIT 4"); ?>
 <?php if (mysqli_num_rows($result)): ?>
 	
 <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
 		
-<?php $exp_profesor = explode(',', $row['contact']); ?>
+<?php $exp_profesor = explode(',', $row['autor']); ?>
 <?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
-		
-<div style="border-bottom: 1px solid #ecf0f1; margin-bottom: 15px;">
-	
-	<h5>
-		<a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&widget=1"><?php echo $row['slug']; ?></a>
-	</h5>
 
-	<p>
-		<small>
-			<span class="fa fa-user fa-fw"></span> <?php echo nomprofesor($profesor); ?> &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-			<span class="fa fa-clock-o fa-fw"></span> <?php echo strftime('%e %b, %H:%M',strtotime($row['timestamp'])); ?>h &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-			<span class="fa fa-tag fa-fw"></span> <?php echo ($row['clase']) ? $row['clase'] : 'Sin categoría'; ?>
-		</small>
-	</p>
-</div>
+<article>
+	<h4 class="h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><?php echo $row['titulo']; ?></a></h4>
+	<h6 class="text-muted"><?php echo ($row['categoria']) ? $row['categoria'] : 'Sin categoría'; ?>&nbsp;&nbsp;·&nbsp;&nbsp;<?php echo strftime('%e %B', (strtotime($row['fechapub']))); ?></h6>
+	<p><?php echo substr(strip_tags($row['contenido']), 0, 300).'...'; ?></p>
+</article>
+
+<hr>
 		
 <?php endwhile; ?>
 <?php mysqli_free_result($result); ?>
@@ -41,6 +50,6 @@
 <?php endif; ?>
 
 <a class="btn btn-primary btn-sm" href="admin/noticias/redactar.php">Nueva noticia</a>
-<a class="btn btn-default btn-sm" href="admin/noticias/index.php">Ver noticias </a>
+<a class="btn btn-default btn-sm" href="admin/noticias/index.php">Ver todas las noticias</a>
 
 <!-- FIN MODULO DE NOTICIAS -->

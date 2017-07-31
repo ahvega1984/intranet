@@ -13,23 +13,22 @@ if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_POST['enviar'])) {
 	
 	// VARIABLES DEL FORMULARIO
-	$slug = $_POST['slug'];
-	$content = addslashes($_POST['content']);
-	$contact = $_POST['contact'];
-	$fecha_pub = $_POST['fecha_pub'];
-	$clase = $_POST['clase'];
+	$titulo = $_POST['titulo'];
+	$contenido = addslashes($_POST['contenido']);
+	$autor = $_POST['autor'];
+	$fechapub = $_POST['fechapub'];
+	$categoria = $_POST['categoria'];
 	$ndias = $_POST['ndias'];
-	//echo "Número de días: ".$ndias;
 	$intranet = $_POST['intranet'];
 	$principal = $_POST['principal'];
 	$pagina = $intranet.$principal;
-	if (empty($slug) || empty($content) || empty($fecha_pub)) {
+	if (empty($titulo) || empty($contenido) || empty($fechapub)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
 	else {
 		
 			if ($ndias == 0) $fechafin = '';
-			else $fechafin = date("Y-m-d", strtotime("$fecha_pub +$ndias days"));
+			else $fechafin = date("Y-m-d", strtotime("$fechapub +$ndias days"));
 			
 			if(empty($intranet) && empty($principal)) {
 				$msg_error = "Debe indicar dónde desea publicar la noticia.";
@@ -38,13 +37,13 @@ if (isset($_POST['enviar'])) {
 				// COMPROBAMOS SI INSERTAMOS O ACTUALIZAMOS
 				if(isset($id)) {
 					// ACTUALIZAMOS LA NOTICIA
-					$result = mysqli_query($db_con, "UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha_pub', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
+					$result = mysqli_query($db_con, "UPDATE noticias SET titulo='$titulo', contenido='$contenido', autor='$autor', fechapub='$fechapub', fechafin='$fechafin', categoria='$categoria', pagina='$pagina' WHERE id = $id LIMIT 1");
 					if (!$result) $msg_error = "No se ha podido actualizar la noticia. Error: ".mysqli_error($db_con);
 					else $msg_success = "La noticia ha sido actualizada correctamente.";
 				}
 				else {
 					// INSERTAMOS LA NOTICIA
-					$result = mysqli_query($db_con, "INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha_pub','$clase','$fechafin',$pagina)");
+					$result = mysqli_query($db_con, "INSERT INTO noticias (titulo, contenido, autor, fechapub, fechafin, categoria, pagina) VALUES ('$titulo','$contenido','$autor','$fechapub','$fechafin','$categoria','$pagina')");
 					if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysqli_error($db_con);
 					else $msg_success = "La noticia ha sido publicada correctamente.";
 				}
@@ -56,7 +55,7 @@ if (isset($_POST['enviar'])) {
 // OBTENEMOS LOS DATOS SI SE OBTIENE EL ID DE LA NOTICIA
 if (isset($id) && (int) $id) {
 	
-	$result = mysqli_query($db_con, "SELECT slug, content, contact, timestamp, DATEDIFF(fechafin, timestamp) AS ndias, clase, pagina FROM noticias WHERE id=$id LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT titulo, contenido, autor, fechapub, DATEDIFF(fechafin, fechapub) AS ndias, categoria, pagina FROM noticias WHERE id = $id LIMIT 1");
 	if (!mysqli_num_rows($result)) {
 		$msg_error = "La noticia que intenta editar no existe.";
 		unset($id);
@@ -65,11 +64,11 @@ if (isset($id) && (int) $id) {
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		
 		if (stristr($_SESSION['cargo'],'1') == TRUE || $row['contact'] == $_SESSION['profi']) {
-			$slug = ((strstr($row['slug'], ' [Actualizado]') == true) || (strstr($row['slug'], ' (Actualizado)') == true)) ? $row['slug'] : $row['slug'].' [Actualizado]';
-			$content = $row['content'];
-			$contact = $row['contact'];
-			$fecha_pub = $row['timestamp'];
-			$clase = $row['clase'];
+			$titulo = ((strstr($row['titulo'], ' [Actualizado]') == true) || (stristr($row['titulo'], ' (Actualizado)') == true)) ? $row['titulo'] : $row['titulo'].' [Actualizado]';
+			$contenido = $row['contenido'];
+			$autor = $row['autor'];
+			$fechapub = $row['fechapub'];
+			$categoria = $row['categoria'];
 			$ndias = $row['ndias'];
 			$pagina = $row['pagina'];
 			
@@ -130,13 +129,13 @@ include ("menu.php");
 							<input type="hidden" name="token" value="<?php echo $token; ?>">
 							
 								<div class="form-group">
-									<label for="slug">Título</label>
-									<input type="text" class="form-control" id="slug" name="slug" placeholder="Título de la noticia" value="<?php echo (isset($slug) && $slug) ? $slug : ''; ?>" maxlength="120" autofocus>
+									<label for="titulo">Título</label>
+									<input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título de la noticia" value="<?php echo (isset($titulo) && $titulo) ? $titulo : ''; ?>" maxlength="120" autofocus>
 								</div>
 								
 								<div class="form-group">
-									<label for="content" class="sr-only">Contenido</label>
-									<textarea class="form-control" id="content" name="content" rows="10" maxlength="3000"><?php echo (isset($content) && $content) ? stripslashes($content) : ''; ?></textarea>
+									<label for="contenido" class="sr-only">Contenido</label>
+									<textarea class="form-control" id="contenido" name="contenido" rows="10" maxlength="3000"><?php echo (isset($contenido) && $contenido) ? stripslashes($contenido) : ''; ?></textarea>
 								</div>
 								
 								<button type="submit" class="btn btn-primary" name="enviar"><?php echo (isset($id) && $id) ? 'Actualizar' : 'Publicar'; ?></button>
@@ -160,47 +159,46 @@ include ("menu.php");
 							
 							<div class="form-group">
 								<label for="autor">Autor</label>
-								<input type="text" class="form-control" id="autor" name="autor" value="<?php echo (isset($contact) && $contact) ? $contact : $_SESSION['profi']; ?>" readonly>
-									<input type="hidden" name="contact" value="<?php echo (isset($contact) && $contact) ? $contact : $_SESSION['profi']; ?>">
+								<input type="text" class="form-control" id="autor" name="autor" value="<?php echo (isset($autor) && $autor) ? $autor : $_SESSION['profi']; ?>" readonly>
+								<input type="hidden" name="contact" value="<?php echo (isset($autor) && $autor) ? $autor : $_SESSION['profi']; ?>">
 							</div>
 							
 							<div class="form-group" id="datetimepicker1">
-								<label for="fecha_pub">Fecha de publicación</label>
+								<label for="fechapub">Fecha de publicación</label>
 								<div class="input-group">
-									<input type="text" class="form-control" id="fecha_pub" name="fecha_pub" value="<?php echo (isset($fecha_pub) && $fecha_pub) ? $fecha_pub : date('Y-m-d H:i:s'); ?>" data-date-format="YYYY-MM-DD HH:mm:ss">
+									<input type="text" class="form-control" id="fechapub" name="fechapub" value="<?php echo (isset($fechapub) && $fecha_pub) ? $fechapub : date('Y-m-d H:i:s'); ?>" data-date-format="YYYY-MM-DD HH:mm:ss">
 									<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 								</div>
 							</div>
 							
-							<?php $categorias = array('Dirección del Centro', 'Jefatura de Estudios', 'Secretaría', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro Bilingüe', 'Centro TIC', 'Ciclos Formativos'); ?>
+							<?php $array_categorias = array('Dirección del Centro', 'Jefatura de Estudios', 'Secretaría', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro Bilingüe', 'Centro TIC', 'Ciclos Formativos'); ?>
 							
 							<div class="form-group">
 								<label for="clase">Categoría</label>
 								<select class="form-control" id="clase" name="clase">
-								<?php foreach ($categorias as $categoria): ?>
-									<option value="<?php echo $categoria; ?>" <?php echo (isset($clase) && $categoria == $clase) ? 'selected' : ''; ?>><?php echo $categoria; ?></option>
+								<?php foreach ($array_categorias as $item_categoria): ?>
+									<option value="<?php echo $item_categoria; ?>" <?php echo (isset($item_categoria) && $item_categoria == $categoria) ? 'selected' : ''; ?>><?php echo $item_categoria; ?></option>
 								<?php endforeach; ?>
 								</select>
 							</div>
 							
 							<?php if (stristr($_SESSION['cargo'],'1') == TRUE): ?>
-							<br>
 							
-							<div class="form-horizontal">
-								<div class="form-group">
-							    <label for="ndias" class="col-sm-8 control-label"><div class="text-left">Noticia destacada (en días)</div></label>
-							    <div class="col-sm-4">
-							      <input type="number" class="form-control" id="ndias" name="ndias" value="<?php echo (isset($ndias) && $ndias) ? $ndias : '0'; ?>" min="0" max="31" maxlength="2">
-							    </div>
-							  </div>
+							<div class="form-group">
+								<label for="ndias">Noticia destacada (en días)</label>
+								<div class="row">
+									<div class="col-sm-4">
+										<input type="number" class="form-control" id="ndias" name="ndias" value="<?php echo (isset($ndias) && $ndias) ? $ndias : '0'; ?>" min="0" max="31" maxlength="2">
+									</div>
+								</div>
 							</div>
 							
-							<br>
+							<label>Publicar en...</label>
 							
 							<div class="form-group">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="intranet" value="1" <?php echo (isset($intranet) && $intranet) ? 'checked' : ''; ?>> Publicar en la Intranet
+										<input type="checkbox" name="intranet" value="1" <?php echo (isset($intranet) && $intranet) ? 'checked' : ''; ?>> Intranet
 									</label>
 								</div>
 							</div>
@@ -208,7 +206,7 @@ include ("menu.php");
 							<div class="form-group">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="principal" value="2" <?php echo (isset($principal) && $principal) ? 'checked' : ''; ?>> Publicar en la página externa
+										<input type="checkbox" name="principal" value="2" <?php echo (isset($principal) && $principal) ? 'checked' : ''; ?>> Página externa
 									</label>
 								</div>
 							</div>
@@ -237,10 +235,20 @@ include ("menu.php");
 	$(document).ready(function() {
 		
 		// EDITOR DE TEXTO
-		$('#content').summernote({
-			height: 300,
+		$('#contenido').summernote({
+			height: 400,
 			lang: 'es-ES',
-			
+			toolbar: [
+				// [groupName, [list of button]]
+				['style', ['bold', 'italic', 'underline', 'clear']],
+				['font', ['strikethrough', 'superscript', 'subscript']],
+				['fontsize', ['fontsize']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['media', ['link', 'picture', 'video']],
+				['code', ['codeview']]
+			],
 			onChange: function(content) {
 				var sHTML = $('#content').code();
 		    	localStorage['summernote-<?php echo $token; ?>'] = sHTML;

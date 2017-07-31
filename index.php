@@ -22,10 +22,6 @@ include("menu.php");
 				<div id="bs-tour-ausencias">
 				<?php include("admin/ausencias/widget_ausencias.php"); ?>
 				</div>
-				
-				<div id="bs-tour-destacadas" class="hidden-xs">
-				<?php include ("admin/noticias/widget_destacadas.php"); ?>
-				</div>
 	
 			</div><!-- /.col-md-3 -->
 			

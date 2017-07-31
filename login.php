@@ -234,20 +234,15 @@ include('control_acceso.php');
 	</div><!-- /#wrap -->
 
 	<footer class="hidden-print">
-		<div class="container-fluid" role="footer">
-			<hr>
+		<div class="container-fluid">
 
-			<p class="text-center">
-				<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
-				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
-			</p>
-			<p class="text-center">
-				<small>
-					<a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
-					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-				</small>
-			</p>
+			<ul class="pull-left list-inline">
+				<li>Versión <?php echo INTRANET_VERSION; ?></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
+				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
+			</ul>
+
+			<p class="pull-right text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
 		</div>
 	</footer>
 

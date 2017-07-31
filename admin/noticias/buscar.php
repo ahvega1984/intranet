@@ -13,7 +13,7 @@ $sql_where = "";
 while (false != $expresion[$i]) {
 
 	if ($i == 0) $sql_where .= "WHERE"; else $sql_where .= " AND";
-	$sql_where .= " (slug LIKE '%".$expresion[$i]."%' OR content LIKE '%".$expresion[$i]."%')";
+	$sql_where .= " (titulo LIKE '%".$expresion[$i]."%' OR contenido LIKE '%".$expresion[$i]."%')";
 	
 	$i++;
 }
@@ -58,7 +58,7 @@ include("menu.php");
 				
 				<br>
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, slug, timestamp, contact, pagina FROM noticias $sql_where ORDER BY timestamp DESC"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, contenido, pagina FROM noticias $sql_where ORDER BY timestamp DESC"); ?>
 				
 				<?php if (mysqli_num_rows($result)): ?>
 					
@@ -83,9 +83,9 @@ include("menu.php");
 								<?php while ($row = mysqli_fetch_array($result)): ?>
 									<tr>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
-										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['slug']) > 60) ? substr($row['slug'],0,60).'...' : $row['slug']; ?></a></td>
-										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['timestamp'])); ?></a></td>
-										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo nomprofesor($row['contact']); ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['titulo']) > 60) ? substr($row['titulo'],0,60).'...' : $row['titulo']; ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['fechapub'])); ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo nomprofesor($row['autor']); ?></a></td>
 										<td class="text-center">
 											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>
@@ -95,7 +95,7 @@ include("menu.php");
 										<td nowrap>
 											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
 											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
-											<a href="index.php?id=<?php echo $row['id']; ?>&timestamp=<?php echo $row['timestamp']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Eliminar"></span></a>
+											<a href="index.php?id=<?php echo $row['id']; ?>&amp;timestamp=<?php echo $row['fechapub']; ?>&amp;borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Eliminar"></span></a>
 											<?php endif; ?>
 										</td>
 									</tr>

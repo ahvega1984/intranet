@@ -64,15 +64,6 @@ var tour = new Tour({
     backdrop: true,
   },
   {
-    element: "#bs-tour-destacadas",
-    title: "Noticias destacadas",
-    content: "Este módulo ofrece un listado de las noticias mas importantes. Puede aparecer durante varios días, según lo establezca el Equipo directivo.",
-    container: "body",
-    placement: "right",
-    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-    backdrop: true,
-  },
-  {
     element: "#bs-tour-pendientes",
     title: "Tareas pendientes",
     content: "Aquí aparecerán los avisos de tareas pendientes que debes realizar.",

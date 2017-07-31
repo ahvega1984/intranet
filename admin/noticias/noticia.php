@@ -19,20 +19,20 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				
-				<?php $result = mysqli_query($db_con, "SELECT slug, content, contact, timestamp FROM noticias WHERE id='".$_GET['id']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT titulo, contenido, autor, fechapub FROM noticias WHERE id = '".$_GET['id']."'"); ?>
 				
 				<?php if (mysqli_num_rows($result)): ?>
 					
 					<?php $row = mysqli_fetch_array($result); ?>
-					<?php $exp_profesor = explode(',', $row['contact']); ?>
+					<?php $exp_profesor = explode(',', $row['autor']); ?>
 					<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 					
-					<h3 class="text-info"><?php echo $row['slug']; ?></h3>
-					<h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> el <?php echo fecha_actual2($row['timestamp']); ?></h5>
+					<h3 class="text-info"><?php echo $row['titulo']; ?></h3>
+					<h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> el <?php echo fecha_actual2($row['fechapub']); ?></h5>
 					
 					<br>
 					
-					<?php echo stripslashes(html_entity_decode($row['content'], ENT_QUOTES, 'UTF-8')); ?>
+					<?php echo stripslashes(html_entity_decode($row['contenido'], ENT_QUOTES, 'UTF-8')); ?>
 					
 					<br>
 					<br>
@@ -41,7 +41,7 @@ include("menu.php");
 					
 					<div class="hidden-print">
 						<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
-						<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
+						<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['autor']): ?>
 						<a class="btn btn-info" href="redactar.php?id=<?php echo $_GET['id']; ?>">Editar</a>
 						<a class="btn btn-danger" href="index.php?id=<?php echo $_GET['id']; ?>&borrar=1">Eliminar</a>
 						<?php endif; ?>
