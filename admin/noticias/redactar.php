@@ -175,7 +175,7 @@ include ("menu.php");
 							
 							<div class="form-group">
 								<label for="clase">Categoría</label>
-								<select class="form-control" id="clase" name="clase">
+								<select class="form-control" id="categoria" name="categoria">
 								<?php foreach ($array_categorias as $item_categoria): ?>
 									<option value="<?php echo $item_categoria; ?>" <?php echo (isset($item_categoria) && $item_categoria == $categoria) ? 'selected' : ''; ?>><?php echo $item_categoria; ?></option>
 								<?php endforeach; ?>

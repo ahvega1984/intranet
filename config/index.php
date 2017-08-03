@@ -996,20 +996,14 @@ if (isset($_POST['instalar']))
 	
 	
 	<footer class="hidden-print">
-		<div class="container-fluid" role="footer">
-			<hr>
-			
-			<p class="text-center">
-				<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
-				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
-			</p>
-			<p class="text-center">
-				<small>
-					<a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
-					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-				</small>
-			</p>
+		<div class="container-fluid">
+			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
+
+			<ul class="pull-right list-inline">
+				<li>Versión <?php echo INTRANET_VERSION; ?></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
+				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
+			</ul>
 		</div>
 	</footer>
 	

@@ -235,14 +235,13 @@ include('control_acceso.php');
 
 	<footer class="hidden-print">
 		<div class="container-fluid">
+			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
 
-			<ul class="pull-left list-inline">
+			<ul class="pull-right list-inline">
 				<li>Versión <?php echo INTRANET_VERSION; ?></li>
 				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
 				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
 			</ul>
-
-			<p class="pull-right text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
 		</div>
 	</footer>
 

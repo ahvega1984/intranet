@@ -149,7 +149,6 @@
 .marg-right5 { margin-right: 5px; }
 .but_marg { margin-left: 3px; }
 
-
 /* COLUMNAS */
 
 @media (min-width: 750px) {
@@ -172,9 +171,16 @@
 /* TABLE */
 
 .table thead th {
-	background-color: #ebf0f1;
+	background-color: #01579B;
+	color: #ffffff;
 	text-transform: uppercase;
 }
+/*
+.table thead th {
+	background-color: #ffffff;
+	text-transform: uppercase;
+}
+*/
 
 .table-vcentered th, .table-vcentered td {
 	vertical-align: middle !important;
@@ -386,8 +392,4 @@ html, body {
 
 footer {
   color: #b4bcc2;
-}
-
-footer ul.list-inline li::before {
-  content: "-";
 }

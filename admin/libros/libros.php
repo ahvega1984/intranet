@@ -142,7 +142,15 @@ $claveal = "";
 ?>
 <form action="libros.php" method="post" name="libros">
 <input type="hidden" name="nivel" value="<?php echo $nivel;?>" />
-<p class="help-block">OPCIONES: <span class="label label-info">B</span> = Bien, <span class="label label-warning">R</span> = Regular, <span class="label label-danger">M</span> = Mal, <span class="label label-default">N</span> = No hay Libro, <span class="label label-success">S</span> = Septiembre.</p>
+<ul class="list-inline">
+	<li><strong>Opciones:</strong></li>
+	<li><span class="label label-default">N</span> No hay libro</li>
+	<li><span class="label label-info">B</span> Bien</li>
+	<li><span class="label label-warning">R</span> Regular</li>
+	<li><span class="label label-danger">M</span> Mal</li>
+	<li><span class="label label-success">S</span> Septiembre</li>
+</ul>
+
 <?php
 $curso = $nivel;
 //$fila_asig = $fila_asig + 1;

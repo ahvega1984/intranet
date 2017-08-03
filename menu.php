@@ -202,7 +202,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fa fa-camera fa-fw"></span> Cambiar fotografía</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="fa fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
 								<li class="divider"></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/salir.php"><span class="fa fa-sign-out fa-fw"></span> Desconectar</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/salir.php"><span class="fa fa-sign-out fa-fw"></span> Cerrar sesión</a></li>
 							</ul>
 						</li>
 					</ul>

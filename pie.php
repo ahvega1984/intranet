@@ -1,45 +1,32 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
     
     <footer class="hidden-print">
-    	<div class="container-fluid" role="footer">
-    		<hr>
-    		
-    		<p class="text-center">
-    			<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
-    			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
-    		</p>
-    		<p class="text-center">
-    			<small>
-    				<a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
-    				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-    				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-    			</small>
-    		</p>
-    	</div>
-    </footer>
+			<div class="container-fluid">
+				<hr>
+				<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
+
+				<ul class="pull-right list-inline">
+					<li>Versión <?php echo INTRANET_VERSION; ?></li>
+					<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
+					<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
+				</ul>
+			</div>
+
+			<br>
+		</footer>
     
     <?php if(isset($_SESSION['user_admin'])): ?>
-    <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: 0; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%;">
-    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%; text-transform: uppercase;"><span class="fa fa-dashboard fa-fw"></span> Análisis</a>
+    <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: -10px; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%;">
+    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%; text-transform: uppercase;"><span class="fa fa-user-plus fa-fw"></span> Cambiar perfil</a>
     	<div id="debug" class="row" style="display: none;">
-    	
-    		<div class="col-sm-9">
-    			<p class="form-control-static" style="padding-top: 5px;">Memoria utilizada: <?php echo size_convert(memory_get_peak_usage()).' / '.ini_get('memory_limit').'B'; ?></p>
-    		</div>
-    		<div class="col-sm-3">
-    			<form method="post" class="form-horizontal pull-right" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-    				<div class="form-group">
-    				    <label for="view_as_user" class="col-sm-4 control-label" style="padding-top: 5px;">Ver como</label>
-						<div class="col-sm-8">
-							<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 86%;">
+    			<form method="post" class="col-sm-4" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="height: 50px;">
+							<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 90%;">
 								<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
 								<?php while($row = mysqli_fetch_assoc($result)): ?>
 								<option value="<?php echo $row['nombre']; ?>"<?php echo ($row['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
-						</div>
-    				</div>
     			</form>
     		</div>   		
     	</div>
@@ -87,30 +74,7 @@
     <script src="//<?php echo $config['dominio'];?>/intranet/js/colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <?php endif; ?>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/ajax_alumnos.js"></script>
-    
-    <script>
-    $(function () {
-    	<?php if($_SERVER['SCRIPT_NAME'] == '/intranet/index.php'): ?>
-    	localStorage.clear();
-    	gray_color_theme = $(".panel-heading").css("background-color");
-    	localStorage['gray_color_theme'] = gray_color_theme;
-    	<?php endif; ?>
-    	$(".table > thead > tr > th").css("background-color", localStorage['gray_color_theme']);
-    	$(".today").css("background-color", localStorage['gray_color_theme']);
-     });
-    </script>
-   
-    
-    <style type="text/css">
-    table.dataTable thead .sorting,
-    table.dataTable thead .sorting_asc,
-    table.dataTable thead .sorting_desc,
-    table.dataTable thead .sorting_asc_disabled,
-    table.dataTable thead .sorting_desc_disabled {
-        background-color: ;
-        cursor: pointer;
-    }
-    </style>
+
 		
 	<script>
 	$(function () {
