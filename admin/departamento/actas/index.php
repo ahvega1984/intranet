@@ -522,7 +522,18 @@ $html_textarea = "<p>".$titulo."</p>
 		// EDITOR DE TEXTO
 		$('#texto_acta').summernote({
 			height: 400,
-			lang: 'es-ES'
+			lang: 'es-ES',
+			toolbar: [
+				// [groupName, [list of button]]
+				['style', ['bold', 'italic', 'underline', 'clear']],
+				['font', ['strikethrough', 'superscript', 'subscript']],
+				['fontsize', ['fontsize']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['media', ['link', 'picture', 'video']],
+				['code', ['codeview']]
+			]
 		});
 		
 		

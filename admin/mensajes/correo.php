@@ -308,6 +308,17 @@ function borrar(obj) {
 		$('#texto').summernote({
 			height: 300,
 			lang: 'es-ES',
+			toolbar: [
+				// [groupName, [list of button]]
+				['style', ['bold', 'italic', 'underline', 'clear']],
+				['font', ['strikethrough', 'superscript', 'subscript']],
+				['fontsize', ['fontsize']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['media', ['link', 'picture', 'video']],
+				['code', ['codeview']]
+			],
 			
 			onChange: function(content) {
 				var sHTML = $('#texto').code();
