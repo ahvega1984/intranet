@@ -1,6 +1,6 @@
 <?php
 require('../bootstrap.php');
-//variables();
+
 if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
 if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
 if (isset($_POST['profe_ausente'])) {$profe_ausente = $_POST['profe_ausente'];}elseif (isset($_GET['profe_ausente'])) {$profe_ausente = $_GET['profe_ausente'];}
@@ -11,32 +11,35 @@ $prof1 = "SELECT distinct c_prof FROM horw where prof = '$pr'";
 $prof0 = mysqli_query($db_con, $prof1);
 $filaprof0 = mysqli_fetch_array($prof0);
 $c_prof = $filaprof0[0];
+if (empty($c_prof)) {
+	$c_prof = '0';
+	$msg_error_no_c_prof = 1;
+}
 
 if(empty($hora_dia)){
-	$hora = date("G");// hora ahora
+	$hora = date("G");
 	$minutos = date("i");
 
 	// Se han importado los daos de la tramos escolar desde Séneca
-	$jor = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
-	if(mysqli_num_rows($jor)>0){
-		while($jornad = mysqli_fetch_array($jor)){
+	$result_jornada = mysqli_query($db_con, "SELECT hora, hora_inicio, hora_fin FROM tramos");
+	if (mysqli_num_rows($result_jornada)){
+		while($jornada = mysqli_fetch_array($result_jornada)){
 			$hora_real = $hora."".$minutos;
-			$h_ini = str_replace(":", "",$jornad[1]);
-			$h_fin = str_replace(":", "",$jornad[2]);
+			$h_ini = str_replace(":", "",$jornada[1]);
+			$h_fin = str_replace(":", "",$jornada[2]);
 
-			if( $hora_real > $h_ini and $hora_real < $h_fin){
-				$hora_dia = $jornad[0];
+			if( $hora_real > $h_ini && $hora_real < $h_fin){
+				$hora_dia = $jornada[0];
 				break;
 			}
 			else{
-				$hora_dia = $jornad[0];
+				$hora_dia = $jornada[0];
 			}
 		}
 
 	}
-	else{
+	else {
 		// No se han importado: se asume el horario del Monterroso
-
 		if(($hora == '8' and $minutos > 15 ) or ($hora == '9' and $minutos < 15 ) ){$hora_dia = '1';}
 		elseif(($hora == '9' and $minutos > 15 ) or ($hora == '10' and $minutos < 15 ) ){$hora_dia = '2';}
 		elseif(($hora == '10' and $minutos > 15 ) or ($hora == '11' and $minutos < 15 ) ){$hora_dia = '3';}
@@ -70,8 +73,7 @@ if($ndia == "2"){$nom_dia = "Martes";}
 if($ndia == "3"){$nom_dia = "Miércoles";}
 if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
-?>
-<?php
+
 if ($config['mod_asistencia']) {
 	include("../menu.php");
 	if (isset($_GET['menu_cuaderno'])) {
@@ -81,7 +83,7 @@ if ($config['mod_asistencia']) {
 	else {
 		include("menu.php");
 	}
-	?>
+?>
 
 <div class="container"> 
 
@@ -187,6 +189,14 @@ if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE)) { ?>
 </div>
 
 <div class="col-md-7">
+
+	<br>
+	<?php if (isset($msg_error_no_c_prof) && $idea != 'admin'): ?>
+	<div class="alert alert-danger">
+		<strong>Error:</strong> No se ha encontrado el código de profesor en la base de datos.
+	</div>
+	<?php endif; ?>
+
 <div align="left"><?php
 
 if ($ndia>5) {
@@ -302,7 +312,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		$t_grupos = $curs;
 
 		echo "<br><table class='table table-striped table-bordered table-condensed table-hover'>\n";
-		$filaprincipal = "<thead><tr><th colspan='3'><h4 align='center' class='text-info'>";
+		$filaprincipal = "<thead><tr><th colspan='3'><h4 class=\"text-center\">";
 
 		//$filaprincipal.= substr($t_grupos,0,-2);
 
