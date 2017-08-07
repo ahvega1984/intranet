@@ -171,16 +171,24 @@
 /* TABLE */
 
 .table thead th {
-	background-color: #01579B;
+	background-color: #95a5a6;
 	color: #ffffff;
 	text-transform: uppercase;
 }
-/*
-.table thead th {
-	background-color: #ffffff;
+
+.table thead th a {
+	color: #ffffff;
+}
+
+.table.table-inverse thead th {
+	background-color: #24292e;
+	color: #ffffff;
 	text-transform: uppercase;
 }
-*/
+
+.table.table-inverse thead th a {
+	color: #ffffff;
+}
 
 .table-vcentered th, .table-vcentered td {
 	vertical-align: middle !important;

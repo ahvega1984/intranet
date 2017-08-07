@@ -45,7 +45,6 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 	<link href="//<?php echo $config['dominio']; ?>/intranet/js/summernote/summernote.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/js/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet">
 	<?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
-	<link href="//<?php echo $config['dominio']; ?>/intranet/js/datatables/dataTables.min.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/js/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
 	<?php endif; ?>
 	<?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>

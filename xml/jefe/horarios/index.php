@@ -128,8 +128,9 @@ else {$dependencia = $_POST['dependencia'];}
 
 // ENVIO DE FORMULARIO
 if (isset($_POST['enviar'])) {
-	$dia = $_POST['dia'];
-	$hora = $_POST['hora'];
+	//$dia = $_POST['dia'];
+	//$hora = $_POST['hora'];
+	// En este caso, tratamos los dias y horas más adelante...
 	
 	// OBTENEMOS DATOS DEL PROFESOR
 	$result = mysqli_query($db_con, "SELECT DISTINCT no_prof, c_prof FROM horw WHERE prof='".$profesor."'");
@@ -187,22 +188,38 @@ if ($codasignatura=="25") {
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
-	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
-	mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
-	$_SESSION['n_cursos']=1;
-	$t_profesores = mysqli_query($db_con,"select * from profesores where nivel='$curso_asignatura' and materia='$nomasignatura' and profesor='$profesor' and grupo='$unidad'");
-	if (mysqli_num_rows($t_profesores)>0) {}
-	else{
-		if (strlen($curso_asignatura) > '0' and strlen($unidad) > '0') {
-			mysqli_query($db_con, "INSERT INTO profesores (nivel, materia, profesor, grupo) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')");
-		}		
+	// DIAS Y HORAS SELECCIONADAS
+	$flag_registro = 0;
+
+	for ($i = 1; $i < 6; $i++) {
+		$result_horas = mysqli_query($db_con, "SELECT hora_inicio, hora_fin, hora FROM tramos");
+		while ($row_horas = mysqli_fetch_array($result_horas)) {
+			if(isset($_POST['hora_'.$i.'_'.$row_horas['hora']]) && ! empty($_POST['hora_'.$i.'_'.$row_horas['hora']])) {
+				${'hora_'.$i.'_'.$row_horas['hora']} = $_POST['hora_'.$i.'_'.$row_horas['hora']];
+				$dia = $i;
+				$hora = $row_horas['hora'];
+
+				$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')") or die (mysqli_error());
+				mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')") or die (mysqli_error());
+				$_SESSION['n_cursos'] = 1;
+				$t_profesores = mysqli_query($db_con,"select * from profesores where nivel='$curso_asignatura' and materia='$nomasignatura' and profesor='$profesor' and grupo='$unidad'");
+				if (! mysqli_num_rows($t_profesores)) {
+					if (strlen($curso_asignatura) > 0 and strlen($unidad) > 0) {
+						mysqli_query($db_con, "INSERT INTO profesores (nivel, materia, profesor, grupo) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')") or die (mysqli_error());
+					}		
+				}
+
+				if (! $result) {
+					$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
+				}
+				else {
+					$flag_registro = 1;
+				}
+			}
+		}
 	}
 	
-	
-	if (! $result) {
-		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
-	}
-	else {
+	if ($flag_registro) {
 		header('Location:'.'index.php?msg_success=1');
 	}
 }
@@ -260,8 +277,8 @@ if (isset($_POST['actualizar'])) {
 	
 	mysqli_query($db_con,"delete from profesores where profesor = '$profesor'");
 	
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where prof = '$profesor' and (a_grupo in (select nomunidad from unidades) or a_grupo in (select distinct a_grupo from horw where c_asig = '135785' or c_asig = '25226')) and c_asig not like '2' order by prof");
-	while ($prf =mysqli_fetch_array($pro)) {
+	$pro = mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where prof = '$profesor' and (a_grupo in (select nomunidad from unidades) or a_grupo in (select distinct a_grupo from horw where c_asig = '135785' or c_asig = '25226')) and c_asig not like '2' order by prof");
+	while ($prf = mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
 		$grupo = $prf[1];
 		$profesor = $prf[2];
@@ -274,13 +291,8 @@ if (isset($_POST['actualizar'])) {
 		$nivel = $nive[0];
 
 		if (strlen($nivel) > '0' and strlen($grupo) > '0') {
-		mysqli_query($db_con,"INSERT INTO  profesores (
-`nivel` ,
-`materia` ,
-`grupo` ,
-`profesor`
-) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
-	}
+			mysqli_query($db_con,"INSERT INTO  profesores (`nivel`,`materia`,`grupo`,`profesor`) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
+		}
 	}
 	
 	if (! $result) {
@@ -366,28 +378,6 @@ include("../../../menu.php");
 						<?php endif; ?>
 						
 						<div class="form-group">
-						  <label for="dia">Día de la semana</label>
-						  <select class="form-control" id="dia" name="dia">
-						  	<option value=""></option>
-						  	<?php $arrdias = array(1=>'Lunes',2=>'Martes',3=>'Miércoles',4=>'Jueves',5=>'Viernes'); ?>
-						  	<?php foreach ($arrdias as $numdia => $nomdia): ?>
-						  	<option value="<?php echo $numdia; ?>" <?php echo (isset($dia) && $numdia == $dia) ? 'selected' : ''; ?>><?php echo $nomdia; ?></option>
-						  	<?php endforeach; ?>
-						  </select>
-						</div>
-						
-						<div class="form-group">
-						  <label for="hora">Hora</label>
-						  <select class="form-control" id="hora" name="hora">
-						  	<option value=""></option>
-						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
-								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
-								<option value="<?php echo $horas['hora']; ?>" <?php echo (isset($hora) && $horas['hora'] == $hora) ? 'selected' : ''; ?>><?php echo $horas['hora_inicio'].' - '.$horas['hora_fin'].' ('.$horas['hora'].')'; ?></option>
-								<?php endwhile; ?>
-						  </select>
-						</div>
-						
-						<div class="form-group">
 						  <label for="unidad">Unidad</label>
 						  <select class="form-control" id="unidad" name="unidad" onchange="submit()">
 						  	<option value=""></option>
@@ -424,6 +414,49 @@ include("../../../menu.php");
 							  	<?php endif; ?>
 						  	</optgroup>
 						  </select>
+						</div>
+
+						<?php $arrdias = array(1=>'Lunes',2=>'Martes',3=>'Miércoles',4=>'Jueves',5=>'Viernes'); ?>
+						<?php if (isset($dia) && ! empty($dia)): ?>
+						<div class="form-group">
+						  <label for="dia">Día de la semana</label>
+						  <select class="form-control" id="dia" name="dia">
+						  	<option value=""></option>
+						  	<?php foreach ($arrdias as $numdia => $nomdia): ?>
+						  	<option value="<?php echo $numdia; ?>" <?php echo (isset($dia) && $numdia == $dia) ? 'selected' : ''; ?>><?php echo $nomdia; ?></option>
+						  	<?php endforeach; ?>
+						  </select>
+						</div>
+						<?php endif; ?>
+						
+						<div class="form-group">
+						  <?php if ((isset($dia) && ! empty($dia)) && (isset($hora) && ! empty($hora))): ?>
+						  <label for="hora">Hora</label>
+						  <select class="form-control" id="hora" name="hora">
+						  	<option value=""></option>
+						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
+							<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
+							<option value="<?php echo $horas['hora']; ?>" <?php echo (isset($hora) && $horas['hora'] == $hora) ? 'selected' : ''; ?>><?php echo $horas['hora_inicio'].' - '.$horas['hora_fin'].' ('.$horas['hora'].')'; ?></option>
+							<?php endwhile; ?>
+						  </select>
+						  <?php else: ?>
+						  <label>Días de la semana y horas</label>
+						  <div class="row">
+							<?php foreach ($arrdias as $numdia => $nomdia): ?>
+							<div class="col-sm-20">
+								<label><?php echo substr($nomdia, 0, 3); ?></label>
+								<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
+								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="hora_<?php echo $numdia; ?>_<?php echo $horas['hora']; ?>"> <?php echo $horas['hora']; ?><?php echo ($horas['hora'] != 'R') ? 'ª' : ''; ?>
+									</label>
+								</div>
+								<?php endwhile; ?>
+							</div>
+							<?php endforeach; ?>
+						  </div>
+						  <?php endif; ?>
 						</div>
 						
 						<div class="form-group">
