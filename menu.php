@@ -112,6 +112,44 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>
 							</ul>
 						</li>
+
+						<!-- TAREAS -->
+						<?php $result_tareas = mysqli_query($db_con, "SELECT mens_profes.id_profe, mens_profes.id_texto, mens_texto.origen, mens_profes.estadoTarea, mens_texto.asunto, mens_texto.ahora FROM mens_profes JOIN mens_texto ON mens_profes.id_texto = mens_texto.id WHERE esTarea = 1 AND estadoTarea = 0 AND mens_profes.profesor = '".$idea."' ORDER BY mens_texto.ahora DESC"); ?>
+
+						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/index.php?inbox=tareas')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php?inbox=tareas">Tareas</a></li>
+						<li id="bs-tour-tareas" class="dropdown hidden-xs">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Tareas pendientes" data-placement="bottom" data-container="body">
+								<span class="fa fa-tasks fa-fw <?php if(mysqli_num_rows($result_tareas)): ?>text-warning<?php endif; ?>"></span> <b class="caret"></b>
+							</a>
+							
+							<ul class="dropdown-menu dropdown-messages">
+								<li class="dropdown-header"><h5>Tareas pendientes</h5></li>
+								<li class="divider"></li>
+								<?php if(mysqli_num_rows($result_tareas)): ?>
+								<?php while ($row_tareas = mysqli_fetch_array($result_tareas)): ?>
+								<li id="menu_mensaje_<?php echo $row_tareas['id_profe']; ?>">
+									<a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_tareas['id_texto']; ?>&amp;idprof=<?php echo $row_tareas['id_profe']; ?>">
+										<div>
+										<?php $result_tareas_dest = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea='".$row_tareas['origen']."' LIMIT 1"); ?>
+										<?php $row_tareas_dest = mysqli_fetch_array($result_tareas_dest); ?>
+											<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row_tareas['ahora'])); ?></em></span>
+											<strong><?php echo nomprofesor($row_tareas_dest['nombre']); ?></strong>
+										</div>
+										<div>
+											<?php echo substr(stripslashes($row_tareas['asunto']),0 , 96); ?>
+										</div>
+									</a>
+								</li>
+								<li class="divider"></li>
+								<?php endwhile; ?>
+								<?php mysqli_free_result($result_tareas); ?>
+								<?php else: ?>
+								<li><p class="text-center text-muted pad10">No tienes tareas pendientes.</p></li>
+								<li class="divider"></li>
+								<?php endif; ?>
+								<li><a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php?inbox=tareas"><strong>Ver todas las tareas <span class="fa fa-angle-right"></span></strong></a></li>
+							</ul>
+						</li>
 						
 						<!-- MENSAJES -->
 						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php">Mensajes</a></li>

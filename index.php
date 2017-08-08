@@ -124,29 +124,28 @@ include("menu.php");
 	
 	$('.modalmens').on('hidden.bs.modal', function (event) {
 		var idp = $(this).data('verifica');
-	  var noleido = $(this).find('#noleido-' + idp).attr('aria-pressed');
-	  
-	  // OJO: true o false se pasa como cadena de texto, no como binario
-	  if (noleido == 'false') {
-	  	
-		  $.post( "./admin/mensajes/post_verifica.php", { "idp" : idp }, null, "json" )
-		      .done(function( data, textStatus, jqXHR ) {
-		          if ( data.status ) {
-		              if (mensajes_profesores < 2) {
-		              	$('#alert_mensajes').slideUp();
-		              }
-		              else {
-		              	$('#mensaje_link_' + idp).slideUp();
-		              }
-		              $('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
-		              mensajes_profesores--;
-		              mensajes_pendientes--;
-		              notificar_mensajes(mensajes_pendientes);
-		          }
-		  });
-		  
-		 
+	  	var tarea_button = $(this).find('#estarea-' + idp).attr('data-value');
+	  	var esTarea = 0;
+
+		if (tarea_button == 'esTarea') {
+			esTarea = 1;
 		}
+
+		$.post( "./admin/mensajes/post_verifica.php", { "idp" : idp, "esTarea" : esTarea }, null, "json" )
+			.done(function( data, textStatus, jqXHR ) {
+				if ( data.status ) {
+					if (mensajes_profesores < 2) {
+					$('#alert_mensajes').slideUp();
+					}
+					else {
+					$('#mensaje_link_' + idp).slideUp();
+					}
+					$('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
+					mensajes_profesores--;
+					mensajes_pendientes--;
+					notificar_mensajes(mensajes_pendientes);
+				}
+		});
 		
 	});
 	

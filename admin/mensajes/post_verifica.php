@@ -3,12 +3,18 @@ require('../../bootstrap.php');
 
 $jsondata = array();
 
-// VerificaciÃ³n lectura de mensajes de profesores
-if( isset($_POST['idp']) ) {
+// Verificación lectura de mensajes de profesores
+if (isset($_POST['idp'])) {
 		
-		$idp = $_POST['idp'];
-		
-		$result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe='1' WHERE id_profe=$idp LIMIT 1");
+    $idp = $_POST['idp'];
+    $esTarea = $_POST['esTarea'];
+    
+    if ($esTarea == 1) {
+        $result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1, esTarea = 1 WHERE id_profe = $idp LIMIT 1");
+    }
+    else {
+        $result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1 WHERE id_profe = $idp LIMIT 1");
+    }
 		
     if($result) {
         $jsondata['status'] = true;
@@ -22,12 +28,12 @@ if( isset($_POST['idp']) ) {
 
 }
 
-// VerificaciÃ³n lectura de mensajes de familias
-if( isset($_POST['idf']) ) {
+// Verificación lectura de mensajes de familias
+if (isset($_POST['idf'])) {
 		
-		$idf = $_POST['idf'];
-		
-		$result = mysqli_query($db_con, "UPDATE mensajes SET recibidotutor='1' WHERE id=$idf LIMIT 1");
+    $idf = $_POST['idf'];
+    
+    $result = mysqli_query($db_con, "UPDATE mensajes SET recibidotutor = 1 WHERE id = $idf LIMIT 1");
 		
     if($result) {
         $jsondata['status'] = true;
