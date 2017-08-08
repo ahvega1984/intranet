@@ -78,7 +78,7 @@ include 'menu.php';
       				<label for="departamento">Departamento</label>
       				<select class="form-control" id="departamento" name="departamento">
       					<option value=""></option>
-								<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY departamento ASC"); ?>
 								<?php while ($row = mysqli_fetch_array($result)) : ?>
 								<option value="<?php echo $row['departamento']; ?>" <?php echo (isset($departamento) && $departamento == $row['departamento']) ? 'selected' : ''; ?>><?php echo $row['departamento']; ?></option>
 								<?php endwhile; ?>
