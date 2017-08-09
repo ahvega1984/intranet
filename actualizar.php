@@ -27,20 +27,20 @@ if (! mysqli_num_rows($actua)) {
 	@descripcion: Actualizacion tabla de noticias
 	@fecha: 31 de julio de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Actualizacion tabla de noticias'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Actualizacion tabla noticias'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `noticias` CHANGE `id` `id` INT UNSIGNED NOT NULL AUTO_INCREMENT, CHANGE `slug` `titulo` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `content` `contenido` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `contact` `autor` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `timestamp` `fechapub` DATETIME NOT NULL, CHANGE `clase` `categoria` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `fechafin` `fechafin` DATE NULL DEFAULT NULL, CHANGE `pagina` `pagina` CHAR(2) NOT NULL;");
 	mysqli_query($db_con, "ALTER TABLE `noticias` CHANGE `fechafin` `fechafin` DATE NULL DEFAULT NULL AFTER `fechapub`;");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Actualizacion tabla de noticias', NOW())");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Actualizacion tabla noticias', NOW())");
 }
 
 /*
 	@descripcion: Actualizacion tabla de mensajes
 	@fecha: 09 de agosto de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Actualizacion tabla de mensajes'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Actualizacion tabla mensajes'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `mens_profes` ADD `esTarea` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' ;");
 	mysqli_query($db_con, "ALTER TABLE `mens_profes` ADD `estadoTarea` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' ;");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Actualizacion tabla de mensajes', NOW())");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Actualizacion tabla mensajes', NOW())");
 }
