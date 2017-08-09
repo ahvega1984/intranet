@@ -1,8 +1,4 @@
 <?php
-/*
-ALTER TABLE `mens_profes` ADD `esTarea` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' ;
-ALTER TABLE `mens_profes` ADD `estadoTarea` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' ;
-*/
 require('../../bootstrap.php');
 
 $pr = $_SESSION['profi'];
