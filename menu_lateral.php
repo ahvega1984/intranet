@@ -558,8 +558,11 @@ $menu_departamento = array(
 $menu_actas = array(
 	'menu_id' => 'actas',
 	'titulo'  => 'Actas',
-	'cargos' => array('1','4','9','a','f'),
 	'items'   => array (
+		array(
+			'href'   => 'admin/evaluaciones/actas.php',
+			'titulo' => 'Actas de evaluación'
+		),
 		array(
 			'href'   => 'admin/departamento/actas/index.php?organo=DFEIE',
 			'titulo' => 'Actas del DFEIE',
