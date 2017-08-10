@@ -1,5 +1,7 @@
 <?php
 require('../../bootstrap.php');
+acl_acceso($_SESSION['cargo'], array(1, 2));
+
 require('inc_evaluaciones.php');
 
 if (file_exists('config.php')) {

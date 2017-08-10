@@ -2,6 +2,13 @@
 require('../../bootstrap.php');
 require('inc_evaluaciones.php');
 
+function obtener_nombre_profesor_desde_idea($db_con, $idea) {
+	$result = mysqli_query($db_con, "SELECT profesor FROM c_profes WHERE idea = '$idea' LIMIT 1") or die (mysqli_error($db_con));
+	$row = mysqli_fetch_array($result);
+	$nomprofesor = $row['profesor'];
+	return $nomprofesor;
+}
+
 if (file_exists('config.php')) {
 	include('config.php');
 }
@@ -21,28 +28,116 @@ require_once("../../pdf/dompdf_config.inc.php");
 // REGISTRAMOS LA ACCION
 mysqli_query($db_con, "UPDATE evaluaciones_actas SET impresion = 1 WHERE id = ".$id);
 
-// OBTENEMOS LOS DATOS
-$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta, fecha FROM evaluaciones_actas WHERE id = ".$id);
+// OBTENEMOS LOS DATOS DEL ACTA
+$result = mysqli_query($db_con, "SELECT unidad, evaluacion, fecha, texto_acta, asistentes FROM evaluaciones_actas WHERE id = ".$id);
 
 if (mysqli_num_rows($result)) {
 	$row = mysqli_fetch_array($result);
 
+	// OBTENEMOS EL NIVEL EDUCATIVO DE LA UNIDAD
 	$result_curso = mysqli_query($db_con, "SELECT cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE unidades.nomunidad = '".$row['unidad']."'");
 	$row_curso = mysqli_fetch_array($result_curso);
 	$curso = $row_curso['nomcurso'];
 
+	// OBTENEMOS EL TUTOR DEL GRUPO
 	$result_tutor = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."' LIMIT 1");
 	$row_tutor = mysqli_fetch_array($result_tutor);
 	$tutor = nomprofesor($row_tutor['tutor']);
-	
+
 	$unidad = $row['unidad'];
 	$evaluacion = $row['evaluacion'];
 	$texto_acta = $row['texto_acta'];
+	$asistentes = unserialize($row['asistentes']);
+	$ausentes = array();
 	$fecha = $row['fecha'];
-	$fecha_alt = strftime('%d-%m-%Y', strtotime($row['fecha']));
+	$fecha_alt = strftime('%d/%m/%Y', strtotime($row['fecha']));
 	$dia = strftime('%e', strtotime($row['fecha']));
 	$mes = strftime('%B', strtotime($row['fecha']));
 	$anio = strftime('%Y', strtotime($row['fecha']));
+
+	// OBTENEMOS PROFESORES AUSENTES
+	$result_equipoeducativo = mysqli_query($db_con, "SELECT DISTINCT profesores.profesor, c_profes.idea FROM profesores JOIN c_profes ON profesores.profesor = c_profes.profesor WHERE grupo = '".$row['unidad']."' ORDER BY profesor ASC");
+	while ($row_equipoeducativo = mysqli_fetch_array($result_equipoeducativo)) {
+		if (! in_array($row_equipoeducativo['idea'], $asistentes)) {
+			$ausentes[] = $row_equipoeducativo['idea'];
+		}
+	}
+
+	// DATOS PARA LA CONSTRUCCIÓN DE TABLAS
+	$numero_asistentes = count($asistentes);
+	if ($numero_asistentes) {
+
+		$tabla_asistentes = '<p><br></p>
+
+		<h4>Profesores asistentes</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nombre y apellidos</th>
+					<th>Firma</th>
+					<th>Nombre y apellidos</th>
+					<th>Firma</th>
+				</tr>
+			</thead>
+			<tbody>';
+
+		for ($i = 0; $i < $numero_asistentes; $i+=2) {
+
+			$profesor_1 = (isset($asistentes[$i])) ? obtener_nombre_profesor_desde_idea($db_con, $asistentes[$i]) : '';
+			$profesor_2 = (isset($asistentes[$i+1])) ? obtener_nombre_profesor_desde_idea($db_con, $asistentes[$i+1]) : '';
+
+			$tabla_asistentes .= '
+					<tr>
+						<td>'.$profesor_1.'</td>
+						<td><br></td>
+						<td>'.$profesor_2.'</td>
+						<td><br></td>
+					</tr>';
+		}
+
+		$tabla_asistentes .= '
+			</tbody>
+		</table>';
+
+	}
+	
+
+	$numero_ausentes = count($ausentes);
+
+	if ($numero_ausentes) {
+
+		$tabla_ausentes = '<p><br></p>
+
+		<h4>Profesores ausentes</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nombre y apellidos</th>
+					<th>Firma</th>
+					<th>Nombre y apellidos</th>
+					<th>Firma</th>
+				</tr>
+			</thead>
+			<tbody>';
+
+		for ($i = 0; $i < $numero_ausentes; $i+=2) {
+
+			$profesor_1 = (isset($ausentes[$i])) ? obtener_nombre_profesor_desde_idea($db_con, $ausentes[$i]) : '';
+			$profesor_2 = (isset($ausentes[$i+1])) ? obtener_nombre_profesor_desde_idea($db_con, $ausentes[$i+1]) : '';
+
+			$tabla_ausentes .= '
+					<tr>
+						<td>'.$profesor_1.'</td>
+						<td><br></td>
+						<td>'.$profesor_2.'</td>
+						<td><br></td>
+					</tr>';
+		}
+
+		$tabla_ausentes .= '
+			</tbody>
+		</table>';
+	}
 
 	$texto_acta = '
 	<header>
@@ -64,8 +159,12 @@ if (mysqli_num_rows($result)) {
 		content: counter(page);
 		}
 
+		h1 {
+			font-size: 16pt;
+		}
 		h1 > small {
-			font-size: 14pt;
+			font-size: 13pt;
+			font-weight: normal;
 			color: #666;
 		}
 
@@ -126,6 +225,12 @@ if (mysqli_num_rows($result)) {
 		<br>
 
 		'.$texto_acta.'
+
+		'.$tabla_asistentes.'
+		
+		'.$tabla_ausentes.'
+
+		<p><br></p>
 
 		En '.$config['centro_localidad'].' a '.$dia.' de '.$mes.' de '.$anio.'.
 	</body>

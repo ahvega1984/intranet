@@ -19,7 +19,7 @@
 <?php mysqli_free_result($result); ?>
 
 <!-- ÚLTIMAS NOTICIAS -->
-<?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria FROM noticias WHERE fechapub <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' AND id NOT IN (SELECT id FROM noticias WHERE pagina LIKE '%1%' AND fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC) ORDER BY fechapub DESC LIMIT 4"); ?>
+<?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria FROM noticias WHERE fechapub <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' AND id NOT IN (SELECT id FROM noticias WHERE pagina LIKE '%1%' AND fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC) ORDER BY fechapub DESC LIMIT 6"); ?>
 <?php if (mysqli_num_rows($result)): ?>
 	
 <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
@@ -30,7 +30,6 @@
 <article>
 	<h4 class="h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><?php echo $row['titulo']; ?></a></h4>
 	<h6 class="text-muted"><?php echo ($row['categoria']) ? $row['categoria'] : 'Sin categoría'; ?>&nbsp;&nbsp;·&nbsp;&nbsp;<?php echo strftime('%e %B', (strtotime($row['fechapub']))); ?></h6>
-	<p><?php echo substr(strip_tags($row['contenido']), 0, 300).'...'; ?></p>
 </article>
 
 <hr>

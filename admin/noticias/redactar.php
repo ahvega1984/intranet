@@ -15,6 +15,7 @@ if (isset($_POST['enviar'])) {
 	// VARIABLES DEL FORMULARIO
 	$titulo = $_POST['titulo'];
 	$contenido = addslashes($_POST['contenido']);
+	$caracteres_contenido = strlen(strip_tags($_POST['contenido']));
 	$autor = $_POST['autor'];
 	$fechapub = $_POST['fechapub'];
 	$categoria = $_POST['categoria'];
@@ -24,6 +25,9 @@ if (isset($_POST['enviar'])) {
 	$pagina = $intranet.$principal;
 	if (empty($titulo) || empty($contenido) || empty($fechapub)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
+	}
+	elseif ($caracteres_contenido < 150) {
+		$msg_error = "Debe introducir al menos un párrafo con 150 caracteres.";
 	}
 	else {
 		
