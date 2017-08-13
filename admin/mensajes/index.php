@@ -1,8 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-
-
 $profesor = $_SESSION['ide'];
 $profe_nombre = $_SESSION['profi'];
 
@@ -34,33 +32,6 @@ switch ($_buzon) {
 		
 		$tabla_encabezado = array('Para', 'Asunto', 'Fecha', ' ');
 		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE (origen = '$profesor' or origen = '$profe_nombre') AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 500");
-		break;
-
-  case 'tareas' :
-    $page_header = "Tareas pendientes y realizadas";
-    
-    // MARCAR COMO TAREA
-    if (isset($_GET['id_prof']) && isset($_GET['esTarea']) && $_GET['esTarea'] == 1) {
-      mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 1 WHERE id_profe = '".$_GET['id_prof']."'");
-    }
-
-    // MARCAR COMO TAREA REALIZADA
-    if (isset($_GET['id_prof']) && (isset($_GET['esTarea']) && $_GET['esTarea'] == 1) && (isset($_GET['estadoTarea']) && $_GET['estadoTarea'] == 1)) {
-      mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 1, estadoTarea = 1 WHERE id_profe = '".$_GET['id_prof']."'");
-    }
-
-    // MARCAR COMO TAREA PENDIENTE
-    if (isset($_GET['id_prof']) &&  (isset($_GET['esTarea']) && $_GET['esTarea'] == 1) && (isset($_GET['estadoTarea']) && $_GET['estadoTarea'] == 0)) {
-      mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 1, estadoTarea = 0 WHERE id_profe = '".$_GET['id_prof']."'");
-    }
-
-    // DESMARCAR COMO TAREA
-    if (isset($_GET['id_prof']) &&  (isset($_GET['esTarea']) && $_GET['esTarea'] == 0)) {
-      mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 0, estadoTarea = 0 WHERE id_profe = '".$_GET['id_prof']."'");
-    }
-		
-		$tabla_encabezado = array('Para', 'Asunto', 'Fecha', ' ');
-		$result = mysqli_query($db_con, "SELECT mens_texto.ahora, mens_texto.asunto, mens_texto.id, mens_texto.origen, mens_profes.id_profe, mens_texto.texto, mens_profes.recibidoprofe, mens_profes.esTarea, mens_profes.estadoTarea FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE (mens_profes.profesor = '$profesor' or mens_profes.profesor = '$profe_nombre') AND mens_profes.esTarea = 1 ORDER BY mens_texto.ahora DESC, mens_profes.estadoTarea DESC LIMIT 0, 500");
 		break;
 }
 
@@ -161,34 +132,7 @@ include("menu.php");
             }
             echo $dest;
             ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
-            <td width="55%">
-              <?php if ($_buzon == 'tareas'): ?>
-              <div class="pull-right btn-group btn-group-sm">
-                <?php 
-                if ($row['esTarea'] == 1 && $row['estadoTarea'] == 0) {
-                  $btn_style = 'btn-warning';
-                }
-                elseif ($row['esTarea'] == 1 && $row['estadoTarea'] == 1) {
-                  $btn_style = 'btn-success';
-                }
-                else {
-                  $btn_style = 'btn-default';
-                }
-                ?>
-                <button type="button" class="btn <?php echo $btn_style; ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <?php	echo ($row['esTarea'] == 1 && $row['estadoTarea'] == 0) ? 'Tarea pendiente' : 'Tarea realizada'; ?> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <?php if ($row['esTarea'] == 1 && $row['estadoTarea'] != 0): ?>
-                  <li><a href="index.php?inbox=tareas&amp;id_prof=<?php echo $row['id_profe']; ?>&amp;esTarea=1&amp;estadoTarea=0">Marcar como tarea pendiente</a></li>
-                  <?php else: ?>
-                  <li><a href="index.php?inbox=tareas&amp;id_prof=<?php echo $row['id_profe']; ?>&amp;esTarea=1&amp;estadoTarea=1">Marcar como tarea realizada</a></li>
-                  <?php endif; ?>
-                  <li><a href="index.php?inbox=tareas&amp;id_prof=<?php echo $row['id_profe']; ?>&amp;esTarea=0">Desmarcar como tarea</a></li>
-                </ul>
-              </div>
-              <?php endif; ?>
-              <?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&amp;idprof=<?php echo $row[4]; ?>"><?php echo $row[1]; if($pos !== false) echo ' <span class="pull-right fa fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&amp;idprof=<?php echo $row[4]; ?>"><?php echo $row[1]; if($pos !== false) echo ' <span class="pull-right fa fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="15%" data-order="<?php echo $row[0]; ?>" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&amp;idprof=<?php echo $row[4]; ?>"><?php echo strftime('%d %B, %H:%Mh', strtotime($row[0])); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="5%" nowrap>
             	<a href="?inbox=<?php echo $_buzon; ?>&amp;delete=<?php echo $row[4] ;?>" data-bb="confirm-delete"  data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>

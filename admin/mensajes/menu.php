@@ -73,7 +73,6 @@
 	<ul class="nav nav-tabs">
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=recibidos')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php?inbox=recibidos">Mensajes recibidos</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=enviados')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php?inbox=enviados">Mensajes enviados</a></li>
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=tareas')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php?inbox=tareas">Tareas</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'redactar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="redactar.php">Redactar mensaje</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'correo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="correo.php">Redactar correo</a></li>
 		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && ((stristr($_SESSION['cargo'],'1') == TRUE) or (stristr($_SESSION['cargo'],'6') == TRUE) or (stristr($_SESSION['cargo'],'7') == TRUE) or (stristr($_SESSION['cargo'],'8') == TRUE))): ?>

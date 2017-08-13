@@ -12,28 +12,8 @@ else {
 	$id = intval($_GET['id']);
 }
 
-// MARCAR COMO TAREA
-if (isset($_GET['esTarea']) && $_GET['esTarea'] == 1) {
-	mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 1 WHERE id_profe = '$idprof'");
-}
 
-// MARCAR COMO TAREA REALIZADA
-if ((isset($_GET['esTarea']) && $_GET['esTarea'] == 1) && (isset($_GET['estadoTarea']) && $_GET['estadoTarea'] == 1)) {
-	mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 1, estadoTarea = 1 WHERE id_profe = '$idprof'");
-}
-
-// MARCAR COMO TAREA PENDIENTE
-if ((isset($_GET['esTarea']) && $_GET['esTarea'] == 1) && (isset($_GET['estadoTarea']) && $_GET['estadoTarea'] == 0)) {
-	mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 1, estadoTarea = 0 WHERE id_profe = '$idprof'");
-}
-
-// DESMARCAR COMO TAREA
-if ((isset($_GET['esTarea']) && $_GET['esTarea'] == 0)) {
-	mysqli_query($db_con, "UPDATE mens_profes SET esTarea = 0, estadoTarea = 0 WHERE id_profe = '$idprof'");
-}
-
-
-$result = mysqli_query($db_con, "SELECT mens_texto.asunto, mens_texto.ahora, mens_texto.texto, mens_texto.origen, mens_profes.esTarea, mens_profes.estadoTarea FROM mens_texto JOIN mens_profes ON mens_texto.id = mens_profes.id_texto WHERE mens_texto.id = '$id' LIMIT 1") or die (mysqli_error($db_con));
+$result = mysqli_query($db_con, "SELECT mens_texto.asunto, mens_texto.ahora, mens_texto.texto, mens_texto.origen FROM mens_texto JOIN mens_profes ON mens_texto.id = mens_profes.id_texto WHERE mens_texto.id = '$id' LIMIT 1") or die (mysqli_error($db_con));
 $mensaje = mysqli_fetch_array($result);
 
 if(mysqli_num_rows($result)<1) {
@@ -79,35 +59,7 @@ include("menu.php");
 	      	<a href="redactar.php?profes=1&amp;origen=<?php echo $mensaje['origen']; ?>&amp;asunto=RE: <?php echo $mensaje['asunto']; ?>" class="btn btn-primary">Responder</a>
 	      	<a href="#" class="btn btn-info" onclick="javascript:print();">Imprimir</a>
 	      	<?php $id !== $idprof ? $buzon='recibidos' : $buzon='enviados'; ?>
-					<a href="index.php?inbox=<?php echo $buzon; ?>&amp;delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
-					<?php if ($mensaje['esTarea']): ?>
-					<div class="btn-group">
-						<?php 
-						if ($mensaje['esTarea'] == 1 && $mensaje['estadoTarea'] == 0) {
-							$btn_style = 'btn-warning';
-						}
-						elseif ($mensaje['esTarea'] == 1 && $mensaje['estadoTarea'] == 1) {
-							$btn_style = 'btn-success';
-						}
-						else {
-							$btn_style = 'btn-default';
-						}
-						?>
-						<button type="button" class="btn <?php echo $btn_style; ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<?php	echo ($mensaje['esTarea'] == 1 && $mensaje['estadoTarea'] == 0) ? 'Tarea pendiente' : 'Tarea realizada'; ?> <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<?php if ($mensaje['esTarea'] == 1 && $mensaje['estadoTarea'] != 0): ?>
-							<li><a href="mensaje.php?id_prof=<?php echo $idprof; ?>&amp;id_text=<?php echo $id; ?>&amp;esTarea=1&amp;estadoTarea=0">Marcar como tarea pendiente</a></li>
-							<?php else: ?>
-							<li><a href="mensaje.php?id_prof=<?php echo $idprof; ?>&amp;id_text=<?php echo $id; ?>&amp;esTarea=1&amp;estadoTarea=1">Marcar como tarea realizada</a></li>
-							<?php endif; ?>
-							<li><a href="mensaje.php?id_prof=<?php echo $idprof; ?>&amp;id_text=<?php echo $id; ?>&amp;esTarea=0">Desmarcar como tarea</a></li>
-						</ul>
-					</div>
-					<?php else: ?>
-					<a href="mensaje.php?id_prof=<?php echo $idprof; ?>&amp;id_text=<?php echo $id; ?>&amp;esTarea=1" class="btn btn-default">Marcar como tarea</a>
-					<?php endif; ?>
+			<a href="index.php?inbox=<?php echo $buzon; ?>&amp;delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
 	      </div>
 	      
 	    </div><!-- /.col-sm-12 -->

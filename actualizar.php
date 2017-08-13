@@ -35,12 +35,15 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
-	@descripcion: Actualizacion tabla de mensajes
-	@fecha: 09 de agosto de 2017
+	@descripcion: Elimina actualizacion tabla de mensajes
+	@fecha: 13 de agosto de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Actualizacion tabla mensajes'");
-if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "ALTER TABLE `mens_profes` ADD `esTarea` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' ;");
-	mysqli_query($db_con, "ALTER TABLE `mens_profes` ADD `estadoTarea` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' ;");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Actualizacion tabla mensajes', NOW())");
+$actua = mysqli_query($db_con, "SELECT d FROM actualizacion WHERE modulo = 'Actualizacion tabla mensajes'");
+if (mysqli_num_rows($actua)) {
+	$row_actua = mysqli_fetch_array($actua);
+
+	mysqli_query($db_con, "ALTER TABLE `mens_profes` DROP `esTarea`, DROP `estadoTarea`;");
+	mysqli_query($db_con, "DELETE FROM actualizacion WHERE d = ".$row_actua['d']." LIMIT 1");
+
+	unset($row_actua);
 }

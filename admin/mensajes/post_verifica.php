@@ -7,15 +7,9 @@ $jsondata = array();
 if (isset($_POST['idp'])) {
 		
     $idp = $_POST['idp'];
-    $esTarea = $_POST['esTarea'];
     
-    if ($esTarea == 1) {
-        $result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1, esTarea = 1 WHERE id_profe = $idp LIMIT 1");
-    }
-    else {
-        $result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1 WHERE id_profe = $idp LIMIT 1");
-    }
-		
+    $result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1 WHERE id_profe = $idp LIMIT 1");
+
     if($result) {
         $jsondata['status'] = true;
     } else {

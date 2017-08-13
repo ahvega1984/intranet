@@ -114,7 +114,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 						</li>
 
 						<!-- TAREAS -->
-						<?php $result_tareas = mysqli_query($db_con, "SELECT mens_profes.id_profe, mens_profes.id_texto, mens_texto.origen, mens_profes.estadoTarea, mens_texto.asunto, mens_texto.ahora FROM mens_profes JOIN mens_texto ON mens_profes.id_texto = mens_texto.id WHERE esTarea = 1 AND estadoTarea = 0 AND mens_profes.profesor = '".$idea."' ORDER BY mens_texto.ahora DESC"); ?>
+						<?php $result_tareas = mysqli_query($db_con, "SELECT id, titulo, descripcion, fecha, prioridad FROM tareas WHERE profesor = '".$idea."' ORDER BY prioridad ASC, fecha DESC"); ?>
 
 						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/index.php?inbox=tareas')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php?inbox=tareas">Tareas</a></li>
 						<li id="bs-tour-tareas" class="dropdown hidden-xs">
@@ -147,7 +147,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li><p class="text-center text-muted pad10">No tienes tareas pendientes.</p></li>
 								<li class="divider"></li>
 								<?php endif; ?>
-								<li><a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php?inbox=tareas"><strong>Ver todas las tareas <span class="fa fa-angle-right"></span></strong></a></li>
+								<li><a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/#"><strong>Ver todas las tareas <span class="fa fa-angle-right"></span></strong></a></li>
 							</ul>
 						</li>
 						
