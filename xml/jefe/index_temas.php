@@ -11,8 +11,8 @@ if (isset($_POST['tema'])) {
 			}
 			
 if (empty($_POST['tema'])) {
-		$_SESSION ['tema']="bootstrap.min.css";
-		$_POST ['tema']="bootstrap.min.css";
+		$_SESSION['tema']="bootstrap.min.css";
+		$_POST['tema']="bootstrap.min.css";
 	}
 			
 	$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );
@@ -69,13 +69,16 @@ include("../../menu.php");
 										<?php $d = dir("../../css/temas/"); ?>
 										<?php while (false !== ($entry = $d->read())): ?>
 										<?php if (stristr($entry,".css")==TRUE and !($entry=="bootstrap.min.css")): ?>
-										<option value="temas/<?php echo $entry; ?>" <?php echo (stristr($_SESSION ['tema'],$entry)==TRUE) ? 'selected' : ''; ?>><?php echo $entry; ?></option>
+										<?php $exp_stylesheet_name = explode('-', $entry); ?>
+										<?php $stylesheet_name = ucfirst(trim(rtrim($exp_stylesheet_name[1], '.css'))); ?>
+										<?php if ($stylesheet_name == 'Standard') $stylesheet_name = 'Bootstrap'; ?>
+										<option value="temas/<?php echo $entry; ?>" <?php echo (stristr($_SESSION ['tema'],$entry)==TRUE) ? 'selected' : ''; ?>><?php echo $stylesheet_name; ?></option>
 										<?php endif; ?>
 										<?php endwhile; ?>
 										<?php $d->close(); ?>
 									</optgroup>
 									<optgroup label="Tema por defecto">
-										<option value="bootstrap.min.css" <?php echo ($_SESSION ['tema']=="bootstrap.min.css") ? 'selected' : ''; ?>>bootstrap.min.css</option>
+										<option value="bootstrap.min.css" <?php echo ($_SESSION ['tema']=="bootstrap.min.css") ? 'selected' : ''; ?>>Flaty</option>
 									</optgroup>
 								</select>
 							</div>
