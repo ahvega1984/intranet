@@ -192,8 +192,8 @@ echo "".$tipo20[0]."</label></div>";
 		}
 		?>
 			<option></option>
-		<?php if ($curso=="1ESO" or $curso=="2ESO") { $n_act = '6';}else{$n_act='7';}
-		for ($i=1; $i < $n_act; $i++) { 
+		<?php if ($curso=="1ESO") { $n_act = $count_a1;}elseif ($curso=="2ESO") { $n_act = $count_a2;}else{$n_act=$count_a3;}
+		for ($i=1; $i <= $n_act; $i++) { 
 		?>
 			<option><?php echo $i;?></option>
 		<?php

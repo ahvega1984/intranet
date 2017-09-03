@@ -30,3 +30,7 @@ admin/guardias/config.php
 admin/fechorias/config.php
 
 admin/matriculas/config.php
+
+*.sublime-project
+
+*.sublime-workspace
