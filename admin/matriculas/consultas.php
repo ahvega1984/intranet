@@ -717,7 +717,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 					$promociona="";
-					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene Ttulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene Título" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
 
 					$rp_cur="";
 					if ($promociona == "1" and $n_curso==$curs_ant) {
@@ -736,7 +736,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					$pro_nt = mysqli_fetch_array($pro_n);
 					$promo_f = $pro_nt[0];
 
-					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene Ttulo" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
+					if ($promo_f=="Repite") { $promociona="2"; }elseif($promo_f=="Obtiene Título" or $promo_f=="Promociona"){ $promociona="1"; }else{ $promociona=""; }
 					
 					if (date('m')>'05' and date('m')<'09'){
 					foreach ($tr_not as $val_asig) {
