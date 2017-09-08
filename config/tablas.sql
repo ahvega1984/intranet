@@ -427,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `correo` varchar(64) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
@@ -1081,11 +1081,165 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `matriculas`
+--
+
+DROP TABLE IF EXISTS `matriculas_backup`;
+CREATE TABLE IF NOT EXISTS `matriculas_backup` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL DEFAULT '',
+  `apellidos` varchar(36) NOT NULL DEFAULT '',
+  `nombre` varchar(24) NOT NULL DEFAULT '',
+  `nacido` varchar(24) NOT NULL DEFAULT '',
+  `provincia` varchar(16) NOT NULL DEFAULT '',
+  `nacimiento` date NOT NULL DEFAULT '0000-00-00',
+  `domicilio` varchar(64) NOT NULL DEFAULT '',
+  `localidad` varchar(24) NOT NULL DEFAULT '',
+  `dni` varchar(13) NOT NULL DEFAULT '',
+  `padre` varchar(48) NOT NULL DEFAULT '',
+  `dnitutor` varchar(13) NOT NULL DEFAULT '',
+  `madre` varchar(48) NOT NULL DEFAULT '',
+  `dnitutor2` varchar(13) NOT NULL DEFAULT '',
+  `telefono1` int(10) NOT NULL DEFAULT '0',
+  `telefono2` int(10) NOT NULL DEFAULT '0',
+  `colegio` varchar(64) NOT NULL DEFAULT '',
+  `otrocolegio` varchar(64) DEFAULT NULL,
+  `letra_grupo` char(1) DEFAULT NULL,
+  `correo` varchar(36) DEFAULT NULL,
+  `idioma` varchar(6) NOT NULL DEFAULT '',
+  `religion` varchar(22) NOT NULL DEFAULT '',
+  `optativa1` tinyint(1) NOT NULL DEFAULT '0',
+  `optativa2` tinyint(1) NOT NULL DEFAULT '0',
+  `optativa3` tinyint(1) NOT NULL DEFAULT '0',
+  `optativa4` tinyint(1) NOT NULL DEFAULT '0',
+  `act1` tinyint(1) DEFAULT NULL,
+  `act2` tinyint(1) DEFAULT NULL,
+  `act3` tinyint(1) DEFAULT NULL,
+  `act4` tinyint(1) DEFAULT NULL,
+  `optativa21` tinyint(1) DEFAULT NULL,
+  `optativa22` tinyint(1) DEFAULT NULL,
+  `optativa23` tinyint(1) DEFAULT NULL,
+  `optativa24` tinyint(1) DEFAULT NULL,
+  `act21` tinyint(1) DEFAULT NULL,
+  `act22` tinyint(1) DEFAULT NULL,
+  `act23` tinyint(1) DEFAULT NULL,
+  `act24` tinyint(1) DEFAULT NULL,
+  `observaciones` mediumtext,
+  `exencion` tinyint(1) DEFAULT NULL,
+  `bilinguismo` char(2) DEFAULT NULL,
+  `curso` varchar(5) NOT NULL DEFAULT '',
+  `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `promociona` tinyint(1) DEFAULT NULL,
+  `transporte` tinyint(1) DEFAULT NULL,
+  `ruta_este` varchar(42) DEFAULT NULL,
+  `ruta_oeste` varchar(42) DEFAULT NULL,
+  `sexo` varchar(6) NOT NULL DEFAULT '',
+  `hermanos` tinyint(2) DEFAULT NULL,
+  `nacionalidad` varchar(32) NOT NULL DEFAULT '',
+  `itinerario` tinyint(1) DEFAULT NULL,
+  `optativas4` varchar(32) DEFAULT NULL,
+  `optativa5` tinyint(1) DEFAULT NULL,
+  `optativa6` tinyint(1) DEFAULT NULL,
+  `optativa7` tinyint(1) DEFAULT NULL,
+  `diversificacion` tinyint(1) DEFAULT NULL,
+  `optativa25` tinyint(1) DEFAULT NULL,
+  `optativa26` tinyint(1) DEFAULT NULL,
+  `optativa27` tinyint(1) DEFAULT NULL,
+  `confirmado` tinyint(1) DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT NULL,
+  `grupo_actual` char(2) DEFAULT NULL,
+  `revisado` tinyint(1) DEFAULT NULL,
+  `enfermedad` varchar(254) NOT NULL,
+  `otraenfermedad` varchar(254) NOT NULL,
+  `foto` tinyint(1) NOT NULL,
+  `divorcio` varchar(64) DEFAULT NULL,
+  `matematicas3` char(1) NOT NULL,
+  `ciencias4` char(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `matriculas_bach`
 --
 
 DROP TABLE IF EXISTS `matriculas_bach`;
 CREATE TABLE IF NOT EXISTS `matriculas_bach` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) NOT NULL DEFAULT '',
+  `apellidos` varchar(36) NOT NULL DEFAULT '',
+  `nombre` varchar(24) NOT NULL DEFAULT '',
+  `nacido` varchar(24) NOT NULL DEFAULT '',
+  `provincia` varchar(16) NOT NULL DEFAULT '',
+  `nacimiento` date NOT NULL DEFAULT '0000-00-00',
+  `domicilio` varchar(64) NOT NULL DEFAULT '',
+  `localidad` varchar(24) NOT NULL DEFAULT '',
+  `dni` varchar(13) NOT NULL DEFAULT '',
+  `padre` varchar(48) NOT NULL DEFAULT '',
+  `dnitutor` varchar(13) NOT NULL DEFAULT '',
+  `madre` varchar(48) NOT NULL DEFAULT '',
+  `dnitutor2` varchar(13) NOT NULL DEFAULT '',
+  `telefono1` int(10) NOT NULL DEFAULT '0',
+  `telefono2` int(10) NOT NULL DEFAULT '0',
+  `colegio` varchar(64) NOT NULL DEFAULT '',
+  `otrocolegio` varchar(64) DEFAULT NULL,
+  `letra_grupo` char(1) DEFAULT NULL,
+  `correo` varchar(36) DEFAULT NULL,
+  `idioma1` varchar(7) NOT NULL DEFAULT '',
+  `idioma2` varchar(7) NOT NULL DEFAULT '',
+  `religion` varchar(22) NOT NULL DEFAULT '',
+  `observaciones` mediumtext,
+  `curso` varchar(5) NOT NULL DEFAULT '',
+  `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `promociona` tinyint(1) DEFAULT NULL,
+  `transporte` tinyint(1) DEFAULT NULL,
+  `ruta_este` varchar(42) DEFAULT NULL,
+  `ruta_oeste` varchar(42) DEFAULT NULL,
+  `sexo` varchar(6) NOT NULL DEFAULT '',
+  `hermanos` tinyint(2) DEFAULT NULL,
+  `nacionalidad` varchar(32) NOT NULL DEFAULT '',
+  `confirmado` tinyint(1) DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT NULL,
+  `grupo_actual` char(2) DEFAULT NULL,
+  `revisado` tinyint(1) DEFAULT NULL,
+  `itinerario1` tinyint(1) DEFAULT NULL,
+  `itinerario2` tinyint(1) DEFAULT NULL,
+  `optativa1` varchar(64) DEFAULT NULL,
+  `optativa2` varchar(64) DEFAULT NULL,
+  `optativa2b1` tinyint(1) DEFAULT NULL,
+  `optativa2b2` tinyint(1) DEFAULT NULL,
+  `optativa2b3` tinyint(1) DEFAULT NULL,
+  `optativa2b4` tinyint(1) DEFAULT NULL,
+  `optativa2b5` tinyint(1) DEFAULT NULL,
+  `optativa2b6` tinyint(1) DEFAULT NULL,
+  `optativa2b7` tinyint(1) DEFAULT NULL,
+  `optativa2b8` tinyint(1) DEFAULT NULL,
+  `repite` tinyint(1) NOT NULL DEFAULT '0',
+  `enfermedad` varchar(254) NOT NULL,
+  `otraenfermedad` varchar(254) NOT NULL,
+  `foto` tinyint(1) NOT NULL,
+  `divorcio` varchar(64) DEFAULT NULL,
+  `bilinguismo` char(2) DEFAULT NULL,
+  `religion1b` varchar(64) NOT NULL,
+  `opt_aut21` int(1) NOT NULL,
+  `opt_aut22` int(1) NOT NULL,
+  `opt_aut23` int(1) NOT NULL,
+  `opt_aut24` int(1) NOT NULL,
+  `opt_aut25` int(1) NOT NULL,
+  `opt_aut26` int(1) NOT NULL,
+  `opt_aut27` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `matriculas_bach`
+--
+
+DROP TABLE IF EXISTS `matriculas_bach_backup`;
+CREATE TABLE IF NOT EXISTS `matriculas_bach_backup` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `apellidos` varchar(36) NOT NULL DEFAULT '',

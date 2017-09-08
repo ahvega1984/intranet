@@ -12,7 +12,7 @@
 			$id_submit = $tr[1];
 			$col = $tr[0];
 			if ($col == 'confirmado'){$con.=$id_submit." ";} 
-			//if ($col == 'revisado'){$revis.=$id_submit." ";}
+			if ($col == 'revisado'){$revis.=$id_submit." ";}
 			if ($col == "grupo_actual"){$val=strtoupper($val);}
 			if ($col == 'bilinguismo'){$bili.=$id_submit." ";}
 		
@@ -69,7 +69,7 @@
 					if ($val == "1" and $n_curso==$c_ahora and date('m')=="09" and $n_curso=='1') {
 						mysqli_query($db_con, "delete from matriculas_bach where id='$id_submit'");
 						mysqli_query($db_con, "insert into matriculas_bach (select * from matriculas_bach_backup where id = '$id_submit')");
-						mysqli_query($db_con, "update matriculas_bach set promociona='0' where id = '$id_submit'");
+						mysqli_query($db_con, "update matriculas_bach set promociona='1' where id = '$id_submit'");
 						mysqli_query($db_con, "delete from matriculas_bach_backup where id='$id_submit'");
 					}
 					else{
