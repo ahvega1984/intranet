@@ -125,7 +125,7 @@ include("../menu.php");
 								<button type="submit" class="btn btn-primary" name="submit"><?php echo $texto_boton; ?></button>
 								<?php if (isset($_GET['id']) && $estado == 0): ?>
 								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=finalizar" class="btn btn-success">Finalizar tarea</a>
-								<?php else: ?>
+								<?php elseif (isset($_GET['id']) && $estado == 1): ?>
 								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=rehacer" class="btn btn-warning">Rehacer tarea</a>
 								<?php endif; ?>
 								<?php if (isset($_GET['id'])): ?>
