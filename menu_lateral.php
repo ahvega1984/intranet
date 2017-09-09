@@ -738,29 +738,71 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 <!-- MENU-LATERAL -->
 
 <!-- PHONE SCREENS -->
+<style type="text/css">
+.padmobile {
+	padding: 0;
+	margin-bottom: 15px;
+}
+
+.padmobile:first-child {
+	padding-left: 15px;
+}
+
+.padmobile:nth-child(4) {
+	padding-right: 15px;
+}
+
+.padmobile:nth-child(5) {
+	padding-left: 15px;
+}
+
+.padmobile:last-child {
+	padding-right: 15px;
+}
+</style>
 <div class="visible-xs">
 	<div class="row">
 		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
-		<div class="col-xs-3 text-center">
+		<div class="col-xs-3 text-center padmobile">
 			<a href="faltas/index.php">
 				<span class="fa fa-clock-o fa-2x"></span><br>
-				Asistencia</a>
+				<small>Asistencia</small></a>
 		</div>
 		<?php endif; ?>
-		<div class="col-xs-3 text-center">
+		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/fechorias/infechoria.php">
 				<span class="fa fa-gavel fa-2x"></span><br>
-				Convivencia</a>
+				<small>Convivencia</small></a>
 		</div>
-		<div class="col-xs-3 text-center">
+		<div class="col-xs-3 text-center padmobile">
+			<a href="admin/informes/cinforme.php">
+				<span class="fa fa-address-book-o fa-2x"></span><br>
+				<small>Inf. alumno</small></a>
+		</div>
+		<div class="col-xs-3 text-center padmobile">
+			<a href="reservas/index_aula.php?recurso=aula_grupo">
+				<span class="fa fa-key fa-2x"></span><br>
+				<small>Reservas</small></a>
+		</div>
+		<div class="col-xs-3 text-center padmobile">
+			<a href="admin/cursos/chorarios.php">
+				<span class="fa fa-calendar fa-2x"></span><br>
+				<small>Horarios</small></a>
+		</div>
+		<div class="col-xs-3 text-center padmobile">
+			<a href="tareas/index.php">
+				<span class="fa fa-tasks fa-2x"></span><br>
+				<small>Tareas</small></a>
+		</div>
+		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/mensajes/redactar.php">
-				<span class="fa fa-comments fa-2x"></span><br>
-				Mensajes</a>
+				<span class="fa fa-envelope-o fa-2x"></span><br>
+				<small>Mensajes</small></a>
 		</div>
-		<div class="col-xs-3 text-center">
+		<div class="col-xs-3 text-center padmobile">
 			<a href="#" id="toggleMenu">
-				<span class="fa fa-ellipsis-h fa-2x"></span><br>
-				Menú</a>
+				<span class="fa fa-ellipsis-v fa-2x"></span><br>
+				<small>Menú</small></a>
 		</div>
 	</div>
 	<br>
