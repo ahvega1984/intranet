@@ -131,7 +131,7 @@ include("../menu.php");
 									</div>
 									<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $tarea['id']; ?>">
 										<strong><?php echo $tarea['titulo']; ?></strong><br>
-										<del><?php echo substr($tarea['tarea'], 0, 86); ?></del>
+										<?php echo substr($tarea['tarea'], 0, 86); ?>
 									</a>
 								</div>
 							</div>
