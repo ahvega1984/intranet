@@ -143,8 +143,6 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 											</div>
 											<div class="col-sm-10">
 												<div class="text-warning">
-													<?php $result_tareas_dest = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea='".$row_tareas['idea']."' LIMIT 1"); ?>
-													<?php $row_tareas_dest = mysqli_fetch_array($result_tareas_dest); ?>
 													<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row_tareas['fechareg'])); ?></em></span>
 													<strong><?php echo substr(stripslashes($row_tareas['titulo']),0 , 96); ?></strong>
 												</div>
