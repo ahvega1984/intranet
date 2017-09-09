@@ -655,6 +655,7 @@ if(mysqli_num_rows($men2) > 0)
 	$asunto = 'RE: '.$asunto;
 	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
 	?>
+	<button type="button" class="btn btn-info" id="estarea-<?php echo $id; ?>" data-toggle="button" aria-pressed="false" data-dismiss="modal" autocomplete="off">Marcar como tarea y cerrar</button>
 </div>
 </div>
 </div>

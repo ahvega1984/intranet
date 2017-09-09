@@ -35,15 +35,24 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
-	@descripcion: Elimina actualizacion tabla de mensajes
-	@fecha: 13 de agosto de 2017
+	@descripcion: Creación tabla tareas
+	@fecha: 9 de septiembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT d FROM actualizacion WHERE modulo = 'Actualizacion tabla mensajes'");
-if (mysqli_num_rows($actua)) {
-	$row_actua = mysqli_fetch_array($actua);
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla tareas'");
+if (! mysqli_num_rows($actua)) {
 
-	mysqli_query($db_con, "ALTER TABLE `mens_profes` DROP `esTarea`, DROP `estadoTarea`;");
-	mysqli_query($db_con, "DELETE FROM actualizacion WHERE d = ".$row_actua['d']." LIMIT 1");
+	mysqli_query($db_con, "DROP TABLE IF EXISTS `tareas`");
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas` (
+		`id` int(10) unsigned AUTO_INCREMENT PRIMARY KEY,
+		`idea` varchar(12) NOT NULL,
+		`titulo` tinytext NOT NULL,
+		`tarea` text NOT NULL,
+		`estado` tinyint(1) unsigned NOT NULL DEFAULT '0',
+		`fechareg` datetime NOT NULL,
+		`prioridad` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 
-	unset($row_actua);
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla tareas', NOW())");
 }
+
+mysqli_free_result($actua);

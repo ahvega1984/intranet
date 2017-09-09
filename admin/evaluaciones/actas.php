@@ -6,17 +6,6 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `unidad` varchar(64) NOT NULL,
-  `evaluacion` char(3) NOT NULL,
-  `fecha` date NOT NULL,
-  `texto_acta` mediumtext NOT NULL,
-  `impresion` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
-
-
 if (isset($_POST['curso'])) $curso = $_POST['curso'];
 if (isset($_POST['curso'])) $evaluacion = $_POST['evaluacion'];
 if (isset($_GET['id'])) $id = $_GET['id'];
@@ -45,7 +34,7 @@ $row = mysqli_fetch_array($result);
 $nivel = $row['nomcurso'];
 if (stristr($nivel, 'E.S.O.') == true) {
 	if (! isset($config['evaluaciones']['acta_eso'])) {
-		$texto_acta = '<h4>1.- Acuerdos de carácter general sobre el grupo:</h4><table class="table table-bordered"><thead><tr><th width="30%"><br></th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Malo</th><th>Muy malo</th></tr></thead><tbody><tr><td class="active"><b>Rendimiento global</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud general ante el estudio</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud ante las normas y la convivencia</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Asistencia a clase</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><b>Otros:</b></p><p><br></p><p><br></p><p><br></p><h4>2.- Acuerdos sobre el proceso individual</h4><h5>2.1.- Necesidades educativas</h5><table class="table table-bordered"><tbody><tr><td width="30%" class="active"><b>Refuerzo educativo</b></td><td width="70%"><br></td></tr><tr><td class="active"><b>A.C.I</b></td><td><br></td></tr><tr><td class="active"><b>Propuestas entrada en el PMAR 2º / PMAR 3º / FP Básica</b></td><td><br></td></tr><tr><td class="active"><b>Programa de enriquecimiento</b></td><td><br></td></tr><tr><td class="active"><b>A tener en cuenta por el Depto. de Orientación</b></td><td><br></td></tr></tbody></table><p><br></p><h4>3.- Alumnos con problemas graves de convivencia y/o absentismo: <small>(marcar con X según cada caso)</small></h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th style="text-align: center; ">Faltas de asistencia</th><th style="text-align: center; ">Problemas disciplinarios</th></tr></thead><tbody><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center;"><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr></tbody></table><p><br></p><h4>4.- Otros alumnos con algún otro tipo de problema manifiesto (integración escolar, problemas con los compañeros, autoestima, ambiente familiar,...):</h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th>Tipo de problema</th></tr></thead><tbody><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>5.- Acuerdos tomados por el equipo docente:</h4><p><br></p><p><br></p><p><br></p>';
+		$texto_acta = '<h4>1.- Acuerdos de carácter general sobre el grupo:</h4><table class="table table-bordered"><thead><tr><th width="30%"><br></th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Malo</th><th>Muy malo</th></tr></thead><tbody><tr><td class="active"><b>Rendimiento global</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud general ante el estudio</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud ante las normas y la convivencia</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Asistencia a clase</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><b>Otros:</b></p><p><br></p><p><br></p><p><br></p><h4>2.- Acuerdos sobre el proceso individual</h4><h5>2.1.- Necesidades educativas</h5><table class="table table-bordered"><tbody><tr><td width="30%" class="active"><b>Refuerzo educativo</b></td><td width="70%"><br></td></tr><tr><td class="active"><b>A.C.I</b></td><td><br></td></tr><tr><td class="active"><b>Propuestas entrada en el PMAR 2º / PMAR 3º / FP Básica</b></td><td><br></td></tr><tr><td class="active"><b>Programa de enriquecimiento</b></td><td><br></td></tr><tr><td class="active"><b>A tener en cuenta por el Depto. de Orientación</b></td><td><br></td></tr></tbody></table><p><br></p><h4>3.- Alumnos con problemas graves de convivencia y/o absentismo: <small>(marcar con X según cada caso)</small></h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th style="text-align: center; ">Faltas de asistencia</th><th style="text-align: center; ">Problemas disciplinarios</th></tr></thead><tbody><tr><td>{NOMBRE_Y_APELLIDOS}</td><td style="text-align: center; ">{FALTAS_DE_ASISTENCIA}</td><td style="text-align: center; ">{PROBLEMAS_DISCIPLINARIOS}</td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr></tbody></table><p><br></p><h4>4.- Otros alumnos con algún otro tipo de problema manifiesto (integración escolar, problemas con los compañeros, autoestima, ambiente familiar,...):</h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th>Tipo de problema</th></tr></thead><tbody><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>5.- Acuerdos tomados por el equipo docente:</h4><p><br></p><p><br></p>';
 	}
 	else {
 		$texto_acta = $config['evaluaciones']['acta_eso'];
@@ -53,7 +42,7 @@ if (stristr($nivel, 'E.S.O.') == true) {
 }
 else if (stristr($nivel, 'Bachillerato') == true) {
 	if (! isset($config['evaluaciones']['acta_bach'])) {
-		$texto_acta = '<h4>1.- Acuerdos o consideraciones sobre el proceso de evaluación final individual:</h4><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h4>2.- Alumnado que se considera no reúne perfil de hacer estudios de Bachillerato</h4><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><h4>3.- Alumnado excelente a felicitar</h4><p><br></p><p><br></p>';
+		$texto_acta = '<h4>1.- Acuerdos de carácter general sobre el grupo:</h4><table class="table table-bordered"><thead><tr><th width="30%"><br></th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Malo</th><th>Muy malo</th></tr></thead><tbody><tr><td class="active"><b>Rendimiento global</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud general ante el estudio</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud ante las normas y la convivencia</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Asistencia a clase</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><b>Otros:</b></p><p><br></p><p><br></p><p><br></p><h4>2.- Acuerdos o consideraciones sobre el proceso de evaluación final individual:</h4><p><br></p><p><br></p><p><br></p><h4>3.- Alumnos con problemas graves de convivencia y/o absentismo: <small>(marcar con X según cada caso)</small></h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th style="text-align: center; ">Faltas de asistencia</th><th style="text-align: center; ">Problemas disciplinarios</th></tr></thead><tbody><tr><td>{NOMBRE_Y_APELLIDOS}</td><td style="text-align: center; ">{FALTAS_DE_ASISTENCIA}</td><td style="text-align: center; ">{PROBLEMAS_DISCIPLINARIOS}</td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr></tbody></table><p><br></p><h4>4.- Otros alumnos con algún otro tipo de problema manifiesto (integración escolar, problemas con los compañeros, autoestima, ambiente familiar,...):</h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th>Tipo de problema</th></tr></thead><tbody><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p><h4>5.- Alumnado que se considera no reúne perfil de hacer estudios de Bachillerato</h4><p><br></p><p><br></p><p><br></p><h4>6.- Alumnado excelente a felicitar</h4><p><br></p><p><br></p>';
 	}
 	else {
 		$texto_acta = $config['evaluaciones']['acta_bach'];
@@ -61,12 +50,102 @@ else if (stristr($nivel, 'Bachillerato') == true) {
 }
 else if (stristr($nivel, 'F.P.') == true) {
 	if (! isset($config['evaluaciones']['acta_fp'])) {
-		$texto_acta = '<h4>1.- Acuerdos o consideraciones sobre el proceso de evaluación individual</h4><p><br></p><p><br></p>';
+		$texto_acta = '<h4>1.- Acuerdos de carácter general sobre el grupo:</h4><table class="table table-bordered"><thead><tr><th width="30%"><br></th><th>Muy bueno</th><th>Bueno</th><th>Regular</th><th>Malo</th><th>Muy malo</th></tr></thead><tbody><tr><td class="active"><b>Rendimiento global</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud general ante el estudio</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Actitud ante las normas y la convivencia</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td class="active"><b>Asistencia a clase</b></td><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr></tbody></table><p><b>Otros:</b></p><p><br></p><p><br></p><p><br></p><h4>2.- Acuerdos o consideraciones sobre el proceso de evaluación individual</h4><p><br></p><p><br></p><p><br></p><h4>3.- Alumnos con problemas graves de convivencia y/o absentismo: <small>(marcar con X según cada caso)</small></h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th style="text-align: center; ">Faltas de asistencia</th><th style="text-align: center; ">Problemas disciplinarios</th></tr></thead><tbody><tr><td>{NOMBRE_Y_APELLIDOS}</td><td style="text-align: center; ">{FALTAS_DE_ASISTENCIA}</td><td style="text-align: center; ">{PROBLEMAS_DISCIPLINARIOS}</td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr><tr><td><br></td><td style="text-align: center; "><br></td><td style="text-align: center; "><br></td></tr></tbody></table><p><br></p><h4>4.- Otros alumnos con algún otro tipo de problema manifiesto (integración escolar, problemas con los compañeros, autoestima, ambiente familiar,...):</h4><table class="table table-bordered"><thead><tr><th width="50%">Nombre y apellidos</th><th>Tipo de problema</th></tr></thead><tbody><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p>';
 	}
 	else {
 		$texto_acta = $config['evaluaciones']['acta_fp'];
 	}
 }
+
+
+// Rellenamos los campos automáticos
+$result = mysqli_query($db_con, "SELECT CONCAT(apellidos, ', ', nombre) AS alumno, claveal FROM alma WHERE unidad = '".$curso."' ORDER BY apellidos ASC, nombre ASC");
+if (mysqli_num_rows($result)) {
+	
+	$datos_recopilados = "";
+	while ($row = mysqli_fetch_array($result)) {
+
+		
+		// Rango de fechas según evaluación
+		$anio_escolar = substr($config['curso_actual'],0,4);
+		
+		$fecha_evi = $anio_escolar.'-09-30';
+
+		$result_festivos = mysqli_query($db_con, "SELECT fecha, MONTH(fecha) AS mes FROM festivos WHERE nombre LIKE '%Navidad' ORDER BY fecha ASC LIMIT 1");
+		$row_festivo = mysqli_fetch_array($result_festivos);
+		$fecha_1ev = $row_festivo['fecha'];
+		$fecha_mes_1ev = $row_festivo['mes'];
+
+		$result_festivos = mysqli_query($db_con, "SELECT fecha, MONTH(fecha) AS mes FROM festivos WHERE nombre = 'Semana Santa' ORDER BY fecha ASC LIMIT 1");
+		$row_festivo = mysqli_fetch_array($result_festivos);
+		$fecha_2ev = $row_festivo['fecha'];
+		$fecha_mes_2ev = $row_festivo['mes'];
+		
+		switch ($evaluacion) {
+			case 'EVI' : 
+				$rango_fechas = "AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$fecha_evi."'";
+				$rango_meses = "AND mes = 9";
+				break;
+			case '1EV' : 
+				$rango_fechas = "AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$fecha_1ev."'";
+				$rango_meses = "AND mes BETWEEN 9 AND $fecha_mes_1ev";
+				break;
+			case '2EV' : 
+				$rango_fechas = "AND fecha BETWEEN '".$fecha_1ev."' AND '".$fecha_2ev."'";
+				$rango_meses = "AND mes BETWEEN $fecha_mes_1ev AND $fecha_mes_2ev";
+				break;
+			case '3EV' : 
+			case 'ORD' : 
+			case 'EXT' : 
+				$rango_fechas = "AND fecha BETWEEN '".$fecha_2ev."' AND '".$config['curso_fin']."'";
+				$rango_meses = "AND mes BETWEEN 6";
+				break;
+			default : 
+				$rango_fechas = "";
+				$rango_meses = "";
+		}
+		
+		
+		// Comprobamos si es absentista o tiene más de 25 faltas de asistencia sin justificar
+		$result_absentimo = mysqli_query($db_con, "SELECT id FROM absentismo WHERE claveal = '".$row['claveal']."' $rango_meses") or die (mysqli_error($db_con));
+		if (mysqli_num_rows($result_absentimo)) {
+			$tieneFaltas = 1;
+			$texto_asistencia = 'X';
+		}
+		else {
+			$minimo_asistencia = 25 * 3; // Ya que es 25 faltas por mes
+			$result_asistencia = mysqli_query($db_con, "SELECT id FROM FALTAS WHERE claveal = '".$row['claveal']."' AND falta = 'F' $rango_fechas") or die (mysqli_error($db_con));
+			if (mysqli_num_rows($result_asistencia) >= $minimo_asistencia) {
+				$tieneFaltas = 1;
+				$texto_asistencia = 'X';
+			}
+			else {
+				$tieneFaltas = 0;
+				$texto_asistencia = '';
+			}
+		}
+
+		// Comprobamos los problemas disciplinarios del alumno
+		$minimo_problemas = 1;
+		$result_problemas = mysqli_query($db_con, "SELECT id FROM Fechoria WHERE claveal = '".$row['claveal']."' $rango_fechas") or die (mysqli_error($db_con));
+		if (mysqli_num_rows($result_problemas) >= $minimo_problemas) {
+			$tieneProblemas = 1;
+			$texto_problemas = 'X';
+		}
+		else {
+			$tieneProblemas = 0;
+			$texto_problemas = '';
+		}
+
+		if ($tieneFaltas || $tieneProblemas) {
+			$datos_recopilados .= '<tr><td>'.$row['alumno'].'</td><td style="text-align: center; ">'.$texto_asistencia.'</td><td style="text-align: center; ">'.$texto_problemas.'</td></tr>';
+		}
+	}
+
+	// Sustituimos la fila de campos automáticos por los datos recopilados
+	$texto_acta = str_replace('<tr><td>{NOMBRE_Y_APELLIDOS}</td><td style="text-align: center; ">{FALTAS_DE_ASISTENCIA}</td><td style="text-align: center; ">{PROBLEMAS_DISCIPLINARIOS}</td></tr>', $datos_recopilados, $texto_acta);
+}
+$row = mysqli_fetch_array($result);
 
 
 // ENVIO DEL FORMULARIO
@@ -175,7 +254,7 @@ include("menu.php");
 							
 							<div class="row">
 								
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 								
 									<div class="form-group">
 										<label for="evaluacion">Evaluación</label>
@@ -194,7 +273,7 @@ include("menu.php");
 								
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sm-4">
 								
 									<div class="form-group">
 										<label for="tutor">Tutor/a</label>
@@ -330,7 +409,7 @@ include("menu.php");
  
  	// DATATABLES
 	var table = $('.datatable').DataTable({
-		"paging":   true,
+	"paging":   true,
     "ordering": true,
     "info":     false,
     
@@ -356,7 +435,7 @@ include("menu.php");
  	
  	// EDITOR DE TEXTO
  	$('#texto_acta').summernote({
- 		height: 500,
+ 		height: 600,
  		lang: 'es-ES',
 		toolbar: [
 			// [groupName, [list of button]]

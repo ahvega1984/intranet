@@ -7,6 +7,15 @@ $jsondata = array();
 if (isset($_POST['idp'])) {
 		
     $idp = $_POST['idp'];
+
+    if (isset($_POST['esTarea']) && $_POST['esTarea'] == true) {
+        $result = mysqli_query($db_con, "SELECT mens_texto.asunto, mens_texto.texto FROM mens_profes JOIN mens_texto ON mens_profes.id_texto = mens_texto.id WHERE mens_profes.id_profe = $idp LIMIT 1");
+        $row = mysqli_fetch_array($result);
+        $titulo = $row['asunto'];
+        $tarea = htmlspecialchars_decode($row['texto']);
+        $fechareg = date('Y-m-d H:i:s');
+        mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");
+    }
     
     $result = mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1 WHERE id_profe = $idp LIMIT 1");
 

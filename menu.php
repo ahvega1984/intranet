@@ -1,5 +1,11 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
+if (isset($_POST['submit_tarea']) && isset($_POST['id_tarea'])) {
+	$menu_idtarea = intval($_POST['id_tarea']);
+	$menu_result_tarea = mysqli_query($db_con, "UPDATE tareas SET estado = 1 WHERE id = $menu_idtarea LIMIT 1");
+	unset($menu_idtarea); 
+}
+
 // FEED RSS
 $feed = new SimplePie();
 	 
@@ -114,10 +120,9 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 						</li>
 
 						<!-- TAREAS -->
-						<?php $result_tareas = mysqli_query($db_con, "SELECT id, titulo, descripcion, fecha, prioridad FROM tareas WHERE profesor = '".$idea."' ORDER BY prioridad ASC, fecha DESC"); ?>
+						<?php $result_tareas = mysqli_query($db_con, "SELECT id, idea, titulo, tarea, estado, fechareg, prioridad FROM tareas WHERE idea = '".$idea."' AND estado = 0 ORDER BY prioridad ASC, fechareg DESC"); ?>
 
-						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/index.php?inbox=tareas')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php?inbox=tareas">Tareas</a></li>
-						<li id="bs-tour-tareas" class="dropdown hidden-xs">
+						<li id="bs-tour-tareas" class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Tareas pendientes" data-placement="bottom" data-container="body">
 								<span class="fa fa-tasks fa-fw <?php if(mysqli_num_rows($result_tareas)): ?>text-warning<?php endif; ?>"></span> <b class="caret"></b>
 							</a>
@@ -127,16 +132,26 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li class="divider"></li>
 								<?php if(mysqli_num_rows($result_tareas)): ?>
 								<?php while ($row_tareas = mysqli_fetch_array($result_tareas)): ?>
-								<li id="menu_mensaje_<?php echo $row_tareas['id_profe']; ?>">
-									<a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_tareas['id_texto']; ?>&amp;idprof=<?php echo $row_tareas['id_profe']; ?>">
-										<div>
-										<?php $result_tareas_dest = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea='".$row_tareas['origen']."' LIMIT 1"); ?>
-										<?php $row_tareas_dest = mysqli_fetch_array($result_tareas_dest); ?>
-											<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row_tareas['ahora'])); ?></em></span>
-											<strong><?php echo nomprofesor($row_tareas_dest['nombre']); ?></strong>
-										</div>
-										<div>
-											<?php echo substr(stripslashes($row_tareas['asunto']),0 , 96); ?>
+								<li>
+									<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $row_tareas['id']; ?>">
+										<div class="row">
+											<div class="col-sm-2">
+												<form action="" method="post">
+													<input type="hidden" name="id_tarea" value="<?php echo $row_tareas['id']; ?>">
+													<button type="submit" name="submit_tarea" class="btn btn-sm btn-default"><span class="fa fa-check fa-fw"></span></button>
+												</form>
+											</div>
+											<div class="col-sm-10">
+												<div class="text-warning">
+													<?php $result_tareas_dest = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea='".$row_tareas['idea']."' LIMIT 1"); ?>
+													<?php $row_tareas_dest = mysqli_fetch_array($result_tareas_dest); ?>
+													<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row_tareas['fechareg'])); ?></em></span>
+													<strong><?php echo substr(stripslashes($row_tareas['titulo']),0 , 96); ?></strong>
+												</div>
+												<div class="text-warning">
+													<?php echo substr(stripslashes(strip_tags($row_tareas['tarea'])),0 , 96); ?>
+												</div>
+											</div>
 										</div>
 									</a>
 								</li>
@@ -144,10 +159,19 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result_tareas); ?>
 								<?php else: ?>
-								<li><p class="text-center text-muted pad10">No tienes tareas pendientes.</p></li>
+								<li><p class="text-center text-muted pad10">No tienes tareas pedientes.</p></li>
 								<li class="divider"></li>
 								<?php endif; ?>
-								<li><a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/#"><strong>Ver todas las tareas <span class="fa fa-angle-right"></span></strong></a></li>
+								<li style="padding: 0 20px; font-size: 0.9em;">
+									<div class="row">
+										<div class="col-sm-6" style="border-right: 1px solid #dedede; padding: 11px 0 !important;">
+											<a class="text-block text-center" href="//<?php echo $config['dominio']; ?>/intranet/tareas/" style="display: block;"><strong>Ver tareas</strong></a>
+										</div>
+										<div class="col-sm-6" style="padding: 11px 0 !important;">
+											<a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php" style="display: block;"><strong>Crear tarea</strong></a>
+										</div>
+									</div>
+								</li>
 							</ul>
 						</li>
 						

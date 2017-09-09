@@ -75,7 +75,7 @@ include("menu.php");
       <?php endif; ?>
       
       <style class="text/css">
-        a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; <?php if ($_buzon == 'tareas'): ?>padding-top: 7px;<?php endif; ?> }
+        a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none !important; }
       </style>
       
       <table class="table table-striped table-hover datatable">

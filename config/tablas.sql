@@ -1748,6 +1748,22 @@ CREATE TABLE IF NOT EXISTS `sms` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tareas`
+--
+
+CREATE TABLE IF NOT EXISTS `tareas` (
+  `id` int(10) unsigned AUTO_INCREMENT PRIMARY KEY,
+  `idea` varchar(12) NOT NULL,
+  `titulo` tinytext NOT NULL,
+  `tarea` text NOT NULL,
+  `estado` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `fechareg` datetime NOT NULL,
+  `prioridad` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tareas_alumnos`
 --
 

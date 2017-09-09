@@ -11,7 +11,6 @@
 <article class="well">
 	<h4 class="media-heading h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><?php echo $row['titulo']; ?></a></h4>
 	<h6 class="text-muted"><?php echo ($row['categoria']) ? $row['categoria'] : 'Sin categoría'; ?>&nbsp;&nbsp;·&nbsp;&nbsp;<?php echo strftime('%e %B', (strtotime($row['fechapub']))); ?></h6>
-	<p><?php echo substr(strip_tags($row['contenido']), 0, 300).'...'; ?></p>
 </article>
 
 <hr>
