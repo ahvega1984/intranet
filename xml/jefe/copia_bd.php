@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 // TABLAS INTOCABLES
-$intocables = array("alma_primaria", "alma_secundaria", "biblioteca","actualizacion","calendario","calendario_categorias", "c_profes", "control", "departamentos", "evalua_tutoria", "fotos", "inventario_clases", "inventario", "inventario_lugares", "listafechorias", "matriculas", "matriculas_bach", "matriculas_backup", "matriculas_bach_backup", "mem_dep", "mensajes", "mens_profes", "mens_texto", "noticias", "partestic", "recursos", "reservas", "reservas_tipos", "reservas_elementos", "r_departamento", "temas", "Textos", "textos_gratis", "transito_control", "transito_datos", "transito_tipo");
+$intocables = array("alma_primaria", "alma_secundaria", "biblioteca","actualizacion","calendario","calendario_categorias", "c_profes", "control", "departamentos", "evalua_tutoria", "fotos", "inventario_clases", "inventario", "inventario_lugares", "listafechorias", "matriculas", "matriculas_bach", "matriculas_backup", "matriculas_bach_backup", "mem_dep", "mensajes", "mens_profes", "mens_texto", "noticias", "partestic", "recursos", "reservas", "reservas_tipos", "reservas_elementos", "r_departamento", "tareas", "temas", "Textos", "textos_gratis", "transito_control", "transito_datos", "transito_tipo");
 
 if (isset($_GET['action']) && ($_GET['action'] == 'bdtruncate')) {
 	
