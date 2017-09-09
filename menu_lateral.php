@@ -738,28 +738,6 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 <!-- MENU-LATERAL -->
 
 <!-- PHONE SCREENS -->
-<style type="text/css">
-.padmobile {
-	padding: 0;
-	margin-bottom: 15px;
-}
-
-.padmobile:first-child {
-	padding-left: 15px;
-}
-
-.padmobile:nth-child(4) {
-	padding-right: 15px;
-}
-
-.padmobile:nth-child(5) {
-	padding-left: 15px;
-}
-
-.padmobile:last-child {
-	padding-right: 15px;
-}
-</style>
 <div class="visible-xs">
 	<div class="row">
 		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
