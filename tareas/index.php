@@ -160,8 +160,9 @@ include("../menu.php");
 
 					<?php if (count($tareas_finalizadas)): ?>
 					<ul class="list-group">
-						<li class="list-group-item">
+						
 							<?php foreach ($tareas_finalizadas as $tarea): ?>
+							<li class="list-group-item">
 							<div class="pull-right">
 								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=rehacer" data-bs="tooltip" title="Rehacer tarea"><span class="fa fa-undo fa-lg"></span></a>&nbsp;
 								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=eliminar" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-lg"></span></a>
@@ -170,8 +171,9 @@ include("../menu.php");
 								<strong><?php echo $tarea['titulo']; ?></strong><br>
 								<del><?php echo substr($tarea['tarea'], 0, 86); ?></del>
 							</a>
+							</li>
 							<?php endforeach; ?>
-						</li>
+						
 					</ul>
 					<?php else: ?>
 
