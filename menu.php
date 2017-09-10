@@ -121,8 +121,8 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 
 						<!-- TAREAS -->
 						<?php $result_tareas = mysqli_query($db_con, "SELECT id, idea, titulo, tarea, estado, fechareg, prioridad FROM tareas WHERE idea = '".$idea."' AND estado = 0 ORDER BY prioridad ASC, fechareg DESC"); ?>
-
-						<li id="bs-tour-tareas" class="dropdown">
+						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/tareas/')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php">Tareas</a></li>
+						<li id="bs-tour-tareas" class="dropdown hidden-xs">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Tareas pendientes" data-placement="bottom" data-container="body">
 								<span class="fa fa-tasks fa-fw <?php if(mysqli_num_rows($result_tareas)): ?>text-warning<?php endif; ?>"></span> <b class="caret"></b>
 							</a>
