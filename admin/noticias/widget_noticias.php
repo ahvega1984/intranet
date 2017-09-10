@@ -9,7 +9,7 @@
 <?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria from noticias where pagina like '%1%' and fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC"); ?>
 <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
 <article class="well">
-	<h4 class="media-heading h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><span class="fa fa-star fa-lg fa-fw"></span> <?php echo $row['titulo']; ?></a></h4>
+	<h4 class="media-heading h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><span class="fa fa-star fa-fw"></span> <?php echo $row['titulo']; ?></a></h4>
 	<h6 class="text-muted"><?php echo ($row['categoria']) ? $row['categoria'] : 'Sin categoría'; ?>&nbsp;&nbsp;·&nbsp;&nbsp;<?php echo strftime('%e %B', (strtotime($row['fechapub']))); ?></h6>
 </article>
 
