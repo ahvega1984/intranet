@@ -444,7 +444,7 @@ include("../../../menu.php");
 						  <div class="row">
 							<?php foreach ($arrdias as $numdia => $nomdia): ?>
 							<div class="col-sm-20">
-								<label><?php echo substr($nomdia, 0, 3); ?></label>
+								<label><small><?php echo $nomdia; ?></small></label>
 								<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
 								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
 								<div class="checkbox">
