@@ -53,7 +53,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 $religion = "";
 	
 if ($curso=="3ESO") {
-for ($i = 2; $i < 9; $i++) {
+for ($i = 2; $i < ($count_3+2); $i++) {
 		if ($datatmp[$i]=="1") {
 			$datatmp[$i]="X";
 		}
@@ -319,7 +319,7 @@ if ($curso=="4ESO") {
 		${n_opt.$i}="";
 		${n_opt.$i}.= "\nOptativas Modalidad Itinerario $i (".${it4.$i}[0]." -> ".${it4.$i}[1]."): ";
 		$num="";
-		foreach (${opt2.$i} as $val) {
+		foreach (${it4.$i} as $val) {
 			$num++;
 			if ($num>2) {
 				$num_opt = $num-2;
@@ -330,15 +330,16 @@ if ($curso=="4ESO") {
 		${n_opt.$i}.="; ";
 		$opt.=${n_opt.$i};
 	}
-	$opt.=". ";
+	$opt.=" ";
 	$opt.= "\nOptativas generales de 4 ESO: ";
+$num="";
 	foreach ($opt4 as $val) {
 		$num++;
 		$opt_gen.="$num => $val, ";
 	}
 	$opt.=$opt_gen;
 	$opt = substr($opt, 0, -2);
-	$opt.=". ";
+	$opt.=" ";
 
 if ($datatmp['itinerario']==1) {
 	$extra_itin="(".$datatmp['ciencias4'].")";
