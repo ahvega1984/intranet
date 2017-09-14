@@ -139,7 +139,7 @@ if ($curso=="3ESO") {
 	if ($div_3 == $grupo_actual) {
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>utf8_decode($datatmp[0]).$bil,
+				'nombre'=>utf8_decode($datatmp[0]),
 				'c9'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],

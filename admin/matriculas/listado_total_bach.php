@@ -80,7 +80,7 @@ for ($i = 3; $i < 11; $i++) {
 	}
 	$opt.=$it_gen;
 	$opt = substr($opt, 0, -2);
-	$opt.=". \n";	
+	$opt.=" ";	
 
 	for ($i=1;$i<5;$i++) { 
 		${n_opt.$i}="";
@@ -99,15 +99,16 @@ for ($i = 3; $i < 11; $i++) {
 		${n_opt.$i}.="; ";
 		$opt.=${n_opt.$i};
 	}
-	$opt.= "\n\nOptativas generales de 2º Bachillerato (2 horas): ";
+	$opt.= "\nOptativas generales de 2º Bachillerato (2 horas): ";
 	$opt_gen="";
+	$num="";
 	foreach ($opt_aut2 as $val) {
 		$num++;
 		$opt_gen.="$num => $val, ";
 	}
 	$opt.=$opt_gen;
 	$opt = substr($opt, 0, -2);
-	$opt.=". ";	
+	$opt.=" ";	
 
 	$opt = utf8_decode($opt);
 
