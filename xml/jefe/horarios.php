@@ -210,9 +210,11 @@ if (mysqli_num_rows($tabla_profes) > 0) {
 }
 else{
 	$nohay_profes=1;
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where c_asig not like '2' order by prof");
+	$pro =mysqli_query($db_con,"select distinct c_asig, a_grupo, prof from horw where c_asig not like '2' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
-		$materia = $prf[0];
+		$mat = mysqli_query($db_con,"select nombre from asignaturas where codigo = '$prf[0]' limit 1");
+		$mater= mysqli_fetch_array($mat);
+		$materia = $mater[0];
 		$grupo = $prf[1];
 		$profesor = $prf[2];
 		$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
@@ -239,36 +241,6 @@ mysqli_query($db_con, "update horw set a_asig = 'TAP' where c_asig = '117'");
 mysqli_query($db_con, "update horw set a_asig = 'GU' where c_asig = '25'");
 mysqli_query($db_con, "update horw set a_asig = 'GUREC' where c_asig = '353'");
 mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
-
-// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
-
-
-// Recorremos la tabla Profesores bajada de Séneca
-/*if ($nohay_profes==1) {
-        mysqli_query($db_con,"drop table profesores_seg");
-        mysqli_query($db_con,"create table profesores_seg select * from profesores");
-	mysqli_query($db_con,"truncate table profesores");
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where (a_grupo in (select nomunidad from unidades) or a_grupo in (select distinct a_grupo from horw where c_asig = '135785' or c_asig = '25226')) and c_asig not like '2' order by prof");
-	while ($prf =mysqli_fetch_array($pro)) {
-		$materia = $prf[0];
-		$grupo = $prf[1];
-		$profesor = $prf[2];
-		$tr_g = explode("-",$grupo);
-		if(strlen($tr_g[1])>1){
-		$grupo = substr($grupo,0,-1);
-		}
-		$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
-		$nive =mysqli_fetch_array($niv);
-		$nivel = $nive[0];
-
-		mysqli_query($db_con,"INSERT INTO  profesores (
-`nivel` ,
-`materia` ,
-`grupo` ,
-`profesor`
-) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
-	}
-}*/
 
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");

@@ -58,7 +58,7 @@ include("menu.php");
 				
 				<br>
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, contenido, pagina FROM noticias $sql_where ORDER BY timestamp DESC"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, contenido, pagina FROM noticias $sql_where ORDER BY fechapub DESC"); ?>
 				
 				<?php if (mysqli_num_rows($result)): ?>
 					

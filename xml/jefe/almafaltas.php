@@ -29,8 +29,8 @@ include '../../menu.php';
 				if($archivo1 and $archivo2){
 					// Comprobamos si es la primera vez que se ha creado una base de datos.
 					$fechorias = mysqli_query($db_con, "select * from Fechoria");
-					$mensajes = mysqli_query($db_con, "select * from mens_texto");
-					$reg_int = mysqli_query($db_con, "select * from reg_intranet");
+					$mensajes = mysqli_query($db_con, "select * from mens_texto limit 10");
+					$reg_int = mysqli_query($db_con, "select * from reg_intranet limit 10");
 			
 					if ((mysqli_num_rows($fechorias) > 5) && (mysqli_num_rows($mensajes) > 5) && (mysqli_num_rows($reg_int) > 5)) {
 						include("copia_bd.php");
