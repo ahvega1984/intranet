@@ -49,7 +49,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	while ($alumno = mysqli_fetch_object($result)) {
 		if($i%5==0) $ln=1; else $ln=0;
 		
-		$pdf->Cell(37,43,'',1,$ln,'C'); // Dibuja una cuadrÃ­cula
+		$pdf->Cell(37,42,'',1,$ln,'C'); // Dibuja una cuadrÃ­cula
 		
 		$foto = "../../xml/fotos/$alumno->claveal.jpg";
 		if (file_exists($foto)) {
@@ -62,11 +62,11 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 		
 		// Texto
 		$x_texto1+=37;
-		if($ln) { $x_texto1=29.5; $y_texto1+=43; }
+		if($ln) { $x_texto1=29.5; $y_texto1+=42; }
 		
 		// Imagen
 		$x_image+=37;
-		if($ln) { $x_image=20; $y_image+=43; }
+		if($ln) { $x_image=20; $y_image+=42; }
 		
 		
 		// En una hoja caben 30 fotos, se aÃ±ade una nueva hoja y se reinicializan las variables
