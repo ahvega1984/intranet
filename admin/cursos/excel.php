@@ -15,6 +15,11 @@ $resEmp = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));
 if ($_POST['asignaturas']==1){
 	while($datatmp = mysqli_fetch_array($resEmp)) { 
 		$mat="";
+
+		$alumn = utf8_decode($datatmp['alumno']);
+		$domicilio = utf8_decode($datatmp['domicilio']);
+		$padre = utf8_decode($datatmp['padre']);
+		
 		$asig0 = explode(":",$datatmp['combasi']);
 		foreach($asig0 as $asignatura){		
 		$unidadn = substr($grupo,0,1);			
@@ -26,10 +31,10 @@ if ($_POST['asignaturas']==1){
 		}
 		is_numeric($datatmp['num']);
 		if ($_POST['datos']=="1") {
-			$data[] = array($datatmp['num'],$datatmp['alumno'],$mat,$datatmp['domicilio'],$datatmp['telefono'],$datatmp['fecha'],$datatmp['edad'],$datatmp['padre'],$datatmp['dni']);
+			$data[] = array($datatmp['num'],$alumn,$domicilio,$datatmp['telefono'],$datatmp['fecha'],$datatmp['edad'],$padre,$datatmp['dni']);
 		}
 		else{
-			$data[] = array($datatmp['num'],$datatmp['alumno'],$mat);
+			$data[] = array($datatmp['num'],$alumn,$mat);
 		}
 		
 }
@@ -37,10 +42,15 @@ if ($_POST['asignaturas']==1){
 else{
 	while($datatmp = mysqli_fetch_assoc($resEmp)) { 
 		if ($_POST['datos']=="1") {
-			$data[] = array($datatmp['num'],$datatmp['alumno'],$datatmp['domicilio'],$datatmp['telefono'],$datatmp['fecha'],$datatmp['edad'],$datatmp['padre'],$datatmp['dni']);
+			$alumn = utf8_decode($datatmp['alumno']);
+			$domicilio = utf8_decode($datatmp['domicilio']);
+			$padre = utf8_decode($datatmp['padre']);
+			
+			$data[] = array($datatmp['num'],$dalumn,$domicilio,$datatmp['telefono'],$datatmp['fecha'],$datatmp['edad'],$padre,$datatmp['dni']);
 		}
 		else{
-			$data[] = array($datatmp['num'],$datatmp['alumno']);
+			$alumn = utf8_decode($datatmp['alumno']);
+			$data[] = array($datatmp['num'],$alumn);
 
 		}
 } 
