@@ -236,7 +236,7 @@ class calendar {
 				$this->htmlDay = $this->day;			
 	
 			// Display calendar cell
-			$calHTML .= sprintf("<td%s>%s</td>", ($this->timeStamp == mktime(1,1,1,date('n'),date('j'),date('Y')) ? ' class="calendar-today"' : (isset($this->events[$this->year][$this->month][$this->day])) ? ' class="calendar-red"' : ''), $this->htmlDay);				
+			$calHTML .= sprintf("<td%s>%s</td>", (isset($this->events[$this->year][$this->month][$this->day]) ? ' class="calendar-red"' : ''), $this->htmlDay);				
 						
 			// End row if necessary			
 			if (($sDay + $this->day) % 7 == 0)
