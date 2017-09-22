@@ -66,8 +66,7 @@ if (isset($id) && (int) $id) {
 	}
 	else {
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-		
-		if (stristr($_SESSION['cargo'],'1') == TRUE || $row['contact'] == $_SESSION['profi']) {
+		if (stristr($_SESSION['cargo'],'1') == TRUE || $row['autor'] == $_SESSION['profi']) {
 			$titulo = ((strstr($row['titulo'], ' [Actualizado]') == true) || (stristr($row['titulo'], ' (Actualizado)') == true)) ? $row['titulo'] : $row['titulo'].' [Actualizado]';
 			$contenido = $row['contenido'];
 			$autor = $row['autor'];
@@ -164,7 +163,6 @@ include ("menu.php");
 							<div class="form-group">
 								<label for="autor">Autor</label>
 								<input type="text" class="form-control" id="autor" name="autor" value="<?php echo (isset($autor) && $autor) ? $autor : $_SESSION['profi']; ?>" readonly>
-								<input type="hidden" name="contact" value="<?php echo (isset($autor) && $autor) ? $autor : $_SESSION['profi']; ?>">
 							</div>
 							
 							<div class="form-group" id="datetimepicker1">
@@ -175,13 +173,15 @@ include ("menu.php");
 								</div>
 							</div>
 							
-							<?php $array_categorias = array('Dirección del Centro', 'Jefatura de Estudios', 'Secretaría', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro Bilingüe', 'Centro TIC', 'Ciclos Formativos'); ?>
+							<?php $array_categorias = array('Dirección del Centro', 'Jefatura de Estudios', 'Secretaría', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro Bilingüe', 'Centro TIC', 'Ciclos Formativos', 'Noticia personal'); ?>
 							
 							<div class="form-group">
 								<label for="clase">Categoría</label>
 								<select class="form-control" id="categoria" name="categoria">
 								<?php foreach ($array_categorias as $item_categoria): ?>
+								<?php if(stristr($_SESSION['cargo'],'1') == FALSE and ($item_categoria=="Dirección del Centro" or $item_categoria=="Jefatura de Estudios" or $item_categoria=="Secretaría")) {} else {?>
 									<option value="<?php echo $item_categoria; ?>" <?php echo (isset($item_categoria) && $item_categoria == $categoria) ? 'selected' : ''; ?>><?php echo $item_categoria; ?></option>
+									<?php } ?>
 								<?php endforeach; ?>
 								</select>
 							</div>
