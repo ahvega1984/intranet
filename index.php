@@ -146,6 +146,8 @@ include("menu.php");
 					notificar_mensajes(mensajes_pendientes);
 				}
 			});
+
+			location.reload();
 		}
 		else {
 			$.post( "./admin/mensajes/post_verifica.php", { "idp" : idp }, null, "json" )

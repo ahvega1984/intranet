@@ -1,38 +1,43 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
+<?php if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'2') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor): ?>
 <a name="intervenciones"></a>
-<?php
-$tuto = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
-$tut = mysqli_fetch_array($tuto);
-$tutor = $tut[0];
-if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'2') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor) {
-echo "<h3>Intervenciones de tutoría</h3>";
-if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8')) {$prohibido="";}else{$prohibido=" and prohibido = '0'";}
-$alumno=mysqli_query($db_con, "select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria where tutoria.claveal = '$claveal' $prohibido");
+<h3>Intervenciones de tutoría</h3>
 
-if (mysqli_num_rows($alumno) < 1)
-{ 
-echo '<h3 class="text-muted">El alumno/a no tiene intervenciones de tutoría</h3>
-<br>';
-}
-else 
-{
-echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "UTF-8")."</h4><br />";
+<br>
+<?php $prohibido = (stristr($_SESSION['cargo'],'1') == true || stristr($_SESSION['cargo'],'8') == true) ? "" : " and prohibido = '0'"; ?>
+<?php $result_tutoria = mysqli_query($db_con, "SELECT fecha, accion, causa, observaciones FROM tutoria WHERE claveal = '$claveal' $prohibido"); ?>
+<?php if (mysqli_num_rows($result_tutoria)): ?>
 
-  
-echo "<div class=\"table-responsive\"><table class='table table-bordered table-striped table-hover'>\n";  	
-echo "<thead><tr>
-<th>Fecha</th>
-<th>Clase</th>
-<th>Causa</th>
-</tr></thead>";
-while($row = mysqli_fetch_array($alumno)){
-  $obs=$row[3];
-  $dia3 = explode("-",$row[0]);
-  $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
-echo "<tr><td>$fecha3</td><td>$row[1]</td><td>$row[2]</td></tr>";
-}
-echo "</table></div>";				  
-}
-}
-?>
+<?php while ($row = mysqli_fetch_array($result_tutoria)): ?>
+<?php $exp_fecha = explode("-", $row['fecha']); ?>
+<?php $fecha = $exp_fecha[2].'-'.$exp_fecha[1].'-'.$exp_fecha[0]; ?>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="20%">Fecha</th>
+      <th width="40%">Tipo de entrevista</th>
+      <th width="40%">Causa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><?php echo $fecha; ?></strong></td>
+      <td><strong><?php echo rtrim($row['accion'], '; '); ?></strong></td>
+      <td><strong><?php echo $row['causa']; ?></strong></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <strong>Observaciones:</strong><br>
+        <?php echo $row['observaciones']; ?>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<?php endwhile; ?>
+<?php else: ?>
+
+<h3 class="text-muted">El alumno/a no tiene intervenciones de tutoría</h3>
+
+<?php endif; ?>
+<?php endif; ?>
