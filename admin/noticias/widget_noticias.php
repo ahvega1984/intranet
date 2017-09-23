@@ -6,18 +6,17 @@
 <hr>
 
 <!-- NOTICIAS DESTACADAS -->
-<?php $hr = 0; ?>
 <?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria from noticias where pagina like '%1%' and fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC"); ?>
+<?php $noticias_destacadas = mysqli_num_rows($result); ?>
 <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
 <article class="well">
 	<h4 class="media-heading h5"><a href="admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&amp;widget=1"><span class="fa fa-star fa-fw"></span> <?php echo $row['titulo']; ?></a></h4>
 	<h6 class="text-muted"><?php echo ($row['categoria']) ? $row['categoria'] : 'Sin categoría'; ?>&nbsp;&nbsp;·&nbsp;&nbsp;<?php echo strftime('%e %B', (strtotime($row['fechapub']))); ?></h6>
 </article>
-<?php $hr = 1; ?>
 <?php endwhile; ?>
 <?php mysqli_free_result($result); ?>
 
-<?php echo (isset($hr) && $hr == 1) ? '<hr>' : ''; ?>
+<?php echo ($noticias_destacadas) ? '<hr>' : ''; ?>
 
 <!-- ÚLTIMAS NOTICIAS -->
 <?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria FROM noticias WHERE fechapub <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' AND id NOT IN (SELECT id FROM noticias WHERE pagina LIKE '%1%' AND fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC) ORDER BY fechapub DESC LIMIT 6"); ?>
