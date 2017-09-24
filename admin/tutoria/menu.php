@@ -69,6 +69,9 @@ $curso_tutor=$query2[0];
 	<ul class="dropdown-menu" role="menu">
 		<li><a href="../datos/datos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'] ?>">Datos de alumnos/as</a></li>
 		<li><a href="../cursos/ccursos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&submit1=1" target="_blank">Listado de alumnos/as</a></li>
+		<?php if ($config['mod_matriculacion']==1 and (stristr($curso_tutor,"E.S.O")==TRUE or stristr($curso_tutor,"Bach")==TRUE)): ?>
+		<li><a href="matriculas.php">Datos importantes de la Matrícula</a></li>	
+		<?php endif; ?>
 		<?php if (isset($config['mod_sms']) && $config['mod_sms']): ?>
 		<li><a href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar SMS</a></li>	
 		<?php endif; ?>

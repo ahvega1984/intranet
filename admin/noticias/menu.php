@@ -1,6 +1,10 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 	<div class="container">
+
+		<?php if (acl_permiso($carg, array('1'))): ?>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+		<?php endif; ?>
 		
 		<form method="get" action="buscar.php">
 		

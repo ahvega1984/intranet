@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 $profesor = $_SESSION ['profi'];
 
 if($_POST['token']) $token = $_POST['token'];
@@ -173,12 +177,10 @@ include ("menu.php");
 								</div>
 							</div>
 							
-							<?php $array_categorias = array('Dirección del Centro', 'Jefatura de Estudios', 'Secretaría', 'Actividades Extraescolares', 'Proyecto Escuela de Paz', 'Centro Bilingüe', 'Centro TIC', 'Ciclos Formativos', 'Noticia personal'); ?>
-							
 							<div class="form-group">
 								<label for="clase">Categoría</label>
 								<select class="form-control" id="categoria" name="categoria">
-								<?php foreach ($array_categorias as $item_categoria): ?>
+								<?php foreach ($cat as $item_categoria): ?>
 								<?php if(stristr($_SESSION['cargo'],'1') == FALSE and ($item_categoria=="Dirección del Centro" or $item_categoria=="Jefatura de Estudios" or $item_categoria=="Secretaría")) {} else {?>
 									<option value="<?php echo $item_categoria; ?>" <?php echo (isset($item_categoria) && $item_categoria == $categoria) ? 'selected' : ''; ?>><?php echo $item_categoria; ?></option>
 									<?php } ?>
@@ -197,6 +199,10 @@ include ("menu.php");
 								</div>
 							</div>
 							
+
+							<?php 
+							if ($config['noticias']['web_centro']==1) {
+							?>
 							<label>Publicar en...</label>
 							
 							<div class="form-group">
@@ -214,6 +220,10 @@ include ("menu.php");
 									</label>
 								</div>
 							</div>
+							<?php
+							}
+							?>
+							
 							<?php else: ?>
 							
 							<input type="hidden" name="intranet" value="1">

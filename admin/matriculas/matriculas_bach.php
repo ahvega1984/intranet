@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 7));
+acl_acceso($_SESSION['cargo'], array(1, 2, 7));
 
 if (file_exists('config.php')) {
 	include('config.php');
@@ -1333,9 +1333,16 @@ if ($dni or $claveal or $id) {
 	type="hidden" name="repetidor"
 	value="<?php echo (isset($repetidor)) ? $repetidor : ''; ?>">
 
+<?php 
+if (strstr($_SESSION['cargo'],"1")==TRUE) {
+?>
 <button type="submit" class="btn btn-primary" name="enviar">Guardar
 cambios</button>
 <button type="reset" class="btn btn-default">Cancelar</button>
+<?php
+}
+?>
+
 </div>
 
 </form>
