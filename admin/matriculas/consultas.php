@@ -845,13 +845,13 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 			if ($curso=="4ESO") {
 				for ($i=1;$i<$num_opt+1;$i++){
-				${opta.$i} = mysqli_query($db_con, "select optativa1 from matriculas where $extra and optativa1 = '$i'");
+				${opta.$i} = mysqli_query($db_con, "select optativa1 from matriculas where $extra and optativa1 = '$i' and exencion ='0'");
 				${num_opta.$i} = mysqli_num_rows(${opta.$i});
 				}
 			}
 			else{
 				for ($i=1;$i<$num_opt+1;$i++){
-				${opta.$i} = mysqli_query($db_con, "select optativa$i from matriculas where $extra and optativa$i = '1'");
+				${opta.$i} = mysqli_query($db_con, "select optativa$i from matriculas where $extra and optativa$i = '1' and exencion ='0'");
 				${num_opta.$i} = mysqli_num_rows(${opta.$i});
 			}
 			}
