@@ -37,6 +37,9 @@ else {
 	}
 }
 
+// Marcamos como leido
+mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = 1 WHERE id_profe = '".$idprof."' AND id_texto = '".$id."' LIMIT 1");
+
 include("../../menu.php");
 include("menu.php");
 ?>
