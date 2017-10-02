@@ -405,6 +405,7 @@ include("../../menu.php");
 				}
 			
 				// Alumnos TIC
+				$mostrarMensaje = 1;
 				include("exportaTIC.php");
 			
 				// Asignaturas y alumnos con pendientes

@@ -28,15 +28,17 @@ include("menu.php");
 							<tr>
 								<th>Profesor</th>
 								<th>Usuario</th>
-								<th>Contraseña</th>
+								<th>Contraseña Gesuser</th>
+								<th>Contraseña Moodle</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'and  idea=\''.$_SESSION['ide'].'\' LIMIT 1'; ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT idea, profesor, dni FROM c_profes where idea in (select idea from departamentos) $sql_where"); ?>
+							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'AND idea=\''.$_SESSION['ide'].'\''; ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT idea, nombre, dni, departamento FROM departamentos WHERE departamento <> 'Admin' $sql_where ORDER BY nombre ASC"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
-								<td><?php echo $row['profesor']; ?></td>
+								<td><?php echo $row['nombre']; ?></td>
+								<td><?php echo $row['idea']; ?></td>
 								<td><?php echo $row['idea']; ?></td>
 								<td><?php echo $row['dni']; ?></td>
 							</tr>

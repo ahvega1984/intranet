@@ -1,6 +1,10 @@
 <?php 
 require('../../../bootstrap.php');
 
+// Generamos y actualizamos los ficheros
+include('../exportaTIC.php');
+
+// Procedemos a la descarga
 if (!isset($_GET['file']) || empty($_GET['file'])) {
     exit();
 }

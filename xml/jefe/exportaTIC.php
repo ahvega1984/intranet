@@ -1,126 +1,133 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-$alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
-$sqlal = mysqli_query($db_con, $alumnos);
-while ($sqlprof0 = mysqli_fetch_array($sqlal)) {
-	$apellidos = $sqlprof0[1];
-	$apellido = explode(" ",$sqlprof0[1]);
-	$alternativo = strtolower(substr($sqlprof0[3],0,2));
-	$nombreorig = $sqlprof0[2] . " " . $sqlprof0[1];
-	$nombre = $sqlprof0[2];
-	$claveal = $sqlprof0[0];
-	if (substr($nombre,0,1) == "Á") {$nombre = str_replace("Á","A",$nombre);}
-	if (substr($nombre,0,1) == "É") {$nombre = str_replace("É","E",$nombre);}
-	if (substr($nombre,0,1) == "Í") {$nombre = str_replace("Í","I",$nombre);}
-	if (substr($nombre,0,1) == "Ó") {$nombre = str_replace("Ó","O",$nombre);}
-	if (substr($nombre,0,1) == "Ú") {$nombre = str_replace("Ú","U",$nombre);}
-	
-	$apellido[0] = str_replace("Á","A",$apellido[0]);
-	$apellido[0] = str_replace("É","E",$apellido[0]);
-	$apellido[0] = str_replace("Í","I",$apellido[0]);
-	$apellido[0] = str_replace("Ó","O",$apellido[0]);
-	$apellido[0] = str_replace("Ú","U",$apellido[0]);
-	$apellido[0] = str_replace("á","a",$apellido[0]);
-	$apellido[0] = str_replace("é","e",$apellido[0]);
-	$apellido[0] = str_replace("í","i",$apellido[0]);
-	$apellido[0] = str_replace("ó","o",$apellido[0]);
-	$apellido[0] = str_replace("ú","u",$apellido[0]);
-	$apellido[0] = str_replace("ü","u",$apellido[0]);
-	$apellido[0] = str_replace("ö","o",$apellido[0]);
-	$apellido[0] = str_replace("'","",$apellido[0]);
+if (isset($config['mod_centrotic']) && $config['mod_centrotic']) { 
 
-	
-	$userpass = "a".strtolower(substr($nombre,0,1)).strtolower($apellido[0]);
-	$userpass = str_replace("ª","",$userpass);
-	$userpass = str_replace("ñ","n",$userpass);
-	$userpass = str_replace("-","",$userpass);
-	$userpass = str_replace("-","",$userpass);
-	$userpass = str_replace("'","",$userpass);
-	$userpass = str_replace("º","",$userpass);
-	
-	$usuario  = $userpass;
-	$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
-	$unidad = $sqlprof0[3];
-	$claveal = $sqlprof0[0];
-	
-	$insertar = "insert into usuarioalumno set nombre = '$nombreorig', usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal = '$claveal'";
-	mysqli_query($db_con, $insertar);
-}
+	$directorio			= INTRANET_DIRECTORY.'/xml/jefe/TIC/';
 
+	// GESUSER
+	$gesuser_alumnos	= 'alumnos.txt';
+	$gesuser_profesores	= 'profesores.txt';
 
-$repetidos = mysqli_query($db_con, "select usuario from usuarioalumno");
-while($num = mysqli_fetch_row($repetidos))
-{
-$n_a = "";
-$repetidos1 = mysqli_query($db_con, "select usuario, claveal, unidad from usuarioalumno where usuario = '$num[0]'");
-if (mysqli_num_rows($repetidos1) > 1) {
-while($num1 = mysqli_fetch_row($repetidos1))
-{
-$n_a = $n_a +1;
-$nuevo = $num1[0].$n_a;
-mysqli_query($db_con, "update usuarioalumno set usuario = '$nuevo' where claveal = '$num1[1]'");
-}	
-}
-}
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="text-align:left">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h5>CENTRO TIC:</h5>
-Los datos de los alumnos se han importado correctamente en la tabla "usuarioalumno".<br> Se ha generado un fichero (alumnos.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
-</div></div><br />';
+	$cuota_alumnos 		= '300'; // Capacidad en megabytes
+	$cuota_profesores 	= '300'; // Capacidad en megabytes
+	$cuota_gestion		= '300'; // Capacidad en megabytes
 
-// Código y abreviatura de la asignatura.
-$codigo = "select  usuario, nombre, perfil from usuarioalumno";
-//echo $codigo . "<br>";
-$sqlcod = mysqli_query($db_con, $codigo);
-while($row = mysqli_fetch_array($sqlcod))
-{
+	// Perfil alumno
+	if (!$fp = fopen($directorio.$gesuser_alumnos, 'w+')) {
+		die ("Error: No se puede crear o abrir el archivo ".$directorio.$gesuser_alumnos);
+	}
+	else {
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma ORDER BY unidad ASC, apellidos ASC, nombre ASC");
 
-$linea = "$row[0];$row[1];$row[2];\n";
-$todo .= $linea;
+		while ($row = mysqli_fetch_array($result)) {
+			fwrite($fp, $row['claveal'].";".$row['nombre']." ".$row['apellidos'].";a;;".$cuota_alumnos."\r\n");
 		}
- if (!(file_exists("TIC/alumnos.txt")))
-{
-$fp=fopen("TIC/alumnos.txt","w+");
- }
- else
- {
- $fp=fopen("TIC/alumnos.txt","w+");
- }
- $pepito=fwrite($fp,$todo);
- fclose ($fp);
-   
-// Moodle
-$codigo1 = "select usuario, pass, alma.apellidos, alma.nombre, alma.unidad from usuarioalumno, alma where alma.claveal=usuarioalumno.claveal";
-$sqlcod1 = mysqli_query($db_con, $codigo1);
-$todos_moodle="username;password;firstname;lastname;email;city;country\n";
-while($rowprof = mysqli_fetch_array($sqlcod1))
-{
-$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@".$config['dominio'].";".$config['centro_localidad'].";ES\n";
-$todos_moodle.=$linea_moodle;
-}
+		fclose($fp);
+	}
 
-if (!(file_exists("TIC/alumnos_moodle.txt")))
-{
-$fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
- }
- else
- {
- $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso de escritura en ese directorio?
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div><br />'); 
- }
- $pepito1=fwrite($fpprof1,$todos_moodle);
- fclose ($fpprof1);
- echo '<div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h5>MOODLE:</h5>
- Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en cualquier Plataforma Moodle distinta a la de la Red TIC de la Junta de Andalucía.
-</div><br />'; 
- 
- ?>
+	// Perfil profesor y gestión
+	if (!$fp = fopen($directorio.$gesuser_profesores, 'w+')) {
+		die ("Error: No se puede crear o abrir el archivo ".$directorio.$gesuser_profesores);
+	}
+	else {
+		// Perfil profesor: Todos los profesores excepto equipo directivo
+		$result = mysqli_query($db_con, "SELECT nombre, idea, departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo NOT LIKE '%1%' ORDER BY nombre ASC");
+		while ($row = mysqli_fetch_array($result)) {
+			$exp_nombre = explode(', ', $row['nombre']);
+			$nombre = trim($exp_nombre[1]);
+			$apellidos = trim($exp_nombre[0]);
+			$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
+			
+			fwrite($fp, $row['idea'].";".$nombre_completo.";p;;".$cuota_profesores."\r\n");
+		}
+
+		// Perfil gestión: Equipo directivo y Administración
+		$result = mysqli_query($db_con, "SELECT nombre, idea, cargo, departamento FROM departamentos WHERE departamento = 'Administracion' OR (cargo LIKE '%1%' AND departamento <> 'Admin') ORDER BY nombre ASC");
+		while ($row = mysqli_fetch_array($result)) {
+			$exp_nombre = explode(', ', $row['nombre']);
+			$nombre = trim($exp_nombre[1]);
+			$apellidos = trim($exp_nombre[0]);
+			$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
+
+			fwrite($fp, $row['idea'].";".$nombre_completo.";g;;".$cuota_gestion."\r\n");
+		}
+
+		fclose($fp);
+	}
+
+	// PLATAFORMA MOODLE
+	$moodle_alumnos	= 'alumnos_moodle.txt';
+	$moodle_profesores	= 'profesores_moodle.txt';
+
+	// Cabecera del archivo
+	fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
+
+	// Perfil alumno
+	if (!$fp = fopen($directorio.$moodle_alumnos, 'w+')) {
+		die ("Error: No se puede crear o abrir el archivo ".$directorio.$moodle_alumnos);
+	}
+	else {
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, correo FROM alma ORDER BY unidad ASC, apellidos ASC, nombre ASC");
+
+		while ($row = mysqli_fetch_array($result)) {
+			$correo_electronico = ($row['correo'] == "") ? 'alumno.'.$row['claveal'].'@'.mb_strtolower($config['dominio'],'UTF-8') : mb_strtolower($row['correo'], 'UTF-8');
+
+			fwrite($fp, $row['claveal'].";".substr(sha1($row['claveal']),0,8).";".$row['nombre'].";".$row['apellidos'].";".$correo_electronico.";".$config['centro_localidad'].";ES\r\n");
+		}
+		fclose($fp);
+	}
+
+	// Perfil profesor, excepto Administración y Conserjería
+	if (!$fp = fopen($directorio.$moodle_profesores, 'w+')) {
+		die ("Error: No se puede crear o abrir el archivo ".$directorio.$moodle_profesores);
+	}
+	else {
+		// Perfil profesor: Todos los profesores excepto equipo directivo
+		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+		while ($row = mysqli_fetch_array($result)) {
+			$exp_nombre = explode(', ', $row['nombre']);
+			$nombre = trim($exp_nombre[1]);
+			$apellidos = trim($exp_nombre[0]);
+			$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
+			$correo_electronico = ($row['correo'] == "") ? 'profesor.'.$row['idea'].'@'.mb_strtolower($config['dominio'],'UTF-8') : mb_strtolower($row['correo'], 'UTF-8');
+
+			fwrite($fp, $row['idea'].";".$row['dni'].";".$nombre.";".$apellidos.";".$correo_electronico.";".$config['centro_localidad'].";ES\r\n");
+		}
+
+		fclose($fp);
+	}
+
+	if (isset($mostrarMensaje) && $mostrarMensaje) {
+		echo '
+		<div class="alert alert-success">
+			<h4><span class="fa fa-user-plus fa-lg"></span> Alta masiva de usuarios para Gesuser</h4>
+			Se han generado los archivos <strong>'.$gesuser_alumnos.'</strong> y <strong>'.$gesuser_profesores.'</strong> para realizar el 
+			alta masiva de usuarios en Gesuser. Puede descargar los archivos desde el menú de la <strong>Administración de la Intranet</strong> 
+			en el apartado <strong>Centro TIC</strong>. En un perfil fijo el usuario sólo posee un directorio en el servidor de contenidos 
+			que podrá contener todos los archivos que desee y que se mantendrán de un equipo a otro. De este modo se podrá acceder a ellos 
+			desde cualquier ordenador del centro. Hay que destacar que no se mantendrán las configuraciones de correo, preferencias del 
+			navegador, fondo de escritorio, etc. en los equipos a los que se mueva posteriormente.
+		</div>
+
+		<div class="alert alert-success">
+			<h4><span class="fa fa-user-plus fa-lg"></span> Alta masiva de usuarios para plataforma Moodle</h4>
+			Se han generado los archivos <strong>'.$moodle_alumnos.'</strong> y <strong>'.$moodle_profesores.'</strong> para realizar el 
+			alta masiva de usuarios en la plataforma Moodle. Puede descargar los archivos desde el menú de la <strong>Administración de 
+			la Intranet</strong> en el apartado <strong>Centro TIC</strong>. Debe recordar a los usuarios que actualicen sus direcciones
+			de correo electrónico para la recuperación de la contraseña.
+		</div>
+		';
+	}
+
+	// Eliminamos las variables usadas en este script
+	unset($correo_electronico);
+	unset($directorio);
+	unset($gesuser_alumnos);
+	unset($gesuser_profesores);
+	unset($moodle_alumnos);
+	unset($moodle_profesores);
+	unset($cuota_alumnos);
+	unset($cuota_profesores);
+	unset($cuota_gestion);
+}
 

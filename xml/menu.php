@@ -67,18 +67,10 @@
 	<?php if(isset($config['mod_centrotic']) && $config['mod_centrotic']): ?>
 	<!-- CENTRO TIC -->
 	<li class="nav-header">Centro TIC</li>
-	<?php if(file_exists('jefe/TIC/alumnos.txt')): ?>
 	<li><a href="jefe/TIC/download.php?file=alumnos.txt" target="_blank">Usuarios alumnos (Gesuser)</a></li>
-	<?php endif; ?>
-	<?php if(file_exists('jefe/TIC/alumnos_moodle.txt')): ?>
 	<li><a href="jefe/TIC/download.php?file=alumnos_moodle.txt" target="_blank">Usuarios alumnos (Moodle)</a></li>
-	<?php endif; ?>
-	<?php if(file_exists('jefe/TIC/profesores.txt')): ?>
 	<li><a href="jefe/TIC/download.php?file=profesores.txt" target="_blank">Usuarios profesores (Gesuser)</a></li>
-	<?php endif; ?>
-	<?php if(file_exists('jefe/TIC/profesores_moodle.txt')): ?>
 	<li><a href="jefe/TIC/download.php?file=profesores_moodle.txt" target="_blank">Usuarios profesores (Moodle)</a></li>	
-	<?php endif; ?>
 	<?php endif; ?>
 	
 	<!-- SISTEMA DE RESERVAS -->

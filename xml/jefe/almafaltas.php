@@ -319,6 +319,7 @@ include '../../menu.php';
 					include("alma_centros.php");
 			
 					// Datos para el alta masiva de usuarios TIC
+					$mostrarMensaje = 1;
 					include("exportaTIC.php");
 			
 					// Alumnos con hermanos
