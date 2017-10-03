@@ -59,14 +59,16 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 	$moodle_alumnos	= 'alumnos_moodle.txt';
 	$moodle_profesores	= 'profesores_moodle.txt';
 
-	// Cabecera del archivo
-	fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
+	
 
 	// Perfil alumno
 	if (!$fp = fopen($directorio.$moodle_alumnos, 'w+')) {
 		die ("Error: No se puede crear o abrir el archivo ".$directorio.$moodle_alumnos);
 	}
 	else {
+		// Cabecera del archivo
+		fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
+
 		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, correo FROM alma ORDER BY unidad ASC, apellidos ASC, nombre ASC");
 
 		while ($row = mysqli_fetch_array($result)) {
@@ -82,6 +84,9 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 		die ("Error: No se puede crear o abrir el archivo ".$directorio.$moodle_profesores);
 	}
 	else {
+		// Cabecera del archivo
+		fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
+		
 		// Perfil profesor: Todos los profesores excepto equipo directivo
 		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 		while ($row = mysqli_fetch_array($result)) {
