@@ -56,3 +56,20 @@ if (! mysqli_num_rows($actua)) {
 }
 
 mysqli_free_result($actua);
+
+/*
+	@descripcion: Corrección estructura tabla evaluaciones_actas
+	@fecha: 5 de octubre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla evaluaciones_actas'");
+if (! mysqli_num_rows($actua)) {
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM evaluaciones_actas WHERE Field = 'asistentes'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `evaluaciones_actas` ADD `asistentes` VARCHAR(255) NULL AFTER `texto_acta`");
+		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla evaluaciones_actas', NOW())");
+	}
+	
+}
+
+mysqli_free_result($actua);

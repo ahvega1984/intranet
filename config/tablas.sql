@@ -563,14 +563,15 @@ CREATE TABLE IF NOT EXISTS `evaluaciones` (
 
 DROP TABLE IF EXISTS `evaluaciones_actas`;
 CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `unidad` varchar(64) NOT NULL,
   `evaluacion` char(3) NOT NULL,
   `fecha` date NOT NULL,
   `texto_acta` mediumtext NOT NULL,
+  `asistentes` varchar(255) DEFAULT NULL,
   `impresion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
