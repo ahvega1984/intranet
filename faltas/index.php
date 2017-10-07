@@ -283,27 +283,6 @@ while($hora2 = mysqli_fetch_row($hora0))
 				$cod_asig = "asignatura like '$asignat'";
 			}
 		}		
-	//}
-	/*else{
-	$n_curs10 = "select distinct c_asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'";
-	echo $n_curs10;
-	$n_curs11 = mysqli_query($db_con, $n_curs10);
-	$nm = mysqli_num_rows($n_curs11);
-	if (strlen($c_a)>0) {}else{
-		while ($nm_asig0=mysqli_fetch_array($n_curs11)){
-			if ($nm_asig0[0]=="21") {
-				$c_a.=" 1=1 or ";
-				$c_b.=" 1=1 or ";
-				}
-			else{
-				$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
-				$c_b.="asignatura = '".$nm_asig0[0]."' or ";	
-				}			
-			}
-		}
-		$cod_asig = substr($c_b,0,strlen($c_b)-3);
-		$res.=substr($c_a,0,strlen($c_a)-3);
-	}*/
 	
 	$res.=") order by NC";
 	// echo $res;

@@ -29,7 +29,7 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_
 <div class="row">
 <?php		
 // Borramos faltas para luego colocarlas de nuevo.
-$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and (profesor = '$nprofe' or codasi = '$codasi') and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
+$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and profesor = '$nprofe' and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
 
 $db_pass = trim($clave);
 

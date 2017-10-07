@@ -69,7 +69,7 @@ if ($algo) {
 		// Recorremos los grupos a los que da en ese hora.
 		$rep_grupo = "";
 		$cont = 1;
-		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$pr' and dia = '$z' and hora = '$n_hora' ORDER BY a_grupo" );
+		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM horw where prof = '$pr' and dia = '$z' and hora = '$n_hora' ORDER BY a_grupo" );
 		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1];
 			

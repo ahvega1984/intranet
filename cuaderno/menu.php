@@ -8,7 +8,6 @@ $activo5="";
 if (strstr($_SERVER['REQUEST_URI'],'cuaderno.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'faltas')==TRUE) {$activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'calendario/')==TRUE){ $activo3 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'horario.php')==TRUE){ $activo5 = ' class="active" ';}
 
 if (isset($_GET['profesor'])) {
 	$profesor = $_GET['profesor'];
@@ -121,7 +120,46 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$profesor' class='label label-danger'>" . $rowasignatur1 [1] . "</a>";
 			}
 		}
+
 		// Recorremos los grupos a los que da en ese hora.
+		$rep_grupo = "";
+		$cont = 1;
+		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$pr' and dia = '$z' and hora = '$n_hora' ORDER BY a_grupo" );
+		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
+			$grupo = $rowasignaturas1 [1];
+			
+			echo "<a href='//".$config['dominio']."/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
+			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
+				if ($grupo != $rep_grupo) {
+
+					if($cont > 1) {
+						if (stristr($grupo, '-') == TRUE) {
+							$exp_grupo = explode('-', $grupo);
+							echo "/".trim($exp_grupo[1]);
+						}
+						elseif (stristr($grupo, 'º') == TRUE) {
+							$exp_grupo = explode('º', $grupo);
+							echo "/".trim($exp_grupo[1]);
+						}
+						elseif (preg_match('/^[0-9][A-Z]+$/', $grupo) == TRUE) {
+							$num_grupo = substr($grupo, 0, 1);
+							$exp_grupo = explode($num_grupo, $grupo);
+							echo "/".trim($exp_grupo[1]);
+						}
+						else {
+							echo $grupo.'<br>';
+						}
+					}
+					else {
+						echo $grupo;
+					}
+				}
+			}
+			echo "</a>";
+			$rep_grupo = $grupo;
+			$cont++;
+		}
+		/*// Recorremos los grupos a los que da en ese hora.
 		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora'" );
 		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1];
@@ -130,7 +168,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 				echo $grupo . "<br />";
 			}
 				echo "</a>";
-		}
+		}*/
 		?>
     </span></div>
 </td>
