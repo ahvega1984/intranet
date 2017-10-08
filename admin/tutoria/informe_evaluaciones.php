@@ -1,7 +1,4 @@
 <?php
-ini_set("session.cookie_lifetime","5600");
-ini_set("session.gc_maxlifetime","7200");
-
 require('../../bootstrap.php');
 
 if (file_exists('config.php')) {

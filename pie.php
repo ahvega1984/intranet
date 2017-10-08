@@ -44,7 +44,8 @@
 			  </div>
 			  <div class="modal-body">
 			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de 
-			    	<strong>3 minutos</strong>. Realice alguna actividad en la aplicación para cancelar esta acción.</p>
+					<strong id="session_expired_timer"></strong>. Si está rellenando algún formulario, guarde inmediatamente los
+					 cambios antes de que finalice el tiempo. Esta acción detendrá el cierre de sesión y podrá continuar.</p>
 			  </div>
 			  <div class="modal-footer">
 			    <button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -126,9 +127,17 @@
 
 	<script>
 	$(document).ready(function() {
-		var expired_time = (<?php echo ini_get("session.gc_maxlifetime"); ?> * 60000) - 180000;
+		// Tiempo en milisegundos: tiempo de vida de la cookie menos 180 segundos (3 minutos)
+		var expired_time = (<?php echo ini_get("session.cookie_lifetime"); ?> - 180) * 1000;
+		var expired_time_reload = (<?php echo ini_get("session.cookie_lifetime"); ?>) * 1000;
+
 		setTimeout(function() {
 			$("#session_expired").modal('show');
+			$("#session_expired_timer").html(expired_time + " segundos");
 		}, expired_time);
+
+		setTimeout(function() {
+			document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/salir.php';
+		}, expired_time_reload);
 	});
 	</script>
