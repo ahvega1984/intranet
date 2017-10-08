@@ -128,16 +128,15 @@
 	<script>
 	$(document).ready(function() {
 		// Tiempo en milisegundos: tiempo de vida de la cookie menos 180 segundos (3 minutos)
-		var expired_time_seconds = <?php echo ini_get("session.cookie_lifetime"); ?> - 180;
-		var expired_time_miliseconds = expired_time_seconds * 1000;
-		var expired_time_miliseconds_logout = <?php echo ini_get("session.cookie_lifetime"); ?> * 1000;
+		var expired_time = (<?php echo ini_get("session.cookie_lifetime"); ?> - 180) *  1000;
+		var expired_time_logout = <?php echo ini_get("session.cookie_lifetime"); ?> * 1000;
 
 		setTimeout(function() {
 			$("#session_expired").modal('show');
-		}, expired_time_miliseconds);
+		}, expired_time);
 
 		setTimeout(function() {
 			document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/salir.php';
-		}, expired_time_miliseconds_logout);
+		}, expired_time_logout);
 	});
 	</script>
