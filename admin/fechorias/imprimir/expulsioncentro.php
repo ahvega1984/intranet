@@ -69,7 +69,7 @@ $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
 $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'";
 mysqli_query($db_con, $actualizar );
-$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, Fechoria.id from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC" );
+$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, Fechoria.id, TRIM(CONCAT(alma.nombretutor2,' ',alma.primerapellidotutor2,' ',alma.segundoapellidotutor2)) AS tutor2 from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC" ) or die(mysqli_error($db_con));
 if ($row = mysqli_fetch_array ( $result )) {
 	$idfec = $row['id'];
 	$apellidos = $row[0];
@@ -83,6 +83,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	$tfno = $row[13];
 	$tfno_u = $row[14];
 	$padre = $row['padre'];
+	$tutor2 = $row['tutor2'];
 	$direccion = $row['domicilio'];
 	$codpostal = $row['codpostal'];
 	$provincia = $row['provinciaresidencia'];
@@ -112,53 +113,118 @@ NOTA: El padre, madre o representante legal podrá presentar en el registro de e
 En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 
-	# insertamos la primera pagina del documento
-	$MiPDF->Addpage ();
-	
-	// INFORMACION DE LA CARTA
-	$MiPDF->SetY(45);
-	$MiPDF->SetFont ( 'NewsGotT', '', 12 );
-	$MiPDF->Cell(75, 5, 'Fecha:  '.$hoy, 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $padre, 0, 1, 'L', 0 );
-	$MiPDF->Cell(75, 12, 'Ref.:     Fec/'.$row['id'], 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $direccion, 0, 1, 'L', 0 );
-	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $codpostal.' '.mb_strtoupper($provincia, 'UTF-8'), 0, 1, 'L', 0 );
-	$MiPDF->Cell(0, 12, 'Asunto: '.$titulo, 0, 1, 'L', 0 );
-	$MiPDF->Ln(10);
-	
-	// CUERPO DE LA CARTA
-	$MiPDF->SetFont('NewsGotT', 'B', 12);
-	$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
-	$MiPDF->Ln(5);
-	
-	$MiPDF->SetFont('NewsGotT', '', 12);
-	$MiPDF->Multicell(0, 5, $cuerpo, 0, 'L', 0 );
-	$MiPDF->Ln(10);
-	
-	
-	//FIRMAS
-	$MiPDF->Cell (90, 5, 'Representante legal', 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 5, 'Director/a del centro', 0, 1, 'C', 0 );
-	$MiPDF->Cell (55, 20, '', 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
-	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($config['directivo_direccion'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0 );
-	
-  
+# insertamos la primera pagina del documento
+$MiPDF->Addpage();
+
+// INFORMACION DE LA CARTA
+$MiPDF->SetY(45);
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->Cell(75, 5, 'Fecha:  '.$hoy, 0, 0, 'L', 0);
+$MiPDF->Cell(75, 5, $padre, 0, 1, 'L', 0);
+$MiPDF->Cell(75, 12, 'Ref.:     Fec/'.$row['id'], 0, 0, 'L', 0);
+$MiPDF->Cell(75, 5, $direccion, 0, 1, 'L', 0);
+$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0);
+$MiPDF->Cell(75, 5, $codpostal.' '.mb_strtoupper($provincia, 'UTF-8'), 0, 1, 'L', 0);
+$MiPDF->Cell(0, 12, 'Asunto: '.$titulo, 0, 1, 'L', 0);
+$MiPDF->Ln(10);
+
+// CUERPO DE LA CARTA
+$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0);
+$MiPDF->Ln(5);
+
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->Multicell(0, 5, $cuerpo, 0, 'L', 0);
+$MiPDF->Ln(10);
+
+
+//FIRMAS
+$MiPDF->Cell(90, 5, 'Representante legal', 0, 0, 'C', 0);
+$MiPDF->Cell(55, 5, 'Director/a del centro', 0, 1, 'C', 0);
+$MiPDF->Cell(55, 20, '', 0, 0, 'C', 0);
+$MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
+$MiPDF->SetFont('NewsGotT', '', 10);
+$MiPDF->Cell(90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0);
+$MiPDF->Cell(55, 5, 'Fdo. '.mb_convert_case($config['directivo_direccion'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0);
+
+// ACTA DE AUDIENCIA
+$texto_acta = 'En '.$config['centro_localidad'].', siendo las '.date('H:i').' horas del día '.date('d').' de '.date('B').' de '.date('Y').', comparecen los representantes legales del alumno '.$nombre.' '.$apellidos.' para llevar a efecto el trámite de audiencia.
+
+A tal fin se le informa que en el procedimiento de corrección abierto se le imputan los siguientes hechos:
+
+
+
+
+
+
+
+
+Este procedimiento viene recogido en el artículo 40 del Decreto 327/2010, de 13 de julio, por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria.
+
+Asimismo se le comunica que en relación con los hechos imputados pueden efectuar las alegaciones que en su defensa interesen.';
+
+$MiPDF->Addpage();
+$MiPDF->Ln(15);
+$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->MultiCell( 0, 4, 'ACTA DE AUDIENCIA A SUS REPRESENTANTES LEGALES', 0, 'C', 0);
+$MiPDF->Ln(3);
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetTextColor(0, 0, 0);
+$MiPDF->MultiCell( 0, 4, $texto_acta, 0, 'L', 0);
+
+// ALEGACIONES
+$texto_alegaciones = '
+Alegaciones de sus representantes legales:
+
+
+
+
+
+
+
+
+
+
+Resolución:
+
+
+
+
+
+
+
+
+
+';
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetTextColor(0, 0, 0);
+$MiPDF->MultiCell( 0, 4, $texto_alegaciones, 0, 'L', 0);
+
+
+//FIRMAS
+$MiPDF->Ln(10);
+$MiPDF->Cell(90, 5, 'Representante legal', 0, 0, 'C', 0);
+$MiPDF->Cell(55, 5, 'Representante legal', 0, 1, 'C', 0);
+$MiPDF->Cell(55, 20, '', 0, 0, 'C', 0);
+$MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
+$MiPDF->SetFont('NewsGotT', '', 10);
+$MiPDF->Cell(90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0);
+$MiPDF->Cell(55, 5, 'Fdo. '.$tutor2, 0, 1, 'C', 0);
+$MiPDF->Ln(10);
+
+// PROBLEMAS DE CONVIVENCIA
 $result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
 $num = mysqli_num_rows($result1);
 
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->Ln (15);
-	$MiPDF->SetFont ( 'NewsGotT', 'B', 12);
-	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetTextColor(0, 0, 0);
+$MiPDF->Ln(15);
+$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
+$MiPDF->Ln(3);
+$MiPDF->SetFont('NewsGotT', '', 12);
 	
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 0, 24");
 
@@ -169,8 +235,8 @@ $dato = "$row[0]   $row[1].";
 if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
 	$dato .= " Motivo: ".$row['notas'];
 }
-$MiPDF->Ln ( 4 );
-$MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
+$MiPDF->Ln(4);
+$MiPDF->MultiCell( 0, 4, $dato, 0, 'J', 0);              
                 }
 
                 
@@ -178,13 +244,13 @@ if ($num > '24' and $num < '49')
 {		
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->Ln (15);
-	$MiPDF->SetFont ( 'NewsGotT', 'B', 12);
-	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
+	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetTextColor(0, 0, 0);
+	$MiPDF->Ln(15);
+	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
+	$MiPDF->Ln(3);
+	$MiPDF->SetFont('NewsGotT', '', 12);
 	
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 25, 24");
  // print "$AUXSQL";
@@ -195,8 +261,8 @@ $dato = "$row[0]   $row[1].";
 if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
 	$dato .= " Motivo: ".$row['notas'];
 }
-$MiPDF->Ln ( 4 );
-$MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );             
+$MiPDF->Ln(4);
+$MiPDF->MultiCell( 0, 4, $dato, 0, 'J', 0);             
                 }
 }
 
@@ -205,13 +271,13 @@ if ($num > '48' and $num < '73')
 {		
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->Ln (15);
-	$MiPDF->SetFont ( 'NewsGotT', 'B', 12);
-	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
+	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetTextColor(0, 0, 0);
+	$MiPDF->Ln(15);
+	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
+	$MiPDF->Ln(3);
+	$MiPDF->SetFont('NewsGotT', '', 12);
 	
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 50,24");
  // print "$AUXSQL";
@@ -222,8 +288,8 @@ $dato = "$row[0]   $row[1].";
 if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
 	$dato .= " Motivo: ".$row['notas'];
 }
-$MiPDF->Ln ( 4 );
-$MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
+$MiPDF->Ln(4);
+$MiPDF->MultiCell( 0, 4, $dato, 0, 'J', 0);              
                 }
 }
 
@@ -232,25 +298,25 @@ if ($num > '74' and $num < '24')
 {		
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->Ln (15);
-	$MiPDF->SetFont ( 'NewsGotT', 'B', 12);
-	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'NewsGotT', '', 12);
+	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetTextColor(0, 0, 0);
+	$MiPDF->Ln(15);
+	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
+	$MiPDF->Ln(3);
+	$MiPDF->SetFont('NewsGotT', '', 12);
 	
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 75,24");
  // print "$AUXSQL";
-  while($row = mysqli_fetch_array($result))
+while($row = mysqli_fetch_array($result))
                 {
 $pr = explode(", ",$row[2]);
 $dato = "$row[0]   $row[1].";
 if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] && ! empty($row['notas'])) {
 	$dato .= " Motivo: ".$row['notas'];
 }
-$MiPDF->Ln ( 4 );
-$MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
+$MiPDF->Ln(4);
+$MiPDF->MultiCell( 0, 4, $dato, 0, 'J', 0);              
                 }
 }
 
@@ -262,14 +328,14 @@ $MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
 $MiPDF->Ln(3);
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
+$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0);
 $MiPDF->Ln(3);
 
 $MiPDF->SetFont('NewsGotT', '', 12);
-$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
+$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0);
 $MiPDF->Ln(15);
-$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
-$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
+$MiPDF->Cell(55, 25, '', 0, 0, 'L', 0);
+$MiPDF->Cell(55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0);
 
             
 $MiPDF->Output ();
