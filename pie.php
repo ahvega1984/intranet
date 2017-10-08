@@ -129,7 +129,6 @@
 	$(document).ready(function() {
 		// Tiempo en milisegundos: tiempo de vida de la cookie menos 180 segundos (3 minutos)
 		var expired_time_seconds = <?php echo ini_get("session.cookie_lifetime"); ?> - 180;
-		var expired_time_countdown = expired_time_seconds;
 		var expired_time_miliseconds = expired_time_seconds * 1000;
 		var expired_time_miliseconds_logout = <?php echo ini_get("session.cookie_lifetime"); ?> * 1000;
 
