@@ -44,7 +44,7 @@
 			  </div>
 			  <div class="modal-body">
 			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de 
-					<strong id="session_expired_timer"></strong>. Si está rellenando algún formulario, guarde inmediatamente los
+					<strong>3 minutos</strong>. Si está rellenando algún formulario, guarde inmediatamente los
 					 cambios antes de que finalice el tiempo. Esta acción detendrá el cierre de sesión y podrá continuar.</p>
 			  </div>
 			  <div class="modal-footer">
@@ -128,16 +128,17 @@
 	<script>
 	$(document).ready(function() {
 		// Tiempo en milisegundos: tiempo de vida de la cookie menos 180 segundos (3 minutos)
-		var expired_time = (<?php echo ini_get("session.cookie_lifetime"); ?> - 180) * 1000;
-		var expired_time_reload = (<?php echo ini_get("session.cookie_lifetime"); ?>) * 1000;
+		var expired_time_seconds = <?php echo ini_get("session.cookie_lifetime"); ?> - 180;
+		var expired_time_countdown = expired_time_seconds;
+		var expired_time_miliseconds = expired_time_seconds * 1000;
+		var expired_time_miliseconds_logout = <?php echo ini_get("session.cookie_lifetime"); ?> * 1000;
 
 		setTimeout(function() {
 			$("#session_expired").modal('show');
-			$("#session_expired_timer").html(expired_time + " segundos");
-		}, expired_time);
+		}, expired_time_miliseconds);
 
 		setTimeout(function() {
 			document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/salir.php';
-		}, expired_time_reload);
+		}, expired_time_miliseconds_logout);
 	});
 	</script>
