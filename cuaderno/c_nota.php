@@ -105,9 +105,14 @@ $tipo = $ident0[5];
 		<input type="submit" name="crear" value="Crear o Modificar" class="btn btn-primary"/>
 		</div>
 	</div>
+</div>
 </form>
 
 </div>
+
+</div>
+</div>
+
 <?php include('../pie.php'); ?>
 
   <script type="text/javascript">

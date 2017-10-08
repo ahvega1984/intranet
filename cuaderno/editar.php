@@ -27,7 +27,8 @@ require('../bootstrap.php');
 include("../menu.php");
 include("menu.php");
 // Titulo
-echo "<div class='container'><div class='row'>";
+echo "<div class='container'>
+<div class='row'>";
 echo "<br /><div class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
@@ -70,6 +71,9 @@ elseif ($media_pond2) {
 }
 echo $edicion;
 ?>
+</div>
+</div>
+</div>
 <?php
 include("../pie.php")
 ?>

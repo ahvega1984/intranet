@@ -33,7 +33,10 @@ El archivo generado por el programa generador de horarios ha sido procesado y se
 	$profes = $doc->getElementsByTagName( "grupo_datos");
 
 	foreach ($profes as $materia) {
+
 		$texto="";
+		$n_dep="";
+
 		$codigos = $materia->getElementsByTagName( "dato" );
 
 		$N_DIASEMANA=$codigos->item(0)->nodeValue;
@@ -48,38 +51,44 @@ El archivo generado por el programa generador de horarios ha sido procesado y se
 		$N_HORFIN=$codigos->item(9)->nodeValue;
 		$X_ACTIVIDAD=$codigos->item(10)->nodeValue;
 
-			$bach = mysqli_query($db_con,"select unidades.idunidad from unidades, cursos where cursos.idcurso = unidades.idcurso and nomcurso like '%Bach%'");
+			$bach = mysqli_query($db_con,"select unidades.idunidad, unidades.nomunidad from unidades, cursos where cursos.idcurso = unidades.idcurso and nomcurso like '%Bach%'");
 			while($cur_bach = mysqli_fetch_array($bach))
 			{
-		if (strlen($X_UNIDAD)>0 and $X_UNIDAD == $cur_bach[0]) {
-
+			
+			if (strlen($X_UNIDAD)>0 and $X_UNIDAD == $cur_bach[0]) {
+			
 			$un = mysqli_query($db_con, "select unidades.idcurso, nomcurso, nomunidad from unidades, cursos where unidades.idcurso = cursos.idcurso and idunidad = '$X_UNIDAD' order by unidades.idcurso, nomunidad");
 			$uni = mysqli_fetch_array($un);
 
 			$asignatura="";
-
 			$nombre_asig = mysqli_query($db_con, "select nombre from asignaturas where codigo = '$X_MATERIAOMG'");
 
 			if ($nombre_asig) {
 				$nombre_asigna= mysqli_fetch_array($nombre_asig);
 
-				$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas  where curso = '$uni[1]' and nombre = '$nombre_asigna[0]' and abrev not like '%\_%'");
+				$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$uni[1]' and nombre = '$nombre_asigna[0]' and abrev not like '%\_%'");
 
-
+				
 				if (mysqli_num_rows($asig)>0) {
-
+				
 					while ($asignatur = mysqli_fetch_array($asig)){
+
 						$asignatura.=$asignatur[0].";";
 						$nombre_asignatura = $asignatur[1];
 					}
 					if (stristr($asignatura,$X_MATERIAOMG)==FALSE) {
 						if (strstr($texto,$asignatura)==FALSE) {
 							$asig_corta = substr($asignatura,0,-1);
+							
 							if ($depurar==1) {
-							echo  "<br /><div align'center><div class='alert alert-success alert-block fade in'><br />
-            <button type='button' class='close' data-dismiss='alert'>&times;</button>
-El código de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) no corresponde al Curso $uni[1], sino este código: <strong>$asig_corta</strong>. <br><span clas='text-warning'>Código sustituído..</span>
-</div></div>";	
+							$n_dep++;
+							if ($n_dep==1) {
+								echo  "<br /><div align'center><div class='alert alert-success alert-block fade in'><br />
+						            <button type='button' class='close' data-dismiss='alert'>&times;</button>
+							El código de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) de <b>$cur_bach[1]</b> no corresponde al Curso $uni[1], sino este código: <strong>$asig_corta</strong>. <br><span clas='text-warning'>Código sustituído..</span>
+						</div></div>";
+								}
+								
 							}				
 							$codigos->item(5)->nodeValue = $asig_corta;
 							$texto.=$asignatura.'';
@@ -88,12 +97,16 @@ El código de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) n
 					}
 				}
 				else{
+
 					if (strstr($texto,$X_MATERIAOMG)==FALSE) {
 						if ($depurar==1) {
+							$n_dep++;
+							if ($n_dep==1) {
 						echo  '<br /><div align="center"><div class="alert alert-warning alert-block fade in"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em>) en la tabla de asignaturas de '. $uni[1].'.
+No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em>) de <b>'.$cur_bach[1].'</b> en la tabla de asignaturas de '. $uni[1].'.
 </div></div>';
+							}
 						}
 						$texto.=$X_MATERIAOMG.' ';
 							
