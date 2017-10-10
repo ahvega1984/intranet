@@ -128,7 +128,7 @@ include("../../menu.php");
 										}
 										
 										// Educador/a social = '';
-										if(stristr($pas_departamento, 'Educador/a') == TRUE) {
+										if((stristr($pas_departamento, 'Educador/a') == TRUE) || $pas_departamento == 'Participante Externo en Programa Educativo') {
 											
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
