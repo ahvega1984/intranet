@@ -102,6 +102,62 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 		fclose($fp);
 	}
 
+	// GOOGLE SUITE
+	$gsuite_profesores	= 'profesores_gsuite.csv';
+	$array_correos = array();
+
+	// Perfil profesor, excepto Administración y Conserjería
+	if (!$fp = fopen($directorio.$gsuite_profesores, 'w+')) {
+		die ("Error: No se puede crear o abrir el archivo ".$directorio.$gsuite_profesores);
+	}
+	else {
+		// Cabecera del archivo
+		fwrite($fp, "First Name,Last Name,Email Address,Password,Secondary Email,Work Phone 1,Home Phone 1,Mobile Phone 1,Work address 1,Home address 1,Employee Id,Employee Type,Employee Title,Manager,Department,Cost Center\r\n");
+		
+		// Perfil profesor: Todos los profesores excepto equipo directivo
+		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+		while ($row = mysqli_fetch_array($result)) {
+			$exp_nombre = explode(', ', $row['nombre']);
+
+			$nombre = trim($exp_nombre[1]);
+			$exp_nombrecomp = explode(' ',$nombre);
+			$primer_nombre = trim($exp_nombrecomp[0]);
+
+			$apellidos = trim($exp_nombre[0]);
+			$exp_apellidos = explode(' ',$apellidos);
+			$primer_apellido = trim($exp_apellidos[0]);
+			$segundo_apellido = trim($exp_apellidos[1]);
+
+			$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
+
+			$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
+			$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');			
+
+			$correo = $primer_nombre.$primer_apellido;
+			$correo = str_ireplace('Mª', 'María', $correo);
+			$correo = str_ireplace('M.', 'María', $correo);
+			$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+			$correo = mb_strtolower($correo, 'UTF-8');
+			$correo = $correo.'@'.$config['dominio'];
+
+			// Si ya existe la cuenta de correo, añadimos el segundo apellido
+			if (in_array($correo, $array_correos)) {
+				$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
+				$correo = str_ireplace('Mª', 'María', $correo);
+				$correo = str_ireplace('M.', 'María', $correo);
+				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+				$correo = mb_strtolower($correo, 'UTF-8');
+				$correo = $correo.'@'.$config['dominio'];
+			}
+
+			array_push($array_correos, $correo);
+
+			fwrite($fp, utf8_decode($nombre).",".utf8_decode($apellidos).",".$correo.",".$row['dni']."\r\n");
+		}
+
+		fclose($fp);
+	}
+
 	if (isset($mostrarMensaje) && $mostrarMensaje) {
 		echo '
 		<div class="alert alert-success">
@@ -121,6 +177,12 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 			la Intranet</strong> en el apartado <strong>Centro TIC</strong>. Debe recordar a los usuarios que actualicen sus direcciones
 			de correo electrónico para la recuperación de la contraseña.
 		</div>
+
+		<div class="alert alert-success">
+		<h4><span class="fa fa-user-plus fa-lg"></span> Alta masiva de usuarios para G Suite</h4>
+		Se ha generado el archivo <strong>'.$gsuite_profesores.'</strong> para realizar el alta masiva de usuarios en G Suite. Los profesores
+		disponen de espacio ilimitado en sus cuentas corporativas para el uso docente.
+	</div>
 		';
 	}
 
