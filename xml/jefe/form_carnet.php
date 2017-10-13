@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -17,10 +17,15 @@ include("../../menu.php");
 
 <div class="col-sm-6 col-sm-offset-3">
 
-<?
+<?php
 $id=$_POST['seleccion'];
-if ($id>0){$modificar=1;}
-else {$modificar=0;}
+
+if ($id > '0'){
+    $modificar=1;
+}
+else {
+    $modificar=0;
+}
 $alumnos='';
 
 $query_Recordset1 = "SELECT distinct unidad FROM alma ORDER BY unidad ASC";
@@ -39,7 +44,7 @@ $unidad = $row_Recordset1[16];
 <legend>Impresión de Carnet por Grupo</legend>
   <label class="control-label" for="grupo">Selecciona un Grupo:</label>
 
-<?
+<?php
 if (stristr($_SESSION['cargo'],'2') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE) {
 	$unidad_tutor = $_SESSION['mod_tutoria']['unidad'];
 	echo "<input type='text' name='select' value='$unidad_tutor' readonly class='form-control'/>"; 
@@ -56,7 +61,7 @@ else{
 }
 ?>
   </select>
-<?
+<?php
 }
 ?>
   </div>
@@ -71,7 +76,7 @@ else{
 <form name="crear" action="carnet.php" method="POST" onsubmit="placeInHidden('*', this.form.al2,this.form.profes)">
 <legend>Impresión de Carnet por Alumno</legend>
 
-<?############################?>
+<?php############################?>
 <SCRIPT language="JavaScript" type="text/javascript">
 
 <!-- Begin
@@ -161,7 +166,7 @@ function placeInHidden(delim, selStr, hidStr)
 
 // End -->
 </script>
-<?
+<?php
 
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
 	$unidad_tuto = " and unidad = '$unidad_tutor'";
