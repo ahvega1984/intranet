@@ -24,7 +24,7 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
-      }  
+      }
 ?>
 <br />
 <div align="center">
@@ -39,7 +39,9 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 
 $d = dir($fotos_dir);
 while (false !== ($entry = $d->read())) {
-   $n_file+=1;
+  if ($entry != "." && $entry != ".." && $entry != "index.php") {
+    $n_file+=1;
+  }
 }
 // Directorio vacío
 if ($n_file<5) {
