@@ -1,5 +1,9 @@
 <?php
 require('../bootstrap.php');
+if (! isset($config['mod_documentos']) || $config['mod_documentos'] != 1) {
+	acl_acceso();
+}
+
 setlocale('LC_ALL', 'es_ES.UTF-8');
 
 $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');

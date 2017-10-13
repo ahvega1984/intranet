@@ -532,7 +532,7 @@ include('../menu.php');
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
-								    			<input type="checkbox" name="mod_documentos" value="1" checked>
+								    			<input type="checkbox" name="mod_documentos" value="1" <?php echo (isset($config['mod_documentos']) && $config['mod_documentos']) ? 'checked' : ''; ?>>
 								    			<strong>Documentos</strong>
 								    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet.</p>
 								    		</label>
