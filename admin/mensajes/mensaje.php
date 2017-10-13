@@ -20,6 +20,11 @@ if(mysqli_num_rows($result)<1) {
 	exit();
 }
 
+// Obtenemos el nombre del profesor de origen
+$query = mysqli_query($db_con,"SELECT nombre FROM departamentos WHERE idea = '".$mensaje['origen']."' LIMIT 1");
+$row = mysqli_fetch_array($query);
+$nom_profesor = $row['nombre'];
+
 // Consultamos si el mensaje se ha marcado como tarea
 $result_tarea = mysqli_query($db_con, "SELECT id FROM tareas WHERE titulo = '".$mensaje['asunto']."' AND tarea = '".$mensaje['texto']."'");
 if (mysqli_num_rows($result_tarea)) {
@@ -31,7 +36,8 @@ else {
 	// Marcar como tarea
 	if (isset($_GET['tarea']) && $_GET['tarea']) {
 		$titulo = $mensaje['asunto'];
-		$tarea = htmlspecialchars_decode($mensaje['texto']);
+		$enlace = '//'.$config['dominio'].'/intranet/admin/mensajes/redactar.php?profes=1&origen='.$mensaje['origen'].'&asunto=RE:%20'.$titulo;
+		$tarea = htmlspecialchars_decode($mensaje['texto']).'<p><br></p><p>Enviado por: '.$nom_profesor.'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
 		$fechareg = date('Y-m-d H:i:s');
 		mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");	
 	}
@@ -56,12 +62,7 @@ include("menu.php");
 	  	
 	  	<!-- COLUMNA CENTRAL -->
 	    <div class="col-sm-12">
-	    	<?php 
-				$query = mysqli_query($db_con,"SELECT nombre FROM departamentos WHERE idea = '".$mensaje['origen']."' LIMIT 1");
-				$row = mysqli_fetch_array($query);
-				$nom_profesor = $row['nombre'];
-				?>
-	    	
+
 	    	<h3 class="text-info"><?php echo $mensaje['asunto']; ?></h3>
 	    	<h5 class="text-muted">Enviado por <?php echo nomprofesor($nom_profesor); ?> el <?php echo fecha_actual2($mensaje['ahora']); ?>
 	    	</h5>

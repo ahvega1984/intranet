@@ -81,7 +81,7 @@ if (isset($_GET['id'])) {
 	$estado = $row['estado'];
 	$prioridad = $row['prioridad'];
 
-	$texto_boton = "Actualizar tarea";
+	$texto_boton = "Actualizar";
 }
 
 
@@ -124,14 +124,17 @@ include("../menu.php");
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary" name="submit"><?php echo $texto_boton; ?></button>
 								<?php if (isset($_GET['id']) && $estado == 0): ?>
-								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=finalizar" class="btn btn-success">Finalizar tarea</a>
+								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=finalizar" class="btn btn-success">Finalizar</a>
 								<?php elseif (isset($_GET['id']) && $estado == 1): ?>
-								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=rehacer" class="btn btn-warning">Rehacer tarea</a>
+								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=rehacer" class="btn btn-warning">Rehacer</a>
 								<?php endif; ?>
 								<?php if (isset($_GET['id'])): ?>
-								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=eliminar" class="btn btn-danger" data-bb="confirm-delete">Eliminar tarea</a>
+								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $id; ?>&amp;accion=eliminar" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
 								<?php endif; ?>
-								<a href="index.php" class="btn btn-default">Cancelar</a>
+								<?php if (preg_match('#<a id="enlace_respuesta" href="(.*)"></a>#', $tarea, $enlace)): ?>
+								<a href="<?php echo $enlace[1]; ?>" class="btn btn-info">Responder mensaje</a>
+								<?php endif; ?>
+								<a href="index.php" class="btn btn-default">Volver</a>
 							</div>
 
 						</fieldset>

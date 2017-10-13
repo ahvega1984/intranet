@@ -9,11 +9,17 @@ if (isset($_POST['idp'])) {
     $idp = $_POST['idp'];
 
     if (isset($_POST['esTarea']) && $_POST['esTarea'] == true) {
-        $result = mysqli_query($db_con, "SELECT mens_texto.asunto, mens_texto.texto FROM mens_profes JOIN mens_texto ON mens_profes.id_texto = mens_texto.id WHERE mens_profes.id_profe = $idp LIMIT 1");
+        $result = mysqli_query($db_con, "SELECT mens_texto.asunto, mens_texto.texto, mens_texto.origen FROM mens_profes JOIN mens_texto ON mens_profes.id_texto = mens_texto.id WHERE mens_profes.id_profe = $idp LIMIT 1");
         $row = mysqli_fetch_array($result);
+
+        $result_profesor = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea = '".$row['origen']."' LIMIT 1");
+        $row_profesor = mysqli_fetch_array($result_profesor);
+
         $titulo = $row['asunto'];
-        $tarea = htmlspecialchars_decode($row['texto']);
+        $enlace = '//'.$config['dominio'].'/intranet/admin/mensajes/redactar.php?profes=1&origen='.$row['origen'].'&asunto=RE:%20'.$titulo;
+        $tarea = htmlspecialchars_decode($row['texto']).'<p><br></p><p>Enviado por: '.$row_profesor['nombre'].'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
         $fechareg = date('Y-m-d H:i:s');
+
         mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");
     }
     
