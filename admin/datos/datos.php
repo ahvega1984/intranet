@@ -207,7 +207,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 		$unidad=$tut[0];
 		echo "<li><a href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'><i class='fa fa-edit fa-fw'></i> Intervención de Orientación</a></li>";
 	}
-	if ($s_control=='1' and (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE)) {
+	if ($s_control=='1' and (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE)) {
 			echo "<li><a href='datos.php?resetear=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'><i class='fa fa-refresh fa-fw'></i> Reiniciar contraseña</a></li>";
 			}
 	

@@ -237,7 +237,7 @@ include("cuaderno/menu_cuaderno.php");
 							$cod_asig_bach="";
 							// Bachillerato con dos códigos distintos
 
-							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+							$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where prof = '$pr' and dia = '$dia' and hora = '$hora' and c_asig not like '$asignatura'");
 							if (mysqli_num_rows($asig_bach)>0) {							
 								$as_bach=mysqli_fetch_array($asig_bach);
 								$cod_asig_bach = $as_bach[0];							
@@ -516,8 +516,7 @@ include("cuaderno/menu_cuaderno.php");
 						if (strstr($nombre_curso,"Bach")==TRUE) {
 							$cod_asig_bach2="";
 							// Bachillerato con dos códigos distintos
-
-							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+							$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where prof = '$pr' and dia = '$dia' and hora = '$hora' and c_asig not like '$asignatura'");
 							if (mysqli_num_rows($asig_bach)>0) {							
 								$as_bach=mysqli_fetch_array($asig_bach);
 								$cod_asig_bach2 = $as_bach[0];							
