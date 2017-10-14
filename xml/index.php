@@ -55,7 +55,7 @@ include("../menu.php");
 			<li>Los <span class="text-info">Días Festivos</span> deben importarse incluso si no contamos con horario, porque varios módulos de la misma (Calendario, etc.) dependen de los datos.
 			</li>
 			<li><span class="text-info">Modificar ROF</span> permite ajustar la lista y tipo de Problemas de Convivencia al Reglamento de Organización y Funcionamiento que está en vigor en nuestro Centro. </li>
-			<li>La última opción, <span class="text-info">Limpiar Horarios</span>, se debe ejecutar cuando los cambios en los horarios se han dado por terminados y estos se encuentran en perfecto estado en Séneca. Supone que hemos actualizado en primer lugar los profesores.</li>			
+			<!--<li>La última opción, <span class="text-info">Limpiar Horarios</span>, se debe ejecutar cuando los cambios en los horarios se han dado por terminados y estos se encuentran en perfecto estado en Séneca. Supone que hemos actualizado en primer lugar los profesores.</li>	-->		
 			</ul>
 			</p>
 			<hr>

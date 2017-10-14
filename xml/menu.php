@@ -21,7 +21,7 @@
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
-	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
+	<!--<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>-->
 	<?php endif; ?>
 	
 	<!-- ACTUALIZACIÓN -->

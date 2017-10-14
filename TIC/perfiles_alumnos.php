@@ -68,18 +68,33 @@ $asignatura = $exp_unidad[3];
 
 							$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
 
-						
-							$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad = '$unidad' AND ($codigo_asignatura) ORDER BY apellidos ASC, nombre ASC"); 
-							?>
+							if (stristr($_SERVER['SERVER_NAME'],"iesmonterroso")==TRUE and date('Y-m-d')<'2018-09-01') {
+								$result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND ($codigo_asignatura) ORDER BY FALUMNOS.apellidos, FALUMNOS.nombre ASC");?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
+							<tr>
+								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
+								<td><?php echo $row['usuario']; ?></td>
+								<td><?php echo $row['pass']; ?></td>
+								<td><?php echo $row['pass']; ?></td>
+							</tr>
+							<?php endwhile; 
+							mysqli_free_result($result);
+							}
+							else{
+								$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad = '$unidad' AND ($codigo_asignatura) ORDER BY apellidos ASC, nombre ASC"); 
+								while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
 								<td><?php echo $row['claveal']; ?></td>
 								<td><?php echo $row['claveal']; ?></td>
 								<td><?php echo substr(sha1($row['claveal']),0,8); ?></td>
 							</tr>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
+							<?php endwhile; 
+							mysqli_free_result($result);
+							}
+							
+							?>
+							
 						</tbody>
 					</table>
 				</div>
