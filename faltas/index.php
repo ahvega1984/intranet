@@ -274,7 +274,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
-			if ($asignat=="2" or $asignat=="21") {
+			if ($asignat=="2" or $asignat=="21" or $asignat=="386") {
 					$res.="1=1 ";
 					$cod_asig = "asignatura like '$asignat'";
 			}

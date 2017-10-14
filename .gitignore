@@ -34,3 +34,5 @@ admin/matriculas/config.php
 *.sublime-project
 
 *.sublime-workspace
+
+*.csv

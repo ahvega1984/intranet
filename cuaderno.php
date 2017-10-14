@@ -251,7 +251,7 @@ include("cuaderno/menu_cuaderno.php");
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
 						}
-					elseif($asignatura=="21" or $asignatura=="2"){
+					elseif($asignatura=="21" or $asignatura=="2" or $asignatura=="386"){
 							$resul.= " 1=1 ";
 						}
 					else{

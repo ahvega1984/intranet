@@ -63,10 +63,13 @@
 								 usaria $codigos->getAttribute('atributo');
 								 */
 								$codigo = $codigos->item(0)->nodeValue;
+								$codigo = trim($codigo);
 								$nombres = $materia->getElementsByTagName( "D_MATERIAC" );
 								$nombre = $nombres->item(0)->nodeValue;
+								$nombre = trim($nombre);
 								$abrevs = $materia->getElementsByTagName( "T_ABREV" );
 								$abrev = $abrevs->item(0)->nodeValue;
+								$abrev = trim($abrev);
 								mysqli_query($db_con, "INSERT INTO  `materias_temp` (
 			`CODIGO` ,
 			`NOMBRE` ,
