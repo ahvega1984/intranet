@@ -5,9 +5,9 @@ if (ini_get('default_charset') != "UTF-8" && ini_get('default_charset') != "UTF-
 
 if (version_compare(phpversion(), '5.5.38', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.5.38 o superior para poder utilizar esta aplicación.</p>");
 
-// Duración de la sesión: 7200 segundos (2 horas)
-ini_set("session.cookie_lifetime","7200");
-ini_set("session.gc_maxlifetime","7200");
+// Duración de la sesión: 3600 segundos (1 hora)
+ini_set("session.cookie_lifetime","3600");
+ini_set("session.gc_maxlifetime","3600");
 
 session_start();
 
