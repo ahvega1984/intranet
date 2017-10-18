@@ -73,3 +73,15 @@ if (! mysqli_num_rows($actua)) {
 }
 
 mysqli_free_result($actua);
+
+/*
+	@descripcion: Ampliación columna asistentes en tabla evaluaciones_actas
+	@fecha: 18 de octubre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Columna asistentes tabla evaluaciones_actas'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `evaluaciones_actas` CHANGE `asistentes` `asistentes` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Columna asistentes tabla evaluaciones_actas', NOW())");
+}
+
+mysqli_free_result($actua);
