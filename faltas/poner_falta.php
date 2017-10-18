@@ -129,7 +129,7 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 		}
 
 	//Registramos sustitución en la tabla de Guardias
-		if (stristr($curso_grupo, "E.S.O.")) {		
+		if (stristr($curso_grupo, "E.S.O.") or (stristr($curso_grupo, "Bach") and $horas > 1 and $horas < 6)) {		
 	$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
 		if (mysqli_num_rows($gu)>0) {
 			$guardi = mysqli_fetch_row($gu);
@@ -139,7 +139,7 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 	</div>';
 		}
 		else{
-		$r_profe = mb_strtoupper($profesor, "UTF-8");
+		$r_profe = mb_strtoupper($_SESSION['profi'], "UTF-8");
 
 		mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
 		if (mysqli_affected_rows($db_con) > 0) {
@@ -165,7 +165,7 @@ else{
 }
 
 if (empty($tiempo)) {
-	$tiempo="2000";
+	$tiempo="3000";
 }
 ?> 
 
