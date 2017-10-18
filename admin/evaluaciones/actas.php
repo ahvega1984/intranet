@@ -10,8 +10,15 @@ if (isset($_POST['curso'])) $curso = $_POST['curso'];
 if (isset($_POST['curso'])) $evaluacion = $_POST['evaluacion'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 
+// COMPROBAMOS SI ES UN PMAR
+$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
+if ($esPMAR) {
+	$curso = str_ireplace(' (PMAR)', '', $curso);
+}
+
 // COMPROBAMOS SI EL ACTA HA SIDO RELLENADO Y REDIRIGIMOS AL USUARIO
 if (isset($_POST['curso']) && isset($_POST['curso'])) {
+
 	$result_acta = mysqli_query($db_con, "SELECT id, impresion FROM evaluaciones_actas WHERE unidad = '".$curso."' AND evaluacion = '".$evaluacion."' LIMIT 1");
 	if (mysqli_num_rows($result_acta)) {
 		$row_acta = mysqli_fetch_array($result_acta);
@@ -59,7 +66,18 @@ else if (stristr($nivel, 'F.P.') == true) {
 
 
 // Rellenamos los campos automáticos
-$result = mysqli_query($db_con, "SELECT CONCAT(apellidos, ', ', nombre) AS alumno, claveal FROM alma WHERE unidad = '".$curso."' ORDER BY apellidos ASC, nombre ASC");
+
+if ($esPMAR) {
+	$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$curso."' AND abrev LIKE '%*%' LIMIT 1");
+	$row_cosasig_pmar = mysqli_fetch_array($result_codasig_pmar);
+	$cosasig_pmar = $row_cosasig_pmar['codigo'];
+	
+	$result = mysqli_query($db_con, "SELECT CONCAT(apellidos, ', ', nombre) AS alumno, claveal FROM alma WHERE unidad = '".$curso."' AND combasi LIKE '%".$cosasig_pmar."%' ORDER BY apellidos ASC, nombre ASC");
+}
+else {
+	$result = mysqli_query($db_con, "SELECT CONCAT(apellidos, ', ', nombre) AS alumno, claveal FROM alma WHERE unidad = '".$curso."' ORDER BY apellidos ASC, nombre ASC");
+}
+
 if (mysqli_num_rows($result)) {
 	
 	$datos_recopilados = "";
@@ -197,6 +215,12 @@ if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
 		$evaluacion = $row['evaluacion'];
 		$texto_acta = $row['texto_acta'];
 		$asistencia = unserialize($row['asistentes']);
+
+		// COMPROBAMOS SI ES UN PMAR
+		$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
+		if ($esPMAR) {
+			$curso = str_ireplace(' (PMAR)', '', $curso);
+		}
 	}
 }
 
@@ -268,7 +292,7 @@ include("menu.php");
 								
 									<div class="form-group">
 										<label for="unidad">Unidad</label>
-										<input type="text" class="form-control" id="unidad" name="unidad" value="<?php echo $curso; ?>" readonly>
+										<input type="text" class="form-control" id="unidad" name="unidad" value="<?php echo ($esPMAR) ? $curso.' (PMAR)' : $curso; ?>" readonly>
 									</div>
 								
 								</div>
@@ -348,7 +372,7 @@ include("menu.php");
 			<?php else: ?>
 			
 			<div class="col-sm-12">
-				<?php $result = mysqli_query($db_con, "SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT DISTINCT ea.id, ea.unidad, ea.evaluacion, ea.fecha, ea.impresion, tut.tutor FROM evaluaciones_actas AS ea, FTUTORES AS tut WHERE REPLACE(ea.unidad, ' (PMAR)', '') = tut.unidad ORDER BY ea.id DESC"); ?>
 				
 				<?php if (mysqli_num_rows($result)): ?>
 				<div class="table-responsive">

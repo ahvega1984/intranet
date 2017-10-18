@@ -34,6 +34,12 @@ $result = mysqli_query($db_con, "SELECT unidad, evaluacion, fecha, texto_acta, a
 if (mysqli_num_rows($result)) {
 	$row = mysqli_fetch_array($result);
 
+	// COMPROBAMOS SI ES UN PMAR
+	$esPMAR = (stristr($row['unidad'], ' (PMAR)') == true) ? 1 : 0;
+	if ($esPMAR) {
+		$row['unidad'] = str_ireplace(' (PMAR)', '', $row['unidad']);
+	}
+
 	// OBTENEMOS EL NIVEL EDUCATIVO DE LA UNIDAD
 	$result_curso = mysqli_query($db_con, "SELECT cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE unidades.nomunidad = '".$row['unidad']."'");
 	$row_curso = mysqli_fetch_array($result_curso);
@@ -44,7 +50,7 @@ if (mysqli_num_rows($result)) {
 	$row_tutor = mysqli_fetch_array($result_tutor);
 	$tutor = nomprofesor($row_tutor['tutor']);
 
-	$unidad = $row['unidad'];
+	$unidad = ($esPMAR) ? $row['unidad'].' (PMAR)' : $row['unidad'];
 	$evaluacion = $row['evaluacion'];
 	$texto_acta = $row['texto_acta'];
 	$asistentes = unserialize($row['asistentes']);
