@@ -10,12 +10,6 @@ if (isset($_POST['curso'])) $curso = $_POST['curso'];
 if (isset($_POST['curso'])) $evaluacion = $_POST['evaluacion'];
 if (isset($_GET['id'])) $id = $_GET['id'];
 
-// COMPROBAMOS SI ES UN PMAR
-$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
-if ($esPMAR) {
-	$curso = str_ireplace(' (PMAR)', '', $curso);
-}
-
 // COMPROBAMOS SI EL ACTA HA SIDO RELLENADO Y REDIRIGIMOS AL USUARIO
 if (isset($_POST['curso']) && isset($_POST['curso'])) {
 
@@ -33,6 +27,12 @@ if (isset($_POST['curso']) && isset($_POST['curso'])) {
 		}
 		
 	}
+}
+
+// COMPROBAMOS SI ES UN PMAR
+$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
+if ($esPMAR) {
+	$curso = str_ireplace(' (PMAR)', '', $curso);
 }
 
 // Comprobamos el nivel educativo para cargar el modelo de acta predefinida por el centro
@@ -66,7 +66,6 @@ else if (stristr($nivel, 'F.P.') == true) {
 
 
 // Rellenamos los campos automáticos
-
 if ($esPMAR) {
 	$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$curso."' AND abrev LIKE '%*%' LIMIT 1");
 	$row_cosasig_pmar = mysqli_fetch_array($result_codasig_pmar);
