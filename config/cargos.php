@@ -80,16 +80,18 @@ include ("../menu.php");
 		<?php
 		$head = '<thead>
 			<tr>
-				<th>Profesor</th>
-				<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
-				<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
-				<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
-				<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
-				<th><span data-bs="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
-				<th><span data-bs="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
-				<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Conserjes.">Conserje</span></th>
-				<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
-				<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
+			<th>Profesor</th>';
+			if ($_SESSION['ide'] == "admin" || stristr($car, '0') == TRUE) {
+			$head .= '<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>';
+			}
+			$head .= '<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
+			<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
+			<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
+			<th><span data-bs="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
+			<th><span data-bs="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
+			<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Conserjes.">Conserje</span></th>
+			<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
+			<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
 		if($config['mod_bilingue']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
 
 		if ($config['mod_convivencia']==1) { 
@@ -136,19 +138,12 @@ include ("../menu.php");
 			?></small>
 			</td>
 			
-			<td class="text-center"><input type="checkbox" name="<?php
-			echo $dni;
-			?>0"
-					value="0" <?php
-			if (stristr ( $car, '0' ) == TRUE) {
-				echo "checked";
-			}
-			if ($idea == "admin") {
-				echo "disabled";
-			}
-			?>
-					 /></td>
-					
+			<?php if ($_SESSION['ide'] == "admin" || stristr($car, '0') == TRUE): ?>
+			<td class="text-center">
+				<input type="checkbox" name="<?php echo $dni; ?>0" value="0" <?php if (stristr ( $car, '0' ) == TRUE) { echo "checked"; } if ($idea == "admin") { echo "checked disabled"; } ?> />
+			</td>
+			<?php endif; ?>
+
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>1"
