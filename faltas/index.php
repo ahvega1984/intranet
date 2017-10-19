@@ -212,6 +212,7 @@ elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_gua
 	$prof20 = mysqli_query($db_con, $prof2);
 	$filaprof2 = mysqli_fetch_array($prof20);
 	$c_profe = $filaprof2[0];
+	$c_prof=$c_profe;
 	$profesor_ausente = $filaprof2[1];
 	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where c_prof = '$c_profe' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 	//echo $hora1;
@@ -325,7 +326,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$combasi = $row[5];
 
 			$nc_grupo = $row['NC'];
-			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$curso' and ($cod_asig)");
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig)");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
 				$sel_al = mysqli_fetch_array($sel);
