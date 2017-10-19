@@ -396,11 +396,11 @@ include("menu.php");
 								<td><?php echo $row['fecha']; ?></td>
 								<td>
 									<?php if ((nomprofesor($row['tutor']) == nomprofesor($pr) || acl_permiso($_SESSION['cargo'], array('1'))) && !$row['impresion']): ?>
-									<a href="acta.php?id=<?php echo $row['id']; ?>&amp;action=edit" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=edit" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
 									<?php endif; ?>
 									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-fw fa-lg"></span></a>
 									<?php if ((nomprofesor($row['tutor']) == nomprofesor($pr) && !$row['impresion']) || acl_permiso($_SESSION['cargo'], array('1'))): ?>
-									<a href="acta.php?id=<?php echo $row['id']; ?>&amp;action=delete" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=delete" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 									<?php endif; ?>
 								</td>
 							</tr>
