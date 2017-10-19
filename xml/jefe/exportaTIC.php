@@ -31,7 +31,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 	}
 	else {
 		// Perfil profesor: Todos los profesores excepto equipo directivo
-		$result = mysqli_query($db_con, "SELECT nombre, idea, departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo NOT LIKE '%1%' ORDER BY nombre ASC");
+		$result = mysqli_query($db_con, "SELECT nombre, idea, departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo NOT LIKE '%1%' ORDER BY nombre ASC");
 		while ($row = mysqli_fetch_array($result)) {
 			$exp_nombre = explode(', ', $row['nombre']);
 			$nombre = trim($exp_nombre[1]);
@@ -88,7 +88,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 		fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
 		
 		// Perfil profesor: Todos los profesores excepto equipo directivo
-		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' AND d.departamento <> 'Educador' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 		while ($row = mysqli_fetch_array($result)) {
 			$exp_nombre = explode(', ', $row['nombre']);
 			$nombre = trim($exp_nombre[1]);
@@ -115,7 +115,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic']) {
 		fwrite($fp, "First Name,Last Name,Email Address,Password,Secondary Email,Work Phone 1,Home Phone 1,Mobile Phone 1,Work address 1,Home address 1,Employee Id,Employee Type,Employee Title,Manager,Department,Cost Center\r\n");
 		
 		// Perfil profesor: Todos los profesores excepto equipo directivo
-		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+		$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' AND d.departamento <> 'Educador' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 		while ($row = mysqli_fetch_array($result)) {
 			$exp_nombre = explode(', ', $row['nombre']);
 

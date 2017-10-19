@@ -210,7 +210,7 @@
 		        				<option value="Múltiples Departamentos">Múltiples Departamentos</option>
 		        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
 		        				<option value="Relaciones de Género">Relaciones de Género</option>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC"); ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY departamento ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
@@ -223,7 +223,7 @@
 		        		<div class="form-group">
 		        			<label for="cmp_profesores">Profesores que asistirán a la actividad</label>
 		        			<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC"); ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY departamento ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<?php $result_depto = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC"); ?>
 		        				<optgroup label="<?php echo $row['departamento']; ?>">

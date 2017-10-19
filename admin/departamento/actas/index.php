@@ -30,7 +30,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	if ($departamento == 'DFEIE') {
 		acl_acceso($_SESSION['cargo'], array('1','f'));
 		
-		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%f%' ORDER BY nombre ASC");
+		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%f%' ORDER BY nombre ASC");
 		$existe_secretario_dfeie = mysqli_num_rows($result);
 		
 		if ((! isset($config['actas_depto']['secretario_dfeie']) || $config['actas_depto']['secretario_dfeie'] == "") && ! $existe_secretario_dfeie) {
@@ -288,7 +288,7 @@ include ("menu.php");
 							<?php endforeach; ?>
 						</optgroup>
 						<optgroup label="Departamentos del centro">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> '' AND departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY departamento ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> '' AND departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY departamento ASC"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<option value="<?php echo $row['departamento']; ?>"<?php echo (isset($departamento) && $departamento == $row['departamento']) ? ' selected' : ''; ?>><?php echo $row['departamento']; ?></option>
 							<?php endwhile; ?>

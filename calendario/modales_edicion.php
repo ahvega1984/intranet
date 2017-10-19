@@ -370,7 +370,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        						<option value="Relaciones de Género"';
 			if ("Relaciones de Género" == $row['departamento']) echo ' selected';
 			echo '>Relaciones de Género</option>';
-			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC");
+			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' AND departamento <> 'Educador' ORDER BY departamento ASC");
 			while ($row = mysqli_fetch_assoc($result)):
 			echo '<option value="'.$row['departamento'].'"';
 			if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
@@ -384,7 +384,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        				<div class="form-group">
 			        					<label for="cmp_profesores">Profesores que asistirán a la actividad</label>
 			        					<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>';
-			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC");
+			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' AND departamento <> 'Educador' ORDER BY departamento ASC");
 			while ($row = mysqli_fetch_assoc($result)):
 			$result_depto = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC");
 			echo '<optgroup label="'.$row['departamento'].'">';

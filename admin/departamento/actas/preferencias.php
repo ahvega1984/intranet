@@ -90,7 +90,7 @@ include("menu.php");
 							<label for="prefSecretarioDFEIE" class="col-sm-4 control-label">DFEIE</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioDFEIE" name="prefSecretarioDFEIE">
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%f%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%f%' ORDER BY nombre ASC"); ?>
 									<?php if (mysqli_num_rows($result) > 1): ?>
 									<option value=""></option>
 									<?php endif; ?>
@@ -106,7 +106,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioETCP" name="prefSecretarioETCP">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_etcp']) && $config['actas_depto']['secretario_etcp'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
@@ -118,7 +118,7 @@ include("menu.php");
 							<label for="prefSecretarioED" class="col-sm-4 control-label">Equipo directivo</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioED" name="prefSecretarioED">
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (! isset($config['actas_depto']['secretario_ed']) && $config['directivo_secretaria'] != "" && stristr($row['nombre'], $directivo_secretaria) == true) ? 'selected' : ''; ?><?php echo (isset($config['actas_depto']['secretario_ed']) && $config['actas_depto']['secretario_ed'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
@@ -131,7 +131,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioCEB" name="prefSecretarioCEB">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_ceb']) && $config['actas_depto']['secretario_ceb'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
@@ -144,7 +144,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioACA" name="prefSecretarioACA">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_aca']) && $config['actas_depto']['secretario_aca'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
@@ -157,7 +157,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioACCT" name="prefSecretarioACCT">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_acct']) && $config['actas_depto']['secretario_acct'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
@@ -170,7 +170,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioACSL" name="prefSecretarioACSL">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_acsl']) && $config['actas_depto']['secretario_acsl'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>
@@ -183,7 +183,7 @@ include("menu.php");
 							<div class="col-sm-3">
 								<select class="form-control" id="prefSecretarioAFP" name="prefSecretarioAFP">
 									<option value=""></option>
-									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_afp']) && $config['actas_depto']['secretario_afp'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 									<?php endwhile; ?>

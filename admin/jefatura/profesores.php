@@ -162,7 +162,7 @@ include("menu.php");
 							<div class="col-sm-7">
 								<div class="form-group">
 									<label for="profesor">Profesor/a</label> 
-									<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY nombre ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY nombre ASC"); ?>
 									<?php if(mysqli_num_rows($result)): ?> 
 									<select class="form-control" id="profesor" name="profesor" onchange="submit()">
 										<option></option>
