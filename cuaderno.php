@@ -83,8 +83,6 @@ if(empty($curso))
 	include("index.php");
 	exit;
 }
-mysqli_query($db_con, "ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL DEFAULT  '' ");
-mysqli_query($db_con,"ALTER TABLE `datos` CHANGE `nota` `nota` TEXT CHARACTER SET latin1 COLLATE utf8_general_ci NOT NULL DEFAULT ''");
 
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
@@ -134,6 +132,15 @@ if(isset($_POST['enviar']))
 {
 	include("cuaderno/poner_notas.php");
 }
+
+// Problema con PMAR
+$pmar_2 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%Ámbito%' and curso like '2%' limit 1");
+$c_pmar2 = mysqli_fetch_array($pmar_2);
+$codigo_pmar2 = $c_pmar2[0];
+
+$pmar_3 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%Ámbito%' and curso like '3%' limit 1");
+$c_pmar3 = mysqli_fetch_array($pmar_3);
+$codigo_pmar3 = $c_pmar3[0];
 
 // Distintos códigos de la asignatura cuando hay varios grupos en una hora.
 $n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
@@ -198,19 +205,18 @@ include("cuaderno/menu_cuaderno.php");
 					// Número de Columnas para crear la tabla
 					$num_col =  $cols2;
 
-					
-
 					//	Problemas con Diversificación (4E-Dd)
-					$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
-					if (mysqli_num_rows($profe_div)<1) {
 						$asig_div="";						
 						$div = $curso;
 						$nivel_curso2 = substr($div,0,-1);
-						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%')");
-						$grupo_diver = mysqli_fetch_row($grupo_div);
-						$curso = $grupo_diver[0];
-						$asig_div = "combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%'";
-					}
+						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%$codigo_pmar2%' or combasi LIKE '%$codigo_pmar3%')");
+						if (mysqli_num_rows($grupo_div)>0) {
+							$grupo_diver = mysqli_fetch_row($grupo_div);
+							$curso = $grupo_diver[0];
+							$asig_div = "combasi like '%$codigo_pmar2%' or combasi LIKE '%$codigo_pmar3%'";
+						}
+
+
 					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
 						mysqli_select_db($db_con, $db);
@@ -459,20 +465,15 @@ include("cuaderno/menu_cuaderno.php");
 						// Número de Columnas para crear la tabla
 						$num_col =  $cols2;
 					
-
-
 						//	Problemas con Diversificación (4E-Dd)
-						$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
-						if (mysqli_num_rows($profe_div)<1) {
-
 							$div = $curso;
-							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')");
+							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%$codigo_pmar2%' or combasi LIKE '%$codigo_pmar3%')");
+							if (mysqli_num_rows($grupo_div)>0) {
 							$grupo_diver = mysqli_fetch_row($grupo_div);
 							$curso = $grupo_diver[0];
-						}
-						else{
+							}
+
 							if($seleccionar=="1"){	$num_col += 1;	}
-						}
 
 						// Seleccionar alumnos
 						if($seleccionar=="1"){

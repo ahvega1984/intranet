@@ -250,6 +250,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 	<form action="poner_falta.php<?php echo $extra;?>" method="post" name="Cursos">
 
 	<?php
+	// Problema con PMAR
+	$pmar_2 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%Ámbito%' and curso like '2%' limit 1");
+	$c_pmar2 = mysqli_fetch_array($pmar_2);
+	$codigo_pmar2 = $c_pmar2[0];
+
+	$pmar_3 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%Ámbito%' and curso like '3%' limit 1");
+	$c_pmar3 = mysqli_fetch_array($pmar_3);
+	$codigo_pmar3 = $c_pmar3[0];
 
 	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
 
@@ -276,8 +284,15 @@ while($hora2 = mysqli_fetch_row($hora0))
 		}
 		else{
 			if ($asignat=="2" or $asignat=="21" or $asignat=="386") {
+				if ($asignat=="386") {
+					$res.="combasi like '%$codigo_pmar2:%' OR combasi like '%$codigo_pmar3:%' ";
+					$cod_asig = "asignatura like '$codigo_pmar2' OR asignatura like '$codigo_pmar3'";
+				}
+				else{
 					$res.="1=1 ";
-					$cod_asig = "asignatura like '$asignat'";
+					$cod_asig = "asignatura like '$asignat'";					
+				}
+
 			}
 			else{
 				$res.="combasi like '%".$asignat."%'";
