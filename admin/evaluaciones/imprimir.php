@@ -89,8 +89,8 @@ if (mysqli_num_rows($result)) {
 
 		for ($i = 0; $i < $numero_asistentes; $i+=2) {
 
-			$profesor_1 = (isset($asistentes[$i])) ? obtener_nombre_profesor_desde_idea($db_con, $asistentes[$i]) : '';
-			$profesor_2 = (isset($asistentes[$i+1])) ? obtener_nombre_profesor_desde_idea($db_con, $asistentes[$i+1]) : '';
+			$profesor_1 = (isset($asistentes[$i])) ? obtener_nombre_profesor_desde_idea($db_con, nomprofesor($asistentes[$i])) : '';
+			$profesor_2 = (isset($asistentes[$i+1])) ? obtener_nombre_profesor_desde_idea($db_con, nomprofesor($asistentes[$i+1])) : '';
 
 			$tabla_asistentes .= '
 					<tr>
@@ -128,8 +128,8 @@ if (mysqli_num_rows($result)) {
 
 		for ($i = 0; $i < $numero_ausentes; $i+=2) {
 
-			$profesor_1 = (isset($ausentes[$i])) ? obtener_nombre_profesor_desde_idea($db_con, $ausentes[$i]) : '';
-			$profesor_2 = (isset($ausentes[$i+1])) ? obtener_nombre_profesor_desde_idea($db_con, $ausentes[$i+1]) : '';
+			$profesor_1 = (isset($ausentes[$i])) ? obtener_nombre_profesor_desde_idea($db_con, nomprofesor($ausentes[$i])) : '';
+			$profesor_2 = (isset($ausentes[$i+1])) ? obtener_nombre_profesor_desde_idea($db_con, nomprofesor($ausentes[$i+1])) : '';
 
 			$tabla_ausentes .= '
 					<tr>

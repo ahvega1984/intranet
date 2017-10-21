@@ -9,6 +9,7 @@ if (file_exists('config.php')) {
 if (isset($_POST['curso'])) $curso = $_POST['curso'];
 if (isset($_POST['curso'])) $evaluacion = $_POST['evaluacion'];
 if (isset($_GET['id'])) $id = $_GET['id'];
+if (isset($_GET['msg_insert'])) $msg_insert = $_GET['msg_insert'];
 
 // COMPROBAMOS SI EL ACTA HA SIDO RELLENADO Y REDIRIGIMOS AL USUARIO
 if (isset($_POST['curso']) && isset($_POST['curso'])) {
@@ -181,7 +182,7 @@ if (isset($_POST['submit'])) {
 		$asistencia_serialize = serialize($asistencia);
 
 		if (isset($id)) {
-			
+			$msg_insert = 0;
 			$result = mysqli_query($db_con, "UPDATE evaluaciones_actas SET fecha = '$fecha_sql', texto_acta = '$texto_acta', asistentes = '$asistencia_serialize' WHERE id = $id LIMIT 1");
 			
 			if (!$result) $msg_error = "El acta no ha podido ser actualizado. Error: ".mysqli_error($db_con);
@@ -191,16 +192,29 @@ if (isset($_POST['submit'])) {
 			
 			$result = mysqli_query($db_con, "INSERT INTO evaluaciones_actas (unidad, evaluacion, fecha, texto_acta, asistentes) VALUES ('$curso', '$evaluacion', '$fecha_sql', '$texto_acta', '$asistencia_serialize')");
 			
-			if (!$result) $msg_error = "El acta no ha podido ser registrado. Error: ".mysqli_error($db_con);
-			else $msg_success = "El acta ha sido registrado.";
+			if (!$result) {
+				$msg_error = "El acta no ha podido ser registrado. Error: ".mysqli_error($db_con);
+			}
+			else {
+				$id = mysqli_insert_id($db_con);
+				header('Location:'.'actas.php?id='.$id.'&action=edit&msg_insert=1');
+				exit();
+			}
 		}
 		
+	}
+
+	// COMPROBAMOS SI ES UN PMAR
+	$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
+	if ($esPMAR) {
+		$curso = str_ireplace(' (PMAR)', '', $curso);
 	}
 
 }
 
 // RECOGEMOS LOS DATOS SI SE TRATA DE UNA ACTUALIZACION
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
+	
 	$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta, asistentes FROM evaluaciones_actas WHERE id = ".$id." LIMIT 1");
 	
 	if (!$result) {
@@ -250,6 +264,12 @@ include("menu.php");
 		<?php if (isset($msg_error)): ?>
 		<div class="alert alert-danger">
 			<?php echo $msg_error; ?>
+		</div>
+		<?php endif; ?>
+
+		<?php if (isset($msg_insert) && $msg_insert): ?>
+		<div class="alert alert-success">
+			El acta ha sido registrado.
 		</div>
 		<?php endif; ?>
 		

@@ -14,10 +14,33 @@ if (isset($_POST['evaluacion']) && !empty($_POST['evaluacion'])) $evaluacion = $
 $esTutorUnidad = 0;
 if (stristr($_SESSION['cargo'],'2') == true) {
 	
+	// COMPROBAMOS SI ES UN PMAR
+	$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
+	if ($esPMAR) {
+		$curso = str_ireplace(' (PMAR)', '', $curso);
+	}
+
 	if (isset($curso) && $curso == $_SESSION['mod_tutoria']['unidad']) {
 		$esTutorUnidad = 1;
 	}
 	
+}
+
+// COMPROBAMOS SI EL ACTA HA SIDO RELLENADO Y REDIRIGIMOS AL USUARIO
+if (isset($_POST['curso']) && isset($_POST['curso'])) {
+	
+	$versionImprimir = 0;
+
+	$result_acta = mysqli_query($db_con, "SELECT id, impresion FROM evaluaciones_actas WHERE unidad = '".$curso."' AND evaluacion = '".$evaluacion."' LIMIT 1");
+	if (mysqli_num_rows($result_acta)) {
+		$row_acta = mysqli_fetch_array($result_acta);
+
+		if ($row_acta['impresion']) {
+			$versionImprimir = 1;
+			$id = $row_acta['id'];
+		}
+		
+	}
 }
 
 include("../../menu.php");
@@ -131,14 +154,16 @@ include("menu.php");
 				</div>
 				
 				<div class="hidden-print">
+					<?php if (! $versionImprimir): ?>
 					<?php if (stristr($_SESSION['cargo'],'1') == true || (stristr($_SESSION['cargo'],'2') == true && $esTutorUnidad)): ?>
 					<form class="form-horizontal" method="post" action="actas.php">
 						<input type="hidden" name="curso" value="<?php echo $curso; ?>">
 						<input type="hidden" name="evaluacion" value="<?php echo $evaluacion; ?>">
 						<button type="submit" class="btn btn-primary" name="enviar">Redactar acta</button>
 					</form>
+					<?php endif; ?>
 					<?php else: ?>
-					<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
+					<a href="imprimir.php?id=<?php echo $id; ?>" class="btn btn-primary">Imprimir acta</a>
 					<?php endif; ?>
 				</div>
 				
