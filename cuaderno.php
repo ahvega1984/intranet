@@ -204,8 +204,15 @@ include("cuaderno/menu_cuaderno.php");
 
 					// Número de Columnas para crear la tabla
 					$num_col =  $cols2;
+					
+					// Comprueba si es un PMAR
+					$result_pmar = mysqli_query($db_con, "SELECT abrev FROM materias WHERE codigo = '".$asignatura."' LIMIT 1");
+					$row_abrevpmar = mysqli_fetch_array($result_pmar);
+					$abrevpmar = $row_abrevpmar['abrev'];
+					$esPMAR = (stristr($abrevpmar, '**') == true || stristr($abrevpmar, 'AMB') == true) ? 1 : 0;
 
-					//	Problemas con Diversificación (4E-Dd)
+					if ($esPMAR) {
+						// Problemas con PMAR
 						$asig_div="";						
 						$div = $curso;
 						$nivel_curso2 = substr($div,0,-1);
@@ -215,7 +222,7 @@ include("cuaderno/menu_cuaderno.php");
 							$curso = $grupo_diver[0];
 							$asig_div = "combasi like '%$codigo_pmar2%' or combasi LIKE '%$codigo_pmar3%'";
 						}
-
+					}
 
 					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
@@ -464,16 +471,18 @@ include("cuaderno/menu_cuaderno.php");
 
 						// Número de Columnas para crear la tabla
 						$num_col =  $cols2;
-					
-						//	Problemas con Diversificación (4E-Dd)
+						
+						if ($esPMAR) {
+							//	Problemas con PMAR
 							$div = $curso;
 							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%$codigo_pmar2%' or combasi LIKE '%$codigo_pmar3%')");
 							if (mysqli_num_rows($grupo_div)>0) {
-							$grupo_diver = mysqli_fetch_row($grupo_div);
-							$curso = $grupo_diver[0];
+								$grupo_diver = mysqli_fetch_row($grupo_div);
+								$curso = $grupo_diver[0];
 							}
+						}
 
-							if($seleccionar=="1"){	$num_col += 1;	}
+						if($seleccionar=="1"){	$num_col += 1;	}
 
 						// Seleccionar alumnos
 						if($seleccionar=="1"){

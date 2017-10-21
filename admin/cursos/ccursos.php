@@ -1,15 +1,7 @@
 <?php
-if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
-if (isset($_POST['todos'])) {$todos = $_POST['todos'];} elseif (isset($_GET['todos'])) {$todos = $_GET['todos'];}else{$todos="";}
-
-if(isset($_POST['submit1']) || (isset($_GET['submit1']) && ($_GET['submit1'] == 1)))
-{
-	include("cursos.php");
-	exit();
-}
-
 require('../../bootstrap.php');
 
+$todos = (isset($_POST['todos']) && $_POST['todos'] == 1) ? 1: 0; 
 
 $profesor = $_SESSION['profi'];
 
@@ -37,63 +29,36 @@ include("../../menu.php");
 						<legend>Alumnos por grupo</legend>
 						
 						<div class="form-group">
-						    <select class="form-control" name="unidad[]" multiple size="6">
-<?php
-if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE || stristr($_SESSION['cargo'],'5') == TRUE || stristr($_SESSION['cargo'],'d') == TRUE || $todos=="1"){
- unidad($db_con);
- $SQLcurso = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%25204%' OR combasi LIKE '%25226%' OR combasi LIKE '%135785%'";
-$resultcurso = mysqli_query($db_con, $SQLcurso);
-while($rowcurso = mysqli_fetch_array($resultcurso)){
-	echo "<option>$rowcurso[0] DIV</option>";	
-}
-}
-else{
+							<?php 
+							$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
+							$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo WHERE m.abrev LIKE 'AMB%' ORDER BY u.nomunidad ASC");
 
-$SQLcurso = "SELECT grupo, materia, nivel FROM profesores WHERE profesor = '$profesor'";
-$resultcurso = mysqli_query($db_con, $SQLcurso);
-$curso="";
-$asignatura="";	
-	while($rowcurso = mysqli_fetch_array($resultcurso))
-	{
-	$curso = $rowcurso[0];
-	$asignatura = $rowcurso[1];
-	$n_curs = substr($rowcurso[2],0,1);
-	if (stristr($rowcurso[2],"bach")) {
-		$asigna0 = "SELECT codigo FROM asignaturas WHERE nombre = '$asignatura' AND curso LIKE '%bach%' AND curso LIKE '$n_curs%' AND abrev NOT LIKE '%\_%'";
-	}
-	else{
-	$asigna0 = "SELECT codigo FROM asignaturas WHERE nombre = '$asignatura' AND curso = '$rowcurso[2]' AND abrev NOT LIKE '%\_%'";
-	}
-	$asigna1 = mysqli_query($db_con, $asigna0);
-	$codasi="";
-	while ($asigna2 = mysqli_fetch_array($asigna1)) {
-		$codasi.=$asigna2[0]."-";
-	}
-	$codasi = substr($codasi,0,-1)	;
-	//echo "<option>select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'</option>";
-	echo "<option value='$curso -> $asignatura -> $codasi'>$curso -> $asignatura</option>";
- }
- 
-}
-?>
+							$array_unidades = array();
+							while ($row = mysqli_fetch_array($result)) {
+								array_push($array_unidades, $row);
+							}
+							while ($row = mysqli_fetch_array($result_pmar)) {
+								array_push($array_unidades, $row);
+							}
 
-						    </select>
+							asort($array_unidades);
+							?>
+							<select class="form-control" name="unidad[]" size="6" multiple<?php if ($todos) echo ' disabled'; ?>>
+							<?php foreach ($array_unidades as $unidad): ?>
+								<option value="<?php echo $unidad['nomunidad']; ?>" <?php echo (isset($curso) && $curso == $unidad['nomunidad']) ? 'selected' : ''; ?>><?php echo $unidad['nomunidad']; ?></option>
+							<?php endforeach; ?>
+							</select>
 						    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
 						  </div>
 						  
 						  <div class="checkbox">
 						  	<label>
-						    	<input type="checkbox" name="asignaturas" value="1"> Mostrar asignaturas
+						    	<input type="checkbox" name="todos" value="1" onclick="submit()" <?php echo ($todos == 1) ? 'checked' : '' ;?>> Mostrar todos los grupos
 						    </label>
 						  </div>
 						  
-						  <div class="checkbox">
-						  	<label>
-						    	<input type="checkbox" name="todos" value="1" onclick="submit()" <?php echo (isset($todos) && $todos == 1) ? 'checked' : '' ;?>> Mostrar todos los grupos
-						    </label>
-						  </div>
-						  
-						  <button type="submit" class="btn btn-primary" name="submit1" formtarget="_blank">Consultar</button>
+						  <button type="submit" class="btn btn-primary" name="listadoSimple" formaction="listados.php" formtarget="_blank">Listado simple</button>
+						  <button type="submit" class="btn btn-primary" name="listadoAsignaturas" formaction="listados_asigmat.php" formtarget="_blank">Listado con asignaturas</button>
 						</fieldset>
 						
 				</form>
