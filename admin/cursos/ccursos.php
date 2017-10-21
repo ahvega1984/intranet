@@ -1,8 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-$todos = (isset($_POST['todos']) && $_POST['todos'] == 1) ? 1: 0; 
-
 $profesor = $_SESSION['profi'];
 
 include("../../menu.php");
@@ -30,8 +28,14 @@ include("../../menu.php");
 						
 						<div class="form-group">
 							<?php 
-							$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
-							$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo WHERE m.abrev LIKE 'AMB%' ORDER BY u.nomunidad ASC");
+							if (acl_permiso($carg, array('1','7'))) {
+								$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
+								$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo WHERE m.abrev LIKE 'AMB%' ORDER BY u.nomunidad ASC");
+							}
+							else {
+								$result = mysqli_query($db_con, "SELECT DISTINCT grupo AS nomunidad FROM profesores WHERE profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY grupo ASC");
+								$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN profesores AS p ON u.nomunidad = p.grupo WHERE m.abrev LIKE 'AMB%' AND p.profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
+							}
 
 							$array_unidades = array();
 							while ($row = mysqli_fetch_array($result)) {
@@ -49,12 +53,6 @@ include("../../menu.php");
 							<?php endforeach; ?>
 							</select>
 						    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
-						  </div>
-						  
-						  <div class="checkbox">
-						  	<label>
-						    	<input type="checkbox" name="todos" value="1" onclick="submit()" <?php echo ($todos == 1) ? 'checked' : '' ;?>> Mostrar todos los grupos
-						    </label>
 						  </div>
 						  
 						  <button type="submit" class="btn btn-primary" name="listadoSimple" formaction="listados.php" formtarget="_blank">Listado simple</button>

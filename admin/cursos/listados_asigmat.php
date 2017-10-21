@@ -9,9 +9,20 @@ if (isset($_GET['unidad']) || isset($_POST['unidad'])) {
 	else $unidades = $_POST['unidad'];
 }
 else {
-	$result_unidades = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
-	while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
-	mysqli_free_result($result_unidades);
+	if (acl_permiso($carg, array('1','7'))) {
+		$result_unidades = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
+		while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
+		mysqli_free_result($result_unidades);
+	}
+	else {
+		$result_unidades = mysqli_query($db_con, "SELECT DISTINCT grupo AS nomunidad FROM profesores WHERE profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY grupo ASC");
+		$result_unidades_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN profesores AS p ON u.nomunidad = p.grupo WHERE m.abrev LIKE 'AMB%' AND p.profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
+		while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
+		mysqli_free_result($result_unidades);
+		while ($row_unidades = mysqli_fetch_array($result_unidades_pmar)) $unidades[] = $row_unidades['nomunidad'];
+		mysqli_free_result($result_unidades_pmar);
+		asort($unidades);
+	}
 }
 
 $MiPDF = new PDF_MC_Table('L', 'mm', 'A4');
@@ -31,6 +42,12 @@ foreach ($unidades as $unidad) {
 	$esPMAR = (stristr($unidad, ' (PMAR)') == true) ? 1 : 0;
 	if ($esPMAR) {
 		$unidad = str_ireplace(' (PMAR)', '', $unidad);
+	}
+
+	// Control en la obtención del listado. Solo los profesores que imparten materia en la unidad pueden visualizar el listado.
+	if (! acl_permiso($carg, array('1','7'))) {
+		$result_unidades = mysqli_query($db_con, "SELECT * FROM profesores WHERE profesor='".$_SESSION['profi']."' AND grupo = '".$unidad."'");
+		if (! mysqli_num_rows($result_unidades)) die ('FORBIDDEN');
 	}
 
 	$cursos = array();
@@ -89,7 +106,7 @@ foreach ($unidades as $unidad) {
 			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev <> 'GeH' AND abrev <> 'LCL' AND abrev <> 'MAT' AND abrev <> 'MAC' AND abrev <> 'MAP' AND abrev <> 'ByG' AND abrev <> 'FyQ' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");	
 		}
 		else {
-			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev NOT LIKE '%**%' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");			
+			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev <> 'AMBLS' AND abrev NOT LIKE '%**%' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");			
 		}
 		while ($row_asignaturas = mysqli_fetch_array($result_asignaturas)) {
 			if ($esPMAR && stristr($row_asignaturas['abrev'], '**') == true) {
@@ -97,7 +114,12 @@ foreach ($unidades as $unidad) {
 			}
 
 			array_push($width_columns, 9.3);
-			array_push($columns_names, $row_asignaturas['abrev']);
+			if (! $esPMAR && $row_asignaturas['abrev'] == 'AMBCM') {
+				array_push($columns_names, 'PMAR');
+			}
+			else {
+				array_push($columns_names, $row_asignaturas['abrev']);
+			}
 			array_push($columns_aligns, 'C');
 		}
 		
@@ -168,9 +190,8 @@ foreach ($unidades as $unidad) {
 						$matriculado = 'X';
 					}
 					else {
-						if ($row_asignaturas['abrev'] == 'AMBCM' && $curso == '2º de E.S.O.') $matriculado = 'X(3)';
-						elseif ($row_asignaturas['abrev'] == 'AMBCM' && $curso == '3º de E.S.O.') $matriculado = 'X(4)';
-						elseif ($row_asignaturas['abrev'] == 'AMBLS') $matriculado = 'X(3)';
+						if ($row_asignaturas['abrev'] == 'AMBCM' && $curso == '2º de E.S.O.') $matriculado = 'X(6)';
+						elseif ($row_asignaturas['abrev'] == 'AMBCM' && $curso == '3º de E.S.O.') $matriculado = 'X(7)';
 						else $matriculado = 'X';
 					}
 					
@@ -180,8 +201,8 @@ foreach ($unidades as $unidad) {
 				}
 
 				if ($matriculado == 'X') $total_asigmat++;
-				elseif ($matriculado == 'X(3)') $total_asigmat+=3;
-				elseif ($matriculado == 'X(4)') $total_asigmat+=4;
+				elseif ($matriculado == 'X(6)') $total_asigmat+=6;
+				elseif ($matriculado == 'X(7)') $total_asigmat+=7;
 				
 				array_push($row_data, $matriculado);
 			}

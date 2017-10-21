@@ -48,9 +48,20 @@ if (isset($_GET['unidad']) || isset($_POST['unidad'])) {
 	else $unidades = $_POST['unidad'];
 }
 else {
-	$result_unidades = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
-	while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
-	mysqli_free_result($result_unidades);
+	if (acl_permiso($carg, array('1','7'))) {
+		$result_unidades = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
+		while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
+		mysqli_free_result($result_unidades);
+	}
+	else {
+		$result_unidades = mysqli_query($db_con, "SELECT DISTINCT grupo AS nomunidad FROM profesores WHERE profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY grupo ASC");
+		$result_unidades_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN profesores AS p ON u.nomunidad = p.grupo WHERE m.abrev LIKE 'AMB%' AND p.profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
+		while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
+		mysqli_free_result($result_unidades);
+		while ($row_unidades = mysqli_fetch_array($result_unidades_pmar)) $unidades[] = $row_unidades['nomunidad'];
+		mysqli_free_result($result_unidades_pmar);
+		asort($unidades);
+	}
 }
 
 $MiPDF = new GranPDF('P', 'mm', 'A4');
@@ -65,11 +76,17 @@ $MiPDF->SetMargins(25, 20, 20);
 $MiPDF->SetDisplayMode('fullpage');
 
 foreach ($unidades as $unidad) {
-
+	
 	// COMPROBAMOS SI ES UN PMAR
 	$esPMAR = (stristr($unidad, ' (PMAR)') == true) ? 1 : 0;
 	if ($esPMAR) {
 		$unidad = str_ireplace(' (PMAR)', '', $unidad);
+	}
+
+	// Control en la obtención del listado. Solo los profesores que imparten materia en la unidad pueden visualizar el listado.
+	if (! acl_permiso($carg, array('1','7'))) {
+		$result_unidades = mysqli_query($db_con, "SELECT * FROM profesores WHERE profesor='".$_SESSION['profi']."' AND grupo = '".$unidad."'");
+		if (! mysqli_num_rows($result_unidades)) die ('FORBIDDEN');
 	}
 
 	$MiPDF->Addpage();
