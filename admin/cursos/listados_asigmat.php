@@ -89,7 +89,7 @@ foreach ($unidades as $unidad) {
 			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev <> 'GeH' AND abrev <> 'LCL' AND abrev <> 'MAT' AND abrev <> 'MAC' AND abrev <> 'MAP' AND abrev <> 'ByG' AND abrev <> 'FyQ' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");	
 		}
 		else {
-			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev NOT LIKE 'AMB%' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");			
+			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev NOT LIKE '%**%' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");			
 		}
 		while ($row_asignaturas = mysqli_fetch_array($result_asignaturas)) {
 			if ($esPMAR && stristr($row_asignaturas['abrev'], '**') == true) {
