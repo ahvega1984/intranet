@@ -14,7 +14,7 @@ while (false != $expresion[$i]) {
 
 	if ($i == 0) $sql_where .= "WHERE"; else $sql_where .= " AND";
 	$sql_where .= " (titulo LIKE '%".$expresion[$i]."%' OR contenido LIKE '%".$expresion[$i]."%')";
-	
+	$sql_where .= " and contenido not like '%<img %".$expresion[$i]."%>%' and contenido not like '%<a %".$expresion[$i]."%>%'";
 	$i++;
 }
 

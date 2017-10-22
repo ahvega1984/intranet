@@ -33,7 +33,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Noticias <small>Noticias con información importante</small></h2>
+			<h2>Noticias <small>Información importante sobre el Centro o la Intranet</small></h2>
 		</div>
 		
 		<!-- MENSAJES -->
