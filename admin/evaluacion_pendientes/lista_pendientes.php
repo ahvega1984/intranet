@@ -73,42 +73,40 @@ echo '<form action="lista_pendientes.php" method="POST">';
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
 
 if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
-$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
-FROM pendientes, asignaturas, alma, FALUMNOS
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
+FROM pendientes, asignaturas, alma
 WHERE asignaturas.codigo = pendientes.codigo
-AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
 AND asignaturas.codigo =  "'.$asig_pendiente.'" 
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, alma.unidad, nc';
 }
 else{
-$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
-FROM pendientes, asignaturas, alma, FALUMNOS
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
+FROM pendientes, asignaturas, alma
 WHERE asignaturas.codigo = pendientes.codigo
-AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
 AND asignaturas.codigo =  "'.$asig_pendiente.'" 
 AND abrev LIKE  "%\_%"
 AND pendientes.grupo in (select distinct grupo from profesores where profesor = "'.$profe_dep.'")
-ORDER BY alma.curso, alma.unidad, nc';	
+ORDER BY alma.curso ASC, alma.unidad ASC, alma.apellidos ASC, alma.nombre ASC';
 }
 //echo $sql."<br><br>";
 $Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 while ($salida = mysqli_fetch_array($Recordset1)){
-	$claveal=$salida[7];
-	$abrev_pendiente=$salida[4];
+	$claveal=$salida['claveal'];
+	$abrev_pendiente=$salida['abrev'];
 	$val_nivel=substr($pendi[5],0,1);
-	$c_unidad = substr($salida[2],0,1);
-	$c_curso = substr($salida[4],-2,1);
-	if ($salida[8]>1) {
+	$c_unidad = substr($salida['unidad'],0,1);
+	$c_curso = substr($salida['curso'],-2,1);
+	if ($salida['matriculas']>1) {
 		$rep = "(Rep.)";
 	}
 	else{
 		$rep='';
 	}
 	$n1+=1;
-	echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td>";
+	echo "<tr><td>".$salida['unidad']."</td><td>".$salida['curso']."</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=".$salida['claveal']."&todos=Ver Informe Completo del Alumno'>".$salida['apellidos'].", ".$salida['nombre']."</a> <span class='text-warning'>$rep</span></td>";
 	
 	for ($i = 1; $i < 5; $i++) {
 		$nota_evaluacion="";

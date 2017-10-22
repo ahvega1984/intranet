@@ -181,7 +181,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 // Menú personalizado
 	if (stristr($_SESSION['cargo'],'2') == TRUE ){
 		$tutor = $_SESSION['profi'];
-		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$claveal'");
+		$dat = mysqli_query($db_con, "select unidad from alma where claveal='$claveal'");
 		$dat_tutor = mysqli_query($db_con, "select unidad from FTUTORES where tutor='$tutor'");
 		$tut=mysqli_fetch_row($dat);
 		$tut2=mysqli_fetch_array($dat_tutor);
@@ -195,14 +195,14 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 		}
 }
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
-		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$claveal'");
+		$dat = mysqli_query($db_con, "select unidad from alma where claveal='$claveal'");
 		$tut=mysqli_fetch_row($dat);
 		$unidad=$tut[0];
 		echo "<li><a href='../jefatura/index.php?seleccionado=1&alumno=$alumno&unidad=$unidad'><i class='fa fa-edit fa-fw'></i> Intervención de Tutoría</a>";
 		echo "<li><a href='datos.php?borrar=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado.' data-bb='confirm-delete'><i class='fa fa-trash fa-fw'></i>  Borrar alumno</a></li>";	
 	}
 	if (stristr($_SESSION['cargo'],'8') == TRUE) {
-		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$claveal'");
+		$dat = mysqli_query($db_con, "select unidad from alma where claveal='$claveal'");
 		$tut=mysqli_fetch_row($dat);
 		$unidad=$tut[0];
 		echo "<li><a href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'><i class='fa fa-edit fa-fw'></i> Intervención de Orientación</a></li>";

@@ -141,22 +141,24 @@ foreach ($unidades as $unidad) {
 		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE 'AMB%' LIMIT 1");
 		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
 		$codasig_pmar = $row_codasig_pmar['codigo'];
-		$result = mysqli_query($db_con, "SELECT FALUMNOS.nc, alma.claveal, alma.apellidos, alma.nombre, alma.matriculas FROM FALUMNOS JOIN alma ON FALUMNOS.claveal = alma.claveal WHERE alma.unidad='$unidad' AND alma.combasi LIKE '%$codasig_pmar%' ORDER BY nc ASC");		
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");		
 	}
 	else {
-		$result = mysqli_query($db_con, "SELECT FALUMNOS.nc, alma.claveal, alma.apellidos, alma.nombre, alma.matriculas FROM FALUMNOS JOIN alma ON FALUMNOS.claveal = alma.claveal WHERE alma.unidad='$unidad' ORDER BY nc ASC");		
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");		
 	}
 	
 	$MiPDF->SetTextColor(0, 0, 0);
 	$MiPDF->SetFont('NewsGotT', '', 11);
 	
 	$MiPDF->SetFillColor(239,240,239);
-	
+
+	$nc = 0;
 	$fila = 1;
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		if ($fila % 2 == 0) $fill = 'DF';
 		else $fill = '';
 		
+		$nc++;
 		$aux = '';
 
 		if ($row['matriculas'] > 1) { 
@@ -177,7 +179,7 @@ foreach ($unidades as $unidad) {
 		
 		$alumno = $row['apellidos'].', '.$row['nombre'].$aux;
 		
-		$MiPDF->Row(array($row['nc'], $alumno, '', '', '', '', '', '', '', '', '', ''), $fill, 6);	
+		$MiPDF->Row(array($nc, $alumno, '', '', '', '', '', '', '', '', '', ''), $fill, 6);	
 		
 		$fila++;
 	}

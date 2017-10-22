@@ -86,13 +86,13 @@ if (isset($_POST['registro'])) {
 		$nombre=$alu[1];
 		$apellido=$alu[0];
 		$curso=$alu[2];
-		//localizo la clave del alumno en Falumnos.
-		$cla=mysqli_query($db_con, "select CLAVEAL, unidad from alma where NOMBRE='$nombre' and APELLIDOS='$apellido' and unidad = '$curso'");
+		//localizo la clave del alumno.
+		$cla=mysqli_query($db_con, "SELECT claveal, unidad FROM alma WHERE nombre = '$nombre' AND apellidos = '$apellido' AND unidad = '$curso'");
 		while($clav=mysqli_fetch_array($cla)){
 
 			$dia= date ('Y-m-d',time());
-			$clave=$clav[0];// echo $clave.'---'. $dia;
-			$unidad=$clav[1]; //echo $nivel;
+			$clave=$clav['claveal'];// echo $clave.'---'. $dia;
+			$unidad=$clav['unidad']; //echo $nivel;
 			//insertamos, por fÃ­n, la fechorÃ­a
 if (isset($_POST['registro'])) {
 				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("Error al registrar fechoría");

@@ -8,7 +8,7 @@ $pdf->ezSetCmMargins(1,1,1.5,1.5);
 # hasta aquí lo del pdf
 	$unidad="";
   // Cursos en total
-$cursos = mysqli_query($db_con, "select distinct unidad from FALUMNOS order by unidad");
+$cursos = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
 while ($rowcursos = mysqli_fetch_row($cursos))
 {
 $unidad = $rowcursos[0];
@@ -26,14 +26,16 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-$sqldatos="SELECT concat(apellidos,', ',nombre), nc FROM FALUMNOS WHERE unidad='".$unidad."' ORDER BY nc";
+$sqldatos="SELECT CONCAT(apellidos,', ',nombre) AS alumno FROM alma WHERE unidad='".$unidad."' ORDER BY apellidos ASC, nombre ASC";
 $lista= mysqli_query($db_con, $sqldatos );
 $num=0;
+$nc = 0;
 unset($data);
 while($datatmp = mysqli_fetch_array($lista)) { 
+	$nc++;
 	$data[] = array(
-				'num'=>$datatmp[1],
-				'nombre'=>utf8_decode($datatmp[0]),
+				'num'=>$nc,
+				'nombre'=>utf8_decode($datatmp['alumno']),
 				);
 }
 $titles = array(

@@ -142,10 +142,10 @@ foreach ($unidades as $unidad) {
 
 		// CUERPO DE LA TABLA
 		if ($esPMAR) {
-			$result = mysqli_query($db_con, "SELECT FALUMNOS.nc, alma.claveal, alma.apellidos, alma.nombre, alma.combasi, alma.matriculas FROM FALUMNOS JOIN alma ON FALUMNOS.claveal = alma.claveal WHERE alma.unidad='".$unidad."' AND alma.curso = '".$curso."' AND combasi LIKE '%".$codasig_pmar."%' ORDER BY nc ASC");
+			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' AND combasi LIKE '%".$codasig_pmar."%' ORDER BY apellidos ASC, nombre ASC");
 		}
 		else {
-			$result = mysqli_query($db_con, "SELECT FALUMNOS.nc, alma.claveal, alma.apellidos, alma.nombre, alma.combasi, alma.matriculas FROM FALUMNOS JOIN alma ON FALUMNOS.claveal = alma.claveal WHERE alma.unidad='".$unidad."' AND alma.curso = '".$curso."' ORDER BY nc ASC");			
+			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' ORDER BY apellidos ASC, nombre ASC");			
 		}
 		$MiPDF->SetTextColor(0, 0, 0);
 		$MiPDF->SetFont('NewsGotT', '', 10);
@@ -154,11 +154,14 @@ foreach ($unidades as $unidad) {
 		
 		$total_alumnos = 0; // Total alumnos en la unidad
 
+		$nc = 0;
 		$fila = 1;
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			if ($fila % 2 == 0) $fill = 'DF';
 			else $fill = '';
 
+			$nc++;
+			
 			$total_asigmat = 0; // Total asignaturas matriculadas
 
 			$aux = '';
@@ -179,7 +182,7 @@ foreach ($unidades as $unidad) {
 				$aux = ' (Exe.)';
 			}
 			
-			$row_data = array($row['nc'], $row['apellidos'].', '.$row['nombre'].$aux);
+			$row_data = array($nc, $row['apellidos'].', '.$row['nombre'].$aux);
 			
 			mysqli_data_seek($result_asignaturas, 0);
 			while ($row_asignaturas = mysqli_fetch_array($result_asignaturas)) {

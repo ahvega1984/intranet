@@ -32,17 +32,17 @@ foreach($a as $dia) {
 		if($dia=='4'){$dia1 = "<b>Jueves</b>";}
 		if($dia=='5'){$dia1 = "<b>Viernes</b>";}	
 			
-$sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC";
+$sqldatos="SELECT CONCAT(apellidos,', ',nombre) AS alumno FROM alma WHERE unidad = '$unidad' ORDER BY apellidos ASC, nombre ASC";
 // echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos );
 $num=0;
 unset($data);
 $ixx = 0;
 while($datatmp = mysqli_fetch_array($lista)) { 
-	$ixx = $datatmp[1];
+	$ixx++;
 	$data[] = array(
 				'num'=>$ixx,
-				'nombre'=>utf8_decode($datatmp[0])				
+				'nombre'=>utf8_decode($datatmp['alumno'])				
 				);
 }
 $firma="Observaciones:\n\n\n\n\n\n\n\n";

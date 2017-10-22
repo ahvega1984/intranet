@@ -22,17 +22,17 @@ if($dia1=='Miércoles'){$dia = "3";}
 if($dia1=='Jueves'){$dia = "4";}
 if($dia1=='Viernes'){$dia = "5";}
 		
-$sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC";
+$sqldatos="SELECT CONCAT(apellidos,', ',nombre) AS alumno FROM alma WHERE unidad = '$unidad' ORDER BY apellidos ASC, nombre ASC";
 //echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos );
 $num=0;
 unset($data);
 $ixx = 0;
 while($datatmp = mysqli_fetch_array($lista)) { 
-	$ixx = $datatmp[1];
+	$ixx++;
 	$data[] = array(
 				'num'=>$ixx,
-				'nombre'=>$datatmp[0]				
+				'nombre'=>$datatmp['nombre']				
 				);
 }
 $firma="Observaciones:\n\n\n\n\n\n\n\n";

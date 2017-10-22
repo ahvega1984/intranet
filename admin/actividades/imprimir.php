@@ -114,15 +114,15 @@ $MiPDF->SetDisplayMode('fullpage');
 //  echo "$key --> $value<br>";
 if(is_numeric(trim($key))){
 
-$alumnos0 = "select alma.nombre, alma.apellidos, padre, domicilio, codpostal, localidad, provinciaresidencia, NC, dnitutor, alma.unidad, alma.matriculas, alma.telefono, alma.telefonourgencia from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.claveal = '$value'";
+$alumnos0 = "SELECT nombre, apellidos, padre, domicilio, codpostal, localidad, provinciaresidencia, dnitutor, unidad, matriculas, telefono, telefonourgencia FROM alma WHERE claveal = '$value'";
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 while($alumno = mysqli_fetch_array($alumnos1))
 {
-	mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
+	mysqli_query($db_con, "INSERT INTO actividadalumno (claveal,cod_actividad) VALUES ('".$value."','".$id."')");
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage();
 	
-	$autorizacion = "D./Dña. $alumno[2] con D.N.I $alumno[8], como representante legal de $alumno[0] $alumno[1], alumno/a de la unidad $alumno[9], asume la responsabilidad de que su hijo/a participe en la siguiente Actividad Complementaria y Extraescolar e igualmente autoriza a los profesores/as responsables a tomar cuantas medidas sean necesarias para conseguir un desarrollo adecuado de la actividad programada.";
+	$autorizacion = "D./Dña. ".$alumno['padre']." con D.N.I ".$alumno['dnitutor'].", como representante legal de ".$alumno['nombre']." ".$alumno['apellidos'].", alumno/a de la unidad ".$alumno['unidad'].", asume la responsabilidad de que su hijo/a participe en la siguiente Actividad Complementaria y Extraescolar e igualmente autoriza a los profesores/as responsables a tomar cuantas medidas sean necesarias para conseguir un desarrollo adecuado de la actividad programada.";
 	
 	$alergias = "Al mismo tiempo indico que mi hijo/a:
 	__ Necesita tratamiento médico o medicación específica.
@@ -135,11 +135,11 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->SetY(45);
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Cell(75, 5, 'Fecha:  '.date('d.m.Y'), 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $alumno[2], 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno['padre'], 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 8, 'Ref.:     Act/'.$id, 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $alumno[3], 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno['domicilio'], 0, 1, 'L', 0 );
 	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell(75, 5, $alumno[4].' '.mb_strtoupper($alumno[6], 'UTF-8'), 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno['codpostal'].' '.$alumno['localidad'].', '.mb_strtoupper($alumno['provinciaresidencia'], 'UTF-8'), 0, 1, 'L', 0 );
 	$MiPDF->Cell(0, 0, 'Asunto: '.$actividad, 0, 1, 'L', 0 );
 	$MiPDF->Ln(7);
 	
@@ -192,7 +192,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	
 		
 	// EJEMPLAR PARA EL PROFESOR
-	$txt_acuse = "D./Dña. $alumno[2] con D.N.I $alumno[8], como representante legal de $alumno[0] $alumno[1], alumno/a de la unidad $alumno[9], autoriza a su hijo/a a participar en la actividad $actividad con referencia Act/".$id.".";
+	$txt_acuse = "D./Dña. ".$alumno['padre']." con D.N.I ".$alumno['dnitutor'].", como representante legal de ".$alumno['nombre']." ".$alumno['apellidos'].", alumno/a de la unidad ".$alumno['unidad'].", autoriza a su hijo/a a participar en la actividad $actividad con referencia Act/".$id.".";
 	
 	$MiPDF->Line(20, $MiPDF->GetY(), 190, $MiPDF->GetY());
 	$MiPDF->Ln(3);
@@ -208,7 +208,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(55, 8, 'Teléfonos de contacto con la familia:', 0, 0, 'L');
 	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell(110, 8, $alumno[11] . ' / ' . $alumno[12], 0, 1, 'L');
+	$MiPDF->Cell(110, 8, $alumno['telefono'] . ' / ' . $alumno['telefonourgencia'], 0, 1, 'L');
 	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
@@ -232,7 +232,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	$MiPDF->Cell (90, 5, '', 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 0, 'Fdo. '.$alumno[2], 0, 1, 'C', 0 );
+	$MiPDF->Cell (55, 0, 'Fdo. '.$alumno['padre'], 0, 1, 'C', 0 );
 	
 	
 	

@@ -64,12 +64,12 @@ $unidad = trim($valor);
 <tr><td colspan="2"><h4><?php echo "Alumnos de $unidad";?></h4></td>
 </tr>
 <?php
-$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
+$alumnos0 = "SELECT claveal, nombre, apellidos FROM alma where unidad = '$unidad' ORDER BY apellidos ASC, nombre ASC";
 //echo $cursos[0]." => ".$alumnos0."<br>";
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 $num = mysqli_num_rows($alumnos1);
 
-$datos0 = "select fechaini, horaini, profesores, nombre, descripcion, observaciones, fechafin, horafin from calendario where id ='$id'";
+$datos0 = "SELECT fechaini, horaini, profesores, nombre, descripcion, observaciones, fechafin, horafin FROM calendario WHERE id ='$id'";
 $datos1 = mysqli_query($db_con, $datos0);
 $datos = mysqli_fetch_array($datos1);
 $fecha0 = explode("-",$datos[0]);
@@ -96,11 +96,12 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 <input name="observaciones" type="hidden" id="A" value="<?php echo $observaciones;?>">
 <input name="id" type="hidden" id="A" value="<?php echo $id;?>">  
 <?}
+$nc = 0;
 while($alumno = mysqli_fetch_array($alumnos1)){
-$apellidos = $alumno[0];
-$nombre = $alumno[1];
-$nc = $alumno[2];
-$claveal = $alumno[3];
+$nc++;
+$apellidos = $alumno['apellidos'];
+$nombre = $alumno['nombre'];
+$claveal = $alumno['claveal'];
 $extra_al="";
 $ya = mysqli_query($db_con,"select * from actividadalumno where cod_actividad='$id' and claveal='$claveal'");
 if (mysqli_num_rows($ya)>0) {

@@ -32,29 +32,32 @@ foreach ($grupo as $grupo1)
 $numg++;
 //$g=$grupo[$i];
 
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),Fecha,matriculas,Sexo,padre,Domicilio,Telefonourgencia,alma.claveal, Telefono, nc FROM alma, FALUMNOS WHERE FALUMNOS.claveal=alma.claveal and alma.unidad='".$grupo1."' ORDER BY nc";
+$sqldatos="SELECT CONCAT(alma.apellidos,', ',alma.nombre) AS alumno, claveal, fecha, matriculas, padre, domicilio, localidad, telefonourgencia, telefono FROM alma WHERE unidad='".$grupo1."' ORDER BY apellidos ASC, nombre ASC";
 //echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos) or die (mysqli_error($db_con));
 $num=0;
 unset($data);
-$ixx = 0;
+$nc = 0;
 while($datatmp = mysqli_fetch_array($lista)) { 
-	$ixx = $ixx+1;
-	$tels = trim($datatmp[6]."    ".$datatmp[8]);
-	if ($datatmp[2]>1) {
-                		$repite="Sí";
-                	}
-                	else{
-                		$repite="No";
-                	}
+	$nc++;
+	$tels = trim($datatmp['telefono']." | ".$datatmp['telefonourgencia']);
+	if ($datatmp['matriculas']>1) {
+		$repite="Sí";
+	}
+	else{
+		$repite="No";
+	}
+
+	$exp_fecha = explode('-',cambia_fecha($datatmp['fecha']));
+	$fecha_ncto = $exp_fecha[2].'/'.$exp_fecha[1].'/'.$exp_fecha[0];
+
 	$data[] = array(
-				'num'=>$datatmp[9],
-				'nombre'=>utf8_decode($datatmp[0]),
-				'fecha'=>cambia_fecha($datatmp[1]),
+				'num'=>$nc,
+				'nombre'=>utf8_decode($datatmp['alumno']),
+				'fecha'=>$fecha_ncto,
 				'Repite'=>utf8_decode($repite),
-				'NIE'=>utf8_decode($datatmp[7]),
-				'Tutor'=>utf8_decode($datatmp[4]),
-				'Domicilio'=>utf8_decode($datatmp[5]),
+				'Tutor'=>utf8_decode($datatmp['padre']),
+				'Domicilio'=>utf8_decode($datatmp['domicilio'].'. '.$datatmp['localidad']),
 				'Telefonos'=>$tels
 				);
 }
@@ -63,12 +66,9 @@ $titles = array(
 				'nombre'=>'<b>Alumno/a</b>',
 				'fecha'=>'<b>Fecha ncto.</b>',
 				'Repite'=>'<b>Rep.</b>',
-				'NIE'=>'<b>NIE</b>',
 				'Tutor'=>'<b>Padre / madre</b>',
 				'Domicilio'=>'<b>Domicilio</b>',
-				'Telefonos'=>'<b>Tel&eaacute;fono(s)</b>'
-				#'direccion'=>'<b>Direccion</b>',
-				#'telefono'=>'<b>Telefono</b>'
+				'Telefonos'=>utf8_decode('<b>Teléfono(s)</b>')
 			);
 $options = array(
 				'showLines'=> 2,
