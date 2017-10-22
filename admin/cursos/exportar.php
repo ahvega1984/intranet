@@ -4,11 +4,33 @@ require_once('../../lib/phpexcel/PHPExcel.php');
 
 if (isset($_POST['unidad'])) $unidad = $_POST['unidad'];
 
+// COMPROBAMOS SI ES UN PMAR
+$esPMAR = (stristr($unidad, ' (PMAR)') == true) ? 1 : 0;
+if ($esPMAR) {
+	$unidad = str_ireplace(' (PMAR)', '', $unidad);
+}
+
 if (isset($_POST['datos']) && $_POST['datos'] == 1) {
-	$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad, claveal, fecha, padre, domicilio, localidad, provinciaresidencia, telefono, telefonourgencia FROM alma WHERE unidad = '".$unidad."' ORDER BY apellidos ASC, nombre ASC");	
+	if ($esPMAR) {
+		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE 'AMB%' LIMIT 1");
+		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
+		$codasig_pmar = $row_codasig_pmar['codigo'];
+		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad, claveal, fecha, padre, domicilio, localidad, provinciaresidencia, telefono, telefonourgencia FROM alma WHERE unidad = '".$unidad."' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");			
+	}
+	else {
+		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad, claveal, fecha, padre, domicilio, localidad, provinciaresidencia, telefono, telefonourgencia FROM alma WHERE unidad = '".$unidad."' ORDER BY apellidos ASC, nombre ASC");			
+	}
 }
 else {
-	$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad FROM alma WHERE unidad = '".$unidad."' ORDER BY apellidos ASC, nombre ASC");		
+	if ($esPMAR) {
+		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE 'AMB%' LIMIT 1");
+		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
+		$codasig_pmar = $row_codasig_pmar['codigo'];
+		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad FROM alma WHERE unidad = '".$unidad."' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");			
+	}
+	else {
+		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad FROM alma WHERE unidad = '".$unidad."' ORDER BY apellidos ASC, nombre ASC");				
+	}
 }
 
 // Create new PHPExcel object
@@ -17,11 +39,11 @@ $objPHPExcel = new PHPExcel();
 // Set document properties
 $objPHPExcel->getProperties()->setCreator($config['centro_denominacion'])
 							 ->setLastModifiedBy($pr)
-							 ->setTitle("A")
-							 ->setSubject("A")
-							 ->setDescription("A")
-							 ->setKeywords("A")
-							 ->setCategory("A");
+							 ->setTitle($unidad)
+							 ->setSubject("Información de la unidad ".$unidad)
+							 ->setDescription("Este archivo incluye información de carácter personal y la relación de alumnos/as de la unidad ".$unidad." del ".$config['centro_denominacion'])
+							 ->setKeywords("informacion ".$unidad)
+							 ->setCategory("Información de carácter personal");
 
 
 $encabezado_idoceo = '';
