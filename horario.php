@@ -78,22 +78,7 @@ if ($algo) {
 				if ($grupo != $rep_grupo) {
 
 					if($cont > 1) {
-						if (stristr($grupo, '-') == TRUE) {
-							$exp_grupo = explode('-', $grupo);
-							echo "/".trim($exp_grupo[1]);
-						}
-						elseif (stristr($grupo, 'º') == TRUE) {
-							$exp_grupo = explode('º', $grupo);
-							echo "/".trim($exp_grupo[1]);
-						}
-						elseif (preg_match('/^[0-9][A-Z]+$/', $grupo) == TRUE) {
-							$num_grupo = substr($grupo, 0, 1);
-							$exp_grupo = explode($num_grupo, $grupo);
-							echo "/".trim($exp_grupo[1]);
-						}
-						else {
-							echo $grupo.'<br>';
-						}
+						echo "<span class='text-info'> | </span>".$grupo;
 					}
 					else {
 						echo $grupo;

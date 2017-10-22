@@ -85,3 +85,15 @@ if (! mysqli_num_rows($actua)) {
 }
 
 mysqli_free_result($actua);
+
+/*
+	@descripcion: Ampliación de caracteres en la columna "página" para incluir sistema de documentación permanente
+	@fecha: 21 de octubre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla Noticias'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE  `noticias` CHANGE  `pagina`  `pagina` CHAR( 3 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla Noticias', NOW())");
+}
+
+mysqli_free_result($actua);

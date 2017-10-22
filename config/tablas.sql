@@ -1474,7 +1474,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `clase` varchar(48) DEFAULT NULL,
   `fechafin` date DEFAULT NULL,
-  `pagina` tinyint(2) NOT NULL,
+  `pagina` tinyint(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 

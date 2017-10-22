@@ -6,7 +6,6 @@ if (file_exists('config.php')) {
 }
 
 $profesor = $_SESSION ['profi'];
-
 if($_POST['token']) $token = $_POST['token'];
 if(!isset($token)) $token = time(); 
 
@@ -26,7 +25,8 @@ if (isset($_POST['enviar'])) {
 	$ndias = $_POST['ndias'];
 	$intranet = $_POST['intranet'];
 	$principal = $_POST['principal'];
-	$pagina = $intranet.$principal;
+	$permanente = $_POST['permanente'];
+	$pagina = $intranet.$principal.$permanente;
 	if (empty($titulo) || empty($contenido) || empty($fechapub)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
@@ -82,6 +82,7 @@ if (isset($id) && (int) $id) {
 			// OBTENEMOS LOS LUGARES DONDE SE HA PUBLICADO LA NOTICIA
 			if (strstr($pagina, '1') == true) $intranet = 1;
 			if (strstr($pagina, '2') == true) $principal = 2;
+			if (strstr($pagina, '3') == true) $permanente = 3;
 		}
 		else {
 			$msg_error = "No eres el autor o no tienes privilegios administrativos para editar esta noticia.";
@@ -220,6 +221,18 @@ include ("menu.php");
 									</label>
 								</div>
 							</div>
+							<?php if ($_SERVER['SERVER_NAME']=="iesmonterroso.org") { ?>
+								<div class="form-group">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="permanente" value="3" <?php echo (isset($permanente) && $permanente) ? 'checked' : ''; ?>> Información permanente
+									</label>
+								</div>
+							</div>
+							<?php 
+							} 
+							?>
+							
 							<?php
 							}
 							?>

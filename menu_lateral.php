@@ -219,7 +219,7 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Información y Estadísticas',
+				'titulo' => 'Datos y Estadísticas',
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
@@ -645,6 +645,11 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 			'menu_id' => 'paginas_interes',
 			'nombre'  => 'Páginas de interés',
 			'items'   => array (
+				array(
+					'href'   => 'admin/noticias/permanentes.pdf',
+					'titulo' => 'Información importante (HOWTO, FAQ, etc.)',
+					'target' => '_blank',
+				),
 				array(
 					'href'   => 'varios/Planos_Centro.pdf',
 					'titulo' => 'Planos del Centro',

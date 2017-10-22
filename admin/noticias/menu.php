@@ -22,6 +22,9 @@
 		<ul class="nav nav-tabs">
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'redactar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="redactar.php">Redactar noticia</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Listado de noticias</a></li>
+			<?php if ($_SERVER['SERVER_NAME']=="iesmonterroso.org") { ?>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'permanentes.php')==TRUE) ? ' class="active"' : ''; ?>><a href="permanentes.php">Información importante</a></li>
+			<?PHP } ?>
 		</ul>
 		
 	</div>
