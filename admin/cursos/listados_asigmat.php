@@ -67,16 +67,16 @@ foreach ($unidades as $unidad) {
 		$MiPDF->SetFont('NewsGotT', '', 10);
 
 		if ($esPMAR) {
-			$MiPDF->Cell(152, 5, $unidad.' (PMAR) ('.$curso.')', 0, 0, 'L', 0 );
+			$MiPDF->Cell(120, 5, $unidad.' (PMAR) ('.$curso.')', 0, 0, 'L', 0 );
 		}
 		else {
-			$MiPDF->Cell(152, 5, $unidad.' ('.$curso.')', 0, 0, 'L', 0 );
+			$MiPDF->Cell(120, 5, $unidad.' ('.$curso.')', 0, 0, 'L', 0 );
 		}
 		
 		$MiPDF->SetFont('NewsGotT', 'B', 10);
 		$MiPDF->Cell(27, 5, 'Curso académico: ', 0, 0, 'L', 0);
 		$MiPDF->SetFont('NewsGotT', '', 10);
-		$MiPDF->Cell(56, 5, $config['curso_actual'], 0, 1, 'L', 0 );
+		$MiPDF->Cell(92, 5, $config['curso_actual'], 0, 1, 'L', 0 );
 		
 		// Obtenemos el tutor/a de la unidad
 		$result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
@@ -87,12 +87,12 @@ foreach ($unidades as $unidad) {
 		$MiPDF->SetFont('NewsGotT', 'B', 10);
 		$MiPDF->Cell(13, 5, 'Tutor/a: ', 0, 0, 'L', 0);
 		$MiPDF->SetFont('NewsGotT', '', 10);
-		$MiPDF->Cell(152, 5, nomprofesor($tutor), 0, 0, 'L', 0 );
+		$MiPDF->Cell(120, 5, nomprofesor($tutor), 0, 0, 'L', 0 );
 		
 		$MiPDF->SetFont('NewsGotT', 'B', 10);
 		$MiPDF->Cell(11, 5, 'Fecha: ', 0, 0, 'L', 0);
 		$MiPDF->SetFont('NewsGotT', '', 10);
-		$MiPDF->Cell(74, 5, date('d/m/Y'), 0, 1, 'L', 0 );
+		$MiPDF->Cell(108, 5, date('d/m/Y'), 0, 1, 'L', 0 );
 		
 		$MiPDF->Ln(2);
 
