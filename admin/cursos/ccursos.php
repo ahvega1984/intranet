@@ -139,6 +139,9 @@ include("../../menu.php");
 									su identificador de usuario o de su contraseña, introducción de virus, recuperación de datos, desaparición de soportes 
 									informáticos y, en general, toda situación que pueda comprometer el buen uso y funcionamiento de los sistemas de información.</p>
 
+									<p>Solo podrás crear ficheros temporales que contengan datos de carácter personal, cuando sean necesarios para el desempeño de 
+									tus funciones, en todo caso, deberán ser eliminados cuando hayan dejado de ser útiles para la finalidad para la que fueron creados.</p>
+
 									<p>Finalizada la relación funcionarial o laboral, con la Administración de la Junta de Andalucía o traslado de puesto de trabajo, 
 									deberás dejar sin perjudicar todas las aplicaciones informáticas, ficheros, información, datos y documentos electrónicos que hayas 
 									utilizado en tu actividad profesional.</p>
