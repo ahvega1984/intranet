@@ -31,7 +31,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,'CONSEJERÃA DE EDUCACIÃ“N',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -66,7 +66,7 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 			$MiPDF->SetDisplayMode ( 'fullpage' );
 			$hoy= date ('d-m-Y',time());
 			$tutor="Jefatura de Estudios";
-			$titulo1 = "COMUNICACIÓN DE AMONESTACIÓN ESCRITA";
+			$titulo1 = "COMUNICACIï¿½N DE AMONESTACIï¿½N ESCRITA";
 
 			for($i=0; $i <= count($valor)-1; $i++){ 
 			$j+=1; //echo $valor[$i];
@@ -85,10 +85,10 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 				$nombre=$nombre;
 				$apellido=$apellido;
 					
-				$cuerpo1 = "Muy Señor/Sra. mío/a:
+				$cuerpo1 = "Muy Seï¿½or/Sra. mï¿½o/a:
 
-Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno del grupo $curso ha sido amonestado/a por \"Retraso injustificado en la devolución de material a la Biblioteca del Centro\"";
-				$cuerpo2 = "Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.";
+Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno del grupo $curso ha sido amonestado/a por \"Retraso injustificado en la devoluciï¿½n de material a la Biblioteca del Centro\"";
+				$cuerpo2 = "Asimismo, le comunico que, segï¿½n contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgï¿½nico de los Institutos de Educaciï¿½n Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podrï¿½a imponï¿½rsele otra medida de correcciï¿½n que podrï¿½a llegar a ser la suspensiï¿½n del derecho de asistencia al Centro.";
 				$cuerpo3 = "----------------------------------------------------------------------------------------------------------------------------------------------
 
 En ".$config['centro_localidad'].", a _________________________________
@@ -96,14 +96,14 @@ Firmado: El Padre/Madre/Representante legal:
 
 
 
-D./Dña _____________________________________________________________________
+D./Dï¿½a _____________________________________________________________________
 D.N.I ___________________________";
 				$cuerpo4 = "
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-COMUNICACIÓN DE AMONESTACIÓN ESCRITA
+COMUNICACIï¿½N DE AMONESTACIï¿½N ESCRITA
 
-	El alumno/a $nombre $apellido del grupo $curso, ha sido amonestado/a con fecha $hoy con falta grave, recibiendo la notificación mediante comunicación escrita de la misma para entregarla al padre/madre/representante legal.
+	El alumno/a $nombre $apellido del grupo $curso, ha sido amonestado/a con fecha $hoy con falta grave, recibiendo la notificaciï¿½n mediante comunicaciï¿½n escrita de la misma para entregarla al padre/madre/representante legal.
 
                                            Firma del alumno/a:
 	

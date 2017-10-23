@@ -48,7 +48,7 @@ var tour = new Tour({
   {
     element: "#bs-tour-consejeria",
     title: "Novedades de la Consejería",
-    content: "Consulta las últimas novedades de la Consejería de Educación, Cultura y Deporte de la Junta de Andalucía. Este icono solo será visible desde la portada de la Intranet.",
+    content: "Consulta las últimas novedades de la CONSEJERÍA DE EDUCACIÓN de la Junta de Andalucía. Este icono solo será visible desde la portada de la Intranet.",
     container: "body",
     placement: "bottom",
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",

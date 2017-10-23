@@ -555,8 +555,7 @@ exit();
 				class="img-responsive" src="../../img/encabezado.jpg" alt=""
 				width="350"></td>
 			<td colspan="2">
-			<h4 class="text-uppercase"><strong>Consejería de Educación, Cultura y
-			Deporte</strong></h4>
+			<h4 class="text-uppercase"><strong>Consejería de Educación</strong></h4>
 			<h5 class="text-uppercase"><strong><?php echo $config['centro_denominacion']; ?></strong></h5>
 			</td>
 		</tr>

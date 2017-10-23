@@ -41,13 +41,13 @@ $recursos = array(
 		'seccion' => 'Punto de partida sobre las TIC',
 		'recursos' => array(
 			array(
-				'titulo' => 'Las TIC como Agentes de innovación',
-				'descripcion' => 'Documento esencial para entender lo que la Consejería de Educación pretende con la idea de los Centros TIC, y como afecta el asunto a Padres, Alumnos y Profesores.',
+				'titulo' => 'Las TIC como Agentes de innovaciÃ³n',
+				'descripcion' => 'Documento esencial para entender lo que la ConsejerÃ­a de EducaciÃ³n pretende con la idea de los Centros TIC, y como afecta el asunto a Padres, Alumnos y Profesores.',
 				'enlace' => 'docs/TIC_como_agentes_innovacion.pdf',
 			),
 			array(
 				'titulo' => 'Guia de los Centros TIC',
-				'descripcion' => 'El CGA (Centro de Gestión Avanzado, creo) ha elaborado una guía muy completa sobre todos los aspectos técnicos que rodean a un Centro TIC: ordenadores y periféricos, Sistema Operativo (Guadalinex), Plataforma Educativa, etc. Incluye una sección estupenda sobre el uso de un escaner, impresoras, cámaras de fotos. Hay otra sección sobre el Cañón Virtual, Jclic, y otras aplicaciones.',
+				'descripcion' => 'El CGA (Centro de Gestiï¿½n Avanzado, creo) ha elaborado una guï¿½a muy completa sobre todos los aspectos tï¿½cnicos que rodean a un Centro TIC: ordenadores y perifï¿½ricos, Sistema Operativo (Guadalinex), Plataforma Educativa, etc. Incluye una secciï¿½n estupenda sobre el uso de un escaner, impresoras, cï¿½maras de fotos. Hay otra secciï¿½n sobre el Caï¿½ï¿½n Virtual, Jclic, y otras aplicaciones.',
 				'enlace' => 'docs/guia_centros_tic.pdf',
 			),
 		),
@@ -58,7 +58,7 @@ $recursos = array(
 		'recursos' => array(
 			array(
 				'titulo' => 'Manual del Portatil TOSHIBA',
-				'descripcion' => 'Para los que quieran conocer en detalle las características y uso del portatil que utilizamos en el Centro, aquí van el PDF que contiene el Manual de Uso.',
+				'descripcion' => 'Para los que quieran conocer en detalle las caracterï¿½sticas y uso del portatil que utilizamos en el Centro, aquï¿½ van el PDF que contiene el Manual de Uso.',
 				'enlace' => 'docs/MAN-toshiba-es.pdf',
 			),
 		),
@@ -70,7 +70,7 @@ $recursos = array(
 		'recursos' => array(
 			array(
 				'titulo' => 'Guia de Guadalinex V.3.1',
-				'descripcion' => 'Guia completita del Sistema Operativo que utilizamos. Hay una versión en formato libro por si alguien quiere echarle un vistazo. Imprescindible tanto para los recien llegados como para usuarios mas avanzados. Además del Sistema Operativo, trata aplicaciones de uso corriente.',
+				'descripcion' => 'Guia completita del Sistema Operativo que utilizamos. Hay una versiï¿½n en formato libro por si alguien quiere echarle un vistazo. Imprescindible tanto para los recien llegados como para usuarios mas avanzados. Ademï¿½s del Sistema Operativo, trata aplicaciones de uso corriente.',
 				'enlace' => 'docs/Guia_Guadalinex_V3.pdf',
 			),
 		),
@@ -82,27 +82,27 @@ $recursos = array(
 		'recursos' => array(
 			array(
 				'titulo' => 'Procesador de textos de OpenOffice',
-				'descripcion' => 'Introducion a la aplicación de textos de OpenOffice.',
+				'descripcion' => 'Introducion a la aplicaciï¿½n de textos de OpenOffice.',
 				'enlace' => 'docs/openoffice_writer.pdf',
 			),
 			array(
 				'titulo' => 'Gimp',
-				'descripcion' => 'Gimp es una aplicación para el tratamiento de graficos y fotografias. Algo así como el PhotoShop de Linux. La introducción es básica pero util para empezar.',
+				'descripcion' => 'Gimp es una aplicaciï¿½n para el tratamiento de graficos y fotografias. Algo asï¿½ como el PhotoShop de Linux. La introducciï¿½n es bï¿½sica pero util para empezar.',
 				'enlace' => '#',
 			),
 			array(
-				'titulo' => 'Composer (Creación de Páginas Web)',
-				'descripcion' => 'Introdución rápida al uso de esta aplicación para crear páginas web sencillas en modo gráfico. Hay otra utilidad mas potente con la misma funcion en Guadalinex, NVU, en caso de pedir mas potencia.',
+				'titulo' => 'Composer (Creaciï¿½n de Pï¿½ginas Web)',
+				'descripcion' => 'Introduciï¿½n rï¿½pida al uso de esta aplicaciï¿½n para crear pï¿½ginas web sencillas en modo grï¿½fico. Hay otra utilidad mas potente con la misma funcion en Guadalinex, NVU, en caso de pedir mas potencia.',
 				'enlace' => 'docs/paginas_web_con_composer.pdf',
 			),
 			array(
 				'titulo' => 'XSane',
-				'descripcion' => 'Introducción a la aplicación que utiliza Guadalinex para el uso de un escaner. Imprescindible para los que quieran utilizar regularmente la máquina.',
+				'descripcion' => 'Introducciï¿½n a la aplicaciï¿½n que utiliza Guadalinex para el uso de un escaner. Imprescindible para los que quieran utilizar regularmente la mï¿½quina.',
 				'enlace' => 'docs/xsane_manual_escanear.pdf',
 			),
 			array(
-				'titulo' => 'Cañon Virtual',
-				'descripcion' => 'Instrucciones para el uso de la aplicación Cañon Virtual que esta disponible en Guadalinex. La aplicación permite al profesor que el alumno vea en su ordenador lo que el profesor tiene en la suya, por ejemplo peliculas o el propio escritorio. Muy util para el uso en las aulas.',
+				'titulo' => 'Caï¿½on Virtual',
+				'descripcion' => 'Instrucciones para el uso de la aplicaciï¿½n Caï¿½on Virtual que esta disponible en Guadalinex. La aplicaciï¿½n permite al profesor que el alumno vea en su ordenador lo que el profesor tiene en la suya, por ejemplo peliculas o el propio escritorio. Muy util para el uso en las aulas.',
 				'enlace' => 'docs/CanonVirtual.pdf',
 			),
 		),
@@ -114,7 +114,7 @@ $recursos = array(
 		'recursos' => array(
 			array(
 				'titulo' => 'Manual de la Plataforma Educativa',
-				'descripcion' => 'La Plataforma Educativa es la otra cosa que viene con los Centros TIC: una aplicación que permite trabajar con los alumnos en el aula (colocar documentos, poner controles, crear foros de discusion, etc). El uso necesita de cierto aprendizaje, asi que aquí van un par de manuales de uso para quien quiera entrar en ese mundo. Aunque su uso no es obligatorio, algunos profesores pueden encontrar muchas posibilidades para utilizar regularmente el ordenador en el aula con los alumnos.',
+				'descripcion' => 'La Plataforma Educativa es la otra cosa que viene con los Centros TIC: una aplicaciï¿½n que permite trabajar con los alumnos en el aula (colocar documentos, poner controles, crear foros de discusion, etc). El uso necesita de cierto aprendizaje, asi que aquï¿½ van un par de manuales de uso para quien quiera entrar en ese mundo. Aunque su uso no es obligatorio, algunos profesores pueden encontrar muchas posibilidades para utilizar regularmente el ordenador en el aula con los alumnos.',
 				'enlace' => 'docs/Manual_Plataforma_Educativa.pdf',
 			),
 			array(
@@ -135,8 +135,8 @@ $recursos = array(
 		'seccion' => 'Enlaces interesantes',
 		'recursos' => array(
 			array(
-				'titulo' => 'Centro de Gestión Avanzado de centros TIC',
-				'descripcion' => 'Pagina principal del organismo que lleva el peso de los Centros TIC. Hay documentación importante.',
+				'titulo' => 'Centro de Gestiï¿½n Avanzado de centros TIC',
+				'descripcion' => 'Pagina principal del organismo que lleva el peso de los Centros TIC. Hay documentaciï¿½n importante.',
 				'enlace' => 'http://www.juntadeandalucia.es/educacion/cga/portal/',
 			),
 		),

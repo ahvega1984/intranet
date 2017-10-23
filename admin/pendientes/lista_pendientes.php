@@ -13,7 +13,7 @@ if ($_POST['pdf'] == 1) {
 			$this->SetFont('ErasDemiBT','B',10);
 			$this->SetY(15);
 			$this->Cell(75);
-			$this->MultiCell(170, 5, 'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE', 0,'R', 0);
+			$this->MultiCell(170, 5, 'CONSEJERÍA DE EDUCACIÓN', 0,'R', 0);
 			$this->Ln(15);
 		}
 		function Footer() {
