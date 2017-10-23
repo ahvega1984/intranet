@@ -74,9 +74,14 @@ else {
 	else {
 		
 		$result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, hora, fecha, fecha_guardia, turno FROM guardias WHERE dia = '$diasem' AND hora = '$hora' AND fecha_guardia = '$fechasql' AND profe_aula = '$ausente'");
+
+		$result_ya = mysqli_query($db_con, "SELECT * FROM guardias WHERE dia = '$diasem' AND hora = '$hora' AND fecha_guardia = '$fechasql' AND profesor = '$profesor'");
 		
-		if ($num_reg = mysqli_num_rows($result)) {
-			
+		if (mysqli_num_rows($result_ya)>0) {
+			$msg_error = "<h4>Guardia registrada</h4>\n<p>No es posible registrar la sustitución de 2 guardias en la misma hora.</p>\n";
+		}
+		elseif ($num_reg = mysqli_num_rows($result)) {
+		
 			$row = mysqli_fetch_array($result);
 			
 			// Ya ha registrado la guardia a este profesor en el mismo turno
@@ -148,6 +153,8 @@ else {
 			}
 			
 		}
+
+
 		
 		// No se han encontrado registros, por lo que insertamos en la base de datos los datos
 		else {

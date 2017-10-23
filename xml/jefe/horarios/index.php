@@ -392,9 +392,18 @@ include("../../../menu.php");
 						  <label for="asignatura">Asignatura / Actividad</label>
 						  <select class="form-control" id="asignatura" name="asignatura">
 						 	<option value=""></option>
-						 		<?php if ($unidad): ?>
+						 		<?php if ($unidad): 
+						 		if (stristr($curso, "Bachil")==FALSE and stristr($curso, "E.S.O.")==FALSE) {
+						 			$extra_unidad = "";
+						 			$extra_curso = "AND curso like '%".substr($curso, 1)."%'";
+						 		}
+						 		else{
+						 			$extra_unidad = "AND grupo = '$unidad'";
+						 			$extra_curso = "AND curso = '$curso'";
+						 		}
+						 		?>
 						  	<optgroup label="Asignaturas">
-						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM materias WHERE codigo <> '' AND abrev NOT LIKE '%\_%' AND curso='$curso' and grupo = '$unidad' ORDER BY curso ASC, nombre ASC"); ?>
+						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM materias WHERE codigo <> '' AND abrev NOT LIKE '%\_%' $extra_curso $extra_unidad ORDER BY curso ASC, nombre ASC"); ?>
 				  		  	<?php while ($row = mysqli_fetch_array($result)): ?>
 				  		  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
 				  		  	<?php endwhile; ?>

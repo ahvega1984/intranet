@@ -67,6 +67,7 @@
 								$nombres = $materia->getElementsByTagName( "D_MATERIAC" );
 								$nombre = $nombres->item(0)->nodeValue;
 								$nombre = trim($nombre);
+								$nombre = str_replace("  ", " ", $nombre);
 								$abrevs = $materia->getElementsByTagName( "T_ABREV" );
 								$abrev = $abrevs->item(0)->nodeValue;
 								$abrev = trim($abrev);

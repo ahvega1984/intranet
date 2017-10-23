@@ -6,7 +6,10 @@ if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_GET['pag'])) $pag = $_GET['pag']; else $pag = 0;
 
 if(isset($_GET['id']) && isset($_GET['borrar']) && $_GET['borrar']) {
-	$result = mysqli_query($db_con, "DELETE FROM noticias WHERE id='$id' LIMIT 1");
+	$ctrl = mysqli_query($db_con,"select pagina from noticias where id = '$id'");
+	$ct = mysqli_fetch_array($ctrl);
+	$rst = str_replace("3", "", $ct[0]);
+	$result = mysqli_query($db_con, "update noticias set pagina='$rst' WHERE id='$id' LIMIT 1");
 	
 	if(!$result) $msg_error = "No se ha podido eliminar la noticia. Error: ".mysqli_error($db_con);
 	else $msg_success = "La noticia ha sido eliminada.";
