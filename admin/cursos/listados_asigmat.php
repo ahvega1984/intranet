@@ -2,6 +2,19 @@
 require('../../bootstrap.php');
 require("../../pdf/mc_table.php");
 
+$MiPDF = new PDF_MC_Table('L', 'mm', 'A4');
+$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
+$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
+$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
+$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
+$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
+$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
+
+$MiPDF->SetMargins(10, 10, 10);
+$MiPDF->SetDisplayMode('fullpage');
+
+$todasUnidades = (isset($_POST['todasUnidades']) && $_POST['todasUnidades'] == 1) ? 1 : 0;
+
 $unidades = array();
 
 if (isset($_GET['unidad']) || isset($_POST['unidad'])) {
@@ -9,7 +22,7 @@ if (isset($_GET['unidad']) || isset($_POST['unidad'])) {
 	else $unidades = $_POST['unidad'];
 }
 else {
-	if (acl_permiso($carg, array('1','7'))) {
+	if (acl_permiso($carg, array('1','7')) || $todasUnidades == 1) {
 		$result_unidades = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
 		while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
 		mysqli_free_result($result_unidades);
@@ -25,17 +38,6 @@ else {
 	}
 }
 
-$MiPDF = new PDF_MC_Table('L', 'mm', 'A4');
-$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
-$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
-$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
-$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
-$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
-$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
-
-$MiPDF->SetMargins(25, 15, 20);
-$MiPDF->SetDisplayMode('fullpage');
-
 foreach ($unidades as $unidad) {
 	
 	// COMPROBAMOS SI ES UN PMAR
@@ -45,7 +47,7 @@ foreach ($unidades as $unidad) {
 	}
 
 	// Control en la obtención del listado. Solo los profesores que imparten materia en la unidad pueden visualizar el listado.
-	if (! acl_permiso($carg, array('1','7'))) {
+	if (! acl_permiso($carg, array('1','7')) && $todasUnidades != 1) {
 		$result_unidades = mysqli_query($db_con, "SELECT * FROM profesores WHERE profesor='".$_SESSION['profi']."' AND grupo = '".$unidad."'");
 		if (! mysqli_num_rows($result_unidades)) die ('FORBIDDEN');
 	}

@@ -1,6 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
+$mostrarTodas = (isset($_POST['mostrarTodas']) && $_POST['mostrarTodas'] == 1) ? 1 : 0;
 $profesor = $_SESSION['profi'];
 
 include("../../menu.php");
@@ -24,11 +25,11 @@ include("../../menu.php");
 				
 				<form method="post" action="">
 					<fieldset>
-						<legend>Alumnos por grupo</legend>
+						<legend>Alumnos por unidades</legend>
 						
 						<div class="form-group">
 							<?php 
-							if (acl_permiso($carg, array('1','7'))) {
+							if (acl_permiso($carg, array('1','7')) || $mostrarTodas == 1) {
 								$result = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC");
 								$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo WHERE m.abrev LIKE 'AMB%' ORDER BY u.nomunidad ASC");
 							}
@@ -52,11 +53,20 @@ include("../../menu.php");
 								<option value="<?php echo $unidad['nomunidad']; ?>" <?php echo (isset($curso) && $curso == $unidad['nomunidad']) ? 'selected' : ''; ?>><?php echo $unidad['nomunidad']; ?></option>
 							<?php endforeach; ?>
 							</select>
-						    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
-						  </div>
-						  
-						  <button type="submit" class="btn btn-primary" name="listadoSimple" formaction="listados.php" formtarget="_blank">Listado simple</button>
-						  <button type="submit" class="btn btn-primary" name="listadoAsignaturas" formaction="listados_asigmat.php" formtarget="_blank">Listado con asignaturas</button>
+							</div>
+							
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="mostrarTodas" value="1" onClick="submit();" <?php echo ($mostrarTodas == 1) ? 'checked' : ''; ?>> Mostrar todas las unidades
+								</label>
+							</div>
+
+							<p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples unidades. Si no seleccionas ninguna se mostrarán todas unidades en el listado.</p>
+
+							<input type="hidden" name="todasUnidades" value="<?php echo $mostrarTodas; ?>">
+
+							<button type="submit" class="btn btn-primary" name="listadoSimple" formaction="listados.php" formtarget="_blank">Listado simple</button>
+							<button type="submit" class="btn btn-primary" name="listadoAsignaturas" formaction="listados_asigmat.php" formtarget="_blank">Listado con asignaturas</button>
 						</fieldset>
 						
 				</form>
@@ -106,7 +116,7 @@ include("../../menu.php");
 
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="datos" value="1"> Incluir datos personales del alumno
+								<input type="checkbox" name="datos" value="1"> Incluir datos personales de los alumnos
 							</label>
 						</div>
 
