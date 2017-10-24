@@ -11,6 +11,7 @@ $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 
 $MiPDF->SetMargins(10, 10, 10);
+$MiPDF->SetAutoPageBreak(true, 10);
 $MiPDF->SetDisplayMode('fullpage');
 
 $todasUnidades = (isset($_POST['todasUnidades']) && $_POST['todasUnidades'] == 1) ? 1 : 0;
