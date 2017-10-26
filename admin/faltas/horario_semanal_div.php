@@ -49,7 +49,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	
 	// Impresiï¿½n de la cabecera
 	$pdf->SetFont('NewsGotT','B',10);
-	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $unidad",0,0,'L');
+	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $unidad (PMAR)",0,0,'L');
 	$pdf->Cell(81,5,"SEMANA: _______________________",0,0,'C');
 	$pdf->Cell(96,5,"TUTOR/A: $tutor[0]",0,1,'R');
 	$pdf->Ln(1);

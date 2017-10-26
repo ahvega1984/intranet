@@ -82,7 +82,7 @@ include("menu.php");
 								<?php while ($row = mysqli_fetch_array($result)): ?>
 									<tr>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
-										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['titulo']) > 60) ? substr($row['titulo'],0,60).'...' : $row['titulo']; ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['titulo']) > 250) ? substr($row['titulo'],0,220).'...' : $row['titulo']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['fechapub'])); ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo nomprofesor($row['autor']); ?></a></td>
 										<td class="text-center">
