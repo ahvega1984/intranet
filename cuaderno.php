@@ -147,9 +147,6 @@ $n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  h
 
 while($varias = mysqli_fetch_array($n_c))
 {
-	if (substr($varias[0],3,2) == "Dd" ) {
-		$varias[0] = substr($varias[0],0,4);
-	}
 	$nombre_curso = $varias[1];
 	$nombre_materia = strtolower($nombre_curso);
 }
