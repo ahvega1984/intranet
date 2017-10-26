@@ -148,7 +148,7 @@ $MiPDF->Cell(90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0);
 $MiPDF->Cell(55, 5, 'Fdo. '.mb_convert_case($config['directivo_direccion'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0);
 
 // ACTA DE AUDIENCIA
-$texto_acta = 'En '.$config['centro_localidad'].', siendo las '.date('H:i').' horas del día '.date('d').' de '.date('B').' de '.date('Y').', comparecen los representantes legales del alumno '.$nombre.' '.$apellidos.' para llevar a efecto el trámite de audiencia.
+$texto_acta = 'En '.$config['centro_localidad'].', '.date('d').' de '.date('B').' de '.date('Y').', comparecen los representantes legales del alumno '.$nombre.' '.$apellidos.' para llevar a efecto el trámite de audiencia.
 
 A tal fin se le informa que en el procedimiento de corrección abierto se le imputan los siguientes hechos:
 
