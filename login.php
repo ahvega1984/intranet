@@ -40,7 +40,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$_SESSION['autentificado'] = 1;
 
 			// Se usa la Página pública para el acceso de los alumnos
-			$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/datos.php' or pagina='/alumnos/login.php' ORDER BY accesos DESC limit 5");				
+			$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/datos.php' or pagina='/alumnado/login.php' ORDER BY accesos DESC limit 5");				
 			if (mysqli_num_rows($query_accesos)>0) {	
 				$_SESSION['pagina_centro'] = 1;
 			}			
