@@ -274,9 +274,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		$asig_bch = mysqli_fetch_array($n_bach);
 		$asignat = $asig_bch[0];
 
-		//$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignat' limit 1) and grupo like '$curso' and codigo not like '$asignat' and abrev not like '%\_%'");
-
-		$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where a_grupo like '$curso' and c_asig not like '$asignat'");
+		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignat' limit 1) and grupo like '$curso' and codigo not like '$asignat' and abrev not like '%\_%'");
 
 		if (mysqli_num_rows($asig_bach)>0) {							
 			$as_bach=mysqli_fetch_array($asig_bach);
