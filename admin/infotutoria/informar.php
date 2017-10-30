@@ -83,7 +83,7 @@ $asignatur = str_replace("nbsp;","",$asignatur);
 $asignatur = str_replace("&","",$asignatur);
 }
 
-$as=mysqli_query($db_con, "SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
+$as=mysqli_query($db_con, "SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal'");
 $asi=mysqli_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 $coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$pr'");

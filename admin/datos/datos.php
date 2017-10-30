@@ -8,7 +8,7 @@ if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isse
 if (isset($_GET['clave_al'])) {$claveal = $_GET['clave_al'];}
 if (isset($_GET['unidad'])) {
 	$unidad = $_GET['unidad'];
-	$AUXSQL = " and unidad = '$unidad'";
+	$AUXSQL = " and alma.unidad = '$unidad'";
 } else{$unidad="";}
 
 $PLUGIN_DATATABLES = 1;
@@ -100,9 +100,8 @@ if  (TRIM("$claveal")==""){}else{ $AUXSQL .= " and alma.claveal = '$claveal'";}
 if ($seleccionado=='1') { $AUXSQL = " and alma.claveal = '$claveal'";}
 
 $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, 
-  alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma
-  where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
- //echo $SQL;
+  alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo, usuarioalumno.usuario, usuarioalumno.pass from alma, usuarioalumno where usuarioalumno.claveal=alma.claveal " . $AUXSQL . " order BY alma.unidad, alma.apellidos, alma.nombre";
+// echo $SQL;
 $result = mysqli_query($db_con, $SQL);
 
 if ($row = mysqli_fetch_array($result))
@@ -118,7 +117,8 @@ if ($row = mysqli_fetch_array($result))
 	        <th>DNI</th>
         	<th>Padre</th>
         	<th>Teléfonos</th>	
-        	<th>Repite</th>";
+        	<th>Repite</th>
+        	<th>Gesuser<br>Moodle</th>";
 	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
@@ -132,13 +132,15 @@ if ($row = mysqli_fetch_array($result))
 		$unidad = $row[3];
 		$claveal = $row[0];
 		$correo = $row[12];
+		$usuario = $row[13];
+		$pass = $row[14];
 		$alumno = "$nom --> $claveal";
 		
 		echo "<tr>";
 	if($_POST['sin_foto']=="1" or isset($_GET['unidad']) or $seleccionado==1){
 		$foto_dir = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto_dir)) {
-		$foto = "<img src='$foto_dir' width='55' class=\"img-thumbnail\" />";
+		$foto = "<img src='$foto_dir' style='width:120px' class=\"img-thumbnail\" />";
 	}
 	else {
 		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
@@ -154,7 +156,8 @@ if ($row = mysqli_fetch_array($result))
 			<td>$row[6]</td>
 			<td>$row[9]</td>
 			<td>$row[7]</td>
-			<td>$repite</td>";
+			<td>$repite</td>
+			<td>".$row['usuario']."<br>".$row['pass']."</td>";
 
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';

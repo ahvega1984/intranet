@@ -33,6 +33,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
   `hora` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1");
+
 ?>
 
 <br>
@@ -51,11 +52,12 @@ $hay = mysqli_query($db_con,"select max(fecha) from faltas_control");
 if (mysqli_num_rows($hay)>0) {
   $ultima = mysqli_fetch_array($hay);
   $d_dias= date('Y-m-d', strtotime('-10 day'));
-  $extra = "and date(fecha) > '$ultima[0]' and date(fecha) < '$d_dias'";
+  $extra = "and date(fecha) >== '$ultima[0]' and date(fecha) < '$d_dias'";
 }
 
 // Creamos tabla temporal
-$crea = mysqli_query($db_con,"create table faltas_tmp select distinct claveal, fecha from FALTAS where falta not like 'R' ".$extra."");
+$a_curso = substr($config['curso_actual'],0,4);
+$crea = mysqli_query($db_con,"create table faltas_tmp select distinct claveal, fecha, NC from FALTAS where falta not like 'R' and date(fecha)>='$a_curso-10-01'");
 
 $num_horas="";
 
@@ -77,7 +79,6 @@ $dia="";
 while ($fl = mysqli_fetch_array($prof_flt)) {
   $hr[]=$fl[0];
 }
-
   for ($i=1; $i < 7; $i++) { 
 
     if (in_array($i,$hr)) { 
@@ -91,11 +92,26 @@ while ($fl = mysqli_fetch_array($prof_flt)) {
                 while($prfe = mysqli_fetch_array($prf)){
                 $pr_act = mysqli_query($db_con,"select * from alma where claveal='$nrec[0]' and combasi like '%$prfe[1]:%'"); 
                 if (mysqli_num_rows($pr_act)>0) {
-                  mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','1','$i')");
-                }
+
+                    $hay0 = "select alumnos from grupos where profesor=(select distinct prof from horw where c_prof = '$prfe[0]') and (asignatura = '$prfe[1]' $extra_asig) and curso = (select unidad from alma where claveal = '$nrec[0]')";
+                    //echo $hay0."<br>";
+                    $hay1 = mysqli_query($db_con, $hay0);
+                    $hay = mysqli_fetch_row($hay1);
+                    if(mysqli_num_rows($hay1) == 1){
+                      if (strstr($hay[0], $nrec[2])==TRUE) {
+                        mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','1','$i')");
+                      }
+                    }
+                    else{
+                      mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','$num_profes','$i')");
+                    }                 
+                  }
                 }
             }
         }
+    }
+    else{
+      mysqli_query($db_con,"delete from faltas_tmp where claveal='$nrec[0]' and fecha='$nrec[1]'");
     }
 }
 
@@ -110,7 +126,7 @@ while ($fl = mysqli_fetch_array($prof_flt)) {
       </thead>
   <tbody>
 <?php 
-$nom_profe = mysqli_query($db_con,"select distinct prof, c_prof from horw order by no_prof");
+$nom_profe = mysqli_query($db_con,"select distinct prof, c_prof from horw_faltas order by no_prof");
 while ($nombre_profe=mysqli_fetch_array($nom_profe)) {
 
 $veces="";
