@@ -293,12 +293,12 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$res.="1=1 ";
 					$cod_asig = "asignatura like '$asignat'";					
 				}
-
 			}
 			else{
 				$res.="combasi like '%".$asignat."%'";
 				$cod_asig = "asignatura like '$asignat'";
 			}
+			$fal_e =" FALTAS.codasi='$asignat' ";
 		}		
 	
 	$res.=") order by NC";
