@@ -99,8 +99,12 @@ if  (isset($_POST['unidad'])){
 if  (TRIM("$claveal")==""){}else{ $AUXSQL .= " and alma.claveal = '$claveal'";}
 if ($seleccionado=='1') { $AUXSQL = " and alma.claveal = '$claveal'";}
 
-$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, 
-  alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo, usuarioalumno.usuario, usuarioalumno.pass from alma, usuarioalumno where usuarioalumno.claveal=alma.claveal " . $AUXSQL . " order BY alma.unidad, alma.apellidos, alma.nombre";
+if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+	$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo, usuarioalumno.usuario, usuarioalumno.pass from alma, usuarioalumno where usuarioalumno.claveal=alma.claveal " . $AUXSQL . " order BY alma.unidad, alma.apellidos, alma.nombre";	
+}
+else {
+	$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
+}
 // echo $SQL;
 $result = mysqli_query($db_con, $SQL);
 
@@ -109,16 +113,22 @@ if ($row = mysqli_fetch_array($result))
 
 	echo "<table class='table table-bordered table-striped table-vcentered $d_table'>";
 	echo "<thead><tr>
-			<th></th>
-			<th>Alumno/a</th>
-	        <th>NIE</th>
-	        <th>Unidad</th>
-	        <th>Fecha Ncto.</th>	        
-	        <th>DNI</th>
-        	<th>Padre</th>
-        	<th>Teléfonos</th>	
-        	<th>Repite</th>
-        	<th>Gesuser<br>Moodle</th>";
+	<th></th>
+	<th>Alumno/a</th>
+	<th>NIE</th>
+	<th>Unidad</th>
+	<th>Fecha Ncto.</th>	        
+	<th>DNI</th>
+	<th>Padre</th>
+	<th>Teléfonos</th>	
+	<th>Repite</th>";
+
+	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+		echo "<th>Gesuser<br>Moodle</th>";
+	}
+	else {
+		
+	}
 	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
@@ -149,15 +159,19 @@ if ($row = mysqli_fetch_array($result))
 	else{
 	$foto='';
 	}
+
 	echo "<td>$foto</td><td>$nom</td>
-			<td>$row[0]</td>
-			<td>$unidad</td>
-			<td>$row[5]</td>
-			<td>$row[6]</td>
-			<td>$row[9]</td>
-			<td>$row[7]</td>
-			<td>$repite</td>
-			<td>".$row['usuario']."<br>".$row['pass']."</td>";
+	<td>$row[0]</td>
+	<td>$unidad</td>
+	<td>$row[5]</td>
+	<td>$row[6]</td>
+	<td>$row[9]</td>
+	<td>$row[7]</td>
+	<td>$repite</td>";
+	
+	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+		echo "<td>".$row['usuario']."<br>".$row['pass']."</td>";
+	}
 
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
