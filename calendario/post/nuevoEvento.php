@@ -3,6 +3,9 @@ require('../../bootstrap.php');
 
 $GLOBALS['db_con'] = $db_con;
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 if (! isset($_POST['cmp_nombre'])) {
 	die("<h1>FORBIDDEN</h1>");
@@ -52,7 +55,7 @@ foreach ($unidad_asignatura_evento as $grupo_cal) {
 
 // Comprobamos si hay exámenes para ese grupo el mismo día
 	$chk_exam = mysqli_query($db_con,"select * from calendario where categoria > '2' and fechaini = '$fecha_extra' and unidades like '%$gr_cal;%'");
-		if (mysqli_num_rows($chk_exam)>0) {
+		if (mysqli_num_rows($chk_exam)>0 and $config['calendario']['prefExamenes']==0) {
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
 			exit();
 		}
@@ -64,7 +67,7 @@ foreach ($unidades_evento as $grupo_cal) {
 	$grupo_cal = trim($grupo_cal);
 
 	$chk = mysqli_query($db_con,"select * from calendario where categoria = '2' and fechaini = '$fecha_extra' and unidades like '%$grupo_cal;%'");
-		if (mysqli_num_rows($chk)>0) {
+		if (mysqli_num_rows($chk)>0 and $config['calendario']['prefActividades']==0) {
 
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=1');
 			exit();

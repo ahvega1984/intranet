@@ -3,6 +3,9 @@ require('../bootstrap.php');
 
 $GLOBALS['db_con'] = $db_con;
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 // CALENDARIO
 $dia_actual = date('d');
@@ -200,7 +203,7 @@ $lista_errores = array(
 	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser posterior a la fecha final del evento.',
 	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
 	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.',
-	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y está pendiente de aprobación por el Consejo Escolar. Debe esperar su aprobación para que aparezca oficialmente en el calendario.'
+	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y está pendiente de aprobación por el Consejo Escolar. Debes esperar su aprobación para que aparezca oficialmente en el calendario.'
 	);
 
 function randomColor() {
@@ -300,6 +303,9 @@ include("../menu.php"); ?>
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
+			<?php if (acl_permiso($carg, array('1'))): ?>
+				<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+			<?php endif; ?>
 			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
 		
@@ -443,12 +449,12 @@ include("../menu.php"); ?>
 
 				<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==1 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<strong>Error: <br></strong> Estás intentando registrar una actividad para un Grupo que ya tiene planificada otra en el mismo día, y eso no está permitido. Si crees que hay un error, ponte en contacto con el Equipo directivo.
+					<strong>Error: <br></strong> Estás intentando registrar una actividad para un Grupo que ya tiene planificada otra en el mismo día, y eso no está permitido. Si crees que hay un error, ponte en contacto con el Equipo directivo. 
 				</div>
 
 			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==11 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<strong>ATENCIÓN: <br></strong> Estás creando una actividad para un grupo que ya tiene otra registrada en ese mismo día. <em><strong>Si la actividad es un examen</strong></em> procura buscar otra fecha si te resulta posible, con el fin de mejorar el calendario de ese grupo. 
+					<strong>ATENCIÓN: <br></strong> Estás creando una actividad para un grupo que ya tiene otra registrada en ese mismo día. <em><strong>Si la actividad es un examen</strong></em> procura buscar otra fecha si te resulta posible, con el fin de mejorar el calendario de ese grupo. Si crees que hay un error, ponte en contacto con el Equipo directivo.
 				</div>
 
 				<?php endif; ?>

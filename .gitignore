@@ -36,3 +36,5 @@ admin/matriculas/config.php
 *.sublime-workspace
 
 *.csv
+
+calendario/config.php
