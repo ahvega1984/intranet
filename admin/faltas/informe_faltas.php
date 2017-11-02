@@ -39,7 +39,7 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
 <br>
 
 <div class="alert alert-info">
-	Esta página presenta información sobre faltas de asistencia no registradas por los profesores. Para entender los datos ofrecidos es necesario comprender el procedimiento seguido para extraerlos. Se han seleccionado los alumnos a los que se les han registrado 3 o más faltas en un día, con la idea de excluir aquellos alumnos que han podido faltar una o dos horas por razones frecuentes (cita médica, se han dormido, etc.). De esos alumnos con 3 o más faltas se han buscado las horas no registradas por los profesores, y se han localizado a aquellos que les daban clase en esas horas. Se han tenido en cuenta los grupos con desdobles en la contabilidad, reduciendo el número final de faltas no registradas. <strong>El resultado final es aproximativo y contiene probablemente algunas imprecisiones</strong>, pero permite hacerse una composición de lugar sobre los profesores que no registran las faltas de asistencia (<em>que puede/debe complementarse con el Informe sobre los Profesores</em>).
+	Esta página presenta información sobre faltas de asistencia no registradas por los profesores. Para entender los datos ofrecidos es necesario comprender el procedimiento seguido para extraerlos. Se han seleccionado los alumnos a los que se les han registrado 4 o más faltas en un día, con la idea de excluir aquellos alumnos que han podido faltar 1, 2 ó 3 horas por razones frecuentes (cita médica, se han dormido, se incorporan después del recreo, etc.). De esos alumnos con 4 o más faltas se han buscado las horas no registradas por los profesores, y se han localizado a aquellos que les daban clase en esas horas. Se han tenido en cuenta los grupos con desdobles en la contabilidad, reduciendo el número final de faltas no registradas. También se ha tenido en cuenta la selección de alumnos que el profesor ha registrado para excluir aquellos alumnos de un grupo a los que no les da clase.<strong>El resultado final es aproximativo y contiene probablemente errores</strong>, pero permite hacerse una composición de lugar sobre los profesores que no registran las faltas de asistencia con rigor (<em>que puede/debe complementarse con el Informe sobre los Profesores</em>).
 </div>
 
 <br>
@@ -57,7 +57,7 @@ if (mysqli_num_rows($hay)>0) {
 
 // Creamos tabla temporal
 $a_curso = substr($config['curso_actual'],0,4);
-$crea = mysqli_query($db_con,"create table faltas_tmp select distinct claveal, fecha, NC  from FALTAS where falta not like 'R' and date(fecha)>='$a_curso-10-01' ".$extra."");
+$crea = mysqli_query($db_con,"create table faltas_tmp select distinct claveal, fecha, NC from FALTAS where falta not like 'R' and date(fecha)>='$a_curso-10-01' ".$extra."");
 
 $num_horas="";
 
@@ -69,7 +69,7 @@ $rec = mysqli_query($db_con,"select * from FALTAS where claveal='$nrec[0]' and f
 $num_horas = mysqli_num_rows($rec);
 
 
-if ($num_horas<6 and $num_horas>2) {
+if ($num_horas<6 and $num_horas>3) {
 
 $prof_flt = mysqli_query($db_con, "SELECT distinct hora FROM FALTAS where profesor not like '' and codasi not like '' and claveal='$nrec[0]' and fecha = '$nrec[1]' and falta not like 'R' order by hora");
 
