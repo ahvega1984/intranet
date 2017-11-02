@@ -51,13 +51,13 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `faltas_control` (
 $hay = mysqli_query($db_con,"select max(fecha) from faltas_control");
 if (mysqli_num_rows($hay)>0) {
   $ultima = mysqli_fetch_array($hay);
-  $d_dias= date('Y-m-d', strtotime('-10 day'));
-  $extra = "and date(fecha) >== '$ultima[0]' and date(fecha) < '$d_dias'";
+  $d_dias= date('Y-m-d', strtotime('-5 day'));
+  $extra = "and date(fecha) > '$ultima[0]' and date(fecha) < '$d_dias'";
 }
 
 // Creamos tabla temporal
 $a_curso = substr($config['curso_actual'],0,4);
-$crea = mysqli_query($db_con,"create table faltas_tmp select distinct claveal, fecha, NC from FALTAS where falta not like 'R' and date(fecha)>='$a_curso-10-01'");
+$crea = mysqli_query($db_con,"create table faltas_tmp select distinct claveal, fecha, NC  from FALTAS where falta not like 'R' and date(fecha)>='$a_curso-10-01' ".$extra."");
 
 $num_horas="";
 
