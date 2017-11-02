@@ -13,6 +13,7 @@ if ($config['mod_sms']) {
 	if (isset($_GET['password'])) {$password = $_GET['password'];}elseif (isset($_POST['password'])) {$password = $_POST['password'];}else{$password="";}
 	if (isset($_GET['extid'])) {$extid = $_GET['extid'];}elseif (isset($_POST['extid'])) {$extid = $_POST['extid'];}else{$extid="";}
 	if (isset($_GET['mobile'])) {$mobile = $_GET['mobile'];}elseif (isset($_POST['mobile'])) {$mobile = $_POST['mobile'];}else{$mobile="";}
+	if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{unset($numero);}
 
 	// Si se han mandado datos desde el Formulario principal de mas abajo...
 
@@ -33,7 +34,7 @@ if ($config['mod_sms']) {
 		$resultTEMP= mysqli_query($db_con, $SQLTEMP);
 		mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
 
-		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '5'";
+		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '".$_POST['numero']."'";
 		//echo $SQL0;
 		$result0 = mysqli_query($db_con, $SQL0);
 		
@@ -86,11 +87,11 @@ if ($config['mod_sms']) {
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 	$message = str_replace('{{titulo}}', 'Comunicación de Faltas de Asistencia', $message);
-	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
+	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 	
 	$mail->msgHTML($message);
 	$mail->Subject = $config['centro_denominacion'].' - Comunicación de Faltas de Asistencia';
-	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
+	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 
 	$mail->AddAddress($correo, $nombre_alumno);
 	$mail->Send();				
@@ -108,7 +109,7 @@ if ($config['mod_sms']) {
 	$tr_curso = explode("(",$curso);
 	$niv = $tr_curso[0];
 
-	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 6 horas injustificadas al centro. Mas info en http://".$config['dominio'];
+	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos ".$_POST['numero']." horas injustificadas al centro. Mas info en http://".$config['dominio'];
 	
         // Registramos intervención de tutoría
         $causa = "Faltas de Asistencia";
@@ -175,7 +176,7 @@ El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justi
 else{
 	echo '<div class="alert alert-danger alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-No se ha enviado ningún SMS a los alumnos de '. $curso.'. O bien ningún alumno tiene más de 4 faltas o bien no están registrados los teléfonos móviles de los mismos (en cuyo caso aparecerá un mensaje más abajo indicando los alumnos sin móvil).
+No se ha enviado ningún SMS a los alumnos de '. $curso.'. O bien ningún alumno tiene más de '.$_POST['numero'].' faltas o bien no están registrados los teléfonos móviles de los mismos (en cuyo caso aparecerá un mensaje más abajo indicando los alumnos sin móvil).
           </div><br />';	
 }
 if(strlen($sin2) > '0'){
@@ -235,8 +236,15 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 	data-date-format="DD-MM-YYYY" id="fecha22"> <span
 	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
 </div>
+
+<div class="form-group">
+<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
+<INPUT name="numero" type="text" id="numero" class="form-control" maxlength="3" value="1" required />
+</div>
+
 </div>
 </div>
+
 <div class="col-sm-5 ">
 <div class="well well-large">
 

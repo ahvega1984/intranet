@@ -318,12 +318,15 @@ if (isset($_POST['profe'])) {
 tienen un número mínimo de faltas entre el rango de fechas
 seleccionadas. )</p> 
 
+<div class="row">
 <div class="form-group col-md-6">
 <label class="control-label" for='numero'> Número mínimo de Faltas</label> 
 <INPUT
 	name="numero" type="text" id="numero" class="form-control"
 	maxlength="3" value="1">
 </div>
+</div>
+
 <legend><small>Rango de fechas...</small></legend>
 
 <div class="form-group col-md-6" id="datetimepicker3" style="display: inline;">
