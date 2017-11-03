@@ -6,12 +6,15 @@ $GLOBALS['db_con'] = $db_con;
 if (file_exists('config.php')) {
 	include('config.php');
 }
+else{
+	$config['calendario']['prefExamenes']=0;
+	$config['calendario']['prefActividades']=1;
+}
 
 if (! isset($_POST['cmp_nombre'])) {
 	die("<h1>FORBIDDEN</h1>");
 	exit();
 }
-
 
 // Limpiamos variables
 $nombre_evento = mysqli_real_escape_string($db_con, $_POST['cmp_nombre']);
@@ -56,6 +59,8 @@ foreach ($unidad_asignatura_evento as $grupo_cal) {
 // Comprobamos si hay exámenes para ese grupo el mismo día
 	$chk_exam = mysqli_query($db_con,"select * from calendario where categoria > '2' and fechaini = '$fecha_extra' and unidades like '%$gr_cal;%'");
 		if (mysqli_num_rows($chk_exam)>0 and $config['calendario']['prefExamenes']==0) {
+			echo "Hata aquí.";
+			exit();
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
 			exit();
 		}
@@ -65,10 +70,8 @@ foreach ($unidad_asignatura_evento as $grupo_cal) {
 foreach ($unidades_evento as $grupo_cal) {
 	$fecha_extra = cambia_fecha($fechaini_evento);
 	$grupo_cal = trim($grupo_cal);
-
 	$chk = mysqli_query($db_con,"select * from calendario where categoria = '2' and fechaini = '$fecha_extra' and unidades like '%$grupo_cal;%'");
 		if (mysqli_num_rows($chk)>0 and $config['calendario']['prefActividades']==0) {
-
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=1');
 			exit();
 		}
@@ -142,7 +145,6 @@ elseif ($calendario_evento != 2 && $calendario_evento != 1) {
 	else $cuaderno_evento = 1;
 }
 
-
 // Comprobamos si existe el evento
 $result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento_sql' AND horaini='$horaini_evento' AND fechafin='$fechafin_evento_sql' AND horafin='$horafin_evento' AND categoria='$calendario_evento' LIMIT 1");
 
@@ -156,8 +158,7 @@ else {
 		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoFecha');
 		exit();
 	}
-	else {
-	
+	else {	
 			$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, asignaturas, fechareg, profesorreg, observaciones, confirmado) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', '$fechafin_evento_sql', '$horafin_evento', '$lugar_evento', '$string_departamento', '$string_profesores', '$string_unidad', '$string_asignatura' , NOW(), '$profesorreg_evento', '$observaciones_evento','0')");
 			if (! $crear) {
 				header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoInsertar');
