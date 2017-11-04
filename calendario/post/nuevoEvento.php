@@ -59,8 +59,6 @@ foreach ($unidad_asignatura_evento as $grupo_cal) {
 // Comprobamos si hay exámenes para ese grupo el mismo día
 	$chk_exam = mysqli_query($db_con,"select * from calendario where categoria > '2' and fechaini = '$fecha_extra' and unidades like '%$gr_cal;%'");
 		if (mysqli_num_rows($chk_exam)>0 and $config['calendario']['prefExamenes']==0) {
-			echo "Hata aquí.";
-			exit();
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
 			exit();
 		}
