@@ -3,6 +3,9 @@ require('../../bootstrap.php');
 
 $GLOBALS['db_con'] = $db_con;
 
+if (file_exists('../config.php')) {
+	include('../config.php');
+}
 
 if (! isset($_POST['cmp_nombre'])) {
 	die("<h1>FORBIDDEN</h1>");
@@ -58,6 +61,37 @@ else {
 	$fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$exp_fechafin_evento[0];
 }
 
+$fecha_extra_ini = cambia_fecha($fechaini_evento);
+$fecha_extra_fin = cambia_fecha($fechafin_evento);
+
+foreach ($unidad_asignatura_evento as $grupo_cal) {
+	$tr_gr = explode(" => ", $grupo_cal);
+	$gr_cal = $tr_gr[0];
+
+// Comprobamos si hay exámenes o actividades para ese grupo el mismo día
+	$chk_exam = mysqli_query($db_con,"select * from calendario where categoria > '2' and fechaini <= '$fecha_extra_ini' and fechafin >= '$fecha_extra_fin' and unidades like '%$gr_cal%'");
+		if (mysqli_num_rows($chk_exam)>0 and $config['calendario']['prefExamenes'] == 0 and strstr($_SESSION['cargo'], "1")==FALSE) {
+			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
+			exit();
+		}
+
+	$chk_exam2 = mysqli_query($db_con,"select * from calendario where categoria = '2' and fechaini <= '$fecha_extra_ini' and fechafin >= '$fecha_extra_fin' and unidades like '%$gr_cal%'");			
+		if (mysqli_num_rows($chk_exam2)>0 and $config['calendario']['prefActividades'] == 0 and strstr($_SESSION['cargo'], "1")==FALSE) {
+
+			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
+			exit();
+		}
+	}
+
+// Comprobamos si hay actividades para ese grupo el mismo día
+foreach ($unidades_evento as $grupo_cal1) {
+	$grupo_cal1 = trim($grupo_cal1);
+	$chk = mysqli_query($db_con,"select * from calendario where categoria = '2' and fechaini <= '$fecha_extra_ini' and fechafin >= '$fecha_extra_fin' and unidades like '%$grupo_cal1;%'");
+		if (mysqli_num_rows($chk)>0 and strstr($_SESSION['cargo'], "1")==FALSE) {
+			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=1');
+			exit();
+		}
+	}
 
 // Declaramos las variables para los tipos de calendario
 $string_departamento = "";

@@ -6,6 +6,10 @@ $GLOBALS['db_con'] = $db_con;
 if (file_exists('config.php')) {
 	include('config.php');
 }
+else{
+	$config['calendario']['prefExamenes']=0;
+	$config['calendario']['prefActividades']=1;
+}
 
 // CALENDARIO
 $dia_actual = date('d');
