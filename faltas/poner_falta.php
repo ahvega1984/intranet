@@ -129,7 +129,6 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 		}
 
 	//Registramos sustitución en la tabla de Guardias
-		if (stristr($curso_grupo, "E.S.O.") or (stristr($curso_grupo, "Bach") and $horas > 1 and $horas < 6)) {		
 	$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
 		if (mysqli_num_rows($gu)>0) {
 			$guardi = mysqli_fetch_row($gu);
@@ -139,17 +138,20 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 	</div>';
 		}
 		else{
-		$r_profe = mb_strtoupper($_SESSION['profi'], "UTF-8");
-
-		mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
-		if (mysqli_affected_rows($db_con) > 0) {
-		echo '<div class="alert alert-info alert-block fade in">
-	    <button type="button" class="close" data-dismiss="alert">&times;</button>
-Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
-</div>';
-			}	
+			if (stristr($curso_grupo, "Bach") and $horas == 6) {
+				// Si el grupo es de Bach y estamos a 6ª hora suponemos que los alumnos tienen autorización para abandonar el centro, y no registramos sustitución.
+				}
+			else{
+				$r_profe = mb_strtoupper($_SESSION['profi'], "UTF-8");
+				mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
+				if (mysqli_affected_rows($db_con) > 0) {
+				echo '<div class="alert alert-info alert-block fade in">
+			    <button type="button" class="close" data-dismiss="alert">&times;</button>
+		Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
+		</div>';
+			}
 		}			
-	}
+	}			
 }
 
 if (empty($mens_fecha)) {

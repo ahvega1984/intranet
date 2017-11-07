@@ -34,7 +34,7 @@ if ($config['mod_sms']) {
 		$resultTEMP= mysqli_query($db_con, $SQLTEMP);
 		mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
 
-		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '".$_POST['numero']."'";
+		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero >= '".$_POST['numero']."'";
 		//echo $SQL0;
 		$result0 = mysqli_query($db_con, $SQL0);
 		
