@@ -266,7 +266,11 @@ $menu = array(
 				'titulo' => 'Matriculación de alumnos',
 				'modulo'  => $config['mod_matriculacion'],
 				'meses'	 => array(6, 7, 8),
-			)
+			),
+			array(
+					'href'   => 'admin/noticias/permanentes.php',
+					'titulo' => 'Cómo se hace...',
+				)
 		)
 	)
 );
@@ -645,10 +649,6 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 			'menu_id' => 'paginas_interes',
 			'nombre'  => 'Páginas de interés',
 			'items'   => array (
-				array(
-					'href'   => 'admin/noticias/permanentes.php',
-					'titulo' => 'Información importante (HOWTO, FAQ, etc.)',
-				),
 				array(
 					'href'   => 'varios/Planos_Centro.pdf',
 					'titulo' => 'Planos del Centro',

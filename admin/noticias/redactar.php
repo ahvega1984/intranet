@@ -221,17 +221,14 @@ include ("menu.php");
 									</label>
 								</div>
 							</div>
-							<?php if ($_SERVER['SERVER_NAME']=="iesmonterroso.org") { ?>
 								<div class="form-group">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="permanente" value="3" <?php echo (isset($permanente) && $permanente) ? 'checked' : ''; ?>> Información permanente
+										<input type="checkbox" name="permanente" value="3" <?php echo (isset($permanente) && $permanente) ? 'checked' : ''; ?>> Cómo se hace...
 									</label>
 								</div>
 							</div>
-							<?php 
-							} 
-							?>
+
 							
 							<?php
 							}

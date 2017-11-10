@@ -190,7 +190,6 @@ if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE)) { ?>
 
 <div class="col-md-7">
 
-	<br>
 	<?php if (isset($msg_error_no_c_prof) && $idea != 'admin'): ?>
 	<div class="alert alert-danger">
 		<strong>Error:</strong> No se ha encontrado el código de profesor en la base de datos.
@@ -419,6 +418,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 				// Expulsado del Centro o Aula de Convivencia en la fecha
 				$hay_expulsión="";
+				$extra_act="";
 				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and ((expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy')))");
 				if (mysqli_num_rows($exp) > '0') {
 							$hay_expulsión = 1;
@@ -442,12 +442,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
+					$extra_act = 'background-color:#ddd;padding:10px;';
 				}
 				elseif ($hay_expulsión==1){
 					$chkF = 'id="disable" disabled';
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Alumno expulsado del Centro o en el Aula de Convivencia"';
+					$extra_act = 'background-color:#eea;padding:10px;';
 				}
 				elseif ($hoy2 > $hoy_hoy) {
 					$chkF = 'id="disable" disabled';
@@ -456,8 +458,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkT = 'data-bs="tooltip" data-placement="right" data-html="true" title="No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha."';
 				}		
 				?>
-
-<div style="width: 120px; display: inline;" <?php echo $chkT; ?>><span
+<div style="width: 120px; display: block;<?php echo $extra_act; ?>"   <?php echo $chkT; ?>><span
 	class="text-danger">F</span> <input type="radio"
 	id="falta_<?php echo $row[1]."_".$curso;?>"
 	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkF; ?>

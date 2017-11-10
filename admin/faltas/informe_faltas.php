@@ -99,11 +99,17 @@ while ($fl = mysqli_fetch_array($prof_flt)) {
                     $hay = mysqli_fetch_row($hay1);
                     if(mysqli_num_rows($hay1) == 1){
                       if (strstr($hay[0], $nrec[2])==TRUE) {
-                        mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','1','$i')");
+                        $asiste = mysqli_query($db_con,"select * from ausencias where profesor like (select distinct prof from horw where c_prof = '$prfe[0]') and ausencias.inicio >= '$nrec[1]' and ausencias.fin <= '$nrec[1]'");
+                        if (mysqli_num_rows($asiste)<1) {
+                          mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','1','$i')");
+                        }
                       }
                     }
                     else{
-                      mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','$num_profes','$i')");
+                        $asiste = mysqli_query($db_con,"select * from ausencias where profesor like (select distinct prof from horw where c_prof = '$prfe[0]') and ausencias.inicio >= '$nrec[1]' and ausencias.fin <= '$nrec[1]'");
+                          if (mysqli_num_rows($asiste)<1) {
+                        mysqli_query($db_con,"insert into faltas_control VALUES('','$prfe[0]','$nrec[0]','$prfe[1]','$nrec[1]','$num_profes','$i')");
+                      }
                     }                 
                   }
                 }
