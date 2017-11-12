@@ -41,10 +41,14 @@ foreach($cursos as $unidad)
   			mysqli_query($db_con,"delete from profesores where materia = (select distinct nombre from asignaturas where codigo = '$asignatura' and abrev not like '%\_%') and profesor = '$profesor' and grupo = '$unidad'");
   			}  	
   			else{
-  			$insert = "insert into grupos (profesor, asignatura, curso, alumnos) values ('$profesor','$asignatura','$unidad', '$alumnos')";
-  			//echo $insert."<br>";
-  			$insert0 = mysqli_query($db_con, $insert);
-  			$unidades.=$unidad.", ";	
+
+  			$ctrl = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$unidad' and abrev not like '%\_%'");
+  			while ($ctrl_asig = mysqli_fetch_array($ctrl)) {
+  					$insert = "insert into grupos (profesor, asignatura, curso, alumnos) values ('$profesor','$ctrl_asig[0]','$unidad', '$alumnos')";
+  					//echo $insert."<br>";
+  					$insert0 = mysqli_query($db_con, $insert);
+  					$unidades.=$unidad.", ";	
+  				}	 							
   			}
  		}	
 	}
