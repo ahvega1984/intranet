@@ -178,10 +178,10 @@ include("menu.php");
 	
 	#dragContent {
 		position: absolute;
-		margin-top: -240px;
-		margin-left: -80px;
-		width: 120px;
-		height: 50px;
+		margin-top: -280px;
+		margin-left: -150px;
+		width: 150px;
+		height: 60px;
 		font-size: 0.8em;
 		z-index: 2000;
 		cursor: move;
