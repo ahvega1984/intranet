@@ -156,7 +156,7 @@ for ($i=0;$i<$num_a;$i++){
 		 }
 		 if (strlen($correo)>0 and $sms_enviado != 1) {
 		 	
-		 	 include_once(INTRANET_DIRECTORY."/lib/class.phpmailer.php");
+		 	 require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
 		 	 $mail = new PHPMailer();
 		 	 $mail->Host = "localhost";
 		 	 $mail->From = 'no-reply@'.$config['dominio'];
@@ -178,7 +178,7 @@ for ($i=0;$i<$num_a;$i++){
 		 	 $message = str_replace('{{titulo}}', 'Comunicación de Problemas de Convivencia', $message);
 		 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 		 	 
-		 	 $mail->msgHTML($message);
+		 	 $mail->msgHTML(utf8_decode($message));
 		 	 $mail->Subject = $config['centro_denominacion'].' - Comunicación de Problemas de Convivencia';
 		 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 	

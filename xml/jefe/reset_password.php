@@ -1,6 +1,6 @@
 <?php
 require('../../bootstrap.php');
-require("../../lib/class.phpmailer.php");
+require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
 
 acl_acceso($_SESSION['cargo'], array(1));
 
@@ -116,7 +116,7 @@ if (isset($_POST['enviar'])) {
 				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\nTu contraseña ha sido restablecida por algún miembro del Equipo Directivo. Para acceder a la Intranet haz click en la siguiente dirección http://".$config['dominio']."/intranet/ y utilice la contraseña que aparece a continuación:\n\n".$p_dni."\n\n\nPara mantener su seguridad utilice una contraseña segura.\n\nEste es un mensaje automático y no es necesario responder.";
 			}
 			
-			$mail->msgHTML($message);
+			$mail->msgHTML(utf8_decode($message));
 			
 			$mail->AddAddress($mail_correo, $mail_nomprofesor);
 			$mail->Send();

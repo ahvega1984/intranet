@@ -310,7 +310,7 @@ if ($config['mod_notificaciones']) {
 				$titulo = stripslashes(mysqli_real_escape_string($db_con, $tema));
 				$contenido = stripslashes(mysqli_real_escape_string($db_con, $texto));
 	
-				include_once(INTRANET_DIRECTORY."/lib/class.phpmailer.php");
+				require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
 				$mail = new PHPMailer();
 				$mail->Host = "localhost";
 				$mail->From = $mail_from;
@@ -333,7 +333,7 @@ if ($config['mod_notificaciones']) {
 				$message = str_replace('{{titulo}}', 'Nuevo mensaje de la '.$profe_envia.' para '.$nombre_profe, $message);
 				$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
 				
-				$mail->msgHTML($message);
+				$mail->msgHTML(utf8_decode($message));
 				$mail->Subject = $config['centro_denominacion'].' - Mensaje de la '.$profe_envia;
 				$mail->AltBody = $titulo.' '.$contenido;			
 				$mail->AddAddress($direccion, $cor_profes);
