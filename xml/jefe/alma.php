@@ -171,8 +171,8 @@ include("../../menu.php");
 							$lineasalto.=$dato;
 							$lineasalto.=");";
 							$consulta=explode(',',$lineasalto);
-							//Comprobamos que la matrícula no haya sido anulada para añadirla
-							if (!preg_match('*Anulada*', $consulta[2])){
+							//Comprobamos que la matrícula no haya sido anulada o trasladada para añadirla
+							if (!preg_match('*Anulada*', $consulta[2]) and !preg_match('*Trasladada*',$consutal[2]){
 								mysqli_query($db_con, $lineasalto);
 							}		
 						}
