@@ -95,7 +95,7 @@ if (isset($_POST['submit1'])) {
 }
 
 if (isset($_POST['submit2'])) {
-	$dia = explode("-",$fecha);
+	$dia = explode("-",$fecha_reg);
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'";
 	mysqli_query($db_con, $actualizar);
