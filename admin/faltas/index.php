@@ -361,6 +361,35 @@ seleccionadas. )</p>
 </form>
 
 </div>
+
+<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
+<br>
+
+<div class="well well-large">
+
+<form action='historico_partes_aula.php' method='post' name='p1' class='form' role='form'>
+
+<fieldset>
+
+<legend> Histórico de Partes de Aula digitalizados</legend>
+
+<p class="help-block">( Listado de archivos digitalizados de los partes de faltas semanales de los distintos grupos a lo largo del curso escolar. )</p> 
+
+<br>
+
+<div class="form-group col-md-4">
+<INPUT name="submit_partes" type="submit" value="Consultar" id="submit24"
+	class="btn btn-primary">
+</div>
+
+</fieldset>
+
+</form>
+
+</div>
+
+<?php endif; ?>
+
 </div>
 
 	<?php }?>

@@ -69,7 +69,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 				'shadeCol'=>array(0.9,0.9,0.9),
 				'xOrientation'=>'center',
 				'width'=>500,
-				'rowGap'=>5
+				'rowGap'=>4
 			);
 
 $txttit= "                           Hoja de Firmas del Profesorado. ".'                     '.strtoupper($nombre_dia)."  ....................\n";

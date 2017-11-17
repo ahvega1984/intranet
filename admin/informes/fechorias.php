@@ -6,7 +6,7 @@
 <h3>Problemas de convivencia</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, 
-Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM Fechoria, FALUMNOS WHERE FALUMNOS.claveal = Fechoria.claveal
+Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave, id FROM Fechoria, FALUMNOS WHERE FALUMNOS.claveal = Fechoria.claveal
  AND FALUMNOS.claveal = $claveal ORDER BY Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos"); ?>
 <?php if (mysqli_num_rows($result)): ?>
 <div class="table-responsive">
@@ -23,7 +23,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row['fecha']; ?></td>
-				<td><?php echo $row['asunto']; ?></td>
+				<td><a href="../fechorias/detfechorias.php?id=<?php echo $row['id'];?>" target="_blank"><?php echo $row['asunto']; ?></a></td>
 				<td><?php echo $row['grave']; ?></td>
 				<td><?php echo $row['informa']; ?></td>
 			</tr>
