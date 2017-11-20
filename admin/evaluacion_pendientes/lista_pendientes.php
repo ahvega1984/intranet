@@ -79,7 +79,7 @@ WHERE asignaturas.codigo = pendientes.codigo
 AND alma.claveal = pendientes.claveal
 AND asignaturas.codigo =  "'.$asig_pendiente.'" 
 AND abrev LIKE  "%\_%"
-ORDER BY alma.curso, alma.unidad, nc';
+ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre';
 }
 else{
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
