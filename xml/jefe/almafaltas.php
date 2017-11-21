@@ -314,13 +314,6 @@ include '../../menu.php';
 					mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
 					mysqli_query($db_con, "CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
 					mysqli_query($db_con, "ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");			
-					
-					// Caracteristicas propias de cada centro
-					include("alma_centros.php");
-			
-					// Datos para el alta masiva de usuarios TIC
-					$mostrarMensaje = 1;
-					include("exportaTIC.php");
 			
 					// Alumnos con hermanos
 					include("crear_hermanos.php");

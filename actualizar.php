@@ -112,3 +112,18 @@ CHANGE  `hora_fin`  `hora_fin` TIME NOT NULL");
 mysqli_free_result($actua);
 
 
+/*
+	@descripcion: Eliminado archivos de exportación. A partir de ahora se genera y se fuerza la descarga. De esta manera evitamos que queden los archivos publicados en la red
+	@fecha: 21 de Noviembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Exportar usuarios TIC'");
+if (! mysqli_num_rows($actua)) {
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/download.php')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/download.php');
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/alumnos.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/alumnos.txt');
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores.txt');
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/alumnos_moodle.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/alumnos_moodle.txt');
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt');
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_gsuite.csv')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_gsuite.csv');
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Exportar usuarios TIC', NOW())");
+}

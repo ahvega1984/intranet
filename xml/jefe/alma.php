@@ -404,10 +404,6 @@ include("../../menu.php");
 			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 				}
 			
-				// Alumnos TIC
-				$mostrarMensaje = 1;
-				include("exportaTIC.php");
-			
 				// Asignaturas y alumnos con pendientes
 				include("asignaturas.php");
 			
