@@ -46,7 +46,7 @@ include("../../menu.php");
 								echo "<th>Recreo</th>";
 							}
 							else{
-								echo "<th>$hor[0] - $hor[1]</th>";
+								echo "<th>".substr($hor[0],0,5)." - ".substr($hor[1],0,5)."</th>";
 							}
 						}
 						?>

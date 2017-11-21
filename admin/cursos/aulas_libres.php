@@ -43,7 +43,7 @@ include("../../menu.php");
 						<?php
 						$hr = mysqli_query($db_con,"select hora_inicio, hora_fin from tramos where hora < 7 and hora not like 'R'");
 						while ($hor = mysqli_fetch_array($hr)) {
-							echo "<th>$hor[0] - $hor[1]</th>";
+							echo "<th>".substr($hor[0],0,5)." - ".substr($hor[1],0,5)."</th>";
 						}
 						?>
 						</tr>

@@ -280,8 +280,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `hora` varchar(80) COLLATE utf8_general_ci NOT NULL,
   `horini` int(4) unsigned NOT NULL,
   `horfin` int(4) unsigned NOT NULL,
-  `hora_inicio` varchar(5) COLLATE utf8_general_ci NOT NULL,
-  `hora_fin` varchar(5) COLLATE utf8_general_ci NOT NULL,
+  `hora_inicio` TIME NOT NULL,
+  `hora_fin` TIME NOT NULL,
   PRIMARY KEY (`tramo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		mysqli_query($db_con, "truncate TABLE tramos");				

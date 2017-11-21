@@ -97,3 +97,18 @@ if (! mysqli_num_rows($actua)) {
 }
 
 mysqli_free_result($actua);
+
+/*
+	@descripcion: Cambio del tipo de datos (varchar a time) de los campos hora_inicio y hora_fin
+	@fecha: 21 de Noviembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla Tramos'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE  `tramos` CHANGE  `hora_inicio`  `hora_inicio` TIME NOT NULL ,
+CHANGE  `hora_fin`  `hora_fin` TIME NOT NULL");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla Tramos', NOW())");
+}
+
+mysqli_free_result($actua);
+
+

@@ -24,11 +24,11 @@ if(empty($hora_dia)){
 	$result_jornada = mysqli_query($db_con, "SELECT hora, hora_inicio, hora_fin FROM tramos");
 	if (mysqli_num_rows($result_jornada)){
 		while($jornada = mysqli_fetch_array($result_jornada)){
-			$hora_real = $hora."".$minutos;
-			$h_ini = str_replace(":", "",$jornada[1]);
-			$h_fin = str_replace(":", "",$jornada[2]);
+			$hora_real = $hora.":".$minutos;
+			/*$h_ini = str_replace(":", "",$jornada[1]);
+			$h_fin = str_replace(":", "",$jornada[2]);*/
 
-			if( $hora_real > $h_ini && $hora_real < $h_fin){
+			if( $hora_real > $jornada[1] && $hora_real < $jornada[2]){
 				$hora_dia = $jornada[0];
 				break;
 			}

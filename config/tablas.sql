@@ -1888,8 +1888,8 @@ CREATE TABLE IF NOT EXISTS `tramos` (
   `hora` varchar(80) NOT NULL,
   `horini` int(4) UNSIGNED NOT NULL,
   `horfin` int(4) UNSIGNED NOT NULL,
-  `hora_inicio` varchar(5) NOT NULL,
-  `hora_fin` varchar(5) NOT NULL,
+  `hora_inicio` TIME NOT NULL,
+  `hora_fin` TIME NOT NULL,
   PRIMARY KEY (`tramo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
