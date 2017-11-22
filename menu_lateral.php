@@ -412,6 +412,10 @@ $menu_trabajo =  array(
 				'ncargos' => array('6'),
 				'items' => array(
 					array(
+						'href'   => 'admin/cursos/seleccion_alumnos.php',
+						'titulo' => 'Seleccionar mi alumnado',
+					),
+					array(
 						'href'   => 'admin/informes/cinforme.php',
 						'titulo' => 'Informe de un alumno',
 					),
