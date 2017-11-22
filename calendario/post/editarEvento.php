@@ -11,7 +11,6 @@ if (! isset($_POST['cmp_nombre'])) {
 	die("<h1>FORBIDDEN</h1>");
 	exit();
 }
-variables();
 
 // Limpiamos variables
 $id_evento = mysqli_real_escape_string($db_con, $_POST['cmp_evento_id']);
