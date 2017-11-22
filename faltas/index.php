@@ -17,18 +17,16 @@ if (empty($c_prof)) {
 }
 
 if(empty($hora_dia)){
-	$hora = date("G");
-	$minutos = date("i");
+	$hora_real = strtotime(date("H:i:s"));
 
 	// Se han importado los daos de la tramos escolar desde Séneca
 	$result_jornada = mysqli_query($db_con, "SELECT hora, hora_inicio, hora_fin FROM tramos");
-	if (mysqli_num_rows($result_jornada)){
 		while($jornada = mysqli_fetch_array($result_jornada)){
-			$hora_real = $hora.":".$minutos;
-			/*$h_ini = str_replace(":", "",$jornada[1]);
-			$h_fin = str_replace(":", "",$jornada[2]);*/
+				$h_inicio = strtotime($jornada[1]);
+				$h_fin = strtotime($jornada[2]);
+				//echo "$h_inicio : $hora_real : $h_fin<br>";
 
-			if( $hora_real > $jornada[1] && $hora_real < $jornada[2]){
+			if( $hora_real > $h_inicio && $hora_real < $h_fin){
 				$hora_dia = $jornada[0];
 				break;
 			}
@@ -36,20 +34,7 @@ if(empty($hora_dia)){
 				$hora_dia = $jornada[0];
 			}
 		}
-
-	}
-	else {
-		// No se han importado: se asume el horario del Monterroso
-		if(($hora == '8' and $minutos > 15 ) or ($hora == '9' and $minutos < 15 ) ){$hora_dia = '1';}
-		elseif(($hora == '9' and $minutos > 15 ) or ($hora == '10' and $minutos < 15 ) ){$hora_dia = '2';}
-		elseif(($hora == '10' and $minutos > 15 ) or ($hora == '11' and $minutos < 15 ) ){$hora_dia = '3';}
-		elseif(($hora == '11' and $minutos > 15 ) and ($hora == '11' and $minutos < 45 ) ){$hora_dia = 'R';}
-		elseif(($hora == '11' and $minutos > 45 ) or ($hora == '12' and $minutos < 45 ) ){$hora_dia = '4';}
-		elseif(($hora == '12' and $minutos > 45 ) or ($hora == '13' and $minutos < 45 ) ){$hora_dia = '5';}
-		elseif(($hora == '13' and $minutos > 45 ) or ($hora == '14' and $minutos < 45 ) ){$hora_dia = '6';}
-	}
 }
-
 
 if (isset($fecha_dia)) {
 	$tr_fech = explode("-", $fecha_dia);
