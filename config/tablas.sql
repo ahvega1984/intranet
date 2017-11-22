@@ -427,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `correo` varchar(64) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
@@ -441,7 +441,8 @@ CREATE TABLE IF NOT EXISTS `datos` (
   `id` int(4) NOT NULL DEFAULT '0',
   `nota` mediumtext NOT NULL,
   `ponderacion` char(3) DEFAULT NULL,
-  `claveal` varchar(12) NOT NULL DEFAULT ''
+  `claveal` varchar(12) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------

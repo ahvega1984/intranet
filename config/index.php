@@ -246,41 +246,27 @@ if (isset($_POST['instalar']))
 		{
 			$pass_admin = generador_password(9);
 			$pass_sha1	= sha1($pass_admin);
+
+			// CREACIÓN DE LA BASE DE DATOS
+			mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+			mysqli_select_db($db_con, $db_name);
 			
-			// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN DE LA APLICACIÓN
-			if(isset($_GET['update']) && $_GET['update']) {
-				mysqli_select_db($db_con, $db_name);
-				
-				mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', PROFESOR='Administrador', dni='$pass_admin' WHERE idea='admin' LIMIT 1");
-				mysqli_query($db_con, "UPDATE departamentos SET NOMBRE='Administrador', DNI='$pass_admin', DEPARTAMENTO='Admin', CARGO='1' WHERE idea='admin' LIMIT 1");
-				mysqli_query($db_con, "UPDATE calendario_categorias SET nombre='Administrador', fecha='".date('Y-m-d')."' WHERE nombre='admin' AND profesor='admin' LIMIT 1");
-				mysqli_query($db_con, "UPDATE noticias SET contact='Administrador' WHERE contact='admin'");
-				mysqli_query($db_con, "UPDATE mens_texto SET origen='Administrador' WHERE origen='admin'");
-				mysqli_query($db_con, "UPDATE mens_profes SET profesor='Administrador' WHERE profesor='admin'");
-				mysqli_query($db_con, "UPDATE reg_intranet SET profesor='Administrador' WHERE profesor='admin'");
-			}
-			else {
-				// CREACIÓN DE LA BASE DE DATOS
-				mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
-				mysqli_select_db($db_con, $db_name);
-				
-				// IMPORTACIÓN DE TABLAS
-				$sql = file_get_contents('tablas.sql');
-				mysqli_multi_query($db_con, $sql);
-				while (mysqli_next_result($db_con));
-				
-				// AÑADIENDO USUARIO ADMINISTRADOR
-				mysqli_query($db_con, "INSERT INTO `c_profes` (`id`, `pass`, `PROFESOR`, `dni`, `idea`, `correo`, `estado`) VALUES 
-				(1, '$pass_sha1', 'Administrador', '$pass_admin', 'admin', NULL, 0)");
-				
-				mysqli_query($db_con, "INSERT INTO `departamentos` (`NOMBRE`, `DNI`, `DEPARTAMENTO`, `CARGO`, `idea`) VALUES 
-				('Administrador', '$pass_admin', 'Admin', '01', 'admin')");
-				
-				mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES
-				(1, 'Calendario del centro', '".date('Y-m-d')."', 'admin', '#f29b12', 1),
-				(2, 'Actividades extraescolares', '".date('Y-m-d')."', 'admin', '#18bc9c', 1),
-				(3, 'Administrador', '".date('Y-m-d')."', 'admin', '#3498db', 0)");
-			}
+			// IMPORTACIÓN DE TABLAS
+			$sql = file_get_contents('tablas.sql');
+			mysqli_multi_query($db_con, $sql);
+			while (mysqli_next_result($db_con));
+			
+			// AÑADIENDO USUARIO ADMINISTRADOR
+			mysqli_query($db_con, "INSERT INTO `c_profes` (`id`, `pass`, `PROFESOR`, `dni`, `idea`, `correo`, `estado`) VALUES 
+			(1, '$pass_sha1', 'Administrador', '$pass_admin', 'admin', NULL, 0)") or die ("No se ha podido añadir el usuario Administrador a la tabla 'c_profes'. Error: ".mysqli_error($db_con));
+			
+			mysqli_query($db_con, "INSERT INTO `departamentos` (`NOMBRE`, `DNI`, `DEPARTAMENTO`, `CARGO`, `idea`) VALUES 
+			('Administrador', '$pass_admin', 'Admin', '01', 'admin')") or die ("No se ha podido añadir el usuario Administrador a la tabla 'departamentos'. Error: ".mysqli_error($db_con));
+			
+			mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES
+			(1, 'Calendario del centro', '".date('Y-m-d')."', 'admin', '#f29b12', 1),
+			(2, 'Actividades extraescolares', '".date('Y-m-d')."', 'admin', '#18bc9c', 1),
+			(3, 'Administrador', '".date('Y-m-d')."', 'admin', '#3498db', 0)");
 						
 			mysqli_close($db_con);
 			

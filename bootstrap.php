@@ -24,20 +24,6 @@ define('VERSION_FILE', INTRANET_DIRECTORY .'/config/version.php');
 
 if (file_exists(CONFIG_FILE)) {
 	
-	$archivo = fopen(CONFIG_FILE, 'r'); 
-	$num_lineas = 0; 
-	
-	while (!feof ($archivo)) { 
-	    if ($linea = fgets($archivo)) $num_lineas++;
-	} 
-	fclose ($archivo); 
-	
-	if ($num_lineas > 78) {
-		unlink(CONFIG_FILE);
-		header('Location:'.'http://'.$server_name.'/intranet/config/index.php?update=1');
-		exit;
-	}
-	
 	include_once(CONFIG_FILE);
 	if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 		include_once(INTRANET_DIRECTORY . '/config_datos.php');
@@ -47,7 +33,6 @@ if (file_exists(CONFIG_FILE)) {
 	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
 }
 else {
-	
 	
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
