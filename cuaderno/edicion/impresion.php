@@ -173,7 +173,7 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	 	}
 	 }
 	 $colu10 = substr($colu10,0,strlen($colu10)-2);
-	 $colu10 .= "  and profesor = '$profesor' and curso like '%$curso%' and oculto = '0'order by id";
+	 $colu10 .= "  and profesor = '$profesor' and curso like '%$curso%' and oculto = '0' order by orden asc";
 	 $colu20 = mysqli_query($db_con, $colu10);
 	 $suma = "";
 	 while($colus10 = mysqli_fetch_array($colu20)){
