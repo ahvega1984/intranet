@@ -172,7 +172,7 @@ include("../../menu.php");
 							$lineasalto.=");";
 							$consulta=explode(',',$lineasalto);
 							//Comprobamos que la matrícula no haya sido anulada o trasladada para añadirla
-							if (!preg_match('*Anulada*', $consulta[2]) and !preg_match('*Trasladada*',$consutal[2]){
+							if (!preg_match('*Anulada*', $consulta[2]) and !preg_match('*Trasladada*',$consutal[2])){
 								mysqli_query($db_con, $lineasalto);
 							}		
 						}
@@ -297,7 +297,7 @@ include("../../menu.php");
 			
 				// Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
 				$matr = mysqli_query($db_con, "select * from matriculas");
-				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<13)) {
+				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<11)) {
 					$pro = mysqli_query($db_con, "select claveal,	apellidos, nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
 					while ($prf = mysqli_fetch_array($pro)) {
 			
@@ -403,6 +403,10 @@ include("../../menu.php");
 						<h5>ATENCIÓN:</h5>
 			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 				}
+			
+				// Alumnos TIC
+				$mostrarMensaje = 1;
+				include("exportaTIC.php");
 			
 				// Asignaturas y alumnos con pendientes
 				include("asignaturas.php");
