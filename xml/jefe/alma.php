@@ -172,7 +172,7 @@ include("../../menu.php");
 							$lineasalto.=");";
 							$consulta=explode(',',$lineasalto);
 							//Comprobamos que la matrícula no haya sido anulada o trasladada para añadirla
-							if (!preg_match('*Anulada*', $consulta[2]) and !preg_match('*Trasladada*',$consutal[2])){
+							if (!preg_match('*Anulada*', $consulta[2]) and !preg_match('*Trasladada*',$consulta[2])){
 								mysqli_query($db_con, $lineasalto);
 							}		
 						}
@@ -403,10 +403,6 @@ include("../../menu.php");
 						<h5>ATENCIÓN:</h5>
 			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 				}
-			
-				// Alumnos TIC
-				$mostrarMensaje = 1;
-				include("exportaTIC.php");
 			
 				// Asignaturas y alumnos con pendientes
 				include("asignaturas.php");
