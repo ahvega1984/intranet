@@ -16,7 +16,7 @@ include("menu.php");
 </div>
 <br>
 
-<div class="col-md-6 col-md-offset-3">	
+<div class="col-md-8 col-md-offset-2">	
 
 <?php
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
@@ -115,9 +115,9 @@ if (mysqli_num_rows($si) > 0)
    <TD colspan='1' nowrap style='vertical-align:middle'><span class='label label-success'>Informe ya rellenado</span></td>";
    echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'> </i></a>";
-   echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip'  title='Redactar Informe'> </i> </a>";		
+   echo "<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";		
    if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
+   	echo "<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' ></i></a>";
    }
 			echo "</td>";	
    }
@@ -135,15 +135,15 @@ if (mysqli_num_rows($si) > 0)
 	  if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{
-			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'> </i> </a>";		
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'></i></a>";		
 		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
+   	echo "<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' ></i></a>";
    }	
 		}
 	  if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{ 
-echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='fa fa-pencil-square-o' title='Redactar Informe'> </i> </a>";
+echo "<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='fa fa-pencil-square-o' title='Redactar Informe'></i></a>";
 			}
 		}
 	}	
