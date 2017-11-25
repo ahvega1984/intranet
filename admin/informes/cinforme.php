@@ -1,6 +1,20 @@
 <?php
 require('../../bootstrap.php');
 
+// VALIDACION DE FORMULARIOS
+if (isset($_POST['submit1'])) {
+	include 'datos.php';
+	exit();
+}
+elseif (isset($_POST['submit2'])) {
+	include 'lista_grupo.php';
+	exit();
+}
+elseif (isset($_POST['submit0'])) {
+	include 'datos.php';
+	exit();
+}
+
 
 include("../../menu.php");
 
@@ -26,15 +40,24 @@ else{
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Informes de alumnos <small>Consulta individual</small></h2>
+		<h2>Información de los alumno <small>Informes y Datos</small></h2>
 	</div>
 	
 	
 	<!-- SCAFFOLDING -->
 	<div class="row">
+
+		<div class="col-sm-8">
+			<legend>Informe de un alumno</legend>	
+			<br>
+		</div>
+
+	</div>
+
+	<div class="row">
 	
 		<!-- MODULO -->
-		<div class="col-sm-8 col-sm-offset-2">
+		<div class="col-sm-8">
 			
 			<div class="well">
 				
@@ -56,7 +79,7 @@ else{
 									</div>
 									FORMLISTACURSOS//-->
 									
-									<div class="col-sm-12">
+									<div class="col-sm-8">
 										<div class="form-group">
 										  <label for="unidad">Unidad</label>
 											<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
@@ -178,6 +201,75 @@ else{
 			</div><!-- /.well -->
 			
 		</div><!-- /.col-sm-8 -->
+	
+	</div><!-- /.row -->
+	
+	<br>
+	<br>
+
+	<!-- SCAFFOLDING -->
+	<div class="row">
+		<div class="col-sm-8">
+			<legend>Datos de los Alumnos por Nombre o Grupo</legend>	
+			<br>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+		<!-- COLUMNA IZQUIERDA -->			
+			<div class="well">
+				
+				<form method="post" action="">
+					<fieldset>
+						<legend>Búsqueda por Nombre/Apellidos</legend>
+						
+						<div class="form-group">
+					    <label for="campoApellidos">Apellidos</label>
+					    <input type="text" class="form-control" name="apellidos" id="campoApellidos" placeholder="Apellidos" maxlength="60">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="campoNombre">Nombre</label>
+					    <input type="text" class="form-control" name="nombre" id="campoNombre" placeholder="Nombre" maxlength="60">
+					    <p class="help-block">No es necesario escribir el nombre o los apellidos completos de los alumnos.</p>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit0">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA DERECHA -->
+		<div class="col-sm-4">
+			
+			<div class="well">
+				
+				<form method="post" action="">
+					<fieldset>
+						<legend>Datos por Grupos</legend>
+						
+						<div class="form-group">
+					    <select class="form-control" name="unidad[]" multiple size="6">
+					    	 <?php unidad($db_con); ?>
+					    </select>
+					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+					  </div>
+					  <div class="checkbox">
+					  <label>
+					    <input type="checkbox" name="sin_foto" value="1" checked> Con foto</label>
+					  </div>
+					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+					  <button type="submit" class="btn btn-primary" name="submit2">Imprimir</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
 	
 	</div><!-- /.row -->
 	

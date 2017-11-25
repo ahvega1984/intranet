@@ -135,8 +135,8 @@ $menu = array(
 				'titulo' => 'Resumen global',
 			),
 			array(
-				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
-				'titulo' => 'Datos de alumnos',
+				'href'   => 'admin/informes/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
+				'titulo' => 'Datos del Grupo',
 			),
 			array(
 				'href'   => 'admin/tutoria/intervencion.php',
@@ -181,8 +181,8 @@ $menu = array(
 		'nombre'  => 'Consultas',
 		'items'   => array (
 			array(
-				'href'   => 'admin/datos/cdatos.php',
-				'titulo' => 'Datos de los alumnos'
+				'href'   => 'admin/informes/cinforme.php',
+				'titulo' => 'Alumnos y Grupos'
 			),
 			array(
 				'href'   => 'admin/cursos/chorarios.php',
@@ -412,21 +412,17 @@ $menu_trabajo =  array(
 				'ncargos' => array('6'),
 				'items' => array(
 					array(
-						'href'   => 'admin/cursos/seleccion_alumnos.php',
-						'titulo' => 'Seleccionar mi alumnado',
-					),
-					array(
-						'href'   => 'admin/informes/cinforme.php',
-						'titulo' => 'Informe de un alumno',
-					),
-					array(
 						'href'   => 'admin/tareas/index.php',
 						'titulo' => 'Informes de Tareas',
 					),
 					array(
 						'href'   => 'admin/infotutoria/index.php',
 						'titulo' => 'Informes de Tutoria',
-					)
+					),
+					array(
+						'href'   => 'admin/cursos/seleccion_alumnos.php',
+						'titulo' => 'Seleccionar mi alumnado',
+					)					
 				)
 			),
 			array(
@@ -746,25 +742,37 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 <!-- MENU-LATERAL -->
 
 <!-- PHONE SCREENS -->
-<div class="visible-xs">
 	<div class="row">
-		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
+		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia'] and ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria")): ?>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="faltas/index.php">
 				<span class="fa fa-clock-o fa-2x"></span><br>
 				<small>Asistencia</small></a>
 		</div>
 		<?php endif; ?>
+		<?php if ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria"): ?>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/fechorias/infechoria.php">
 				<span class="fa fa-gavel fa-2x"></span><br>
 				<small>Convivencia</small></a>
 		</div>
+		<?php endif; ?>
 		<div class="col-xs-3 text-center padmobile">
-			<a href="admin/informes/cinforme.php">
+		<?php if (strstr($_SESSION['cargo'], "2") or strstr($_SESSION['cargo'], "1") or strstr($_SESSION['cargo'], "8")){ ?>
+		
+			<a href="admin/tutoria/index.php">
+				<span class="fa fa-users fa-2x"></span><br>
+				<small>Tutoría</small></a>
+		
+		<?php } else{ ?>
+
+		<a href="admin/informes/cinforme.php">
 				<span class="fa fa-address-book-o fa-2x"></span><br>
 				<small>Inf. alumno</small></a>
+
+		<?php } ?>
 		</div>
+
 		<div class="col-xs-3 text-center padmobile">
 			<a href="reservas/index_aula.php?recurso=aula_grupo">
 				<span class="fa fa-key fa-2x"></span><br>
@@ -785,14 +793,19 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 				<span class="fa fa-envelope-o fa-2x"></span><br>
 				<small>Mensajes</small></a>
 		</div>
-		<div class="col-xs-3 text-center padmobile">
+
+		<div class="col-xs-3 text-center padmobile hidden-xs">
+			<a href="calendario/index.php">
+				<span class="fa fa-calendar-o fa-2x"></span><br>
+				<small>Calendario</small></a>
+		</div>
+		<div class="col-xs-3 text-center padmobile hidden-sm hidden-md hidden-lg">
 			<a href="#" id="toggleMenu">
 				<span class="fa fa-ellipsis-v fa-2x"></span><br>
 				<small>Menú</small></a>
 		</div>
 	</div>
 	<br>
-</div>
 
 <!-- TABLETS / DESKTOPS SCREENS  -->
 <div class="panel-group hidden-xs" id="accordion">
@@ -811,7 +824,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 	      </a>
 	    </h4>
 	  </div>
-	  <div id="<?php echo $menu[$i]['menu_id']; ?>" class="panel-collapse collapse <?php echo ($nmenu == 1 || ($menu[$i]['menu_id'] == 'departamento' && strstr($_SESSION['cargo'],'4')==TRUE)) ? 'in' : ''; ?>">
+	  <div id="<?php echo $menu[$i]['menu_id']; ?>" class="panel-collapse collapse">
 	    <div class="panel-body">
 	    	<?php if(count($menu[$i]['items']) > 0): ?>
 				<ul class="nav nav-pills nav-stacked">

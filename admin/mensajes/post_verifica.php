@@ -16,9 +16,11 @@ if (isset($_POST['idp'])) {
         $row_profesor = mysqli_fetch_array($result_profesor);
 
         $titulo = $row['asunto'];
-        $enlace = '//'.$config['dominio'].'/intranet/admin/mensajes/redactar.php?profes=1&origen='.$row['origen'].'&asunto=RE:%20'.$titulo;
-        $tarea = htmlspecialchars_decode($row['texto']).'<p><br></p><p>Enviado por: '.$row_profesor['nombre'].'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
         $fechareg = date('Y-m-d H:i:s');
+        $fecha_mensaje = formatea_fecha(date('Y-m-d'));
+        $enlace = '//'.$config['dominio'].'/intranet/admin/mensajes/redactar.php?profes=1&origen='.$row['origen'].'&asunto=RE:%20'.$titulo;
+        $tarea = htmlspecialchars_decode($row['texto']).'<p><br></p><p>Enviado por: '.$row_profesor['nombre'].'</p><p>Fecha del mensaje: '. $fecha_mensaje.'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
+        
 
         mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");
     }
