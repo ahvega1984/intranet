@@ -37,8 +37,7 @@ else {
 	if (isset($_GET['tarea']) && $_GET['tarea']) {
 		$titulo = $mensaje['asunto'];
 		$enlace = '//'.$config['dominio'].'/intranet/admin/mensajes/redactar.php?profes=1&origen='.$mensaje['origen'].'&asunto=RE:%20'.$titulo;
-		$fecha_mensaje = formatea_fecha(date('Y-m-d'));
-		$tarea = htmlspecialchars_decode($mensaje['texto']).'<p><br></p><p>Enviado por: '.$nom_profesor.'</p><p>Fecha del mensaje: '. $fecha_mensaje.'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
+		$tarea = htmlspecialchars_decode($mensaje['texto']).'<p><br></p><p>Enviado por: '.$nom_profesor.'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
 		$fechareg = date('Y-m-d H:i:s');
 		mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");	
 	}

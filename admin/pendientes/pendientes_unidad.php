@@ -102,6 +102,8 @@ if ($_POST['pdf']==1) {
 else{
 	include "../../menu.php";
 	
+	include("../informes/menu_alumno.php");
+	
 	foreach($_POST["select1"] as  $val) {
 		$grupos.=$val.";";
 	}
@@ -110,7 +112,7 @@ else{
 <div class="container">
 
 	<div class="page-header">
-	  <h2 style="display: inline;">Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>';
+	  <h2 style="display: inline;">Alumnos y Grupos <small> Lista de Alumnos con asignaturas pendientes</small></h2>';
 	  echo "<form class=\"pull-right\" action='pendientes_unidad.php' method='post'>";	
 	  echo "<input type='hidden' name='grupos' value='".$grupos."' />";
 	  echo "<input type='hidden' name='pdf' value='1' />";

@@ -14,6 +14,9 @@ if (isset($_GET['unidad'])) {
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
+
+include("../informes/menu_alumno.php");
+
 ?>
 
 <div class="container">

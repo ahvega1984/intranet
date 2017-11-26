@@ -77,6 +77,7 @@ if (isset($_GET['id'])) {
 	$row = mysqli_fetch_array($result);
 	$titulo = $row['titulo'];
 	$tarea = stripslashes($row['tarea']);
+	$tarea.= "<br>Fecha: ".formatea_fecha(date('Y-m-d'));
 	$fechareg = $row['fechareg'];
 	$estado = $row['estado'];
 	$prioridad = $row['prioridad'];

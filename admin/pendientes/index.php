@@ -4,6 +4,9 @@ require('../../bootstrap.php');
 
 include("../../menu.php"); 
 
+include("../informes/menu_alumno.php");
+
+
 $query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by codigo";
 $Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
 $row_Recordset1 = mysqli_fetch_array($Recordset1);
@@ -20,9 +23,11 @@ $totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Listado de alumnos <small>Alumnos con asignaturas pendientes</small></h2>
+		<h2>Alumnos y Grupos <small>Alumnos con Asignaturas Pendientes</small></h2>
 	</div>
 	
+	<br>
+	<br>
 	
 	<!-- SCAFFOLDING -->
 	<div class="row">

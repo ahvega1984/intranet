@@ -18,15 +18,19 @@ require('../../bootstrap.php');
 
 
 include("../../menu.php");
+include("../informes/menu_alumno.php");
+
 ?>
 
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Alumnos del centro <small>Consultas</small></h2>
+		<h2>Alumnos y Grupos <small>Datos de Alumnos y Grupos</small></h2>
 	</div>
 	
+	<br>
+	<br>
 	
 	<!-- SCAFFOLDING -->
 	<div class="row">

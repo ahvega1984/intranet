@@ -181,28 +181,37 @@ $menu = array(
 		'nombre'  => 'Consultas',
 		'items'   => array (
 			array(
-				'href'   => 'admin/informes/cinforme.php',
-				'titulo' => 'Alumnos y Grupos'
-			),
-			array(
 				'href'   => 'admin/cursos/chorarios.php',
 				'titulo' => 'Horarios de profesores/grupos',
 				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Listas',
+				'titulo' => 'Alumnos y Grupos',
 				'items' => array(
 					array(
+						'href'   => 'admin/informes/cinforme.php',
+						'titulo' => 'Informe de un Alumno'
+					),
+					array(
+						'href'   => 'admin/datos/cdatos.php',
+						'titulo' => 'Datos de Alumnos y Grupos'
+					),
+					array(
 						'href'   => 'admin/cursos/ccursos.php',
-						'titulo' => 'Lista de los grupos'
+						'titulo' => 'Listas de los Grupos'
 					),
 					array(
 						'href'   => 'admin/pendientes/index.php',
-						'titulo' => 'Listas de pendientes'
+						'titulo' => 'Listas de Pendientes'
+					),
+					array(
+						'href'   => 'admin/cursos/cexporta.php',
+						'titulo' => 'Exportar Datos de Alumnos'
 					)
 				)
 			),
+			
 			array(
 				'href'   => '#',
 				'titulo' => 'Fotografías',
