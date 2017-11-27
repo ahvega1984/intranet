@@ -135,7 +135,7 @@ $menu = array(
 				'titulo' => 'Resumen global',
 			),
 			array(
-				'href'   => 'admin/informes/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
+				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
 				'titulo' => 'Datos del Grupo',
 			),
 			array(
