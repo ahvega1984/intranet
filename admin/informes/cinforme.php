@@ -59,7 +59,7 @@ else{
 									</div>
 									FORMLISTACURSOS//-->
 									
-									<div class="col-sm-8">
+									<div class="col-sm-12">
 										<div class="form-group">
 										  <label for="unidad">Unidad</label>
 											<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
