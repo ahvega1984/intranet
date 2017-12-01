@@ -72,13 +72,14 @@
 								$abrev = $abrevs->item(0)->nodeValue;
 								$abrev = trim($abrev);
 								mysqli_query($db_con, "INSERT INTO  `materias_temp` (
-			`CODIGO` ,
-			`NOMBRE` ,
-			`ABREV` ,
-			`CURSO` ,
-			`GRUPO`
-			)
-			VALUES ('$codigo',  '$nombre',  '$abrev',  '$cur', '$unidad')");}
+								`CODIGO` ,
+								`NOMBRE` ,
+								`ABREV` ,
+								`CURSO` ,
+								`GRUPO`
+								)
+								VALUES ('$codigo',  '$nombre',  '$abrev',  '$cur', '$unidad')");
+							}							
 			
 								//
 								if ($num=="3") {
@@ -109,10 +110,9 @@
 										$orden0 = $ordenes0->item(0)->nodeValue;
 										mysqli_query($db_con, "INSERT INTO  `calificaciones_temp` VALUES ('$codigo0',  '$nombre0',  '$abrev0',  '$orden0')");
 									}
-								}
-								
+								}							
+							}
 						}
-					}
 					closedir($handle);
 				}
 				else{
@@ -133,7 +133,8 @@
 				//Creamos tabla materias y arreglamos problema de codificación.
 			
 				mysqli_query($db_con, "create table materias select * from materias_temp");
-				mysqli_query($db_con, "ALTER TABLE  `materias` ADD INDEX ( `CODIGO` )");
+				mysqli_query($db_con, "ALTER TABLE  `materias` DROP  `id`");
+				mysqli_query($db_con, "ALTER TABLE  `materias` ADD  `ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");
 				//mysqli_query($db_con, "ALTER TABLE `materias` DROP `GRUPO`");
 			
 				$pr1 = mysqli_query($db_con, "select * from materias");
@@ -144,6 +145,23 @@
 					$id = $pr10[5];
 					mysqli_query($db_con, "update materias set nombre = '$nombr', curso = '$cu', abrev = '$abre' where id = '$id'");
 				}
+
+
+				// Refuerzos en la tabla de materias
+				$rf = mysqli_query($db_con,"select distinct c_asig, asig, a_asig, a_grupo from horw where asig like 'Refuerzo%' and a_grupo not like ''");
+				
+				while ($ref = mysqli_fetch_array($rf)) {
+					$cr = mysqli_query($db_con,"select distinct curso from alma where unidad = '$ref[3]'");
+					$crs = mysqli_fetch_array($cr);
+					mysqli_query($db_con, "INSERT INTO  `materias` (
+					`CODIGO` ,
+					`NOMBRE` ,
+					`ABREV` ,
+					`CURSO` ,
+					`GRUPO`
+					)
+					VALUES ('$ref[0]',  '$ref[1]',  '$ref[2]',  '$crs[0]', '$ref[3]')");					
+				}	
 			
 				//Borramos tablas temporales
 				mysqli_query($db_con, "drop table materias_temp");

@@ -90,7 +90,7 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 
 if($pr and $dia and $hora)
 {
-	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
+	$num_cursos0 = mysqli_query($db_con, "SELECT distinct a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
 	// Todos los Grupos juntos
 	$curs = "";
 	$codigos = "";
@@ -126,7 +126,8 @@ if($pr and $dia and $hora)
 	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
 </div>
 
-<div align="center"><?php
+<div align="center">
+<?php
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
 {
