@@ -11,62 +11,58 @@ if (isset($_POST['guardar_cambios'])) {
 
     foreach($_POST as $key => $val){
 
-        if ($key != 'guardar_cambios') {
+        $exp_key = explode('_', $key);
+        $asignatura = $exp_key[1];
+        $unidad = $exp_key[2];
+        $nc = $exp_key[3];
 
-            $exp_key = explode('_', $key);
-            $asignatura = $exp_key[1];
-            $unidad = $exp_key[2];
-            $nc = $exp_key[3];
-
-            if ($asignatura != $asignatura_ant || $unidad != $unidad_ant) {
-                // Saltamos este bloque la primera vez que se ejecuta foreach
-                if ($flag_primera_vez > 1) {
+        if ($asignatura != $asignatura_ant || $unidad != $unidad_ant) {
+            // Saltamos este bloque la primera vez que se ejecuta foreach o si key corresponde al botón de envío de formulario
+            if ($flag_primera_vez > 1 || $key != 'guardar_cambios') {
+                
+                $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, FALUMNOS.nc FROM alma JOIN FALUMNOS ON alma.claveal = FALUMNOS.claveal WHERE alma.unidad = '".$unidad_ant."' AND alma.combasi LIKE '%".$asignatura_ant."%' ORDER BY alma.apellidos ASC, alma.nombre ASC");
+                $total_alumnos = mysqli_num_rows($result_alumnos);
+                $alumnos_seleccionados = count($array_nc);
+                
+                if ($total_alumnos != $alumnos_seleccionados) {
                     
-                    $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, FALUMNOS.nc FROM alma JOIN FALUMNOS ON alma.claveal = FALUMNOS.claveal WHERE alma.unidad = '".$unidad_ant."' AND alma.combasi LIKE '%".$asignatura_ant."%' ORDER BY alma.apellidos ASC, alma.nombre ASC");
-                    $total_alumnos = mysqli_num_rows($result_alumnos);
-                    $alumnos_seleccionados = count($array_nc);
+                    $nc_separado_por_comas = implode(",", $array_nc);
 
-                    if ($total_alumnos != $alumnos_seleccionados) {
-                        $nc_separado_por_comas = implode(",", $array_nc);
+                    // Comprobamos si el profesor ya selecciono alumnos. En ese caso actualizamos los datos, si no, insertamos en la tabla
+                    $result_seleccion = mysqli_query($db_con, "SELECT id FROM grupos WHERE profesor = '$pr' AND asignatura = '$asignatura_ant' AND curso = '$unidad_ant'");
+                    if (mysqli_num_rows($result_seleccion)) {
+                        $row_seleccion = mysqli_fetch_array($result_seleccion);
+                        $id_seleccion = $row_seleccion['id'];
 
-                        // Comprobamos si el profesor ya selecciono alumnos. En ese caso actualizamos los datos, si no, insertamos en la tabla
-                        $result_seleccion = mysqli_query($db_con, "SELECT id FROM grupos WHERE profesor = '$pr' AND asignatura = '$asignatura_ant' AND curso = '$unidad_ant'");
-                        if (mysqli_num_rows($result_seleccion)) {
-                            $row_seleccion = mysqli_fetch_array($result_seleccion);
-                            $id_seleccion = $row_seleccion['id'];
-
-                            mysqli_query($db_con, "UPDATE grupos SET alumnos = '$nc_separado_por_comas' WHERE id = '$id_seleccion'");
-                        }
-                        else {
-                            mysqli_query($db_con, "INSERT INTO grupos (profesor, asignatura, curso, alumnos) VALUES ('$pr', '$asignatura_ant', '$unidad_ant', '$nc_separado_por_comas')") or die (mysqli_error($db_con));
-                        }
+                        mysqli_query($db_con, "UPDATE grupos SET alumnos = '$nc_separado_por_comas' WHERE id = '$id_seleccion'");
                     }
                     else {
-                        $result_seleccion = mysqli_query($db_con, "SELECT id FROM grupos WHERE profesor = '$pr' AND asignatura = '$asignatura_ant' AND curso = '$unidad_ant'");
-                        if (mysqli_num_rows($result_seleccion)) {
-                            $row_seleccion = mysqli_fetch_array($result_seleccion);
-                            $id_seleccion = $row_seleccion['id'];
-
-                            mysqli_query($db_con, "DELETE FROM grupos WHERE id = '$id_seleccion'");
-                        }
+                        mysqli_query($db_con, "INSERT INTO grupos (profesor, asignatura, curso, alumnos) VALUES ('$pr', '$asignatura_ant', '$unidad_ant', '$nc_separado_por_comas')") or die (mysqli_error($db_con));
                     }
-                    
                 }
+                else {
+                    $result_seleccion = mysqli_query($db_con, "SELECT id FROM grupos WHERE profesor = '$pr' AND asignatura = '$asignatura_ant' AND curso = '$unidad_ant'");
+                    if (mysqli_num_rows($result_seleccion)) {
+                        $row_seleccion = mysqli_fetch_array($result_seleccion);
+                        $id_seleccion = $row_seleccion['id'];
 
-                $array_nc = array();
-                array_push($array_nc, $nc);
-            }
-            else {
-                array_push($array_nc, $nc);
+                        mysqli_query($db_con, "DELETE FROM grupos WHERE id = '$id_seleccion'");
+                    }
+                }
+                
             }
 
-            $asignatura_ant = $asignatura;
-            $unidad_ant = $unidad;
-            
+            $array_nc = array();
+            array_push($array_nc, $nc);
+        }
+        else {
+            array_push($array_nc, $nc);
         }
 
+        $asignatura_ant = $asignatura;
+        $unidad_ant = $unidad;
+
         $flag_primera_vez = 2;
-        
 	}
 }
 
