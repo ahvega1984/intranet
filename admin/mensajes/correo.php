@@ -16,8 +16,8 @@ if (isset($_POST['enviar'])) {
 	require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
 	$mail = new PHPMailer();
 	$mail->Host = "localhost";
-	$mail->From = $mail_from;
-	$mail->FromName = $profe_envia;
+	$mail->From = utf8_decode($mail_from);
+	$mail->FromName = utf8_decode($profe_envia);
 	$mail->AddReplyTo($mail_from, $profe_envia);
 	$mail->Sender = $mail_from;
 	$mail->IsHTML(true);

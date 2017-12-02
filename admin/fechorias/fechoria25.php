@@ -160,7 +160,7 @@ for ($i=0;$i<$num_a;$i++){
 		 	 $mail = new PHPMailer();
 		 	 $mail->Host = "localhost";
 		 	 $mail->From = 'no-reply@'.$config['dominio'];
-		 	 $mail->FromName = $config['centro_denominacion'];
+		 	 $mail->FromName = utf8_decode($config['centro_denominacion']);
 		 	 $mail->Sender = 'no-reply@'.$config['dominio'];
 		 	 $mail->IsHTML(true);
 		 	 

@@ -303,8 +303,8 @@ if ($config['mod_notificaciones']) {
 				$tr_profes = explode(", ", $cor_profes);
 				$nombre_profe = $tr_profes[1]." ".$tr_profes[0];
 	
-				$tema = "Comunicación de Tareas pendientes en el Centro";
-				$profe_envia = "Dirección del ".$config['centro_denominacion'];
+				$tema = utf8_decode("Comunicación de Tareas pendientes en el Centro");
+				$profe_envia = utf8_decode("Dirección del ".$config['centro_denominacion']);
 				$mail_from = $config['centro_email'];
 				
 				$titulo = stripslashes(mysqli_real_escape_string($db_con, $tema));
@@ -334,7 +334,7 @@ if ($config['mod_notificaciones']) {
 				$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
 				
 				$mail->msgHTML(utf8_decode($message));
-				$mail->Subject = utf8_decode($config['centro_denominacion'].' - Mensaje de la '.$profe_envia;
+				$mail->Subject = utf8_decode($config['centro_denominacion'].' - Mensaje de la '.$profe_envia);
 				$mail->AltBody = $titulo.' '.$contenido;			
 				$mail->AddAddress($direccion, $cor_profes);
 				$mail->Send();
