@@ -334,7 +334,7 @@ if ($config['mod_notificaciones']) {
 				$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
 				
 				$mail->msgHTML(utf8_decode($message));
-				$mail->Subject = $config['centro_denominacion'].' - Mensaje de la '.$profe_envia;
+				$mail->Subject = utf8_decode($config['centro_denominacion'].' - Mensaje de la '.$profe_envia;
 				$mail->AltBody = $titulo.' '.$contenido;			
 				$mail->AddAddress($direccion, $cor_profes);
 				$mail->Send();

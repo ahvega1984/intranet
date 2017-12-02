@@ -134,7 +134,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				$message = str_replace('{{contenido}}', 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.', $message);
 
 				$mail->msgHTML(utf8_decode($message));
-				$mail->Subject = $config['centro_denominacion'].' - Cuenta temporalmente bloqueada';
+				$mail->Subject = utf8_decode($config['centro_denominacion'].' - Cuenta temporalmente bloqueada');
+
 				$mail->AltBody = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 
 				$mail->AddAddress($correo, $profe);

@@ -40,7 +40,7 @@ if (isset($_POST['enviar'])) {
 	$message = str_replace('{{contenido}}', $contenido.'<br><br><br><strong>'.$nombre_prof.'</strong><br>Departamento de '.$dpto.'<br><br>', $message);
 	
 	$mail->msgHTML(utf8_decode($message));
-	$mail->Subject = 'Nuevo mensaje: '.$titulo;
+	$mail->Subject = utf8_decode('Nuevo mensaje: '.$titulo);
 	$mail->AltBody = $titulo.' '.$contenido;
 
 

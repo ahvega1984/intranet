@@ -92,7 +92,7 @@ if ($config['mod_sms']) {
 	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 	
 	$mail->msgHTML(utf8_decode($message));
-	$mail->Subject = $config['centro_denominacion'].' - Comunicación de Faltas de Asistencia';
+	$mail->Subject = utf8_decode($config['centro_denominacion'].' - Comunicación de Faltas de Asistencia');
 	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 
 	$mail->AddAddress($correo, $nombre_alumno);
