@@ -78,14 +78,13 @@ for ($i=0;$i<$num_a;$i++){
 		if (mysqli_num_rows($ya_sms)>0) {
 			$sms_ya = 1;
 			}
-		else{
-			$sms_ya = 0;
-			}
-		
-		if ($config['mod_sms'] && $sms_ya = 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
+
+		if ($config['mod_sms']=="1" and $sms_ya <> 1 and $config['convivencia']['notificaciones_padres']=="1") {
 
 			$hora_f = date ( "G" );
-			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
+
+			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f >= '8' and $hora_f < '17') {
+
 				$sms_n = mysqli_query($db_con, "select max(id) from sms" );
 				$n_sms = mysqli_fetch_array ( $sms_n );
 				$extid = $n_sms [0] + 1;
@@ -107,26 +106,31 @@ for ($i=0;$i<$num_a;$i++){
 					$sms->sender = $config['mod_sms_id'];
 					$sms->set_immediate();
 
-					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {					
+
 					}
 					else{
+						
 						if ($sms->validate()){
-							$sms_enviado=1;
-						// Envío de SMS	
-							$sms->send();
-							if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
-								}
-							else{
-						// Registro de SMS		
-						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
 
-						// Registro de Tutoría
-						$fecha2 = date ( 'Y-m-d' );
-						$observaciones = $message;
-						$accion = "Env&iacute;o de SMS";
-						$causa = "Problemas de convivencia";
-						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
-							}	
+						// Envío de SMS	
+						$sms->send();
+						$sms_enviado=1;
+						}	
+
+						if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+							}
+						else{
+							if ($sms_enviado == 1) {
+								// Registro de SMS		
+								mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
+
+								// Registro de Tutoría
+								$fecha2 = date ( 'Y-m-d' );
+								$observaciones = $message;
+								$accion = "Env&iacute;o de SMS";
+								$causa = "Problemas de convivencia";
+								mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );							}						
 						} 
 					}
 				}
@@ -143,7 +147,7 @@ for ($i=0;$i<$num_a;$i++){
 		// FIN SMS
 
 		// Envío de Email
-		if (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres'])) {
+		if ($config['convivencia']['notificaciones_padres']==1) {
 		 $cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
 		 $cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");
 		 if(mysqli_num_rows($cor_alma)>0){
@@ -176,10 +180,12 @@ for ($i=0;$i<$num_a;$i++){
 		 	 $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 		 	 $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 		 	 $message = str_replace('{{titulo}}', 'Comunicación de Problemas de Convivencia', $message);
+		 	 
 		 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 		 	 
 		 	 $mail->msgHTML(utf8_decode($message));
-		 	 $mail->Subject = $config['centro_denominacion'].' - Comunicación de Problemas de Convivencia';
+		 	 $titulo_utf8 = utf8_decode("Comunicación de Problemas de Convivencia");
+		 	 $mail->Subject = $config['centro_denominacion'].' - '.$titulo_utf8;
 		 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 	
 		 	 $mail->AddAddress($correo, $nombre_alumno);
