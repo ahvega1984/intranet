@@ -1,7 +1,7 @@
 <?php
 
 require_once('util.php');
-require_once('config.php');
+require_once('config_sms.php');
 require_once('smstype.php');
 require_once('http_post.php');
 
