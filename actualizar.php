@@ -100,7 +100,7 @@ mysqli_free_result($actua);
 
 /*
 	@descripcion: Cambio del tipo de datos (varchar a time) de los campos hora_inicio y hora_fin
-	@fecha: 21 de Noviembre de 2017
+	@fecha: 21 de noviembre de 2017
 */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla Tramos'");
 if (! mysqli_num_rows($actua)) {
@@ -114,7 +114,7 @@ mysqli_free_result($actua);
 
 /*
 	@descripcion: Eliminado archivos de exportación. A partir de ahora se genera y se fuerza la descarga. De esta manera evitamos que queden los archivos publicados en la red
-	@fecha: 21 de Noviembre de 2017
+	@fecha: 21 de noviembre de 2017
 */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Exportar usuarios TIC'");
 if (! mysqli_num_rows($actua)) {
@@ -126,4 +126,15 @@ if (! mysqli_num_rows($actua)) {
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_gsuite.csv')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_gsuite.csv');
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Exportar usuarios TIC', NOW())");
+}
+
+/*
+	@descripcion: Eliminado archivo de configuración de Trendoo
+	@fecha: 2 de diciembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado archivo config.php de Trendoo'");
+if (! mysqli_num_rows($actua)) {
+	if (file_exists(INTRANET_DIRECTORY.'/lib/trendoo/config.php')) unlink(INTRANET_DIRECTORY.'/lib/trendoo/config.php');
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado archivo config.php de Trendoo', NOW())");
 }
