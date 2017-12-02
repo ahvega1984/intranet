@@ -81,9 +81,9 @@ for ($i=0;$i<$num_a;$i++){
 		else{
 			$sms_ya = 0;
 			}
-		
-		if ($config['mod_sms'] && $sms_ya = 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
-
+			
+		if ($config['mod_sms'] && $sms_ya == 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
+			
 			$hora_f = date ( "G" );
 			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
 				$sms_n = mysqli_query($db_con, "select max(id) from sms" );
@@ -95,9 +95,9 @@ for ($i=0;$i<$num_a;$i++){
 				} else {
 					$mobile = $tfno_u;
 				}
-				
+
 				if(strlen($mobile) == 9) {
-			
+					
 					// ENVIO DE SMS
 					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 					$sms = new Trendoo_SMS();
@@ -179,7 +179,7 @@ for ($i=0;$i<$num_a;$i++){
 		 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
 		 	 
 		 	 $mail->msgHTML(utf8_decode($message));
-		 	 $mail->Subject = $config['centro_denominacion'].' - Comunicación de Problemas de Convivencia';
+		 	 $mail->Subject = utf8_decode($config['centro_denominacion'].' - Comunicación de Problemas de Convivencia');
 		 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 	
 		 	 $mail->AddAddress($correo, $nombre_alumno);
