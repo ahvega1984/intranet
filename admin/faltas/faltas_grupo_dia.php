@@ -55,7 +55,7 @@ $fecha0="";
         <h3>Grupo: <span class="text-danger"><?php echo $grupo;?></span><br>Fecha: <span class="text-danger"><?php echo formatea_fecha($fecha0);?></span></h3>
         <br>
     
-        <?php $result = mysqli_query($db_con, "SELECT nc, apellidos, nombre, claveal FROM FALUMNOS WHERE unidad = '$grupo' ORDER BY nc"); 
+        <?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad = '$grupo' ORDER BY apellidos, nombre"); 
         ?>
 
         <?php if (mysqli_num_rows($result)): ?>
@@ -73,14 +73,16 @@ $fecha0="";
   
             
             		<tbody>
-			<?php while ($row = mysqli_fetch_array($result)): 
+			<?php
+        $nc=0;
+        while ($row = mysqli_fetch_array($result)): 
         $claveal = $row['claveal'];
-        $nc = $row['nc'];
+        $nc++;
         $apellidos = $row['apellidos'];
         $nombre = $row['nombre']; 
       ?>
 			<tr>
-				<th><abbr><?php echo $row['nc'].". ".$row['apellidos']." ".$row['nombre']; ?></abbr></th>
+				<th><abbr><?php echo $nc.". ".$row['apellidos']." ".$row['nombre']; ?></abbr></th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
 				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '$fecha0' AND hora = '$i'");?>
 				<?php $row_falta = mysqli_fetch_array($result_falta); ?>

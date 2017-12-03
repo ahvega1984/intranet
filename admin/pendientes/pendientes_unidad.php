@@ -64,14 +64,14 @@ if ($_POST['pdf']==1) {
 		
 		// INFORME
 		
-		$MiPDF->SetWidths(array(10, 80, 165));
+		$MiPDF->SetWidths(array( 80, 165));
 		$MiPDF->SetFont('NewsGotT', 'B', 12);
 		$MiPDF->SetTextColor(255, 255, 255);
 		$MiPDF->SetFillColor(61, 61, 61);
 		
-		$MiPDF->Row(array('Nº', 'Alumno/a', 'Asignaturas'), 0, 6);	
+		$MiPDF->Row(array( ' Alumno/a', 'Asignaturas'), 0, 6);	
 		
-		$result = mysqli_query($db_con, "SELECT DISTINCT alma.claveal, FALUMNOS.NC, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, matriculas FROM alma, pendientes, FALUMNOS WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal ORDER BY alumno ASC");
+		$result = mysqli_query($db_con, "SELECT DISTINCT alma.claveal, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, matriculas FROM alma, pendientes WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal ORDER BY alumno ASC");
 		
 		$MiPDF->SetTextColor(0, 0, 0);
 		$MiPDF->SetFont('NewsGotT', '', 12);
@@ -87,7 +87,7 @@ if ($_POST['pdf']==1) {
 			
 			$observaciones = ($row['matriculas']>1) ? ' (Rep.)' : '';
 			
-			$MiPDF->Row(array($row['NC'], $row['alumno'].$observaciones, $asigpend), 1, 6);
+			$MiPDF->Row(array(' '.$row['alumno'].$observaciones, $asigpend), 1, 6);
 		}
 		
 		mysqli_free_result($result);
@@ -133,9 +133,9 @@ Parece que estás intentando ver la lista de asignaturas pendientes de los alumn
 </div></div><br />';
 		}
 		else{	
-echo "<table class='table table-striped' align='center'><thead><th></th><th>Alumno</th><th>Pendientes</th></thead><tbody>";
+echo "<table class='table table-striped' align='center'><thead><th>Alumno</th><th>Pendientes</th></thead><tbody>";
 $val_nivel=substr($valor,0,1);
-$pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc, matriculas from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
+$pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, matriculas from pendientes, alma where pendientes.claveal=alma.claveal and alma.unidad = '$valor' order by apellidos, nombre");
 $n1="";
 while ($pendi = mysqli_fetch_array($pend)) {
 	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
@@ -147,7 +147,7 @@ while ($pendi = mysqli_fetch_array($pend)) {
 		else{
 			$rep='';
 		}
-	echo "<tr><td>$pendi[3]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2] </a><span class='text-warning'>$rep</span></td><td>";
+	echo "<tr><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2] </a><span class='text-warning'>$rep</span></td><td>";
 		$sql = "SELECT alma.claveal, apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso
 FROM alma,  pendientes , asignaturas
 WHERE alma.claveal='".$pendi[0]."' and alma.claveal = pendientes.claveal

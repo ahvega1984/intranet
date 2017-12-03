@@ -285,7 +285,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$fal_e =" FALTAS.codasi='$asignat' ";
 		}		
 	
-	$res.=") order by NC";
+	$res.=") order by alma.apellidos, alma.nombre";
 	// echo $res;
 	$result = mysqli_query($db_con, $res);
 	if ($result) {
@@ -353,7 +353,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 					echo "<td style='vertical-align:middle'>
 				<label for='falta_".$row[1]."_".$curso."' style='display:block;'>
-					<span class='label label-info'>$row[1]</span>
+					<span class='label label-info'>$n</span>
 					&nbsp;&nbsp;$row[2], $row[3]
 				";
 					if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}

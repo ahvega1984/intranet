@@ -67,14 +67,14 @@ if ($_POST['pdf'] == 1) {
 		
 		// INFORME
 		
-		$MiPDF->SetWidths(array(20, 10, 90, 30, 105));
+		$MiPDF->SetWidths(array(20, 90, 30, 105));
 		$MiPDF->SetFont('NewsGotT', 'B', 12);
 		$MiPDF->SetTextColor(255, 255, 255);
 		$MiPDF->SetFillColor(61, 61, 61);
 		
-		$MiPDF->Row(array('Unidad', 'Nº', 'Alumno/a', 'Asignatura', 'Observaciones'), 0, 6);	
+		$MiPDF->Row(array('Unidad', 'Alumno/a', 'Asignatura', 'Observaciones'), 0, 6);	
 		
-		$result = mysqli_query($db_con, "SELECT DISTINCT alma.unidad, FALUMNOS.NC, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, alma.matriculas, asignaturas.abrev FROM pendientes, asignaturas, alma, FALUMNOS WHERE asignaturas.codigo = pendientes.codigo AND FALUMNOS.claveal=alma.claveal AND alma.claveal = pendientes.claveal AND alma.unidad NOT LIKE '%p-%' AND asignaturas.codigo = '$valor' and alma.unidad not like '1%' AND abrev LIKE  '%\_%' ORDER BY alma.curso, alma.unidad, nc");
+		$result = mysqli_query($db_con, "SELECT DISTINCT alma.unidad, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, alma.matriculas, asignaturas.abrev FROM pendientes, asignaturas, alma WHERE asignaturas.codigo = pendientes.codigo AND alma.claveal = pendientes.claveal AND alma.unidad NOT LIKE '%p-%' AND asignaturas.codigo = '$valor' and alma.unidad not like '1%' AND abrev LIKE  '%\_%' ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre");
 		
 		$MiPDF->SetTextColor(0, 0, 0);
 		$MiPDF->SetFont('NewsGotT', '', 12);
@@ -83,7 +83,7 @@ if ($_POST['pdf'] == 1) {
 		
 			$observaciones = ($row['matriculas']>1) ? 'Repetidor/a' : '';
 			
-			$MiPDF->Row(array($row['unidad'], $row['NC'], $row['alumno'], $row['abrev'], $observaciones), 1, 6);	
+			$MiPDF->Row(array($row['unidad'], $row['alumno'], $row['abrev'], $observaciones), 1, 6);	
 		}
 		
 		mysqli_free_result($result);
@@ -126,7 +126,7 @@ foreach($_POST["select"] as  $valor) {
 	$asignatura = $asignatur[0];
 	$curso = $asignatur[1];
 echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend><hr />';	
-echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
+echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
 //$pend = mysqli_query($db_con, "SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
 //while ($pendi = mysqli_fetch_array($pend)) {
 
@@ -135,15 +135,14 @@ echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE pendientes.codigo='".$pendi[0]."' and alma.claveal = pendientes.claveal and alma.claveal = FALUMNOS.claveal
 AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' and asignaturas.nombre not like 'Ámbito %'  ORDER BY alma.curso, unidad, nc, alma.Apellidos, alma.Nombre";*/
-$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, alma.matriculas,  pendientes.claveal, alma.matriculas
 FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
-AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
 AND alma.unidad NOT LIKE  "%p-%" 
 AND asignaturas.codigo =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
-ORDER BY alma.curso, alma.unidad, nc';
+ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre';
 		//echo $sql."<br><br>";
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 		while ($salida = mysqli_fetch_array($Recordset1)){
@@ -157,7 +156,7 @@ ORDER BY alma.curso, alma.unidad, nc';
 			$rep='';
 		}
 		$n1+=1;	
-		echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td><td>$salida[4] </td></tr>";
+		echo "<tr><td>$salida[2]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td><td>$salida[4] </td></tr>";
 
 		}
 //}
