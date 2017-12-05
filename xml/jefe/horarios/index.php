@@ -536,27 +536,24 @@ include("../../../menu.php");
 					<?php $thoras = ""; ?>
 					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos"); ?>
 					<?php while ($row = mysqli_fetch_array($result_horas)): ?>
-					<?php $thoras[] = $row['hora']; ?>
-					<?php endwhile; ?>
-					
-					<?php foreach($thoras as $thora): ?>
+					<?php $thora = $row['hora']; ?>
 						<tr>
 							<th><?php echo $thora; ?></th>
-							<?php for($i = 1; $i < 6; $i++): ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profesor' AND dia='$i' AND hora='$thora'"); ?>
-							<td width="20%">
-					 			<?php while($row = mysqli_fetch_array($result)): ?>
-					 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
-					 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != ' ' || $row['a_aula'] != ' ') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
-					 			<?php echo (!empty($row['a_grupo'])) ? '<span class="text-warning">'.$row['a_grupo'].'</span>' : ''; ?><br>
-					 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $thora; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
-				 				<?php echo '<hr>'; ?>
-					 			<?php endwhile; ?>
-					 			<?php mysqli_free_result($result); ?>
-					 		</td>
-					 		<?php endfor; ?>
+								<?php for($i = 1; $i < 6; $i++): ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profesor' AND dia='$i' AND hora='$thora'"); ?>
+									<td width="20%">
+						 			<?php while($row = mysqli_fetch_array($result)): ?>
+						 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
+						 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != ' ' || $row['a_aula'] != ' ') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
+						 			<?php echo (!empty($row['a_grupo'])) ? '<span class="text-warning">'.$row['a_grupo'].'</span>' : ''; ?><br>
+						 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $thora; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+					 				<?php echo '<hr>'; ?>
+						 			<?php endwhile; ?>
+						 			<?php mysqli_free_result($result); ?>
+						 		</td>
+					 		<?php endfor; ?>					 	
 					 	</tr>
-					<?php endforeach; ?>
+				 	<?php endwhile; ?>
 					</tbody>
 				</table>
 			</div>
