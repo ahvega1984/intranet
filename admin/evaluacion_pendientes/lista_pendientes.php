@@ -70,7 +70,7 @@ $profe_dep = $_SESSION ['profi'];
 
 echo '<legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';
 echo '<form action="lista_pendientes.php" method="POST">';
-echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
+echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Curso</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
 
 if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
@@ -106,7 +106,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		$rep='';
 	}
 	$n1+=1;
-	echo "<tr><td>".$salida['unidad']."</td><td>".$salida['curso']."</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=".$salida['claveal']."&todos=Ver Informe Completo del Alumno'>".$salida['apellidos'].", ".$salida['nombre']."</a> <span class='text-warning'>$rep</span></td>";
+	echo "<tr><td>".$salida['unidad']."</td><td>".$salida['curso']."</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=".$salida['claveal']."&todos=Ver Informe Completo del Alumno'>".$salida['apellidos'].", ".$salida[1]."</a> <span class='text-warning'>$rep</span></td>";
 	
 	for ($i = 1; $i < 5; $i++) {
 		$nota_evaluacion="";
