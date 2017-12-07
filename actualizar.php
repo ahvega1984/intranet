@@ -138,3 +138,17 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado archivo config.php de Trendoo', NOW())");
 }
+
+/*
+	@descripcion: Nuevo campo en tabla reg_principal
+	@fecha: 7 de diciembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo campo en tabla reg_principal'");
+if (! mysqli_num_rows($actua)) {
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_principal WHERE Field = 'tutorlegal'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `reg_principal` ADD `tutorlegal` VARCHAR(255) NULL");
+		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla reg_principal', NOW())");
+	}
+}
