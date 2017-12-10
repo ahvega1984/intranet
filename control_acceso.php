@@ -227,7 +227,7 @@ if ($config['mod_notificaciones']) {
 	// INFORMES DE ABSENTISMO A PUNTO DE CUMPLIR
 	$mas = "";
 
-	$semana_despues = date_sub('$hoy', interval 7 day);
+	$semana_despues = date_sub('$hoy', 'interval 7 day');
 	$siete_dias = "AND date(fecha_registro) = '$semana_despues'";
 	//echo $tres_dias;
 

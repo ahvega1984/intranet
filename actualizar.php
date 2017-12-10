@@ -166,4 +166,3 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla Absentismo', NOW())");
 	}
 }
-;
