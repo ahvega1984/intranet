@@ -18,6 +18,7 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
 <div class="col-sm-6 col-sm-offset-3">
 
 <?php
+$hoy = date('Y-m-d');
 if (isset($_POST['submit'])) {
 	          if($mes=='Septiembre'){$n_mes='09';}
                     if($mes=='Octubre'){$n_mes='10';}
@@ -44,7 +45,7 @@ $curso=$trozos[2];
  	if (mysqli_num_rows($insert0)>0) {}
  	else {
  		if (is_numeric($claveal)) {
-  	 	$abs = mysqli_query($db_con, "insert into absentismo (  claveal ,  mes ,  numero ,  unidad )  VALUES (  '$claveal', '$n_mes', '$n_faltas', '$curso' )");	
+  	 	$abs = mysqli_query($db_con, "insert into absentismo (  claveal ,  mes ,  numero ,  unidad ,  fecha_registro )  VALUES (  '$claveal', '$n_mes', '$n_faltas', '$curso', '$hoy' )");	
 		
  		}
  	}

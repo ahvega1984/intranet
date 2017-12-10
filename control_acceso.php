@@ -79,22 +79,22 @@ if ($config['mod_notificaciones']) {
 		}	
 		
 		
-		if ($fiesta != 1) {
-		
-		// Mensajes sin leer de los profesores 
-		
-		mysqli_query($db_con,"CREATE TABLE mens_temp SELECT * FROM mens_profes WHERE recibidoprofe='0' AND profesor IN (SELECT idea FROM departamentos) LIMIT 3000");
-		
-		$result = mysqli_query($db_con, "SELECT DISTINCT idea FROM departamentos ORDER BY idea");
-											
-			while ($row = mysqli_fetch_array($result)) {
-			$profe_mens = $row[0];	
-			$result2 = mysqli_query($db_con, "SELECT * FROM mens_temp WHERE profesor = '$profe_mens' AND recibidoprofe='0'");
-					
-				$sin_leer = mysqli_num_rows($result2);
-				if ($sin_leer > 25) {
-					$num++;
-					mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$profe_mens', '$hoy', '2', '$sin_leer')");	
+	if ($fiesta != 1) {
+	
+	// Mensajes sin leer de los profesores 
+	
+	mysqli_query($db_con,"CREATE TABLE mens_temp SELECT * FROM mens_profes WHERE recibidoprofe='0' AND profesor IN (SELECT idea FROM departamentos) LIMIT 3000");
+	
+	$result = mysqli_query($db_con, "SELECT DISTINCT idea FROM departamentos ORDER BY idea");
+										
+		while ($row = mysqli_fetch_array($result)) {
+		$profe_mens = $row[0];	
+		$result2 = mysqli_query($db_con, "SELECT * FROM mens_temp WHERE profesor = '$profe_mens' AND recibidoprofe='0'");
+				
+			$sin_leer = mysqli_num_rows($result2);
+			if ($sin_leer > 25) {
+				$num++;
+				mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$profe_mens', '$hoy', '2', '$sin_leer')");	
 				}
 			}
 		}	
@@ -221,9 +221,39 @@ if ($config['mod_notificaciones']) {
 			}
 		}
 	}
+
+
+
+	// INFORMES DE ABSENTISMO A PUNTO DE CUMPLIR
+	$mas = "";
+
+	$semana_despues = date_sub('$hoy', interval 7 day);
+	$siete_dias = "AND date(fecha_registro) = '$semana_despues'";
+	//echo $tres_dias;
+
+	if (strstr($_SESSION['cargo'],'2')==TRUE) {
+	$tutor=mysqli_query($db_con, "select unidad from FTUTORES where tutor='".$_SESSION['profi']."'");
+	$d_tutor=mysqli_fetch_array($tutor);
+	$mas=" and absentismo.unidad='$d_tutor[0]' and tutoria IS NULL ".$tres_dias;
+	}
+
+	if (strstr($_SESSION['cargo'],'8')==TRUE) {
+		$mas=" and orientacion IS NULL ".$tres_dias;
+	}
+
+	if (strstr($_SESSION['cargo'],'2')==TRUE or strstr($_SESSION['cargo'],'8')==TRUE) {
+		$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad";
+			// echo $SQL0; 
+
+			$result0 = mysqli_query($db_con, $SQL0);
+			if (mysqli_num_rows($result0) > 0)
+			{
+				$num++;
+						mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$idea','$hoy','5','$id')");
+			}
+		}
 	
-	
-	
+		
 	// ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES
 
 	$pr_sms = mysqli_query($db_con,"SELECT DISTINCT profesor FROM acceso WHERE DATE( fecha ) =  '$hoy' and profesor not in (select idea from ausencias, departamentos where nombre=profesor and date(inicio)<='$hoy' and date(fin)>='$hoy')");
@@ -247,7 +277,8 @@ if ($config['mod_notificaciones']) {
 		$text_2 = " tienes mas de 25 mensajes pendientes de lectura;";
 		$text_3 = " tienes que presentar hoy Informes de Tareas;";
 		$text_4 = " tienes que presentar hoy Informes de Tutoría.";
-		$text_5 = " ".$config['centro_denominacion'];
+		$text_5 = " hoy es la fecha límite para presentar los Informes de Absentismo de tus Alumnos.";
+		$text_6 = " ".$config['centro_denominacion'];
 	
 		$texto = $text_0;
 	
@@ -255,8 +286,9 @@ if ($config['mod_notificaciones']) {
 		if (strstr($clase,"2")==TRUE) { $texto.= $text_2; }
 		if (strstr($clase,"3")==TRUE) { $texto.= $text_3; }
 		if (strstr($clase,"4")==TRUE) { $texto.= $text_4; }
+		if (strstr($clase,"5")==TRUE) { $texto.= $text_4; }
 	
-		$texto.= $text_5;
+		$texto.= $text_6;
 	
 		$texto_ies = "; ".substr($config['centro_denominacion'],0,4);
 		$nombre_ies = ". ".substr($config['centro_denominacion'],0,4);

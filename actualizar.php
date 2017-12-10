@@ -152,3 +152,18 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla reg_principal', NOW())");
 	}
 }
+
+/*
+	@descripcion: Nuevo campo en tabla Absentismo
+	@fecha: 10 de diciembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo campo en tabla Absentismo'");
+if (! mysqli_num_rows($actua)) {
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM absentismo WHERE Field = 'fecha_registro'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `absentismo` ADD `fecha_registro` DATE NOT NULL AFTER `serv_sociales`");
+		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla Absentismo', NOW())");
+	}
+}
+;
