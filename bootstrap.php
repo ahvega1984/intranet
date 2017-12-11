@@ -71,7 +71,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		}
 	}
 	else {
-	
+		
 		if ((stristr($_SESSION['cargo'],'1') != TRUE) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
 			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
 				header('Location:'.'https://'.$config['dominio'].'/intranet/mantenimiento.php');
@@ -97,6 +97,8 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 			}
 		}
 	}
+
+	session_regenerate_id();
 	
 	// REGISTRAMOS EL ACCESO A LA PAGINA
 	registraPagina($db_con, $_SERVER['REQUEST_URI']);
