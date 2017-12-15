@@ -82,6 +82,7 @@ if (!$claveal) {
 		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente from alma where alma.claveal= '$claveal'"); ?>
 		
 		<?php if ($row = mysqli_fetch_array($result)): 
+		$nivel_alumno = $row['curso'];
 		$tut = mysqli_query($db_con,"SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."'");
 		$tuto = mysqli_fetch_array($tut);
 		$tr_tutor = explode(", ",$tuto['tutor']);
@@ -189,7 +190,7 @@ if (!$claveal) {
 				<ul class="nav nav-tabs nav-justified" role="tablist">
 					<?php if (!($faltas == "" && $todos == "") && $config['mod_asistencia']): ?>
 					<?php $tab1 = 1; ?>
-				  <li <?php echo ($tab1) ? 'class="active"' : ''; ?>><a href="#asistencia" role="tab" data-toggle="tab">Faltas de asistencia</a></li>
+				  <li <?php echo ($tab1) ? 'class="active"' : ''; ?>><a href="#asistencia" role="tab" data-toggle="tab">Asistencia</a></li>
 				  <?php endif; ?>
 				  <?php if (!($fechorias == "" && $todos == "")): ?>
 				  <?php if(!isset($tab1)) $tab2 = 1; ?>
@@ -201,17 +202,40 @@ if (!$claveal) {
 				  <?php endif; ?>
 				  <?php if (!($tutoria == "" && $todos == "")): ?>
 				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3)) $tab4 = 1; ?>
-				  <li <?php echo ($tab4) ? 'class="active"' : ''; ?>><a href="#tutoria" role="tab" data-toggle="tab">Informes de tutoría</a></li>
+				  <li <?php echo ($tab4) ? 'class="active"' : ''; ?>><a href="#tutoria" role="tab" data-toggle="tab">Tutoría</a></li>
 				  <?php endif; ?>
 				  <?php if (!($horarios == "" && $todos == "")): ?>
 				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3) && !isset($tab4)) $tab5 = 1; ?>
-				  <li <?php echo ($tab5) ? 'class="active"' : ''; ?>><a href="#horario" role="tab" data-toggle="tab">Horario y profesores</a></li>
+				  <li <?php echo ($tab5) ? 'class="active"' : ''; ?>><a href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 				  <?php endif; ?>
 				  <?php if (!($act_tutoria == "" && $todos == "")): ?>
 				  <?php if(acl_permiso($_SESSION['cargo'], array(1)) || (acl_permiso($_SESSION['cargo'], array(2)) && $esTutor)): ?>
 				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3) && !isset($tab4) && !isset($tab5)) $tab6 = 1; ?>
 				  <li <?php echo ($tab6) ? 'class="active"' : ''; ?>><a href="#intervenciones" role="tab" data-toggle="tab">Intervenciones</a></li>
 				  <?php endif; ?>
+				  <?php endif; ?>
+
+				  <?php if ($config['mod_matriculacion']==1): ?>
+
+
+				  <?php 
+				  	if (stristr($nivel_alumno, "E.S.O.")==TRUE) {
+				  		$tabla_matriculas = "matriculas";
+				  	}
+				  	else{
+				  		$tabla_matriculas = "matriculas_bach";
+				  	}
+				  	$mtr = mysqli_query($db_con,"select id from $tabla_matriculas where claveal = '$claveal'");
+				  	if (mysqli_num_rows($mtr)>0){
+				  	$id_mtr = mysqli_fetch_array($mtr);
+				  	?>
+				  	<li><a href="../matriculas/matriculas.php?id=<?php echo $id_mtr[0]; ?>" target="_blank">Matrícula</a></li>
+				  	<?php } ?>
+
+
+
+
+				  
 				  <?php endif; ?>
 				</ul>
 				
