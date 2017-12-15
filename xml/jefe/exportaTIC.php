@@ -210,7 +210,6 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 
 	$array_correos = array();
 
-	// Perfil profesor, excepto Administración y Conserjería
 	if ($_GET['exportar'] == $gsuite_profesores) {
 		if (!$fp = fopen($directorio.$gsuite_profesores, 'w+')) {
 			die ("Error: No se puede crear o abrir el archivo ".$directorio.$gsuite_profesores);
@@ -219,8 +218,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 			// Cabecera del archivo
 			fwrite($fp, "First Name,Last Name,Email Address,Password,Secondary Email,Work Phone 1,Home Phone 1,Mobile Phone 1,Work address 1,Home address 1,Employee Id,Employee Type,Employee Title,Manager,Department,Cost Center\r\n");
 			
-			// Perfil profesor: Todos los profesores excepto equipo directivo
-			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' AND d.departamento <> 'Educador' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
 				$exp_nombre = explode(', ', $row['nombre']);
 
@@ -285,6 +283,89 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				readfile($directorio.$gsuite_profesores);
 			}
 				unlink($directorio.$gsuite_profesores);
+		}
+	}
+
+	// OFFICE 365
+	$office365_profesores	= 'profesores_office365.csv';
+
+	if (file_exists($directorio.$office365_profesores)) unlink($directorio.$office365_profesores);
+
+	$array_correos = array();
+
+	if ($_GET['exportar'] == $office365_profesores) {
+		if (!$fp = fopen($directorio.$office365_profesores, 'w+')) {
+			die ("Error: No se puede crear o abrir el archivo ".$directorio.$office365_profesores);
+		}
+		else {
+			// Cabecera del archivo
+			fwrite($fp, utf8_decode("Nombre de usuario,Nombre,Apellidos,Nombre para mostrar,Puesto,Departamento,Número del trabajo,Teléfono del trabajo,Teléfono móvil,Número de fax,Dirección,Ciudad,Estado o provincia,Código postal,País o región\r\n"));
+			
+			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+			while ($row = mysqli_fetch_array($result)) {
+				$exp_nombre = explode(', ', $row['nombre']);
+
+				$nombre = trim($exp_nombre[1]);
+				$exp_nombrecomp = explode(' ',$nombre);
+				$primer_nombre = trim($exp_nombrecomp[0]);
+
+				$apellidos = trim($exp_nombre[0]);
+				$exp_apellidos = explode(' ',$apellidos);
+				$primer_apellido = trim($exp_apellidos[0]);
+				$segundo_apellido = trim($exp_apellidos[1]);
+
+				$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
+
+				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
+				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');			
+
+				$correo = $primer_nombre.$primer_apellido;
+				$correo = str_ireplace('M ª', 'María', $correo);
+				$correo = str_ireplace('Mª', 'María', $correo);
+				$correo = str_ireplace('M.', 'María', $correo);
+				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+				$correo = mb_strtolower($correo, 'UTF-8');
+				$correo = $correo.'@'.$config['dominio'];
+
+				// Si ya existe la cuenta de correo, añadimos el segundo apellido
+				if (in_array($correo, $array_correos)) {
+					$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
+					$correo = str_ireplace('M ª', 'María', $correo);
+					$correo = str_ireplace('Mª', 'María', $correo);
+					$correo = str_ireplace('M.', 'María', $correo);
+					$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+					$correo = mb_strtolower($correo, 'UTF-8');
+					$correo = $correo.'@'.$config['dominio'];
+				}
+
+				array_push($array_correos, $correo);
+
+				fwrite($fp, $correo.",".utf8_decode($nombre).",".utf8_decode($apellidos).",".utf8_decode($nombre_completo)."\r\n");
+			}
+
+			fclose($fp);
+
+			if (is_file($directorio.$office365_profesores)) {
+				$size = filesize($directorio.$office365_profesores);
+				if (function_exists('mime_content_type')) {
+					$type = mime_content_type($directorio.$office365_profesores);
+				} else if (function_exists('finfo_file')) {
+					$info = finfo_open(FILEINFO_MIME);
+					$type = finfo_file($info, $directorio.$office365_profesores);
+					finfo_close($info);  
+				}
+				if ($type == '') {
+					$type = "application/force-download";
+				}
+				// Set Headers
+				header("Content-Type: $type");
+				header("Content-Disposition: attachment; filename=$office365_profesores");
+				header("Content-Transfer-Encoding: binary");
+				header("Content-Length: " . $size);
+				// Download File
+				readfile($directorio.$office365_profesores);
+			}
+				unlink($directorio.$office365_profesores);
 		}
 	}
 
