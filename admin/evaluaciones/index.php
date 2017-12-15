@@ -13,16 +13,23 @@ if (isset($_POST['evaluacion']) && !empty($_POST['evaluacion'])) $evaluacion = $
 
 $esTutorUnidad = 0;
 if (stristr($_SESSION['cargo'],'2') == true) {
-	
+
 	// COMPROBAMOS SI ES UN PMAR
 	$esPMAR = (stristr($curso, ' (PMAR)') == true) ? 1 : 0;
 	if ($esPMAR) {
-		$curso = str_ireplace(' (PMAR)', '', $curso);
+		$curso_pmar = str_ireplace(' (PMAR)', '', $curso);
+
+		if (isset($curso) && $curso_pmar == $_SESSION['mod_tutoria']['unidad']) {
+			$esTutorUnidad = 1;
+		}
+	}
+	else {
+		if (isset($curso) && $curso == $_SESSION['mod_tutoria']['unidad']) {
+			$esTutorUnidad = 1;
+		}
 	}
 
-	if (isset($curso) && $curso == $_SESSION['mod_tutoria']['unidad']) {
-		$esTutorUnidad = 1;
-	}
+	
 	
 }
 
