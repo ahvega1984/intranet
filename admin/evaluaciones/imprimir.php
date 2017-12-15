@@ -25,14 +25,22 @@ if (!$id) {
 
 require_once("../../pdf/dompdf_config.inc.php"); 
 
-// REGISTRAMOS LA ACCION
-mysqli_query($db_con, "UPDATE evaluaciones_actas SET impresion = 1 WHERE id = ".$id);
-
 // OBTENEMOS LOS DATOS DEL ACTA
 $result = mysqli_query($db_con, "SELECT unidad, evaluacion, fecha, texto_acta, asistentes FROM evaluaciones_actas WHERE id = ".$id);
 
 if (mysqli_num_rows($result)) {
 	$row = mysqli_fetch_array($result);
+
+	// OBTENEMOS EL TUTOR DEL GRUPO
+	$result_tutor = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."' LIMIT 1");
+	$row_tutor = mysqli_fetch_array($result_tutor);
+	$tutor = nomprofesor($row_tutor['tutor']);
+
+	// SOLO EQUIPO EDUCATIVO O EL TUTOR DE LA UNIDAD PUEDE BLOQUEAR LA EDICIÓN
+	if (stristr($_SESSION['cargo'],'1') == true || (stristr($_SESSION['cargo'],'2') == true && $tutor == $pr)) {
+		// REGISTRAMOS LA ACCION
+		mysqli_query($db_con, "UPDATE evaluaciones_actas SET impresion = 1 WHERE id = ".$id);
+	}
 
 	// COMPROBAMOS SI ES UN PMAR
 	$esPMAR = (stristr($row['unidad'], ' (PMAR)') == true) ? 1 : 0;
@@ -44,11 +52,6 @@ if (mysqli_num_rows($result)) {
 	$result_curso = mysqli_query($db_con, "SELECT cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE unidades.nomunidad = '".$row['unidad']."'");
 	$row_curso = mysqli_fetch_array($result_curso);
 	$curso = $row_curso['nomcurso'];
-
-	// OBTENEMOS EL TUTOR DEL GRUPO
-	$result_tutor = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."' LIMIT 1");
-	$row_tutor = mysqli_fetch_array($result_tutor);
-	$tutor = nomprofesor($row_tutor['tutor']);
 
 	$unidad = ($esPMAR) ? $row['unidad'].' (PMAR)' : $row['unidad'];
 	$evaluacion = $row['evaluacion'];
