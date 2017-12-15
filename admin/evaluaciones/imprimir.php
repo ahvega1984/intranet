@@ -13,10 +13,6 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false)) {
-	die ("<h1>FORBIDDEN</h1>");
-}
-
 if (isset($_GET['id'])) $id = $_GET['id'];
 
 if (!$id) {
@@ -36,9 +32,9 @@ if (mysqli_num_rows($result)) {
 	$row_tutor = mysqli_fetch_array($result_tutor);
 	$tutor = nomprofesor($row_tutor['tutor']);
 
-	// SOLO EQUIPO EDUCATIVO O EL TUTOR DE LA UNIDAD PUEDE BLOQUEAR LA EDICIÓN
+	// SOLO EQUIPO DIRECTIVO O EL TUTOR DE LA UNIDAD PUEDE BLOQUEAR LA EDICIÓN
 	if (stristr($_SESSION['cargo'],'1') == true || (stristr($_SESSION['cargo'],'2') == true && $tutor == $pr)) {
-		// REGISTRAMOS LA ACCION
+		// BLOQUEAMOS LA EDICIÓN
 		mysqli_query($db_con, "UPDATE evaluaciones_actas SET impresion = 1 WHERE id = ".$id);
 	}
 
