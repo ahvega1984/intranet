@@ -166,3 +166,24 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla Absentismo', NOW())");
 	}
 }
+
+
+/*
+	@descripcion: Registro de agente de usuario en tabla reg_principal e reg_intranet
+	@fecha: 16 de diciembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Registro agente de usuario'");
+if (! mysqli_num_rows($actua)) {
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_principal WHERE Field = 'useragent'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `reg_principal` ADD `useragent` VARCHAR(255) NULL");
+	}
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_intranet WHERE Field = 'useragent'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `reg_intranet` ADD `useragent` VARCHAR(255) NULL");
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Registro agente de usuario', NOW())");
+}

@@ -39,11 +39,18 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		if ($codigo == $clave) {
 			$_SESSION['autentificado'] = 1;
 
-			// Se usa la Página pública para el acceso de los alumnos
-			$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/datos.php' or pagina='/alumnado/login.php' ORDER BY accesos DESC limit 5");				
-			if (mysqli_num_rows($query_accesos)>0) {	
+			// COMPROBAMOS SI SE HA INSTALADO LA PLATAFORMA WEBCENTROS
+			// Versión en otros centros educativos
+			if (file_exists('../alumnado/login.php')) {
 				$_SESSION['pagina_centro'] = 1;
-			}			
+			}
+			// Versión IES Monterroso
+			elseif (file_exists('/home/e-smith/files/ibays/Primary/html/notas/control.php')) {
+				$_SESSION['pagina_centro'] = 1;
+			}
+			else {
+				$_SESSION['pagina_centro'] = 0;
+			}		
 
 			$_SESSION['profi'] = $pass1[1];
 			$profe = $_SESSION['profi'];
@@ -86,10 +93,12 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			}
 
 			// Registramos la entrada en la Intranet
-			mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','" . $_SERVER ['REMOTE_ADDR'] . "')");
-			$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '".$_SESSION['ide']."' order by id desc limit 1" );
+			$direccionIP = getRealIP();
+			$useragent = $_SERVER['HTTP_USER_AGENT'];
+			mysqli_query($db_con, "INSERT INTO reg_intranet (profesor, fecha, ip, useragent) VALUES ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','".$direccionIP."', '".$useragent."')");
+			$id_reg = mysqli_query($db_con, "SELECT id FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' ORDER BY id DESC LIMIT 1" );
 			$id_reg0 = mysqli_fetch_array ( $id_reg );
-			$_SESSION['id_pag'] = $id_reg0 [0];
+			$_SESSION['id_pag'] = $id_reg0[0];
 
 			unset($_SESSION['intentos']);
 

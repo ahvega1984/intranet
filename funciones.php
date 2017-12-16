@@ -2,6 +2,16 @@
 
 $GLOBALS['db_con'] = $db_con;
 
+function getRealIP() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP']))
+        return $_SERVER['HTTP_CLIENT_IP'];
+        
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    
+    return $_SERVER['REMOTE_ADDR'];
+}
+
 function registraPagina($db_link, $pagina)
 {
 	$pagina = str_ireplace("/intranet/","",$pagina);
