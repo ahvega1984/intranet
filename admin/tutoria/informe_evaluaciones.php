@@ -181,6 +181,12 @@ include("menu.php");
 <h3><?php echo $evaluacion; ?> de <?php echo $curso; ?></h3>
 </div>
 
+<script language="javascript">
+function otra_ventana(direccion) { 
+var caracteristicas=""; win=window.open(direccion ,"ventana1",caracteristicas);
+}
+</script>
+
 <form method="post" action="" class="form-inline">
 
 <input type="hidden" name="unidad" value="<?php echo $curso; ?>"> 
@@ -212,9 +218,9 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 		</tr>
 	</thead>
 	<tbody>
-	<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, FALUMNOS.nc, fecha, edad FROM alma, FALUMNOS WHERE alma.claveal=FALUMNOS.claveal and FALUMNOS.unidad='$curso' order by nc"); 
+	<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, fecha, edad FROM alma WHERE alma.unidad='$curso' order by apellidos, nombre"); 
 	?>
-	<?php while ($row = mysqli_fetch_array($result)): $claveal = $row['claveal'];?>
+	<?php while ($row = mysqli_fetch_array($result)): $claveal = $row['claveal']; $nc++;?>
 		<tr>
 		<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
 		<?php if (file_exists($foto)): ?>
@@ -230,15 +236,16 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 				<?php 
 				$result_transito = mysqli_query($db_con, "SELECT * FROM transito_datos where claveal='".$claveal."'");
 				?>
-				<a href="../informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo" target="_blank"><?php echo $row['nc'].". ".$row['apellidos'].', '.$row['nombre']; ?></a>
+				<p class="text-info" onclick="javascript:otra_ventana('../informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo')" style="cursor:pointer;"><?php echo $nc.". ".$row['apellidos'].', '.$row['nombre']; ?>
 				<?php				
 				if (mysqli_num_rows($result_transito)>0) {
 				?>
-				<br>
-				<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" target="_blank" class="fa fa-user fa-lg text-info" data-bs="tooltip" data-html="true" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"></a>
+				&nbsp;&nbsp;
+				<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" target="_blank" class="fa fa-address-card-o fa-lg text-info hidden-print center-blockt" data-bs="tooltip" data-html="true" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"></a>
 				<?php
 				}
-				?>				
+				?>	
+				</p>			
 			</td>
 			
 			<td><?php echo $row['fecha'].'<br><span class="text-success">('.$row['edad'].')</span>'; ?></td>
