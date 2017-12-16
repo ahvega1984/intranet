@@ -463,3 +463,9 @@ html, body {
 footer {
   color: #b4bcc2;
 }
+
+@media print {
+  a[href]::after {
+    content: none !important;
+  }
+}
