@@ -7,7 +7,7 @@ if (file_exists('config.php')) {
 
 acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
-// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
+// COMPROBAMOS SI ES EL TUTOR, SI NO ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
 	
 	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
@@ -181,24 +181,17 @@ include("menu.php");
 <h3><?php echo $evaluacion; ?> de <?php echo $curso; ?></h3>
 </div>
 
-<script language="javascript">
-function otra_ventana(direccion) { 
-var caracteristicas=""; win=window.open(direccion ,"ventana1",caracteristicas);
-}
-</script>
-
 <form method="post" action="" class="form-inline">
 
 <input type="hidden" name="unidad" value="<?php echo $curso; ?>"> 
 <input type="hidden" name="evaluacion" value="<?php echo $evaluacion; ?>">
 <div class="table-responsive">
 <table
-	class="table table-bordered table-striped table-hover table-vcentered" align="center" style="width:auto">
+	class="table table-bordered table-condensed table-striped table-hover table-vcentered" align="center" style="width:auto">
 	<thead>
 		<tr>
 			<th style="width:25px"></th>
 			<th >Alumno/a</th>
-			<th >Fecha</th>
 			<th >Rep.</th>
 			<th >PIL</th>
 <?php
@@ -222,33 +215,27 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 	?>
 	<?php while ($row = mysqli_fetch_array($result)): $claveal = $row['claveal']; $nc++;?>
 		<tr>
-		<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
-		<?php if (file_exists($foto)): ?>
-			<td class="text-center"><img 
-				src="<?php echo $foto; ?>"
-				alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>"
-				width="54"></td>
-				<?php else: ?>
-			<td class="text-center"><span class="fa fa-user fa-fw fa-3x"></span></td>
+			<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
+			<?php if (file_exists($foto)): ?>
+			<td class="text-center">
+				<img src="<?php echo $foto; ?>" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" width="48">
+			</td>
+			<?php else: ?>
+			<td class="text-center">
+				<span class="fa fa-user fa-fw fa-3x"></span>
+			</td>
 			<?php endif; ?>
-					
 			<td>
-				<?php 
-				$result_transito = mysqli_query($db_con, "SELECT * FROM transito_datos where claveal='".$claveal."'");
-				?>
-				<p class="text-info" onclick="javascript:otra_ventana('../informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo')" style="cursor:pointer;"><?php echo $nc.". ".$row['apellidos'].', '.$row['nombre']; ?>
-				<?php				
-				if (mysqli_num_rows($result_transito)>0) {
-				?>
-				&nbsp;&nbsp;
-				<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" target="_blank" class="fa fa-address-card-o fa-lg text-info hidden-print center-blockt" data-bs="tooltip" data-html="true" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"></a>
-				<?php
-				}
-				?>	
-				</p>			
+				<?php $result_transito = mysqli_query($db_con, "SELECT * FROM transito_datos where claveal='".$claveal."'"); ?>
+				<a href="../informes/index.php?claveal=<?php echo $claveal;?>&todos=Ver%20Informe%20Completo" target="_blank"><?php echo $nc.". ".$row['apellidos'].', '.$row['nombre']; ?></a>
+				<p><small><?php echo $row['fecha'].' ('.$row['edad'].' años)'; ?></small></p>
+				<?php if (mysqli_num_rows($result_transito) == 0): ?>
+				<div class="hidden-print">
+					<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" class="btn btn-info btn-xs" target="_blank" data-bs="tooltip" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"><span class="fa fa-address-card-o fa-fw fa-lg"></span></a>
+				</div>
+				<?php endif; ?>
 			</td>
 			
-			<td><?php echo $row['fecha'].'<br><span class="text-success">('.$row['edad'].')</span>'; ?></td>
 			
 			<td>			
 <?php
