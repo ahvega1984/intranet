@@ -241,7 +241,7 @@ include("cuaderno/menu_cuaderno.php");
 						}
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
-					$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
+					$resul = "select distinctrow alma.CLAVEAL, FALUMNOS.NC, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
 
@@ -268,7 +268,7 @@ include("cuaderno/menu_cuaderno.php");
 					else{
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
-					$resul.=") ". $todos ." order by NC ASC";
+					$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
 					//echo $resul;
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
@@ -519,7 +519,7 @@ include("cuaderno/menu_cuaderno.php");
 						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
-						$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
+						$resul = "select distinctrow alma.CLAVEAL, FALUMNOS.NC, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 						//Alumnos de 2º de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
 							$cod_asig_bach2="";
@@ -545,7 +545,7 @@ include("cuaderno/menu_cuaderno.php");
 							$fal_e =" FALTAS.codasi='$asignatura' ";
 						}
 						$fal_e="($fal_e)";
-						$resul.=") ". $todos ." order by NC ASC";
+						$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
 						//echo $resul;
 						$result = mysqli_query($db_con, $resul);
 						while($row = mysqli_fetch_array($result))
