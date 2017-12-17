@@ -311,7 +311,7 @@ include("cuaderno/menu_cuaderno.php");
 																			
 						}
 						echo $foto1;
-						echo "&nbsp;".$row[1];?>&nbsp; <?php
+						echo "&nbsp;";?>&nbsp; <?php
 						echo $nombre_completo;?></a></td>
 				</tr>
 				<?php
