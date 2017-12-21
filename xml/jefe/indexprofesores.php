@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 exit;	
 }
 
@@ -16,13 +16,13 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Importación de profesores</small></h2>
+		<h2>Administraciï¿½n <small>Importaciï¿½n de profesores</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM profesores LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe información en la base de datos. Este proceso actualizará la información de los profesores. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
+		Ya existe informaciï¿½n en la base de datos. Este proceso actualizarï¿½ la informaciï¿½n de los profesores. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importaciï¿½n de los datos.
 	</div>
 	<?php endif; ?>
 	
@@ -36,7 +36,7 @@ include("../../menu.php");
 				
 				<form enctype="multipart/form-data" method="post" action="profesores.php">
 					<fieldset>
-						<legend>Importación de profesores</legend>
+						<legend>Importaciï¿½n de profesores</legend>
 						
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">RelMatProUni.txt</span></label>
@@ -57,11 +57,11 @@ include("../../menu.php");
 		
 		<div class="col-sm-6">
 			
-			<h3>Información sobre la importación</h3>
+			<h3>Informaciï¿½n sobre la importaciï¿½n</h3>
 			
-			<p>Este apartado se encarga de importar la relación de <strong>profesores, aulas y asignaturas</strong> que imparten. Esto permitirá comprobar incoherencias en el horario de Horw y Séneca.</p>
+			<p>Este apartado se encarga de importar la relaciï¿½n de <strong>profesores, aulas y asignaturas</strong> que imparten. Esto permitirï¿½ comprobar incoherencias en el horario de Horw y Sï¿½neca.</p>
 			
-			<p>Para obtener el archivo de exportación de alumnos debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
+			<p>Para obtener el archivo de exportaciï¿½n de alumnos debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el botï¿½n <strong>Exportar datos</strong>. El formato de exportaciï¿½n debe ser <strong>Texto plano</strong>.</p>
 
 		</div>
 		

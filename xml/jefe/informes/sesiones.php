@@ -3,6 +3,10 @@ require('../../../bootstrap.php');
 
 error_reporting(E_ALL);
 
+function isPrivateIP($ip){
+    return !filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE);
+}
+
 function getBrowser($u_agent) {
     if (empty($u_agent)) {
         $u_agent = 'Agente de usuario no detectado';
@@ -236,8 +240,12 @@ include("../../../menu.php");
                                 break;
                         }
                         ?>
+                        <?php if (! isPrivateIP($row['ip'])): ?>
                         <?php $meta_geoip = @unserialize(file_get_contents('http://ip-api.com/php/'.$row['ip'])); ?>
                         <?php $geoip = (isset($meta_geoip['city']) && $meta_geoip['country']) ? ltrim($meta_geoip['city'].', '.$meta_geoip['country'], ', ') : 'Localización desconocida'; ?>
+                        <?php else: ?>
+                        <?php $geoip = $config['centro_localidad'].', '.'Spain'; ?>
+                        <?php endif; ?>
                         <tr>
                             <td>
                                 <div class="col-xs-2 col-md-1 text-center float-left">
@@ -310,7 +318,7 @@ include("../../../menu.php");
                                                             echo '<li>Redacción de respuesta a un mensaje</li>';
                                                         } 
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/redactar.php') == true) {
-                                                            echo '<li>Redacción un mensaje</li>';
+                                                            echo '<li>Redacción de nuevo mensaje</li>';
                                                         }
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/') == true) {
                                                             echo '<li>Consulta de los mensajes recibidos</li>';
@@ -635,7 +643,11 @@ include("../../../menu.php");
 
                                     <h5><strong><?php echo $u_agent['platform'].' '.$u_agent['platform_version']; ?> &middot; <?php echo $geoip; ?></strong></h5>
                                     <p class="text-muted"><small><?php echo $u_agent['browser_name'].' '.$u_agent['browser_version']; ?> &middot; <?php echo ($row['id'] == $_SESSION['id_pag']) ? '<span class="text-success">Sesión actual</span>' : strftime('%e de %B a las %H:%M', strtotime($row['fecha'])); ?>
+                                    <?php if (! isPrivateIP($row['ip'])): ?>
                                     <br><?php echo $row['ip']; ?><?php echo (isset($meta_geoip['isp'])) ? ' ('.$meta_geoip['isp'].')' : ''; ?></small></p>
+                                    <?php else: ?>
+                                    <br><?php echo $row['ip']; ?><?php echo ' ('.$config['centro_denominacion'].')' ?></small></p>
+                                    <?php endif; ?>
                                     <!--
                                     <p><small><?php echo $u_agent['userAgent']; ?></small></p>
                                     -->

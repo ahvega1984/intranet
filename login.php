@@ -1,7 +1,4 @@
 <?php
-// COMPROBAMOS LA VERSIÓN DE PHP
-if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicación.</p>");
-
 require('bootstrap.php');
 
 // Comienzo de sesión

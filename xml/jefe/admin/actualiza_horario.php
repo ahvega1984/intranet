@@ -4,14 +4,14 @@ include("../../../config.php");
 if($_SESSION['autentificado']!='1')
 {
 session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
+header("location:http://$dominio/intranet/logout.php");	
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header("location:http://$dominio/intranet/logout.php");
 exit;	
 }
 ?>
@@ -20,7 +20,7 @@ include("../../../menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Administración <small> Actualización de Horarios y Profesores</small></h2>
+  <h2>Administraciï¿½n <small> Actualizaciï¿½n de Horarios y Profesores</small></h2>
 </div>
 <FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">
   <div class="control-group">
@@ -46,7 +46,7 @@ include("../../../menu.php");
 <img border="0" src="exporta_horw.jpg" width="466" height="478">
 <br /><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-success" />
+  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-success" />
 </div>
 </body>
 </html>

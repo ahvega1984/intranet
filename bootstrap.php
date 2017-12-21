@@ -54,7 +54,7 @@ $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pas
 mysqli_query($db_con,"SET NAMES 'utf8'");
 
 
-if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/salir.php') {
+if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
 	
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['autentificado'] != 1) {
@@ -62,11 +62,11 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		session_destroy();
 		
 		if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
-			header('Location:'.'https://'.$config['dominio'].'/intranet/salir.php');
+			header('Location:'.'https://'.$config['dominio'].'/intranet/logout.php');
 			exit();
 		}
 		else {
-			header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
+			header('Location:'.'http://'.$config['dominio'].'/intranet/logout.php');
 			exit();
 		}
 	}
@@ -98,7 +98,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		}
 	}
 
-	session_regenerate_id();
+	//session_regenerate_id();
 	
 	// REGISTRAMOS EL ACCESO A LA PAGINA
 	registraPagina($db_con, $_SERVER['REQUEST_URI']);

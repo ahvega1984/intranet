@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 exit;	
 }
 
@@ -15,7 +15,7 @@ include("../menu.php");
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Faltas de Asistencia <small> Días festivos y vacaciones</small></h2>
+  <h2>Faltas de Asistencia <small> DÃ­as festivos y vacaciones</small></h2>
 </div>
 <br />
 <?php 
@@ -23,11 +23,11 @@ include("../menu.php");
 // Borramos datos
 mysqli_query($db_con, "truncate table festivos");	
 
-// Importamos los datos del fichero CSV en la tabña alma.
+// Importamos los datos del fichero CSV en la tabï¿½a alma.
 $handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('
 <div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-No se ha podido abrir el fichero de importación<br> Asegúrate de que su formato es correcto y no está vacío.
+No se ha podido abrir el fichero de importaciÃ³n<br> AsegÃºrate de que su formato es correcto y no estÃ¡ vacÃ­o.
 			</div></div><br />	'); 
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
@@ -49,7 +49,7 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
 			}
 ?>
 <br />
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" />
+<input type="button" value="Volver atrÃ¡s" name="boton" onclick="history.back(2)" />
 </div>
 </body>
 </html>

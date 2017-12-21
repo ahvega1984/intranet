@@ -9,12 +9,12 @@ if ($_SESSION['autentificado'] != 1) {
 	
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        header('Location:'.'https://'.$dominio.'/intranet/logout.php');
 	        exit();
 	    } 
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 		exit();
 	}
 }

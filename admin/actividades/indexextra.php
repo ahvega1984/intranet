@@ -3,7 +3,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE))
 {
-	//header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
+	//header('Location:'.'http://'.$config['dominio'].'/intranet/logout.php');
 	//exit;
 }
 

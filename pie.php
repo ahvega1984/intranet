@@ -136,7 +136,7 @@
 		}, expired_time);
 
 		setTimeout(function() {
-			document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/salir.php';
+			document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/logout.php';
 		}, expired_time_logout);
 	});
 	</script>

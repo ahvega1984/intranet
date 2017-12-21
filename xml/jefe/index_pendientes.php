@@ -10,12 +10,12 @@ if ($_SESSION['autentificado'] != 1) {
 	
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        header('Location:'.'https://'.$dominio.'/intranet/logout.php');
 	        exit();
 	    } 
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 		exit();
 	}
 }
@@ -39,7 +39,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 exit;	
 }
 ?>
@@ -49,7 +49,7 @@ include("../../menu.php");
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Administración <small> Alumnos con asignaturas pendientes</small></h2>
+  <h2>Administraciï¿½n <small> Alumnos con asignaturas pendientes</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
@@ -86,10 +86,10 @@ if (mysqli_num_rows($asig2)>0) {
 ?>
 <div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los alumnos con asignaturas pendientes han sido importados en la base de datos. Ya es posible realizar consultas y ver listados de pendientes por Grupo o Asignatura (Menú de la página principal ==> Consultas ==> Listados ==> Listas de Pendientes).
+Los alumnos con asignaturas pendientes han sido importados en la base de datos. Ya es posible realizar consultas y ver listados de pendientes por Grupo o Asignatura (Menï¿½ de la pï¿½gina principal ==> Consultas ==> Listados ==> Listas de Pendientes).
 </div>
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 </div>

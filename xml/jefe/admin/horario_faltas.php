@@ -1,11 +1,11 @@
 <? 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header("location:http://$dominio/intranet/logout.php");
 exit;	
 }
 
-// Conexión 
+// Conexiï¿½n 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 // Backup
 mysqli_query($db_con,"truncate table horw_seg"); 
@@ -13,13 +13,13 @@ mysqli_query($db_con,"insert into horw_seg select * from horw");
 
 mysqli_query($db_con,"drop table horw_faltas");  
 
-// Claveal primaria e índice
+// Claveal primaria e ï¿½ndice
   $SQL6 = "ALTER TABLE  `horw_faltas` ADD INDEX (  `prof` )";
   $result6 =mysqli_query($db_con,$SQL6);
     $SQL7 = "ALTER TABLE  `horw_faltas` ADD INDEX (  `c_asig` )";
   $result7 =mysqli_query($db_con,$SQL7);
 while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) { 
-// Mientras hay líneas que leer... si necesitamos añdir sólo las clases hay que hacer aquí un if ($data[9]!='')
+// Mientras hay lï¿½neas que leer... si necesitamos aï¿½dir sï¿½lo las clases hay que hacer aquï¿½ un if ($data[9]!='')
 $sql="INSERT INTO horw_faltas (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo,nivel,n_grupo) ";
 $sql.=" VALUES ( ";
 foreach ($data as $indice=>$clave){
@@ -34,11 +34,11 @@ $sql=substr($sql,0,strlen($sql)-2);
 $sql.=" )";
 mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIï¿½N:</h5>
 No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 }
 fclose ( $fp );
@@ -88,7 +88,7 @@ mysqli_query($db_con,$hora6);
  mysqli_query($db_con,"delete from horw_faltas where a_grupo = ''");
  mysqli_query($db_con,"OPTIMIZE TABLE  `horw_faltas`");   
   
-  // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
+  // Cambiamos los numeros de Horw para dejarlos en orden alfabï¿½tico.
  $hor =mysqli_query($db_con,"select distinct prof from horw order by prof");
 while($hor_profe =mysqli_fetch_array($hor)){
 	$np+=1;
@@ -128,11 +128,11 @@ FROM  `faltas`.`horw`");
   
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Tabla <strong>Horw</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Profesores, una vez actualizados los horarios.<br>Vuelve a la página principal y actualiza los Profesores inmediatamente.
+Tabla <strong>Horw</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Profesores, una vez actualizados los horarios.<br>Vuelve a la pï¿½gina principal y actualiza los Profesores inmediatamente.
 </div></div><br />';
 
 ?> 
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>

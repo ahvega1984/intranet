@@ -187,3 +187,15 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Registro agente de usuario', NOW())");
 }
+
+/*
+	@descripcion: Eliminado archivo salir.php para evitar filtro de contenidos de la Junta.
+	@fecha: 21 de diciembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado archivo salir.php'");
+if (! mysqli_num_rows($actua)) {
+
+	if (file_exists(INTRANET_DIRECTORY.'/salir.php')) unlink(INTRANET_DIRECTORY.'/salir.php');
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado archivo salir.php', NOW())");
+}

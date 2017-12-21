@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 exit;	
 }
 
@@ -16,7 +16,7 @@ include("../menu.php");
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Faltas de Asistencia <small> Actualizar datos de SÈneca</small></h2>
+  <h2>Faltas de Asistencia <small> Actualizar datos de S√©neca</small></h2>
   </div>
 <br />
 <?php
@@ -38,14 +38,14 @@ $archive = new PclZip($_FILES['archivo']['tmp_name']);
 	  {
         die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI”N:</h5>
-Ha surgido un problema al importar los archivos descargados desde SÈneca. Parece que el directorio donde deben ser subidas no existe o no se puede escribir en Èl. Comprueba que el directorio <em>/intranet/faltas/seneca/origen</em> existe y es posible escribir en Èl, e intÈntalo de nuevo.
+			<h5>ATENCI√ìN:</h5>
+Ha surgido un problema al importar los archivos descargados desde S√©neca. Parece que el directorio donde deben ser subidas no existe o no se puede escribir en √©l. Comprueba que el directorio <em>/intranet/faltas/seneca/origen</em> existe y es posible escribir en √©l, e int√©ntalo de nuevo.
 </div></div><br />'.$archive->errorInfo(true));
       }  
       else{
       	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los archivos han sido actualizados en el directorio <em>/intranet/faltas/seneca/origen/</em>. Es seguro crear los archivos para subir las faltas a SÈneca.
+Los archivos han sido actualizados en el directorio <em>/intranet/faltas/seneca/origen/</em>. Es seguro crear los archivos para subir las faltas a S√©neca.
 </div></div><br />';
       }   
 }
@@ -53,9 +53,9 @@ Los archivos han sido actualizados en el directorio <em>/intranet/faltas/seneca/
 <FORM ENCTYPE="multipart/form-data" ACTION="subir.php" METHOD="post">
   <div class="well-transparent well-large" style="width:480px; margin:auto;" align="left">
   <p class="text-info">
-  Si el mÛdulo de faltas de asistencia est· operativo, es necesario descargar desde SÈneca el archivo que se utilizar· como base para posteriormente subir las faltas. Se descarga de Seneca desde &quot;Intercambio de Informacion --&gt; Exportacion desde Seneca --&gt; Exportacion de Faltas de Asistencia del Alumnado&quot;. Arriba a la derecha hay un icono para crear un nuevo documento con los datos de las faltas; seleccionar el dÌa actual como comienzo y final; seleccionar todos los grupos del Centro y aÒadirlos a la lista. Cuando hayais terminado, haced click en el icono de confirmaciÛn y al cabo de un minuto volved a la p·gina de exportaciÛn de faltas de asitencia y verÈis que se ha generado un archivo comprimido que podÈis descargaros. Es conveniente actualizar los archivos de vez en cuando.
+  Si el m√≥dulo de faltas de asistencia est√° operativo, es necesario descargar desde S√©neca el archivo que se utilizar√° como base para posteriormente subir las faltas. Se descarga de Seneca desde &quot;Intercambio de Informacion --&gt; Exportaci√≥n desde Seneca --&gt; Exportaci√≥n de Faltas de Asistencia del Alumnado&quot;. Arriba a la derecha hay un icono para crear un nuevo documento con los datos de las faltas; seleccionar el d√≠a actual como comienzo y final; seleccionar todos los grupos del Centro y a√±adirlos a la lista. Cuando hayais terminado, haced click en el icono de confirmaci√≥n y al cabo de un minuto volved a la p√°gina de exportaci√≥n de faltas de asitencia y ver√©is que se ha generado un archivo comprimido que pod√°is descargaros. Es conveniente actualizar los archivos de vez en cuando.
   </p>
-  <p class="text-info">Selecciona el archivo comprimido con los datos de las faltas de asistencia de los alumnos que has descargado desde SÈneca</p><hr />
+  <p class="text-info">Selecciona el archivo comprimido con los datos de las faltas de asistencia de los alumnos que has descargado desde S√©neca</p><hr />
     <input type="file" name="archivo">
   
   <hr>

@@ -12,12 +12,12 @@ if ($_SESSION['autentificado'] != 1) {
 	
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        header('Location:'.'https://'.$dominio.'/intranet/logout.php');
 	        exit();
 	    } 
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 		exit();
 	}
 }
@@ -79,7 +79,7 @@ if ($mes == 12) {
 // HTML CALENDARIO MENSUAL
 function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 	
-	// Corrección en mes
+	// Correcciï¿½n en mes
 	($mes < 10) ? $mes = '0'.$mes : $mes = $mes;
 	
 	echo '<div class"table-responsive">';
@@ -88,10 +88,10 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 	echo '		<tr>';
 	echo '			<th class="text-center">Lunes</th>';
 	echo '			<th class="text-center">Martes</th>';
-	echo '			<th class="text-center">Miércoles</th>';
+	echo '			<th class="text-center">MiÃ©rcoles</th>';
 	echo '			<th class="text-center">Jueves</th>';
 	echo '			<th class="text-center">Viernes</th>';
-	echo '			<th class="text-center">Sábado</th>';
+	echo '			<th class="text-center">SÃ¡bado</th>';
 	echo '			<th class="text-center">Domingo</th>';
 	echo '		</tr>';
 	echo '	</thead>';
@@ -123,7 +123,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 
 				echo '				<p class="lead text-right">'.$dias[$i].'</p>';
 				
-				// Corrección en día
+				// Correcciï¿½n en dï¿½a
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				
 				
@@ -148,7 +148,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				}
 				mysqli_free_result($result_calendarios);
 				
-				// Consultamos los calendarios públicos
+				// Consultamos los calendarios pï¿½blicos
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
@@ -210,7 +210,7 @@ $lista_errores = array(
 	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser posterior a la fecha final del evento.',
 	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
 	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.',
-	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y está pendiente de aprobación por el Consejo Escolar. Debe esperar su aprobación para que aparezca oficialmente en el calendario.'
+	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y estï¿½ pendiente de aprobaciï¿½n por el Consejo Escolar. Debe esperar su aprobaciï¿½n para que aparezca oficialmente en el calendario.'
 	);
 
 function randomColor() {
@@ -374,7 +374,7 @@ $PLUGIN_COLORPICKER = 1;
 				    	<?php endwhile; ?>
 				    	<li>
 				    		<a href="#" class="nohide" id="toggle_calendario_festivo">
-				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
+				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Dï¿½as festivos
 				    			<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 				    		</a>
 				    	</li>
@@ -531,7 +531,7 @@ $PLUGIN_COLORPICKER = 1;
 			}
 			mysqli_free_result($result_calendarios);
 			
-			// Consultamos los calendarios públicos
+			// Consultamos los calendarios pï¿½blicos
 			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 				
@@ -618,12 +618,12 @@ $PLUGIN_COLORPICKER = 1;
             	  backdrop: true,
             	  closeButton: true,
             	  animate: true,
-            	  title: "Confirmación para eliminar",
+            	  title: "Confirmaciï¿½n para eliminar",
             	});
             	
                 e.preventDefault();
                 var _this = this;
-                bootbox.confirm("Esta acción eliminará permanentemente los eventos del calendario ¿Seguro que desea continuar?", function(result) {
+                bootbox.confirm("Esta acciï¿½n eliminarï¿½ permanentemente los eventos del calendario ï¿½Seguro que desea continuar?", function(result) {
                     if (result) {
                         $(_this).parent().submit();
                     }

@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$dominio.'/intranet/logout.php');
 exit;	
 }
 
@@ -16,12 +16,12 @@ include("../menu.php");
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Faltas de Asistencia <small> Actualización de Días Festivos en la localidad</small></h2>
+  <h2>Faltas de Asistencia <small> ActualizaciÃ³n de DÃ­as Festivos en la localidad</small></h2>
 </div>
 <br />
 <FORM ENCTYPE="multipart/form-data" ACTION="festivos.php" METHOD="post">
 <div class="form-group">
- <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado el archivo <strong>200CalEscCent</strong> de Séneca (desde Séneca --> Centro --> Días festivos), puedes continuar con el segundo paso.</p>
+ <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado el archivo <strong>200CalEscCent</strong> de SÃ©neca (desde SÃ©neca --> Centro --> DÃ­as festivos), puedes continuar con el segundo paso.</p>
   <br />
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <div class="controls">
