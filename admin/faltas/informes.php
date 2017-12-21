@@ -17,6 +17,11 @@ function tipo_falta($falta) {
 include("../../menu.php");
 include("../../faltas/menu.php");
 
+if (isset($_GET['codigo'])) {
+  $codasi = $_GET['codigo'];
+  $extra = "and codasi = '$codasi'";
+} 
+
 if (isset($_POST['nombre'])) {
 	$nombre = $_POST['nombre'];
 } 
@@ -156,9 +161,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
           <div class="col-sm-3">
             
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'F' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'F' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' $extra"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'F' AND FALTAS.claveal = '$claveal'"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'F' AND FALTAS.claveal = '$claveal' $extra"); ?>
             <?php endif; ?>
 
             <?php $total = 0; ?>
@@ -177,9 +182,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
           
           <div class="col-sm-3">
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'J' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'J' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' $extra"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'J' AND  FALTAS.claveal = '$claveal'"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'J' AND  FALTAS.claveal = '$claveal' $extra"); ?>
             <?php endif; ?>
 
             <?php $total = 0; ?>
@@ -198,9 +203,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
 
           <div class="col-sm-3">
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'R' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'R' AND FALTAS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' $extra"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'R' AND FALTAS.claveal = '$claveal'"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS where FALTAS.falta = 'R' AND FALTAS.claveal = '$claveal' $extra"); ?>
             <?php endif; ?>
 
             <?php $total = 0; ?>
@@ -219,9 +224,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
           
           <div class="col-sm-3">
             <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-            <?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where FALTAS.falta = 'F' and  FALTAS.claveal = $claveal AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' group by FALTAS.fecha"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where FALTAS.falta = 'F' and  FALTAS.claveal = '$claveal' $extra AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' $extra group by FALTAS.fecha"); ?>
             <?php else: ?>
-            <?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where  FALTAS.falta = 'F' and  FALTAS.claveal = $claveal group by FALTAS.fecha"); ?>
+            <?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where  FALTAS.falta = 'F' and  FALTAS.claveal = '$claveal' $extra group by FALTAS.fecha"); ?>
             <?php endif; ?>
             <?php $total = 0; ?>
             <?php $total = mysqli_num_rows($result); ?>
@@ -241,9 +246,9 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
         <br>
         
         <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
-        <?php $result = mysqli_query($db_con, "SELECT DISTINCT fecha FROM FALTAS WHERE claveal = '$claveal' AND claveal = '$claveal' AND fecha BETWEEN '$fechasp1' AND '$fechasp3' ORDER BY fecha DESC"); ?>
+        <?php $result = mysqli_query($db_con, "SELECT DISTINCT fecha FROM FALTAS WHERE claveal = '$claveal' $extra AND fecha BETWEEN '$fechasp1' AND '$fechasp3' ORDER BY fecha DESC"); ?>
         <?php else: ?>
-        <?php $result = mysqli_query($db_con, "SELECT DISTINCT fecha FROM FALTAS WHERE claveal = '$claveal' ORDER BY fecha DESC"); ?>
+        <?php $result = mysqli_query($db_con, "SELECT DISTINCT fecha FROM FALTAS WHERE claveal = '$claveal' $extra ORDER BY fecha DESC"); ?>
         <?php endif; ?>
 
         <?php if (mysqli_num_rows($result)): ?>
@@ -265,7 +270,7 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
 			<tr>
 				<th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
-				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'"); ?>
+				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i' $extra"); ?>
 				<?php $row_falta = mysqli_fetch_array($result_falta); ?>
 				<?php $result_asig = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre FROM asignaturas WHERE asignaturas.codigo = '".$row_falta['codasi']."' and abrev not like '%\_%'"); ?>
 				<?php $row_asig = mysqli_fetch_array($result_asig); ?>

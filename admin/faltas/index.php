@@ -282,9 +282,10 @@ if (isset($_POST['profe'])) {
 
 	if ($asig = mysqli_fetch_array($asig0))
 	{
-
+		$asig_query = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre = '$asig[0]' and curso like '$asig[2]' and abrev not like '%\_%'");
+		$asig_qr = mysqli_fetch_array($asig_query);
 		do {
-			$opcion = printf ("<OPTION>$asig[0] -> $asig[1] -> $asig[2]</OPTION>");
+			$opcion = printf ("<OPTION value = '$asig_qr[0] -> $asig[0] -> $asig[1] -> $asig[2]'>$asig[0] -> $asig[1] -> $asig[2]</OPTION>");
 			echo "$opcion";
 
 		} while($asig = mysqli_fetch_array($asig0));

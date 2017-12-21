@@ -12,7 +12,7 @@ include("../../faltas/menu.php");
   </div>
 <br />
 <div class="row">
-<div class="col-sm-6 col-sm-offset-3">
+<div class="col-sm-10 col-sm-offset-1">
 
 <?php
 
@@ -20,12 +20,14 @@ if (isset($profe)) {}else{$profe= $_SESSION['profi'];}
 if (isset($materia)) {
 	
 $tr = explode(" -> ",$materia);
-$asignatura = $tr[0];
-$grupo = $tr[1];
-$nivel = $tr[2];
+$cod_asig = $tr[0];
+$asignatura = $tr[1];
+$grupo = $tr[2];
+$nivel = $tr[3];
 $nivel_bach = substr($nivel,0,9);
 //echo "$asignatura --> $grupo --> $nivel<br>";
-$SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ) as ncompleto, FALTAS.nc from FALTAS, FALUMNOS where FALTAS.claveal = FALUMNOS.claveal and codasi in (select distinct codigo from asignaturas where nombre = '$asignatura' and curso like '$nivel_bach%' and abrev not like '%\_%') and FALTAS.unidad = '$grupo' and profesor like (select distinct c_prof from horw where prof = '$profe') and falta='F' group by FALTAS.nc, FALTAS.claveal, codasi, ncompleto order BY FALTAS.nc";
+$SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ) as ncompleto from FALTAS, FALUMNOS where FALTAS.claveal = FALUMNOS.claveal and codasi like '$cod_asig' and FALTAS.unidad = '$grupo' and falta='F' group by  FALTAS.claveal, codasi, ncompleto order BY FALUMNOS.apellidos, FALUMNOS.nombre";
+//echo $SQL;
 $result = mysqli_query($db_con, $SQL);
 if ($result) {
 	echo "<center><p class='lead'><small>$asignatura ( $grupo )</small></p>";
@@ -33,18 +35,32 @@ if ($result) {
   if ($row = mysqli_fetch_array($result))
         {
         echo "<table class='table table-striped' style='width:auto'>\n";
-        echo "<thead><th width=\"60\"></th><th>Alumno</th><th>Total</th></thead><tbody>";
+        echo "<thead><th width=\"60\"></th><th>Alumno</th><th>Total</th><th>Fechas</th></thead><tbody>";
         do {
 			echo "<tr><td>";
 			$foto = '../../xml/fotos/'.$row[0].'.jpg';
 			if (file_exists($foto)) {
-				echo '<img src="'.$foto.'" width="55" alt="" />';
+				echo '<img src="'.$foto.'" width="45" alt="" />';
 			}
 			else {
 				echo '<span class="fa fa-user fa-fw fa-3x"></span>';
 			}
-			echo "</td><td>";
-			echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[3]</a></td><td style='vertical-align:middle'><strong>$row[1]</strong></td></tr>\n"; 
+			echo "</td><td nowrap>";
+			echo "<a href='informes.php?claveal=$row[0]&codigo=$cod_asig&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2' target='_blank'>$row[3]</a></td><td ><strong>$row[1]</strong></td><td>";
+			$result_fechas = mysqli_query($db_con, "SELECT DISTINCT fecha, dia, hora, falta FROM FALTAS WHERE claveal = '$row[0]' AND codasi = '$cod_asig' ORDER BY fecha ASC");
+
+			$diasem = array('1'=>'Lunes', '2'=>'Martes', '3'=>'Miercoles', '4'=>'Jueves', '5'=>'Viernes');
+
+			while ($fechas = mysqli_fetch_array($result_fechas)) {
+				if ($fechas[3]=="F") {
+					echo "<strong class='text-danger'>".cambia_fecha($fechas[0])."</strong> (<small class='text-muted'>".$diasem[$fechas[1]].": $fechas[2]ª</small>); ";
+				}elseif ($fechas[3]=="J") {
+					echo "<strong class='text-success'>".cambia_fecha($fechas[0])."</strong> (<small class='text-muted'>".$diasem[$fechas[1]].": $fechas[2]ª</small>); ";
+				}
+			}
+
+
+			echo "</td></tr>\n"; 
         } while($row = mysqli_fetch_array($result));
         echo "</tbody></table></center>";
         } 
