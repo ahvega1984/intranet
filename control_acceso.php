@@ -223,35 +223,35 @@ if ($config['mod_notificaciones']) {
 	}
 
 
-
 	// INFORMES DE ABSENTISMO A PUNTO DE CUMPLIR
-	$mas = "";
 
-	$semana_despues = date_sub('$hoy', 'interval 7 day');
-	$siete_dias = "AND date(fecha_registro) = '$semana_despues'";
-	//echo $tres_dias;
+	$date=date_create($hoy);
+	date_sub($date,date_interval_create_from_date_string("7 days"));
+	$nuevo = date_format($date,"Y-m-d");
+	$siete_dias = "date(fecha_registro) = '$nuevo'";
 
-	if (strstr($_SESSION['cargo'],'2')==TRUE) {
-	$tutor=mysqli_query($db_con, "select unidad from FTUTORES where tutor='".$_SESSION['profi']."'");
-	$d_tutor=mysqli_fetch_array($tutor);
-	$mas=" and absentismo.unidad='$d_tutor[0]' and tutoria IS NULL ".$tres_dias;
-	}
+	$result0 = mysqli_query($db_con,"SELECT * FROM absentismo WHERE $siete_dias and orientacion IS NULL");
+	$result1 = mysqli_query($db_con,"SELECT distinct unidad FROM absentismo WHERE $siete_dias and tutoria IS NULL");
+	
+	if (mysqli_num_rows($result1) > 0)
+		{
+			while ($absentismo_tutor = mysqli_fetch_array($result1)) {
+				$tut = mysqli_query($db_con,"select idea from FTUTORES, departamentos where tutor=nombre and unidad = '$absentismo_tutor[0]'");
+				$tutor_abs = mysqli_fetch_array($tut);
+				$idea_tutor = $tutor_abs[0];
+				
+				mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$idea_tutor','$hoy','5','$id')");
+			}			
+		}	
 
-	if (strstr($_SESSION['cargo'],'8')==TRUE) {
-		$mas=" and orientacion IS NULL ".$tres_dias;
-	}
+	if (mysqli_num_rows($result0) > 0)
+		{
+			$orient = mysqli_query($db_con,"select nombre from departamentos where cargo like '%4%' and cargo like '%8%'");
+			$orientacion_abs = mysqli_fetch_array($orient);
+			$idea_orientacion = $orientacion_abs[0];
 
-	if (strstr($_SESSION['cargo'],'2')==TRUE or strstr($_SESSION['cargo'],'8')==TRUE) {
-		$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad";
-			// echo $SQL0; 
-
-			$result0 = mysqli_query($db_con, $SQL0);
-			if (mysqli_num_rows($result0) > 0)
-			{
-				$num++;
-						mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$idea','$hoy','5','$id')");
-			}
-		}
+			mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$idea_orientacion','$hoy','5','$id')");
+		}	
 	
 		
 	// ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES
