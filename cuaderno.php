@@ -135,11 +135,11 @@ if(isset($_POST['enviar']))
 }
 
 // Problema con PMAR
-$pmar_2 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%Ámbito%' and curso like '2%' limit 1");
+$pmar_2 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%**%' and abrev not like '%\_%' and curso like '2%' limit 1");
 $c_pmar2 = mysqli_fetch_array($pmar_2);
 $codigo_pmar2 = $c_pmar2[0];
 
-$pmar_3 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%Ámbito%' and curso like '3%' limit 1");
+$pmar_3 = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre like '%**%' and abrev not like '%\_%' and curso like '3%' limit 1");
 $c_pmar3 = mysqli_fetch_array($pmar_3);
 $codigo_pmar3 = $c_pmar3[0];
 
