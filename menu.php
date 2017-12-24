@@ -258,6 +258,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								</li>
 								<li class="divider hidden-xs"></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fa fa-lock fa-fw"></span> Cambiar contraseña</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><span class="fa fa-key fa-fw"></span> Autenticación en dos pasos</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fa fa-camera fa-fw"></span> Cambiar fotografía</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="fa fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
 								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><span class="fa fa-user-secret fa-fw"></span> Consultar accesos</a></li>

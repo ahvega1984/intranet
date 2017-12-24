@@ -54,7 +54,7 @@ $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pas
 mysqli_query($db_con,"SET NAMES 'utf8'");
 
 
-if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
+if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
 	
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['autentificado'] != 1) {
@@ -84,9 +84,22 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		}
 		
 	}
+
+	if($_SERVER['SCRIPT_NAME'] != '/intranet/totp.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php') {
+		if(isset($_SESSION['totp_configuracion']) && $_SESSION['totp_configuracion']) {
+			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
+				header('Location:'.'https://'.$config['dominio'].'/intranet/totp.php');
+				exit();
+			}
+			else {
+				header('Location:'.'http://'.$config['dominio'].'/intranet/totp.php');
+				exit();
+			}
+		}
+	}
 	
 	if($_SERVER['SCRIPT_NAME'] != '/intranet/clave.php') {
-		if($_SESSION['cambiar_clave']) {
+		if(isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
 			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
 				header('Location:'.'https://'.$config['dominio'].'/intranet/clave.php');
 				exit();

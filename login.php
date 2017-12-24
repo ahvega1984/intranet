@@ -1,5 +1,6 @@
 <?php
 require('bootstrap.php');
+require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
 
 // Comienzo de sesión
 $_SESSION['autentificado'] = 0;
@@ -20,21 +21,28 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
 	
-	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
-
+	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo, c_profes.totp_secret FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."' LIMIT 1");
 	$usuarioExiste = mysqli_num_rows($pass0);
 
-	$pass1 = mysqli_fetch_array ( $pass0 );
-	$codigo = $pass1 [0];
-	$profe = $pass1 [1];
-	$dni = $pass1 [2];
-	$bloqueado = $pass1 [3];
-	$correo = $pass1 [4];
+	$pass1 = mysqli_fetch_array($pass0);
+	$codigo = $pass1['pass'];
+	$profe = $pass1['profesor'];
+	$dni = $pass1['dni'];
+	$bloqueado = $pass1['estado'];
+	$correo = $pass1['correo'];
+
+	if ($pass1['totp_secret'] != NULL) {
+		$totp_activado = 1;
+		$_SESSION['totp_secreto'] = $pass1['totp_secret'];
+	}
+	else {
+		$totp_activado = 0;
+	}
+	
 
 	if (! $bloqueado) {
 
 		if ($codigo == $clave) {
-			$_SESSION['autentificado'] = 1;
 
 			// COMPROBAMOS SI SE HA INSTALADO LA PLATAFORMA WEBCENTROS
 			// Versión en otros centros educativos
@@ -89,9 +97,51 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				$_SESSION['fondo'] = "navbar-default";
 			}
 
-			// Registramos la entrada en la Intranet
+			// Obtenemos los datos de navegación del usuario
 			$direccionIP = getRealIP();
 			$useragent = $_SERVER['HTTP_USER_AGENT'];
+			$useragent_parseado = getBrowser($useragent);
+
+			// Comprobamos si inicia sesión desde la red local del centro o red externa y establecemos si es de confianza o no.
+			if (! isPrivateIP($direccionIP)) {
+				$meta_geoip = @unserialize(file_get_contents('http://ip-api.com/php/'.$direccionIP));
+				$isp_usuario = $meta_geoip['isp'];
+				unset($meta_geoip);
+
+				$red_confianza = 0;
+			}
+			else {
+				$red_confianza = 1;
+			}
+
+			// Comprobamos si el usuario ha iniciado sesión alguna vez con este dispositivo y establecemos si es de confianza o no.
+			$result_dispositivo_confianza = mysqli_query($db_con, "SELECT ip FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' AND useragent LIKE '%".$useragent_parseado['platform_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_version']."%' LIMIT 1");
+			if (mysqli_num_rows($result_dispositivo_confianza)) {
+				$dispositivo_confianza = 1;
+
+				$row_dispositivo_confianza = mysqli_fetch_array($result_dispositivo_confianza);
+				$ip_dispositivo_confianza = $row_dispositivo_confianza['ip'];
+				if (! isPrivateIP($ip_dispositivo_confianza)) {
+					$meta_geoip = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip_dispositivo_confianza));
+					$isp_dispositivo_confianza = $meta_geoip['isp'];
+					unset($meta_geoip);
+					
+					if ($isp_dispositivo_confianza == $isp_usuario) {
+						$red_confianza = 1;
+					}
+					else {
+						$red_confianza = 0;
+					}
+				}
+				else {
+					$red_confianza = 1;
+				}
+
+			}
+			else {
+				$dispositivo_confianza = 0;
+			}
+
 			mysqli_query($db_con, "INSERT INTO reg_intranet (profesor, fecha, ip, useragent) VALUES ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','".$direccionIP."', '".$useragent."')");
 			$id_reg = mysqli_query($db_con, "SELECT id FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' ORDER BY id DESC LIMIT 1" );
 			$id_reg0 = mysqli_fetch_array ( $id_reg );
@@ -100,14 +150,59 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			unset($_SESSION['intentos']);
 
 			if ($dni == $clave0 || (strlen($codigo) < '12'))
-			{
+			{	
+				$_SESSION['autentificado'] = 1;
 				$_SESSION['cambiar_clave'] = 1;
 				header("location:clave.php?tour=1");
 				exit();
 			}
 			else {
-				header("location:index.php");
-				exit();
+				// Comprobamos si el usuario tiene habilitada la autenticación en dos pasos.
+				// Si el dispositivo es de confianza saltamos el proceso de autenticación en dos pasos.
+				if ($totp_activado && $dispositivo_confianza && $red_confianza) {
+					$_SESSION['autentificado'] = 1;
+					header("location:index.php");
+					exit();
+				}
+				elseif ($totp_activado && (! $dispositivo_confianza || ! $red_confianza)) {
+					$fecha_conexion = date('j').' de '.date('F').' de '.date('Y').' a las '.date('H:i').' horas';
+
+					$mail = new PHPMailer();
+					$mail->Host = "localhost";
+					$mail->From = 'no-reply@'.$config['dominio'];
+					$mail->FromName = utf8_decode($config['centro_denominacion']);
+					$mail->Sender = 'no-reply@'.$config['dominio'];
+					$mail->IsHTML(true);
+					
+					$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+					$message = str_replace('{{dominio}}', $config['dominio'], $message);
+					$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+					$message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+					$message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+					$message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+					$message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+					$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+					$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+					$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+					$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
+					$message = str_replace('{{titulo}}', 'Tu usuario IdEA se ha usado para iniciar sesión en la Intranet', $message);
+					$message = str_replace('{{contenido}}', '<p>Tu usuario IdEA '.$_SESSION['ide'].' se ha usado para iniciar sesión en la Intranet desde un navegador web.</p><br><p>Fecha y hora: '.$fecha_conexion.'</p><br><p>Si la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje.</p><p>Si no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña.</p><p>Atentamente:<br>La Dirección del Centro</p>', $message);
+					
+					$mail->msgHTML(utf8_decode($message));
+					$mail->Subject = utf8_decode('Tu usuario IdEA se ha usado para iniciar sesión en la Intranet');
+					$mail->AltBody = utf8_decode("Tu usuario IdEA ".$_SESSION['ide']." se ha usado para iniciar sesión en la Intranet desde un navegador web. \n\n\nFecha y hora: ".$fecha_conexion." \n\n\nSi la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje. \n\nSi no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña. \n\nAtentamente: \nLa Dirección del Centro</p>");
+
+					$mail->AddAddress($correo, $profe);
+					$mail->Send();
+
+					include("login_totp.php");
+					exit();
+				}
+				else {
+					$_SESSION['autentificado'] = 1;
+					header("location:index.php");
+					exit();
+				}
 			}
 
 		}
@@ -117,7 +212,6 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			if ($_SESSION['intentos'] > 4) {
 				mysqli_query($db_con, "UPDATE c_profes SET estado=1 WHERE idea='".$_POST['idea']."' LIMIT 1");
 
-				require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
 				$mail = new PHPMailer();
 				$mail->Host = "localhost";
 				$mail->From = 'no-reply@'.$config['dominio'];
