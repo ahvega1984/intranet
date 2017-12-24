@@ -202,7 +202,7 @@ if (! mysqli_num_rows($actua)) {
 
 /*
 	@descripcion: Añadido campo para segundo factor de autenticación en tabla c_profes
-	@fecha: 21 de diciembre de 2017
+	@fecha: 24 de diciembre de 2017
 */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Autenticación en dos pasos'");
 if (! mysqli_num_rows($actua)) {
