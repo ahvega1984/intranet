@@ -199,3 +199,18 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado archivo salir.php', NOW())");
 }
+
+/*
+	@descripcion: Añadido campo para segundo factor de autenticación en tabla c_profes
+	@fecha: 21 de diciembre de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Autenticación en dos pasos'");
+if (! mysqli_num_rows($actua)) {
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM c_profes WHERE Field = 'totp_secret'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `reg_principal` ADD `totp_secret` CHAR(16) NULL");
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Autenticación en dos pasos', NOW())");
+}
