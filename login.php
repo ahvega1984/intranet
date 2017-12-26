@@ -115,17 +115,20 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			}
 
 			// Comprobamos si el usuario ha iniciado sesión alguna vez con este dispositivo y establecemos si es de confianza o no.
-			$result_dispositivo_confianza = mysqli_query($db_con, "SELECT ip FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' AND useragent LIKE '%".$useragent_parseado['platform_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_version']."%' LIMIT 1");
+			$result_dispositivo_confianza = mysqli_query($db_con, "SELECT ip FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' AND useragent LIKE '%".$useragent_parseado['platform_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_version']."%' AND ip = '".$direccionIP."' LIMIT 1");
+			if (! mysqli_num_rows($result_dispositivo_confianza)) {
+				$result_dispositivo_confianza = mysqli_query($db_con, "SELECT ip FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' AND useragent LIKE '%".$useragent_parseado['platform_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_name']."%' AND useragent LIKE '%".$useragent_parseado['browser_version']."%' LIMIT 1");
+			}
+
 			if (mysqli_num_rows($result_dispositivo_confianza)) {
 				$dispositivo_confianza = 1;
-
 				$row_dispositivo_confianza = mysqli_fetch_array($result_dispositivo_confianza);
 				$ip_dispositivo_confianza = $row_dispositivo_confianza['ip'];
 				if (! isPrivateIP($ip_dispositivo_confianza)) {
 					$meta_geoip = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip_dispositivo_confianza));
 					$isp_dispositivo_confianza = $meta_geoip['isp'];
 					unset($meta_geoip);
-					
+
 					if ($isp_dispositivo_confianza == $isp_usuario) {
 						$red_confianza = 1;
 					}
@@ -165,7 +168,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					exit();
 				}
 				elseif ($totp_activado && (! $dispositivo_confianza || ! $red_confianza)) {
-					$fecha_conexion = date('j').' de '.date('F').' de '.date('Y').' a las '.date('H:i').' horas';
+					$fecha_conexion = strftime('%e de %B de %Y a las %H:%M horas', strtotime(date('Y-m-d H:i:s')));
 
 					$mail = new PHPMailer();
 					$mail->Host = "localhost";

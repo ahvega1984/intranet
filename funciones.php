@@ -129,7 +129,10 @@ function getBrowser($u_agent) {
     // Next get the name of the useragent yes seperately and for good reason
     if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
         $bname = 'Internet Explorer';
-        $ub = "MSIE";
+		$ub = "MSIE";
+	} elseif(preg_match('/Edge/i',$u_agent)) {
+        $bname = 'Microsoft Edge';
+        $ub = "Edge";
     } elseif(preg_match('/Firefox/i',$u_agent)) {
         $bname = 'Mozilla Firefox';
         $ub = "Firefox";
@@ -141,7 +144,10 @@ function getBrowser($u_agent) {
         $ub = "Safari";
     } elseif(preg_match('/Opera/i',$u_agent)) {
         $bname = 'Opera';
-        $ub = "Opera";
+		$ub = "Opera";
+	} elseif(preg_match('/Vivaldi/i',$u_agent)) {
+        $bname = 'Vivaldi';
+        $ub = "Vivaldi";
     } elseif(preg_match('/Netscape/i',$u_agent)) {
         $bname = 'Netscape';
         $ub = "Netscape";
