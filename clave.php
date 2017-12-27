@@ -71,8 +71,8 @@ if (isset($_POST['submit'])) {
 						$_SESSION['cambiar_clave'] = 0;
 						
 						if (isset($_GET['tour']) && $_GET['tour']) {
-							// Redirigimos a la página de fotografía
-							header("Location:"."admin/fotos/fotos_profes.php?tour=1");
+							// Redirigimos a la página de autenticación en dos pasos
+							header("Location:"."totp.php?tour=1");
 						}
 						else {
 							// Redirigimos a la página principal

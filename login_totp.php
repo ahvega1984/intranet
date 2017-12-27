@@ -4,9 +4,11 @@ if ($_POST['totp_verificado'] && $_POST['totp_code']) {
 
 	require_once('lib/google-authenticator/GoogleAuthenticator.php');
 	$ga = new PHPGangsta_GoogleAuthenticator();
+
 	$checkResult = $ga->verifyCode($_SESSION['totp_secreto'], $_POST['totp_code'], 2);    // 2 = 2*30sec clock tolerance
 	if ($checkResult) {
 		unset($_SESSION['totp_secreto']);
+		unset($_SESSION['totp_codigo_movil']);
 		$_SESSION['autentificado'] = 1;
 		header("location:index.php");
 		exit();
@@ -57,7 +59,11 @@ else {
 					<form id="totp-login" class="well" method="POST" action="login_totp.php" autocomplete="off">
 						<div class="text-center form-signin-heading">
 							<h3>Autenticación en dos pasos</h3>
+							<?php if (isset($_SESSION['totp_codigo_movil']) && $_SESSION['totp_codigo_movil']): ?>
+							<p class="text-center text-muted">Hemos enviado un mensaje de texto (SMS) a su teléfono ******<?php echo $_SESSION['totp_codigo_movil']; ?> con el código temporal para iniciar sesión</p>
+							<?php else: ?>
 							<p class="text-center text-muted">Genere un código temporal desde su dispositivo móvil para iniciar sesión</p>
+							<?php endif; ?>
 						</div>
 
 						<br><br>
@@ -132,9 +138,9 @@ $(document).ready(function () {
 	$("#totp-code-1").keyup(function () {
 		var value = $(this).val();
 		if (value.length > 0) {
-			totp_code = value;
-			$("#totp-code-2").focus();
-			totp_validate(totp_code);
+				totp_code = value;
+				$("#totp-code-2").focus();
+				totp_validate(totp_code);
 		}
 	});
 	$("#totp-code-2").keyup(function () {
@@ -144,6 +150,9 @@ $(document).ready(function () {
 			$("#totp-code-3").focus();
 			totp_validate(totp_code);
 		}
+		else {
+			$("#totp-code-1").focus();
+		}
 	});
 	$("#totp-code-3").keyup(function () {
 		var value = $(this).val();
@@ -151,6 +160,9 @@ $(document).ready(function () {
 			totp_code = totp_code + value;
 			$("#totp-code-4").focus();
 			totp_validate(totp_code);
+		}
+		else {
+			$("#totp-code-2").focus();
 		}
 	});
 	$("#totp-code-4").keyup(function () {
@@ -160,6 +172,9 @@ $(document).ready(function () {
 			$("#totp-code-5").focus();
 			totp_validate(totp_code);
 		}
+		else {
+			$("#totp-code-3").focus();
+		}
 	});
 	$("#totp-code-5").keyup(function () {
 		var value = $(this).val();
@@ -168,12 +183,18 @@ $(document).ready(function () {
 			$("#totp-code-6").focus();
 			totp_validate(totp_code);
 		}
+		else {
+			$("#totp-code-4").focus();
+		}
 	});
 	$("#totp-code-6").keyup(function () {
 		var value = $(this).val();
 		if (value.length > 0) {
 			totp_code = totp_code + value;
 			totp_validate(totp_code);
+		}
+		else {
+			$("#totp-code-5").focus();
 		}
 	});
 

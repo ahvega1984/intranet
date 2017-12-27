@@ -21,7 +21,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
 	
-	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo, c_profes.totp_secret FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."' LIMIT 1");
+	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo, c_profes.telefono, c_profes.totp_secret FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."' LIMIT 1");
 	$usuarioExiste = mysqli_num_rows($pass0);
 
 	$pass1 = mysqli_fetch_array($pass0);
@@ -29,6 +29,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	$profe = $pass1['profesor'];
 	$dni = $pass1['dni'];
 	$bloqueado = $pass1['estado'];
+	$telefono = $pass1['telefono'];
 	$correo = $pass1['correo'];
 
 	if ($pass1['totp_secret'] != NULL) {
@@ -197,6 +198,25 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 					$mail->AddAddress($correo, $profe);
 					$mail->Send();
+
+					// Enviamos SMS con el código temporal de inicio de sesión
+					require_once(INTRANET_DIRECTORY.'/lib/google-authenticator/GoogleAuthenticator.php');
+					$ga = new PHPGangsta_GoogleAuthenticator();
+					
+					$_SESSION['totp_codigo_movil'] = 0;
+					if (isset($config['mod_sms']) && $config['mod_sms'] && $telefono != '') {
+						$oneCode = $ga->getCode($_SESSION['totp_secreto']);
+
+						include_once(INTRANET_DIRECTORY.'/lib/trendoo/sendsms.php');
+						$sms = new Trendoo_SMS();
+						$sms->sms_type = SMSTYPE_GOLD_PLUS;
+						$sms->add_recipient('+34'.$telefono);
+						$sms->message = 'Tu código temporal de inicio de sesión en la Intranet es '.$oneCode.'.';
+						$sms->sender = $config['mod_sms_id'];
+						$sms->set_immediate();
+						if ($sms->validate()) $sms->send();
+						$_SESSION['totp_codigo_movil'] = substr($telefono, 6, 3);
+					}
 
 					include("login_totp.php");
 					exit();

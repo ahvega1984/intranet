@@ -44,7 +44,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Para terminar. Suba o actualice su foto.' : 'Cambiar foto'; ?></h2>
+		<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Suba o actualice su foto.' : 'Cambiar foto'; ?></h2>
 	</div>
 	
 	<!-- MENSAJES -->

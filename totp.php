@@ -7,7 +7,7 @@ $ga = new PHPGangsta_GoogleAuthenticator();
 
 $totp_activo = 0;
 
-$result = mysqli_query($db_con, "SELECT `totp_secret`, `correo` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+$result = mysqli_query($db_con, "SELECT `totp_secret`, `correo`, `telefono` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
 $row = mysqli_fetch_array($result);
 if ($row['totp_secret'] != NULL) {
 	$secret = $row['totp_secret'];
@@ -26,6 +26,19 @@ if (isset($_POST['totp-estado'])) {
 		else {
 			$totp_activo = 1;
 			$_SESSION['totp_configuracion'] = 1;
+
+			if (isset($config['mod_sms']) && $config['mod_sms'] && $row['telefono'] != '') {
+				$oneCode = $ga->getCode($secret);
+
+				include_once(INTRANET_DIRECTORY.'/lib/trendoo/sendsms.php');
+				$sms = new Trendoo_SMS();
+				$sms->sms_type = SMSTYPE_GOLD_PLUS;
+				$sms->add_recipient('+34'.$row['telefono']);
+				$sms->message = 'Tu código de verificación es '.$oneCode.'.';
+				$sms->sender = $config['mod_sms_id'];
+				$sms->set_immediate();
+				if ($sms->validate()) $sms->send();
+			}
 		}
 	}
 	else {
@@ -111,7 +124,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Autenticación en dos pasos <small>Inicia sesión con un código de tu teléfono y una contraseña</small></h2>
+			<h2>Autenticación en dos pasos</h2>
 		</div>
 		
 		<!-- MENSAJES -->
@@ -142,7 +155,39 @@ include("menu.php");
 						</fieldset>
 					</form>
 
-					<?php if (isset($_SESSION['totp_configuracion']) && $_SESSION['totp_configuracion']): ?>
+					<?php if ($totp_activo && (! isset($_SESSION['totp_configuracion']) || ! $_SESSION['totp_configuracion'])): ?>
+
+					<hr>
+
+					<h4>Inicio de sesión:</h4>
+					<br>
+					<?php if (isset($config['mod_sms']) && $config['mod_sms']): ?>
+					<h5 class="text-info"><strong><span class="fa fa-mobile fa-fw fa-lg"></span> Mensaje de texto (SMS)</strong></h5>
+					<p>Usa tu teléfono como nivel adicional de seguridad para evitar que otras personas inicien sesión en tu cuenta.</p>
+					<p><a href="clave.php" class="pull-right btn btn-xs btn-default">Cambiar</a> <strong>Teléfono móvil: <?php echo $row['telefono']; ?></strong></p>
+
+					<hr>
+					<?php endif; ?>
+
+					<h5 class="text-info"><strong><span class="fa fa-code fa-fw fa-lg"></span> Generador de códigos</strong></h5>
+					<p>Puedes utilizar la aplicación generador de códigos en tu dispositivo Android o iOS para iniciar sesión.</p>
+
+					<hr>
+
+					<h4>Notificaciones:</h4>
+					<br>
+
+					<h5 class="text-info"><strong><span class="fa fa-envelope fa-fw fa-lg"></span> Correo electrónico</strong></h5>
+					<p>Te notificaremos cuando se inicie sesión desde un nuevo dispositivo o navegador, y si se ha desactivado la autenticación en dos pasos.</p>
+					<p><a href="clave.php" class="pull-right btn btn-xs btn-default">Cambiar</a> <strong>Correo electrónico: <?php echo $row['correo']; ?></strong></p>
+
+					<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
+					<br>
+					<a href="admin/fotos/fotos_profes.php?tour=1" class="btn btn-primary">Siguiente</a>
+					<?php endif; ?>
+
+					<?php elseif ($totp_activo && isset($_SESSION['totp_configuracion']) && $_SESSION['totp_configuracion']): ?>
+
 					<hr>
 
 					<form id="totp-configuracion" method="post" action="">
@@ -182,7 +227,17 @@ include("menu.php");
 						
 						</fieldset>
 					</form>
-					<?php endif; ?>	
+
+					<?php else: ?>	
+
+					<p>Agrega un nivel adicional de seguridad para evitar que otras personas inicien sesión en tu cuenta. Inicia sesión con un código de tu teléfono y una contraseña</p>
+
+					<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
+					<br>
+					<a href="admin/fotos/fotos_profes.php?tour=1" class="btn btn-default">Omitir</a>
+					<?php endif; ?>
+
+					<?php endif; ?>
 					
 				</div><!-- /.well -->
 				
@@ -191,7 +246,7 @@ include("menu.php");
 		</div><!-- /.row -->
 
 		<?php if (! isset($_SESSION['totp_configuracion']) || ! $_SESSION['totp_configuracion']): ?>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br>
 		<?php endif; ?>	
 		
 	</div><!-- /.container -->
@@ -237,6 +292,9 @@ $(document).ready(function () {
 				$("#totp-code-3").focus();
 				totp_validate(totp_code);
 			}
+			else {
+				$("#totp-code-1").focus();
+			}
 	});
 	$("#totp-code-3").keyup(function () {
 			var value = $(this).val();
@@ -244,6 +302,9 @@ $(document).ready(function () {
 				totp_code = totp_code + value;
 				$("#totp-code-4").focus();
 				totp_validate(totp_code);
+			}
+			else {
+				$("#totp-code-2").focus();
 			}
 	});
 	$("#totp-code-4").keyup(function () {
@@ -253,6 +314,9 @@ $(document).ready(function () {
 				$("#totp-code-5").focus();
 				totp_validate(totp_code);
 			}
+			else {
+				$("#totp-code-3").focus();
+			}
 	});
 	$("#totp-code-5").keyup(function () {
 			var value = $(this).val();
@@ -261,12 +325,18 @@ $(document).ready(function () {
 				$("#totp-code-6").focus();
 				totp_validate(totp_code);
 			}
+			else {
+				$("#totp-code-4").focus();
+			}
 	});
 	$("#totp-code-6").keyup(function () {
 			var value = $(this).val();
 			if (value.length > 0) {
 				totp_code = totp_code + value;
 				totp_validate(totp_code);
+			}
+			else {
+				$("#totp-code-5").focus();
 			}
 	});
 
