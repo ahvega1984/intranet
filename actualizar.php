@@ -202,15 +202,21 @@ if (! mysqli_num_rows($actua)) {
 
 /*
 	@descripcion: Añadido campo para segundo factor de autenticación en tabla c_profes
-	@fecha: 24 de diciembre de 2017
+	@fecha: 27 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Autenticación en dos pasos'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Módulo TOTP'");
 if (! mysqli_num_rows($actua)) {
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM c_profes WHERE Field = 'totp_secret'");
 	if (! mysqli_num_rows($result_update)) {
-		mysqli_query($db_con, "ALTER TABLE `reg_principal` ADD `totp_secret` CHAR(16) NULL");
+		mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `totp_secret` CHAR(16) NULL");
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Autenticación en dos pasos', NOW())");
+	// Las siguientes lineas solucionan un error en actualización anterior
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_principal WHERE Field = 'totp_secret'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `reg_principal` DROP `totp_secret`;");
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Módulo TOTP', NOW())");
 }
