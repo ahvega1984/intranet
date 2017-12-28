@@ -6,6 +6,7 @@
 	<!-- CONFIGURACIÓN -->
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
+	<li><a href="./ota/index.php">Comprobar actualizaciones</a></li>
 	<?php endif;?>
 	
 	<!-- A PRINCIPIO DE CURSO -->

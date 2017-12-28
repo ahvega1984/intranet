@@ -77,8 +77,6 @@ $ultima_version = ltrim(getLatestVersion(), 'v');
 if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 	acl_acceso();
 }
-
-ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -154,9 +152,6 @@ ob_start();
 	if(version_compare($ultima_version, INTRANET_VERSION, '>')) {
 		
 		echo '$("#status").html("Iniciando actualización...");';
-		
-		flush();
-		ob_flush();
 
 		// Asignamos el nombre al archivo de descarga con la actualización
 		$zipfile = INTRANET_DIRECTORY.'/xml/ota/intranet-'.$ultima_version.'.zip';
@@ -183,8 +178,6 @@ ob_start();
 		// Ejecutamos la sesión cURL
 
 		echo '$("#status").html("Descargando archivo de actualización...");';
-		flush();
-		ob_flush();
 		
 		$result = curl_exec($ch);
 		fclose($fp);
@@ -203,8 +196,6 @@ ob_start();
 			if ($zip->open($zipfile) === TRUE) {
 
 				echo '$("#status").html("Descomprimiendo archivo de actualización...");';
-				flush();
-				ob_flush();
 
 				// Descomprimimos el contenido en la carpeta raíz de la Intranet
 				$result = $zip->extractSubdirTo(INTRANET_DIRECTORY.'/', 'intranet-'.$ultima_version);
@@ -229,8 +220,6 @@ ob_start();
 
 					echo '$("#icon").html("<i class=\"fa fa-refresh fa-5x fa-fw text-danger"\></i>");';
 					echo '$("#status").html("<strong class=\"text-danger\">'.$msg_error.'</strong></p>'.$msg_error_list.'<p>Realice la actualización manualmente.");';
-					flush();
-					ob_flush();
 					
 				}
 				else {
@@ -242,8 +231,6 @@ ob_start();
 					
 					// Actualizaciones de la base de datos
 					echo '$("#status").html("Aplicando actualizaciones de la base de datos");';
-					flush();
-					ob_flush();
 
 					include(INTRANET_DIRECTORY.'/actualizar.php');
 
@@ -251,15 +238,11 @@ ob_start();
 
 					echo '$("#icon").html("<i class=\"fa fa-check-circle-o fa-5x fa-fw text-success\"></i>");';
 					echo '$("#status").html("<strong class=\"text-success\">Actualización completada</strong><br><br><a href=\"//'.$config['dominio'].'/intranet/index.php\" class=\"btn btn-primary\">Ir a la página principal</a>");';
-					flush();
-					ob_flush();
 				}
 				
 			} else {
 				echo '$("#icon").html("<i class=\"fa fa-refresh fa-5x fa-fw"\></i>");';
 				echo '$("#status").html("<strong class=\"text-danger\">Error al abrir el archivo de actualización. Realice la actualización manualmente.</strong>");';
-				flush();
-				ob_flush();
 			}
 		}
 
