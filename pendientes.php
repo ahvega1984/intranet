@@ -27,7 +27,7 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 			Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.
 		</div>
 		<div class="col-sm-4">
-			<a href="//<?php echo $config['dominio']; ?>/intranet/xml/ota/index.php" class="btn btn-primary pull-right">
+			<a href="//<?php echo $config['dominio']; ?>/intranet/xml/actualizaciones/index.php" class="btn btn-primary pull-right">
 				<span class="fa fa-refresh fa-fw"></span> Actualizar
 			</a>
 		</div>

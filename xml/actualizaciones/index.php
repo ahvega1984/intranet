@@ -154,7 +154,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 		echo '$("#status").html("Iniciando actualización...");';
 
 		// Asignamos el nombre al archivo de descarga con la actualización
-		$zipfile = INTRANET_DIRECTORY.'/xml/ota/intranet-'.$ultima_version.'.zip';
+		$zipfile = INTRANET_DIRECTORY.'/xml/actualizaciones/intranet-'.$ultima_version.'.zip';
 		
 		// Eliminamos el archivo si existiese y creamos uno nuevo
 		if (file_exists($zipfile)) unlink($zipfile);

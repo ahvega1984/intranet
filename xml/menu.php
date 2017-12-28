@@ -6,7 +6,7 @@
 	<!-- CONFIGURACIÓN -->
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
-	<li><a href="./ota/index.php">Comprobar actualizaciones</a></li>
+	<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/actualizaciones/index.php">Comprobar actualizaciones</a></li>
 	<?php endif;?>
 	
 	<!-- A PRINCIPIO DE CURSO -->
