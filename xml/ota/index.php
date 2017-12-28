@@ -77,6 +77,8 @@ $ultima_version = ltrim(getLatestVersion(), 'v');
 if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 	acl_acceso();
 }
+
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -208,6 +210,8 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				$result = $zip->extractSubdirTo(INTRANET_DIRECTORY.'/', 'intranet-'.$ultima_version);
 				$zip->close();
 				
+				
+				
 				// Comprobamos si se produjeron errores en la descompresión
 				if (count($result)) {
 					if (count($result) == 1) {
@@ -260,8 +264,12 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 		}
 
 		// Eliminamos el archivo de actualización
-		//unlink($zipfile);
+		unlink($zipfile);
 
+	}
+	else {
+		echo '$("#icon").html("<i class=\"fa fa-check-circle-o fa-5x fa-fw\"></i>");';
+		echo '$("#status").html("<strong>No hay actualizaciones disponibles</strong><br><br><a href=\"//'.$config['dominio'].'/intranet/index.php\" class=\"btn btn-primary\">Ir a la página principal</a>");';
 	}
 	?>
 	</script>
