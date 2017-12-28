@@ -4,32 +4,34 @@
 // Comprueba la última release de la aplicación
 if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
-	function getLatestVersion($repository, $default = INTRANET_VERSION) {
+	function getLatestVersion() {
 
 		$context = array(
-		  'http' => array(
-		  	'header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
-		  	)
-		  	);
+		  'http' => array('header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n")
+		);
 
-		  	$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false, stream_context_create($context)));
-		  	return sprintf("%s", $file ? reset($file)->name : $default);
+		$file = @json_decode(@file_get_contents("https://api.github.com/repos/IESMonterroso/intranet/tags", false, stream_context_create($context)));
+		return sprintf("%s", $file ? reset($file)->name : INTRANET_VERSION);
 	}
 
-	$ultima_version = ltrim(getLatestVersion('IESMonterroso/intranet'), 'v');
+	$ultima_version = ltrim(getLatestVersion(), 'v');
 }
 ?>
 
 <?php if(isset($_SESSION['user_admin']) && version_compare($ultima_version, INTRANET_VERSION, '>')): ?>
 <div class="alert alert-info">
-<h4>Nueva actualización de la Intranet</h4>
-<div class="row">
-<div class="col-sm-8">Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.</div>
-<div class="col-sm-4"><a
-	href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>"
-	target="_blank" class="btn btn-primary pull-right"><span
-	class="fa fa-download"></span> Descargar</a></div>
-</div>
+	<h4>Nueva actualización de la Intranet</h4>
+
+	<div class="row">
+		<div class="col-sm-8">
+			Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.
+		</div>
+		<div class="col-sm-4">
+			<a href="//<?php echo $config['dominio']; ?>/intranet/xml/ota/index.php" class="btn btn-primary pull-right">
+				<span class="fa fa-refresh fa-fw"></span> Actualizar
+			</a>
+		</div>
+	</div>
 </div>
 <?php endif; ?>
 
