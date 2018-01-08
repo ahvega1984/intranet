@@ -96,11 +96,11 @@ include("menu.php");
 										<?php
 										if (strstr($_SESSION['cargo'], '1') == true) {
 											$result = mysqli_query($db_con, "SELECT DISTINCT nomunidad FROM unidades ORDER BY nomunidad ASC"); 
-											$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo WHERE m.abrev LIKE 'AMB%' ORDER BY u.nomunidad ASC");
+											$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo WHERE m.abrev LIKE '%**%' ORDER BY u.nomunidad ASC");
 										}
 										else {
 											$result = mysqli_query($db_con, "SELECT DISTINCT unidad AS nomunidad FROM FTUTORES WHERE tutor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY unidad ASC");
-											$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN FTUTORES AS t ON u.nomunidad = t.unidad WHERE m.abrev LIKE 'AMB%' AND t.tutor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
+											$result_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN FTUTORES AS t ON u.nomunidad = t.unidad WHERE m.abrev LIKE '%**%' AND t.tutor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
 										}
 										
 										$array_unidades = array();

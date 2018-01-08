@@ -12,7 +12,7 @@ if ($esPMAR) {
 
 if (isset($_POST['datos']) && $_POST['datos'] == 1) {
 	if ($esPMAR) {
-		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE 'AMB%' LIMIT 1");
+		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' LIMIT 1");
 		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
 		$codasig_pmar = $row_codasig_pmar['codigo'];
 		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad, claveal, fecha, padre, domicilio, localidad, provinciaresidencia, telefono, telefonourgencia FROM alma WHERE unidad = '".$unidad."' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");			
@@ -23,7 +23,7 @@ if (isset($_POST['datos']) && $_POST['datos'] == 1) {
 }
 else {
 	if ($esPMAR) {
-		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE 'AMB%' LIMIT 1");
+		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' LIMIT 1");
 		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
 		$codasig_pmar = $row_codasig_pmar['codigo'];
 		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad FROM alma WHERE unidad = '".$unidad."' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");			

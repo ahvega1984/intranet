@@ -207,7 +207,7 @@ include("cuaderno/menu_cuaderno.php");
 					$result_pmar = mysqli_query($db_con, "SELECT abrev FROM materias WHERE codigo = '".$asignatura."' LIMIT 1");
 					$row_abrevpmar = mysqli_fetch_array($result_pmar);
 					$abrevpmar = $row_abrevpmar['abrev'];
-					$esPMAR = (stristr($abrevpmar, '**') == true || stristr($abrevpmar, 'AMB') == true) ? 1 : 0;
+					$esPMAR = (stristr($abrevpmar, '**') == true) ? 1 : 0;
 
 					if ($esPMAR) {
 						// Problemas con PMAR

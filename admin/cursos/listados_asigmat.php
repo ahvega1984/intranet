@@ -30,7 +30,7 @@ else {
 	}
 	else {
 		$result_unidades = mysqli_query($db_con, "SELECT DISTINCT grupo AS nomunidad FROM profesores WHERE profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY grupo ASC");
-		$result_unidades_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN profesores AS p ON u.nomunidad = p.grupo WHERE m.abrev LIKE 'AMB%' AND p.profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
+		$result_unidades_pmar = mysqli_query($db_con, "SELECT DISTINCT CONCAT(u.nomunidad, ' (PMAR)') AS nomunidad FROM unidades AS u JOIN materias AS m ON u.nomunidad = m.grupo JOIN profesores AS p ON u.nomunidad = p.grupo WHERE m.abrev LIKE '%**%' AND p.profesor='".mb_strtoupper($_SESSION['profi'], 'UTF-8')."' ORDER BY u.nomunidad ASC");											
 		while ($row_unidades = mysqli_fetch_array($result_unidades)) $unidades[] = $row_unidades['nomunidad'];
 		mysqli_free_result($result_unidades);
 		while ($row_unidades = mysqli_fetch_array($result_unidades_pmar)) $unidades[] = $row_unidades['nomunidad'];
@@ -105,12 +105,8 @@ foreach ($unidades as $unidad) {
 		$columns_names = array('NC', 'Alumno/a');
 		$columns_aligns = array('L', 'L');
 		
-		if ($esPMAR) {
-			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev <> 'GeH' AND abrev <> 'LCL' AND abrev <> 'MAT' AND abrev <> 'MAC' AND abrev <> 'MAP' AND abrev <> 'ByG' AND abrev <> 'FyQ' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");	
-		}
-		else {
-			$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev <> 'AMBLS' AND abrev NOT LIKE '%**%' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");			
-		}
+
+		$result_asignaturas = mysqli_query($db_con, "SELECT codigo, abrev FROM asignaturas WHERE abrev NOT LIKE '%\_%' AND abrev <> 'TCA' AND curso = '".$curso."' ORDER BY abrev ASC");			
 		while ($row_asignaturas = mysqli_fetch_array($result_asignaturas)) {
 			if ($esPMAR && stristr($row_asignaturas['abrev'], '**') == true) {
 				$codasig_pmar = $row_asignaturas['codigo'];
@@ -144,12 +140,7 @@ foreach ($unidades as $unidad) {
 
 
 		// CUERPO DE LA TABLA
-		if ($esPMAR) {
-			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' AND combasi LIKE '%".$codasig_pmar."%' ORDER BY apellidos ASC, nombre ASC");
-		}
-		else {
-			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' ORDER BY apellidos ASC, nombre ASC");			
-		}
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' ORDER BY apellidos ASC, nombre ASC");			
 		$MiPDF->SetTextColor(0, 0, 0);
 		$MiPDF->SetFont('NewsGotT', '', 10);
 		
@@ -192,23 +183,13 @@ foreach ($unidades as $unidad) {
 				$row['combasi'] = rtrim($row['combasi'], ':');
 				$combasi = explode(':', $row['combasi']);
 				if(in_array($row_asignaturas['codigo'], $combasi)) {
-					if ($esPMAR) {
-						$matriculado = 'X';
-					}
-					else {
-						if ($row_asignaturas['abrev'] == 'AMBCM' && $curso == '2º de E.S.O.') $matriculado = 'X(6)';
-						elseif ($row_asignaturas['abrev'] == 'AMBCM' && $curso == '3º de E.S.O.') $matriculado = 'X(7)';
-						else $matriculado = 'X';
-					}
-					
+					$matriculado = 'X';
 				}
 				else {
 					$matriculado = '';
 				}
 
 				if ($matriculado == 'X') $total_asigmat++;
-				elseif ($matriculado == 'X(6)') $total_asigmat+=6;
-				elseif ($matriculado == 'X(7)') $total_asigmat+=7;
 				
 				array_push($row_data, $matriculado);
 			}
