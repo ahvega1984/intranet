@@ -220,3 +220,16 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Módulo TOTP', NOW())");
 }
+
+/*
+	@descripcion: Cambio nombre de actividad Servicio de guardia
+	@fecha: 8 de enero de 2017
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nombre actividad Servicio de guardia'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "UPDATE `horw` SET `asig` = 'Servicio de guardia (No Lectiva)' WHERE `c_asig` = '25' AND `asig` = 'Servicio de guardia'");
+	mysqli_query($db_con, "UPDATE `horw_faltas` SET `asig` = 'Servicio de guardia (No Lectiva)' WHERE `c_asig` = '25' AND `asig` = 'Servicio de guardia'");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nombre actividad Servicio de guardia', NOW())");
+}
