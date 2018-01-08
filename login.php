@@ -13,7 +13,6 @@ if (isset($_SESSION['profi'])) {
 	session_destroy();
 }
 
-include('actualizar.php');
 mysqli_query($db_con,"SET NAMES 'utf8'");
 
 // Entramos
