@@ -24,7 +24,8 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 	<div class="row">
 		<div class="col-sm-8">
-			Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.
+			Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación. 
+			<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" class="alert-link" target="_blank">Ver historial de cambios</a>.
 		</div>
 		<div class="col-sm-4">
 			<a href="//<?php echo $config['dominio']; ?>/intranet/xml/actualizaciones/index.php" class="btn btn-primary pull-right">
