@@ -85,6 +85,7 @@ include '../../menu.php';
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL,
+			 `SEGSOCIAL` CHAR(12) NULL,
 			 PRIMARY KEY (`CLAVEAL`)  
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
 			

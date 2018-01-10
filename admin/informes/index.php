@@ -79,7 +79,7 @@ if (!$claveal) {
 		<?php $row2 = mysqli_fetch_array($result); ?>
 		<?php mysqli_free_result($result); ?>
 		
-		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente from alma where alma.claveal= '$claveal'"); ?>
+		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente, segsocial from alma where alma.claveal= '$claveal'"); ?>
 		
 		<?php if ($row = mysqli_fetch_array($result)): 
 		$nivel_alumno = $row['curso'];
@@ -152,6 +152,8 @@ if (!$claveal) {
 						  <dd><?php echo ($row['claveal'] != "") ? $row['claveal']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Nº Expediente</dt>
 						  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dt>Nº Seguridad Social</dt>
+						  <dd><?php echo ($row['segsocial'] != "") ? $row['segsocial']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Año académico</dt>
 						  <dd><?php echo $c_escolar; ?></dd>
 						  <dt>Curso</dt>
