@@ -80,7 +80,6 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	
 	$i=0;
 	while ($alumno = mysqli_fetch_array($result)) {
-		//$div = mysqli_query($db_con,"select combasi from alma where combasi LIKE '%25204%' OR combasi LIKE '%25226%' OR combasi LIKE '%135785%' and claveal");
 		if ($i%2==0) $somb='DF'; else $somb='';
 		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,40),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
 		

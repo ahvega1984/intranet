@@ -294,16 +294,9 @@ while($hora2 = mysqli_fetch_row($hora0))
 		echo "<br><table class='table table-striped table-bordered table-condensed table-hover'>\n";
 		$filaprincipal = "<thead><tr><th colspan='3'><h4 class=\"text-center\">";
 
-		//$filaprincipal.= substr($t_grupos,0,-2);
 
 		$filaprincipal.= $curso." ($asignatura)";
 
-		/*	if(!($t_grupos=="")){
-		 $filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-		 if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
-		 echo "</small>";
-		 }
-		 */
 		if(!($t_grupos=="")){
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
@@ -316,7 +309,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$curso = $hora2[1];
 		}
 		echo $filaprincipal;
-
+		$n="";
 		while($row = mysqli_fetch_array($result)){
 			$n+=1;
 			$chkT="";

@@ -201,10 +201,10 @@ include("cuaderno/menu_cuaderno.php");
 						$asig_div="";						
 						$div = $curso;
 						$nivel_curso2 = substr($div,0,-1);
-						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%')");
+						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi LIKE '%143733%' OR combasi LIKE '%143727%')");
 						$grupo_diver = mysqli_fetch_row($grupo_div);
 						$curso = $grupo_diver[0];
-						$asig_div = "combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%'";
+						$asig_div = "combasi LIKE '%143733%' or combasi LIKE '%143727%'";
 					}
 					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
@@ -451,7 +451,7 @@ include("cuaderno/menu_cuaderno.php");
 						if (mysqli_num_rows($profe_div)<1) {
 
 							$div = $curso;
-							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')");
+							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%143733%' OR combasi LIKE '%143727%')");
 							$grupo_diver = mysqli_fetch_row($grupo_div);
 							$curso = $grupo_diver[0];
 						}

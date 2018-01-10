@@ -277,15 +277,12 @@ if (isset($_POST['actualizar'])) {
 	
 	mysqli_query($db_con,"delete from profesores where profesor = '$profesor'");
 	
-	$pro = mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where prof = '$profesor' and (a_grupo in (select nomunidad from unidades) or a_grupo in (select distinct a_grupo from horw where c_asig = '135785' or c_asig = '25226')) and c_asig not like '2' order by prof");
+	$pro = mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where prof = '$profesor' and a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
 	while ($prf = mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
 		$grupo = $prf[1];
 		$profesor = $prf[2];
-		$tr_g = explode("-",$grupo);
-		if(strlen($tr_g[1])>1){
-		$grupo = substr($grupo,0,-1);
-		}
+
 		$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
 		$nive =mysqli_fetch_array($niv);
 		$nivel = $nive[0];
@@ -313,7 +310,6 @@ if (isset($_POST['eliminar'])) {
 	
 	$result = mysqli_query($db_con, "DELETE FROM horw WHERE dia='$dia' AND hora='$hora' AND a_grupo='$unidad' AND prof='$profesor' LIMIT 1");
 	mysqli_query($db_con, "DELETE FROM horw_faltas WHERE dia='$dia' AND hora='$hora' AND a_grupo='$unidad' AND prof='$profesor' LIMIT 1");
-	mysqli_query($db_con, "DELETE FROM profesores WHERE grupo='$unidad' AND profesor='$profesor' and materia = (select distinct nombre from asignaturas where codigo='$asig' and abrev not like '%\_%')");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
