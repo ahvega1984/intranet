@@ -201,11 +201,9 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				$result = $zip->extractSubdirTo(INTRANET_DIRECTORY.'/', 'intranet-'.$ultima_version);
 				$zip->close();
 				
-				
-				
 				// Comprobamos si se produjeron errores en la descompresión
 				if (count($result)) {
-					if (count($result) == 1) {
+					if (count($result) > 2) {
 						$msg_error = 'Se ha producido un error';
 					}
 					else {
