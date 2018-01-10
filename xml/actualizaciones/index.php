@@ -202,13 +202,8 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				$zip->close();
 				
 				// Comprobamos si se produjeron errores en la descompresión
-				if (count($result)) {
-					if (count($result) > 2) {
-						$msg_error = 'Se ha producido un error';
-					}
-					else {
-						$msg_error = 'Se han producido '.count($result) .' errores';
-					}
+				if (count($result) > 2) {
+					$msg_error = 'Se han producido '.count($result) .' errores';
 
 					$msg_error_list = '<ul>';
 					foreach ($result as $error) {
@@ -216,7 +211,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 					}
 					$msg_error_list .= '</ul>';
 
-					echo '$("#icon").html("<i class=\"fa fa-refresh fa-5x fa-fw text-danger"\></i>");';
+					echo '$("#icon").html("<i class=\"fa fa-refresh fa-5x fa-fw text-danger\"></i>");';
 					echo '$("#status").html("<strong class=\"text-danger\">'.$msg_error.'</strong></p>'.$msg_error_list.'<p>Realice la actualización manualmente.");';
 					
 				}
@@ -239,7 +234,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				}
 				
 			} else {
-				echo '$("#icon").html("<i class=\"fa fa-refresh fa-5x fa-fw"\></i>");';
+				echo '$("#icon").html("<i class=\"fa fa-refresh fa-5x fa-fw\"></i>");';
 				echo '$("#status").html("<strong class=\"text-danger\">Error al abrir el archivo de actualización. Realice la actualización manualmente.</strong>");';
 			}
 		}
