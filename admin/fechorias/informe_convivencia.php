@@ -437,7 +437,7 @@ include("../../menu.php");
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= (select min(tutoria.fecha) from festivos where nombre='Semana Santa') order by id";
+                                            $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= (select min(tutoria.fecha) from festivos where nombre='Vacaciones de Navidad') order by id";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_acciones1 = mysqli_num_rows($result);
                                             $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='01' and date(tutoria.fecha) <= (select min(tutoria.fecha) from festivos where nombre='Semana Santa') order by id";
@@ -449,7 +449,7 @@ include("../../menu.php");
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= (select min(fecha) from festivos where nombre='Semana Santa') order by id";
+                                            $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by id";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_comunica1 = mysqli_num_rows($result);
                                             $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='01' and date(tutoria.fecha) <= (select min(fecha) from festivos where nombre='Semana Santa') order by id";
