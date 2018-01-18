@@ -15,8 +15,8 @@ if (isset($_GET['motivo'])) {$motivo = $_GET['motivo'];}elseif (isset($_POST['mo
 $activo1="";
 $activo2="";
 $activo3="";
+$activo4="";
 $activo5="";
-$activo3="";
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'infotut.php')==TRUE) {$activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'buscar.php')==TRUE){ $activo3 = ' class="active" ';}

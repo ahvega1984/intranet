@@ -15,8 +15,8 @@ if (isset($_GET['c_asig'])) {$c_asig = $_GET['c_asig'];}elseif (isset($_POST['c_
 $activo1="";
 $activo2="";
 $activo3="";
-$activo5="";
 $activo4="";
+$activo5="";
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'infotut.php')==TRUE) {$activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'buscar.php')==TRUE){ $activo3 = ' class="active" ';}
