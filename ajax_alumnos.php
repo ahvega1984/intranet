@@ -11,15 +11,22 @@ if(isset($_POST["word"]))
 	else{
 		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE (CONCAT(apellidos,' ',nombre) LIKE '%".$_POST["word"]."%' and CONCAT(apellidos,' ',nombre) like '%".$_POST["word"]."%') or (CONCAT(nombre,' ',apellidos) LIKE '%".$_POST["word"]."%' and CONCAT(nombre,' ',apellidos) like '%".$_POST["word"]."%') OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");
 	}
-	echo '<ul class="nav nav-pills nav-stacked">';
-	while($row=mysqli_fetch_array($result))
-	{
+	echo '<ul class="list-group">';
+	while ($row = mysqli_fetch_array($result)){
 		// Mostramos las lineas que se mostraran en el desplegable.
 		$datos=$row[0];
 		$clave_al=$row[1];
 		$curso_al=$row[2];
-		echo '
-<li><a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'"><span class="pull-right">'.$curso_al.'</span> '.$datos.' </a></li>';
+
+		if ($foto = obtener_foto_alumno($clave_al)) {
+			$foto_alumno = '<img class="img-thumbnail" src="xml/fotos/'.$foto.'" style="width: 32px !important;" alt="">';
+		}
+		else {
+			$foto_alumno = '<span class="img-thumbnail fa fa-user fa-fw" style="width: 32px !important;"></span>';
+		}
+		echo '<a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'" class="list-group-item">';
+		echo '<span class="pull-right badge badge-default">'.$curso_al.'</span> '.$foto_alumno.' '.$datos;
+		echo '</a>';
 	}
 	echo '</ul>';
 }

@@ -217,11 +217,11 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 		<tr>
 			<?php if ($foto = obtener_foto_alumno($row['claveal'])): ?>
 			<td class="text-center">
-				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" style="width: 48px !important;" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>">
+				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" style="width: 45px !important;" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>">
 			</td>
 			<?php else: ?>
 			<td class="text-center">
-				<span class="fa fa-user fa-fw fa-3x"></span>
+				<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>
 			</td>
 			<?php endif; ?>
 			<td>

@@ -304,7 +304,7 @@ include("cuaderno/menu_cuaderno.php");
 								echo '<img class="img-thumbnail" src="xml/fotos/'.$foto_alumno.'" style="width: 45px !important;" alt="">';
 							}
 							else {
-								echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+								echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 							}											
 						}
 						echo $foto1;

@@ -111,7 +111,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
     echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
   }
   else {
-    echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+    echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
   }
 	echo "</td>";
 	echo "<td  align='left' style='vertical-align:middle'><div class='checkbox'><label><input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]' $sel /> $rowF[2] $rowF[1]</label></div></td><td style='vertical-align:middle'>$rowF[3]</td>

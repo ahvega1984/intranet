@@ -75,10 +75,10 @@ if (mysqli_num_rows($result) > 0)
 
    echo "<tr><td nowrap style='vertical-align:middle'>";
 		if ($foto = obtener_foto_alumno($row->CLAVEAL)) {
-			echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 52px !important;" alt="">&nbsp;&nbsp;';
+			echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 		}
 		else {
-			echo '<span class="fa fa-user fa-fw fa-3x"></span>&nbsp;';
+			echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 		}	
    echo stripslashes($row->APELLIDOS)." ".stripslashes($row->NOMBRE)."</TD>
    <TD style='vertical-align:middle'>".stripslashes($row->unidad)."</TD>

@@ -222,7 +222,7 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
 	}
 	else {
-		echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+		echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
 	}       	
 	echo "</td>";
 	for ($i=1;$i<$num_asig+1;$i++){

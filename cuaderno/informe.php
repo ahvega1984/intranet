@@ -78,7 +78,7 @@ if($siguiente == '1'){
     echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
   }
   else {
-    echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+    echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
   }	
   echo "</td></tr></table>";
 			

@@ -45,7 +45,7 @@ while  ($row0 = mysqli_fetch_array($resultTEMP)){
         echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
     }
     else {
-        echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+        echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
     }
     echo "</td><td>";
     echo "$row0[1] $row0[2]</td><td>$row0[3]</td>

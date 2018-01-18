@@ -48,10 +48,10 @@ $nom=$tr2[3];
 echo '<h4>'.$tr1[3].' '.$tr1[2].'</h4>';
 echo '<div class="text-center">';
 if ($foto = obtener_foto_alumno($alumno)) {
-	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 84px !important;" alt="">';
+	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
 }
 else {
-	echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+	echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
 }
 echo '</div>'; 
 echo "</td></tr></table><br />";		        

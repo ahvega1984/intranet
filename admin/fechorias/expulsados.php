@@ -47,7 +47,7 @@ $tareas0 = "select id from tareas_alumnos where fecha = '$row[5]' and claveal = 
             $foto0 = '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
         }
         else {
-            $foto0 = '<span class="fa fa-user fa-fw fa-3x"></span>';
+            $foto0 = '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
         }	
         printf ("<tr><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td>
 <td>
@@ -83,7 +83,7 @@ echo "<br /><legend align='center'>Alumnos expulsados del Centro actualmente</le
                         $foto0 = '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
                     }
                     else {
-                        $foto0 = '<span class="fa fa-user fa-fw fa-3x"></span>';
+                        $foto0 = '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
                     }
 
 				    if(strlen($row[9]) > 0 or strlen($row[10]) > 0 ){$comentarios="(*)";}else{$comentarios="";}

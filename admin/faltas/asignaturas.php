@@ -42,7 +42,7 @@ if ($result) {
 				echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 			}
 			else {
-				echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+				echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 			}
 			echo "</td><td nowrap>";
 			echo "<a href='informes.php?claveal=$row[0]&codigo=$cod_asig&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2' target='_blank'>$row[3]</a></td><td ><strong>$row[1]</strong></td><td>";

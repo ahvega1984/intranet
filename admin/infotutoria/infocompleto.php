@@ -60,10 +60,10 @@ class="btn btn-danger">
 echo '<div class="media">';
 echo '<div class="pull-left hidden-xs">';
 if ($foto = obtener_foto_alumno($claveal)) {
-	echo '<img class="media-object img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+	echo '<img class="media-object img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important; margin-top: 15px;" alt="">';
 }
 else {
-	echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+	echo '<span class="media-object img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important; margin-top: 15px;"></span>';
 }
 echo '</div>';
 echo '
