@@ -645,7 +645,7 @@ include("cuaderno/menu_cuaderno.php");
 						
 							$tr_d = explode(":", $value);
 							if ($tr_d[0]==$asignatura or $tr_d[0]==$asignatura2) {
-								$califica = "select nombre from calificaciones where codigo = '" . $tr_d[1] . "'";
+								$califica = "select abreviatura from calificaciones where codigo = '" . $tr_d[1] . "'";
 								$calificacion = mysqli_query($db_con, $califica);
 								$rown = mysqli_fetch_array($calificacion);
 								echo $rown[0];

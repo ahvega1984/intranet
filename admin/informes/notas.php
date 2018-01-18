@@ -57,7 +57,7 @@ $trozos1 = explode(";", $asignatura1);
 	$bloque1 = explode(":", $codi1);
 	if($bloque1[0] == $bloque[0])
 	{
-$califica1 = "select nombre from calificaciones where codigo = '" . $bloque1[1]. "'";
+$califica1 = "select abreviatura from calificaciones where codigo = '" . $bloque1[1]. "'";
 $numero1 = mysqli_query($db_con, $califica1);
 $rown1 = mysqli_fetch_array($numero1);
 	}
@@ -78,7 +78,7 @@ $trozos2 = explode(";", $asignatura2);
 	$bloque2 = explode(":", $codi2);
 	if($bloque2[0] == $bloque[0])
 	{
-$califica2 = "select nombre from calificaciones where codigo = '" . $bloque2[1]. "'";
+$califica2 = "select abreviatura from calificaciones where codigo = '" . $bloque2[1]. "'";
 $numero2 = mysqli_query($db_con, $califica2);
 $rown2 = mysqli_fetch_array($numero2);
 	}
@@ -98,7 +98,7 @@ $trozos3 = explode(";", $asignatura3);
 	$bloque3 = explode(":", $codi3);
 	if($bloque3[0] == $bloque[0])
 	{
-$califica3 = "select nombre from calificaciones where codigo = '" . $bloque3[1]. "'";
+$califica3 = "select abreviatura from calificaciones where codigo = '" . $bloque3[1]. "'";
 $numero3 = mysqli_query($db_con, $califica3);
 $rown3 = mysqli_fetch_array($numero3);
 //if($rown3[0] == "No Presentado"){
@@ -122,7 +122,7 @@ $trozos4 = explode(";", $asignatura4);
 	
 	if($bloque[0] == $bloque4[0])
 	{
-$califica4 = "select nombre from calificaciones where codigo = '" . $bloque4[1]. "'";
+$califica4 = "select abreviatura from calificaciones where codigo = '" . $bloque4[1]. "'";
 $numero4 = mysqli_query($db_con, $califica4);
 $rown4 = mysqli_fetch_array($numero4);
 	}
@@ -143,7 +143,7 @@ $trozos5 = explode(";", $asignatura5);
 
 	if($bloque[0] == $bloque5[0])
 	{
-$califica5 = "select nombre from calificaciones where codigo = '" . $bloque5[1]. "'";
+$califica5 = "select abreviatura from calificaciones where codigo = '" . $bloque5[1]. "'";
 $numero5 = mysqli_query($db_con, $califica5);
 $rown5 = mysqli_fetch_array($numero5);
 	}
@@ -170,7 +170,7 @@ if($rown1[0] == "" and $rown2[0] == "" and $rown3[0] == "" and $rown4[0] == "" a
 	echo $nombre_asig . " <span  class='small'>(" . $asig_curso . ")</span></td>"; 
 	
 	if ($col_extra==1) {
-		echo "<td>";
+	echo "<td>";
 	echo $rown5[0] ."</td>";
 	}
 	
