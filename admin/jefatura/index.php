@@ -168,14 +168,11 @@ if ($id and ($unidad=='' and $alumno=='')) {
 </select> <?php endif; ?></div>
 </div>
 <div class="col-md-2"><?php    
-if ($clave !== "") {
-	$foto = '../../xml/fotos/'.$clave.'.jpg';
-	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-thumbnail pull-right'  />";
-	}
-	else{
-		echo "<i class='fa fa-user fa-5x fa-fw'></i>";
-	}
+if (!empty($clave) && $foto = obtener_foto_alumno($clave)) {
+	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
+}
+else {
+	echo '<span class="fa fa-user fa-fw fa-4x"></span>';
 }
 ?></div>
 </div>

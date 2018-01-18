@@ -215,10 +215,9 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 	?>
 	<?php while ($row = mysqli_fetch_array($result)): $claveal = $row['claveal']; $nc++;?>
 		<tr>
-			<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
-			<?php if (file_exists($foto)): ?>
+			<?php if ($foto = obtener_foto_alumno($row['claveal'])): ?>
 			<td class="text-center">
-				<img src="<?php echo $foto; ?>" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" width="48">
+				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" style="width: 48px !important;" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>">
 			</td>
 			<?php else: ?>
 			<td class="text-center">

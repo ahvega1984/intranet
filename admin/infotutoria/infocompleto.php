@@ -58,15 +58,14 @@ class="btn btn-danger">
 }
 
 echo '<div class="media">';
-
-$foto = '../../xml/fotos/'.$claveal.'.jpg';
-if (file_exists($foto)) {
-	echo '
-		<div class="pull-left hidden-xs">
-	    <img class="media-object img-thumbnail" src="../../xml/fotos/'.$claveal.'.jpg" alt="" style="width: 100px !important;">
-	  </div>';
+echo '<div class="pull-left hidden-xs">';
+if ($foto = obtener_foto_alumno($claveal)) {
+	echo '<img class="media-object img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
 }
-
+else {
+	echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+}
+echo '</div>';
 echo '
 	<div class="media-body">
     <h2>';

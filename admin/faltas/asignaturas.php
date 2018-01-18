@@ -38,9 +38,8 @@ if ($result) {
         echo "<thead><th width=\"60\"></th><th>Alumno</th><th>Total</th><th>Fechas</th></thead><tbody>";
         do {
 			echo "<tr><td>";
-			$foto = '../../xml/fotos/'.$row[0].'.jpg';
-			if (file_exists($foto)) {
-				echo '<img src="'.$foto.'" width="45" alt="" />';
+			if ($foto = obtener_foto_alumno($row[0])) {
+				echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 			}
 			else {
 				echo '<span class="fa fa-user fa-fw fa-3x"></span>';

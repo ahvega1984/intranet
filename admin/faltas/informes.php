@@ -115,7 +115,6 @@ else{
 
 $result = mysqli_query($db_con, "SELECT FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad FROM FALUMNOS WHERE CLAVEAL = '$claveal'");
 $row = mysqli_fetch_array($result);
-$foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
 ?>
   
   <div class="container">
@@ -132,8 +131,8 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
         
         <div class="media">
           <div class="media-left">
-          	  <?php if (file_exists($foto)): ?>
-              <img class="media-object img-thumbnail" src="<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 80px">
+          	  <?php if ($foto = obtener_foto_alumno($row['claveal'])): ?>
+              <img class="media-object img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 64px !important;">
               <?php else: ?>
               <span class="fa-stack fa-3x text-muted">
                 <i class="fa fa-circle fa-stack-2x"></i>

@@ -74,13 +74,12 @@ if (mysqli_num_rows($result) > 0)
 		if ($nulo > 0){ $bola = "<i class='fa fa-check' title='confirmado' />"; } else{ $bola = "<i class='fa fa-exclamation-triangle' title='No confirmado' />"; }
 
    echo "<tr><td nowrap style='vertical-align:middle'>";
-   		if (! file_exists('../../xml/fotos/'.$row->CLAVEAL.'.jpg')) {
-			$foto="<span class=\"fa fa-user fa-3x fa-fw\"></span>";
+		if ($foto = obtener_foto_alumno($row->CLAVEAL)) {
+			echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 52px !important;" alt="">&nbsp;&nbsp;';
 		}
 		else {
-			$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' alt='' />";
-		}
-		echo $foto."&nbsp;&nbsp;";	
+			echo '<span class="fa fa-user fa-fw fa-3x"></span>&nbsp;';
+		}	
    echo stripslashes($row->APELLIDOS)." ".stripslashes($row->NOMBRE)."</TD>
    <TD style='vertical-align:middle'>".stripslashes($row->unidad)."</TD>
    <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";

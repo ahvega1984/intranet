@@ -271,14 +271,7 @@ include("cuaderno/menu_cuaderno.php");
 						class='text-info' data-bs='tooltip'
 						title=' <?php echo $apellidos.", ".$nombre_al;?>'><a href="#"
 						onclick="window.open('<?php echo $inf;?>')"> <?php
-						if ($foto=="1") {
-						$foto1='<span class="fa fa-user fa-fw fa-3x"></span>';
-						}
-						else{
-						$foto1="";
-						$foto1 = "<img src='xml/fotos/$claveal.jpg' width='50' height='60' class=''  />";													
-						}
-						echo $foto1;
+						
 						echo "&nbsp;".$row[1];?>&nbsp; <?php
 						echo $nombre_completo;?></a></td>
 				</tr>

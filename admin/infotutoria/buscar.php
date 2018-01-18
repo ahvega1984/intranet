@@ -89,14 +89,14 @@ if (mysqli_num_rows($result) > 0)
 	{
 		$validado="";
 		$validado =  $row->valido;
-   echo "<tr><td nowrap style='vertical-align:middle'>";
-		if (! file_exists('../../xml/fotos/'.$row->CLAVEAL.'.jpg')) {
-			$foto="<span class=\"fa fa-user fa-3x fa-fw\"></span>";
+   		echo "<tr><td nowrap style='vertical-align:middle'>";
+   		if ($foto = obtener_foto_alumno($row->CLAVEAL)) {
+            echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+        }
+        else {
+            echo '<span class="fa fa-user fa-fw fa-3x"></span>';
 		}
-		else {
-			$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' alt='' />";
-		}
-		echo $foto."&nbsp;&nbsp;";	
+		echo "&nbsp;&nbsp;";	
    echo stripslashes($row->NOMBRE).' '.stripslashes($row->APELLIDOS).'</TD>';
   echo " <TD style='vertical-align:middle' nowrap>$row->unidad</TD>
    <TD style='vertical-align:middle' nowrap>$row->F_ENTREV</TD>";

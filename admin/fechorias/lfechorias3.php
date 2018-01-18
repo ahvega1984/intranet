@@ -120,13 +120,12 @@ include ("menu.php");
 		if(!(empty($apellidos))){
 		echo "<tr>
 		<td>";
-		$foto = '../../xml/fotos/'.$claveal.'.jpg';
-		if (file_exists($foto)) {
-			echo '<img src="'.$foto.'" width="55" alt="" />';
-		}
-		else {
-			echo '<span class="fa fa-user fa-fw fa-3x"></span>';
-		}
+		if ($foto = obtener_foto_alumno($claveal)) {
+            echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+        }
+        else {
+            echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+        }	
 		echo "</td>";
 		echo "<td nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>";
 		echo "<td>$rowcurso</td>";

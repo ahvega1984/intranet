@@ -56,12 +56,14 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nu
 }
 
 echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
-   	$foto = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto) and !(empty($dalumno[0]))) {
-		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-responsive' />";
-		echo "</div>";
-	}
+echo '<div class="text-center">';
+if ($foto = obtener_foto_alumno($claveal)) {
+	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
+}
+else {
+	echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+}
+echo '</div>';
 echo "<br />";
 echo "<label>Motivo de la reunión:</label>";
 $motivo_reunion = ($dalumno['motivo']) ? $dalumno['motivo'] : 'No se ha especificado el motivo de la reunión.';

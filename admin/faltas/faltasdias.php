@@ -41,9 +41,8 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 while  ($row0 = mysqli_fetch_array($resultTEMP)){
     $claveal = $row0[0];
     echo "<tr><td>";
-    $foto = '../../xml/fotos/'.$row0[0].'.jpg';
-    if (file_exists($foto)) {
-        echo '<img src="'.$foto.'" width="55" alt="" />';
+    if ($foto = obtener_foto_alumno($row[0])) {
+        echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
     }
     else {
         echo '<span class="fa fa-user fa-fw fa-3x"></span>';

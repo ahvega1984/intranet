@@ -48,12 +48,12 @@ echo "<thead><tr  class='active'><th>Alumno/a </th>
  <th>Grupo</th><th nowrap>Expulsión</th><th>Duración</th><tr></thead><tbody>
 <TR><td>$dalumno[1], $dalumno[2]</td>
 <td>$dalumno[3]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
-
-   	$foto = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto) and !(empty($dalumno[0]))) {
-		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-rsponsive'  />";
-		echo "</div>";
+	   
+	if ($foto = obtener_foto_alumno($claveal)) {
+		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
+	}
+	else {
+		echo '<span class="fa fa-user fa-fw fa-4x"></span>';
 	}
 
 $coinciden = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]'");

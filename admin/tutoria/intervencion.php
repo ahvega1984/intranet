@@ -244,9 +244,8 @@ include("menu.php");
 				<?php if($alumno && !($alumno == "Todos los Alumnos")): ?>
 				<?php $exp_alumno = explode(" --> ", $alumno); ?>
 				<?php $claveal = $exp_alumno[1]; ?>
-				<?php $foto = '../../xml/fotos/'.$claveal.'.jpg'; ?>
-				<?php if(file_exists($foto)): ?>
-				<img class="img-thumbnail" src="<?php echo $foto; ?>" alt="" width="65" style="position: absolute; top: 5px; right: 0; margin-right: 35px;">
+				<?php if($foto = obtener_foto_alumno($claveal)): ?>
+				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" alt="" width="65" style="position: absolute; top: 5px; right: 0; margin-right: 35px;">
 				<?php endif; ?>
 				<?php endif; ?>
 				

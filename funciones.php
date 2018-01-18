@@ -522,4 +522,24 @@ function iniciales($str) {
     return $ret;
 }
 
+function obtener_foto_alumno($claveal) {
+	$directorio_fotos = INTRANET_DIRECTORY."/xml/fotos/";
+	$ruta_foto_alumno = "";
+
+	foreach (glob($directorio_fotos . $claveal . "*") as $foto) {
+		$ruta_foto_alumno = $foto;
+	}
+
+	if (file_exists($ruta_foto_alumno)) {
+		$exp_ruta_foto_alumno = array_reverse(array_map('strrev', explode('.', strrev($ruta_foto_alumno))));
+		$nombre = str_replace($directorio_fotos, '', $exp_ruta_foto_alumno[0]);
+		$extension = $exp_ruta_foto_alumno[1];
+
+		return $nombre.'.'.$extension;
+	}
+	else {
+		return false;
+	}
+}
+
 unset($GLOBALS['db_con']);

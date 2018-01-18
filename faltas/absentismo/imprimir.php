@@ -78,10 +78,13 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$fecha=date('Y-m-d');	
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
-   	$foto = '../../xml/fotos/'.$alumno[12].'.jpg';
-	if (file_exists($foto)) {
-$MiPDF->Image($foto,90,30,26,'','jpg');
-	} 
+
+if ($foto = obtener_foto_alumno($alumno[12])) {
+	$exp_foto = explode('.', $foto);
+	$extension_foto = trim($exp_foto[1]);
+
+	$MiPDF->Image($foto,90,30,26,'',$extension_foto);
+}
 $cuerpo0="INFORME DE ABSENTISMO ESCOLAR";
 $datos10="Alumno: $alumno[3] $alumno[2]
 Fecha: $alumno[11]

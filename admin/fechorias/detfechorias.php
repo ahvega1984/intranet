@@ -127,11 +127,14 @@ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FAL
 <div class="row">
   <div class="col-sm-7">
       <div class="well well-large">
-      <?php
-            if(file_exists("../../xml/fotos/".$claveal.".jpg")){
-echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-thumbnail img-circle pull-right hidden-phone' />";
-            }
-            ?>
+        <?php
+        if ($foto = obtener_foto_alumno($claveal)) {
+            echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+        }
+        else {
+            echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+        }
+        ?>
         <table class="table table-striped">
           <tr>
             <th colspan="5"><h4>Información detallada sobre el Problema</h4></th>

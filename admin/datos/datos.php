@@ -114,7 +114,7 @@ $result = mysqli_query($db_con, $SQL);
 if ($row = mysqli_fetch_array($result))
 {
 
-	echo "<table class='table table-bordered table-striped table-vcentered $d_table'>";
+	echo "<table class='table table-bordered table-striped table-vcentered table-condensed $d_table'>";
 	echo "<thead><tr>
 	<th></th>
 	<th>Alumno/a</th>
@@ -151,19 +151,18 @@ if ($row = mysqli_fetch_array($result))
 		
 		echo "<tr>";
 	if($_POST['sin_foto']=="1" or isset($_GET['unidad']) or $seleccionado==1){
-		$foto_dir = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto_dir)) {
-		$foto = "<img src='$foto_dir' style='width:120px' class=\"img-thumbnail\" />";
-	}
-	else {
-		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
-	}
+		if ($foto = obtener_foto_alumno($claveal)) {
+			$foto_alumno = "<img class=\"img-thumbnail\" src=\"../../xml/fotos/$foto\" style=\"width: 64px !important\";>";
+		}
+		else {
+			$foto_alumno = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
+		}
 	}
 	else{
 	$foto='';
 	}
 
-	echo "<td>$foto</td><td>$nom</td>
+	echo "<td>$foto_alumno</td><td>$nom</td>
 	<td>$row[0]</td>
 	<td>$unidad</td>
 	<td>$row[5]</td>

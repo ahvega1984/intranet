@@ -31,7 +31,7 @@ echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsión<
      if ($row = mysqli_fetch_array($result))
         {
 
-		echo "<center><table class='table table-striped' style='width:auto'>";
+		echo "<center><table class='table table-striped table-bordered' style='width:auto'>";
         echo "<tr><th>Apellidos</th><th>Nombre</th>
 		<th>Grupo</th><th>Días</th><th>Comienzo</th><th>Fin</th><th>Detalles</th><th>Tareas</th><th>Foto</th></tr>";
 
@@ -42,10 +42,14 @@ $tareas0 = "select id from tareas_alumnos where fecha = '$row[5]' and claveal = 
 		$tareas1 = mysqli_query($db_con, $tareas0);
 		$tareas = mysqli_fetch_row($tareas1);
 		$idtareas = $tareas[0];
-		$bgcolor="white";
-		$foto0 = "<div align='center'><img src='../../xml/fotos/$row[8].jpg' border='2' width='40' height='50' style='margin:auto;border:1px solid #ccc;'  /></div>";
-	
-                printf ("<tr><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td>
+        $bgcolor="white";
+        if ($foto = obtener_foto_alumno($row[8])) {
+            $foto0 = '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+        }
+        else {
+            $foto0 = '<span class="fa fa-user fa-fw fa-3x"></span>';
+        }	
+        printf ("<tr><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td>
 <td>
 <A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='fa fa-search' title='Detalles'> </i> </A></td>
 <td ><A HREF='../tareas/infocompleto.php?ver=ver&id=$idtareas'><i class='fa fa-tasks' title='Tareas' title='Ver Tareas del Alumno'> </i> </A>
@@ -70,17 +74,20 @@ echo "<br /><legend align='center'>Alumnos expulsados del Centro actualmente</le
   and date(Fechoria.inicio) <= '$hoy' order by Fechoria.fecha ");
      if ($row = mysqli_fetch_array($result))
         {
-		echo "<center><table class='table table-striped' style='width:auto'>";
+		echo "<center><table class='table table-striped table-bordered' style='width:auto'>";
         echo "<tr><th>Apellidos</th><th>Nombre</th>
 		<th>Grupo</th><th>Días</th><th>Comienzo</th><th>Fin</th><th>Detalles</th><th>Foto</th></tr>";
 
                 do {
-		$foto="";
-		$foto = "<div align='center'><img src='../../xml/fotos/$row[8].jpg' border='2' width='40' height='50' style='margin:auto;border:1px solid #bbb;'  /></div>";
+                    if ($foto = obtener_foto_alumno($row[8])) {
+                        $foto0 = '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+                    }
+                    else {
+                        $foto0 = '<span class="fa fa-user fa-fw fa-3x"></span>';
+                    }
 
-				if(strlen($row[9]) > 0 or strlen($row[10]) > 0 ){$comentarios="(*)";}else{$comentarios="";}
-                printf ("<tr ><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td>
-<td  align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='fa fa-search' title='Detalles'> </i> </A></td><td >%s</td></tr>", $row[0], $row[1], $row[2],$row[4], $row[5], $row[6], $foto);
+				    if(strlen($row[9]) > 0 or strlen($row[10]) > 0 ){$comentarios="(*)";}else{$comentarios="";}
+                    printf ("<tr ><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td  align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='fa fa-search' title='Detalles'> </i> </A></td><td >%s</td></tr>", $row[0], $row[1], $row[2],$row[4], $row[5], $row[6], $foto0);
 
         }
 while( $row = mysqli_fetch_array($result));

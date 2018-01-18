@@ -72,15 +72,15 @@ if($siguiente == '1'){
 	echo ' <button class="btn btn-primary btn-sm" name="siguiente" onclick="window.location=\'';	
 	echo $mens_sig;
 	echo '\'" style="cursor: pointer;">Siguiente &nbsp;<i class="fa fa-chevron-right "> </i> </button>';}
-	echo "</h4></td><td style='text-align:right'>";
-	   	$foto = '../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto)) {
-		echo "<img src='../xml/fotos/$claveal.jpg' width='60' height='72' class='img-respnsive'  />";
-	}
-		else {
-				echo '<span class="fa fa-user fa-fw fa-4x"></span>';
-			}	
-			echo "</td></tr></table>";
+  echo "</h4></td><td style='text-align:right'>";
+  
+  if ($foto = obtener_foto_alumno($claveal)) {
+    echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+  }
+  else {
+    echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+  }	
+  echo "</td></tr></table>";
 			
 	
  	echo "</div>"; 

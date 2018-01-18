@@ -254,10 +254,12 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy' data-bb='confirm-delete'><i title='Borrar' class='fa fa-trash-o' > </i> </A>";
 	}
 	echo "</td><td>";
-	$foto="";
-		$foto = "<div align='center'><img src='../../xml/fotos/$row[8].jpg' border='2' width='50' height='60' style='margin:auto;border:1px solid #bbb;'  /></div>";
-		echo $foto;
-	
+	if ($foto = obtener_foto_alumno($row[8])) {
+        echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
+    }
+    else {
+        echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+	}
 	echo "</td></tr>";
 		
 } 

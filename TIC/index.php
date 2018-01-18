@@ -331,13 +331,12 @@ include("menu.php");
 	<?php endif; ?>
 
 	<script>  
-	$(function ()  
-	{ 
+	$(function() {
 		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
-	});  
+	});
 	</script>
 
 </body>

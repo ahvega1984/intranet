@@ -85,10 +85,15 @@ echo "<hr><table align='center' style='width:auto'><tr><td>";
 
 $apel=$tr1[2];
 $nom=$tr1[3];
-   	$foto = '../../xml/fotos/'.$alumno.'.jpg';
-	if (file_exists($foto)) {
-		echo "<h4>$tr1[3] $tr1[2]</h4><br /><div align=center><img src='$foto' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
-	}    
+echo '<h4>'.$tr1[3].' '.$tr1[2].'</h4>';
+echo '<div class="text-center">';
+if ($foto = obtener_foto_alumno($alumno)) {
+	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 84px !important;" alt="">';
+}
+else {
+	echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+}
+echo '</div>'; 
 echo "</td></tr></table><br />";
 		        }
 ?>

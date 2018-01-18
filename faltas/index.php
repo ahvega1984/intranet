@@ -336,14 +336,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 				if ($row[5] == "") {}
 				else{
 					echo "<tr>";
-					$foto = '../xml/fotos/'.$row[0].'.jpg';
-					if (file_exists($foto)) {
-						echo '<td class="text-center" width="70"><img src="'.$foto.'" width="50" height="60" alt=""></td>';
+					echo '<td class="text-center" width="70">';
+					if ($foto = obtener_foto_alumno($claveal)) {
+						echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 					}
 					else {
-						echo '<td><span class="fa fa-user fa-fw fa-3x"></span></td>';
+						echo '<span class="fa fa-user fa-fw fa-3x"></span>';
 					}
-
+					echo '</td>';
 					echo "<td style='vertical-align:middle'>
 				<label for='falta_".$row[1]."_".$curso."' style='display:block;'>
 					<span class='label label-info'>$n</span>

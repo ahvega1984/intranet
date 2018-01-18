@@ -90,15 +90,14 @@ while($row = mysqli_fetch_array($result))
 
 	if (strlen($enfermo)>0 or strlen($divorcio)>0 or strlen($aut_foto)>0) {
 			
-	$foto_dir = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto_dir)) {
-		$foto = "<img src='$foto_dir' width='55' class=\"img-thumbnail\" />";
+	if ($foto = obtener_foto_alumno($claveal)) {
+		$foto_alumno = "<img src='../../xml/fotos/$foto' width='55' class=\"img-thumbnail\" />";
 	}
 	else {
-		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
+		$foto_alumno = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
 	}
 	
-	echo "<tr><td>$foto</td>";
+	echo "<tr><td>$foto_alumno</td>";
 	echo '<td><a href="../matriculas/'.$tabla_mtr.'.php?id='. $id.'" target="_blank">'.$alumno.'</a></td>';
 	echo "<td>$enfermo</td>
 		<td>$divorcio</td>

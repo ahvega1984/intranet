@@ -106,14 +106,13 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
         	if (mysqli_num_rows($registrado)>0) {
         		$sel=" checked";
         	}
-	echo "<tr><td align='center'>";
-	$foto = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto)) {
-		echo '<img src="'.$foto.'" width="55" alt="" />';
-	}
-	else {
-		echo '<span class="fa fa-user fa-fw fa-3x"></span>';
-	}
+  echo "<tr><td align='center'>";
+  if ($foto = obtener_foto_alumno($claveal)) {
+    echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
+  }
+  else {
+    echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+  }
 	echo "</td>";
 	echo "<td  align='left' style='vertical-align:middle'><div class='checkbox'><label><input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]' $sel /> $rowF[2] $rowF[1]</label></div></td><td style='vertical-align:middle'>$rowF[3]</td>
 	<td style='vertical-align:middle'>$rowF[6]</td>";

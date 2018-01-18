@@ -217,13 +217,12 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 }
 
 	echo "<tr><td>$nc";
-$clave = $alumnos[4];
-   	$foto = '../../xml/fotos/'.$clave.'.jpg';
-	if (file_exists($foto)) {
-		echo "<br /><img class='img-thumbnail' src='../../xml/fotos/$clave.jpg' width='84' alt=''>";
-	}    
-	else{
-		echo '<h4><span class="fa fa-user fa-fw fa-5x"></span></h4>';
+	$clave = $alumnos[4];
+	if ($foto = obtener_foto_alumno($clave)) {
+		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
+	}
+	else {
+		echo '<span class="fa fa-user fa-fw fa-4x"></span>';
 	}       	
 	echo "</td>";
 	for ($i=1;$i<$num_asig+1;$i++){

@@ -9,7 +9,7 @@ include ("menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-  <h2>Problemas de convivencia <small> Ranking de Fechorías</small></h2>
+  <h2>Problemas de convivencia <small> Ranking de Fechorï¿½as</small></h2>
 </div>
 <br />
 
@@ -117,9 +117,13 @@ include ("menu.php");
 		if(!(empty($apellidos))){
 			echo "<tr>
 		<td nowrap>";
-		$foto="<span class='fa fa-user fa-4x'></span>";
-		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
-		echo $foto."&nbsp;&nbsp;";			
+		if ($foto = obtener_foto_alumno($claveal)) {
+            echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+        }
+        else {
+            echo '<span class="fa fa-user fa-fw fa-3x"></span>';
+        }	
+		echo "&nbsp;&nbsp;";			
 		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td $bgcolor>$rowcurso</td>
 		<td $bgcolor>$rownumero</td>
@@ -153,14 +157,14 @@ include ("menu.php");
      		
      		"language": {
      		            "lengthMenu": "_MENU_",
-     		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-     		            "info": "Página _PAGE_ de _PAGES_",
+     		            "zeroRecords": "No se ha encontrado ningï¿½n resultado con ese criterio.",
+     		            "info": "Pï¿½gina _PAGE_ de _PAGES_",
      		            "infoEmpty": "No hay resultados disponibles.",
      		            "infoFiltered": "(filtrado de _MAX_ resultados)",
      		            "search": "Buscar: ",
      		            "paginate": {
      		                  "first": "Primera",
-     		                  "next": "Última",
+     		                  "next": "ï¿½ltima",
      		                  "next": "",
      		                  "previous": ""
      		                }

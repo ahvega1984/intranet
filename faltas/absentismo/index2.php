@@ -135,9 +135,8 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
  	$s_sociales=$row0[10];
  	if (strlen($jefatura)>0) {$chj=" checked ";}else{$chj="";}if(strlen($orientacion)>0) {$cho=" checked ";}else{$cho="";}if (strlen($tutoria)>0) {$cht=" checked ";}else{$cht="";} if (strlen($s_sociales)>0) {$chs=" checked ";}else{$chs="";}
 	echo "<tr><td  align='left'>";
-	$foto = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto)) {
-		echo '<img src="'.$foto.'" width="55" alt="" />';
+	if ($foto = obtener_foto_alumno($claveal)) {
+    	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 	}
 	else {
 		echo '<span class="fa fa-user fa-fw fa-3x"></span>';

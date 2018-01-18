@@ -300,15 +300,12 @@ include("cuaderno/menu_cuaderno.php");
 				<tr>
 					<td nowrap style="vertical-align: middle; height: 74px;"><a href="<?php echo $inf;?>" style="text-decoration: none;"><?php
 						if ($foto != 1) {
-						$foto1="";
-							if (file_exists('xml/fotos/'.$claveal.'.jpg')) {
-								$foto1 = "<img src='xml/fotos/$claveal.jpg' width='40' style='max-height:54px;' alt='' />";
+							if ($foto_alumno = obtener_foto_alumno($claveal)) {
+								echo '<img class="img-thumbnail" src="xml/fotos/'.$foto_alumno.'" style="width: 45px !important;" alt="">';
 							}
 							else {
-								
-								$foto1='<span class="fa fa-user fa-fw fa-2x"></span>';
-							}
-																			
+								echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+							}											
 						}
 						echo $foto1;
 						echo "&nbsp;";?>&nbsp; <?php

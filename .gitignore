@@ -3,7 +3,9 @@
 .project
 *.xml
 xml/fotos/*.jpg
+xml/fotos/*.jpeg
 xml/fotos_profes/*.jpg
+xml/fotos_profes/*.jpeg
 xml/jefe/TIC/*.txt
 cache/*
 /config.php

@@ -94,9 +94,8 @@ if (!$claveal) {
 			
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-2 text-center hidden-xs">
-				<?php $foto = '../../xml/fotos/'.$claveal.'.jpg'; ?>
-				<?php if (file_exists($foto)): ?>
-				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $claveal; ?>.jpg" alt="<?php echo $apellido.', '.$nombrepil; ?>">
+				<?php if ($foto = obtener_foto_alumno($claveal)): ?>
+				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" alt="<?php echo $apellido.', '.$nombrepil; ?>">
 				<?php else: ?>
 				<h2><span class="fa fa-user fa-fw fa-5x"></span></h2>
 				<?php endif; ?>
