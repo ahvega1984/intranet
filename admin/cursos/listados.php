@@ -41,7 +41,7 @@ class GranPDF extends PDF_MC_Table {
 	}
 }
 
-$todasUnidades = (isset($_POST['todasUnidades']) && $_POST['todasUnidades'] == 1) ? 1 : 0;
+$todasUnidades = ((isset($_POST['todasUnidades']) && $_POST['todasUnidades'] == 1) || (isset($_GET['todasUnidades']) && $_GET['todasUnidades'] == 1)) ? 1 : 0;
 
 $unidades = array();
 
@@ -91,122 +91,245 @@ foreach ($unidades as $unidad) {
 		if (! mysqli_num_rows($result_unidades)) die ('FORBIDDEN');
 	}
 
-	// Comprobamos y obtenemos los alumnos del profesor en su asignatura
-	$result_alumnos_profesor = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '".$_SESSION['profi']."' AND curso = '".$unidad."' LIMIT 1");
-	if (mysqli_num_rows($result_alumnos_profesor)) {
-		$row_alumnos_profesor = mysqli_fetch_array($result_alumnos_profesor);
+	// Comprobamos si el profesor imparte varias asignaturas en la unidad
+	$result_asignaturas_profesor = mysqli_query($db_con, "SELECT DISTINCT materia FROM profesores WHERE profesor = '".$_SESSION['profi']."' AND grupo = '".$unidad."'");
+	$flag_profesor_sin_asignaturas = 0;
+	if (! mysqli_num_rows($result_asignaturas_profesor)) $flag_profesor_sin_asignaturas = 1;
 
-		$row_alumnos_profesor['alumnos'] = rtrim($row_alumnos_profesor['alumnos'], ',');
-		$alumnos_profesor = explode(',', $row_alumnos_profesor['alumnos']);
+	// IMPRESIÓN DE UNIDADES POR ASIGNATURAS DEL PROFESOR
+	if (! $todasUnidades && ! $flag_profesor_sin_asignaturas) {
 
-		// Sustituimos el NC de la tabla FALUMNOS por el NIE del alumno
-		$alumnos_profesor_por_claveal = array();
-		foreach ($alumnos_profesor as $alumno_profesor_nc) {
-			$result_falumnos = mysqli_query($db_con, "SELECT CLAVEAL FROM FALUMNOS WHERE NC = '".$alumno_profesor_nc."' AND unidad = '".$unidad."' LIMIT 1");
-			$row_falumnos = mysqli_fetch_array($result_falumnos);
-			array_push($alumnos_profesor_por_claveal, $row_falumnos['CLAVEAL']);
+		while ($row_asignaturas_profesor = mysqli_fetch_array($result_asignaturas_profesor)) {
+			// Obtenemos el código de la asignatura
+			$result_codigo_asignatura = mysqli_query($db_con, "SELECT codigo FROM materias WHERE nombre = '".$row_asignaturas_profesor['materia']."' AND grupo = '".$unidad."' LIMIT 1");
+			$row_codigo_asignatura = mysqli_fetch_array($result_codigo_asignatura);
+
+			// Comprobamos y obtenemos los alumnos del profesor en su asignatura
+			$result_alumnos_profesor = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '".$_SESSION['profi']."' AND curso = '".$unidad."' AND asignatura = '".$row_codigo_asignatura['codigo']."'");
+			if (mysqli_num_rows($result_alumnos_profesor)) {
+				$row_alumnos_profesor = mysqli_fetch_array($result_alumnos_profesor);
+
+				$row_alumnos_profesor['alumnos'] = rtrim($row_alumnos_profesor['alumnos'], ',');
+				$alumnos_profesor = explode(',', $row_alumnos_profesor['alumnos']);
+
+				// Sustituimos el NC de la tabla FALUMNOS por el NIE del alumno
+				$alumnos_profesor_por_claveal = array();
+				foreach ($alumnos_profesor as $alumno_profesor_nc) {
+					$result_falumnos = mysqli_query($db_con, "SELECT CLAVEAL FROM FALUMNOS WHERE NC = '".$alumno_profesor_nc."' AND unidad = '".$unidad."' LIMIT 1");
+					$row_falumnos = mysqli_fetch_array($result_falumnos);
+					array_push($alumnos_profesor_por_claveal, $row_falumnos['CLAVEAL']);
+				}
+			}
+			
+			$MiPDF->Addpage();
+			$MiPDF->SetY(30);
+			
+			$MiPDF->SetFont('NewsGotT', 'B', 12);
+			$MiPDF->Multicell(0, 5, mb_strtoupper("Listado de clase", 'UTF-8'), 0, 'C', 0 );
+			$MiPDF->Ln(2);
+			
+			$MiPDF->SetFont('NewsGotT', 'B', 11);
+			$MiPDF->Cell(15, 5, 'Unidad: ', 0, 0, 'L', 0);
+			$MiPDF->SetFont('NewsGotT', '', 11);
+
+			if ($esPMAR) {
+				$MiPDF->Cell(80, 5, $unidad.' (PMAR)', 0, 0, 'L', 0 );
+			}
+			else {
+				$MiPDF->Cell(80, 5, $unidad, 0, 0, 'L', 0 );
+			}
+			
+			$MiPDF->SetFont('NewsGotT', 'B', 11);
+			$MiPDF->Cell(32, 5, 'Curso académico: ', 0, 0, 'L', 0);
+			$MiPDF->SetFont('NewsGotT', '', 11);
+			$MiPDF->Cell(36, 5, $GLOBALS['CURSO_ACTUAL'], 0, 1, 'L', 0 );
+			
+			// Obtenemos el tutor/a de la unidad
+			$result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
+			$row = mysqli_fetch_array($result);
+			$tutor = $row['tutor'];
+			mysqli_free_result($result);
+			
+			$MiPDF->SetFont('NewsGotT', 'B', 11);
+			$MiPDF->Cell(15, 5, 'Tutor/a: ', 0, 0, 'L', 0);
+			$MiPDF->SetFont('NewsGotT', '', 11);
+			$MiPDF->Cell(80, 5, nomprofesor($tutor), 0, 0, 'L', 0 );
+			
+			$MiPDF->SetFont('NewsGotT', 'B', 11);
+			$MiPDF->Cell(14, 5, 'Fecha: ', 0, 0, 'L', 0);
+			$MiPDF->SetFont('NewsGotT', '', 11);
+			$MiPDF->Cell(54, 5, date('d/m/Y'), 0, 1, 'L', 0 );
+
+			$MiPDF->SetFont('NewsGotT', 'B', 11);
+			$MiPDF->Cell(20, 5, 'Asignatura: ', 0, 0, 'L', 0);
+			$MiPDF->SetFont('NewsGotT', '', 11);
+			$MiPDF->Cell(80, 5, $row_asignaturas_profesor['materia'], 0, 1, 'L', 0 );
+			
+			$MiPDF->Ln(2);
+			
+			$MiPDF->SetWidths(array(8, 65, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9));
+			$MiPDF->SetFont('NewsGotT', 'B', 11);
+			$MiPDF->SetTextColor(255, 255, 255);
+			$MiPDF->SetFillColor(61, 61, 61);
+			
+			$MiPDF->Row(array('Nº', 'Alumno/a', '', '', '', '', '', '', '', '', '', ''), 'DF', 6);	
+			
+			if ($esPMAR) {
+				$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' and abrev not like '%\_%' LIMIT 1");
+				$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
+				$codasig_pmar = $row_codasig_pmar['codigo'];
+				$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");	
+			}
+			else {
+				$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");	
+			}
+			
+			$MiPDF->SetTextColor(0, 0, 0);
+			$MiPDF->SetFont('NewsGotT', '', 11);
+			
+			$MiPDF->SetFillColor(239,240,239);
+
+			$nc = 0;
+			$fila = 1;
+			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				if ($fila % 2 == 0) $fill = 'DF';
+				else $fill = '';
+				
+				$nc++;
+				$aux = '';
+
+				if ($row['matriculas'] > 1) { 
+					$aux = ' (Rep.)';
+				}
+
+				// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
+				$result_datos_matricula = mysqli_query($db_con, "SELECT bilinguismo, exencion FROM matriculas WHERE claveal = '".$row['claveal']."'");
+				$row_datos_matricula = mysqli_fetch_array($result_datos_matricula);
+
+				if ($row['bilinguismo'] == 'Si') { 
+					$aux = ' (Bil.)';
+				}
+
+				if ($row['exencion'] == 1) { 
+					$aux = ' (Exe.)';
+				}
+				
+				$alumno = $row['apellidos'].', '.$row['nombre'].$aux;
+
+				if (! isset($alumnos_profesor_por_claveal) || (isset($alumnos_profesor_por_claveal) && in_array($row['claveal'], $alumnos_profesor_por_claveal))) {
+					$MiPDF->Row(array($nc, $alumno, '', '', '', '', '', '', '', '', '', ''), $fill, 6);	
+
+					$fila++;
+				}
+				
+			}
+			
+			mysqli_free_result($result);
+
 		}
-	}
 
-	$MiPDF->Addpage();
-	$MiPDF->SetY(30);
-	
-	$MiPDF->SetFont('NewsGotT', 'B', 12);
-	$MiPDF->Multicell(0, 5, mb_strtoupper("Listado de clase", 'UTF-8'), 0, 'C', 0 );
-	$MiPDF->Ln(2);
-	
-	$MiPDF->SetFont('NewsGotT', 'B', 11);
-	$MiPDF->Cell(15, 5, 'Unidad: ', 0, 0, 'L', 0);
-	$MiPDF->SetFont('NewsGotT', '', 11);
-
-	if ($esPMAR) {
-		$MiPDF->Cell(80, 5, $unidad.' (PMAR)', 0, 0, 'L', 0 );
-	}
+	} // IMPRESIÓN DE TODAS LAS UNIDADES
 	else {
-		$MiPDF->Cell(80, 5, $unidad, 0, 0, 'L', 0 );
-	}
-	
-	$MiPDF->SetFont('NewsGotT', 'B', 11);
-	$MiPDF->Cell(32, 5, 'Curso académico: ', 0, 0, 'L', 0);
-	$MiPDF->SetFont('NewsGotT', '', 11);
-	$MiPDF->Cell(36, 5, $GLOBALS['CURSO_ACTUAL'], 0, 1, 'L', 0 );
-	
-	// Obtenemos el tutor/a de la unidad
-	$result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
-	$row = mysqli_fetch_array($result);
-	$tutor = $row['tutor'];
-	mysqli_free_result($result);
-	
-	$MiPDF->SetFont('NewsGotT', 'B', 11);
-	$MiPDF->Cell(15, 5, 'Tutor/a: ', 0, 0, 'L', 0);
-	$MiPDF->SetFont('NewsGotT', '', 11);
-	$MiPDF->Cell(80, 5, nomprofesor($tutor), 0, 0, 'L', 0 );
-	
-	$MiPDF->SetFont('NewsGotT', 'B', 11);
-	$MiPDF->Cell(14, 5, 'Fecha: ', 0, 0, 'L', 0);
-	$MiPDF->SetFont('NewsGotT', '', 11);
-	$MiPDF->Cell(54, 5, date('d/m/Y'), 0, 1, 'L', 0 );
-	
-	$MiPDF->Ln(2);
-	
-	$MiPDF->SetWidths(array(8, 65, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9));
-	$MiPDF->SetFont('NewsGotT', 'B', 11);
-	$MiPDF->SetTextColor(255, 255, 255);
-	$MiPDF->SetFillColor(61, 61, 61);
-	
-	$MiPDF->Row(array('Nº', 'Alumno/a', '', '', '', '', '', '', '', '', '', ''), 'DF', 6);	
-	
-	if ($esPMAR) {
-		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' and abrev not like '%\_%' LIMIT 1");
-		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
-		$codasig_pmar = $row_codasig_pmar['codigo'];
-		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");	
-	}
-	else {
-		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");	
-	}
-	
-	$MiPDF->SetTextColor(0, 0, 0);
-	$MiPDF->SetFont('NewsGotT', '', 11);
-	
-	$MiPDF->SetFillColor(239,240,239);
 
-	$nc = 0;
-	$fila = 1;
-	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		if ($fila % 2 == 0) $fill = 'DF';
-		else $fill = '';
+		$MiPDF->Addpage();
+		$MiPDF->SetY(30);
 		
-		$nc++;
-		$aux = '';
+		$MiPDF->SetFont('NewsGotT', 'B', 12);
+		$MiPDF->Multicell(0, 5, mb_strtoupper("Listado de clase", 'UTF-8'), 0, 'C', 0 );
+		$MiPDF->Ln(2);
+		
+		$MiPDF->SetFont('NewsGotT', 'B', 11);
+		$MiPDF->Cell(15, 5, 'Unidad: ', 0, 0, 'L', 0);
+		$MiPDF->SetFont('NewsGotT', '', 11);
 
-		if ($row['matriculas'] > 1) { 
-			$aux = ' (Rep.)';
+		if ($esPMAR) {
+			$MiPDF->Cell(80, 5, $unidad.' (PMAR)', 0, 0, 'L', 0 );
 		}
-
-		// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
-		$result_datos_matricula = mysqli_query($db_con, "SELECT bilinguismo, exencion FROM matriculas WHERE claveal = '".$row['claveal']."'");
-		$row_datos_matricula = mysqli_fetch_array($result_datos_matricula);
-
-		if ($row['bilinguismo'] == 'Si') { 
-			$aux = ' (Bil.)';
-		}
-
-		if ($row['exencion'] == 1) { 
-			$aux = ' (Exe.)';
+		else {
+			$MiPDF->Cell(80, 5, $unidad, 0, 0, 'L', 0 );
 		}
 		
-		$alumno = $row['apellidos'].', '.$row['nombre'].$aux;
+		$MiPDF->SetFont('NewsGotT', 'B', 11);
+		$MiPDF->Cell(32, 5, 'Curso académico: ', 0, 0, 'L', 0);
+		$MiPDF->SetFont('NewsGotT', '', 11);
+		$MiPDF->Cell(36, 5, $GLOBALS['CURSO_ACTUAL'], 0, 1, 'L', 0 );
+		
+		// Obtenemos el tutor/a de la unidad
+		$result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
+		$row = mysqli_fetch_array($result);
+		$tutor = $row['tutor'];
+		mysqli_free_result($result);
+		
+		$MiPDF->SetFont('NewsGotT', 'B', 11);
+		$MiPDF->Cell(15, 5, 'Tutor/a: ', 0, 0, 'L', 0);
+		$MiPDF->SetFont('NewsGotT', '', 11);
+		$MiPDF->Cell(80, 5, nomprofesor($tutor), 0, 0, 'L', 0 );
+		
+		$MiPDF->SetFont('NewsGotT', 'B', 11);
+		$MiPDF->Cell(14, 5, 'Fecha: ', 0, 0, 'L', 0);
+		$MiPDF->SetFont('NewsGotT', '', 11);
+		$MiPDF->Cell(54, 5, date('d/m/Y'), 0, 1, 'L', 0 );
+		
+		$MiPDF->Ln(2);
+		
+		$MiPDF->SetWidths(array(8, 65, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9));
+		$MiPDF->SetFont('NewsGotT', 'B', 11);
+		$MiPDF->SetTextColor(255, 255, 255);
+		$MiPDF->SetFillColor(61, 61, 61);
+		
+		$MiPDF->Row(array('Nº', 'Alumno/a', '', '', '', '', '', '', '', '', '', ''), 'DF', 6);	
+		
+		if ($esPMAR) {
+			$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' and abrev not like '%\_%' LIMIT 1");
+			$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
+			$codasig_pmar = $row_codasig_pmar['codigo'];
+			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");	
+		}
+		else {
+			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");	
+		}
+		
+		$MiPDF->SetTextColor(0, 0, 0);
+		$MiPDF->SetFont('NewsGotT', '', 11);
+		
+		$MiPDF->SetFillColor(239,240,239);
 
-		if (! isset($alumnos_profesor_por_claveal) || (isset($alumnos_profesor_por_claveal) && in_array($row['claveal'], $alumnos_profesor_por_claveal))) {
+		$nc = 0;
+		$fila = 1;
+		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			if ($fila % 2 == 0) $fill = 'DF';
+			else $fill = '';
+			
+			$nc++;
+			$aux = '';
+
+			if ($row['matriculas'] > 1) { 
+				$aux = ' (Rep.)';
+			}
+
+			// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
+			$result_datos_matricula = mysqli_query($db_con, "SELECT bilinguismo, exencion FROM matriculas WHERE claveal = '".$row['claveal']."'");
+			$row_datos_matricula = mysqli_fetch_array($result_datos_matricula);
+
+			if ($row['bilinguismo'] == 'Si') { 
+				$aux = ' (Bil.)';
+			}
+
+			if ($row['exencion'] == 1) { 
+				$aux = ' (Exe.)';
+			}
+			
+			$alumno = $row['apellidos'].', '.$row['nombre'].$aux;
 			$MiPDF->Row(array($nc, $alumno, '', '', '', '', '', '', '', '', '', ''), $fill, 6);	
 
 			$fila++;
+			
 		}
 		
+		mysqli_free_result($result);
+
 	}
 	
-	mysqli_free_result($result);
 }
 
 $MiPDF->Output();
