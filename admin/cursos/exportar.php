@@ -26,10 +26,33 @@ else {
 		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' LIMIT 1");
 		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
 		$codasig_pmar = $row_codasig_pmar['codigo'];
-		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad FROM alma WHERE unidad = '".$unidad."' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");			
+		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad, claveal FROM alma WHERE unidad = '".$unidad."' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");			
 	}
 	else {
-		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad FROM alma WHERE unidad = '".$unidad."' ORDER BY apellidos ASC, nombre ASC");				
+		$result = mysqli_query($db_con, "SELECT apellidos, nombre, unidad, claveal FROM alma WHERE unidad = '".$unidad."' ORDER BY apellidos ASC, nombre ASC");				
+	}
+}
+
+// Control en la obtención del listado. Solo los profesores que imparten materia en la unidad pueden visualizar el listado.
+if (! acl_permiso($carg, array('1','7')) && $todasUnidades != 1) {
+	$result_unidades = mysqli_query($db_con, "SELECT * FROM profesores WHERE profesor='".$_SESSION['profi']."' AND grupo = '".$unidad."'");
+	if (! mysqli_num_rows($result_unidades)) die ('FORBIDDEN');
+}
+
+// Comprobamos y obtenemos los alumnos del profesor en su asignatura
+$result_alumnos_profesor = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '".$_SESSION['profi']."' AND curso = '".$unidad."' LIMIT 1");
+if (mysqli_num_rows($result_alumnos_profesor)) {
+	$row_alumnos_profesor = mysqli_fetch_array($result_alumnos_profesor);
+
+	$row_alumnos_profesor['alumnos'] = rtrim($row_alumnos_profesor['alumnos'], ',');
+	$alumnos_profesor = explode(',', $row_alumnos_profesor['alumnos']);
+
+	// Sustituimos el NC de la tabla FALUMNOS por el NIE del alumno
+	$alumnos_profesor_por_claveal = array();
+	foreach ($alumnos_profesor as $alumno_profesor_nc) {
+		$result_falumnos = mysqli_query($db_con, "SELECT CLAVEAL FROM FALUMNOS WHERE NC = '".$alumno_profesor_nc."' AND unidad = '".$unidad."' LIMIT 1");
+		$row_falumnos = mysqli_fetch_array($result_falumnos);
+		array_push($alumnos_profesor_por_claveal, $row_falumnos['CLAVEAL']);
 	}
 }
 
@@ -79,28 +102,32 @@ else {
 // Datos
 $nc = 0;
 while ($row = mysqli_fetch_array($result)) {
-	$row_excel++;
 	$nc++;
 
-	if (isset($_POST['datos']) && $_POST['datos'] == 1) {
-		$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('A'.$row_excel, $nc)
-			->setCellValue('B'.$row_excel, $row['apellidos'].', '.$row['nombre'])
-			->setCellValue('C'.$row_excel, $row['unidad'])
-			->setCellValue('D'.$row_excel, $row['claveal'])
-			->setCellValue('E'.$row_excel, $row['fecha'])
-			->setCellValue('F'.$row_excel, $row['padre'])
-			->setCellValue('G'.$row_excel, $row['domicilio'])
-			->setCellValue('H'.$row_excel, $row['localidad'])
-			->setCellValue('I'.$row_excel, $row['provinciaresidencia'])
-			->setCellValue('J'.$row_excel, $row['telefono'])
-			->setCellValue('K'.$row_excel, $row['telefonourgencia']);
-	}
-	else {
-		$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('A'.$row_excel, $nc)
-			->setCellValue('B'.$row_excel, $row['apellidos'].', '.$row['nombre'])
-			->setCellValue('C'.$row_excel, $row['unidad']);
+	if (! isset($alumnos_profesor_por_claveal) || (isset($alumnos_profesor_por_claveal) && in_array($row['claveal'], $alumnos_profesor_por_claveal))) {
+		$row_excel++;
+
+		if (isset($_POST['datos']) && $_POST['datos'] == 1) {
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$row_excel, $nc)
+				->setCellValue('B'.$row_excel, $row['apellidos'].', '.$row['nombre'])
+				->setCellValue('C'.$row_excel, $row['unidad'])
+				->setCellValue('D'.$row_excel, $row['claveal'])
+				->setCellValue('E'.$row_excel, $row['fecha'])
+				->setCellValue('F'.$row_excel, $row['padre'])
+				->setCellValue('G'.$row_excel, $row['domicilio'])
+				->setCellValue('H'.$row_excel, $row['localidad'])
+				->setCellValue('I'.$row_excel, $row['provinciaresidencia'])
+				->setCellValue('J'.$row_excel, $row['telefono'])
+				->setCellValue('K'.$row_excel, $row['telefonourgencia']);
+		}
+		else {
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$row_excel, $nc)
+				->setCellValue('B'.$row_excel, $row['apellidos'].', '.$row['nombre'])
+				->setCellValue('C'.$row_excel, $row['unidad']);
+		}
+
 	}
 
 }
