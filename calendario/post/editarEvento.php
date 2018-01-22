@@ -31,6 +31,11 @@ $unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
+// $fechafin_evento no puede estar vacío en caso de Día completo o produce error.
+if (empty($fechafin_evento)) {
+	$fechafin_evento = $fechaini_evento;
+}
+
 // Limpiamos espacios innecesarios
 $nombre_evento = trim($nombre_evento);
 $fechaini_evento = trim($fechaini_evento);
