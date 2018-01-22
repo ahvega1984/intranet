@@ -140,13 +140,13 @@ foreach ($unidades as $unidad) {
 	$MiPDF->Row(array('NC', 'Alumno/a', '', '', '', '', '', '', '', '', '', ''), 'DF', 6);	
 	
 	if ($esPMAR) {
-		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' LIMIT 1");
+		$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$unidad."' AND abrev LIKE '%**%' and abrev not like '%\_%' LIMIT 1");
 		$row_codasig_pmar = mysqli_fetch_array($result_codasig_pmar);
 		$codasig_pmar = $row_codasig_pmar['codigo'];
-		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");		
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' AND combasi LIKE '%$codasig_pmar%' ORDER BY apellidos ASC, nombre ASC");	
 	}
 	else {
-		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");		
+		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");	
 	}
 	
 	$MiPDF->SetTextColor(0, 0, 0);
