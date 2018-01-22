@@ -53,6 +53,23 @@ foreach ($unidades as $unidad) {
 		if (! mysqli_num_rows($result_unidades)) die ('FORBIDDEN');
 	}
 
+	// Comprobamos y obtenemos los alumnos del profesor en su asignatura
+	$result_alumnos_profesor = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '".$_SESSION['profi']."' AND curso = '".$unidad."' LIMIT 1");
+	if (mysqli_num_rows($result_alumnos_profesor)) {
+		$row_alumnos_profesor = mysqli_fetch_array($result_alumnos_profesor);
+
+		$row_alumnos_profesor['alumnos'] = rtrim($row_alumnos_profesor['alumnos'], ',');
+		$alumnos_profesor = explode(',', $row_alumnos_profesor['alumnos']);
+
+		// Sustituimos el NC de la tabla FALUMNOS por el NIE del alumno
+		$alumnos_profesor_por_claveal = array();
+		foreach ($alumnos_profesor as $alumno_profesor_nc) {
+			$result_falumnos = mysqli_query($db_con, "SELECT CLAVEAL FROM FALUMNOS WHERE NC = '".$alumno_profesor_nc."' AND unidad = '".$unidad."' LIMIT 1");
+			$row_falumnos = mysqli_fetch_array($result_falumnos);
+			array_push($alumnos_profesor_por_claveal, $row_falumnos['CLAVEAL']);
+		}
+	}
+
 	$cursos = array();
 	$result_cursos = mysqli_query($db_con, "SELECT cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE unidades.nomunidad = '".$unidad."' ORDER BY nomcurso ASC");
 	while ($row_cursos = mysqli_fetch_array($result_cursos)) $cursos[] = $row_cursos['nomcurso'];
@@ -196,11 +213,14 @@ foreach ($unidades as $unidad) {
 			
 			array_push($row_data, $total_asigmat); // Total asignaturas matriculadas
 			
-			$MiPDF->Row($row_data, $fill, 5);	
-			
-			$total_alumnos++;
+			if (! isset($alumnos_profesor_por_claveal) || (isset($alumnos_profesor_por_claveal) && in_array($row['claveal'], $alumnos_profesor_por_claveal))) {
 
-			$fila++;
+				$MiPDF->Row($row_data, $fill, 5);	
+			
+				$total_alumnos++;
+
+				$fila++;
+			}
 		}
 
 		// FIN CUERPO DE LA TABLA

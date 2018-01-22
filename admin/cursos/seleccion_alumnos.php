@@ -28,7 +28,7 @@ if (isset($_POST['guardar_cambios'])) {
                     
                     $nc_separado_por_comas = implode(",", $array_nc);
 
-                    // Comprobamos si el profesor ya selecciono alumnos. En ese caso actualizamos los datos, si no, insertamos en la tabla
+                    // Comprobamos si el profesor ya seleccionó alumnos. En ese caso actualizamos los datos, si no, insertamos en la tabla
                     $result_seleccion = mysqli_query($db_con, "SELECT id FROM grupos WHERE profesor = '$pr' AND asignatura = '$asignatura_ant' AND curso = '$unidad_ant'");
                     if (mysqli_num_rows($result_seleccion)) {
                         $row_seleccion = mysqli_fetch_array($result_seleccion);

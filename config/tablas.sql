@@ -473,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `asistentes` varchar(255) DEFAULT NULL,
   `impresion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
