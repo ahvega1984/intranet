@@ -25,7 +25,7 @@ if(isset($_POST["word"]))
 			$foto_alumno = '<span class="img-thumbnail fa fa-user fa-fw" style="width: 32px !important;"></span>';
 		}
 		echo '<a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'" class="list-group-item">';
-		echo '<span class="pull-right badge badge-default">'.$curso_al.'</span> '.$foto_alumno.' '.$datos;
+		echo '<span class="pull-right badge badge-default" style="margin-top: 8px;">'.$curso_al.'</span> '.$foto_alumno.' '.$datos;
 		echo '</a>';
 	}
 	echo '</ul>';
