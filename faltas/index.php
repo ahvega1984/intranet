@@ -285,7 +285,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$fal_e =" FALTAS.codasi='$asignat' ";
 		}		
 	
-	$res.=") order by alma.apellidos, alma.nombre";
+	$res.=") order by alma.apellidos ASC, alma.nombre ASC";
 	// echo $res;
 	$result = mysqli_query($db_con, $res);
 	if ($result) {
@@ -337,7 +337,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 				else{
 					echo "<tr>";
 					echo '<td class="text-center" width="70">';
-					if ($foto = obtener_foto_alumno($claveal)) {
+					if ($foto = obtener_foto_alumno($row['CLAVEAL'])) {
 						echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 					}
 					else {
