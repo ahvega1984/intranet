@@ -502,6 +502,18 @@ function nomprofesor($nombre) {
 	return mb_convert_case($nombre, MB_CASE_TITLE, "UTF-8");
 }
 
+function obtener_nombre_profesor_por_idea($idea) {
+	$result = mysqli_query($GLOBALS['db_con'], "SELECT nombre FROM departamentos WHERE idea = '".$idea."' LIMIT 1");
+	$row = mysqli_fetch_array($result);
+	return $row['nombre'];
+}
+
+
+function obtener_idea_por_nombre_profesor($nombre) {
+	$result = mysqli_query($GLOBALS['db_con'], "SELECT idea FROM departamentos WHERE nombre = '".$nombre."' LIMIT 1");
+	$row = mysqli_fetch_array($result);
+	return $row['idea'];
+}
 
 function size_convert($size)
 {

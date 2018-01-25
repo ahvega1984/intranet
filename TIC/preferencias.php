@@ -10,8 +10,9 @@ function limpiar_string($string)
 
 if (isset($_POST['btnGuardar'])) {
 	
-	$prefCoordinador	= limpiar_string($_POST['prefCoordinador']);
-	$prefNotificaciones	= limpiar_string($_POST['prefNotificaciones']);
+	$prefCoordinador				= limpiar_string($_POST['prefCoordinador']);
+	$prefNotificaciones				= limpiar_string($_POST['prefNotificaciones']);
+	$prefNotificacionesSolicitante	= limpiar_string($_POST['prefNotificacionesSolicitante']);
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen('config.php', 'w+'))
@@ -21,6 +22,7 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE CENTRO TIC\r\n");
 		fwrite($file, "\$config['tic']['coordinador']\t= '$prefCoordinador';\r\n");
 		fwrite($file, "\$config['tic']['notificaciones']\t= $prefNotificaciones;\r\n");
+		fwrite($file, "\$config['tic']['notificaciones_solicitante']\t= $prefNotificacionesSolicitante;\r\n");
 		
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
 		
@@ -91,11 +93,21 @@ include("menu.php");
 						</div>
 						
 						<div class="form-group">
-							<label for="prefNotificaciones" class="col-sm-4 control-label">Notificar al Coordinador TIC de una nueva incidencia por correo electrónico</label>
+							<label for="prefNotificaciones" class="col-sm-4 control-label">Notificar al Coordinador/a TIC de una nueva incidencia mediante mensaje interno</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefNotificaciones" name="prefNotificaciones">
-									<option value="0" <?php echo (isset($config['tic']['notificaciones']) && $config['tic']['notificaciones'] == 0) ? 'selected' : ''; ?>>Habilitado</option>
-									<option value="1" <?php echo (isset($config['tic']['notificaciones']) && $config['tic']['notificaciones'] == 1) ? 'selected' : ''; ?>>Deshabilitado</option>
+									<option value="1" <?php echo (isset($config['tic']['notificaciones']) && $config['tic']['notificaciones'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+									<option value="0" <?php echo (isset($config['tic']['notificaciones']) && $config['tic']['notificaciones'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="prefNotificaciones" class="col-sm-4 control-label">Notificar al solicitante del estado de la incidencia mediante mensaje interno</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefNotificaciones" name="prefNotificaciones">
+									<option value="1" <?php echo (isset($config['tic']['notificaciones_solicitante']) && $config['tic']['notificaciones_solicitante'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+									<option value="0" <?php echo (isset($config['tic']['notificaciones_solicitante']) && $config['tic']['notificaciones_solicitante'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
 								</select>
 							</div>
 						</div>

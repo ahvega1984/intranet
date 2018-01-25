@@ -1,5 +1,19 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
+function obtener_problema_por_id_asunto($id_asunto, $tipos_incidencia) {
+    foreach ($tipos_incidencia as $problema => $asuntos) {
+        foreach ($asuntos as $id => $asunto) {
+            if ($id == $id_asunto) {
+                return array(
+                    'problema' => $problema,
+                    'asunto'   => $asunto
+                );
+            }
+        }
+    }
+    return false;
+}
+
 $tipos_incidencia = array(
     'Aulas con PDI (Ordenador en la mesa del profesor)' => array(
         101 => 'Ordenador: El ordenador no se enciende',

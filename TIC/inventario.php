@@ -1,99 +1,83 @@
 <?php
-require('../../bootstrap.php');
+require('../bootstrap.php');
 
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `inventario_tic` (
-  `numregistro` varchar(30) NOT NULL,
-  `numserie` varchar(30) DEFAULT NULL,
-  `tipo` varchar(80) NOT NULL,
-  `articulo` int(6) unsigned NOT NULL,
-  `proveedor` int(6) unsigned NOT NULL,
-  `expediente` varchar(30) DEFAULT NULL,
-  `procedencia` varchar(80) DEFAULT NULL,
-  `localizacion` varchar(80) DEFAULT NULL,
-  `adscripcion` varchar(80) DEFAULT NULL,
-  `fechaalta` date DEFAULT NULL,
-  `fechabaja` date DEFAULT NULL,
-  `motivobaja` text,
-  `estado` varchar(30) NOT NULL,
-  `descripcion` text,
-  `dotacionapae` text,
-  `observaciones` text,
-  `marcadobaja` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`numregistro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 // IMPORTACION INVENTARIO TIC
-if (isset($_POST['submitImportacion'])) {
-    if (isset($_FILES['archivo'])) {
-        
-        mysqli_query($db_con, "TRUNCATE TABLE `inventario_tic`");
+if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) {
+    if (isset($_POST['submitImportacion'])) {
+        if (isset($_FILES['archivo'])) {
+            
+            mysqli_query($db_con, "TRUNCATE TABLE `inventario_tic`");
 
-        $file = fopen($_FILES['archivo']["tmp_name"], "r") or die("Error: No ha sido posible abrir el archivo.");
+            $file = fopen($_FILES['archivo']["tmp_name"], "r") or die("Error: No ha sido posible abrir el archivo.");
 
-        $numlinea = 0;
-        while (!feof($file)) {
-            $numlinea++;
+            $numlinea = 0;
+            while (!feof($file)) {
+                $numlinea++;
 
-            $linea = fgets($file);
+                $linea = fgets($file);
 
-            if ($numlinea > 8) {
-                $exp_linea = explode('|', $linea);
+                if ($numlinea > 8) {
+                    $exp_linea = explode('|', $linea);
 
-                $numregistro    = utf8_encode(trim($exp_linea[0]));
-                $numserie       = utf8_encode(trim($exp_linea[1]));
-                $tipo           = utf8_encode(trim($exp_linea[2]));
-                $articulo       = trim($exp_linea[3]);
-                $proveedor      = trim($exp_linea[4]);
-                $expediente     = (trim($exp_linea[5]) == '') ? 'Sin expediente' : utf8_encode(trim($exp_linea[5]));
-                $procedencia    = utf8_encode(trim($exp_linea[6]));
-                $localizacion   = (trim($exp_linea[7]) == '') ? 'Sin asignar' : utf8_encode(trim($exp_linea[7]));
-                $adscripcion    = utf8_encode(trim($exp_linea[8]));
-                $exp_fechaalta  = explode('/', trim($exp_linea[9]));
-                $fechaalta      = $exp_fechaalta[2].'-'.$exp_fechaalta[1].'-'.$exp_fechaalta[0];
-                if ($exp_linea[10] == '') {
-                    $fechabaja = '0000-00-00';
+                    $numregistro    = utf8_encode(trim($exp_linea[0]));
+                    $numserie       = utf8_encode(trim($exp_linea[1]));
+                    $tipo           = utf8_encode(trim($exp_linea[2]));
+                    $articulo       = trim($exp_linea[3]);
+                    $proveedor      = trim($exp_linea[4]);
+                    $expediente     = (trim($exp_linea[5]) == '') ? 'Sin expediente' : utf8_encode(trim($exp_linea[5]));
+                    $procedencia    = utf8_encode(trim($exp_linea[6]));
+                    $localizacion   = (trim($exp_linea[7]) == '') ? 'Sin asignar' : utf8_encode(trim($exp_linea[7]));
+                    $adscripcion    = utf8_encode(trim($exp_linea[8]));
+                    $exp_fechaalta  = explode('/', trim($exp_linea[9]));
+                    $fechaalta      = $exp_fechaalta[2].'-'.$exp_fechaalta[1].'-'.$exp_fechaalta[0];
+                    if ($exp_linea[10] == '') {
+                        $fechabaja = '0000-00-00';
+                    }
+                    else {
+                        $exp_fechabaja  = explode('/', trim($exp_linea[10]));
+                        $fechabaja      = $exp_fechabaja[2].'-'.$exp_fechabaja[1].'-'.$exp_fechabaja[0];
+                    }
+                    $motivobaja     = utf8_encode(trim($exp_linea[11]));
+                    $estado         = utf8_encode(trim($exp_linea[12]));
+                    $descripcion    = utf8_encode(trim($exp_linea[13]));
+                    $dotacionapae   = utf8_encode(trim($exp_linea[14]));
+
+                    if ($numregistro != "") {
+                        $result = mysqli_query($db_con, "INSERT INTO `inventario_tic` (`numregistro`, `numserie`, `tipo`, `articulo`, `proveedor`, `expediente`, `procedencia`, `localizacion`, `adscripcion`, `fechaalta`, `fechabaja`, `motivobaja`, `estado`, `descripcion`, `dotacionapae`, `marcadobaja`) VALUES ('$numregistro', '$numserie', '$tipo', '$articulo', '$proveedor', '$expediente', '$procedencia', '$localizacion', '$adscripcion', '$fechaalta', '$fechabaja', '$motivobaja', '$estado', '$descripcion', '$dotacionapae', 0)") or die ("Error: ". mysqli_error($db_con));
+                    }
+                    
                 }
-                else {
-                    $exp_fechabaja  = explode('/', trim($exp_linea[10]));
-                    $fechabaja      = $exp_fechabaja[2].'-'.$exp_fechabaja[1].'-'.$exp_fechabaja[0];
-                }
-                $motivobaja     = utf8_encode(trim($exp_linea[11]));
-                $estado         = utf8_encode(trim($exp_linea[12]));
-                $descripcion    = utf8_encode(trim($exp_linea[13]));
-                $dotacionapae   = utf8_encode(trim($exp_linea[14]));
-
-                if ($numregistro != "") {
-                    $result = mysqli_query($db_con, "INSERT INTO `inventario_tic` (`numregistro`, `numserie`, `tipo`, `articulo`, `proveedor`, `expediente`, `procedencia`, `localizacion`, `adscripcion`, `fechaalta`, `fechabaja`, `motivobaja`, `estado`, `descripcion`, `dotacionapae`, `marcadobaja`) VALUES ('$numregistro', '$numserie', '$tipo', '$articulo', '$proveedor', '$expediente', '$procedencia', '$localizacion', '$adscripcion', '$fechaalta', '$fechabaja', '$motivobaja', '$estado', '$descripcion', '$dotacionapae', 0)") or die ("Error: ". mysqli_error($db_con));
-                }
-                
             }
+            fclose($file);
+
         }
-        fclose($file);
 
     }
 
-}
+    // MARCAR BAJA EN INVENTARIO SÉNECA
+    if (isset($_POST['marcarBaja'])) {
+        $numregistro = mysqli_real_escape_string($db_con, $_POST['numregistro']);
+        $marcadobaja_actual = mysqli_real_escape_string($db_con, $_POST['marcadobaja']);
 
-// MARCAR BAJA EN INVENTARIO SÉNECA
-if (isset($_POST['marcarBaja'])) {
-    $numregistro = mysqli_real_escape_string($db_con, $_POST['numregistro']);
-    $marcadobaja_actual = mysqli_real_escape_string($db_con, $_POST['marcadobaja']);
+        if (! empty($numregistro)) {
+            $marcadobaja = ($marcadobaja_actual == 1) ? 0 : 1;
+            mysqli_query($db_con, "UPDATE `inventario_tic` SET `marcadobaja` = ".$marcadobaja." WHERE `numregistro` = '".$numregistro."' LIMIT 1") or die (mysqli_error($db_con));
+        }
 
-    if (! empty($numregistro)) {
-        $marcadobaja = ($marcadobaja_actual == 1) ? 0 : 1;
-        mysqli_query($db_con, "UPDATE `inventario_tic` SET `marcadobaja` = ".$marcadobaja." WHERE `numregistro` = '".$numregistro."' LIMIT 1") or die (mysqli_error($db_con));
     }
 
-}
+    // GUARDAR OBSERVACIONES RECURSOS
+    if (isset($_POST['guardarCambiosInformacion'])) {
+        $numregistro = mysqli_real_escape_string($db_con, $_POST['numregistro']);
+        $observaciones = mysqli_real_escape_string($db_con, trim($_POST['observaciones']));
 
-// GUARDAR OBSERVACIONES RECURSOS
-if (isset($_POST['guardarCambiosInformacion'])) {
-    $numregistro = mysqli_real_escape_string($db_con, $_POST['numregistro']);
-    $observaciones = mysqli_real_escape_string($db_con, trim($_POST['observaciones']));
-
-    if (! empty($numregistro)) {
-        mysqli_query($db_con, "UPDATE `inventario_tic` SET `observaciones` = '".$observaciones."' WHERE `numregistro` = '".$numregistro."' LIMIT 1") or die (mysqli_error($db_con));
+        if (! empty($numregistro)) {
+            mysqli_query($db_con, "UPDATE `inventario_tic` SET `observaciones` = '".$observaciones."' WHERE `numregistro` = '".$numregistro."' LIMIT 1") or die (mysqli_error($db_con));
+        }
     }
 }
 
@@ -133,7 +117,8 @@ asort($inventario_expediente);
 asort($inventario_localizacion);
 asort($inventario_estado);
 
-include("../../menu.php");
+include("../menu.php");
+include("menu.php");
 ?>
 
     <style type="text/css">
@@ -153,7 +138,9 @@ include("../../menu.php");
         <div class="row">
             <div class="col-sm-12">
                 <div class="hidden-print">
+                    <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
                     <a href="#" class="btn btn-primary hidden-xs" data-toggle="modal" data-target="#modalImportacionInventarioTIC">Importar material TIC</a>
+                    <?php endif; ?>
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -189,7 +176,7 @@ include("../../menu.php");
                     </div>
 
                     <?php if (isset($_GET['expediente']) || isset($_GET['localizacion']) || isset($_GET['estado'])): ?>
-                    <a href="index.php" class="btn btn-default">Quitar filtro</a>
+                    <a href="inventario.php" class="btn btn-default">Quitar filtro</a>
                     <?php endif; ?>
                 </div>
 
@@ -207,7 +194,9 @@ include("../../menu.php");
                             <th>Nº registro</th>
                             <th>Descripción</th>
                             <th class="hidden-xs" nowrap>Fecha alta</th>
+                            <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
                             <th>Opciones</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -231,6 +220,7 @@ include("../../menu.php");
                                 <small>Ubicación: <?php echo $item['localizacion']; ?></small>
                             </td>
                             <td class="hidden-xs" nowrap><?php echo $item['fechaalta']; ?></td>
+                            <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
                             <td class="text-right" nowrap>
                                 <a href="#" class="btn btn-default" data-toggle="modal" data-target="#modalInformacion" data-numregistro="<?php echo $item['numregistro']; ?>" data-numserie="<?php echo $item['numserie']; ?>" data-tipo="<?php echo $item['tipo']; ?>" data-expediente="<?php echo $item['expediente']; ?>" data-procedencia="<?php echo $item['procedencia']; ?>" data-adscripcion="<?php echo $item['adscripcion']; ?>" data-localizacion="<?php echo $item['localizacion']; ?>" data-adscripcion="<?php echo $item['adscripcion']; ?>" data-fechaalta="<?php echo $item['fechaalta']; ?>" data-fechabaja="<?php echo $item['fechabaja']; ?>" data-motivobaja="<?php echo $item['motivobaja']; ?>" data-estado="<?php echo $item['estado']; ?>" data-descripcion="<?php echo $item['descripcion']; ?>" data-dotacionapae="<?php echo $item['dotacionapae']; ?>" data-observaciones="<?php echo $item['observaciones']; ?>" data-bs="tooltip" title="Ver información"><span class="fa fa-search fa-fw"></span></a>
                                 <form action="" method="post" style="display: inline; margin: 0; padding: 0;">
@@ -239,6 +229,7 @@ include("../../menu.php");
                                     <button type="submit" class="btn btn-default" name="marcarBaja" data-bs="tooltip" title="<?php echo ($item['marcadobaja']) ? 'Desmarcar para dar de baja en Séneca' : 'Marcar para dar de baja en Séneca'; ?>"><?php echo ($item['marcadobaja']) ? '<span class="fa fa-undo fa-fw"></span>' : '<span class="fa fa-times fa-fw"></span>'; ?></button>
                                 </form>
                             </td>
+                            <?php endif; ?>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -249,7 +240,8 @@ include("../../menu.php");
         </div>
 
     </div>
-
+    
+    <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
     <div class="modal fade" id="modalImportacionInventarioTIC" tabindex="-1" role="dialog" aria-labelledby="labelImportacionInventarioTIC">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -411,8 +403,9 @@ include("../../menu.php");
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
-    <?php include("../../pie.php"); ?>
+    <?php include("../pie.php"); ?>
     <script>
     $('#modalInformacion').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)

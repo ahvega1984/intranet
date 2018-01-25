@@ -248,3 +248,89 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Número seguridad social', NOW())");
 }
+
+/*
+	@descripcion: Nuevo módulo de incidencias TIC
+	@fecha: 26 de enero de 2018
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo módulo incidencias TIC'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "DROP TABLE `inventario_tic`");
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `inventario_tic` (
+	`numregistro` varchar(30) NOT NULL,
+	`numserie` varchar(30) DEFAULT NULL,
+	`tipo` varchar(80) NOT NULL,
+	`articulo` int(6) unsigned NOT NULL,
+	`proveedor` int(6) unsigned NOT NULL,
+	`expediente` varchar(30) DEFAULT NULL,
+	`procedencia` varchar(80) DEFAULT NULL,
+	`localizacion` varchar(80) DEFAULT NULL,
+	`adscripcion` varchar(80) DEFAULT NULL,
+	`fechaalta` date DEFAULT NULL,
+	`fechabaja` date DEFAULT NULL,
+	`motivobaja` text,
+	`estado` varchar(30) NOT NULL,
+	`descripcion` text,
+	`dotacionapae` text,
+	`observaciones` text,
+	`marcadobaja` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`numregistro`)
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;");
+
+	mysqli_query($db_con, "DROP TABLE `incidencias_tic`");
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `incidencias_tic` (
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`fecha` date NOT NULL,
+	`solicitante` varchar(12) NOT NULL,
+	`dependencia` varchar(30) DEFAULT NULL,
+	`problema` smallint(3) unsigned NOT NULL,
+	`descripcion` text,
+	`estado` tinyint(1) unsigned NOT NULL DEFAULT '1',
+	`fecha_estado` date NULL,
+	`numincidencia` char(10) DEFAULT NULL,
+	`resolucion` text NULL,
+	PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;");
+
+	// Migración de datos de la tabla partestic
+	$result = mysqli_query($db_con, "SELECT `fecha`, `profesor`, `descripcion`, `estado`, `nincidencia` FROM `partestic` ORDER BY `parte` ASC") or die (mysqli_error($db_con));
+	while($row = mysqli_fetch_array($result)) {
+		$result_profesor = mysqli_query($db_con, "SELECT `idea` FROM `departamentos` WHERE `nombre` = '".$row['profesor']."'");
+		$row_profesor = mysqli_fetch_array($result_profesor);
+
+		if ($row['estado'] != 'solucionado') $migracion_estado = 1;
+		else $migracion_estado = 3;
+
+		if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es' || $_SERVER['SERVER_NAME'] == 'iesbahiamarbella.es') {
+			if (stristr($row['descripcion'], ':') == true) {
+				$exp_aula_descripcion = explode(':', $row['descripcion']);
+				$dependencia = trim($exp_aula_descripcion[0]);
+				$descripcion = trim($exp_aula_descripcion[1]);
+			}
+			else {
+				$dependencia = "";
+				$descripcion = $row['descripcion'];
+			}
+
+			if (stristr($descripcion, '|') == true) {
+				$exp_resolucion_descripcion = explode('|', $descripcion);
+				$resolucion = trim($exp_resolucion_descripcion[1]);
+				$descripcion = trim($exp_resolucion_descripcion[0]);
+				$migracion_estado = 2;
+			}
+			else {
+				$resolucion = "";
+			}
+		}
+		else {
+			$dependencia = "";
+			$descripcion = $row['descripcion'];
+			$resolucion = "";
+		}
+		
+		mysqli_query($db_con, "INSERT INTO `incidencias_tic` (`fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`, `numincidencia`, `resolucion`) VALUES ('".$row['fecha']."', '".$row_profesor['idea']."', '".$dependencia."', 901, '".$descripcion."', $migracion_estado, '".$row['nincidencia']."', '".$resolucion."')") or die (mysqli_error($db_con));
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo módulo incidencias TIC', NOW())");
+}

@@ -751,6 +751,26 @@ CREATE TABLE IF NOT EXISTS `horw` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `incidencias_tic`
+--
+
+CREATE TABLE IF NOT EXISTS `incidencias_tic` (
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`fecha` date NOT NULL,
+	`solicitante` varchar(12) NOT NULL,
+	`dependencia` varchar(30) DEFAULT NULL,
+	`problema` smallint(3) unsigned NOT NULL,
+	`descripcion` text,
+	`estado` tinyint(1) unsigned NOT NULL DEFAULT '1',
+	`fecha_estado` date NULL,
+	`numincidencia` char(10) DEFAULT NULL,
+	`resolucion` text NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `infotut_alumno`
 --
 
@@ -852,6 +872,33 @@ CREATE TABLE IF NOT EXISTS `inventario_lugares` (
   `lugar` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `inventario_tic`
+--
+
+CREATE TABLE IF NOT EXISTS `inventario_tic` (
+	`numregistro` varchar(30) NOT NULL,
+	`numserie` varchar(30) DEFAULT NULL,
+	`tipo` varchar(80) NOT NULL,
+	`articulo` int(6) unsigned NOT NULL,
+	`proveedor` int(6) unsigned NOT NULL,
+	`expediente` varchar(30) DEFAULT NULL,
+	`procedencia` varchar(80) DEFAULT NULL,
+	`localizacion` varchar(80) DEFAULT NULL,
+	`adscripcion` varchar(80) DEFAULT NULL,
+	`fechaalta` date DEFAULT NULL,
+	`fechabaja` date DEFAULT NULL,
+	`motivobaja` text,
+	`estado` varchar(30) NOT NULL,
+	`descripcion` text,
+	`dotacionapae` text,
+	`observaciones` text,
+	`marcadobaja` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`numregistro`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 

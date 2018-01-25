@@ -52,8 +52,9 @@
 		</div>
 		
 		<ul class="nav nav-tabs">
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Nueva incidencia</a></li>
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'incidencias.php')==TRUE) ? ' class="active"' : ''; ?>><a href="incidencias.php">Listado de incidencias</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Incidencias TIC</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'incidencia.php')==TRUE) ? ' class="active"' : ''; ?>><a href="incidencia.php">Nueva incidencia</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inventario.php')==TRUE) ? ' class="active"' : ''; ?>><a href="inventario.php">Inventario TIC</a></li>
 			<li	class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_')==TRUE) ? ' active' : ''; ?>">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Perfiles <span class="caret"></span> </a>
 				<ul class="dropdown-menu" role="menu">
@@ -61,8 +62,17 @@
 					<li><a href="perfiles_profesores.php">Perfiles de profesores</a></li>
 				</ul>
 			</li>
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'protocolo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="protocolo.php">Protocolo de uso</a></li>
-			<li><a href="Guia_Rapida_SDI1.pdf" target="_blank">Manual de la SDI</a></li>
+			<li	class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Manuales <span class="caret"></span> </a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2017/02/Manual_Guadalinex_Edu_Slim.pdf" target="_blank">Manual de Usuario de Guadalinex Edu Slim</a></li>
+					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2017/02/Manual_Guadalinex_Edu_Next.pdf" target="_blank">Manual de Usuario de Guadalinex Edu Next</a></li>
+					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2017/03/Manual_de-_Usuario_HGR.pdf" target="_blank">Herramienta de Gestión de Recursos (HGR)</a></li>
+					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2015/09/Guia_Rapida_SDI11.pdf" target="_blank">Guía Rápida Solución Digital Integral (SDI)</a></li>
+					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2013/10/Manual-Administración-BiblioWeb.pdf" target="_blank">Manual de Administración de BiblioWeb</a></li>
+					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2013/12/Sincronización-de-BiblioWeb-con-Windows-72.pdf" target="_blank">Sincronización BiblioWeb con ABIES en Windows 7</a></li>
+				</ul>
+			</li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'estadisticas.php')==TRUE) ? ' class="active"' : ''; ?>><a href="estadisticas.php">Estadísticas TIC</a></li>
 		</ul>
 		

@@ -441,11 +441,11 @@ $menu_trabajo =  array(
 				'items' => array(
 					array(
 						'href'   => 'TIC/index.php',
-						'titulo' => 'Nueva incidencia',
+						'titulo' => 'Incidencias TIC',
 					),
 					array(
-						'href'   => 'TIC/incidencias.php',
-						'titulo' => 'Listado de incidencias',
+						'href'   => 'TIC/incidencia.php',
+						'titulo' => 'Nueva incidencia',
 					),
 					array(
 						'href'   => 'TIC/perfiles_alumnos.php',
