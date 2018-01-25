@@ -101,7 +101,7 @@ foreach ($unidades as $unidad) {
 
 		while ($row_asignaturas_profesor = mysqli_fetch_array($result_asignaturas_profesor)) {
 			// Obtenemos el código de la asignatura
-			$result_codigo_asignatura = mysqli_query($db_con, "SELECT codigo FROM materias WHERE nombre = '".$row_asignaturas_profesor['materia']."' AND grupo = '".$unidad."' LIMIT 1");
+			$result_codigo_asignatura = mysqli_query($db_con, "SELECT codigo FROM materias WHERE nombre = '".$row_asignaturas_profesor['materia']."' AND grupo = '".$unidad."' and abrev not like '%\_%' LIMIT 1");
 			$row_codigo_asignatura = mysqli_fetch_array($result_codigo_asignatura);
 
 			// Comprobamos y obtenemos los alumnos del profesor en su asignatura
