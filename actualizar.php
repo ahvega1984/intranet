@@ -256,6 +256,7 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo módulo incidencias TIC'");
 if (! mysqli_num_rows($actua)) {
 
+	// Creamos la tabla de inventario de material TIC
 	mysqli_query($db_con, "DROP TABLE `inventario_tic`");
 	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `inventario_tic` (
 	`numregistro` varchar(30) NOT NULL,
@@ -278,6 +279,7 @@ if (! mysqli_num_rows($actua)) {
 	PRIMARY KEY (`numregistro`)
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;");
 
+	// Creamos la nueva tabla de incidencias TIC
 	mysqli_query($db_con, "DROP TABLE `incidencias_tic`");
 	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `incidencias_tic` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -331,6 +333,9 @@ if (! mysqli_num_rows($actua)) {
 		
 		mysqli_query($db_con, "INSERT INTO `incidencias_tic` (`fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`, `numincidencia`, `resolucion`) VALUES ('".$row['fecha']."', '".$row_profesor['idea']."', '".$dependencia."', 901, '".$descripcion."', $migracion_estado, '".$row['nincidencia']."', '".$resolucion."')") or die (mysqli_error($db_con));
 	}
+
+	// Eliminamos tabla antigua
+	mysqli_query($db_con, "DROP TABLE `partestic`");
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo módulo incidencias TIC', NOW())");
 }

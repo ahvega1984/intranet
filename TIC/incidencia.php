@@ -1,7 +1,6 @@
 <?php
 require('../bootstrap.php');
 require('inc_variables.php');
-error_reporting(E_ALL);
 
 if (file_exists('config.php')) {
 	include('config.php');
