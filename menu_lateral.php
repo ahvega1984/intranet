@@ -206,6 +206,10 @@ $menu = array(
 						'titulo' => 'Listas de Pendientes'
 					),
 					array(
+						'href'   => 'admin/cursos/seleccion_alumnos.php',
+						'titulo' => 'Seleccionar mi alumnado',
+					),
+					array(
 						'href'   => 'admin/cursos/cexporta.php',
 						'titulo' => 'Exportar Datos de Alumnos'
 					)
@@ -427,10 +431,6 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'admin/infotutoria/index.php',
 						'titulo' => 'Informes de Tutoria',
-					),
-					array(
-						'href'   => 'admin/cursos/seleccion_alumnos.php',
-						'titulo' => 'Seleccionar mi alumnado',
 					)					
 				)
 			),
