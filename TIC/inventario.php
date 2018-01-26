@@ -8,11 +8,11 @@ if (file_exists('config.php')) {
 // IMPORTACION INVENTARIO TIC
 if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) {
     if (isset($_POST['submitImportacion'])) {
-        if (isset($_FILES['archivo'])) {
+        if (isset($_FILES['archivo']) && ! empty($_FILES['archivo']["tmp_name"])) {
             
-            mysqli_query($db_con, "TRUNCATE TABLE `inventario_tic`");
-
             $file = fopen($_FILES['archivo']["tmp_name"], "r") or die("Error: No ha sido posible abrir el archivo.");
+
+            mysqli_query($db_con, "TRUNCATE TABLE `inventario_tic`");
 
             $numlinea = 0;
             while (!feof($file)) {
@@ -54,6 +54,10 @@ if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordi
             }
             fclose($file);
 
+        }
+        else {
+            $msg_error = true;
+            $msg_error_text = "No ha seleccionado el archivo.";
         }
 
     }
@@ -128,12 +132,16 @@ include("menu.php");
     </style>
 
     <div class="container">
+
         <div class="page-header">
             <h2>Gestión TIC <small>Inventario de material TIC</small></h2>
         </div>
-    </div>
 
-    <div class="container">
+        <?php if (isset($msg_error) && $msg_error): ?>
+        <div class="alert alert-danger">
+            <?php echo $msg_error_text; ?>
+        </div>
+        <?php endif; ?>
 
         <div class="row">
             <div class="col-sm-12">
@@ -251,6 +259,12 @@ include("menu.php");
                         <h4 class="modal-title" id="labelImportacionInventarioTIC">Importar inventario TIC</h4>
                     </div>
                     <div class="modal-body">
+                        <div class="well">
+                             <p>Para obtener el archivo RegNoEdiInvCen.txt debe dirigirse al apartado <strong>Centro</strong>, <strong>Equipamiento</strong>, <strong>Inventario</strong>, <strong>Material inventariado</strong>. Seleccione tipo <strong>Recursos TIC</strong>; subtipo <strong>Cualquiera</strong>; procedencia <strong>Cualquiera</strong> y estado <strong>Cualquiera</strong>. Pulse el botón <strong>Buscar</strong> y exporte los datos en formato <strong>Texto plano</strong>.</p>
+                        </div>
+
+                        <br>
+
                         <div class="form-group">
                             <label for="archivo">RegNoEdiInvCen.txt</label>
                             <input type="file" id="archivo" name="archivo">
