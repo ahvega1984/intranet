@@ -290,10 +290,50 @@ include("menu.php");
                             </div>
 
                         </fieldset>
+                        <?php elseif (isset($id_ticket)): ?>
+                        <hr>
+
+                        <fieldset>
+                            
+                            <div class="row">
+                            
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="estado">Estado de la incidencia</label>
+                                        <?php foreach ($estados_incidencia as $estado_id => $estado_descripcion): ?>
+                                        <?php if (isset($estado) && $estado == $estado_id): ?>
+                                        <p class="form-control-static"><?php echo $estado_descripcion; ?></p>
+                                        <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+
+                                <?php if (isset($cga_nincidencia) && !empty($cga_nincidencia)): ?>
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="cga_nincidencia">Nº Incidencia (CAUCE-CGA)</label>
+                                        <p class="form-control-static">Incidencia tramitada al CGA con nº <?php echo $cga_nincidencia; ?></p>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                
+                            </div><!-- /.row -->
+
+                            <?php if (isset($resolucion) && !empty($resolucion)): ?>
+                            <div class="form-group">
+                                <label for="resolucion">Resolución de la incidencia</label>
+                                <p class="form-control-static"><?php echo (isset($resolucion) && !empty($resolucion)) ? $resolucion : ''; ?></p>
+                            </div>
+                            <?php endif; ?>
+
+                            <br>
+
+                        </fieldset>
                         <?php endif; ?>
 
-                        
+                        <?php if ($estado == 1 || acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
                         <button type="submit" class="btn btn-primary" name="registrar"><?php echo (! isset($id_ticket)) ? 'Registrar incidencia' : 'Guardar cambios'; ?></button>
+                        <?php endif; ?>
                     </form>
 
                 </div>

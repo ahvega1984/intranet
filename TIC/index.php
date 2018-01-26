@@ -121,30 +121,32 @@ include("menu.php");
                             <td data-order="<?php echo $incidencia['estado']; ?>">
                                 #<?php echo $incidencia['id']; ?>
 
-                                <?php 
-                                switch ($incidencia['estado']) {
-                                    case 1 : $btn_estado = 'btn-warning'; break;
-                                    case 2 : $btn_estado = 'btn-info'; break;
-                                    case 3 : $btn_estado = 'btn-default'; break;
-                                    case 4 : $btn_estado = 'btn-danger'; break;
-                                }
-                                ?>
-                                <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
-                                <div class="btn-group" style="margin-top: 10px;">
-                                    <button type="button" class="btn <?php echo $btn_estado; ?> btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?php echo $estados_incidencia[$incidencia['estado']]; ?> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <?php foreach ($estados_incidencia as $id_estado => $estado): ?>
-                                        <?php if ($incidencia['estado'] != $id_estado): ?>
-                                        <li><a href="?id=<?php echo $incidencia['id']; ?>&estado=<?php echo $id_estado; ?>"><?php echo $estado; ?></a></li>
-                                        <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </ul>
+                                <div style="margin-top: 10px;">
+                                    <?php 
+                                    switch ($incidencia['estado']) {
+                                        case 1 : $btn_estado = 'btn-warning'; break;
+                                        case 2 : $btn_estado = 'btn-info'; break;
+                                        case 3 : $btn_estado = 'btn-default'; break;
+                                        case 4 : $btn_estado = 'btn-danger'; break;
+                                    }
+                                    ?>
+                                    <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn <?php echo $btn_estado; ?> btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <?php echo $estados_incidencia[$incidencia['estado']]; ?> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <?php foreach ($estados_incidencia as $id_estado => $estado): ?>
+                                            <?php if ($incidencia['estado'] != $id_estado): ?>
+                                            <li><a href="?id=<?php echo $incidencia['id']; ?>&estado=<?php echo $id_estado; ?>"><?php echo $estado; ?></a></li>
+                                            <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                    <?php else: ?>
+                                    <button type="button" class="btn <?php echo $btn_estado; ?> btn-sm" style="margin-top: 10px;"><?php echo $estados_incidencia[$incidencia['estado']]; ?></button>
+                                    <?php endif; ?>
                                 </div>
-                                <?php else: ?>
-                                <button type="button" class="btn <?php echo $btn_estado; ?> btn-sm" style="margin-top: 10px;"><?php echo $estados_incidencia[$incidencia['estado']]; ?></button>
-                                <?php endif; ?>
                             </td>
                             <td><?php echo $incidencia['dependencia']; ?></td>
                             <td>
