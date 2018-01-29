@@ -448,6 +448,10 @@ $menu_trabajo =  array(
 						'titulo' => 'Nueva incidencia',
 					),
 					array(
+						'href'   => 'TIC/inventario.php',
+						'titulo' => 'Inventario TIC',
+					),
+					array(
 						'href'   => 'TIC/perfiles_alumnos.php',
 						'titulo' => 'Perfiles de alumnos',
 					),
@@ -458,11 +462,6 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'TIC/protocolo.php',
 						'titulo' => 'Protocolo de uso',
-					),
-					array(
-						'href'   => 'TIC/Guia_Rapida_SDI1.pdf',
-						'titulo' => 'Manual de la SDI',
-						'target' => '_blank',
 					),
 					array(
 						'href'   => 'TIC/estadisticas.php',
