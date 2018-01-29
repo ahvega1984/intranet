@@ -380,10 +380,13 @@ include("../menu.php"); ?>
 					    <?php endif; ?>
 					    <li class="divider"></li>
 					    <li><a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">Crear calendario...</a></li>
+					
+						<li class="divider"></li>
+						    <li><a href="index_unidades.php" target="_blank"><span class="fa fa-user-circle fa-fw fa-lg text-info"></span> <span class="text-info">Calendarios de los Grupos</span></a>
+						</li>
 					  </ul>
 					</div>
-					
-					
+
 					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="fa fa-calendar-plus-o fa-fw"></span> Nueva Actividad</a>
 					
 					<div class="pull-right">
@@ -458,10 +461,14 @@ include("../menu.php"); ?>
 
 			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==11 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<strong>ATENCIÓN: <br></strong> Estás creando una actividad para un grupo que ya tiene otra registrada en ese mismo día. <em><strong>Si la actividad es un examen</strong></em> procura buscar otra fecha si te resulta posible, con el fin de mejorar el calendario de ese grupo. Si crees que hay un error, ponte en contacto con el Equipo directivo.
+					<p>Estás intentando crear una actividad para un grupo <?php echo "(<strong>".$_GET['gr_cal']."</a></strong>)"; ?> que ya tiene otra registrada en ese mismo día. <em><strong>Si la actividad es un examen</strong></em> procura buscar otra fecha si te resulta posible. Comprueba el calendario del grupo, y si crees que hay un error, ponte en contacto con el Equipo directivo.
+					</p><br>
+					<a class="btn btn-info btn-sm" role="button" href="index_unidades.php?mes=<?php echo $_GET['mes']; ?>&anio=<?php echo $_GET['anio']; ?>&unidad=<?php echo $_GET['gr_cal']; ?>" target="_blank">Ver Calendario del Grupo</a>
+
 				</div>
 
 				<?php endif; ?>
+
 							
 				<?php if ($_GET['msg'] && $_GET['msg'] != "EventoPendienteConfirmacion"): ?>
 				<div class="alert alert-danger alert-block hidden-print">
