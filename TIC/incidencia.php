@@ -331,7 +331,7 @@ include("menu.php");
                         </fieldset>
                         <?php endif; ?>
 
-                        <?php if ($estado == 1 || acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
+                        <?php if (!isset($estado) || $estado == 1 || acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
                         <button type="submit" class="btn btn-primary" name="registrar"><?php echo (! isset($id_ticket)) ? 'Registrar incidencia' : 'Guardar cambios'; ?></button>
                         <?php endif; ?>
                     </form>
