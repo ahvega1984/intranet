@@ -70,18 +70,16 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
                     $result = mysqli_query($db_con, "UPDATE `incidencias_tic` SET `fecha` = '".$fecha_sql."', `solicitante` = '".$solicitante."', `dependencia` = '".$dependencia."', `problema` = ".$asunto.", `descripcion` = '".$descripcion."', `estado` = '".$estado."', `fecha_estado` = '".$fecha_estado."', `numincidencia` = '".$cga_nincidencia."', `resolucion` = '".$resolucion."' WHERE `id` = $id_ticket LIMIT 1");
 
                     // Notificamos al solicitante de los cambios realizados en la incidencia mediante un mensaje interno
-                    if (isset($_POST['registrar-y-notificar'])) {
-                        if ((! isset($config['tic']['notificaciones_solicitante']) || $config['tic']['notificaciones_solicitante']) && $estado != 1 && ! empty($resolucion)) {
-                            $notificacion_idea_coordinador = (! empty($config['tic']['coordinador'])) ? obtener_idea_por_nombre_profesor($config['tic']['coordinador']) : 'admin';
-                            $notificacion_array_tipoproblema = obtener_problema_por_id_asunto($asunto, $tipos_incidencia);
-                            $notificacion_tipoproblema = $notificacion_array_tipoproblema['asunto'];
-                            $notificacion_mensaje = "<p>El estado de la incidencia que registró el día $fecha, con número de caso <strong>#$id_ticket</strong> con el asunto $notificacion_tipoproblema ha sido actualizado.</p><p><br></p><p><a href=\"//".$config['dominio']."intranet/TIC/incidencias/incidencia.php?id=$id_ticket\" class=\"btn btn-info\" target=\"_blank\">Ver incidencia</a></p><p><br></p>";
-                            
-                            $notificacion_sql = "INSERT INTO `mens_texto` (`origen`, `asunto`, `texto`, `destino`, `oculto`) VALUES ('$notificacion_idea_coordinador', 'Registro de incidencia TIC #$id_ticket', '$notificacion_mensaje', '$solicitante', 0)";
-                            mysqli_query($db_con, $notificacion_sql) or die (mysqli_error($db_con));
-                            $id_mens_texto = mysqli_insert_id($db_con);
-                            mysqli_query($db_con, "INSERT INTO `mens_profes` (`id_texto`, `profesor`, `recibidoprofe`, `recibidojefe`) VALUES ($id_mens_texto, '$solicitante', 0, 0)") or die (mysqli_error($db_con));
-                        }
+                    if (isset($_POST['registrar-y-notificar']) && ((! isset($config['tic']['notificaciones_solicitante']) || $config['tic']['notificaciones_solicitante']) && $estado != 1 && ! empty($resolucion))) {
+                        $notificacion_idea_coordinador = (! empty($config['tic']['coordinador'])) ? obtener_idea_por_nombre_profesor($config['tic']['coordinador']) : 'admin';
+                        $notificacion_array_tipoproblema = obtener_problema_por_id_asunto($asunto, $tipos_incidencia);
+                        $notificacion_tipoproblema = $notificacion_array_tipoproblema['asunto'];
+                        $notificacion_mensaje = "<p>El estado de la incidencia que registró el día $fecha, con número de caso <strong>#$id_ticket</strong> con el asunto $notificacion_tipoproblema ha sido actualizado.</p><p><br></p><p><a href=\"//".$config['dominio']."intranet/TIC/incidencias/incidencia.php?id=$id_ticket\" class=\"btn btn-info\" target=\"_blank\">Ver incidencia</a></p><p><br></p>";
+                        
+                        $notificacion_sql = "INSERT INTO `mens_texto` (`origen`, `asunto`, `texto`, `destino`, `oculto`) VALUES ('$notificacion_idea_coordinador', 'Registro de incidencia TIC #$id_ticket', '$notificacion_mensaje', '$solicitante', 0)";
+                        mysqli_query($db_con, $notificacion_sql) or die (mysqli_error($db_con));
+                        $id_mens_texto = mysqli_insert_id($db_con);
+                        mysqli_query($db_con, "INSERT INTO `mens_profes` (`id_texto`, `profesor`, `recibidoprofe`, `recibidojefe`) VALUES ($id_mens_texto, '$solicitante', 0, 0)") or die (mysqli_error($db_con));
                     }
                     
                 }
@@ -336,7 +334,7 @@ include("menu.php");
 
                         <?php if (!isset($estado) || $estado == 1 || acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
                         <button type="submit" class="btn btn-primary" name="registrar"><?php echo (! isset($id_ticket)) ? 'Registrar incidencia' : 'Guardar cambios'; ?></button>
-                        <?php if (isset($id_ticket) && (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']))): ?>
+                        <?php if (isset($id_ticket) && (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) && (! isset($config['tic']['notificaciones_solicitante']) || $config['tic']['notificaciones_solicitante'] == 1)): ?>
                         <button type="submit" class="btn btn-primary" name="registrar-y-notificar">Guardar cambios y notificar</button>
                         <?php endif; ?>
                         <?php endif; ?>

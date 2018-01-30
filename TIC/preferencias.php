@@ -105,7 +105,7 @@ include("menu.php");
 						<div class="form-group">
 							<label for="prefNotificaciones" class="col-sm-4 control-label">Notificar al solicitante del estado de la incidencia mediante mensaje interno</label>
 							<div class="col-sm-3">
-								<select class="form-control" id="prefNotificaciones" name="prefNotificaciones">
+								<select class="form-control" id="prefNotificacionesSolicitante" name="prefNotificacionesSolicitante">
 									<option value="1" <?php echo (isset($config['tic']['notificaciones_solicitante']) && $config['tic']['notificaciones_solicitante'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
 									<option value="0" <?php echo (isset($config['tic']['notificaciones_solicitante']) && $config['tic']['notificaciones_solicitante'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
 								</select>
