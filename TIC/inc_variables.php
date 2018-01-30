@@ -102,7 +102,7 @@ $tipos_incidencia = array(
         609 => 'Configuración: No puedo acceder a algunas páginas web con el navegador. Aparece el mensaje "Conexión no segura / Secure Connection Failed"',
         610 => 'Configuración: No puedo acceder a algunas páginas web con el navegador. Aparece el mensaje "Servidor no encontrado / Server Not Found"',
         611 => 'Configuración: Aparece el mensaje "Windows detectó un conflicto en la dirección IP / Windows has detected an IP address conflict"',
-        612 => 'Configuración: La dirección IP está en un rango de direcciones incorrecto',
+        612 => 'Configuración: La dirección IP o servidores DNS está en un rango de direcciones incorrecto',
         600 => 'Otros...'
     ),
     'Extravío de dispostivos personales o documentos del Centro / Virus informáticos / Suplantación de identidad' => array(
