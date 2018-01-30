@@ -101,7 +101,7 @@ if (isset($_POST['registrar'])) {
 
                 }
                 else {
-                    $result = mysqli_query($db_con, "INSERT INTO `incidencias_tic` (`fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`) VALUES ('".$fecha_sql."', '".$solicitante."', '".$dependencia."', ".$asunto.", '".$descripcion."', '".$estado."', '1')");
+                    $result = mysqli_query($db_con, "INSERT INTO `incidencias_tic` (`fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`) VALUES ('".$fecha_sql."', '".$solicitante."', '".$dependencia."', ".$asunto.", '".$descripcion."', 1)");
                 }
 
                 $id_ticket_nuevo = mysqli_insert_id($db_con);

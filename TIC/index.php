@@ -156,9 +156,9 @@ include("menu.php");
                                 <p class="text-muted"><small><strong>Solicitante: <?php echo $incidencia['solicitante']; ?></strong> &middot; <strong>Fecha: <?php echo $incidencia['fecha']; ?></strong></small></p>
                             </td>
                             <td nowrap>
-                                <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $pr == $incidencia['solicitante']): ?>
+                                <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || ($pr == $incidencia['solicitante'] && $incidencia['estado'] == 1)): ?>
                                 <a href="incidencia.php?id=<?php echo $incidencia['id']; ?>" class="btn btn-sm btn-default"><span class="fa fa-edit fa-lg fa-fw"></span></a>
-                                <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar" class="btn btn-sm btn-danger"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+                                <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar" class="btn btn-sm btn-danger" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
                                 <?php endif; ?>
                             </td>
                         </tr>
