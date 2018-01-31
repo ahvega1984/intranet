@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4','landscape');
+$pdf = new Cezpdf('a4','landscape');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 

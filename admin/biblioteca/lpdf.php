@@ -16,7 +16,7 @@ $options_right = array(
 			);
 $options_left = array(
 				'justification' => 'left'
-					);
+			);
 $fecha_act = date('Y-m-d');	
 $lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion, id from morosos order by curso, apellidos, devolucion") or die ("error query lista");
 while($datatmp = mysqli_fetch_array($lista)) {
