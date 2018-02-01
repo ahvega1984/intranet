@@ -198,8 +198,8 @@ include("menu.php");
                                             <?php endwhile; ?>
                                         </select>
                                         <?php else: ?>
-                                        <input type="hidden" class="form-control" id="solicitante" name="solicitante" value="<?php echo $pr; ?>">
-                                        <input type="text" class="form-control" id="solicitante_nombre" name="solicitante_nombre" value="<?php echo $pr; ?>" readonly>
+                                        <input type="hidden" class="form-control" id="solicitante" name="solicitante" value="<?php echo $idea; ?>">
+                                        <p class="form-control-static"><?php echo $pr; ?></p>
                                         <?php endif; ?>
                                     </div>
                                 </div>
