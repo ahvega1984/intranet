@@ -79,12 +79,6 @@ while($alumno = mysqli_fetch_array($alumnos1))
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
 
-if ($foto = obtener_foto_alumno($alumno[12])) {
-	$exp_foto = explode('.', $foto);
-	$extension_foto = trim($exp_foto[1]);
-
-	$MiPDF->Image($foto,90,30,26,'',$extension_foto);
-}
 $cuerpo0="INFORME DE ABSENTISMO ESCOLAR";
 $datos10="Alumno: $alumno[3] $alumno[2]
 Fecha: $alumno[11]
@@ -120,7 +114,7 @@ $cuerpo66="$alumno[13]";
 	$MiPDF->SetTextColor(0,0,0);
 	
 	#Cuerpo.
-	$MiPDF->Ln(45);
+	$MiPDF->Ln(25);
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,20,$cuerpo0,0,'C',0);
 	$MiPDF->SetFont('NewsGotT');
