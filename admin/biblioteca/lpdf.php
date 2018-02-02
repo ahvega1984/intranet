@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 acl_acceso($_SESSION['cargo'], array(1, 'c'));
 
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4');
+$pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 # hasta aquÃ­ lo del pdf
