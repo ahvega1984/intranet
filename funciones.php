@@ -543,7 +543,7 @@ function obtener_foto_alumno($claveal) {
 	}
 
 	if (file_exists($ruta_foto_alumno)) {
-		$exp_ruta_foto_alumno = array_reverse(array_map('strrev', explode('.', strrev($ruta_foto_alumno))));
+		$exp_ruta_foto_alumno = array_reverse(array_map('strrev', explode('.', strrev($ruta_foto_alumno), 2)));
 		$nombre = str_replace($directorio_fotos, '', $exp_ruta_foto_alumno[0]);
 		$extension = $exp_ruta_foto_alumno[1];
 
