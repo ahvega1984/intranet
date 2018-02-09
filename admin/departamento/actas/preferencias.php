@@ -10,6 +10,7 @@ function limpiar_string($string)
 
 if (isset($_POST['btnGuardar'])) {
 
+	$prefSecretarioClaustro	= limpiar_string($_POST['prefSecretarioClaustro']);
 	$prefSecretarioDFEIE	= limpiar_string($_POST['prefSecretarioDFEIE']);
 	$prefSecretarioED		= limpiar_string($_POST['prefSecretarioED']);
 	$prefSecretarioETCP		= limpiar_string($_POST['prefSecretarioETCP']);
@@ -25,6 +26,7 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "<?php \r\n");
 		
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE ACTAS DE DEPARTAMENTOS\r\n");
+		fwrite($file, "\$config['actas_depto']['secretario_claustro']\t= '$prefSecretarioClaustro';\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_dfeie']\t= '$prefSecretarioDFEIE';\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_ed']\t= '$prefSecretarioED';\r\n");
 		fwrite($file, "\$config['actas_depto']['secretario_etcp']\t= '$prefSecretarioETCP';\r\n");
@@ -85,7 +87,22 @@ include("menu.php");
 					
 					<fieldset>
 						<legend>Secretario / Coordinador</legend>
-						
+
+						<div class="form-group">
+							<label for="prefSecretarioClaustro" class="col-sm-4 control-label">Claustro de Profesores</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefSecretarioClaustro" name="prefSecretarioClaustro">
+									<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
+									<?php if (mysqli_num_rows($result) > 1): ?>
+									<option value=""></option>
+									<?php endif; ?>
+									<?php while ($row = mysqli_fetch_array($result)): ?>
+									<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($config['actas_depto']['secretario_claustro']) && $config['actas_depto']['secretario_claustro'] == $row['nombre']) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+									<?php endwhile; ?>
+								</select>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label for="prefSecretarioDFEIE" class="col-sm-4 control-label">DFEIE</label>
 							<div class="col-sm-3">

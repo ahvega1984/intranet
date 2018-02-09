@@ -5,7 +5,7 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
+$organos = array('Claustro de Profesores','DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
 
 $bloquea_campos = 0;
 
@@ -26,6 +26,31 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 		$organo_centro = $_GET['organo'];
 	}
 	
+	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL CLAUSTRO
+	if ($departamento == 'Claustro de Profesores') {
+		acl_acceso($_SESSION['cargo'], array('1','1'));
+		
+		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo LIKE '%1%' ORDER BY nombre ASC");
+		$existe_secretario_claustro = mysqli_num_rows($result);
+		
+		if ((! isset($config['actas_depto']['secretario_claustro']) || $config['actas_depto']['secretario_claustro'] == "") && ! $existe_secretario_claustro) {
+			$msg_alerta = "No se ha definido al secretario del Claustro de Profesores en las preferencias del módulo.";
+			$bloquea_campos = 1;
+		}
+		elseif (isset($config['actas_depto']['secretario_claustro'])) {
+			$jefe_departamento = $config['actas_depto']['secretario_claustro'];
+			$bloquea_campos = 0;
+		}
+		else {
+			$row = mysqli_fetch_row($result);
+			$jefe_departamento = $row[0];
+			$bloquea_campos = 0;
+		}
+		
+		$titulo = 'Claustro de Profesores';
+		$esOrgano = 1;
+	}
+
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL DFEIE
 	if ($departamento == 'DFEIE') {
 		acl_acceso($_SESSION['cargo'], array('1','f'));

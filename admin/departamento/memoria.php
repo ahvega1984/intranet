@@ -50,7 +50,7 @@ while ($dep = mysqli_fetch_array($dep0)) {
 	$miembros.=$jefe.$cl."<br>\n\n";
 }
 // Actividades
-$act0 = mysqli_query($db_con, "select distinct nombre, unidades, fechaini from calendario where categoria='2' and departamento = '$depto'");
+$act0 = mysqli_query($db_con, "select distinct nombre, unidades, fechaini from calendario where categoria='2' and departamento = '$depto' and date(fechaini) >= '".$config['curso_inicio']."'");
 //echo "select nombre from departamentos where departamento = '$depto'";
 if (mysqli_num_rows($act0)>0) {
 	$activ.= "Las actividades complementarias y extraescolares realizadas por el Departamento son las siguientes:<br><br>";
@@ -59,7 +59,7 @@ while ($act = mysqli_fetch_array($act0)) {
 	$jefe2=$act[2].". ".$act[0]."<br />\nGrupos afectados por la actividad: ";
 	$cl2 = $act[1];
 	$cl2 = substr($cl2,0,-1);
-	$activ.=$jefe2.$cl2."<br>\n\n";
+	$activ.=$jefe2.$cl2."<br><br>\n\n";
 }
 
 $campos=array('p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19','p20');

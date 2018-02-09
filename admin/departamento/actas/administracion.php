@@ -12,7 +12,7 @@ if (isset($_GET['verTodas']) && $_GET['verTodas'] == 1) {
 	$verTodas = 1;
 }
 
-$organos = array('DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
+$organos = array('Claustro de Profesores','DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
 
 // ELIMINAR ACTAS
 if (isset($_GET['eliminar_depto'])) {
@@ -62,6 +62,7 @@ include ("menu.php");
 					<?php foreach ($organos as $organo): ?>
 					<?php 
 					switch ($organo) {
+						case 'Claustro de Profesores' : $secretario = $config['actas_depto']['secretario_claustro']; break;
 						case 'DFEIE' : $secretario = $config['actas_depto']['secretario_dfeie']; break;
 						case 'Equipo directivo' : $secretario = $config['actas_depto']['secretario_ed']; break;
 						case 'ETCP' : $secretario = $config['actas_depto']['secretario_etcp']; break;
@@ -126,7 +127,7 @@ include ("menu.php");
 			<br>
 			<hr>
 			
-			<h3>Departamentos del centro</h3>
+			<h3>Departamentos del Centro</h3>
 			
 			<table class="table table-bordered table-hover">
 				<thead>
@@ -167,7 +168,7 @@ include ("menu.php");
 							}
 							else {
 								$mostrar_alerta = 1;
-								echo '<a href="../../config/cargos.php">Asignar perfil</a>';
+								echo '<a href="../../../config/cargos.php">Asignar perfil</a>';
 							}
 							?></td>
 						<td class="text-center"><?php echo $total; ?> / <?php echo $total_impresas; ?></td>
