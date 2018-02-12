@@ -134,7 +134,7 @@ if ($id and ($unidad=='' and $alumno=='')) {
 
 ?> <!-- SCAFFOLDING -->
 <div class="row"><!-- COLUMNA IZQUIERDA -->
-<div class="col-sm-7"><?php if(isset($id) && $alumno && !($alumno == "Todos los Alumnos")): ?>
+<div class="col-sm-7"><?php if(isset($id) && $alumno && stristr($alumno, "Todos, todos") == false): ?>
 <?php $tr = explode(" --> ",$alumno); ?> <?php $al = $tr[0]; ?> <?php $clave = $tr[1]; ?>
 <?php endif; ?> <legend>Registro de datos</legend>
 
@@ -167,12 +167,14 @@ if ($id and ($unidad=='' and $alumno=='')) {
 	<option></option>
 </select> <?php endif; ?></div>
 </div>
-<div class="col-md-2"><?php    
-if (!empty($clave) && $foto = obtener_foto_alumno($clave)) {
-	echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
-}
-else {
-	echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
+<div class="col-md-2"><?php  
+if ($alumno && stristr($alumno, "Todos, todos") == false) {
+	if (!empty($clave) && $foto = obtener_foto_alumno($clave)) {
+		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
+	}
+	else {
+		echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
+	}
 }
 ?></div>
 </div>
@@ -183,7 +185,7 @@ else {
 <?php if(mysqli_num_rows($result)): ?> <select class="form-control"
 	id="alumno" name="alumno" onchange="submit()">
 	<option></option>
-	<option value="Todos los Alumnos">Todos los Alumnos</option>
+	<option value="Todos, todos" <?php echo ($alumno == 'Todos, todos' || $alumno == 'Todos, todos --> ') ? 'selected' : ''; ?>>Todos los alumnos</option>
 	<?php while($row = mysqli_fetch_array($result)): ?>
 	<option
 		value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>"
@@ -308,7 +310,7 @@ if($alumno){
 	$nombre = $trozos[1];
 	?>
 <div class="well">
-<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4>
+<h4>Historial de intervenciones de <?php echo ($nombre." ".$apellidos == 'todos Todos') ? ' la unidad' : $nombre." ".$apellidos; ?></h4>
 <br>
 	<?php
 	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id, orienta, prohibido from tutoria where claveal = '$clave' order by fecha");

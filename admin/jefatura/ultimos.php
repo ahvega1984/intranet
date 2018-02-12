@@ -21,11 +21,16 @@ $nombre = $trozos[1];
 	</thead>
 	<tbody>
   	<?php while ($row = mysqli_fetch_array($result)): ?>
-    <?php $result_alumno = mysqli_query($db_con, "SELECT DISTINCT id, apellidos, nombre, fecha FROM tutoria WHERE jefatura = '1' AND claveal = '".$row['claveal']."' ORDER BY fecha DESC LIMIT 1"); ?>
+    <?php $result_alumno = mysqli_query($db_con, "SELECT DISTINCT id, apellidos, nombre, fecha, unidad FROM tutoria WHERE jefatura = '1' AND claveal = '".$row['claveal']."' ORDER BY fecha DESC LIMIT 1"); ?>
 	<?php while($row_alumno = mysqli_fetch_array($result_alumno)): ?>
 		<tr>
 			<td><?php echo $row_alumno['id']; ?></td>
-			<td><a href="index.php?id=<?php echo $row_alumno['id']; ?>"><?php echo $row_alumno['nombre'].' '.$row_alumno['apellidos']; ?></a></td>
+			<td>
+				<a href="index.php?id=<?php echo $row_alumno['id']; ?>">
+					<span class="pull-right badge badge-default"><?php echo $row_alumno['unidad']; ?></span>
+					<?php echo ($row_alumno['apellidos'] == 'Todos') ? 'Todos los alumnos' : $row_alumno['nombre'].' '.$row_alumno['apellidos']; ?>
+				</a>
+				</td>
 			<td nowrap><?php echo $row_alumno['fecha']; ?></td>
 		</tr>
 	<?php endwhile; ?>
