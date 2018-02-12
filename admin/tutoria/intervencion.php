@@ -95,21 +95,14 @@ if (isset($_POST['enviar'])) {
 		else {
 			
 			if ($alumno == "Todos, todos") {
+				$apellidos = "Todos";
+				$nombre = "todos";
+				$claveal = "";
 				
-				$result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
-				
-				while ($row = mysqli_fetch_array($result)) {
-					$apellidos = $row[0];
-					$nombre = $row[1];
-					$claveal = $row[2];
+				$result1 = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
 					
-					$result1 = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
-					
-					if (!$result) $msg_error = "La intervención al alumno $nombre $apellidos no ha podido registrarse. Error: ".mysqli_error($db_con);
-					else $msg_success = "La intervención ha sido registrada a todos los alumnos de la undidad.";
-				}
-				
-				mysqli_free_result($result);
+				if (!$result1) $msg_error = "La intervención sobre el grupo no ha podido registrarse. Error: ".mysqli_error($db_con);
+				else $msg_success = "La intervención ha sido registrada.";
 			}
 			else {
 				
@@ -241,7 +234,7 @@ include("menu.php");
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-7">
 			
-				<?php if($alumno && !($alumno == "Todos los Alumnos")): ?>
+				<?php if($alumno && stristr($alumno, "Todos, todos") == false): ?>
 				<?php $exp_alumno = explode(" --> ", $alumno); ?>
 				<?php $claveal = $exp_alumno[1]; ?>
 				<?php if($foto = obtener_foto_alumno($claveal)): ?>
@@ -262,11 +255,12 @@ include("menu.php");
 									  <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal, NC FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY NC ASC"); ?>
 									  <?php if(mysqli_num_rows($result)): ?>
 									  <select class="form-control" id="alumno" name="alumno" onchange="submit()">
-									  	<option value="Todos, todos">Todos los Alumnos</option>
+									  	<option value="Todos, todos">Todos los alumnos</option>
 									  	<?php while($row = mysqli_fetch_array($result)): ?>
 									  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>" <?php echo (isset($alumno) && $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal'] == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 									  	<?php endwhile; ?>
 									  	<?php mysqli_free_result($result); ?>
+										
 									  </select>
 									  <?php else: ?>
 									  <select class="form-control" name="alumno" disabled>
@@ -339,7 +333,7 @@ include("menu.php");
 				</div><!-- /.well -->
 				
 				<?php
-				if($alumno && $alumno != 'Todos, todos'){
+				if($alumno){
 					$tr = explode(" --> ",$alumno);
 					$al = $tr[0];
 					$clave = $tr[1];
@@ -348,7 +342,7 @@ include("menu.php");
 					$nombre = $trozos[1];
 				?>
 				<div class="well">
-					<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4>
+					<h4>Historial de intervenciones de <?php echo ($nombre." ".$apellidos == 'todos Todos') ? ' la unidad' : $nombre." ".$apellidos; ?></h4>
 				<?php
 					$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, id FROM tutoria WHERE claveal='$claveal' AND prohibido = '0' ORDER BY fecha DESC");
 				

@@ -339,3 +339,13 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo módulo incidencias TIC', NOW())");
 }
+
+/*
+	@descripcion: Modificación de la tabla tutoría para registrar intervenciones sobre el grupo
+	@fecha: 12 de febrero de 2018
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación tabla tutoria'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `tutoria` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, CHANGE `claveal` `claveal` VARCHAR(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `apellidos` `apellidos` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `nombre` `nombre` VARCHAR(24) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `jefatura` `jefatura` TINYINT(1) NOT NULL DEFAULT '0';");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla tutoria', NOW())");
+}
