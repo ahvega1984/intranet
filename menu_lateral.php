@@ -100,7 +100,7 @@ $menu = array(
 		'cargos'  => array('8'),
 		'items'   => array (
 			array(
-				'href'   => 'admin/orientacion/tutor.php',
+				'href'   => 'admin/orientacion/index.php',
 				'titulo' => 'Intervenciones'
 			),
 			array(
