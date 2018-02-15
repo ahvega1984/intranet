@@ -360,3 +360,36 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `textos_gratis` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, CHANGE `isbn` `isbn` CHAR(13) NULL DEFAULT NULL, CHANGE `ean` `ean` CHAR(13) NULL DEFAULT NULL, CHANGE `ano` `ano` YEAR(4) NULL DEFAULT NULL;");
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla textos_gratis', NOW())");
 }
+
+
+/*
+	@descripcion: Modificación estructura tabla alma en bases de datos anteriores
+	@fecha: 15 de febrero de 2018
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación tabla alma bases de datos anteriores'");
+if (! mysqli_num_rows($actua)) {
+	
+	$actualizacion_anio = substr($config['curso_actual'], 0, 4) - 1;
+	while ($config['db_host_c'.$actualizacion_anio] != "") {
+
+		mysqli_close($db_con);
+		$db_con = mysqli_connect($config['db_host_c'.$actualizacion_anio], $config['db_user_c'.$actualizacion_anio], $config['db_pass_c'.$actualizacion_anio], $config['db_name_c'.$actualizacion_anio]) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+		mysqli_query($db_con,"SET NAMES 'utf8'");
+		
+		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
+		if (! mysqli_num_rows($result_update)) {
+			mysqli_query($db_con, "ALTER TABLE `alma` ADD `SEGSOCIAL` CHAR(12) NULL ;");
+		}
+		mysqli_free_result($result_update);
+		
+		$actualizacion_anio--;
+	}
+	unset($actualizacion_anio);
+	unset($result_update);
+
+	mysqli_close($db_con);
+	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+	mysqli_query($db_con,"SET NAMES 'utf8'");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla alma bases de datos anteriores', NOW())");
+}
