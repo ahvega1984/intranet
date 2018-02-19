@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array(1,6));
 
 $profe = $_SESSION['profi'];
 $PLUGIN_DATATABLES = 1;

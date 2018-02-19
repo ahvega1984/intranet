@@ -207,15 +207,18 @@ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FAL
 		<th></th>
 		</tr>";
 	// Consulta de datos del alumno.
-	$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id from Fechoria where claveal = '$claveal' and fecha >= '".$config['curso_inicio']."' order by fecha DESC" );
+	$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id, Fechoria.informa from Fechoria where claveal = '$claveal' and fecha >= '".$config['curso_inicio']."' order by fecha DESC" );
 	
 	while ( $row = mysqli_fetch_array ( $result ) ) {
 		echo "<tr>
 	<td nowrap>$row[0]</td>
 	<td>$row[1]</td>
 	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a><a href='delfechorias.php?id= $row[3]' data-bs='tooltip' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a></td>
-	</tr>";
+	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a>";
+  if($_SESSION['profi']==$row[4] or stristr($_SESSION['cargo'],'1') == TRUE){
+    echo "<a href='delfechorias.php?id= $row[3]' data-bs='tooltip' data-bb='confirm-delete' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a>";
+  }
+  echo "</td></tr>";
 	}
 	echo "</table>\n";
     ?>
