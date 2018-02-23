@@ -349,7 +349,15 @@ while($row = mysqli_fetch_array($eventExec)) {
 	$event_event6 = stripslashes($row["event6"]);
 	$event_event7 = stripslashes($row["event7"]);
 }
-if($_SESSION['profi'] == 'conserje' or stristr($_SESSION['cargo'],'1') == TRUE){
+
+// El profesor es del Equipo Directivo o es un aula de informática y es Coordinador TIC
+$esTIC = 0;
+if ((stristr($servicio, 'TIC') == true || stristr($servicio, 'Informática') == true) && file_exists("../../TIC/config.php")) {
+	include("../../TIC/config.php");
+	$esTIC = ($config['tic']['coordinador'] == $pr) ? 1 : 0;
+}
+
+if(stristr($_SESSION['cargo'],'1') == TRUE || $esTIC){
 	$SQL = "select distinct nombre from $db.departamentos order by nombre";
 }
 else{
@@ -384,29 +392,37 @@ a_grupo not like 'G%'";
 			$num_hor = mysqli_fetch_row($res_hor);
 			$grupo_aula = " (".$num_hor[1].")";
 		}
-		// El profesor es Administrador
-		if(stristr($_SESSION['cargo'],'1') == TRUE)
+		// El profesor es del Equipo Directivo o es un aula de informática y es Coordinador TIC
+		if(stristr($_SESSION['cargo'],'1') == TRUE || $esTIC)
 		{
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <select 
-name=\"day_event$i\" class='form-control'>";
+			echo "<label>".$i."ª hora</label>";
 		if (strlen($grupo_aula)>0) {
-			echo "<option>Asignada por Horario: 
-$grupo_aula</option>";
+			if ($esTIC) {
+				echo "<p class=\"help-block text-info\">Asignada por horario</p>";
+			}
+			else {
+				echo "<select name=\"day_event$i\" class='form-control'>";
+				echo "<option value=\"".$grupo_aula."\" selected>Asignada por Horario: $grupo_aula</option>";
+			}
 		}		
 		elseif(strlen(${event_event.$i})>0){
-				echo "<option>".${event_event.$i}."</option>";
+			echo "<select name=\"day_event$i\" class='form-control'>";
+			echo "<option value=\"\">Eliminar reserva</option>";
+			echo "<option value=\"".${event_event.$i}."\" selected>".${event_event.$i}."</option>";
 		}
 		elseif (strlen($num_aula_hor[0])>0) {
-			echo "<option>Asignada por Dirección: 
-$num_aula_hor[0]</option>";
+			echo "<select name=\"day_event$i\" class='form-control'>";
+			echo "<option value=\"\">Eliminar reserva</option>";
+			echo "<option value=\"".$num_aula_hor[0]."\" selected>Asignada por Dirección: $num_aula_hor[0]</option>";
 		}		
-		else{
-			echo "<option></option>";
+		else {
+			echo "<select name=\"day_event$i\" class='form-control'>";
+			echo "<option value=\"\" selected></option>";
 		}
 		$result1 = mysqli_query($db_con, $SQL);
 		while($row1 = mysqli_fetch_array($result1)){
 			$profesor = $row1[0];
-			echo "<option>" . $profesor . "</option>";
+			echo "<option value=\"". $profesor ."\">" . $profesor . "</option>";
 		}
 		echo "</select>";
 	}
@@ -433,11 +449,11 @@ class=\"help-block text-danger\">Asignada por Dirección";
 			if (${event_event.$i}  == "") {
 				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; 
 <select name=\"day_event$i\" class='form-control'>";
-				echo "<option></option>";
+				echo "<option value=\"\"></option>";
 				$result1 = mysqli_query($db_con, $SQL);
 				while($row1 = mysqli_fetch_array($result1)){
 					$profesor = $row1[0];
-					echo "<option>" . $profesor . "</option>";
+					echo "<option value=\"". $profesor ."\">" . $profesor . "</option>";
 				}
 				echo "</select>";
 			}

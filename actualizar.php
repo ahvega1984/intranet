@@ -393,3 +393,79 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla alma bases de datos anteriores', NOW())");
 }
+
+
+/*
+	@descripcion: Modulo de libros de texto
+	@fecha: 23 de febrero de 2018
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modulo de libros de texto'");
+if (! mysqli_num_rows($actua)) {
+
+	// Creamos la nueva tabla para el registro de libros de texto
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `libros_texto` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`materia` varchar(64) NOT NULL DEFAULT '',
+	`isbn` char(13) DEFAULT NULL,
+	`ean` char(13) DEFAULT NULL,
+	`editorial` varchar(60) NOT NULL DEFAULT '',
+	`titulo` varchar(100) NOT NULL DEFAULT '',
+	`importe` decimal(5,2) NULL,
+	`nivel` varchar(48) NOT NULL DEFAULT '',
+	`programaGratuidad` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;");
+
+	// Migramos los datos de la tabla textos_gratis del Programa de Gratuidad
+	$result_update = mysqli_query($db_con, "SELECT `materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel` FROM `textos_gratis` ORDER BY `nivel` ASC, `materia` ASC");
+	while ($row_update = mysqli_fetch_array($result_update)) {
+		mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('".$row_update['materia']."', '".$row_update['isbn']."', '".$row_update['ean']."', '".mysqli_real_escape_string($db_con, $row_update['editorial'])."', '".mysqli_real_escape_string($db_con, $row_update['titulo'])."', '".$row_update['importe']."', '".$row_update['nivel']."', 1)") or die (mysqli_error($db_con));
+	}
+	mysqli_free_result($result_update);
+
+	// Eliminamos la tabla
+	mysqli_query($db_con, "DROP TABLE `textos_gratis`");
+
+	// Migramos los datos de la Textos de los libros de los departamentos
+	$result_update = mysqli_query($db_con, "SELECT `Asignatura`, `isbn`, `Editorial`, `Titulo`, `Autor`, `Editorial`, `Nivel` FROM `Textos` ORDER BY `Nivel` ASC, `Asignatura` ASC");
+	while ($row_update = mysqli_fetch_array($result_update)) {
+		// Normalizamos el ISBN
+		$row_update['isbn'] = str_ireplace('-', '', $row_update['isbn']);
+		$row_update['isbn'] = str_ireplace('_', '', $row_update['isbn']);
+		$row_update['isbn'] = str_ireplace(' ', '', $row_update['isbn']);
+		$row_update['isbn'] = str_ireplace('.', '', $row_update['isbn']);
+		$row_update['isbn'] = trim($row_update['isbn']);
+
+		if (! empty($row_update['isbn'])) {
+			mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('".$row_update['Asignatura']."', '".$row_update['isbn']."', '', '".mysqli_real_escape_string($db_con, $row_update['Editorial'])."', '".mysqli_real_escape_string($db_con, $row_update['Titulo']).". ".mysqli_real_escape_string($db_con, $row_update['Autor'])."', 0.00, ".$row_update['Nivel']."', 0)");
+		}
+	}
+	mysqli_free_result($result_update);
+
+	// Eliminamos la tabla
+	mysqli_query($db_con, "DROP TABLE `Textos`");
+
+	// Creamos la nueva tabla para el registro del estado de los libros de texto del Programa de Gratuidad
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `libros_texto_alumnos` (
+	`claveal` varchar(12) NOT NULL,
+	`materia` varchar(10) NOT NULL,
+	`estado` char(1) NOT NULL DEFAULT '',
+	`devuelto` tinyint(1) NOT NULL DEFAULT '0',
+	`fecha` datetime DEFAULT '0000-00-00 00:00:00',
+	`curso` varchar(7) NOT NULL DEFAULT '',
+	PRIMARY KEY (`claveal`,`materia`),
+	KEY `claveal` (`claveal`)
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+	// Migramos los datos de la tabla textos_alumnos del Programa de Gratuidad
+	$result_update = mysqli_query($db_con, "SELECT `claveal`, `materia`, `estado`, `devuelto`, `fecha`, `curso` FROM `textos_alumnos` ORDER BY `curso` ASC, `claveal` ASC, `materia` ASC");
+	while ($row_update = mysqli_fetch_array($result_update)) {
+		mysqli_query($db_con, "INSERT INTO `libros_texto_alumnos` (`claveal`, `materia`, `estado`, `devuelto`, `fecha`, `curso`) VALUES ('".$row_update['claveal']."', '".$row_update['materia']."', '".$row_update['estado']."', ".$row_update['devuelto'].", '".$row_update['fecha']."', '".$row_update['curso']."')");
+	}
+	mysqli_free_result($result_update);
+
+	// Eliminamos la tabla
+	mysqli_query($db_con, "DROP TABLE `textos_alumnos`");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modulo de libros de texto', NOW())");
+}
