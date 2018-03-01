@@ -60,7 +60,7 @@ else {
 						<div class="text-center form-signin-heading">
 							<h3>Autenticación en dos pasos</h3>
 							<?php if (isset($_SESSION['totp_codigo_movil']) && $_SESSION['totp_codigo_movil']): ?>
-							<p class="text-center text-muted">Hemos enviado un mensaje de texto (SMS) a su teléfono ******<?php echo $_SESSION['totp_codigo_movil']; ?> con el código temporal para iniciar sesión</p>
+							<p class="text-center text-muted">Hemos enviado un mensaje de texto (SMS) a su teléfono ******<?php echo $_SESSION['totp_codigo_movil']; ?> con el código temporal, o también puede generar un código temporal desde su dispositivo móvil para iniciar sesión.</p>
 							<?php else: ?>
 							<p class="text-center text-muted">Genere un código temporal desde su dispositivo móvil para iniciar sesión</p>
 							<?php endif; ?>

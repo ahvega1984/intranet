@@ -130,8 +130,7 @@ $curso_tutor=$query2[0];
 
 	<?php if(strstr($curso_tutor,"E.S.O.")==TRUE and date('m') > '05' and date('m') < '10'): ?>
 	<li><a
-		href="../libros/libros.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&tutor=1">Libros
-	de Texto</a></li>
+		href="../libros-texto/programa-gratuidad/index.php">Programa de Gratuidad</a></li>
 	<?php endif; ?>
 </ul>
 

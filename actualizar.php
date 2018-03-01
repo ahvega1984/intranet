@@ -424,7 +424,7 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_free_result($result_update);
 
 	// Eliminamos la tabla
-	mysqli_query($db_con, "DROP TABLE `textos_gratis`");
+	//mysqli_query($db_con, "DROP TABLE `textos_gratis`");
 
 	// Migramos los datos de la Textos de los libros de los departamentos
 	$result_update = mysqli_query($db_con, "SELECT `Asignatura`, `isbn`, `Editorial`, `Titulo`, `Autor`, `Editorial`, `Nivel` FROM `Textos` ORDER BY `Nivel` ASC, `Asignatura` ASC");
@@ -443,7 +443,7 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_free_result($result_update);
 
 	// Eliminamos la tabla
-	mysqli_query($db_con, "DROP TABLE `Textos`");
+	//mysqli_query($db_con, "DROP TABLE `Textos`");
 
 	// Creamos la nueva tabla para el registro del estado de los libros de texto del Programa de Gratuidad
 	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `libros_texto_alumnos` (
@@ -465,7 +465,7 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_free_result($result_update);
 
 	// Eliminamos la tabla
-	mysqli_query($db_con, "DROP TABLE `textos_alumnos`");
+	//mysqli_query($db_con, "DROP TABLE `textos_alumnos`");
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modulo de libros de texto', NOW())");
 }

@@ -52,7 +52,6 @@
 	<li><a href="../admin/cursos/listados.php?todasUnidades=1" target="_blank">Listas de todos los Grupos</a></li>
 	<li><a href="jefe/form_carnet.php">Carnet de los alumnos</a></li>
 	<li><a href="jefe/index_fotos.php">Subir fotos de alumnos</a></li>
-	<li><a href="../admin/libros/indextextos.php">Libros de Texto Gratuitos</a></li>
 	<?php if(isset($config['mod_matriculacion']) && $config['mod_matriculacion']): ?>
 	<li><a href="../admin/matriculas/index.php">Matriculación de alumnos</a></li>
 	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años</a></li>	

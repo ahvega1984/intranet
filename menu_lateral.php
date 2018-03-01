@@ -141,6 +141,11 @@ $menu = array(
 			array(
 				'href'   => 'admin/tutoria/intervencion.php',
 				'titulo' => 'Intervenciones',
+			),
+			array(
+				'href'   => 'admin/libros-texto/programa-gratuidad.php',
+				'titulo' => 'Programa de Gratuidad',
+				'meses'	 => array(6, 7, 8, 9)
 			)
 		)
 	),
@@ -533,14 +538,8 @@ $menu_departamento = array(
 				'titulo' => 'Actas del Departamento'
 			),
 			array(
-				'href'   => 'admin/textos/intextos.php',
+				'href'   => 'admin/libros-texto/index.php',
 				'titulo' => 'Libros de texto',
-				'cargos' => array('1','4'),
-			),
-			array(
-				'href'   => 'admin/textos/consulta.php',
-				'titulo' => 'Libros de texto',
-				'ncargos' => array('1','4'),
 			),
 			array(
 				'href'   => 'admin/departamento/pedidos/index.php',
