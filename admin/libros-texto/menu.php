@@ -16,15 +16,17 @@
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Los Jefes de Departamento utilizan este formulario para registrar los 
-						Libros de Texto que afectan a sus asignaturas en los distintos Niveles o 
-						Grupos de alumnos.</p>
-						<p>Seleccionamos el Nivel y, en su caso, los Grupos correspondientes. Los 
-						campos del formulario marcados con un asterisco rojo son obligatorios.</p>
-						<p>Los Libros de Texto pueden ser consultados por todos los profesores 
-						dentro de la Intranet, pero también se trasladan a la Página del Centro, 
-						desde la cual pueden ser consultados por las Librerías y los Padres de 
-						los alumnos. La consulta puede realizarse por Nivel o por Departamento.</p>
+						<p>Los jefes de departamento utilizan este formulario para registrar los 
+						libros de texto que afectan a sus asignaturas en los distintos niveles educativos.</p>
+						<p>Los libros de texto pueden ser consultados por todos los profesores 
+						dentro de la Intranet, pero también se trasladan a la página Web del centro, 
+						desde la cual pueden ser consultados por las librerías y las familias de 
+						los alumnos.</p>
+						<p>El módulo permite a los tutores consultar el estado de los libros de texto del 
+						 Programa de Gratuidad, así como utilizar la aplicación para registrarlo al final 
+						 de cada curso escolar. También permite consultar el estado de los libros por nivel 
+						 y grupo, así como generar Certificados de Reposición y Entrega de libros
+						 preparados para entregar oficialmente a las familias del alumno.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
