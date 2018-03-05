@@ -437,7 +437,7 @@ if (! mysqli_num_rows($actua)) {
 		$row_update['isbn'] = trim($row_update['isbn']);
 
 		if (! empty($row_update['isbn'])) {
-			mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('".$row_update['Asignatura']."', '".$row_update['isbn']."', '', '".mysqli_real_escape_string($db_con, $row_update['Editorial'])."', '".mysqli_real_escape_string($db_con, $row_update['Titulo']).". ".mysqli_real_escape_string($db_con, $row_update['Autor'])."', 0.00, ".$row_update['Nivel']."', 0)");
+			mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('".$row_update['Asignatura']."', '".$row_update['isbn']."', '', '".mysqli_real_escape_string($db_con, $row_update['Editorial'])."', '".mysqli_real_escape_string($db_con, $row_update['Titulo']).". ".mysqli_real_escape_string($db_con, $row_update['Autor'])."', 0.00, '".$row_update['Nivel']."', 0)");
 		}
 	}
 	mysqli_free_result($result_update);
