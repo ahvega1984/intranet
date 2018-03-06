@@ -17,8 +17,18 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 			);
+
+$extra_orden = "";
+
+if (isset($_GET['fecha_moroso'])) {
+	$extra_orden = "order by devolucion asc, curso, apellidos ";
+}
+else{
+	$extra_orden = "order by curso, apellidos, devolucion";
+}
+
 $fecha_act = date('Y-m-d');	
-$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion, id from morosos order by curso, apellidos, devolucion") or die ("error query lista");
+$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion, id from morosos $extra_orden") or die ("error query lista");
 while($datatmp = mysqli_fetch_array($lista)) {
   if(strstr($datatmp[0],"Monter")==TRUE){$datatmp[0]="Prof.";}
 	$data[] = array(

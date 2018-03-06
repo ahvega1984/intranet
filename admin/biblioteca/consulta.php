@@ -82,7 +82,8 @@ function seleccionar_todo(){
 <button type="submit" class="btn btn-danger" name="borrar" value="Borrar"><span class="fa fa-trash-o fa-fw"></span> Borrar</button>
 <button type="submit" class="btn btn-info" name="sms" value="sms"><span class="fa fa-mobile fa-fw"></span> Enviar SMS</button>
 <button type="submit" class="btn btn-warning" name="registro" value="registro"><span class="fa fa-gavel fa-fw"></span> Registrar Amonestaciones</button>
-<a href="lpdf.php" class="btn btn-primary" target="_blank">Listado en PDF</a>
+<a href="lpdf.php" class="btn btn-primary" target="_blank">Listado por Grupo</a>
+<a href="lpdf.php?fecha_moroso=1" class="btn btn-primary" target="_blank">Listado por Fecha</a>
 </form>
 </div>
 </div>

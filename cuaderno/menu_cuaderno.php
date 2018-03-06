@@ -36,7 +36,6 @@ function enviar(){
 	else { $texto_foto = "Ocultar fotos"; $mens2 = "cuaderno.php?$var&foto=1";}
 	$mens3 = "cuaderno/orden.php?$var";
 
-	echo '<li><a href="'.$mens1.'"><i class="fa fa-user fa-fw"></i>&nbsp;Seleccionar alumnos</a></li>';
 	echo '<li><a href="'.$mens3.'"><i class="fa fa-reorder fa-fw"></i>&nbsp;Ordenar Columnas</a></li>';
 	echo '<li><a onclick="print()"><i class="fa fa-print fa-fw"></i>&nbsp;Imprimir tabla completa</a></li>';
 	echo '<li><a href="'.$mens2.'"><i class="fa fa-user fa-fw"></i>&nbsp;'.$texto_foto.'</a></li>';
