@@ -478,7 +478,7 @@ foreach ($alumnos as $alumno) {
     }
 
     // OBSERVACIONES
-    $MiPDF->Ln(20);
+    $MiPDF->Ln(10);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(0, 5, 'Observaciones:', 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
@@ -496,7 +496,7 @@ foreach ($alumnos as $alumno) {
     $MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
     $MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0);
-    $MiPDF->Cell(55, 5, 'Tutor/a: '.$tutor, 0, 1, 'L', 0);
+    $MiPDF->Cell(55, 5, '', 0, 1, 'L', 0);
 
     $MiPDF->SetFont('NewsGotT', '', 8);
     $MiPDF->RotatedText(10, 100, 'Ref.Doc: BolCalAluInfInd', 90);
