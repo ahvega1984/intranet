@@ -284,7 +284,7 @@ foreach ($alumnos as $alumno) {
     $MiPDF->Ln(10);
 
     $MiPDF->SetFont('NewsGotT', 'BU', 10);
-    $MiPDF->Cell(0, 5, 'BOLETÍN DE CALIFICACIONES', 0, 0, 'C', 0);
+    $MiPDF->Cell(0, 5, 'CALIFICACIONES', 0, 0, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
 
     $curso_alumno = str_replace('(Humanidades y Ciencias Sociales (Lomce))', '(Humanid. y CC.SS.)', $alumno['curso']);
@@ -496,7 +496,7 @@ foreach ($alumnos as $alumno) {
     $MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
     $MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0);
-    $MiPDF->Cell(55, 5, '', 0, 1, 'L', 0);
+    $MiPDF->Cell(55, 5, 'La Dirección del Centro', 0, 1, 'L', 0);
 
     $MiPDF->SetFont('NewsGotT', '', 8);
     $MiPDF->RotatedText(10, 100, 'Ref.Doc: BolCalAluInfInd', 90);
@@ -504,4 +504,4 @@ foreach ($alumnos as $alumno) {
     $MiPDF->RotatedText(10, 220, 'Fecha Generación: '.date('d/m/Y H:i:s'), 90);
 }
 
-$MiPDF->Output('I', 'Boletines de calificaciones', true);
+$MiPDF->Output('I', 'Calificaciones', true);
