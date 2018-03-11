@@ -206,6 +206,27 @@ while ($row = mysqli_fetch_array($result)) {
 mysqli_free_result($result);
 unset($alumno);
 
+// OBTENEMOS TODAS LAS EVALUACIONES IMPORTADAS
+$array_convocatorias = array('EVI' => 'Evaluación Inicial', '1EV' => '1ª Evaluación', '2EV' => '2ª Evaluación', 'ORD' => 'Evaluación Ordinaria', 'EXT' => 'Evaluación Extraordinaria');
+$convocatorias = array();
+$result = mysqli_query($db_con, "SELECT COUNT(`notas0`) AS notas0, COUNT(`notas1`) AS notas1, COUNT(`notas2`) AS notas2, COUNT(`notas3`) AS notas3, COUNT(`notas4`) AS notas4 FROM notas");
+$row = mysqli_fetch_array($result);
+for ($i = 0; $i < 5; $i++) {
+    
+    if ($row['notas'.$i] > 0) {
+        $convocatoria = array(
+            'abrev'       => key($array_convocatorias),
+            'nombre'      => current($array_convocatorias)
+        );
+
+        array_push($convocatorias, $convocatoria);
+    }
+    next($array_convocatorias);
+    
+}
+mysqli_free_result($result);
+unset($convocatoria);
+
 // Procesamos la variable de selección de evaluación
 if (isset($_POST['evaluacion']) && ! empty($_POST['evaluacion'])) {
     $evaluacion = urldecode($_POST['evaluacion']);
@@ -247,6 +268,11 @@ if (isset($_POST['evaluacion']) && ! empty($_POST['evaluacion'])) {
             break;
         
     }
+}
+else {
+    // Obtenemos la última convocatoria importada
+    $convocatoria = end($convocatorias);
+    $evaluacion = $convocatoria['nombre'];
 }
 
 $anio_academico = (substr($config['curso_actual'], 0, 4).'/'.(substr($config['curso_actual'], 0, 4) + 1));
