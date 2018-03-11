@@ -326,7 +326,7 @@ foreach ($alumnos as $alumno) {
 
     // Calificaciones por convocatoria
     $tabla_anchos = array(80);
-    $tabla_encabezado = array('M A T E R I A S');
+    $tabla_encabezado = array('MATERIAS');
     $notas_evi = mysqli_query($db_con, "SELECT `notas0` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_evi = mysqli_fetch_array($notas_evi);
     $notas_evi = explode(';', rtrim($row_notas_evi['notas0'], ';'));
@@ -369,7 +369,7 @@ foreach ($alumnos as $alumno) {
 
     // TABLA CON CALIFICACIONES
     $MiPDF->SetFont('NewsGotT', 'B', 10);
-    $MiPDF->Cell(0, 5, 'E V A L U A C Í O N', 0, 1, 'C', 0);
+    $MiPDF->Cell(0, 5, 'EVALUACÍON', 0, 1, 'C', 0);
 
     $MiPDF->SetWidths($tabla_anchos);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
@@ -477,8 +477,8 @@ foreach ($alumnos as $alumno) {
         
     }
 
-    // OBSERVACIONES
     $MiPDF->Ln(10);
+
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(0, 5, 'Observaciones:', 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
@@ -491,7 +491,7 @@ foreach ($alumnos as $alumno) {
 
     //FIRMAS
     $MiPDF->Cell(90, 5, 'Sello del Centro', 0, 0, 'L', 0);
-    $MiPDF->Cell(55, 5, 'Les saluda cordialmente,', 0, 1, 'C', 0);
+    $MiPDF->Cell(55, 5, 'Les saluda cordialmente,', 0, 1, 'L', 0);
     $MiPDF->Cell(55, 20, '', 0, 0, 'C', 0);
     $MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
