@@ -312,7 +312,7 @@ foreach ($alumnos as $alumno) {
     $notas_1ev = mysqli_query($db_con, "SELECT `notas1` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_1ev = mysqli_fetch_array($notas_1ev);
     $notas_1ev = explode(';', rtrim($row_notas_1ev['notas1'], ';'));
-    if (count($notas_1ev) > 1) {
+    if (count($notas_1ev) > 1 && ($evaluacion == '1ª Evaluación' || $evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('1EV'));
     }
@@ -320,7 +320,7 @@ foreach ($alumnos as $alumno) {
     $notas_2ev = mysqli_query($db_con, "SELECT `notas2` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_2ev = mysqli_fetch_array($notas_2ev);
     $notas_2ev = explode(';', rtrim($row_notas_2ev['notas2'], ';'));
-    if (count($notas_2ev) > 1) {
+    if (count($notas_2ev) > 1 && ($evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('2EV'));
     }
@@ -328,7 +328,7 @@ foreach ($alumnos as $alumno) {
     $notas_ord = mysqli_query($db_con, "SELECT `notas3` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_ord = mysqli_fetch_array($notas_ord);
     $notas_ord = explode(';', rtrim($row_notas_ord['notas3'], ';'));
-    if (count($notas_ord) > 1) {
+    if (count($notas_ord) > 1 && ($evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('ORD'));
     }
@@ -336,7 +336,7 @@ foreach ($alumnos as $alumno) {
     $notas_ext = mysqli_query($db_con, "SELECT `notas4` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_ext = mysqli_fetch_array($notas_ext);
     $notas_ext = explode(';', rtrim($row_notas_ext['notas4'], ';'));
-    if (count($notas_ext) > 1) {
+    if (count($notas_ext) > 1 && ($evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('EXT'));
     }
