@@ -563,11 +563,11 @@ foreach ($alumnos as $alumno) {
         $MiPDF->SetFont('NewsGotT', '', 10);
 
         $total_dias_justificadas = 0;
-        $result_dias_faltas_justificadas = mysqli_query($db_con, "SELECT DISTINCT `FALTAS`.`fecha` FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'J'");
+        $result_dias_faltas_justificadas = mysqli_query($db_con, "SELECT `fecha`, COUNT(`hora`) AS 'horas' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'J' GROUP BY `fecha` HAVING `horas` = 6 ORDER BY `fecha` ASC, `hora` ASC");
         $total_dias_justificadas = mysqli_num_rows($result_dias_faltas_justificadas);
 
         $total_dias_injustificadas = 0;
-        $result_dias_faltas_injustificadas = mysqli_query($db_con, "SELECT DISTINCT `FALTAS`.`fecha` FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'F'");
+        $result_dias_faltas_injustificadas = mysqli_query($db_con, "SELECT `fecha`, COUNT(`hora`) AS 'horas' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'F' GROUP BY `fecha` HAVING `horas` = 6 ORDER BY `fecha` ASC, `hora` ASC");
         $total_dias_injustificadas = mysqli_num_rows($result_dias_faltas_injustificadas);
 
         $total_justificadas = 0;
