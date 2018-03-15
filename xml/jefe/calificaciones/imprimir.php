@@ -176,16 +176,22 @@ elseif (isset($_POST['grupo']) && ! empty($_POST['grupo'])) {
 // OBTENEMOS LOS ALUMNOS DE LOS CURSOS Y UNIDADES SELECCIONADAS
 $alumnos = array();
 if ($curso == "Todos los cursos") {
-    $result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia` FROM `alma` ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC") or die (mysqli_error($db_con));
+    $result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia`, `sexo` FROM `alma` ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC") or die (mysqli_error($db_con));
 }
 elseif (isset($curso) && ! isset($grupo)) {
-    $result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia` FROM `alma` WHERE `curso` = '$curso' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
+    $result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia`, `sexo` FROM `alma` WHERE `curso` = '$curso' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
 }
 else {
-    $result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia` FROM `alma` WHERE `curso` = '$curso' AND `unidad` = '$grupo' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
+    $result = mysqli_query($db_con, "SELECT `curso`, `unidad`, `apellidos`, `nombre`, `claveal`, `claveal1`, `numeroexpediente`, `combasi`, `primerapellidotutor`, `segundoapellidotutor`, `nombretutor`, `sexoprimertutor`, `domicilio`, `codpostal`, `localidad`, `provinciaresidencia`, `sexo` FROM `alma` WHERE `curso` = '$curso' AND `unidad` = '$grupo' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
 }
 
 while ($row = mysqli_fetch_array($result)) {
+    if ($row['nombretutor'] != "") {
+        $tutor_legal = (($row['sexoprimertutor'] == 'H') ? 'Don ' : 'Doña ').trim($row['nombretutor'].' '.$row['primerapellidotutor'].' '.$row['segundoapellidotutor']);
+    }
+    else {
+        $tutor_legal = (($row['sexo'] == 'H') ? 'Don ' : 'Doña ').trim($row['nombre'].' '.$row['apellidos']);
+    }
 
     $alumno = array(
         'curso'       => $row['curso'],
@@ -196,7 +202,7 @@ while ($row = mysqli_fetch_array($result)) {
         'claveal1'    => $row['claveal1'],
         'numexp'      => $row['numeroexpediente'],
         'combasi'     => rtrim($row['combasi'], ':'),
-        'tutorlegal'  => (($row['sexoprimertutor'] == 'H') ? 'Don ' : 'Doña ').trim($row['nombretutor'].' '.$row['primerapellidotutor'].' '.$row['segundoapellidotutor']),
+        'tutorlegal'  => trim($tutor_legal),
         'direccion1'  => $row['domicilio'],
         'direccion2'  => $row['localidad'].' - '.$row['codpostal'].' ('.$row['provinciaresidencia'].')',
     );
@@ -284,7 +290,7 @@ foreach ($alumnos as $alumno) {
     $MiPDF->Ln(10);
 
     $MiPDF->SetFont('NewsGotT', 'BU', 10);
-    $MiPDF->Cell(0, 5, 'CALIFICACIONES', 0, 0, 'C', 0);
+    $MiPDF->Cell(0, 5, 'BOLETÍN DE CALIFICACIONES', 0, 0, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
 
     $curso_alumno = str_replace('(Humanidades y Ciencias Sociales (Lomce))', '(Humanid. y CC.SS.)', $alumno['curso']);
@@ -294,43 +300,45 @@ foreach ($alumnos as $alumno) {
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(28, 5, 'ALUMNO/A:', 0, 0, 'R', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
-    $MiPDF->Cell(48, 5, $alumno['nombre'], 0, 1, 'L', 0);
+    $MiPDF->Cell(58, 5, $alumno['nombre'], 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(28, 5, 'NÚMERO EXP:', 0, 0, 'R', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
-    $MiPDF->Cell(48, 5, $alumno['numexp'], 0, 1, 'L', 0);
+    $MiPDF->Cell(58, 5, $alumno['numexp'], 0, 0, 'L', 0);
+    $MiPDF->Cell(85, 5, $alumno['tutorlegal'], 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(28, 5, 'CURSO:', 0, 0, 'R', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
-    $MiPDF->Cell(48, 5, $curso_alumno, 0, 1, 'L', 0);
+    $MiPDF->Cell(58, 5, $curso_alumno, 0, 0, 'L', 0);
+    $MiPDF->Cell(85, 5, $alumno['direccion1'], 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(28, 5, 'UNIDAD:', 0, 0, 'R', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
     $MiPDF->Cell(58, 5, $alumno['unidad'], 0, 0, 'L', 0);
-    $MiPDF->Cell(85, 5, $alumno['tutorlegal'], 0, 1, 'L', 0);
+    $MiPDF->Cell(85, 5, $alumno['direccion2'], 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(28, 5, 'CONVOCATORIA:', 0, 0, 'R', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
-    $MiPDF->Cell(58, 5, $convocatoria['abrev'].' ('.$convocatoria['nombre'].')', 0, 0, 'L', 0);
-    $MiPDF->Cell(85, 5, $alumno['direccion1'], 0, 1, 'L', 0);
+    $MiPDF->Cell(58, 5, $convocatoria['abrev'].' ('.$convocatoria['nombre'].')', 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(28, 5, 'AÑO ACADÉMICO:', 0, 0, 'R', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
-    $MiPDF->Cell(58, 5, $anio_academico, 0, 0, 'L', 0);
-    $MiPDF->Cell(85, 5, $alumno['direccion2'], 0, 1, 'L', 0);
+    $MiPDF->Cell(58, 5, $anio_academico, 0, 1, 'L', 0);
 
-    $MiPDF->Ln(10);
+    $MiPDF->Ln(5);
 
     // Asignaturas matriculadas
     $combasi = explode(':', $alumno['combasi']);
 
     // Calificaciones por convocatoria
+    $tabla_alineacion = array('L');
     $tabla_anchos = array(80);
     $tabla_encabezado = array('MATERIAS');
     $notas_evi = mysqli_query($db_con, "SELECT `notas0` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_evi = mysqli_fetch_array($notas_evi);
     $notas_evi = explode(';', rtrim($row_notas_evi['notas0'], ';'));
     if (count($notas_evi) > 1) {
+        $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('EVI'));
     }
@@ -339,6 +347,7 @@ foreach ($alumnos as $alumno) {
     $row_notas_1ev = mysqli_fetch_array($notas_1ev);
     $notas_1ev = explode(';', rtrim($row_notas_1ev['notas1'], ';'));
     if (count($notas_1ev) > 1 && ($evaluacion == '1ª Evaluación' || $evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
+        $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('1EV'));
     }
@@ -347,6 +356,7 @@ foreach ($alumnos as $alumno) {
     $row_notas_2ev = mysqli_fetch_array($notas_2ev);
     $notas_2ev = explode(';', rtrim($row_notas_2ev['notas2'], ';'));
     if (count($notas_2ev) > 1 && ($evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
+        $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('2EV'));
     }
@@ -355,6 +365,7 @@ foreach ($alumnos as $alumno) {
     $row_notas_ord = mysqli_fetch_array($notas_ord);
     $notas_ord = explode(';', rtrim($row_notas_ord['notas3'], ';'));
     if (count($notas_ord) > 1 && ($evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
+        $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('ORD'));
     }
@@ -363,20 +374,20 @@ foreach ($alumnos as $alumno) {
     $row_notas_ext = mysqli_fetch_array($notas_ext);
     $notas_ext = explode(';', rtrim($row_notas_ext['notas4'], ';'));
     if (count($notas_ext) > 1 && ($evaluacion == 'Evaluación Extraordinaria')) {
+        $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('EXT'));
     }
 
     // TABLA CON CALIFICACIONES
     $MiPDF->SetFont('NewsGotT', 'B', 10);
-    $MiPDF->Cell(0, 5, 'EVALUACÍON', 0, 1, 'C', 0);
+    $MiPDF->Cell(0, 5, 'EVALUACIÓN', 0, 1, 'C', 0);
 
+    $MiPDF->SetAligns($tabla_alineacion);
     $MiPDF->SetWidths($tabla_anchos);
     $MiPDF->SetFont('NewsGotT', 'B', 10);
-    $MiPDF->SetTextColor(255, 255, 255);
-    $MiPDF->SetFillColor(61, 61, 61);
-    $MiPDF->Row($tabla_encabezado, 0, 5);
-    $MiPDF->SetTextColor(0, 0, 0);
+    $MiPDF->SetFillColor(200, 200, 200);
+    $MiPDF->Row($tabla_encabezado, 0, 4.5);
     $MiPDF->SetFont('NewsGotT', '', 10);
 
     foreach ($combasi as $idasignatura) {
@@ -393,7 +404,12 @@ foreach ($alumnos as $alumno) {
                 $result_calificaciones = mysqli_query($db_con, "SELECT `abreviatura` FROM `calificaciones` WHERE `codigo` = '".$exp_nota[1]."' LIMIT 1");
                 $row_calificacion = mysqli_fetch_array($result_calificaciones);
                 if ($row_calificacion['abreviatura'] != "") {
-                    $calificacion0 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    if (is_numeric($row_calificacion['abreviatura'])) {
+                        $calificacion0 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    }
+                    else {
+                        $calificacion0 = $row_calificacion['abreviatura'];
+                    }
                     $tieneCalificacion = 1;
                 }
             }
@@ -406,7 +422,12 @@ foreach ($alumnos as $alumno) {
                 $result_calificaciones = mysqli_query($db_con, "SELECT `abreviatura` FROM `calificaciones` WHERE `codigo` = '".$exp_nota[1]."' LIMIT 1");
                 $row_calificacion = mysqli_fetch_array($result_calificaciones);
                 if ($row_calificacion['abreviatura'] != "") {
-                    $calificacion1 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    if (is_numeric($row_calificacion['abreviatura'])) {
+                        $calificacion1 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    }
+                    else {
+                        $calificacion1 = $row_calificacion['abreviatura'];
+                    }
                     $tieneCalificacion = 1;
                 }
             } 
@@ -419,7 +440,12 @@ foreach ($alumnos as $alumno) {
                 $result_calificaciones = mysqli_query($db_con, "SELECT `abreviatura` FROM `calificaciones` WHERE `codigo` = '".$exp_nota[1]."' LIMIT 1");
                 $row_calificacion = mysqli_fetch_array($result_calificaciones);
                 if ($row_calificacion['abreviatura'] != "") {
-                    $calificacion2 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    if (is_numeric($row_calificacion['abreviatura'])) {
+                        $calificacion2 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    }
+                    else {
+                        $calificacion2 = $row_calificacion['abreviatura'];
+                    }
                     $tieneCalificacion = 1;
                 }
             }
@@ -432,7 +458,12 @@ foreach ($alumnos as $alumno) {
                 $result_calificaciones = mysqli_query($db_con, "SELECT `abreviatura` FROM `calificaciones` WHERE `codigo` = '".$exp_nota[1]."' LIMIT 1");
                 $row_calificacion = mysqli_fetch_array($result_calificaciones);
                 if ($row_calificacion['abreviatura'] != "") {
-                    $calificacion3 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    if (is_numeric($row_calificacion['abreviatura'])) {
+                        $calificacion3 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    }
+                    else {
+                        $calificacion3 = $row_calificacion['abreviatura'];
+                    }
                     $tieneCalificacion = 1;
                 }
             }
@@ -445,7 +476,12 @@ foreach ($alumnos as $alumno) {
                 $result_calificaciones = mysqli_query($db_con, "SELECT `abreviatura` FROM `calificaciones` WHERE `codigo` = '".$exp_nota[1]."' LIMIT 1");
                 $row_calificacion = mysqli_fetch_array($result_calificaciones);
                 if ($row_calificacion['abreviatura'] != "") {
-                    $calificacion4 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    if (is_numeric($row_calificacion['abreviatura'])) {
+                        $calificacion4 = obtener_calificacion_texto($row_calificacion['abreviatura']).' | '.$row_calificacion['abreviatura'];
+                    }
+                    else {
+                        $calificacion4 = $row_calificacion['abreviatura'];
+                    }
                     $tieneCalificacion = 1;
                 }
             }
@@ -466,7 +502,7 @@ foreach ($alumnos as $alumno) {
         if (count($notas_ext) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion4));
 
         if ($tieneCalificacion) {
-            $MiPDF->Row($tabla_calificaciones, 1, 5);
+            $MiPDF->Row($tabla_calificaciones, 1, 4.5);
         }
 
         unset($calificacion0);
@@ -477,26 +513,143 @@ foreach ($alumnos as $alumno) {
         
     }
 
-    $MiPDF->Ln(10);
+    if ($convocatoria['nombre'] != "Evaluación Extraordinaria") {
+        $MiPDF->Ln(3);
+
+        switch ($convocatoria['nombre']) {
+            case 'Evaluación Inicial':
+                $fecha_inicio_faltas = $config['curso_inicio'];
+                $fecha_fin_faltas = substr($config['curso_actual'], 0, 4).'-09-31';
+                break;
+
+            case '1ª Evaluación':
+                
+                // Obtenemos inicio festivo Navidad
+                $result_festivo = mysqli_query($db_con, "SELECT `fecha` FROM `festivos` WHERE `nombre` LIKE '%Navidad' ORDER BY `fecha` ASC LIMIT 1");
+                $row_festivo = mysqli_fetch_array($result_festivo);
+
+                $fecha_inicio_faltas = substr($config['curso_actual'], 0, 4).'-10-01';
+                $fecha_fin_faltas = $row_festivo['fecha'];
+                break;
+            
+            case '2ª Evaluación':
+                
+                // Obtenemos fin festivo Navidad
+                $result_festivo = mysqli_query($db_con, "SELECT `fecha` FROM `festivos` WHERE `nombre` LIKE '%Navidad' ORDER BY `fecha` DESC LIMIT 1");
+                $row_festivo = mysqli_fetch_array($result_festivo);
+
+                $fecha_inicio_faltas = $row_festivo['fecha'];
+
+                // Obtenemos inicio festivo Semana Santa
+                $result_festivo = mysqli_query($db_con, "SELECT `fecha` FROM `festivos` WHERE `nombre` LIKE '%Semana Santa' ORDER BY `fecha` ASC LIMIT 1");
+                $row_festivo = mysqli_fetch_array($result_festivo);
+
+                $fecha_fin_faltas = $row_festivo['fecha'];
+                break;
+
+            case 'Evaluación Ordinaria':
+
+                // Obtenemos fin festivo Semana Santa
+                $result_festivo = mysqli_query($db_con, "SELECT `fecha` FROM `festivos` WHERE `nombre` LIKE '%Semana Santa' ORDER BY `fecha` DESC LIMIT 1");
+                $row_festivo = mysqli_fetch_array($result_festivo);
+
+                $fecha_inicio_faltas = $row_festivo['fecha'];
+                $fecha_fin_faltas = $config['curso_fin'];
+                break;
+        }
+
+        $MiPDF->SetFont('NewsGotT', 'B', 10);
+        $MiPDF->Cell(0, 5, 'Resumen de faltas de asistencia desde '.(strftime('%d/%m/%Y', strtotime($fecha_inicio_faltas))).' hasta '.(strftime('%d/%m/%Y', strtotime($fecha_fin_faltas))).':', 0, 1, 'L', 0);
+        $MiPDF->SetFont('NewsGotT', '', 10);
+
+        $total_dias_justificadas = 0;
+        $result_dias_faltas_justificadas = mysqli_query($db_con, "SELECT DISTINCT `FALTAS`.`fecha` FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'J'");
+        $total_dias_justificadas = mysqli_num_rows($result_dias_faltas_justificadas);
+
+        $total_dias_injustificadas = 0;
+        $result_dias_faltas_injustificadas = mysqli_query($db_con, "SELECT DISTINCT `FALTAS`.`fecha` FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'F'");
+        $total_dias_injustificadas = mysqli_num_rows($result_dias_faltas_injustificadas);
+
+        $total_justificadas = 0;
+        $result_faltas_justificadas = mysqli_query($db_con, "SELECT COUNT(`fecha`) AS 'total_justificadas' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `fecha` BETWEEN '".$fecha_inicio_faltas."' AND '".$fecha_fin_faltas."' AND `falta` = 'J'");
+        $row_faltas_justificadas = mysqli_fetch_array($result_faltas_justificadas);
+        $total_justificadas = $row_faltas_justificadas['total_justificadas'];
+
+        $total_injustificadas = 0;
+        $result_faltas_injustificadas = mysqli_query($db_con, "SELECT COUNT(`fecha`) AS 'total_injustificadas' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `fecha` BETWEEN '".$fecha_inicio_faltas."' AND '".$fecha_fin_faltas."' AND `falta` = 'F'");
+        $row_faltas_injustificadas = mysqli_fetch_array($result_faltas_injustificadas);
+        $total_injustificadas = $row_faltas_injustificadas['total_injustificadas'];
+
+        $total_retrasos = 0;
+        $result_faltas_retrasos = mysqli_query($db_con, "SELECT COUNT(`fecha`) AS 'total_retrasos' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `fecha` BETWEEN '".$fecha_inicio_faltas."' AND '".$fecha_fin_faltas."' AND `falta` = 'F'");
+        $row_faltas_retrasos = mysqli_fetch_array($result_faltas_retrasos);
+        $total_retrasos = $row_faltas_retrasos['total_retrasos'];
+
+        $MiPDF->Rect($MiPDF->GetX()+80, $MiPDF->GetY()+4.5, 25, 4.5, 'F');
+        $MiPDF->SetAligns(array('L', 'C', 'C', 'C'));
+        $MiPDF->SetWidths(array(30, 25, 25, 25));
+        $MiPDF->Row(array('', 'Justificadas', 'Injustificadas', 'Retrasos'), 1, 4.5);
+        $MiPDF->Row(array('Día/s Completo/s',  $total_dias_justificadas, $total_dias_injustificadas, ''), 1, 4.5);
+        $MiPDF->Row(array('Tramo/s Horario/s', $total_justificadas, $total_injustificadas, $total_retrasos), 1, 4.5);
+
+        $MiPDF->Ln(3);
+    }
+    else {
+        $MiPDF->Ln(5);
+    }
 
     $MiPDF->SetFont('NewsGotT', 'B', 10);
     $MiPDF->Cell(0, 5, 'Observaciones:', 0, 1, 'L', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
-    $MiPDF->Ln(15);
+    $MiPDF->Ln(10);
 
     // OBTENEMOS EL/LA TUTOR/A DE LA UNIDAD
     $result_tutor = mysqli_query($db_con, "SELECT `tutor` FROM `FTUTORES` WHERE `unidad` = '".$alumno['unidad']."' LIMIT 1");
     $row_tutor = mysqli_fetch_array($result_tutor);
     $tutor = nomprofesor($row_tutor['tutor']);
 
+    // OBTENEMOS LA HORA DE TUTORÍA DE ATENCIÓN A PADRES
+    $horario_tutoria = "";
+    $result_horario_tutoria = mysqli_query($db_con, "SELECT `horw`.`dia`, `tramos`.`hora_inicio`, `tramos`.`hora_fin` FROM `horw` JOIN `tramos` ON `horw`.`hora` = `tramos`.`hora` WHERE `horw`.`c_asig` = '117' AND `horw`.`prof` = '".$row_tutor['tutor']."' LIMIT 1");
+    
+    if (mysqli_num_rows($result_horario_tutoria)) {
+        $row_horario_tutoria = mysqli_fetch_array($result_horario_tutoria);
+        switch ($row_horario_tutoria['dia']) {
+            case 1:
+                $dia = 'Lunes';
+                break;
+            case 2:
+                $dia = 'Martes';
+                break;
+            case 3:
+                $dia = 'Miércoles';
+                break;
+            case 4:
+                $dia = 'Jueves';
+                break;
+            case 5:
+                $dia = 'Viernes';
+                break;
+            
+            default:
+                $dia = '';
+                break;
+        }
+        $horario_tutoria = $dia.', '.substr($row_horario_tutoria['hora_inicio'], 0, 5).' h - '.substr($row_horario_tutoria['hora_fin'], 0, 5).' h.';
+    } 
+
     //FIRMAS
     $MiPDF->Cell(90, 5, 'Sello del Centro', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Les saluda cordialmente,', 0, 1, 'L', 0);
-    $MiPDF->Cell(55, 20, '', 0, 0, 'C', 0);
-    $MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
+    $MiPDF->Cell(55, 15, '', 0, 0, 'C', 0);
+    $MiPDF->Cell(55, 15, '', 0, 1, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
     $MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0);
-    $MiPDF->Cell(55, 5, 'La Dirección del Centro', 0, 1, 'L', 0);
+    $MiPDF->Cell(55, 5, 'Tutor/a: '.$tutor, 0, 1, 'L', 0);
+    if ($horario_tutoria != "") {
+        $MiPDF->Cell(90, 5, '', 0, 0, 'L', 0);
+        $MiPDF->Cell(55, 5, 'Horario de tutoría: '.$horario_tutoria, 0, 1, 'L', 0);
+    }
 
     $MiPDF->SetFont('NewsGotT', '', 8);
     $MiPDF->RotatedText(10, 100, 'Ref.Doc: BolCalAluInfInd', 90);
