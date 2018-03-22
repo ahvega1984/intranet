@@ -38,7 +38,7 @@ function Row($data, $bg = 1, $lh = 5.1)
         //Draw the border
         $this->Rect($x, $y, $w, $h, $bg);
         //Print the text
-        $this->MultiCell($w, $lh, $data[$i], 0, $a);
+        $this->MultiCell($w, $lh, $data[$i], 1, $a);
         //Put the position to the right of the cell
         $this->SetXY($x+$w, $y);
     }

@@ -62,6 +62,7 @@
 	<!-- CALIFICACIONES -->
 	<li class="nav-header">Notas de evaluación</li>
 	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>
+	<li><a href="jefe/calificaciones/index.php">Imprimir Calificaciones</a></li>
 	
 	
 	<?php if(isset($config['mod_centrotic']) && $config['mod_centrotic']): ?>

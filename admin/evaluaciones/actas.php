@@ -94,7 +94,8 @@ if (mysqli_num_rows($result)) {
 		$fecha_1ev = $row_festivo['fecha'];
 		$fecha_mes_1ev = $row_festivo['mes'];
 
-		$result_festivos = mysqli_query($db_con, "SELECT fecha, MONTH(fecha) AS mes FROM festivos WHERE nombre = '%Semana Santa' ORDER BY fecha ASC LIMIT 1");
+
+		$result_festivos = mysqli_query($db_con, "SELECT fecha, MONTH(fecha) AS mes FROM festivos WHERE nombre like '%Semana Santa%' ORDER BY fecha ASC LIMIT 1");
 		$row_festivo = mysqli_fetch_array($result_festivos);
 		$fecha_2ev = $row_festivo['fecha'];
 		$fecha_mes_2ev = $row_festivo['mes'];

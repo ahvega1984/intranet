@@ -60,7 +60,7 @@
 	
 	<div class="col-sm-3">
 		
-		<?php $result = mysqli_query($db_con, "SELECT distinct FALTAS.fecha FROM FALTAS where FALTAS.falta = 'F' and  FALTAS.claveal = $claveal order by FALTAS.fecha"); ?>
+		<?php $result = mysqli_query($db_con, "SELECT `fecha`, COUNT(`hora`) AS 'horas' FROM `FALTAS` WHERE `claveal` = '".$claveal."' AND `falta` = 'F' GROUP BY `fecha` HAVING `horas` = 6 ORDER BY `fecha` ASC, `hora` ASC"); ?>
 		<?php $total = 0; ?>
 		<?php $total = mysqli_num_rows($result); ?>
 		
