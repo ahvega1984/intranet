@@ -125,7 +125,7 @@ if (mysqli_num_rows($result)) {
 		
 		
 		// Comprobamos si es absentista o tiene más de 25 faltas de asistencia sin justificar
-		$result_absentimo = mysqli_query($db_con, "SELECT id FROM absentismo WHERE claveal = '".$row['claveal']."' $rango_meses") or die (mysqli_error($db_con));
+		$result_absentimo = mysqli_query($db_con, "SELECT id FROM absentismo WHERE claveal = '".$row['claveal']."' $rango_meses");
 		if (mysqli_num_rows($result_absentimo)) {
 			$tieneFaltas = 1;
 			$texto_asistencia = 'X';
@@ -145,7 +145,7 @@ if (mysqli_num_rows($result)) {
 
 		// Comprobamos los problemas disciplinarios del alumno
 		$minimo_problemas = 1;
-		$result_problemas = mysqli_query($db_con, "SELECT id FROM Fechoria WHERE claveal = '".$row['claveal']."' $rango_fechas") or die (mysqli_error($db_con));
+		$result_problemas = mysqli_query($db_con, "SELECT id FROM Fechoria WHERE claveal = '".$row['claveal']."' $rango_fechas");
 		if (mysqli_num_rows($result_problemas) >= $minimo_problemas) {
 			$tieneProblemas = 1;
 			$texto_problemas = 'X';
