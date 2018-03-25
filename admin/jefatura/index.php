@@ -181,8 +181,12 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 
 <div class="row">
 <div class="col-sm-7">
-<div class="form-group"><label for="alumno">Alumno/a</label> <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal, NC FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
-<?php if(mysqli_num_rows($result)): ?> <select class="form-control"
+<div class="form-group"><label for="alumno">Alumno/a</label> 
+
+<?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos, nombre ASC"); ?>
+
+<?php if(mysqli_num_rows($result)): ?> 
+<select class="form-control"
 	id="alumno" name="alumno" onchange="submit()">
 	<option></option>
 	<option value="Todos, todos" <?php echo ($alumno == 'Todos, todos' || $alumno == 'Todos, todos --> ') ? 'selected' : ''; ?>>Todos los alumnos</option>
@@ -192,8 +196,11 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 		<?php echo (isset($alumno) && ($row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']) == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 		<?php endwhile; ?>
 		<?php mysqli_free_result($result); ?>
-</select> <?php else: ?> <select class="form-control" name="alumno"
-	disabled>
+</select> 
+
+<?php else: ?> 
+
+<select class="form-control" name="alumno" disabled>
 	<option></option>
 </select> <?php endif; ?></div>
 </div>

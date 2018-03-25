@@ -22,7 +22,7 @@ include("../../menu.php");
 		<!-- COLUMNA IZQUIERDA -->
 		<div class="col-sm-8 col-sm-offset-2">
 		<br>
-		<table class="table table-striped table-bordered datatable">
+		<table class="table table-striped table-bordered datatable"  style='width:auto'>
 		<thead><tr><th>Alumno</th><th>Fecha de Nacimiento</th><th>Curso</th></tr></thead>
 		
 			<?php
@@ -31,7 +31,8 @@ include("../../menu.php");
 			
 			if (mysqli_num_rows($result)>0) {
 				while($my = mysqli_fetch_array($result)){
-					echo "<tr><td nowrap>$my[0], $my[1]</td><td nowrap>$my[2]</td><td nowrap>$my[3]</td></tr>";
+					$fech = cambia_fecha($my[2]);
+					echo "<tr><td nowrap>$my[0], $my[1]</td><td nowrap>$fech</td><td nowrap>$my[3]</td></tr>";
 				}
 			}
 			else{

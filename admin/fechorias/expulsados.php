@@ -23,9 +23,9 @@ include("menu.php");
 <?php   
   $hoy = date('Y') . "-" . date('m') . "-" . date('d');
   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);
-  $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
-  FALUMNOS.nc, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
-  FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.fin = '$ayer'
+  $result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad,
+  alma.claveal, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
+  alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.fin = '$ayer'
   order by Fechoria.fecha ");
 echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsión</legend>";
      if ($row = mysqli_fetch_array($result))
@@ -68,9 +68,9 @@ while( $row = mysqli_fetch_array($result));
   
   
 echo "<br /><legend align='center'>Alumnos expulsados del Centro actualmente</legend>";
-  $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
-  FALUMNOS.nc, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
-  FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and expulsion > '0' and date(Fechoria.fin) >= '$hoy'
+  $result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad,
+  alma.claveal, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
+  alma where alma.claveal = Fechoria.claveal and expulsion > '0' and date(Fechoria.fin) >= '$hoy'
   and date(Fechoria.inicio) <= '$hoy' order by Fechoria.fecha ");
      if ($row = mysqli_fetch_array($result))
         {

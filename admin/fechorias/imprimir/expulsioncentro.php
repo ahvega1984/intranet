@@ -69,7 +69,7 @@ $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
 $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'";
 mysqli_query($db_con, $actualizar );
-$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, Fechoria.id, TRIM(CONCAT(alma.nombretutor2,' ',alma.primerapellidotutor2,' ',alma.segundoapellidotutor2)) AS tutor2 from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC" ) or die(mysqli_error($db_con));
+$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, Fechoria.id, TRIM(CONCAT(alma.nombretutor2,' ',alma.primerapellidotutor2,' ',alma.segundoapellidotutor2)) AS tutor2 from Fechoria, listafechorias, alma where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto and Fechoria.id = '$id' order by Fechoria.fecha DESC" ) or die(mysqli_error($db_con));
 if ($row = mysqli_fetch_array ( $result )) {
 	$idfec = $row['id'];
 	$apellidos = $row[0];
@@ -206,7 +206,7 @@ $MiPDF->Cell(55, 5, 'Fdo. '.$tutor2, 0, 1, 'C', 0);
 $MiPDF->Ln(10);
 
 // PROBLEMAS DE CONVIVENCIA
-$result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
+$result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, Fechoria.unidad");
 $num = mysqli_num_rows($result1);
 
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
@@ -219,7 +219,7 @@ $MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
 $MiPDF->Ln(3);
 $MiPDF->SetFont('NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 0, 24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, Fechoria.unidad limit 0, 24");
 
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
@@ -245,7 +245,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln(3);
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 25, 24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoriawhere Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, Fechoria.unidad limit 25, 24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
@@ -272,7 +272,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln(3);
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 50,24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, Fechoria.unidad limit 50,24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
@@ -299,7 +299,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln(3);
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 75,24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, Fechoria.unidad limit 75,24");
  // print "$AUXSQL";
 while($row = mysqli_fetch_array($result))
                 {

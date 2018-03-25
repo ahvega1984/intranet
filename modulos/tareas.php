@@ -41,7 +41,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	if($c_asig2){
 
 	$hoy = date('Y-m-d');
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION, nc FROM tareas_alumnos, alma, FALUMNOS WHERE tareas_alumnos.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and	date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos.unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos.unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysqli_query($db_con, $query);
 	if (mysqli_num_rows($result) > 0)
 	{
@@ -49,7 +49,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 		while($row1 = mysqli_fetch_array($result))
 		{
 
-			$nc_grupo = $row1['nc'];
+			$nc_grupo = $row1['CLAVEAL'];
 			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and asignatura = '$codasi'");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {

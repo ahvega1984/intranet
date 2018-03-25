@@ -69,7 +69,7 @@ $asignatura = $exp_unidad[3];
 							$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
 
 							if (stristr($_SERVER['SERVER_NAME'],"iesmonterroso")==TRUE and date('Y-m-d')<'2018-09-01') {
-								$result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND ($codigo_asignatura) ORDER BY FALUMNOS.apellidos, FALUMNOS.nombre ASC");?>
+								$result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, alma.nombre, alma.apellidos, usuarioalumno.pass, alma.claveal FROM usuarioalumno, alma WHERE alma.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND ($codigo_asignatura) ORDER BY alma.apellidos, alma.nombre ASC");?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>

@@ -562,37 +562,6 @@ CREATE TABLE IF NOT EXISTS `faltas_profes` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `FALUMNOS`
---
-
-DROP TABLE IF EXISTS `FALUMNOS`;
-CREATE TABLE IF NOT EXISTS `FALUMNOS` (
-  `claveal` varchar(12) NOT NULL DEFAULT '',
-  `NC` double NOT NULL,
-  `APELLIDOS` char(30) DEFAULT NULL,
-  `NOMBRE` char(24) DEFAULT NULL,
-  `unidad` varchar(64) NOT NULL,
-  PRIMARY KEY (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `FALUMNOS_primero`
---
-
-DROP TABLE IF EXISTS `FALUMNOS_primero`;
-CREATE TABLE IF NOT EXISTS `FALUMNOS_primero` (
-  `claveal` varchar(12) NOT NULL DEFAULT '',
-  `nc` double NOT NULL,
-  `apellidos` char(30) DEFAULT NULL,
-  `nombre` char(24) DEFAULT NULL,
-  `unidad` varchar(64) NOT NULL,
-  PRIMARY KEY (`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 

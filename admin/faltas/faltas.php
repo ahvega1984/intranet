@@ -24,7 +24,7 @@ include("../../faltas/menu.php");
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.unidad like '%$unidad%'";
+    $AUXSQL .= " and alma.unidad like '%$unidad%'";
     }
 
  IF (TRIM("$mes")=="")
@@ -33,10 +33,10 @@ include("../../faltas/menu.php");
     }
     else
     {
-    $AUXSQL .= " and (month(fecha)) = $mes";
+    $AUXSQL .= " and (month(FALTAS.fecha)) = $mes";
     }
 	 
-$SQL = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) as NUMERO from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal " . $AUXSQL . "  and FALTAS.falta = '$FALTA'  GROUP BY FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta having NUMERO >= '$numero2'";
+$SQL = "select alma.claveal, alma.apellidos, alma.nombre, alma.unidad, FALTAS.falta, count(*) as NUMERO from FALTAS, alma where alma.claveal = FALTAS.claveal " . $AUXSQL . "  and FALTAS.falta = '$FALTA' GROUP BY alma.apellidos, alma.nombre, alma.unidad, FALTAS.falta having NUMERO >= '$numero2'";
 
 $result = mysqli_query($db_con, $SQL);
 

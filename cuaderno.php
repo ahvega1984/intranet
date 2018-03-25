@@ -233,15 +233,15 @@ include("cuaderno/menu_cuaderno.php");
 						if(mysqli_num_rows($hay1) == "1"){
 							$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
 							$t_al = explode(",",$seleccionados);
-							$todos = " and (nc = '300'";
+							$todos = " and (claveal = '300'";
 							foreach($t_al as $cadauno){
-								$todos .=" or nc = '$cadauno'";
+								$todos .=" or claveal = '$cadauno'";
 							}
 							$todos .= ")";
 						}
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
-					$resul = "select distinctrow alma.CLAVEAL, FALUMNOS.NC, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
+					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
 
@@ -282,12 +282,12 @@ include("cuaderno/menu_cuaderno.php");
 						if ($n_nombre > 25) {
 							$nombre_completo = substr($nombre_completo,0,25)."..";
 						}
-						$nc = $row[1];
+						$nc = $claveal;
 						$grupo_simple =  $row[6];
 						if ($row[5] == "") {}
 						else
 						{
-							$inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&nc='.$nc.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'&dia='.$dia.'&hora='.$hora.'';
+							$inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'&dia='.$dia.'&hora='.$hora.'';
 						}
 						if ($n_fila=="10" or $n_fila=="20" or $n_fila=="30" or $n_fila=="40") {
 							echo "<tr><td>
@@ -507,16 +507,16 @@ include("cuaderno/menu_cuaderno.php");
 							if(mysqli_num_rows($hay1) == "1"){
 								$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
 								$t_al = explode(",",$seleccionados);
-								$todos = " and (nc = '300'";
+								$todos = " and (claveal = '9999999'";
 								foreach($t_al as $cadauno){
-									$todos .=" or nc = '$cadauno'";
+									$todos .=" or claveal = '$cadauno'";
 								}
 								$todos .= ")";
 							}
 						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
-						$resul = "select distinctrow alma.CLAVEAL, FALUMNOS.NC, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
+						$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
 						//Alumnos de 2º de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
 							$cod_asig_bach2="";
@@ -610,7 +610,7 @@ include("cuaderno/menu_cuaderno.php");
 							$claveal = $row[0];
 							$nombre_al =   $row[3];
 							$apellidos =   $row[2];
-							$nc =   $row[1];
+							$nc =   $claveal;
 							$grupo_simple =  $row[6];
 							if ($row[5] == "") {}
 							else

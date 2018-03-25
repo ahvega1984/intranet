@@ -7,8 +7,8 @@
 <?php $exp_inicio_curso = explode('-', $config['curso_inicio']); ?>
 <?php $inicio_curso = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0]; ?>
 
-<?php $result = mysqli_query($db_con, "CREATE TABLE FALTASTEMP SELECT DISTINCT FALTAS.claveal, FALTAS.falta, COUNT(*) AS NUMERO, apellidos, nombre FROM FALTAS, FALUMNOS  
- WHERE FALTAS.claveal = FALUMNOS.claveal AND FALTAS.falta = 'F' AND FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' GROUP BY FALTAS.claveal"); ?>
+<?php $result = mysqli_query($db_con, "CREATE TABLE FALTASTEMP SELECT DISTINCT FALTAS.claveal, FALTAS.falta, COUNT(*) AS NUMERO, apellidos, nombre FROM FALTAS, alma  
+ WHERE FALTAS.claveal = alma.claveal AND FALTAS.falta = 'F' AND FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' GROUP BY FALTAS.claveal"); ?>
 
 <?php $result = mysqli_query($db_con, "SELECT FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.NUMERO FROM FALTASTEMP ORDER BY FALTASTEMP.numero DESC"); ?>
 <?php if (mysqli_num_rows($result)): ?>

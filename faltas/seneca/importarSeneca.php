@@ -106,12 +106,6 @@ if (isset($_POST['submit'])) {
 				$X_MATRICULA = $tag_xmatricula->item(0)->nodeValue;
 				$C_NUMESCOLAR = $tag_cnumescolar->item(0)->nodeValue;
 
-				// Obtenemos el número de lista
-				$result = mysqli_query($db_con, "SELECT NC FROM FALUMNOS WHERE CLAVEAL = '$C_NUMESCOLAR' LIMIT 1");
-				$row = mysqli_fetch_assoc($result);
-				$nc_alumno = $row['NC'];
-				mysqli_free_result($result);
-
 				// Obtenemos las asignaturas en las que está matriculado el alumno
 				$result = mysqli_query($db_con, "SELECT combasi FROM alma WHERE claveal = '$C_NUMESCOLAR' LIMIT 1");
 				$row = mysqli_fetch_assoc($result);
@@ -186,7 +180,7 @@ if (isset($_POST['submit'])) {
 							$codasig = $cod_orig;
 						}
 						
-						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, NC, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '$nc_alumno', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')");
+						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')");
 					}
 
 					unset($nprofesor);
@@ -201,8 +195,7 @@ if (isset($_POST['submit'])) {
 
 		}
 	}
-// Eliminamos faltas de alumnos que se han dado de baja en el Centro.
-mysqli_query($db_con,"delete from FALTAS where nc='0'");
+
 	echo '</ul>';
 	echo '</div>';
 	echo '<br>';

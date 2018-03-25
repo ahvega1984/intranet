@@ -113,7 +113,7 @@ else{
   $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
 }
 
-$result = mysqli_query($db_con, "SELECT FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad FROM FALUMNOS WHERE CLAVEAL = '$claveal'");
+$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, unidad FROM alma WHERE CLAVEAL = '$claveal'");
 $row = mysqli_fetch_array($result);
 ?>
   

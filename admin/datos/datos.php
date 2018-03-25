@@ -66,7 +66,6 @@ La contraseña del alumno para el acceso a la página pública del Centro se ha 
 // Borramos alumno de la base de datos
 if (isset($_GET['borrar']) and $_GET['borrar']==1) {
 	mysqli_query($db_con, "delete from control where claveal = '".$_GET['clavealumno']."'");
-	mysqli_query($db_con, "delete from FALUMNOS where claveal = '".$_GET['clavealumno']."'");
 	mysqli_query($db_con, "delete from usuarioalumno where claveal = '".$_GET['clavealumno']."'");
 	mysqli_query($db_con, "delete from alma where claveal = '".$_GET['clavealumno']."'");
 	if (mysqli_affected_rows($db_con)>0) {

@@ -35,7 +35,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 
 	if($c_asig){
 		$hoy = date('Y-m-d');
-		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and (".$texto_asig.") ORDER BY F_ENTREV asc";
+		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and (".$texto_asig.") ORDER BY F_ENTREV asc";
 		//echo $query;
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";
@@ -46,7 +46,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 			while($row1 = mysqli_fetch_array($result))
 			{
 				
-				$nc_grupo = $row1['nc'];
+				$nc_grupo = $row1['claveal'];
 				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$nivel_i' and ($c_asig)");
 				$hay_grupo = mysqli_num_rows($sel);
 				if ($hay_grupo>0) {

@@ -82,7 +82,7 @@ else{
 								
 								<div class="form-group">
 							    <label for="nombre">Alumno/a</label>
-							    <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
+							    <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM alma WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
 							    <?php if(mysqli_num_rows($result)): ?>
 							    <select class="form-control" id="nombre" name="nombre">
 							    	<option></option>

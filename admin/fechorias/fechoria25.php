@@ -63,9 +63,9 @@ for ($i=0;$i<$num_a;$i++){
 	}	
 	else{
 		
-		$alumno = mysqli_query($db_con, " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
+		$alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
 		$rowa = mysqli_fetch_array ( $alumno );
-		$apellidos = trim ( $rowa [0] );
+		$apellidos = trim ( $rowa [0]$rowa [0] );
 		$nombre_alum = trim ( $rowa [1] );
 		$unidad = trim ( $rowa [2] );
 		$tfno = trim ( $rowa [5] );

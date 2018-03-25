@@ -12,7 +12,7 @@ exit();
 }
 
 if ($alumno == "Todos los Alumnos") {
-$todos0 = mysqli_query($db_con, "select distinct claveal, apellidos, nombre from FALUMNOS where unidad = '$unidad'");
+$todos0 = mysqli_query($db_con, "select distinct claveal, apellidos, nombre from alma where unidad = '$unidad'");
 while ($todos = mysqli_fetch_array($todos0)) {
 $clave=$todos[0];	
 if (empty($prohibido)){$prohibido = "0";}
@@ -91,7 +91,7 @@ mysqli_query($db_con, $query1);
 }
 
 }
-  $al0 = mysqli_query($db_con, "select distinct id, FALUMNOS.claveal, tutoria.claveal from tutoria, FALUMNOS where tutoria.apellidos=FALUMNOS.apellidos and tutoria.nombre=FALUMNOS.nombre and tutoria.unidad=FALUMNOS.unidad order by id");
+  $al0 = mysqli_query($db_con, "select distinct id, alma.claveal, tutoria.claveal from tutoria, alma where tutoria.apellidos=alma.apellidos and tutoria.nombre=alma.nombre and tutoria.unidad=alma.unidad order by id");
   while($al1 = mysqli_fetch_array($al0))
   {
  $claveal = $al1[1];

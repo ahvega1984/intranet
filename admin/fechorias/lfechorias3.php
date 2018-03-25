@@ -47,7 +47,7 @@ include ("menu.php");
 		$num0 = mysqli_query($db_con, "select * from Fechoria_temp order by total desc" );
 		while ( $num = mysqli_fetch_array ( $num0 ) ) 
 		{
-			$query0 = "select apellidos, nombre, unidad from FALUMNOS where claveal = '$num[0]'";
+			$query0 = "select apellidos, nombre, unidad from alma where claveal = '$num[0]'";
 			$result = mysqli_query($db_con, $query0 );
 			$row = mysqli_fetch_array ( $result );
 			$claveal = $num[0];

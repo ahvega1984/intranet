@@ -110,22 +110,25 @@ echo "</thead>";
 	if(mysqli_num_rows($hay1) == "1"){
 	$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
 	$t_al = explode(",",$seleccionados);
-	$todos = " and (nc = '300'";
+	$todos = " and (claveal = '300'";
 	foreach($t_al as $cadauno){
-	$todos .=" or nc = '$cadauno'";
+	$todos .=" or claveal = '$cadauno'";
 	}
 	$todos .= ")";
 	}	
 	mysqli_select_db($db_con, $db);
 	
+	$nc_a="";
+
 // Alumnos para presentar que tengan esa asignatura en combasi
-$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by NC";
+$resul = "select distinctrow alma.CLAVEAL, alma.correo, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi from alma WHERE alma.unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by alma.APELLIDOS, alma.NOMBRE";
   $result = mysqli_query($db_con, $resul);	
   $t_alumnos += mysqli_num_rows ($result);
         while($row = mysqli_fetch_array($result))
-		{  		
+		{  	
+		$nc_a++;	
 		$claveal = $row[0];            	
-echo "<tr><td>$row[1]</td><td colspan='2' nowrap >$row[2], $row[3]</td>";
+echo "<tr><td>$nc_a</td><td colspan='2' nowrap >$row[2], $row[3]</td>";
   	
 // Si hay datos escritos rellenamos la casilla correspondiente
 	$colu10 = "select distinct id from notas_cuaderno where ";

@@ -40,7 +40,7 @@ include ("menu.php");
 		mysqli_query($db_con, "create table Fechoria_tem2 SELECT DISTINCT claveal, COUNT( * ) as total FROM Fechoria_post_exp GROUP BY claveal" );
 		$num0 = mysqli_query($db_con, "select * from Fechoria_tem2 order by total desc" );
 		while ( $num = mysqli_fetch_array ( $num0 ) ) {
-			$query0 = "select apellidos, nombre, unidad from FALUMNOS where claveal = '$num[0]'";
+			$query0 = "select apellidos, nombre, unidad from alma where claveal = '$num[0]'";
 			$result = mysqli_query($db_con, $query0 );
 			$row = mysqli_fetch_array ( $result );
 			$claveal = $num [0];

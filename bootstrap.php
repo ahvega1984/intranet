@@ -12,7 +12,7 @@ ini_set("session.gc_maxlifetime","3600");
 session_start();
 
 // CONFIGURACIÓN INICIAL
-error_reporting(0);
+error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, 'es_ES.UTF-8');
 

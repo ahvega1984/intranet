@@ -128,10 +128,9 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 	$a_asig0 = mysqli_query($db_con, "select distinct codigo from asignaturas where curso = '$exp[2]' and nombre = '$materia' and abrev not like '%\_%'");
 	$cod_asig = mysqli_fetch_array($a_asig0);
 	$hoy = date('Y') . "-" . date('m') . "-" . date('d');
-	$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id, nc
-FROM tareas_alumnos, tareas_profesor, alma, FALUMNOS
+	$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id, alma.claveal
+FROM tareas_alumnos, tareas_profesor, alma
 WHERE alma.claveal = tareas_alumnos.claveal 
-and FALUMNOS.claveal = alma.claveal
 AND tareas_alumnos.id = tareas_profesor.id_alumno
 AND (date(tareas_alumnos.fin) =  date_sub('$hoy', interval 1 day) 
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 2 day) 
@@ -161,7 +160,7 @@ ORDER BY tareas_alumnos.fecha";
 			$extra_asig = "";
 		}	
 
-		$nc_grupo = $row['nc'];
+		$nc_grupo = $row['claveal'];
 		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and (asignatura = '$cod_asig[0]' $extra_asig)");
 		$hay_grupo = mysqli_num_rows($sel);
 		if ($hay_grupo>0) {
@@ -202,7 +201,7 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 	$hoy = date('Y') . "-" . date('m') . "-" . date('d');
 	$ayer0 = time() + (1 * 24 * 60 * 60);
 	$ayer = date('Y-m-d', $ayer0);
-	$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria, nc from Fechoria, alma, FALUMNOS where alma.claveal = Fechoria.claveal and FALUMNOS.claveal = alma.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' and combasi like '%$cod_mat%' order by Fechoria.fecha");
+	$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' and combasi like '%$cod_mat%' order by Fechoria.fecha");
 	if (mysqli_num_rows($result) > '0') {
 		$count_van = 1;
 		while ($row = mysqli_fetch_array($result))
@@ -218,7 +217,7 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 			$extra_asig = "";
 		}	
 
-		$nc_grupo = $row['nc'];
+		$nc_grupo = $row['claveal'];
 		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and (asignatura = '$cod_mat' $extra_asig)");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
@@ -281,7 +280,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	if($c_asig2){
 	$hoy = date('Y-m-d');
 	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,
-	tareas_alumnos.FECHA, tareas_alumnos.DURACION, nc FROM tareas_alumnos, alma, FALUMNOS WHERE tareas_alumnos.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
+	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysqli_query($db_con, $query);
 	if (mysqli_num_rows($result) > 0)
 	{
@@ -299,7 +298,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 			$extra_asig = "";
 		}	
 
-		$nc_grupo = $row['nc'];
+		$nc_grupo = $row['CLAVEAL'];
 		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and (asignatura = '$codasi' $extra_asig)");
 
 			$hay_grupo = mysqli_num_rows($sel);
@@ -372,7 +371,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 
 	$hoy = date('Y-m-d');
 
-	$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
+	$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
 
 	$query33 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno WHERE date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and apellidos like 'Informe general%' ORDER BY F_ENTREV asc";
 	//echo $query3."<br>";
@@ -408,7 +407,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 					$extra_asig = "";
 				}	
 
-				$nc_grupo = $row3['nc'];
+				$nc_grupo = $row3['claveal'];
 				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and (asignatura = '$codasi1' $extra_asig)");
 				
 				$hay_grupo = mysqli_num_rows($sel);

@@ -464,3 +464,32 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modulo de libros de texto (Solución de errores)', NOW())");
 }
+
+
+/*
+	@descripcion: Cambio NC a Claveal en tabla grupos
+	@fecha: 25 de marzo de 2018
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Cambio NC a Claveal en tabla grupos'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con,"ALTER TABLE `grupos` CHANGE `alumnos` `alumnos` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''");
+
+	$actua = mysqli_query($db_con, "SELECT alumnos, curso, id FROM grupos");
+
+	while ($cambio1 = mysqli_fetch_array($actua)) {
+		$nc="";
+		$nuevo_nc = explode(",",$cambio1[0]);
+		foreach ($nuevo_nc as $value) {
+			$clave = mysqli_query($db_con,"select claveal from FALUMNOS where nc='$value' and unidad='$cambio1[1]'");
+			$clave2 = mysqli_fetch_array($clave);
+				$nc.="$clave2[0],";
+		}
+		$nc = substr($nc, 0, -1);
+		mysqli_query($db_con,"update grupos set alumnos='$nc' where id='$cambio1[2]'");
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Cambio NC a Claveal en tabla grupos', NOW())");
+}
+
+

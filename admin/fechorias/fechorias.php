@@ -87,7 +87,7 @@ exit();
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.nombre like '%$NOMBRE%'";
+    $AUXSQL .= " and alma.nombre like '%$NOMBRE%'";
     }
 	  if  (TRIM("$claveal")=="")
     {
@@ -95,7 +95,7 @@ exit();
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.claveal = '$claveal'";
+    $AUXSQL .= " and alma.claveal = '$claveal'";
     }
   if  (TRIM("$APELLIDOS")=="")
     {
@@ -103,7 +103,7 @@ exit();
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.apellidos like '%$APELLIDOS%'";
+    $AUXSQL .= " and alma.apellidos like '%$APELLIDOS%'";
     }
   #Comprobamos d y mes.
   IF (TRIM("$MES")=="")
@@ -130,7 +130,7 @@ exit();
     }
     else
     {
-    $AUXSQL .= " and FALUMNOS.unidad like '$unidad'";
+    $AUXSQL .= " and alma.unidad like '$unidad'";
     }
 
     if (isset($clase)) {
@@ -174,7 +174,7 @@ exit();
 if (isset($submit1))
 	{			
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
-$query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
+$query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, alma, FechCaduca where FechCaduca.id = Fechoria.id and alma.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, alma.unidad, alma.apellidos";
   // echo $query0;
   $result = mysqli_query($db_con, $query0);
  echo "<br /><center>

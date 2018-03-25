@@ -318,7 +318,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$chkR="";
 			$combasi = $row[5];
 
-			$nc_grupo = $row[0];
+			$nc_grupo = $row['claveal'];
 			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig)");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
@@ -345,7 +345,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 					}
 					echo '</td>';
 					echo "<td style='vertical-align:middle'>
-				<label for='falta_".$row[0]."_".$curso."' style='display:block;'>
+				<label for='falta_".$row[1]."_".$curso."' style='display:block;'>
 					<span class='label label-info'>$n</span>
 					&nbsp;&nbsp;$row[2], $row[3]
 				";
@@ -438,16 +438,16 @@ while($hora2 = mysqli_fetch_row($hora0))
 				?>
 <div style="width: 120px; display: block;<?php echo $extra_act; ?>"   <?php echo $chkT; ?>><span
 	class="text-danger">F</span> <input type="radio"
-	id="falta_<?php echo $row[0]."_".$curso;?>"
-	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkF; ?>
+	id="falta_<?php echo $row[1]."_".$curso;?>"
+	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkF; ?>
 	value="F" onClick="uncheckRadio(this)" /> &nbsp; <span
 	class="text-success">J</span> <input type="radio"
-	id="falta_<?php echo $row[0]."_".$curso;?>"
-	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkJ; ?>
+	id="falta_<?php echo $row[1]."_".$curso;?>"
+	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkJ; ?>
 	value="J" onClick="uncheckRadio(this)" /> &nbsp; <span
 	class="text-warning">R</span> <input type="radio"
-	id="falta_<?php echo $row[0]."_".$curso;?>"
-	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkR; ?>
+	id="falta_<?php echo $row[1]."_".$curso;?>"
+	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkR; ?>
 	value="R" onClick="uncheckRadio(this)" /></div>
 
 				<?php

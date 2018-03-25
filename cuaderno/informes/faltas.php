@@ -1,11 +1,11 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
-  $SQLT = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc,
-  FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
-  and FALTAS.falta = 'F' and FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
-  $SQLTJ = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, 
-  FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
-  and FALTAS.falta = 'J' and  FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
+  $SQLT = "select DISTINCTROW alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.correo,
+  FALTAS.fecha, count(*) from FALTAS, alma where alma.claveal = FALTAS.claveal
+  and FALTAS.falta = 'F' and alma.claveal = $claveal GROUP BY alma.apellidos";
+  $SQLTJ = "select DISTINCTROW alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.correo, 
+  FALTAS.fecha, count(*) from FALTAS, alma where alma.claveal = FALTAS.claveal
+  and FALTAS.falta = 'J' and  alma.claveal = $claveal GROUP BY alma.apellidos";
  //print $SQLT;
   $resultt = mysqli_query($db_con, $SQLT);
   $rowt = mysqli_fetch_array($resultt);
@@ -31,7 +31,7 @@ echo "<h5>
 	$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
 	$fechasp2=explode("-",$fecha2);
 	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
-  $SQLF = "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = '$claveal' and FALTAS.codasi = '$asignatura' group by FALUMNOS.APELLIDOS, FALTAS.fecha";
+  $SQLF = "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.correo, FALTAS.falta, FALTAS.fecha FROM alma, FALTAS where alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  alma.claveal = '$claveal' and FALTAS.codasi = '$asignatura' group by alma.APELLIDOS, FALTAS.fecha";
   $resultf = mysqli_query($db_con, $SQLF);
   $rowf = mysqli_fetch_array($resultf);
   $numdias = mysqli_num_rows($resultf);

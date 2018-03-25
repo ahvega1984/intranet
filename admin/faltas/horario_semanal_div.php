@@ -76,12 +76,14 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->SetFillColor(239,240,239);	// Color de sombreado
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysqli_query($db_con, "SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno, claveal FROM FALUMNOS WHERE unidad='$unidad' and claveal in (select claveal from alma where combasi LIKE '%143733%' OR combasi LIKE '%143727%') ORDER BY nc ASC");
+	$result = mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal FROM alma WHERE unidad='$unidad' and claveal in (select claveal from alma where combasi LIKE '%143733%' OR combasi LIKE '%143727%') ORDER BY apellidos, nombre ASC");
 	
 	$i=0;
+	$nc="";
 	while ($alumno = mysqli_fetch_array($result)) {
+		$nc++;
 		if ($i%2==0) $somb='DF'; else $somb='';
-		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,40),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
+		$pdf->Row(array($nc,substr($alumno['alumno'],0,40),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
 		
 		$pdf->SetLineWidth(0.6); // Grosor de linea
 		for ($j=0; $j<6; $j++) {

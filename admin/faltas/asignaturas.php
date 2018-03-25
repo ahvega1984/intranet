@@ -26,7 +26,7 @@ $grupo = $tr[2];
 $nivel = $tr[3];
 $nivel_bach = substr($nivel,0,9);
 //echo "$asignatura --> $grupo --> $nivel<br>";
-$SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ) as ncompleto from FALTAS, FALUMNOS where FALTAS.claveal = FALUMNOS.claveal and codasi like '$cod_asig' and FALTAS.unidad = '$grupo' and falta='F' group by  FALTAS.claveal, codasi, ncompleto order BY FALUMNOS.apellidos, FALUMNOS.nombre";
+$SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ) as ncompleto from FALTAS, alma where FALTAS.claveal = alma.claveal and codasi like '$cod_asig' and FALTAS.unidad = '$grupo' and falta='F' group by  FALTAS.claveal, codasi, ncompleto order BY alma.apellidos, alma.nombre";
 //echo $SQL;
 $result = mysqli_query($db_con, $SQL);
 if ($result) {

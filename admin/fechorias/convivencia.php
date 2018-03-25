@@ -137,9 +137,9 @@ if (empty ( $hora_dia )) {
 	}	
 }
 
-$result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
-  FALUMNOS.nc, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
-  FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
+$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad,
+  alma.claveal, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
+  alma where alma.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
 ?>
 <?php
 echo "<br /><center><table class='table table-striped'>";

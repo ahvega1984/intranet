@@ -181,7 +181,7 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 
 <div class="row">
 <div class="col-sm-7">
-<div class="form-group"><label for="alumno">Alumno/a</label> <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal, NC FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
+<div class="form-group"><label for="alumno">Alumno/a</label> <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM alma WHERE unidad='$unidad' ORDER BY apellidos, nombre ASC"); ?>
 <?php if(mysqli_num_rows($result)): ?> <select class="form-control"
 	id="alumno" name="alumno" onchange="submit()">
 	<option></option>

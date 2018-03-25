@@ -4,7 +4,7 @@
 
 <h3 class="text-info">Problemas de convivencia</h3>
 
-<?php $result = mysqli_query($db_con, "SELECT FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'"); ?>
+<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'"); ?>
 
 <?php if (mysqli_num_rows($result)): ?>
 <table class="table table-hover" style="margin-bottom: 5px">

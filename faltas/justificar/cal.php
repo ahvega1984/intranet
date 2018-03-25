@@ -81,7 +81,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		// echo $sql_currentday;
 		$hora_F="";
 		$falta_F="";
-		$event = "SELECT FALTA, hora FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
+		$event = "SELECT FALTA, hora FROM FALTAS, alma WHERE alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
 		//echo $eventQuery;
 		$Exec = mysqli_query($db_con, $event);		
 		while($h_f = mysqli_fetch_row($Exec)){
@@ -91,7 +91,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 				$falta_F.=$h_f[0].",";
 				}
 				
-		$eventQuery = "SELECT FALTA, hora FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
+		$eventQuery = "SELECT FALTA, hora FROM FALTAS, alma WHERE alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
 		//echo $eventQuery;
 		$eventExec = mysqli_query($db_con, $eventQuery);		
 		if($row = mysqli_fetch_array($eventExec)) {

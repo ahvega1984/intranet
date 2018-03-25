@@ -3,7 +3,7 @@
 // Aquí empieza la justificación.
 // Buscamos registros siguiendo a cal.php
 // Datos complementarios para el formulario
-$borrajusti = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
+$borrajusti = "SELECT unidad, CLAVEAL, apellidos, nombre FROM alma WHERE claveal = '$alumno'";
 $borrajusti0 = mysqli_query($db_con, $borrajusti);
 // Borrado de faltas justificadas
 if ($falta=="J")
@@ -17,7 +17,7 @@ if ($falta=="J")
 // Aquí empieza la justificación.
 else
 {
-	$justifica0 = "SELECT FALTA, FALTAS.NC, FALUMNOS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTA='F'";
+	$justifica0 = "SELECT FALTA, FALTAS.unidad, FALTAS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS WHERE FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTA='F'";
 	// echo $justifica0."<br>";
 	$justifica1 = mysqli_query($db_con, $justifica0);
 	if (mysqli_num_rows($justifica1) > 0) {
@@ -155,13 +155,10 @@ else
 									$codasi = $cod_orig;
 									$profeso = $prof_orig;
 								}
-								$clavenc = "SELECT NC FROM FALUMNOS WHERE claveal = '$alumno'";
-								$clavenc0 = mysqli_query($db_con, $clavenc);
-								$clavenc1 = mysqli_fetch_row($clavenc0);
-								$nc = $clavenc1[0];
+								
 								$enviada = "$year-$month-$today";
 									
-								$justifica10 = "insert INTO  FALTAS (  CLAVEAL , unidad  ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$alumno',  '$unidad', '$nc',  '$year-$month-$hoy_mismo', '$i', '$nombredia', '$profeso',  '$codasi', 'F')";
+								$justifica10 = "insert INTO  FALTAS (  CLAVEAL , unidad  ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$alumno',  '$unidad', '$year-$month-$hoy_mismo', '$i', '$nombredia', '$profeso',  '$codasi', 'F')";
 								//echo $justifica10."<br>";
 								mysqli_query($db_con, $justifica10) or die("No se ha podido justificar las faltas.");
 							}

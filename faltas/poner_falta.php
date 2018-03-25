@@ -44,6 +44,7 @@ foreach($_POST as $clave => $valor)
 		$contador++;
 		$nc0 = explode("_", $clave, 3);
 		$nc = $nc0[1];
+		$claveal = $nc;
 		$unidad = $nc0[2];
 		if (stristr($unidades, $unidad)==FALSE) {
 			$unidades.=$unidad."; ";
@@ -52,11 +53,6 @@ foreach($_POST as $clave => $valor)
 		$nv = mysqli_query($db_con,"select distinct curso from alma where unidad='$unidad'");
 		$nivel_grupo = mysqli_fetch_row($nv);
 		$curso_grupo = $nivel_grupo[0];
-
-		$clave1 = "select claveal from FALUMNOS where NC = '$nc' and unidad = '$unidad'";
-		$clave0 = mysqli_query($db_con, $clave1);
-		$clave2 = mysqli_fetch_row($clave0);
-		$claveal = $clave2[0];
 
 			// Comprobamos problema de varios códigos en Bachillerato y otros
 
@@ -77,7 +73,7 @@ foreach($_POST as $clave => $valor)
 					}
 
 		// Insertamos las faltas de TODOS los alumnos.
-		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
+		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad , FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$unidad', '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
 		// echo $t0;
 		$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 		$count += mysqli_affected_rows();	

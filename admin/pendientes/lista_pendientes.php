@@ -127,16 +127,9 @@ foreach($_POST["select"] as  $valor) {
 	$curso = $asignatur[1];
 echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend><hr />';	
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
-//$pend = mysqli_query($db_con, "SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
-//while ($pendi = mysqli_fetch_array($pend)) {
 
-	
-	/*$sql = "SELECT distinct alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, alma.unidad, FALUMNOS.nc, asignaturas.nombre
-FROM alma,  pendientes , asignaturas, FALUMNOS
-WHERE pendientes.codigo='".$pendi[0]."' and alma.claveal = pendientes.claveal and alma.claveal = FALUMNOS.claveal
-AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' and asignaturas.nombre not like 'Ámbito %'  ORDER BY alma.curso, unidad, nc, alma.Apellidos, alma.Nombre";*/
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, alma.matriculas,  pendientes.claveal, alma.matriculas
-FROM pendientes, asignaturas, alma, FALUMNOS
+FROM pendientes, asignaturas, alma
 WHERE asignaturas.codigo = pendientes.codigo
 AND alma.claveal = pendientes.claveal
 AND alma.unidad NOT LIKE  "%p-%" 

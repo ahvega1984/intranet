@@ -41,10 +41,6 @@ include '../../menu.php';
 			mysqli_query($db_con, "create table alma_seg select * from alma");
 			mysqli_query($db_con,"drop table alma");
 			
-			// Copia de Seguridad 2
-			mysqli_query($db_con, "DROP TABLE FALUMNOS_seg") ;
-			mysqli_query($db_con, "create table FALUMNOS_seg select * from FALUMNOS");
-			
 			// Creación de la tabla alma
 			$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
@@ -134,7 +130,6 @@ include '../../menu.php';
 
 						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
-						mysqli_query($db_con, "insert into FALUMNOS select * from FALUMNOS_seg");
 						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h5>ATENCIÓN:</h5>
@@ -273,33 +268,6 @@ include '../../menu.php';
 					$SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
 					$result6 = mysqli_query($db_con, $SQL6);
 			
-					// Si la tabla existe, la vaciamos.
-					$vaciar = "truncate table FALUMNOS";
-					mysqli_query($db_con, $vaciar);
-			
-					// Rellenamos datos en FALUMNOS desde almafaltas
-					$SQL0 = "SELECT distinct unidad FROM  alma order by unidad";
-					$result0 = mysqli_query($db_con, $SQL0);
-					while  ($row0 = mysqli_fetch_array($result0))
-					{
-						$SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, unidad FROM  alma WHERE unidad = '$row0[0]' ORDER BY APELLIDOS ASC, NOMBRE ASC";
-						$result1 = mysqli_query($db_con, $SQL1);
-			
-						// Calculamos el numero de alumnos en cada curso
-						$numero = mysqli_num_rows($result1);
-						for($i=0; $i <= $numero -1; $i++)
-						{
-							while  ($row1= mysqli_fetch_array($result1))
-							{
-								$i = $i + 1 ;
-			
-								// Insertamos los datos en FALUMNOS
-								$SQL2 = "INSERT INTO FALUMNOS (CLAVEAL, APELLIDOS, NOMBRE, unidad, NC) VALUES
-			(\"". $row1[0] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\",\"". $row1[3] . "\",\"". $i . "\")";
-								$result2 = mysqli_query($db_con, $SQL2);
-							}
-						}
-					}
 					echo '<div class="alert alert-success alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
@@ -310,11 +278,8 @@ include '../../menu.php';
 					
 					// Copia de la primera versión de alma
 					mysqli_query($db_con, "DROP TABLE alma_primera");
-					mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
 					mysqli_query($db_con, "create table alma_primera select * from alma");
 					mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
-					mysqli_query($db_con, "CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
-					mysqli_query($db_con, "ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");			
 			
 					// Alumnos con hermanos
 					include("crear_hermanos.php");

@@ -84,7 +84,7 @@ else
 	printf ("<OPTION></OPTION>");
 
 	// Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
-	$alumnosql = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad like '$unidad1%' order by APELLIDOS asc");
+	$alumnosql = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM alma WHERE unidad like '$unidad1%' order by APELLIDOS asc");
 
 	if ($falumno = mysqli_fetch_array($alumnosql))
 	{
@@ -92,7 +92,7 @@ else
 		do {
 			$claveal = $falumno[2];
 			global $claveal;
-			$opcion = printf ("<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>");
+			$opcion = printf ("<OPTION value='$falumno[0], $falumno[1] --> $falumno[2]'>$falumno[0], $falumno[1]</OPTION>");
 			echo "$opcion";
 
 		} while($falumno = mysqli_fetch_array($alumnosql));

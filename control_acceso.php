@@ -120,7 +120,7 @@ if ($config['mod_notificaciones']) {
 		$id = $al_fecha['ID'];
 		$claveal = $al_fecha['CLAVEAL'];
 	
-		$alma = mysqli_query($db_con,"SELECT combasi, curso, nc FROM alma, FALUMNOS WHERE alma.claveal=FALUMNOS.claveal AND alma.claveal = '$claveal'");
+		$alma = mysqli_query($db_con,"SELECT combasi, curso FROM alma WHERE alma.claveal = '$claveal'");
 		$combasi = mysqli_fetch_array($alma);
 		
 		$curso = $combasi[1];
@@ -139,7 +139,7 @@ if ($config['mod_notificaciones']) {
 					while ($hay_pr = mysqli_fetch_array($hay_profe)) {
 						$idea = $hay_pr[1];
 						$profeso = $hay_pr[0];
-						$nc = $combasi[2];
+						$nc = $claveal;
 						$sel = mysqli_query($db_con,"SELECT alumnos FROM grupos WHERE profesor = '$profeso' AND curso = '$grupo' AND asignatura = '$codasi'");
 						$hay_grupo = mysqli_num_rows($sel);
 						if ($hay_grupo>0) {
@@ -181,7 +181,7 @@ if ($config['mod_notificaciones']) {
 		$id = $al_fecha['ID'];
 		$claveal = $al_fecha['CLAVEAL'];
 	
-		$alma = mysqli_query($db_con,"SELECT combasi, curso, nc FROM alma, FALUMNOS WHERE alma.claveal=FALUMNOS.claveal and alma.claveal = '$claveal'");
+		$alma = mysqli_query($db_con,"SELECT combasi, curso FROM alma WHERE alma.claveal = '$claveal'");
 		$combasi = mysqli_fetch_array($alma);
 		
 		$curso = $combasi[1];
@@ -200,7 +200,7 @@ if ($config['mod_notificaciones']) {
 				while ($hay_pr = mysqli_fetch_array($hay_profe)) {
 					$idea = $hay_pr[1];
 					$profeso = $hay_pr[0];
-					$nc = $combasi[2];
+					$nc = $claveal;
 					$sel = mysqli_query($db_con,"SELECT alumnos FROM grupos WHERE profesor = '$profeso' and curso = '$grupo' and asignatura = '$codasi'");
 					$hay_grupo = mysqli_num_rows($sel);
 					if ($hay_grupo>0) {

@@ -78,7 +78,7 @@ else
         <th align='center'>Nº faltas</th><th align='center'>Nº días</th></tr>";
 
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
-  $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, FALTAS.unidad FROM FALTAS, FALUMNOS where FALTAS.CLAVEAL=FALUMNOS.claveal and  falta = 'F' and month(FALTAS.fecha)= '$n_mes'   group by apellidos, nombre";
+  $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, FALTAS.unidad FROM FALTAS, alma where FALTAS.CLAVEAL=alma.claveal and  falta = 'F' and month(FALTAS.fecha)= '$n_mes' group by apellidos, nombre";
   $resultTEMP= mysqli_query($db_con, $SQLTEMP);
   mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX (CLAVEAL)");
   $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE numero > '$numero' order by unidad";

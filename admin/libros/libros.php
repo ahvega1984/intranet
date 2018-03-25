@@ -177,7 +177,7 @@ while ($asignaturas = mysqli_fetch_array($asignaturas1)) {
 	$num_col = $num_col + 1;
 }
 if(!(empty($unidad))){
-	$extra=" and FALUMNOS.unidad = '$unidad'";
+	$extra=" and alma.unidad = '$unidad'";
 	$un = mysqli_query($db_con, "select distinct alma.curso from alma where unidad = '$unidad'");
 	$cur = mysqli_fetch_array($un);
 	$nivel = $cur[0];
@@ -190,12 +190,12 @@ if(stristr($_SESSION['cargo'],'1') == TRUE){
 	echo "<th>Estado</th></tr>";
 }
 echo "</thead><tbody>";
-$alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '".$p_nivel."' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
+$alumnos0 = "select matriculas, alma.apellidos, alma.nombre, combasi, alma.claveal, alma.unidad from alma where alma.curso = '".$p_nivel."' $extra order by alma.apellidos, alma.nombre"; 
 //echo $alumnos0;
 $fila_asig=0;
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 while ($alumnos = mysqli_fetch_array($alumnos1)) {
-	if(empty($jefe)){$nc="$alumnos[0]. $alumnos[1], $alumnos[2]";}else{$nc="$alumnos[1], $alumnos[2] ($alumnos[5])";}
+	if(empty($jefe)){$nc="$alumnos[1], $alumnos[2]";}else{$nc="$alumnos[1], $alumnos[2] ($alumnos[5])";}
 	
 	$fila_asig+=1;
 	if(stristr($_SESSION['cargo'],'1') == TRUE){}else{}
@@ -212,7 +212,7 @@ while ($asignaturas = mysqli_fetch_array($asignaturas1)) {
 	echo "<th style='background-color:#eee'>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
 }
-if(stristr($_SESSION['cargo'],'1')){$extra=" order by apellidos";}else{$extra=" and FALUMNOS.unidad = '$unidad' order by nc";}
+if(stristr($_SESSION['cargo'],'1')){$extra=" order by alma.apellidos";}else{$extra=" and alma.unidad = '$unidad' order by alma.apellidos, alma.nombre";}
 if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Estado</th></tr>";}
 }
 

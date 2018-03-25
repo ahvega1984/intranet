@@ -91,10 +91,10 @@ while ($asignaturas = mysqli_fetch_array($asignaturas1)) {
 	echo "<th style='text-align:center;'>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
 }
-	$extra=" and FALUMNOS.unidad = '$unidad'";
+	$extra=" and alma.unidad = '$unidad'";
 
 echo "</thead><tbody>";
-$alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '".$p_nivel."' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre"; 
+$alumnos0 = "select matriculas, alma.apellidos, alma.nombre, combasi, alma.claveal, alma.unidad from alma where alma.curso = '".$p_nivel."' $extra order by alma.apellidos, alma.nombre"; 
 //echo $alumnos0;
 $fila_asig=0;
 $alumnos1 = mysqli_query($db_con, $alumnos0);

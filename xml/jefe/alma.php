@@ -31,9 +31,6 @@ include("../../menu.php");
 					// Copia de Seguridad
 					mysqli_query($db_con, "DROP TABLE alma_seg") ;
 					mysqli_query($db_con, "create table alma_seg select * from alma");
-					// Copia de Seguridad 2
-					mysqli_query($db_con, "DROP TABLE FALUMNOS_seg") ;
-					mysqli_query($db_con, "create table FALUMNOS_seg select * from FALUMNOS");
 			
 					// Creamos Base de datos y enlazamos con ella.
 					$base0 = "DROP TABLE `alma`";
@@ -126,7 +123,6 @@ include("../../menu.php");
 
 						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
-						mysqli_query($db_con, "insert into FALUMNOS select * from FALUMNOS_seg");
 						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h5>ATENCIÓN:</h5>

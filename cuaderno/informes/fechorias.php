@@ -16,10 +16,10 @@ El Alumno no tiene Problemas de convivencia.
 </div></div>';}
 else {
 
-  $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, 
-  Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal
-   and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.unidad, 
-    FALUMNOS.apellidos");
+  $result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.correo, Fechoria.fecha, 
+  Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal
+   and alma.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, alma.unidad, 
+    alma.apellidos");
  // print "$AUXSQL";
   if ($row = mysqli_fetch_array($result))
 

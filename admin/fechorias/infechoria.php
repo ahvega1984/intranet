@@ -128,13 +128,14 @@ if (isset($_POST['submit1']) or isset($_POST['submit2']))
 if ($_GET['seleccionado']=="1") {
 	$claveal=$_GET['nombre'];
 	//$nombrel=$claveal;
-	$ng_al0=mysqli_query($db_con, "select unidad, apellidos, nombre from FALUMNOS where claveal = '$claveal'");
+	$ng_al0=mysqli_query($db_con, "select unidad, apellidos, nombre from alma where claveal = '$claveal'");
 	$ng_al=mysqli_fetch_array($ng_al0);
 	$unidad=$ng_al[0];
 	$nombre_al=$ng_al[1].", ".$ng_al[2];
 }
 if ($_GET['id'] or $_POST['id']) {
-	$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+	echo 
 
 	if ($row = mysqli_fetch_array($result))
 	{
@@ -212,7 +213,7 @@ if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
 	//echo "<OPTION value='$claveal' selected>$nombre_al</OPTION>";
 
 	echo '<select class="form-control" id="nombre" name="nombre" required>';
-	$alumnos = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by APELLIDOS asc");
+	$alumnos = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma WHERE unidad = '$unidad' order by APELLIDOS asc");
 
 	while($falumno = mysqli_fetch_array($alumnos))
 	{
@@ -242,7 +243,7 @@ else{
 	else{
 		$uni="";
 	}
-	$alumnos = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS $uni order by APELLIDOS asc");
+	$alumnos = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $uni order by APELLIDOS asc");
 	while($falumno = mysqli_fetch_array($alumnos))
 	{
 		$sel="";

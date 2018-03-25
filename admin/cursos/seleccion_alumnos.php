@@ -20,7 +20,7 @@ if (isset($_POST['guardar_cambios'])) {
             // Saltamos este bloque la primera vez que se ejecuta foreach o si key corresponde al botón de envío de formulario
             if ($flag_primera_vez > 1 || $key != 'guardar_cambios') {
                 
-                $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, FALUMNOS.nc FROM alma JOIN FALUMNOS ON alma.claveal = FALUMNOS.claveal WHERE alma.unidad = '".$unidad_ant."' AND alma.combasi LIKE '%".$asignatura_ant."%' ORDER BY alma.apellidos ASC, alma.nombre ASC");
+                $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE alma.unidad = '".$unidad_ant."' AND alma.combasi LIKE '%".$asignatura_ant."%' ORDER BY alma.apellidos ASC, alma.nombre ASC");
                 $total_alumnos = mysqli_num_rows($result_alumnos);
                 $alumnos_seleccionados = count($array_nc);
                 
@@ -100,7 +100,7 @@ include("../../menu.php");
                         <?php $i = 0; ?>
                         <?php while ($row = mysqli_fetch_array($result)): ?>
 
-                        <?php $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, FALUMNOS.nc FROM alma JOIN FALUMNOS ON alma.claveal = FALUMNOS.claveal WHERE alma.unidad = '".$row['grupo']."' AND alma.combasi LIKE '%".$row['codigo']."%' ORDER BY alma.apellidos ASC, alma.nombre ASC"); ?>
+                        <?php $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE alma.unidad = '".$row['grupo']."' AND alma.combasi LIKE '%".$row['codigo']."%' ORDER BY alma.apellidos ASC, alma.nombre ASC"); ?>
                         <?php $total_alumnos_unidad = mysqli_num_rows($result_alumnos); ?>
 
                         <?php
@@ -131,8 +131,8 @@ include("../../menu.php");
                                     
                                     <?php while ($row_alumno = mysqli_fetch_array($result_alumnos)): ?>
                                     <?php 
-                                    $nombre_checkbox = 'checkbox_'.$row['codigo'].'_'.$row['grupo'].'_'.$row_alumno['nc'];
-                                    if (mysqli_num_rows($result_alumnos_seleccionados) > 0 && in_array($row_alumno['nc'], $nc_alumnos_seleccionados)) {
+                                    $nombre_checkbox = 'checkbox_'.$row['codigo'].'_'.$row['grupo'].'_'.$row_alumno['claveal'];
+                                    if (mysqli_num_rows($result_alumnos_seleccionados) > 0 && in_array($row_alumno['claveal'], $nc_alumnos_seleccionados)) {
                                         $checkbox_checked = "checked";
                                     }
                                     elseif (! mysqli_num_rows($result_alumnos_seleccionados)) {
@@ -143,7 +143,7 @@ include("../../menu.php");
                                     ?>
                                     <div class="checkbox">
                                         <label for="<?php echo $nombre_checkbox; ?>">
-                                            <input type="checkbox" name="<?php echo $nombre_checkbox; ?>" id="<?php echo $nombre_checkbox; ?>" value="1" <?php echo $checkbox_checked; ?>> <?php echo '<span class="label label-default">'.$row_alumno['nc'].'</span> '.$row_alumno['apellidos'].', '.$row_alumno['nombre']; ?>
+                                            <input type="checkbox" name="<?php echo $nombre_checkbox; ?>" id="<?php echo $nombre_checkbox; ?>" value="1" <?php echo $checkbox_checked; ?>> <?php echo $row_alumno['apellidos'].', '.$row_alumno['nombre']; ?>
                                         </label>
                                     </div>
                                     <?php endwhile; ?>

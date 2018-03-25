@@ -125,17 +125,6 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $result0 = mysqli_query($db_con, $SQL0);
  $max00 = mysqli_fetch_row($result0);
  $curso_seneca = $max00[0];
-// Alumnos que se integran a lo largo del Curso
- $SQL = "select max(NC) from FALUMNOS_primero where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result = mysqli_query($db_con, $SQL);
- $max0 = mysqli_fetch_row($result);
- $num_0 =  $max0[0];
- $SQL1 = "select max(NC) from FALUMNOS where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result1 = mysqli_query($db_con, $SQL1);
- $max1 = mysqli_fetch_row($result1);
- $num_1 =  $max1[0];
- $nuevos = $num_1-$num_0;
- $nuevos = str_replace("-","",$nuevos);
  
 // Alumnos repetidores
  $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and matriculas > '1'";
@@ -143,7 +132,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $num_repetidores = mysqli_num_rows($result);
 
 // Alumnos a comienzo de Curso
- $SQL = "select * from FALUMNOS_primero where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
+ $SQL = "select * from alma_primera where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result = mysqli_query($db_con, $SQL);
  $num_empiezan = mysqli_num_rows($result);
  
@@ -199,7 +188,6 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
     <th>No Promocionan</th>
     <th>Promocionan</th>
     <th>Repetidores</th>
-    <th>Nuevas Incorporaciones</th>
 </tr>
 <tr>
 	<td><?php echo $num_empiezan; ?></td>
@@ -207,7 +195,6 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
     <td><?php echo $n_al; // echo "<br>".$valor;?></td> 
     <td><?php echo $num_acaban-$n_al; ?></td> 
     <td><?php echo $num_repetidores; ?></td> 
-    <td><?php echo $nuevos; ?></td>     
     </tr>
 </table>
 <?php
@@ -217,37 +204,37 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $num_faltas = mysqli_num_rows($faltas0);
   ?>
  <?php 
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_conv = mysqli_num_rows($result);
  ?>
   <?php    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'leve' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'leve' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_leves = mysqli_num_rows($result);
  ?>
   <?php    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'grave' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'grave' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_graves = mysqli_num_rows($result);
  ?>
    <?php    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'muy grave' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'muy grave' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves = mysqli_num_rows($result);
  ?>
   <?php    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion = mysqli_num_rows($result);
  ?>
   <?php    
- $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
+ $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados = mysqli_num_rows($result);
  ?>
    <?php    
- $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' order by Fechoria.claveal";
+ $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula = mysqli_num_rows($result);
  ?>
@@ -327,7 +314,7 @@ else{
  <hr><br /><h3>Alumnos absentistas</h3>
 
 <?php
-$faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
+$faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, alma where absentismo.claveal = alma.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -349,7 +336,7 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
 <?php
  echo "<table class='table table-bordered table-striped'>";
 		
-$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
+$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, alma  where FALTAS .claveal = alma .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
 $result = mysqli_query($db_con, $SQL);
 
   if ($row = mysqli_fetch_array($result))
@@ -369,7 +356,7 @@ $result = mysqli_query($db_con, $SQL);
   <hr><br /><h3>Problemas de Convivencia</h3>
 
 <?php
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -390,7 +377,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <?php
   
  
- $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '".$config['curso_inicio']."' group by NC";
+ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -407,7 +394,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div> <div class="col-sm-4"><hr><br /><h3>Alumnos expulsados del aula</h3>
 
  <?php
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '".$config['curso_inicio']."' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {

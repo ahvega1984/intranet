@@ -43,7 +43,7 @@ unidad($db_con);
                     <div class="form-group">
           <select name="nombre[]" multiple class="form-control" style="height:560px;">
             <?php 
-$alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad like '$unidad%'  order by APELLIDOS asc");
+$alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma WHERE unidad like '$unidad%'  order by APELLIDOS asc");
   while($falumno = mysqli_fetch_array($alumno))
         {
 	      echo "<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>";

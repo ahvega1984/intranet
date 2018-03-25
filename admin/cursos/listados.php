@@ -112,12 +112,10 @@ foreach ($unidades as $unidad) {
 				$row_alumnos_profesor['alumnos'] = rtrim($row_alumnos_profesor['alumnos'], ',');
 				$alumnos_profesor = explode(',', $row_alumnos_profesor['alumnos']);
 
-				// Sustituimos el NC de la tabla FALUMNOS por el NIE del alumno
+				// Sustituimos el NC de la tabla FALUMNO por el NIE del alumno
 				$alumnos_profesor_por_claveal = array();
 				foreach ($alumnos_profesor as $alumno_profesor_nc) {
-					$result_falumnos = mysqli_query($db_con, "SELECT CLAVEAL FROM FALUMNOS WHERE NC = '".$alumno_profesor_nc."' AND unidad = '".$unidad."' LIMIT 1");
-					$row_falumnos = mysqli_fetch_array($result_falumnos);
-					array_push($alumnos_profesor_por_claveal, $row_falumnos['CLAVEAL']);
+					array_push($alumnos_profesor_por_claveal, $alumno_profesor_nc);
 				}
 			}
 			

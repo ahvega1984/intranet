@@ -20,7 +20,7 @@ $pdf->AddFont('NewsGotT','B','NewsGotTb.php');
 
 // En el caso de haber seleccionado una unidad, se muestra el listado de alumnos de dicha unidad,
 // en otro caso mostramos el listado de faltas de todas las unidades.
-$query = "SELECT DISTINCT unidad FROM FALUMNOS";
+$query = "SELECT DISTINCT unidad FROM alma";
 if ($curso) $query .= " WHERE unidad='$curso'";
 
 
@@ -39,7 +39,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->Ln(5);
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE unidad='$grupo'");
+	$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad='$grupo'");
 	
 	$i=1;
 	$x_texto1=29.5;
