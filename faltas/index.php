@@ -5,6 +5,7 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset
 if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
 if (isset($_POST['profe_ausente'])) {$profe_ausente = $_POST['profe_ausente'];}elseif (isset($_GET['profe_ausente'])) {$profe_ausente = $_GET['profe_ausente'];}
 
+
 $pr = $_SESSION['profi'];
 
 $prof1 = "SELECT distinct c_prof FROM horw where prof = '$pr'";
@@ -103,21 +104,27 @@ if($mensaje){
 </div>
 
 <div class="form-group"><label for="grupo">Grupo</label> 
+	<?php
+	?>
 	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_grupo not like '' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25')");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25')");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
-				$grup.="$grupo_hora[0] ";
+				if ($grupo_hora['c_asig']=="25") {
+					$grup="SG";
+				}
+				else{
+					$grup.="$grupo_hora[0] ";
+				}
+				
 				$asign = $grupo_hora[1];
 			}
 			$grupos = "$grup ($asign)";
-
 		}
 
-		//echo "<option>select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like ''</otion>";
 		if (!empty($grupos)) {
 			if (isset($hora_dia) and $hora_dia==$i) {
 				echo "<option value='$i' selected>$grupos</option>";
@@ -506,6 +513,15 @@ if (!empty($profesor_ausente)) {
 echo '<input name="profesor_ausente" type="hidden" value="';
 echo $profesor_ausente;
 echo '" />';
+
+echo '<div class="well"
+		<div class="checkbox">
+			<label class="text-danger">
+			   <input type="checkbox" name="reg_guardias" value="1" checked> Registrar la sustitución del Profesor ausente
+			</label>
+		</div>
+	</div><br>';
+
 }
 
 // Clave
@@ -515,6 +531,7 @@ echo '" />';
 echo '<input name="fecha_dia" type="hidden" value="';
 echo $fecha_dia;
 echo '" />';
+
 if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
 
 ?></form>

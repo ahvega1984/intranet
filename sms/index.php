@@ -1,7 +1,19 @@
 <?php
 require('../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8, 'a'));
+include("config.php");
+
+if (in_array($_SESSION['ide'],$permiso_sms)){
+	
+	$cargo_anterior = $_SESSION['cargo'];
+	$_SESSION['cargo'] = 'a';
+
+}
+else{
+	acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8, 'a'));
+}
+
+
 
 $profe = $_SESSION['profi'];
 
@@ -9,6 +21,9 @@ include("../menu.php");
 
 if ($_SESSION['cargo']==1 or $_SESSION['cargo']==8) {
 include("menu.php");
+}
+else{
+	include("../admin/mensajes/menu.php");
 }
 
 if (isset($_GET['submit0'])) {$submit0 = $_GET['submit0'];}elseif (isset($_POST['submit0'])) {$submit0 = $_POST['submit0'];}else{$submit0="";}
@@ -319,6 +334,14 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la
 echo '</div>
 </div></div>';
 }
+
+if (in_array($_SESSION['ide'],$permiso_sms)){
+	
+	$_SESSION['cargo'] = $cargo_anterior;
+
+}
+
+
 ?>
 </div>
 </div>

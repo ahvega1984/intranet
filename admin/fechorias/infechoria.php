@@ -135,8 +135,7 @@ if ($_GET['seleccionado']=="1") {
 }
 if ($_GET['id'] or $_POST['id']) {
 	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
-	echo 
-
+	
 	if ($row = mysqli_fetch_array($result))
 	{
 
@@ -213,7 +212,7 @@ if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
 	//echo "<OPTION value='$claveal' selected>$nombre_al</OPTION>";
 
 	echo '<select class="form-control" id="nombre" name="nombre" required>';
-	$alumnos = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma WHERE unidad = '$unidad' order by APELLIDOS asc");
+	$alumnos = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma WHERE unidad = '$unidad' order by APELLIDOS, NOMBRE asc");
 
 	while($falumno = mysqli_fetch_array($alumnos))
 	{

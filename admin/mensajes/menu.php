@@ -71,12 +71,15 @@
 	</form>
 	
 	<ul class="nav nav-tabs">
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=recibidos')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php?inbox=recibidos">Mensajes recibidos</a></li>
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=enviados')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php?inbox=enviados">Mensajes enviados</a></li>
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'redactar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="redactar.php">Redactar mensaje</a></li>
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'correo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="correo.php">Redactar correo</a></li>
-		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && ((stristr($_SESSION['cargo'],'1') == TRUE) or (stristr($_SESSION['cargo'],'6') == TRUE) or (stristr($_SESSION['cargo'],'7') == TRUE) or (stristr($_SESSION['cargo'],'8') == TRUE))): ?>
-		<li><a href="../../sms/index.php">SMS</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=recibidos')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>index.php?inbox=recibidos">Mensajes recibidos</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=enviados')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>index.php?inbox=enviados">Mensajes enviados</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'redactar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>redactar.php">Redactar mensaje</a></li>
+
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'correo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>correo.php">Redactar correo</a></li>
+
+		<? if (file_exists(INTRANET_DIRECTORY .'/sms/config.php')) { include_once(INTRANET_DIRECTORY . '/sms/config.php');}?>
+		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && ((stristr($_SESSION['cargo'],'1') == TRUE) or (stristr($_SESSION['cargo'],'6') == TRUE) or (stristr($_SESSION['cargo'],'7') == TRUE) or (stristr($_SESSION['cargo'],'8') == TRUE)  or (stristr($_SESSION['cargo'],'a') == TRUE) or in_array($_SESSION['ide'],$permiso_sms))): ?>
+		<li><a href="//<?php echo $config['dominio'] .'/intranet/sms/';?>index.php">SMS</a></li>
 		<?php endif; ?>
 	</ul>
 

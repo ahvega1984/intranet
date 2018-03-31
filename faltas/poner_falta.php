@@ -9,6 +9,7 @@ if (isset($_GET['menu_cuaderno'])) {
 else {
 	include("menu.php");
 }
+
 // nprofe hora ndia hoy codasi profesor clave
 if (isset($_POST['nprofe'])) {$nprofe = $_POST['nprofe'];} else{$nprofe = $_SESSION['nprofe'];}
 if (isset($_POST['hora'])) {$hora = $_POST['hora'];} else{$hora="";}
@@ -18,6 +19,8 @@ if (isset($_POST['codasi'])) {$codasi = $_POST['codasi'];} else{$codasi="";}
 if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
 if (isset($_POST['clave'])) {$clave = $_POST['clave'];} else{$clave="";}
 if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_dia="";}
+if (isset($_POST['reg_guardias'])) {$reg_guardia = $_POST['reg_guardias'];}
+
 ?>
 
 <div class="container">
@@ -125,28 +128,31 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 		}
 
 	//Registramos sustitución en la tabla de Guardias
-	$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
-		if (mysqli_num_rows($gu)>0) {
-			$guardi = mysqli_fetch_row($gu);
-			echo '<div class="alert alert-warning alert-block fade in">
-	    <button type="button" class="close" data-dismiss="alert">&times;</button>
-		<legend>ATENCIÓN:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituído por un compañero de guardia: '.$guardi[1].'
-	</div>';
-		}
-		else{
-			if (stristr($curso_grupo, "Bach") and $horas == 6) {
-				// Si el grupo es de Bach y estamos a 6ª hora suponemos que los alumnos tienen autorización para abandonar el centro, y no registramos sustitución.
-				}
-			else{
-				$r_profe = mb_strtoupper($_SESSION['profi'], "UTF-8");
-				mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
-				if (mysqli_affected_rows($db_con) > 0) {
-				echo '<div class="alert alert-info alert-block fade in">
-			    <button type="button" class="close" data-dismiss="alert">&times;</button>
-		Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
+	if ($_POST['reg_guardias']=="1") {
+	
+		$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
+			if (mysqli_num_rows($gu)>0) {
+				$guardi = mysqli_fetch_row($gu);
+				echo '<div class="alert alert-warning alert-block fade in">
+		    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCIÓN:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituído por un compañero de guardia: '.$guardi[1].'
 		</div>';
 			}
-		}			
+			else{
+				if (stristr($curso_grupo, "Bach") and $horas == 6) {
+					// Si el grupo es de Bach y estamos a 6ª hora suponemos que los alumnos tienen autorización para abandonar el centro, y no registramos sustitución.
+					}
+				else{
+					$r_profe = mb_strtoupper($_SESSION['profi'], "UTF-8");
+					mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
+					if (mysqli_affected_rows($db_con) > 0) {
+					echo '<div class="alert alert-warning alert-block fade in">
+				    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
+			</div>';
+				}
+			}			
+		}
 	}			
 }
 
