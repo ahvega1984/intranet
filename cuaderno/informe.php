@@ -1,6 +1,45 @@
 <?php
 require('../bootstrap.php');
 
+$dia = $_GET['dia'];
+$hora = $_GET['hora'];
+foreach($_GET as $key => $val)
+{
+  ${$key} = $val;
+}
+
+$unidad = $curso;
+
+$alumnos_unidad = array();
+$result_alumnos_unidad = mysqli_query($db_con, "SELECT claveal FROM alma WHERE unidad = '$unidad' AND combasi LIKE '%$asignatura%' ORDER BY apellidos ASC, nombre ASC");
+$total_alumnos_unidad = mysqli_num_rows($result_alumnos_unidad);
+while ($row_alumnos_unidad = mysqli_fetch_array($result_alumnos_unidad)) {
+  array_push($alumnos_unidad, $row_alumnos_unidad['claveal']);
+}
+
+$key_claveal = array_search($claveal, $alumnos_unidad);
+
+if((isset($_GET['anterior']) && ($_GET['anterior'] == 1)) && ($key_claveal > 0)) {
+  $claveal = $alumnos_unidad[$key_claveal - 1];
+}
+
+if((isset($_GET['siguiente']) && ($_GET['siguiente'] == 1)) && ($key_claveal < ($total_alumnos_unidad - 1))){
+  $claveal = $alumnos_unidad[$key_claveal + 1];
+}
+
+if (! empty($claveal)) {
+  $key_claveal = array_search($claveal, $alumnos_unidad);
+  $alum = mysqli_query($db_con, "SELECT claveal, unidad, nombre, apellidos FROM alma WHERE claveal = '$claveal' LIMIT 1");
+  $alumno = mysqli_fetch_array($alum);
+  $claveal = $alumno[0];
+  $unidad = $alumno[1];
+  $nombre = $alumno[2];
+  $apellidos = $alumno[3];
+  $curso = $unidad;
+}
+else {
+  die ('Error al obtener el NIE del alumno.');
+}
 
 include("../menu.php");
 include("menu.php");
@@ -17,73 +56,39 @@ echo '<div align="center">';
 ?>
 <div class="col-sm-8 col-sm-offset-2">
 <?php
+echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
+echo "<br /><div class='well'><table style='width:100%'><tr><td style='text-align:center;width:90%'><h4 class='text-info'>";
 
-$dia = $_GET['dia'];
-$hora = $_GET['hora'];
- foreach($_GET as $key => $val)
-	{
-		${$key} = $val;
-	}
-	echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
-		 
-if($siguiente == '1'){
-  $unidad = $curso;
-  $adelante1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc>$nc order by nc asc limit 2";
-  $adelante0 = mysqli_query($db_con, $adelante1);
-  $adelante = mysqli_fetch_array($adelante0);
-  $nc = $adelante[0];
-  $claveal = $adelante[1];
-  }
-   if($anterior == '1'){
-  $unidad = $curso;
-  $menor = $nc - 1;
-  $anterior1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc < '$nc' order by nc desc limit 1";
-  $anterior0 = mysqli_query($db_con, $anterior1);
-  $anterior = mysqli_fetch_array($anterior0);
-  $nc = $anterior[0];
-  $claveal = $anterior[1];
-  }
-  $alum = mysqli_query($db_con, "select nc, unidad , nombre, apellidos from FALUMNOS where claveal = '$claveal'");
-  $alumno = mysqli_fetch_array($alum);
-  $nc = $alumno[0];
-  $unidad = $alumno[1];
-  $nombre = $alumno[2];
-  $apellidos = $alumno[3];
-  $curso = $unidad;
+if ($key_claveal > 0) {
+  $mens_ant = "informe.php?profesor=$profesor&claveal=$claveal&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&anterior=1";
+  echo '<a class="btn btn-primary btn-sm" href="'.$mens_ant.'"><i class="fa fa-chevron-left"></i> Anterior</a>';
+}
+else {
+   echo '<a class="btn btn-primary btn-sm disabled" href="#"><i class="fa fa-chevron-left"></i> Anterior</a>';
+}
 
-	
-	$max_nc = mysqli_query($db_con, "select max(nc) from FALUMNOS where unidad = '$unidad'");
-  	$max = mysqli_fetch_row($max_nc);
-	$ultimo = $max[0];
-	
+echo "&nbsp;&nbsp; $nombre $apellidos &nbsp;&nbsp;"; 
 
-	
-  echo "<br /><div class='well'><table style='width:100%'><tr><td style='text-align:center;width:90%'><h4 class='text-info'>";
-  
-  if($nc > 1){$mens_ant = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&anterior=1";
-  echo '<button class="btn btn-primary btn-sm" name="anterior" onclick="window.location=\'';	
-  echo $mens_ant;
-  echo '\'" style="cursor: pointer;"><i class="fa fa-chevron-left">&nbsp; </i> Anterior</button>';}
-  
-  echo "&nbsp;&nbsp; $nombre $apellidos &nbsp;&nbsp;"; 
-   
-  if($nc < $ultimo){
- $mens_sig = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&siguiente=1";
-	echo ' <button class="btn btn-primary btn-sm" name="siguiente" onclick="window.location=\'';	
-	echo $mens_sig;
-	echo '\'" style="cursor: pointer;">Siguiente &nbsp;<i class="fa fa-chevron-right "> </i> </button>';}
-  echo "</h4></td><td style='text-align:right'>";
-  
-  if ($foto = obtener_foto_alumno($claveal)) {
-    echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
-  }
-  else {
-    echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
-  }	
-  echo "</td></tr></table>";
-			
-	
- 	echo "</div>"; 
+if ($key_claveal < ($total_alumnos_unidad - 1)) {
+  $mens_sig = "informe.php?profesor=$profesor&claveal=$claveal&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&siguiente=1";
+  echo '<a class="btn btn-primary btn-sm" href="'.$mens_sig.'">Siguiente <i class="fa fa-chevron-right"></i></a>';
+}
+else {
+  echo '<a class="btn btn-primary btn-sm disabled" href="#">Siguiente <i class="fa fa-chevron-right"></i></a>';
+}
+
+echo "</h4></td><td style='text-align:right'>";
+
+if ($foto = obtener_foto_alumno($claveal)) {
+  echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
+}
+else {
+  echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
+}	
+echo "</td></tr></table>";
+    
+
+echo "</div>"; 
 
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -143,6 +148,7 @@ include("informes/notas.php");
 ?>
 </div>
 <br />
+</div>
 </div>
 </div>
 </div>
