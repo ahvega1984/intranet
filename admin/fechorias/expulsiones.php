@@ -4,7 +4,7 @@ include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 include_once(INTRANET_DIRECTORY . '/lib/trendoo/config.php');
 
 // Aula de Convivencia
-if($imprimir4) 
+if($imprimir4)
 {
     if (isset($_POST['borrar_aula']))
 		mysqli_query($db_con,"update Fechoria set aula_conv='', inicio_aula='', fin_aula='' where id='".$_POST['borrar_aula']."'");
@@ -37,7 +37,7 @@ if($imprimir4)
         }
         else 
         {
-            $actualizar ="UPDATE  Fechoria SET  recibido =  '1', aula_conv = '$convivencia', inicio_aula = '$inicio_aula', fin_aula = '$fin_aula', horas = '$horas' WHERE  Fechoria.id = '$id'"; 
+            $actualizar ="UPDATE  Fechoria SET  recibido =  '1', aula_conv = '$convivencia', inicio_aula = '$inicio_aula', fin_aula = '$fin_aula', horas = '$horas' WHERE id = '$id'"; 
             mysqli_query($db_con, $actualizar);
             $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia,  alma.telefono, alma.telefonourgencia from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
@@ -160,7 +160,7 @@ if($submit)
             $actualizar ="UPDATE  Fechoria SET  expulsion =  '$expulsion', inicio = '$inicio', fin = '$fin' WHERE  Fechoria.id = '$id'"; 
             //echo $actualizar;
             mysqli_query($db_con, $actualizar);
-            $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia from Fechoria, alma, listafechorias, alma where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto and alma.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+            $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto and Fechoria.id = '$id' order by Fechoria.fecha DESC");
             if ($row = mysqli_fetch_array($result)) 
             {
 		        $apellidos = $row[0];
