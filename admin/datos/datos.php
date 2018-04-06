@@ -101,12 +101,8 @@ if  (isset($_POST['unidad'])){
 if  (TRIM("$claveal")==""){}else{ $AUXSQL .= " and alma.claveal = '$claveal'";}
 if ($seleccionado=='1') { $AUXSQL = " and alma.claveal = '$claveal'";}
 
-if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
-	$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo, usuarioalumno.usuario, usuarioalumno.pass from alma, usuarioalumno where usuarioalumno.claveal=alma.claveal " . $AUXSQL . " order BY alma.unidad, alma.apellidos, alma.nombre";	
-}
-else {
-	$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
-}
+$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
+
 // echo $SQL;
 $result = mysqli_query($db_con, $SQL);
 
@@ -125,12 +121,17 @@ if ($row = mysqli_fetch_array($result))
 	<th>Teléfonos</th>	
 	<th>Repite</th>";
 
-	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+	// Usuario y clave para Centros TIC y Moodle
+	$us_al = mysqli_query($db_con,"select usuarioalumno.usuario, usuarioalumno.pass from usuarioalumno where claveal='$row[0]'");
+	$al_tic=mysqli_num_rows($us_al);
+	if ($al_tic>0) {
+		$us_query = mysqli_fetch_array($us_al);
+		$us_tic = $us_query[0];
+		$us_pass = $us_query[1];
 		echo "<th>Gesuser<br>Moodle</th>";
 	}
-	else {
-		
-	}
+
+
 	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
@@ -170,8 +171,8 @@ if ($row = mysqli_fetch_array($result))
 	<td>$row[7]</td>
 	<td>$repite</td>";
 	
-	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
-		echo "<td>".$row['usuario']."<br>".$row['pass']."</td>";
+	if ($al_tic>0) {
+		echo "<td>".$us_tic."<br>".$us_pass."</td>";
 	}
 
 		if ($seleccionado=='1'){
