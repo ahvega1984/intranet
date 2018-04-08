@@ -54,9 +54,13 @@ $resultcurso = mysqli_query($db_con, $SQLcurso);
 	}
 
 	if($c_asig2){
+
 	$hoy=date('Y-m-d');
+	$nuevafecha = strtotime ( '-2 day' , strtotime ( $hoy ) ) ;
+	$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
 // Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and  date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and  date(tareas_alumnos.FECHA)>='$nuevafecha' and tareas_alumnos. unidad = '$unidad' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
 	//echo "$query<br>";
 	$result = mysqli_query($db_con, $query);
 	$result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$unidad'" );
@@ -79,7 +83,7 @@ echo "<th>Alumno</th>
 $count = "";
 	while($row = mysqli_fetch_array($result))
 	{
-	$nc_grupo = $row1['nc'];
+	$nc_grupo = $row[1];
 
 	$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad' and codigo not like '$codasi' and abrev not like '%\_%'");
 		if (mysqli_num_rows($asig_bach)>0) {							
@@ -137,13 +141,13 @@ if (mysqli_num_rows($si) > 0)
 		else{
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'></i></a>";		
 		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' ></i></a>";
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' ></i></a>";
    }	
 		}
 	  if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{ 
-echo "<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='fa fa-pencil-square-o' title='Redactar Informe'></i></a>";
+echo "&nbsp;<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='fa fa-pencil-square-o' title='Redactar Informe'></i></a>";
 			}
 		}
 	}	

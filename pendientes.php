@@ -278,9 +278,13 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	}
 
 	if($c_asig2){
+
 	$hoy = date('Y-m-d');
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,
-	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
+
+	$nuevafecha = strtotime ( '-2 day' , strtotime ( $hoy ) ) ;
+	$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$nuevafecha' and tareas_alumnos. unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysqli_query($db_con, $query);
 	if (mysqli_num_rows($result) > 0)
 	{
