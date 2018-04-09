@@ -72,7 +72,7 @@ else {
 							<div class="form-group text-center">
 								<div id="totp" style="text-align: center !important;">
 									<?php for ($i = 1; $i < 7; $i++): ?>
-									<input type="number" class="form-control text-center" id="totp-code-<?php echo $i; ?>" name="totp-code-<?php echo $i; ?>" value="" maxlength="1" min="0" max="9" style="display: inline-block !important; width: 40px !important; padding: 0;">
+									<input type="text" class="form-control text-center" id="totp-code-<?php echo $i; ?>" name="totp-code-<?php echo $i; ?>" value="" maxlength="1" style="display: inline-block !important; width: 40px !important; padding: 0;">
 									<?php endfor; ?>
 									<input type="hidden" id="totp_code" name="totp_code" value="">
 									<input type="hidden" name="totp_verificado" value="1">

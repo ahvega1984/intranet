@@ -215,7 +215,7 @@ include("menu.php");
 									<label for="totp-code-1">Introduce código temporal</label>
 									<div id="totp" style="text-align: center !important;">
 										<?php for ($i = 1; $i < 7; $i++): ?>
-										<input type="number" class="form-control text-center" id="totp-code-<?php echo $i; ?>" name="totp-code-<?php echo $i; ?>" value="" maxlength="1" min="0" max="9" style="display: inline-block !important; width: 40px !important; padding: 0;">
+										<input type="text" class="form-control text-center" id="totp-code-<?php echo $i; ?>" name="totp-code-<?php echo $i; ?>" value="" maxlength="1" style="display: inline-block !important; width: 40px !important; padding: 0;">
 										<?php endfor; ?>
 									</div>
 								</div>

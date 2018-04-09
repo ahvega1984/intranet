@@ -151,9 +151,12 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$_SESSION['id_pag'] = $id_reg0[0];
 
 			unset($_SESSION['intentos']);
+			
+			session_regenerate_id(true);
 
 			if ($dni == $clave0 || (strlen($codigo) < '12'))
 			{	
+				
 				$_SESSION['autentificado'] = 1;
 				$_SESSION['cambiar_clave'] = 1;
 				header("location:clave.php?tour=1");
