@@ -78,7 +78,6 @@ include ("../menu.php");
    </style>
 
 		<?php
-		echo $car;
 		$head = '<thead>
 			<tr>
 			<th>Profesor</th>';
