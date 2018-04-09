@@ -78,10 +78,11 @@ include ("../menu.php");
    </style>
 
 		<?php
+		echo $car;
 		$head = '<thead>
 			<tr>
 			<th>Profesor</th>';
-			if ($_SESSION['ide'] == "admin" || stristr($car, '0') == TRUE) {
+			if ($_SESSION['ide'] == "admin" || stristr($_SESSION['cargo'], '0') == TRUE) {
 			$head .= '<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>';
 			}
 			$head .= '<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
@@ -138,7 +139,7 @@ include ("../menu.php");
 			?></small>
 			</td>
 			
-			<?php if ($_SESSION['ide'] == "admin" || stristr($car, '0') == TRUE): ?>
+			<?php if ($_SESSION['ide'] == "admin" || stristr($_SESSION['cargo'], '0') == TRUE): ?>
 			<td class="text-center">
 				<input type="checkbox" name="<?php echo $dni; ?>0" value="0" <?php if (stristr ( $car, '0' ) == TRUE) { echo "checked"; } if ($idea == "admin") { echo "checked disabled"; } ?> />
 			</td>
