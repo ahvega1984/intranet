@@ -100,7 +100,7 @@ if ($existenNotas) {
 			$unidades['titulan'] = 0;
 			
 			// Obtenemos el número de alumnos
-			$result_alumnos_unidad = mysqli_query($db_con, "SELECT alma.claveal1, notas.".$evaluaciones[$evaluacion_seleccionada]." FROM alma JOIN notas ON alma.claveal1 = notas.claveal WHERE alma.unidad = '".$unidades['nomunidad']."' AND alma.curso = '".$unidades['nomcurso']."'");
+			$result_alumnos_unidad = mysqli_query($db_con, "SELECT alma.claveal1, notas.".$evaluaciones[$evaluacion_seleccionada].", alma.matriculas FROM alma JOIN notas ON alma.claveal1 = notas.claveal WHERE alma.unidad = '".$unidades['nomunidad']."' AND alma.curso = '".$unidades['nomcurso']."'");
 			$unidades['total_alumnos'] = mysqli_num_rows($result_alumnos_unidad);
 			
 			// Obtenemos las notas de los alumnos
