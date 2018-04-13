@@ -1,5 +1,6 @@
 <?php 
 if ($_POST['totp_verificado'] && $_POST['totp_code']) {
+	session_name("is");
 	session_start();
 
 	require_once('lib/google-authenticator/GoogleAuthenticator.php');
