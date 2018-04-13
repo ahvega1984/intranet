@@ -297,12 +297,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 	$result = mysqli_query($db_con, $res);
 	if ($result) {
 		$t_grupos = $curs;
-
-		echo "<br><table class='table table-striped table-bordered table-condensed table-hover'>\n";
+		?>
+		<br>
+		<table class='table table-striped'>
+		<?php
 		$filaprincipal = "<thead><tr><th colspan='3'><h4 class=\"text-center\">";
 
 
-		$filaprincipal.= $curso." ($asignatura)";
+		$filaprincipal.= $curso." ($asignatura)</h4></th></tr></thead><tbody>";
 
 		if(!($t_grupos=="")){
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
@@ -311,7 +313,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 			echo "</small>";
 		}
-		echo "</h4></th></tr></thead>";
+		echo "";
 		if ($diversificacion!==1) {
 			$curso = $hora2[1];
 		}
@@ -342,8 +344,13 @@ while($hora2 = mysqli_fetch_row($hora0))
 			if ($hay_al=="1" or $hay_grupo<1) {
 				if ($row[5] == "") {}
 				else{
-					echo "<tr>";
-					echo '<td class="text-center" width="70">';
+					?>
+
+					<tr>
+					<td class="text-center" width="70">	
+
+					<?php
+
 					if ($foto = obtener_foto_alumno($row['CLAVEAL'])) {
 						echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 					}
@@ -442,26 +449,32 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" data-html="true" title="No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha."';
 				}		
-				?>
-<div style="width: 120px; display: block;<?php echo $extra_act; ?>"   <?php echo $chkT; ?>><span
-	class="text-danger">F</span> <input type="radio"
-	id="falta_<?php echo $row[0]."_".$curso;?>"
-	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkF; ?>
-	value="F" onClick="uncheckRadio(this)" /> &nbsp; <span
-	class="text-success">J</span> <input type="radio"
-	id="falta_<?php echo $row[0]."_".$curso;?>"
-	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkJ; ?>
-	value="J" onClick="uncheckRadio(this)" /> &nbsp; <span
-	class="text-warning">R</span> <input type="radio"
-	id="falta_<?php echo $row[0]."_".$curso;?>"
-	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkR; ?>
-	value="R" onClick="uncheckRadio(this)" /></div>
 
-				<?php
-				echo "</span></label></td>";
-				?>
-<td><?php 
-//$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
+?>
+
+<div style="width: 120px; display: block;<?php echo $extra_act; ?>" <?php echo $chkT; ?>>
+<span class="text-danger">F</span> 
+<input type="radio"	id="falta_<?php echo $row[0]."_".$curso;?>"
+	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkF; ?>
+	value="F" onClick="uncheckRadio(this)" /> &nbsp; 
+<span class="text-success">J</span> 
+<input type="radio" id="falta_<?php echo $row[0]."_".$curso;?>"
+	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkJ; ?>
+	value="J" onClick="uncheckRadio(this)" /> &nbsp; 
+<span class="text-warning">R</span> 
+<input type="radio"	id="falta_<?php echo $row[0]."_".$curso;?>"
+	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkR; ?>
+	value="R" onClick="uncheckRadio(this)" />
+</div>
+
+</span></label>
+
+</td>
+
+<td>
+
+<?php 
+
 //Cuaderno correcta
 $faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and ($fal_e) and claveal='$row[0]' and falta='F'");
 
@@ -472,18 +485,21 @@ $f_justiT = mysqli_num_rows($faltaT_J);
 <div class="label label-danger" data-bs='tooltip'
 	title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
 <?php
-if ($f_faltaT>0) {echo "<br><br>";}
+if ($f_faltaT>0) {echo "<br>";}
 ?>
 <div class="label label-success" data-bs='tooltip'
 	title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
 </td>
+</tr>
+
 <?php
-echo "</tr>";
 			}
 		}
 	}
-	?> <?php
-	echo '</table>';
+?> 
+
+<?php
+	echo '</tbody></table>';
 }
 echo '<input name="nprofe" type="hidden" value="';
 echo $c_prof;
