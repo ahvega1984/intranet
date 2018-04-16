@@ -1,5 +1,13 @@
 <?php 
 if ($_POST['totp_verificado'] && $_POST['totp_code']) {
+	ini_set("session.use_cookies", 1);
+	ini_set("session.use_only_cookies", 1);
+	if ($_SERVER["HTTPS"] == "on") {
+		ini_set("session.cookie_secure", 1);
+	}
+	ini_set("session.cookie_httponly", 1);
+	ini_set("session.cookie_lifetime", "3600"); // Duración de la sesión: 3600 segundos (1 hora)
+	ini_set("session.gc_maxlifetime", "3600");
 	session_name("is");
 	session_start();
 

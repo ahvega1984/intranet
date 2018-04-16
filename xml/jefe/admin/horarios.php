@@ -1,23 +1,5 @@
 <?php
-session_start();
-include("../../../config.php");
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/logout.php');
-	exit();
-}
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header("location:http://$dominio/intranet/logout.php");
-	exit;
-}
-?>
-<?php
+require("../../../bootstrap.php");
 include("../../../menu.php");
 ?>
 <div class="page-header" align="center">

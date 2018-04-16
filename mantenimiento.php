@@ -1,8 +1,5 @@
 <?php
-session_start();
-
-include('config.php');
-include('config/version.php');
+require("bootstrap.php");
 
 $_SESSION['autentificado'] = 0;
 ?>

@@ -1,24 +1,5 @@
 <?php
-session_start();
-include("../../../config.php");
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/logout.php');	
-	exit();
-}
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header("location:http://$dominio/intranet/logout.php");
-	exit;
-}
-
-?>
-<?php
+require("../../../bootstrap.php");
 include("../../../menu.php");
 ?>
 <br />
@@ -48,7 +29,7 @@ include("../../../menu.php");
 <hr />
 <img border="0" src="exporta_horw.jpg" width="466" height="478">
 <br />
-<? include("../../../menu.php");?>
+<?php include("../../../pie.php"); ?>
 </body>
 </html>
 

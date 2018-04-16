@@ -1,21 +1,6 @@
 <?php
-session_start();
-include("../../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/logout.php");	
-exit;
-}
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-$profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header("location:http://$dominio/intranet/logout.php");
-exit;	
-}
-?>
-<?php
+require("../../../bootstrap.php");
+
 include("../../../menu.php");
 ?>
 <div align="center">
@@ -48,5 +33,7 @@ include("../../../menu.php");
 <div align="center">
   <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-success" />
 </div>
+
+<?php include("../../../pie.php"); ?>
 </body>
 </html>
