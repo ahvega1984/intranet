@@ -13,7 +13,7 @@ $( document ).ready(function() {
 	           	 switch(item.falta) {
 	           	 	case 'F' : texto_falta = "Injustificada"; break;
 	           	 	case 'J' : texto_falta = "Justificada"; break;
-	           	 	case 'R' : texto_falta = 'Restraso'; break;
+	           	 	case 'R' : texto_falta = 'Retraso'; break;
 	           	 } 	
 	           	 	
 	          	 $('#asistencia_tabla').append('<tr><td>' + item.alumno + '</td><td>' + item.hora + 'ª hora</td><td>' + texto_falta + '</td></tr>');

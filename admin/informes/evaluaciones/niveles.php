@@ -1,10 +1,14 @@
 <?php
 require('../../../bootstrap.php');
 
+
+include("../../../menu.php");
+include("menu.php");
+
 if (isset($_GET['curso_escolar'])) $curso_escolar = $_GET['curso_escolar'];
 
 if (isset($_GET['evaluacion'])) $evaluacion_seleccionada = $_GET['evaluacion'];
-else $evaluacion_seleccionada = 'evi';
+else $evaluacion_seleccionada = '1ev';
 
 if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 	if (isset($curso_escolar) && ($curso_escolar != $config['curso_actual'])) {
@@ -41,7 +45,7 @@ mysqli_free_result($result);
 if ($existenNotas) {
 	
 	// Comprobamos si se ha creado el informe
-	$result_informe = mysqli_query($db_con, "SELECT * FROM `informe_evaluaciones_unidades_".$evaluacion_seleccionada."` JOIN cursos ON `informe_evaluaciones_unidades_".$evaluacion_seleccionada."`.idcurso = cursos.idcurso JOIN unidades ON `informe_evaluaciones_unidades_".$evaluacion_seleccionada."`.idunidad = unidades.idunidad");
+	$result_informe = mysqli_query($db_con, "SELECT * FROM `informe_evaluaciones_unidades_".$evaluacion_seleccionada."` JOIN cursos ON `informe_evaluaciones_unidades_".$evaluacion_seleccionada."`.idcurso = cursos.idcurso JOIN unidades ON `informe_evaluaciones_unidades_".$evaluacion_seleccionada."`.idunidad = unidades.idunidad ORDER BY SUBSTR(cursos.idcurso, 6) ASC, unidades.nomunidad ASC");
 	if (mysqli_num_rows($result_informe)) {
 		while ($row_resultados_evaluaciones = mysqli_fetch_array($result_informe, MYSQLI_ASSOC)) $resultados_evaluaciones[] = $row_resultados_evaluaciones;
 	}
@@ -69,12 +73,13 @@ if ($existenNotas) {
 		
 		// Obtenemos las unidades del centro
 		if ($evaluacion_seleccionada == 'evi') {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%' ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso WHERE cursos.nomcurso LIKE '%E.S.O.%' OR cursos.nomcurso LIKE '%Bachillerato%' ORDER BY SUBSTR(cursos.idcurso, 6) ASC, unidades.nomunidad ASC");
 		}
 		else {
-			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY SUBSTR(cursos.nomcurso, 6) ASC, unidades.nomunidad ASC");
+			$result_unidades = mysqli_query($db_con, "SELECT cursos.idcurso, cursos.nomcurso, unidades.idunidad, unidades.nomunidad FROM unidades JOIN cursos ON unidades.idcurso = cursos.idcurso ORDER BY SUBSTR(cursos.idcurso, 6) ASC, unidades.nomunidad ASC");
 		}
 		
+		//
 		$row_unidades = array();
 		while ($row = mysqli_fetch_array($result_unidades, MYSQLI_ASSOC)) $row_unidades[] = $row;
 		
@@ -176,10 +181,6 @@ if ($existenNotas) {
 	$evaluacionSinNotas = 0;
 }
 
-
-
-include("../../../menu.php");
-include("menu.php");
 ?>
 	
 	<div class="container-fluid">
