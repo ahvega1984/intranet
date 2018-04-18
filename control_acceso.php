@@ -342,13 +342,25 @@ if ($config['mod_notificaciones']) {
 				$titulo = stripslashes(mysqli_real_escape_string($db_con, $tema));
 				$contenido = stripslashes(mysqli_real_escape_string($db_con, $texto));
 	
-				require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
+				require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 				$mail = new PHPMailer();
-				$mail->Host = "localhost";
-				$mail->From = $mail_from;
-				$mail->FromName = $profe_envia;
+				if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
+					$mail->isSMTP();
+					$mail->Host = $config['email_smtp']['hostname'];
+					$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
+					$mail->Port = $config['email_smtp']['port'];
+					$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
+					
+					$mail->Username = $config['email_smtp']['username'];
+					$mail->Password = $config['email_smtp']['password'];
+
+					$mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
+				}
+				else {
+					$mail->Host = "localhost";
+					$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
+				}
 				$mail->AddReplyTo($mail_from, $profe_envia);
-				$mail->Sender = $mail_from;
 				$mail->IsHTML(true);
 				
 				$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');

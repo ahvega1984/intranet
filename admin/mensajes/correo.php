@@ -12,14 +12,27 @@ if (isset($_POST['enviar'])) {
 	
 	$titulo = stripslashes(mysqli_real_escape_string($db_con, $_POST['tema']));
 	$contenido = stripslashes(mysqli_real_escape_string($db_con, $_POST['texto']));
-
-	require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
+	
+	require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
-	$mail->Host = "localhost";
-	$mail->From = utf8_decode($mail_from);
-	$mail->FromName = utf8_decode($profe_envia);
+	if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
+		$mail->isSMTP();
+		$mail->Host = $config['email_smtp']['hostname'];
+		$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
+		$mail->Port = $config['email_smtp']['port'];
+		$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
+		
+		$mail->Username = $config['email_smtp']['username'];
+		$mail->Password = $config['email_smtp']['password'];
+
+		$mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
+	}
+	else {
+		$mail->Host = "localhost";
+		$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
+	}
+	
 	$mail->AddReplyTo($mail_from, $profe_envia);
-	$mail->Sender = $mail_from;
 	$mail->IsHTML(true);
 	
 	$exp_nomprof = explode(', ', $profe_envia);
@@ -43,13 +56,10 @@ if (isset($_POST['enviar'])) {
 	$mail->Subject = utf8_decode('Nuevo mensaje: '.$titulo);
 	$mail->AltBody = $titulo.' '.$contenido;
 
-
 	foreach($_POST as $var => $valor) {
 		$dni=$var;
 		$cambia[$dni]=$valor;
 	}
-	
-	
 	
 	foreach($cambia as $eldni => $valor){
 		$mail0=mysqli_query($db_con, "select correo, PROFESOR from c_profes where dni='$eldni'");
@@ -59,13 +69,16 @@ if (isset($_POST['enviar'])) {
 		$mail1=mysqli_fetch_row($mail0);
 		$direccion = $mail1[0];
 		$profes = $mail1[1];
-		$mail->AddAddress($direccion, $profes);
+		if(filter_var($direccion, FILTER_VALIDATE_EMAIL)) {
+			$mail->AddAddress($direccion, $profes);
+		}
+		
 	}
 
 	for ($i=0;$i<5;$i++) {
 		$varname{$i} = $_FILES['fil'.$i]['name'];
 		$vartemp{$i} = $_FILES['fil'.$i]['tmp_name'];
-		if($varname != "") {
+		if($varname{$i} != "") {
 			$mail->AddAttachment($vartemp{$i}, $varname{$i});
 		}
 	}
@@ -154,7 +167,7 @@ include("menu.php");
 				<br>
 
 				<div class="panel-group" id="departamentos">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' ORDER BY departamento ASC"); ?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
 					<?php $i = 0; ?>
 					<?php while ($departamento = mysqli_fetch_array($result)): ?>
 				  <div class="panel panel-default">
@@ -168,7 +181,7 @@ include("menu.php");
 				    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
 				      <div class="panel-body">
 				      
-				      <?php $profesores = mysqli_query($db_con, "SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND profesor <> 'Administrador' AND correo IS NOT NULL ORDER BY profesor"); ?>
+				      <?php $profesores = mysqli_query($db_con, "SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND correo IS NOT NULL ORDER BY profesor"); ?>
 				      <?php if(mysqli_num_rows($profesores)>0): ?>
   
 			        <?php while($profesor = mysqli_fetch_array($profesores)): ?>

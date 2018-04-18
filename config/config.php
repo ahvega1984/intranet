@@ -34,8 +34,8 @@ if (isset($_POST['config']))
 	
 	// LIMPIAMOS CARACTERES
 	$dominio_centro	= limpiar_string($_POST['dominio_centro']);
-	(isset($_POST['forzar_ssl'])) ? $forzar_ssl = 1 : $forzar_ssl = 0;
-	(isset($_POST['mantenimiento'])) ? $mantenimiento = 1 : $mantenimiento = 0;
+	$forzar_ssl = (isset($_POST['forzar_ssl'])) ? 1 : 0;
+	$mantenimiento = (isset($_POST['mantenimiento'])) ? 1 : 0;
 	
 	$nombre_centro		= limpiar_string($_POST['nombre_centro']);
 	$codigo_centro		= limpiar_string($_POST['codigo_centro']);
@@ -55,39 +55,45 @@ if (isset($_POST['config']))
 	$db_name	= limpiar_string($_POST['db_name']);
 	$db_user	= limpiar_string($_POST['db_user']);
 	$db_pass	= limpiar_string($_POST['db_pass']);
+
+	$email_smtp 			= (isset($_POST['email_smtp'])) ? 1 : 0;
+	$email_smtp_hostname	= limpiar_string($_POST['email_smtp_hostname']);
+	$email_smtp_port		= intval($_POST['email_smtp_port']);
+	$email_smtp_username	= limpiar_string($_POST['email_smtp_username']);
+	$email_smtp_password	= limpiar_string($_POST['email_smtp_password']);
 	
 	$curso_escolar	= limpiar_string($_POST['curso_escolar']);
 	$fecha_inicio	= limpiar_string($_POST['fecha_inicio']);
 	$fecha_final	= limpiar_string($_POST['fecha_final']);
 	
-	(isset($_POST['mod_biblioteca'])) ? $modulo_biblioteca = 1 : $modulo_biblioteca = 0;
+	$modulo_biblioteca = (isset($_POST['mod_biblioteca'])) ? 1 : 0;
 	$modulo_biblioteca_web	= limpiar_string($_POST['mod_biblioteca_web']);
 	
-	(isset($_POST['mod_bilingue'])) ? $modulo_bilingue = 1 : $modulo_bilingue = 0;
+	$modulo_bilingue = (isset($_POST['mod_bilingue'])) ? 1 : 0;
 	
-	(isset($_POST['mod_centrotic'])) ? $modulo_centrotic = 1 : $modulo_centrotic = 0;
+	$modulo_centrotic = (isset($_POST['mod_centrotic'])) ? 1 : 0;
 	
-	(isset($_POST['mod_documentos'])) ? $modulo_documentos = 1 : $modulo_documentos = 0;
+	$modulo_documentos = (isset($_POST['mod_documentos'])) ? 1 : 0;
 	$modulo_documentos_dir	= limpiar_string($_POST['mod_documentos_dir']);
-	(isset($_POST['mod_documentos_biblioteca'])) ? $mod_documentos_biblioteca = 1 : $mod_documentos_biblioteca = 0;
-	(isset($_POST['mod_documentos_recursos'])) ? $mod_documentos_recursos = 1 : $mod_documentos_recursos = 0;
-	(isset($_POST['mod_documentos_departamentos'])) ? $mod_documentos_departamentos = 1 : $mod_documentos_departamentos = 0;
+	$mod_documentos_biblioteca = (isset($_POST['mod_documentos_biblioteca'])) ? 1 : 0;
+	$mod_documentos_recursos = (isset($_POST['mod_documentos_recursos'])) ? 1 : 0;
+	$mod_documentos_departamentos = (isset($_POST['mod_documentos_departamentos'])) ? 1 : 0;
 	
-	(isset($_POST['mod_sms'])) ? $modulo_sms = 1 : $modulo_sms = 0;
+	$modulo_sms = (isset($_POST['mod_sms'])) ? 1 : 0;
 	$modulo_sms_id		= limpiar_string($_POST['mod_sms_id']);
 	$modulo_sms_user	= limpiar_string($_POST['mod_sms_user']);
 	$modulo_sms_pass	= limpiar_string($_POST['mod_sms_pass']);
 	
-	(isset($_POST['mod_notificaciones'])) ? $modulo_notificaciones = 1 : $modulo_notificaciones = 0;
+	$modulo_notificaciones = (isset($_POST['mod_notificaciones'])) ? 1 : 0;
 	
-	(isset($_POST['mod_asistencia'])) ? $modulo_asistencia = 1 : $modulo_asistencia = 0;
+	$modulo_asistencia = (isset($_POST['mod_asistencia'])) ? 1 : 0;
 	
-	(isset($_POST['mod_horarios'])) ? $modulo_horarios = 1 : $modulo_horarios = 0;
+	$modulo_horarios = (isset($_POST['mod_horarios'])) ? 1 : 0;
 	
-	(isset($_POST['mod_convivencia'])) ? $modulo_convivencia = 1 : $modulo_convivencia = 0;
+	$modulo_convivencia = (isset($_POST['mod_convivencia'])) ? 1 : 0;
 
-	(isset($_POST['mod_matriculacion'])) ? $modulo_matriculacion = 1 : $modulo_matriculacion = 0;
-	(isset($_POST['mod_transporte_escolar'])) ? $modulo_transporte_escolar = 1 : $modulo_transporte_escolar = 0;
+	$modulo_matriculacion = (isset($_POST['mod_matriculacion'])) ? 1 : 0;
+	$modulo_transporte_escolar = (isset($_POST['mod_transporte_escolar'])) ? 1 : 0;
 	
 	
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
@@ -126,6 +132,15 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['curso_actual']\t= '$curso_escolar';\r\n");
 		fwrite($file, "\$config['curso_inicio']\t= '$fecha_inicio';\r\n");
 		fwrite($file, "\$config['curso_fin']\t= '$fecha_final';\r\n");
+
+		fwrite($file, "\r\n// SERVIDOR SMTP\r\n");
+		fwrite($file, "\$config['email_smtp']['isSMTP']\t\t\t= $email_smtp;\r\n");
+		fwrite($file, "\$config['email_smtp']['smtp_auth']\t\t= true;\r\n");
+		fwrite($file, "\$config['email_smtp']['hostname']\t\t= '$email_smtp_hostname';\r\n");
+		fwrite($file, "\$config['email_smtp']['port']\t\t\t= $email_smtp_port;\r\n");
+		fwrite($file, "\$config['email_smtp']['smtp_secure']\t= 'tls';\r\n");
+		fwrite($file, "\$config['email_smtp']['username']\t\t= '$email_smtp_username';\r\n");
+		fwrite($file, "\$config['email_smtp']['password']\t\t= '$email_smtp_password';\r\n");
 		
 		fwrite($file, "\r\n// MÓDULO: BIBLIOTECA\r\n");
 		fwrite($file, "\$config['mod_biblioteca']\t\t= $modulo_biblioteca;\r\n");
@@ -339,7 +354,27 @@ include('../menu.php');
 								</div>
 								
 							</div>
+
+							<div class="well">
+								
+								<h3><span class="fa fa-sign-in fa-fw"></span> Opciones de acceso</h3>
+								<br>
+
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="forzar_ssl" value="1" <?php echo (isset($config['forzar_ssl']) && $config['forzar_ssl']) ? 'checked' : ''; ?>>
+										<strong>Forzar acceso a la Intranet mediante HTTPS</strong>
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="mantenimiento" value="1" <?php echo (isset($config['mantenimiento']) && $config['mantenimiento']) ? 'checked' : ''; ?>>
+										<strong>Modo mantenimiento.</strong> Solo equipo directivo tiene acceso a la Intranet.
+									</label>
+								</div>
 							
+							</div>
 							
 						</div><!-- /.col-sm-6 -->
 						
@@ -381,7 +416,7 @@ include('../menu.php');
 								<div class="form-group">
 									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
-									  <input type="text" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseña de la base de datos no es válido" required>
+									  <input type="text" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseña de la base de datos no es válida" required>
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
@@ -423,18 +458,53 @@ include('../menu.php');
 							</div>
 							
 							<div class="well">
-								
-								<h3><span class="fa fa-exclamation-triangle fa-fw"></span> Mantenimiento</h3>
+
+								<h3><span class="fa fa-envelope fa-fw"></span> Configuración SMTP</h3>
 								<br>
 								
+								<?php $tam_label = 4; ?>
+								<?php $tam_control = 7; ?>
+
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="mantenimiento" value="1" <?php echo (isset($config['mantenimiento']) && $config['mantenimiento']) ? 'checked' : ''; ?>>
-										Activar estado de mantenimiento.
-										<p class="help-block">Solo los miembros del equipo directivo pueden acceder a la Intranet.</p>
+										<input type="checkbox" id="email_smtp" name="email_smtp" value="1" <?php echo (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) ? 'checked' : ''; ?>>
+										<strong>Utilizar servidor SMTP</strong>
+										<p class="help-block">Si no se configura un servidor SMTP se utilizará el servicio sendmail.</p>
 									</label>
 								</div>
-							
+								
+								<div class="form-group">
+									<label for="email_smtp_hostname" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor <span class="text-danger required-field">*</span></label>
+									<div class="col-sm-<?php echo $tam_control; ?>">
+									  <input type="text" class="form-control" id="email_smtp_hostname" name="email_smtp_hostname" value="<?php echo $config['email_smtp']['hostname']; ?>" data-error="La dirección del servidor SMTP no es válida" placeholder="smtp.gmail.com">
+									  <div class="help-block with-errors"></div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="email_smtp_port" class="col-sm-<?php echo $tam_label; ?> control-label">Puerto <span class="text-danger required-field">*</span></label>
+									<div class="col-sm-<?php echo $tam_control; ?>">
+									  <input type="text" class="form-control" id="email_smtp_port" name="email_smtp_port" value="<?php echo $config['email_smtp']['port']; ?>" data-error="El puerto del servidor SMTP no es válido" placeholder="587">
+									  <div class="help-block with-errors"></div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="email_smtp_username" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario <span class="text-danger required-field">*</span></label>
+									<div class="col-sm-<?php echo $tam_control; ?>">
+									  <input type="text" class="form-control" id="email_smtp_username" name="email_smtp_username" value="<?php echo $config['email_smtp']['username']; ?>" data-error="El nombre de usuario del servidor SMTP no es válido" placeholder="intranet@<?php echo $config['dominio']; ?>">
+									  <div class="help-block with-errors"></div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="email_smtp_password" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger required-field">*</span></label>
+									<div class="col-sm-<?php echo $tam_control; ?>">
+									  <input type="text" class="form-control" id="email_smtp_password" name="email_smtp_password" value="<?php echo $config['email_smtp']['password']; ?>" data-error="La contraseña del servidor SMTP no es válida">
+									  <div class="help-block with-errors"></div>
+									</div>
+								</div>
+
 							</div>
 							
 						</div><!-- /.col-sm-6 -->
@@ -725,6 +795,22 @@ include('../menu.php');
 	$(document).ready(function()
 	{
 	    $('#form-instalacion').validator();
+
+		$('#email_smtp').on('click', function() {
+			if( $(this).is(':checked') ){
+				$(".required-field").show();
+				$("#email_smtp_hostname").prop('required',true);
+				$("#email_smtp_port").prop('required',true);
+				$("#email_smtp_username").prop('required',true);
+				$("#email_smtp_password").prop('required',true);
+			} else {
+				$(".required-field").hide();
+				$("#email_smtp_hostname").removeAttr('required');
+				$("#email_smtp_port").removeAttr('required');
+				$("#email_smtp_username").removeAttr('required');
+				$("#email_smtp_password").removeAttr('required');
+			}
+		});
 	});
 	</script>
 

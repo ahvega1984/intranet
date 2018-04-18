@@ -1,6 +1,6 @@
 <?php
 require('bootstrap.php');
-require_once(INTRANET_DIRECTORY."/lib/phpmailer/class.phpmailer.php");
+require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 
 // Comienzo de sesión
 $_SESSION['autentificado'] = 0;
@@ -177,7 +177,6 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					$mail->Host = "localhost";
 					$mail->From = 'no-reply@'.$config['dominio'];
 					$mail->FromName = utf8_decode($config['centro_denominacion']);
-					$mail->Sender = 'no-reply@'.$config['dominio'];
 					$mail->IsHTML(true);
 					
 					$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
@@ -238,10 +237,22 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				mysqli_query($db_con, "UPDATE c_profes SET estado=1 WHERE idea='".$_POST['idea']."' LIMIT 1");
 
 				$mail = new PHPMailer();
-				$mail->Host = "localhost";
-				$mail->From = 'no-reply@'.$config['dominio'];
-				$mail->FromName = utf8_decode($config['centro_denominacion']);
-				$mail->Sender = 'no-reply@'.$config['dominio'];
+				if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
+					$mail->isSMTP();
+					$mail->Host = $config['email_smtp']['hostname'];
+					$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
+					$mail->Port = $config['email_smtp']['port'];
+					$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
+					
+					$mail->Username = $config['email_smtp']['username'];
+					$mail->Password = $config['email_smtp']['password'];
+
+					$mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
+				}
+				else {
+					$mail->Host = "localhost";
+					$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
+				}
 				$mail->IsHTML(true);
 
 				$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
