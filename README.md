@@ -1,58 +1,72 @@
 # [Intranet del Monterroso](http://iesmonterroso.github.io/intranet/)
 
-Lo que aquí llamamos la Intranet del Monterroso es una aplicación web creada y probada a lo largo de los años en nuestro Centro. Nació dentro del Programa de Autoevaluación y Mejora de la Consejería de Educación de la Junta de Andalucía, y ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general.
+Lo que aquí llamamos la Intranet del Monterroso es una aplicación Web creada y probada a lo largo de los años en nuestro centro. Nació dentro del Programa de Autoevaluación y Mejora de la Consejería de Educación de la Junta de Andalucía, y ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general.
 
-En realidad se trata de un conjunto de módulos interconectados que responden a tareas específicas que debe realizar un profesor en su trabajo diario. Los módulos han ido ido surgiendo de necesidades concretas planteadas por los propios profesores a lo largo de los años. Precisamente por eso, debe quedar claro que la aplicación solo expresa un punto de vista, el nuestro, acerca de cómo se lleva un Instituto (Problemas e convivencia, comunicación entre los profesores, trabajo de los tutores, reservas de aulas y material, actividades extraescolares, etc.).
+En realidad se trata de un conjunto de módulos interconectados que responden a tareas específicas que debe realizar un profesor. Los módulos han ido ido surgiendo de necesidades concretas planteadas por los propios profesores a lo largo de los años. Precisamente por eso, debe quedar claro que la aplicación solo expresa un punto de vista, el nuestro, acerca de cómo se lleva un instituto (Problemas e convivencia, comunicación entre los profesores, trabajo de los tutores, reservas de aulas y material, actividades extraescolares, etc.).
 
-La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pero a lo largo de los años hemos podido comprobar que tanto las tareas como los procedimientos para resolverlas son en general comunes a la mayoría de los IES de la Comunidad, razón por la que hemos decidido ofrecer esta aplicación.
+La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pero a lo largo de los años hemos podido comprobar que tanto las tareas como los procedimientos para resolverlas son en general comunes a la mayoría de los institutos de Andalucía, razón por la que hemos decidido ofrecer esta aplicación.
 
 
 ## Requisitos
 
 * Servidor Web: [Apache (versión 2 o superior)](http://httpd.apache.org/) 
-* Versión de PHP: [PHP 5.5.38 hasta 7.0.x (Versión 7.1 o superior aún no son compatibles)](http://www.php.net/)
+* Versión de PHP: [PHP 5.6.x o superior](http://www.php.net/)
 * Base de datos: [MySQL 5 o superior](http://www.php.net/)
 
-## Módulos y funciones
+## Módulos
 
-La Intranet funciona a partir de un conjunto de datos que son importados desde Séneca: profesores, alumnos, asignaturas, etc. La compatibilidad con Séneca es tan alta como lo permite la propia aplicación de la Junta de Andalucía, que, no debe olvidarse, es una aplicación propietaria y cerrada. 
-Dispone de un sencillo proceso de instalación que permite ajustar los datos esenciales a un Centro determinado, y un sistema de importación de datos a partir de Séneca que en pocos minutos la pone a funcionar. Los módulos más importantes que contiene son los siguientes:
+La Intranet funciona a partir de un conjunto de datos que son importados desde Séneca: profesores, alumnos, asignaturas, etc. La compatibilidad con Séneca es tan alta como lo permite la propia aplicación de la Junta de Andalucía. 
 
-* un conjunto de páginas de consulta que presentan datos de los alumnos, listas de grupos y horarios tanto de grupos como de profesores y aulas.
-* un módulo para registrar los problemas de convivencia, las expulsiones del Centro, etc. (Asociado al módulo de envío de SMS)
-* otro módulo para poner y justificar las faltas de asistencia de los alumnos, que posteriormente pueden ser exportadas a Séneca, y que nos ahorra el penoso trabajo de realizar la misma tarea con esa aplicación (Asociado al módulo de envío de SMS).
-* un módulo para generar informes para el Tutor que recibe la visita de los padres de un alumno, y pide a los miembros de su equipo educativo que le digan cómo va el alumno en su asignatura.
-* otro módulo para rellenar tareas para un alumno que va a ser expulsado del Centro durante un tiempo, activado por un Tutor o el Jefe de Estudios.
-* un conjunto de páginas destinadas al Tutor de un grupo, donde este puede ver todos los datos relevantes de los alumnos de su tutoría (faltas de asistencia, problemas de convivencia, tareas por expulsión, visitas de padres, actividades extraescolares de su grupo, etc.), así como registrar las distintas intervenciones que realiza en su tarea de tutor. Todo ello se presenta en un informe de Tutoría que solo tendrá que imprimir a final de curso y presentar a la Dirección.
-* un módulo de mensajería interna entre los usuarios de la Intranet que permite enviar y recibir mensajes.
-* un sistema de envío de mensajes SMS, que se activará automáticamente en caso de problemas de convivencia graves, faltas de asistencia continuadas, o que se podrá utilizar para poner en contacto rápido al tutor o la Dirección con los padres de un alumno.
-* un módulo para registrar y gestionar las Actividades Extraescolares.
-* dos módulos para los libros de texto. El primero permite crear la lista de los libros de texto por Departamento para los distintos niveles del centro (para consulta de padres y librerías, por ejemplo). El segundo es un módulo completo para la gestión de los libros de textos gratuitos por parte de los Tutores y la Secretaría del Centro dentro del Programa de Gratuidad de Libros de Texto de la Consejería de Educación.
-* un conjunto de páginas destinadas a generar Memorias para Jefatura de estudios y Tutores a final de Curso.
-* módulos para tareas como las guardias, registro de bajas de los profesores, inventario de material de los Departamentos, búsqueda y generación de informes con todos los datos de un alumno, subida de fotos para profesores y alumnos, etc.
+Dispone de un sencillo proceso de instalación que permite ajustar los datos esenciales a un centro educativo determinado, y un sistema de importación de datos a partir de Séneca que en pocos minutos la pone a funcionar.
 
-La aplicación ha sido pensada también para realizar tareas específicas de un Centro TIC. Los siguientes módulos están orientados a las tareas propias de un Centro TIC:
+Los módulos que contiene son los siguientes:
 
-* un sistema de reservas para para las aulas, los carros de portátiles y medios audiovisuales.
-* un módulo para la gestión y registro de incidencias y problemas con los ordenadores.
-* un módulo para la creación de los usuarios TIC, tanto alumnos como profesores, preparado para el alta masiva en Gesuser y en la Plataforma educativa (en nuestro caso, Moodle).
-* una página que concentra los documentos esenciales de un Centro TIC.
-* una página de estadísticas de uso de los recursos TIC por profesor, carrito, etc.
+* Consulta que presentan datos de los alumnos, listas de grupos y horarios tanto de grupos como de profesores y aulas
+* Registro de problemas de convivencia, expulsiones, etc. (con posibilidad de envío de correo electrónico y SMS a padres o tutores legales)
+* Registro y justificaciones de faltas de asistencia de los alumnos, que posteriormente pueden ser exportadas a Séneca (con posibilidad de envío de correo electrónico y SMS a padres o tutores legales)
+* Informes de tutoría para el tutor que recibe la visita de los padres de un alumno, y pide a los miembros de su equipo educativo que le digan cómo va el alumno en su asignatura
+* Informes de tareas para un alumno que va a ser expulsado del centro durante un tiempo, activado por un tutor o el jefe de estudios
+* Página de control de tutorias de un grupo, donde el tutor puede ver todos los datos relevantes de los alumnos de su tutoría (faltas de asistencia, problemas de convivencia, tareas por expulsión, visitas de padres, actividades extraescolares, etc.), así como registrar las distintas intervenciones que realiza en su tarea de tutor. Todo ello se presenta en un informe de tutoría que solo tendrá que imprimir a final de curso y presentar a la Dirección
+* Mensajería interna entre los usuarios de la Intranet que permite enviar y recibir mensajes
+* Sistema de envío de mensajes SMS, que se activará automáticamente en caso de problemas de convivencia, faltas de asistencia continuadas, o que se podrá utilizar para poner en contacto rápido al tutor o la Dirección con los padres o tutores legales de un alumno
+* Administración de actividades extraescolares
+* Administración de libros de texto. Permite crear la lista de los libros de texto por materia para los distintos niveles educativos. También permite  la importación y administración de los libros de textos del Programa de Gratuidad de Libros de Textos de la Junta de Andalucía.
+* Generación de memorias para jefatura de estudios y tutores a final de curso
+* Generación de actas de departamento y evaluaciones.
+* Gestión de guardias y registro de bajas de los profesores
+* Gestión de pedidos de material de los departamentos
+* Inventario de material de los departamentos
+* Sistema de reservas para las aulas, carros de portátiles y medios audiovisuales
+* Gestión de incidencias con los ordenadores
+* Gestión de mororos de la Biblioteca
+* Generación de los usuarios TIC para el alta masiva en Gesuser, en la plataforma educativa Moodle, Google Suite y Office 365
+* Informes y estadísticas de evaluaciones, problemas de convivencia, faltas de asistencia, guardias, ausencias de profesores y uso de los recursos TIC
+* Cuaderno de notas, calendario personal y registro de tareas pendientes
+* Repositorio de documentos públicos del centro y privados del profesor
 
-## Notas de la instalación
+## Instalación
 
-* El primer requisito para la instalación es tener dónde hacerlo. Hay dos posibilidades. La primera es instalar la aplicación en un servidor dentro del mismo Centro; la segunda es alojarla en un servidor externo contratado con alguna de las empresas que ofrecen servicios de alojamiento web. Si optamos por la primera opción, el Centro debe disponer de una máquina (el Servidor) y una línea propia de ADSL (preferiblemente con una dirección IP estática, aunque no es necesario). Debe también disponer de un Dominio (iesmonterroso.org), y este dominio debe apuntar a la IP de vuestro ADSL. Además, debéis redirigir todos los Puertos del Router ADSL hacia la dirección IP del Servidor. Ideas básicas sobre instalación de un Servidor Linux preparado para estas tareas la podéis encontrar en nuestra página principal, concretamente aquí.
-* El segundo requisito, opcional pero recomendable, es tener un Horario que pueda ser exportado a la Base de datos de la aplicación. La Intranet está preparada para trabajar con Horw, pero la mayoría de las aplicaciones que generan horarios pueden importar datos desde Séneca, por lo que debería ser posible trabajar con las mismas. 
-Si hemos optado por incorporar el horario de Horw, es esencial que se den dos condiciones por razones de compatibilidad con Séneca:
-*La primera es que los nombres de los profesores y el nombre de los grupos sean los mismos en Séneca que en Horw, exactamente los mismos. 
-*La segunda es que se importen los códigos de las asignaturas de Séneca dentro de Horw (una opción que nos permite el programa), y que naturalmente utilicemos un código de asignatura de Séneca para cada asignatura del horario.
+* Creamos una carpeta llamada **intranet** en el directorio raíz del servidor web Apache y copiamos los archivos.
+* Abrimos el navegador y nos dirigimos a la dirección web de nuestro dominio, por ejemplo: [https://iesmonterroso.org/intranet/](http://iesmonterroso.org/intranet/). No se recomienda acceder utilizando la dirección IP local del servidor o nombre de equipo, a no ser que el acceso a la Intranet sea únicamente local dentro de su centro educativo.
+* La primera vez que accedemos se ejecuta el asistente de instalación, donde se comprobarán los requisitos versión de PHP, límite de memoria, límite de subida de archivos, muestra de logs de errores y permisos sobre creación y modificación de archivos y directorios. Si se cumplen estos requisitos podrá introducir los datos de su centro educativo y conexión a la base de datos MySQL. Al teminar la creación de la base de datos se generará una contraseña aleatoria para el usuario Administrador de la Intranet, que por defecto, el nombre de usuario es **admin**.
 
-Por otro lado, se puede usar la Intranet sin horario, aunque las funciones quedan reducidas.
+## Importación de datos
 
-* Descargamos el archivo comprimido desde el enlace de Descargas, lo descomprimimos y colocamos los archivos en el directorio de nuestro servidor local o remoto. La aplicación necesita escribir y modificar archivos, por ejemplo a la hora de importar los datos de Séneca o cambiar el archivo de configuración. Por esa razón, el directorio donde se colocan los archivos de la Intranet debe tener permiso de escritura ( en un sistema con Linux instalado, podemos hacerlo fácilmente con el comando chmod 777 -R /ruta_de_la_aplicacion/intranet/* ).
-* Vamos a la dirección de la Intranet, por ejemplo [http://iesmonterroso.org/intranet/](http://iesmonterroso.org/intranet/). La primera vez que se ejecuta la aplicación se presenta la página de instalación. Si todo ha ido bien, podéis empezar la importación de datos de Alumnos y Profesores de Séneca desde la página de Administración de la Intranet. En la propia página de Administración de la Intranet tenéis información sobre los archivos que debéis descargar de Séneca, así como el lugar de Séneca desde el que podéis bajaros cada uno de ellos.
-* Una vez importados los datos de alumnos, profesores , departamentos y, llegado el caso, el horario del Centro debéis ir a la página de Perfiles de los Profesores desde la misma página de Administración de la Intranet. Seleccionar el perfil o perfiles de cada profesor (puede tener varios, no hay problema). Marcar también los Tutores y elegir su grupo.
-* Recordad que todos los miembros del Equipo Directivo tienen el perfil de Administradores de la Aplicación. A partir de este momento, la Intranet está operativa y los profesores ya pueden entrar con su usuario IdEA (el usuario de Séneca) y el DNI. La primera vez que entran se les obliga a cambiar la contraseña, y es aconsejable que elijan como nueva contraseña la que usan para entrar en Séneca.
+* En el menú lateral, diríjase a Administración de la Intranet y proceda a importar los datos en el orden que aparecen en el apartado **A principio de curso...**. Si necesita actualizar los datos utilice los enlaces del apartado **Actualización**. Es recomendable realizar una copia de seguridad para evitar pérdidas de información; dispone de un enlace en el apartado **Bases de datos** para tal fin.
+* La importación de horarios es opcional para el uso de la Intranet, aunque sus funcionalidades se verán reducidas si decide no importarlos. La aplicación acepta archivos XML compatibles con Séneca, generados por cualquier generador de horarios; o archivo en formato DEL generado con [http://www.horw.es/index.php](HorW). También existe la posibilidad de crear los horarios manualmente en la Intranet si no dispone de los archivos de importación.
+* Dentro del apartado **Personal del centro** encontrará las opciones para asignar los perfiles de los profesores, asignar y combinar las especialidades del personal en los Departamentos del centro, restablecer la contraseña de los profesores en caso de olvido, asignar las sustituciones, entre otras opciones.
+* Los miembros Administradores de la Intranet tienen la posibilidad de poder cambiar de perfil en cualquier instante, con el objetivo de comprobar y depurar errores que los profesores vayan encontrando. No asigne este perfil al equipo directivo o persona que no sea encargada de administrar la Intranet con la intención de supervisar a los profesores, ya que este comportamiento está considerado delito de acceso ilícito.
+* Los miembros del equipo directivo tienen acceso a cualquier módulo de la Intranet.
+* La primera vez que los profesores accedan a la Intranet deberán utilizar el usuario IdEA de Séneca y como contraseña su DNI con letra mayúscula. Estarán obligados a cambiar la contraseña y registrar una dirección de correo electrónico y teléfono móvil que se utilizará para el envío de notificaciones. Además se sugerirá el uso de la autenticación en dos pasos con su teléfono móvil para aumentar la seguridad del acceso.
+
+## Privacidad y condiciones de uso
+
+La aplicación registra la actividad de los profesores según lo establecido en el Reglamento General de Protección de Datos (RGPD) y Ley Orgánica de Protección de Datos (LOPD).
+* Los accesos a la Intranet serán registrados en la tabla **reg_intranet** y almacena la siguiente información: identificador único de sesión, fecha y hora de inicio de sesión, nombre de usuario, dirección IP y agente de usuario con información sobre el dispositivo, nombre y versión del sistema operativo, nombre y versión del navegador Web.
+* El registro de actividad será registrado en la tabla **reg_paginas** y almacena la siguiente información: identificador único de registro de actividad, identificador único de sesión asociado al profesor, dirección URL del módulo de la Intranet al que ha accedido.
+* Los profesores podrán consultar los registros de actividad en la página **Consultar accesos**, dentro del menú de usuario, en la barra superior donde aparece el usuario IdEA.
+* Los datos de actividad registrados en las bases de datos de los centros no son cedidos a los autores de la Intranet, ni terceras personas o empresas.
+* El centro educativo es responsable de responder a los derechos de acceso, rectificación, cancelación y oposición, conocidos por su acrónimo ARCO, sobre el control de los datos de su comunidad educativa, eximiendo de responsabilidad a los autores de la Intranet.
 
 
 ## Autores

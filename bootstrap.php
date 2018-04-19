@@ -3,7 +3,7 @@ if (ini_get('default_charset') != "UTF-8" && ini_get('default_charset') != "UTF-
 	ini_set("default_charset", "UTF-8");
 }
 
-if (version_compare(phpversion(), '5.5.38', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.5.38 o superior para poder utilizar esta aplicación.</p>");
+if (version_compare(phpversion(), '5.6', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.6 o superior para poder utilizar esta aplicación.</p>");
 
 // CONFIGURACIÓN DE LA SESIÓN
 ini_set("session.use_cookies", 1);
