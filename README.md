@@ -38,7 +38,7 @@ Los módulos que contiene son los siguientes:
 * Inventario de material de los departamentos
 * Sistema de reservas para las aulas, carros de portátiles y medios audiovisuales
 * Gestión de incidencias con los ordenadores
-* Gestión de mororos de la Biblioteca
+* Gestión de morosos de la Biblioteca (con posibilidad de envío de correo electrónico y SMS a padres o tutores legales)
 * Generación de los usuarios TIC para el alta masiva en Gesuser, en la plataforma educativa Moodle, Google Suite y Office 365
 * Informes y estadísticas de evaluaciones, problemas de convivencia, faltas de asistencia, guardias, ausencias de profesores y uso de los recursos TIC
 * Cuaderno de notas, calendario personal y registro de tareas pendientes
