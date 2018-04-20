@@ -12,6 +12,10 @@ if (file_exists('config.php')) {
 
 $pr = $_SESSION['profi'];
 
+if (isset($_GET['materia'])){
+	$materi = $_GET['materia']." (Asignatura pendiente)";
+}
+
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -94,6 +98,9 @@ $coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profeso
 }
 echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required onChange='submit()'>";
 echo"<OPTION>$asignatura</OPTION>";
+if (isset($_GET['materia'])) {
+	echo"<OPTION>$materi</OPTION>";
+}
 while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
 $cod = $coinciden0[1];

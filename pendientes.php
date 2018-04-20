@@ -458,6 +458,31 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	}
 }
 
+// Alumnos pendientes con asignaturas sin continuidad para los Jefes de Departamento
+
+$count0333 = "";
+
+if(strstr($_SESSION['cargo'],"4")==TRUE){
+	$query = mysqli_query($db_con,"SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' ORDER BY F_ENTREV asc");
+	while($row = mysqli_fetch_array($query)){
+		$query2 = mysqli_query($db_con,"select distinct claveal, nombre from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and nombre not in (select materia from profesores where grupo = '$row[5]')");
+		if (mysqli_num_rows($query2)>0) {
+			while($row2 = mysqli_fetch_array($query2)){
+				$query3 = mysqli_query($db_con,"select distinct materia, asignaturas.codigo from profesores, asignaturas where materia = nombre and materia = '$row2[1]' and abrev like '%\_%' and profesor in (select distinct nombre from departamentos where departamento like '".$_SESSION['dpt']."')");
+				if (mysqli_num_rows($query3)>0) {
+					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura like '$row2[1] (Asignatura pendiente)'");
+					if (mysqli_num_rows($si_pend) > 0)
+					{ }
+					else
+					{
+						$count0333 = $count0333 + 1;
+					}						
+				}				
+			}			
+		}		
+	}
+}
+
 $count04=0;
 
 // Informes de absentismo.
@@ -482,7 +507,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE
 		$count04 = $count04 + 1;
 	}
 }
-if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0' OR $count033 > '0')) OR (($count04 > '0'))){
+if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0' OR $count033 > '0' OR $count0333 > '0')) OR (($count04 > '0'))){
 	?>
 
 	<?php
@@ -494,6 +519,9 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0' OR $count033 > '0')) OR ((
 	}
 	if (isset($count033)) {
 		if($count033 > '0'){include("modulos/informes_generales.php");}
+	}
+	if (isset($count0333)) {
+		if($count0333 > '0'){include("modulos/informe_pendientes.php");}
 	}
 	if (isset($count04)) {
 		if($count04 > '0'){include("modulos/absentismo.php");}
@@ -670,7 +698,7 @@ if(mysqli_num_rows($men2) > 0)
 	}
 }
 
-if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count033 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
+if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count033 > 0 or $count0333 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
 	echo "<br>";
 }
 else {

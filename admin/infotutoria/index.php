@@ -128,7 +128,7 @@ echo "<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o
 		//echo "$tuti == ".$_SESSION['profi']."<br>";
 				if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']))) {
 					if ($validado==1) {
-				echo "<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='fa fa-check-square-o fa-fw fa-lg' data-bs='tooltip' title='Informe validado por el Tutor' > </i></a> 	";				
+				echo "<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='fa fa-check-square-o fa-fw fa-lg' data-bs='tooltip' title='Informe validado por el Tutor' > </i></a>";				
 					}
 					else{
 				echo "<a href='index.php?id=$row[0]&validar=0' class='text-danger'><i class='fa fa-minus-circle fa-fw fa-lg' data-bs='tooltip' title='Informe no validado por el Tutor' > </i> </a> 	";					
@@ -177,10 +177,62 @@ echo "&nbsp;<a href='informar_general.php?id=$row[0]' class=''><i class='fa fa-p
 	}
 }
 
-if (strstr($si_al,"1")==FALSE) {
- 			echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o
-'> </i> No hay Informes de Tutoría activos para ti. </p></div>";
- 		} 	
+// Alumnos pendientes con asignaturas sin continuidad para los Jefes de Departamento
+?>
+
+<form name='consulta' method='POST' action='tutoria.php'>";
+	<p class='lead text-info'><?php echo $grupo; ?> <br /><small class='text-muted'><?php echo $n_asig;?></small></p>
+	<div class='table-responsive'>
+	<table align=left class='table'><tr class='active'>
+	<th>Alumno</th>
+	<th>Cita padres</th>
+	<th>Fecha alta</th>
+	<th></th>
+	<th></th>
+	</tr>
+
+<?php
+
+/*$hoy = date("Y-m-d");
+
+$query = mysqli_query($db_con,"SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' ORDER BY F_ENTREV asc");
+while($row = mysqli_fetch_array($query)){
+	$query2 = mysqli_query($db_con,"select distinct claveal, nombre from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and nombre not in (select materia from profesores where grupo = '$row[5]')");
+	if (mysqli_num_rows($query2)>0) {
+		while($row2 = mysqli_fetch_array($query2)){
+
+			echo "<tr><TD>$row[1], $row[2]</td>
+			   <TD>$row[3]</td>
+			   <TD>$row[4]</td>
+			   <td>";
+
+			 echo "<input type='hidden' name='profesor' value='$profesor'>";
+
+			$query3 = mysqli_query($db_con,"select distinct materia, asignaturas.codigo, asignaturas.abrev from profesores, asignaturas where materia = nombre and materia = '$row2[1]' and abrev like '%\_%' and profesor in (select distinct nombre from departamentos where departamento like '".$_SESSION['dpt']."')");
+			if (mysqli_num_rows($query3)>0) {
+				$asig_pend = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre = '$row2[1]' and abrev like '%\_%'");
+				$cod_asig = mysqli_fetch_array($asig_pend);
+				$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$cod_asig[0]'");
+				if (mysqli_num_rows($si_pend) > 0)
+				{ }
+				else
+				{
+
+					$n_infotut = $n_infotut+1;
+
+					$fechac = explode("-",$row[3]);
+					echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
+					echo "<a href='informar.php?id=$row[0]&materia=$row2[1]' class=''><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
+
+				}						
+			}				
+		}			
+	}		
+}*/
+
+if (strstr($si_al,"1")==FALSE and $n_infotut < 1) {
+	 echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o'> </i> No hay Informes de Tutoría activos para ti. </p></div>";
+ } 	
 ?>
   </div>  
   </div>
