@@ -465,12 +465,12 @@ $count0333 = "";
 if(strstr($_SESSION['cargo'],"4")==TRUE){
 	$query = mysqli_query($db_con,"SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' ORDER BY F_ENTREV asc");
 	while($row = mysqli_fetch_array($query)){
-		$query2 = mysqli_query($db_con,"select distinct claveal, nombre from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and nombre not in (select materia from profesores where grupo = '$row[5]')");
+		$query2 = mysqli_query($db_con,"select distinct claveal, nombre, abrev from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and abrev like '%\_%' and claveal = '$row[4]' and nombre not in (select materia from profesores where grupo = '$row[5]')");
 		if (mysqli_num_rows($query2)>0) {
 			while($row2 = mysqli_fetch_array($query2)){
 				$query3 = mysqli_query($db_con,"select distinct materia, asignaturas.codigo from profesores, asignaturas where materia = nombre and materia = '$row2[1]' and abrev like '%\_%' and profesor in (select distinct nombre from departamentos where departamento like '".$_SESSION['dpt']."')");
 				if (mysqli_num_rows($query3)>0) {
-					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura like '$row2[1] (Asignatura pendiente)'");
+					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura like '$row2[1] ($row2[2])'");
 					if (mysqli_num_rows($si_pend) > 0)
 					{ }
 					else

@@ -87,8 +87,8 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$si_al.=1;	
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
 	//$num_informe = mysqli_num_rows($sql1);
-	echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
-	echo "table align=left class='table table-striped'><tr class='active'>";
+	echo "<p class='lead text-success'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
+	echo "<table align=left class='table table-striped'><tr class='active'>";
 	echo "<th>Alumno</th>
 	<th>Cita padres</th>
 	<th>Fecha alta</th>
@@ -189,6 +189,7 @@ if (strstr($si_al,"1")==FALSE and $n_infotut < 1) {
 if(strstr($_SESSION['cargo'],"4")==TRUE){
 	$n_pend=0;
 ?>
+	<div style="height:100px;"> </div>
 	<p class='lead text-info'>Alumnos con materias pendientes de tu Departamento<small class="text-muted"> (<?php echo $_SESSION['dpt'];?>)</small></p>
 <?php
 
@@ -244,7 +245,9 @@ while($row = mysqli_fetch_array($query)){
 		}	
 	}	
 }
-
+?>
+</table>
+<?
  if (strstr($_SESSION['cargo'],"4")==TRUE and $n_pend < 1) {
 	 echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o'> </i> No hay Informes de Tutoría activos para alumnos con materias pendientes de tu Departamento. </p></div><br>";
  } 	
