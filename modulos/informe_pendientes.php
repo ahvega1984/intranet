@@ -5,14 +5,12 @@ echo "<div class='alert alert-info fade in' role='alert'><p class='lead'><i clas
 
 $query = mysqli_query($db_con,"SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' ORDER BY F_ENTREV asc");
 while($row = mysqli_fetch_array($query)){
-	$query2 = mysqli_query($db_con,"select distinct claveal, nombre from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and nombre not in (select materia from profesores where grupo = '$row[5]')");
+	$query2 = mysqli_query($db_con,"select distinct claveal, nombre, abrev from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and abrev like '%\_%' and nombre not in (select materia from profesores where grupo = '$row[5]')");
 	if (mysqli_num_rows($query2)>0) {
 		while($row2 = mysqli_fetch_array($query2)){
 			$query3 = mysqli_query($db_con,"select distinct materia, asignaturas.codigo, asignaturas.abrev from profesores, asignaturas where materia = nombre and materia = '$row2[1]' and abrev like '%\_%' and profesor in (select distinct nombre from departamentos where departamento like '".$_SESSION['dpt']."')");
 			if (mysqli_num_rows($query3)>0) {
-				$asig_pend = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre = '$row2[1]' and abrev like '%\_%'");
-				$cod_asig = mysqli_fetch_array($asig_pend);
-				$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$cod_asig[0]'");
+				$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$row2[1] ($row2[2])'");
 				if (mysqli_num_rows($si_pend) > 0)
 				{ }
 				else
@@ -44,7 +42,7 @@ while($row = mysqli_fetch_array($query)){
 					$alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row[0]'");
 					$dalumno = mysqli_fetch_array($alumno);
 					$claveal=$dalumno[6];
-					$datos=mysqli_query($db_con, "SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$row[0]'");
+					$datos=mysqli_query($db_con, "select asignatura, informe from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$row2[1] (Asignatura pendiente)'");
 					if(mysqli_num_rows($datos) > 0)
 					{
 						while($informe = mysqli_fetch_array($datos))

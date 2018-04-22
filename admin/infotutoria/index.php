@@ -47,7 +47,9 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 		</div></div>';
 }
 }
-
+?>
+	<p class='lead text-info'>Informes de tutoría para tus alumnos</p>
+<?php
 
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
 	$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
@@ -86,7 +88,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
 	//$num_informe = mysqli_num_rows($sql1);
 	echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
-	echo "<div class='table-responsive'><table align=left class='table'><tr class='active'>";
+	echo "table align=left class='table table-striped'><tr class='active'>";
 	echo "<th>Alumno</th>
 	<th>Cita padres</th>
 	<th>Fecha alta</th>
@@ -144,11 +146,12 @@ echo "<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o
 	while($row = mysqli_fetch_array($result_g))
 	{
 	$count_g = $count_g + 1;
-
+	$fecha_no = cambia_fecha($row[3]);
+	$fecha_reg = cambia_fecha($row[4]);
 	echo "<tr><TD>
 	$row[5]</td>
-   <TD>$row[3]</td>
-   <TD>$row[4] </td>
+   <TD>$fecha_no</td>
+   <TD>$fecha_reg</td>
    <td>";
 	 echo "
 	 <input type='hidden' name='profesor' value='$profesor'>";
@@ -171,67 +174,79 @@ echo "&nbsp;<a href='informar_general.php?id=$row[0]' class=''><i class='fa fa-p
    </tr>";		
 	}
 
-	echo "</table></div>";
+	echo "</table>";
 	 
 	echo "</form><hr>";
 	}
 }
 
+
+if (strstr($si_al,"1")==FALSE and $n_infotut < 1) {
+	 echo "<div class='alert alert-warning' align='center'><p><i class='fa fa-check-square-o'> </i> No hay Informes de Tutoría activos para los alumnos de tus grupos. </p></div><br>";
+ } 	
+
 // Alumnos pendientes con asignaturas sin continuidad para los Jefes de Departamento
+if(strstr($_SESSION['cargo'],"4")==TRUE){
+	$n_pend=0;
 ?>
-
-<form name='consulta' method='POST' action='tutoria.php'>";
-	<p class='lead text-info'><?php echo $grupo; ?> <br /><small class='text-muted'><?php echo $n_asig;?></small></p>
-	<div class='table-responsive'>
-	<table align=left class='table'><tr class='active'>
-	<th>Alumno</th>
-	<th>Cita padres</th>
-	<th>Fecha alta</th>
-	<th></th>
-	<th></th>
-	</tr>
-
+	<p class='lead text-info'>Alumnos con materias pendientes de tu Departamento<small class="text-muted"> (<?php echo $_SESSION['dpt'];?>)</small></p>
 <?php
 
-/*$hoy = date("Y-m-d");
+$hoy = date("Y-m-d");
 
 $query = mysqli_query($db_con,"SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' ORDER BY F_ENTREV asc");
+
 while($row = mysqli_fetch_array($query)){
 	$query2 = mysqli_query($db_con,"select distinct claveal, nombre from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and nombre not in (select materia from profesores where grupo = '$row[5]')");
 	if (mysqli_num_rows($query2)>0) {
 		while($row2 = mysqli_fetch_array($query2)){
+			
+			$query3 = mysqli_query($db_con,"select * from profesores, asignaturas where materia = nombre and materia = '$row2[1]' and abrev like '%\_%' and profesor in (select distinct nombre from departamentos where departamento like '".$_SESSION['dpt']."')");
 
-			echo "<tr><TD>$row[1], $row[2]</td>
-			   <TD>$row[3]</td>
-			   <TD>$row[4]</td>
-			   <td>";
-
-			 echo "<input type='hidden' name='profesor' value='$profesor'>";
-
-			$query3 = mysqli_query($db_con,"select distinct materia, asignaturas.codigo, asignaturas.abrev from profesores, asignaturas where materia = nombre and materia = '$row2[1]' and abrev like '%\_%' and profesor in (select distinct nombre from departamentos where departamento like '".$_SESSION['dpt']."')");
 			if (mysqli_num_rows($query3)>0) {
-				$asig_pend = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre = '$row2[1]' and abrev like '%\_%'");
-				$cod_asig = mysqli_fetch_array($asig_pend);
-				$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$cod_asig[0]'");
-				if (mysqli_num_rows($si_pend) > 0)
-				{ }
-				else
-				{
+				$cabecera++;
+				if ($cabecera==1) {
+				
+?>
 
-					$n_infotut = $n_infotut+1;
+	<table align=left class='table table-striped'>
+	<tr class='active'>
+	<th>Alumno</th>
+	<th>Cita padres</th>
+	<th>Asignatura</th>
+	<th></th>
+	</tr>
 
-					$fechac = explode("-",$row[3]);
-					echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
-					echo "<a href='informar.php?id=$row[0]&materia=$row2[1]' class=''><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
+<?php
+			}
+				$fecha_n = cambia_fecha($row[3]);
+				echo "<tr><TD>$row[1], $row[2] <b>($row[5]</b>)</td>
+				   <TD>$fecha_n</td>
+				   <TD>$row2[1]</td>
+				   <td>";
 
-				}						
-			}				
-		}			
-	}		
-}*/
+				$n_pend++;
 
-if (strstr($si_al,"1")==FALSE and $n_infotut < 1) {
-	 echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o'> </i> No hay Informes de Tutoría activos para ti. </p></div>";
+				echo "<a href='infocompleto.php?id=$row[0]&c_asig=$row2[1]' class='pull-right'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
+				echo "<a href='informar.php?id=$row[0]&materia=$row2[1]' class='pull-right'><i class='fa fa-pencil-square-o fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
+										
+		?>
+			</td>
+		</tr>	
+		<?php										
+			}
+				if ($cabecera>1) {
+				?>
+				</table>
+				<?php
+				}
+			}	
+		}	
+	}	
+}
+
+ if (strstr($_SESSION['cargo'],"4")==TRUE and $n_pend < 1) {
+	 echo "<div class='alert alert-info' align='center'><p><i class='fa fa-check-square-o'> </i> No hay Informes de Tutoría activos para alumnos con materias pendientes de tu Departamento. </p></div><br>";
  } 	
 ?>
   </div>  

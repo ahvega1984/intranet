@@ -12,10 +12,6 @@ if (file_exists('config.php')) {
 
 $pr = $_SESSION['profi'];
 
-if (isset($_GET['materia'])){
-	$materi = $_GET['materia']." (Asignatura pendiente)";
-}
-
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -79,7 +75,7 @@ $extra_dep = "where departamento = '$depto'";
 $pend = mysqli_query($db_con, "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$claveal' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos $extra_dep) and grupo='$dalumno[3]') and abrev like '%\_%'");
 
 while($pendi = mysqli_fetch_array($pend)){
-	$pendiente.="<option value='$pendi[0] ($pendi[1])'>$pendi[0] ($pendi[1])</option>";
+	$pendiente.="<option>$pendi[0] ($pendi[1])</option>";
 }
 
 $coinciden = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]'");
@@ -99,7 +95,10 @@ $coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profeso
 echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required onChange='submit()'>";
 echo"<OPTION>$asignatura</OPTION>";
 if (isset($_GET['materia'])) {
-	echo"<OPTION>$materi</OPTION>";
+	$pend1 = mysqli_query($db_con, "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = (select claveal from infotut_alumno where id = '$id') and asignaturas.nombre = '".$_GET['materia']."' and abrev like '%\_%'");
+
+	$pendi1 = mysqli_fetch_array($pend1);
+	$pendiente.="<option>$pendi1[0] ($pendi1[1])</option>";
 }
 while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
@@ -111,7 +110,6 @@ if (strstr($asi1,$cod)==TRUE) {
 					}
 					else{
 						$materia = $n_asig;
-						//$extra = " selected='selected'";
 					}
 				echo "<OPTION $extra value='$n_asig'>$n_asig</OPTION>";
 				}
@@ -120,8 +118,7 @@ if (strstr($asi1,$cod)==TRUE) {
 }
 echo $pendiente;
 echo "</select></div>";
-
-$ya_hay=mysqli_query($db_con, "select informe from infotut_profesor where asignatura = '$materia' and id_alumno = '$id'");
+$ya_hay=mysqli_query($db_con, "select informe from infotut_profesor where (asignatura = '$materia' or asignatura = '".$_POST['asignatura']."') and id_alumno = '$id'");
 $ya_hay1=mysqli_fetch_row($ya_hay);
 if (isset($asignatura)) {
 						$informe=$ya_hay1[0];

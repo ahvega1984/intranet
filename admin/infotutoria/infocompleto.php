@@ -184,9 +184,9 @@ alert-block fade in">
             <button type="button" class="close" 
 data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-Los Profesores no han rellenado aún su Informe.<br />
-<input name="volver" type="button" onClick="history.go(-1)" value="Volver" 
-class="btn btn-danger">
+<p>Los Profesores no han rellenado aún su Informe.</p><br>
+<input name="volver" type="button" onClick="history.go(-1)" value="Volver a la página de Informes" 
+class="btn btn-primary">
 </div></div><hr>';
 	}
 ?>
