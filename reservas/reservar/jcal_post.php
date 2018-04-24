@@ -74,7 +74,7 @@ mysqli_close($conn);
   //INSERT
     $postQuery = "INSERT INTO `reservas` (eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html,servicio) VALUES ('$sql_date','$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."','$show_html', '$servicio')";
    
-    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post INSERT Event to database!");
+    $postExec = mysqli_query($db_con, $postQuery) or die('Error: '.mysqli_error($db_con));
     mysqli_query($db_con, "DELETE FROM `reservas` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' and servicio = '$servicio'");
 mysqli_close($conn);
     header("Location: index.php?servicio=$servicio&year=$year&month=$month&today=$today&mens=insertar");
