@@ -12,8 +12,8 @@ if ($_SERVER["HTTPS"] == "on") {
 	ini_set("session.cookie_secure", 1);
 }
 ini_set("session.cookie_httponly", 1);
-ini_set("session.cookie_lifetime", "3600"); // Duración de la sesión: 3600 segundos (1 hora)
-ini_set("session.gc_maxlifetime", "3600");
+session_set_cookie_params(3600); // Duración de la sesión: 3600 segundos (1 hora)
+ini_set("session.gc_maxlifetime", 3600); 
 session_name("is");
 session_start();
 
