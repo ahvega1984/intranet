@@ -164,8 +164,15 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 <?php
 $nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
-	?>
-	<legend><?php echo $orden_nivel[0]; ?></legend>
+
+	$total_alumnos_nivel="";
+	$todo_nivel = mysqli_query($db_con, "select claveal from alma where curso = '$orden_nivel[0]'");
+	$total_alumnos_nivel = mysqli_num_rows($todo_nivel);
+
+?>
+
+<legend><?php echo $orden_nivel[0]; ?></legend>
+
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
 <thead>
 <th class='text-info'>Asignatura</th>
@@ -176,8 +183,10 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <tbody>	
 	<?php
 $as = mysqli_query($db_con, "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[0]' and abrev not like '%\_%' and asignaturas.codigo not in 
-(select distinct codigo from asignaturas where nombre like 'Refuerz%')");
+(select distinct codigo from asignaturas where nombre like 'Refuerz%' and asignaturas.nombre not like '%Religi%')");
 while ($asi = mysqli_fetch_array($as)) {
+
+
 	$n_c = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[0]'");
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
@@ -210,7 +219,7 @@ else{
 	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 
-if ($num_matr>0 and stristr($nomasi,"Tutor")==FALSE) {
+if ($num_matr>($total_alumnos_nivel-5) and stristr($nomasi,"Tutor")==FALSE or (stristr($nomasi,"Matemáticas")==TRUE or stristr($nomasi,"Lengua")==TRUE or stristr($nomasi,"Ingles")==TRUE or stristr($nomasi,"Biología")==TRUE or stristr($nomasi,"Física")==TRUE or stristr($nomasi,"Historia")==TRUE)) {
 	echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
 	echo $porciento_asig2 ."</td><td>".$num_apro."</td></tr>";
 	}

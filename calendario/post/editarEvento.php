@@ -31,6 +31,11 @@ $unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
+// Problemas con fechas
+if($fechaini_evento > $fechafin_evento and !($todo_dia==1)) {
+header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
+exit();
+}
 // $fechafin_evento no puede estar vacío en caso de Día completo o produce error.
 if (empty($fechafin_evento)) {
 	$fechafin_evento = $fechaini_evento;

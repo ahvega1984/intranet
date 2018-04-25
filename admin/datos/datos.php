@@ -125,9 +125,6 @@ if ($row = mysqli_fetch_array($result))
 	$us_al = mysqli_query($db_con,"select usuarioalumno.usuario, usuarioalumno.pass from usuarioalumno where claveal='$row[0]'");
 	$al_tic=mysqli_num_rows($us_al);
 	if ($al_tic>0) {
-		$us_query = mysqli_fetch_array($us_al);
-		$us_tic = $us_query[0];
-		$us_pass = $us_query[1];
 		echo "<th>Gesuser<br>Moodle</th>";
 	}
 
@@ -148,6 +145,12 @@ if ($row = mysqli_fetch_array($result))
 		$usuario = $row[13];
 		$pass = $row[14];
 		$alumno = "$nom --> $claveal";
+
+		// Usuario y clave para Centros TIC y Moodle
+		$us_al = mysqli_query($db_con,"select usuarioalumno.usuario, usuarioalumno.pass from usuarioalumno where claveal='$row[0]'");
+		$us_query = mysqli_fetch_array($us_al);
+		$us_tic = $us_query[0];
+		$us_pass = $us_query[1];
 		
 		echo "<tr>";
 	if($_POST['sin_foto']=="1" or isset($_GET['unidad']) or $seleccionado==1){

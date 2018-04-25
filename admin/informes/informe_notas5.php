@@ -174,7 +174,7 @@ while ($ni = mysqli_fetch_array($niv)) {
 </thead>
 <tbody>	
 	<?php
-$sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre and asignaturas.curso = '$orden_nivel[0]' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.nombre not like 'Refuerz%'";
+$sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre and asignaturas.curso = '$orden_nivel[0]' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.nombre not like 'Refuerz%' and asignaturas.nombre not like '%Religi%'";
 //echo $sql;	
 $as = mysqli_query($db_con, $sql);
 while ($asi = mysqli_fetch_array($as)) {
@@ -197,6 +197,10 @@ while ($asi = mysqli_fetch_array($as)) {
 	$cod_apro = mysqli_query($db_con, "select id from temp3 where asignatura = '$codasi' and nota > '4' and unidad = '$unidad'");
 	
 	//echo "select id from temp3 where asignatura = '$codasi'<br>";
+	$total_alumnos="";
+	$todo_grupo = mysqli_query($db_con, "select claveal from alma where unidad = '$unidad'");
+	$total_alumnos = mysqli_num_rows($todo_grupo);
+
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
@@ -223,7 +227,7 @@ else{
 	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 
-if ($num_matr>0) {
+if ($num_matr> ($total_alumnos-3)) {
 			echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
 	echo $porciento_asig2."</td><td>".$num_apro."</span></td></tr>";
 	}
