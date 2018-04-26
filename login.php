@@ -376,6 +376,7 @@ include('control_acceso.php');
 
 			<ul class="pull-right list-inline">
 				<li>Versión <?php echo INTRANET_VERSION; ?></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/aviso-legal/">Aviso legal</a></li>
 				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
 				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
 			</ul>
