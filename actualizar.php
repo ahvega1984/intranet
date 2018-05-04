@@ -492,4 +492,14 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Cambio NC a Claveal en tabla grupos', NOW())");
 }
 
+/*
+	@descripcion: Eliminado archivos de exportación de usuarios TIC
+	@fecha: 3 de mayo de 2018
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Exportar usuarios TIC profesores'");
+if (! mysqli_num_rows($actua)) {
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores.txt');
+	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt');
 
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Exportar usuarios TIC profesores', NOW())");
+}

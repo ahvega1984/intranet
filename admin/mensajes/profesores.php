@@ -4,26 +4,22 @@ if(isset($_POST['submit1'])) {
 
 	if(!$asunto or empty($texto) or empty($profesor)) { 
   		$msg_error = "Todos los campos del formulario son obligatorios.";
-  		$_SESSION['msg_block'] = 0;
   	}
 	elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !($padres) and !$dfeie) {
 		$msg_error = "Debes seleccionar al menos un destinatario.";
-		$_SESSION['msg_block'] = 0;
 	}
 	else {
+		
+		$result = mysqli_query($db_con, "INSERT INTO mens_texto (asunto, texto, origen) VALUES ('".$asunto."','".$texto."','".$profesor."')");
+		$id = mysqli_insert_id($db_con);
 
-		$_SESSION['msg_block']++;
-		
-		if ($_SESSION['msg_block'] == 1) {
-		
-			$query0="insert into mens_texto (asunto, texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
-			mysqli_query($db_con, $query0);
-			$id0 = mysqli_query($db_con, "select id from mens_texto where asunto = '$asunto' and texto = '$texto' and origen = '$profesor'");
-			$id1 = mysqli_fetch_array($id0);
-			$id = $id1[0];
-			
+		if (! $result) {
+			$msg_error = "Se ha producido un error al enviar el mensaje. Error: ".mysqli_error($db_con);
+		}
+		else {
+
 			$ok=0;
-			
+		
 			if($profeso)
 				{
 			$profiso = $_POST["profeso"];
@@ -102,9 +98,9 @@ if(isset($_POST['submit1'])) {
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$ca1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
 				if(strlen($num0[0]) < 1)
-				 mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$ca1[0]."')");
+				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$ca1[0]."')");
 				}
-				 mysqli_query($db_con, "update mens_texto set destino = 'CA' where id = '$id'");
+				mysqli_query($db_con, "update mens_texto set destino = 'CA' where id = '$id'");
 				$ok=1;
 				}
 			
@@ -115,9 +111,9 @@ if(isset($_POST['submit1'])) {
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$etcp1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
 				if(strlen($num0[0]) < 1)
-				 mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$etcp1[0]."')");
+				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$etcp1[0]."')");
 				}
-				 mysqli_query($db_con, "update mens_texto set destino = 'ETCP' where id = '$id'");
+				mysqli_query($db_con, "update mens_texto set destino = 'ETCP' where id = '$id'");
 				$ok=1;
 				}	
 			
@@ -227,12 +223,10 @@ if(isset($_POST['submit1'])) {
 				}
 				
 			if($ok) {
-				unset($_SESSION['msg_block']);
 				header('Location:'.'index.php?inbox=recibidos&action=send');
 				exit;
 			}
-			
 		}
+			
 	}
 }
-?>
