@@ -713,6 +713,30 @@ include("../menu.php"); ?>
             });
             
 		});
+
+		$(document).ready(function(){
+		    $("#bCrear").click(function(){
+		    	var fechaInicio = $("#cmp_fecha_ini").val();
+		    	var fechaFin = $("#cmp_fecha_fin").val();
+		    	if(fechaFin<fechaInicio){
+		    	alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+"). Corríge el problema para poder continuar.");
+		    	return false;
+		    	}
+		    });
+		});
+
+		$(document).ready(function(){
+		    $("#bCrear").click(function(){
+		    	var fechaHoraInicio = $("#cmp_fecha_ini").val();
+		    	var fechaHoraFin = $("#cmp_fecha_fin").val();
+		    	var horaInicio = $("#cmp_hora_ini").val();
+		    	var horaFin = $("#cmp_hora_fin").val();
+		    	if((fechaHoraFin == fechaHoraInicio) && (horaFin <= horaInicio)){
+		    	alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día. Corrige el problema para poder continuar.");
+		    	return false;
+		    	}
+		    });
+		});
 	</script>
 </body>
 </html>
