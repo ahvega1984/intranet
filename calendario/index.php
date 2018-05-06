@@ -711,32 +711,35 @@ include("../menu.php"); ?>
                     }
                 });
             });
-            
-		});
 
-		$(document).ready(function(){
-		    $("#bCrear").click(function(){
+          // Control de errores en fechas y horas   
+          $("#bCrear").click(function(){
 		    	var fechaInicio = $("#cmp_fecha_ini").val();
 		    	var fechaFin = $("#cmp_fecha_fin").val();
 		    	if(fechaFin<fechaInicio){
-		    	alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+"). Corríge el problema para poder continuar.");
-		    	return false;
+			    	alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+"). Corríge el problema para poder continuar.");
+			    	$("#cmp_fecha_ini").css({"border":"1px solid orange","background-color":"#F9E79F"});
+			    	$("#cmp_fecha_fin").css({"border":"1px solid orange","background-color":"#F9E79F"});
+			    	return false;
 		    	}
 		    });
-		});
 
-		$(document).ready(function(){
 		    $("#bCrear").click(function(){
 		    	var fechaHoraInicio = $("#cmp_fecha_ini").val();
 		    	var fechaHoraFin = $("#cmp_fecha_fin").val();
 		    	var horaInicio = $("#cmp_hora_ini").val();
 		    	var horaFin = $("#cmp_hora_fin").val();
 		    	if((fechaHoraFin == fechaHoraInicio) && (horaFin <= horaInicio)){
-		    	alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día. Corrige el problema para poder continuar.");
-		    	return false;
+			    	alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día. Corrige el problema para poder continuar.");
+			    	$("#cmp_hora_ini").css({"border":"1px solid orange","background-color":"#F5B041"});
+			    	$("#cmp_hora_fin").css({"border":"1px solid orange","background-color":"#F5B041"});
+			    	return false;
 		    	}
 		    });
+            
 		});
+
+		   
 	</script>
 </body>
 </html>
