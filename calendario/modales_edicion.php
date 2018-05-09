@@ -105,7 +105,8 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		<div class="form-group">
 		        			<label for="cmp_calendario">Calendario</label>
 		        			<select class="form-control" id="cmp_calendario" name="cmp_calendario" required>
-		        				<optgroup label="Mis calendarios">';
+								<optgroup label="Mis calendarios">';
+								// AQUI
 		$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 		while ($row = mysqli_fetch_assoc($result)):
 		echo '<option value="'.$row['id'].'"';
@@ -114,9 +115,22 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		endwhile;
 		mysqli_free_result($result);
 		echo '</optgroup>';
-		if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
+		if (stristr($_SESSION['cargo'],'1')):
 		echo '<optgroup label="Otros calendarios">';
 		$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where");
+		while ($row = mysqli_fetch_assoc($result)):
+		echo '<option value="'.$row['id'].'"';
+		if ($eventos1['categoria'] == $row['id']) echo ' selected';
+		echo '>'.$row['nombre'].'</option>';
+		endwhile;
+		mysqli_free_result($result);
+		echo '</optgroup>';
+		endif;
+		
+		
+		if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
+		echo '<optgroup label="Otros calendarios">';
+		$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
 		while ($row = mysqli_fetch_assoc($result)):
 		echo '<option value="'.$row['id'].'"';
 		if ($eventos1['categoria'] == $row['id']) echo ' selected';
@@ -310,6 +324,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			endwhile;
 			mysqli_free_result($result);
 			echo '</optgroup>';
+			
 			if (stristr($_SESSION['cargo'],'1')):
 			echo '<optgroup label="Otros calendarios">';
 			$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where");
@@ -323,7 +338,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			endif;
 			
 			
-			if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')):
+			if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
 			echo '<optgroup label="Otros calendarios">';
 			$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
 			while ($row = mysqli_fetch_assoc($result)):
