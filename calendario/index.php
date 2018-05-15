@@ -751,9 +751,8 @@ include("../menu.php"); ?>
 
 			});
 
-			});
-
-		   
+		});
 	</script>
+	
 </body>
 </html>
