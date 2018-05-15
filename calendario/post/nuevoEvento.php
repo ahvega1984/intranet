@@ -43,11 +43,6 @@ $horafin_evento = trim($horafin_evento);
 $descripcion_evento = trim($descripcion_evento);
 $lugar_evento = trim($lugar_evento);
 
-if($fechaini_evento > $fechafin_evento and !($todo_dia==1)) {
-header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
-exit();
-}
-
 $fecha_extra_ini = cambia_fecha($fechaini_evento);
 $fecha_extra_fin = cambia_fecha($fechafin_evento);
 
@@ -96,6 +91,11 @@ else {
 	
 	$exp_fechafin_evento = explode('/', $fechafin_evento);
 	$fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$exp_fechafin_evento[0];
+}
+
+if (($todo_dia == 1) && ($fechaini_evento_sql > $fechafin_evento_sql)) {
+	header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
+	exit();
 }
 
 

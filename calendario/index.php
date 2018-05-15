@@ -712,32 +712,46 @@ include("../menu.php"); ?>
                 });
             });
 
-          // Control de errores en fechas y horas   
-          $("#bCrear").click(function(){
-		    	var fechaInicio = $("#cmp_fecha_ini").val();
-		    	var fechaFin = $("#cmp_fecha_fin").val();
-		    	if(fechaFin<fechaInicio){
-			    	alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+"). Corríge el problema para poder continuar.");
-			    	$("#cmp_fecha_ini").css({"border":"1px solid orange","background-color":"#F9E79F"});
-			    	$("#cmp_fecha_fin").css({"border":"1px solid orange","background-color":"#F9E79F"});
-			    	return false;
-		    	}
-		    });
+			// Control de errores en fechas y horas   
+			$("#bCrear").click(function(){
+				bootbox.setDefaults({
+					locale: "es",
+					show: true,
+					backdrop: true,
+					closeButton: true,
+					animate: true,
+					title: "Error",
+				});
 
-		    $("#bCrear").click(function(){
-		    	var fechaHoraInicio = $("#cmp_fecha_ini").val();
-		    	var fechaHoraFin = $("#cmp_fecha_fin").val();
-		    	var horaInicio = $("#cmp_hora_ini").val();
-		    	var horaFin = $("#cmp_hora_fin").val();
-		    	if((fechaHoraFin == fechaHoraInicio) && (horaFin <= horaInicio)){
-			    	alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día. Corrige el problema para poder continuar.");
-			    	$("#cmp_hora_ini").css({"border":"1px solid orange","background-color":"#F5B041"});
-			    	$("#cmp_hora_fin").css({"border":"1px solid orange","background-color":"#F5B041"});
-			    	return false;
-		    	}
-		    });
-            
-		});
+				var fechaInicio = $("#cmp_fecha_ini").val();
+				var expFechaInicio = fechaInicio.split('/');
+				var fechaInicioSQL = expFechaInicio[2]+'-'+expFechaInicio[1]+'-'+expFechaInicio[0];
+
+				var fechaFin = $("#cmp_fecha_fin").val();
+				var expFechaFin = fechaFin.split('/');
+				var fechaFinSQL = expFechaFin[2]+'-'+expFechaFin[1]+'-'+expFechaFin[0];
+
+				var horaInicio = $("#cmp_hora_ini").val();
+				var horaFin = $("#cmp_hora_fin").val();
+
+				if (fechaFinSQL < fechaInicioSQL) {
+					bootbox.alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+").");
+					$(".datetimepicker1").addClass("has-error");
+					$(".datetimepicker3").addClass("has-error");
+					return false;
+				}
+
+				
+				if((fechaInicioSQL == fechaFinSQL) && (horaFin <= horaInicio)){
+					bootbox.alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día.");
+					$(".datetimepicker2").addClass("has-error");
+					$(".datetimepicker4").addClass("has-error");
+					return false;
+				}
+
+			});
+
+			});
 
 		   
 	</script>
