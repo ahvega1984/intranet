@@ -328,6 +328,7 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `correo` varchar(64) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
+  `totp_secret` CHAR(16) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
