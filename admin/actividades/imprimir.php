@@ -122,7 +122,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage();
 	
-	$autorizacion = "D./Dña. ".$alumno['padre']." con D.N.I ".$alumno['dnitutor'].", como representante legal de ".$alumno['nombre']." ".$alumno['apellidos'].", alumno/a de la unidad ".$alumno['unidad'].", asume la responsabilidad de que su hijo/a participe en la siguiente Actividad Complementaria y Extraescolar e igualmente autoriza a los profesores/as responsables a tomar cuantas medidas sean necesarias para conseguir un desarrollo adecuado de la actividad programada.";
+	$autorizacion = "D./Dña. ".$alumno['padre']." con D.N.I ".$alumno['dnitutor'].", como representante legal de ".$alumno['nombre']." ".$alumno['apellidos'].", alumno/a de la unidad ".$alumno['unidad'].", asume la responsabilidad de que su hijo/a participe en la siguiente Actividad Complementaria y Extraescolar e igualmente autoriza a los profesores/as responsables a tomar cuantas medidas sean necesarias para conseguir un desarrollo adecuado de la actividad programada. El abajo firmante también autoriza de forma expresa e inequívoca la difusión de imágenes/vídeos en la web y redes sociales del Centro con fines didácticos y/o publicitarios.";
 	
 	$alergias = "Al mismo tiempo indico que mi hijo/a:
 	__ Necesita tratamiento médico o medicación específica.
