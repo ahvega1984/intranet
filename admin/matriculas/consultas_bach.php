@@ -716,11 +716,11 @@ echo "<br>
 <input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
 	if(count($grupo_actua)=='1'){ echo "
 	<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;
-	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} 
+	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-info hidden-print' />";} 
 	else{ 
 	echo "&nbsp;&nbsp;
-	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />
-	&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hdden-print' />";
+	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-info hidden-print' />
+	&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-info hdden-print' />";
 	}
 	echo "</div></form>";
 	?>

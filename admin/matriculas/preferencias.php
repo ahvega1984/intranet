@@ -1597,21 +1597,21 @@ include("menu.php");
 							<label for="opt24_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_0" type="text"
-								class="form-control" value="<?php echo (isset($opt24[0])) ? $opt24[0] : 'Inglés 2º Idioma 3'; ?>" id="opt24_0"> 
+								class="form-control" value="<?php echo (isset($opt24[0])) ? $opt24[0] : 'Inglés 2º Idioma 4'; ?>" id="opt24_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_1" type="text"
-								class="form-control" value="<?php echo (isset($opt24[1])) ? $opt24[1] : 'Francés 2º Idioma 3'; ?>" id="opt24_1"> 
+								class="form-control" value="<?php echo (isset($opt24[1])) ? $opt24[1] : 'Francés 2º Idioma 4'; ?>" id="opt24_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_2" type="text"
-								class="form-control" value="<?php echo (isset($opt24[2])) ? $opt24[2] : 'Alemán 2º Idioma 3'; ?>" id="opt24_2"> 
+								class="form-control" value="<?php echo (isset($opt24[2])) ? $opt24[2] : 'Alemán 2º Idioma 4'; ?>" id="opt24_2"> 
 							</div>
 						</div>
 						<div class="form-group">

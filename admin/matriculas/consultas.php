@@ -192,6 +192,8 @@ if (isset($_POST['sin_matricula'])) {
 
 	}
 	echo "</ul></div>";
+	include("../../pie.php");
+	echo '</body></html>';
 	exit();
 }
 
@@ -813,11 +815,11 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
 
 	if(count($grupo_actua)=='1'){
-		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} 
+		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-info hidden-print' />";} 
 	else
 		{ 
-		echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />
-		&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hidden-print' />";
+		echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-info hidden-print' />
+		&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-info hidden-print' />";
 		}
 		echo "</div></form>";
 		?>
@@ -1003,7 +1005,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	?>
 		</div>
 	</div>
-		<?php include("../../pie.php"); ?>
 		<script language="javascript">
 		 if (document.form2.curso.value=="1ESO"){ 
 			 document.form2.itinerari.disabled = true; 
@@ -1071,6 +1072,8 @@ return false;
   	  }
   
   ?>
+
+		<?php include("../../pie.php"); ?>
 
 		</body>
 		</html>

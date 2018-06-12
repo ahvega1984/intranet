@@ -3,18 +3,36 @@
 $pa = explode(", ", $row[10]);
 $papa = "$pa[1] $pa[0]";
 $hoy = formatea_fecha(date('Y-m-d'));
-$titulo4 = "AUTORIZACIÓN  PARA FOTOS Y GRABACIONES";
+
+$titulo4 = "AUTORIZACIÓN  PARA PUBLICACIÓN DE FOTOS Y GRABACIONES";
+$titulo_rgpd = "CONSENTIMIENTO PARA LA PUBLICACIÓN DE IMÁGENES DEL ALUMNO";
 $autoriza_fotos="
-D./Dª $papa, con DNI $row[11], representante legal del alumno/a $row[3] $row[2]
-AUTORIZA al ".$config['centro_denominacion']." a fotografiar o grabar con video a su hijo o hija con fines educativos 
-y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
+Alumno/a: $row[3] $row[2]
+
+De acuerdo con la Ley de Protección de Datos de Carácter Personal y la Ley de Protección de mi derecho al honor, a mi intimidad personal y familiar y a mi propia imagen y como alumno o alumna del centro de enseñanza ".$config['centro_denominacion'].".
+_| QUIERO
+_| NO QUIERO
+Que la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía publique mi imagen en la página web para la promoción y difusión de las actividades culturales, recreativas, deportivas y sociales en las que participa el propio centro Este consentimiento tendrá validez mientras permanezca escolarizado en el centro de enseñanza.
+Tengo derecho a saber, en cualquier momento, qué datos personales míos (incluyendo mi imagen) guarda la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía y para qué, modificarlos si éstos han cambiado, o borrarlos (en los casos que ello fuera legalmente posible). Para ello, deberé dirigirme por escrito a la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla.
+ ";
+
+$autoriza_rgpd="
+De conformidad con lo establecido en los artículos 6.1 y 11.1 de la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal y en el art. 2.2 de la Ley Orgánica 1/1982, de 5 de mayo, de protección civil del derecho al honor, a la intimidad personal y familiar y a la propia imagen,
+
+CONSIENTE EXPRESAMENTE
+
+A la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla, a proceder a la publicación de la imagen de su hijo/a o menor cuya representación legal ostenta, en la página web del centro de enseñanza, con la finalidad de promoción y difusión en los sitios web de los centros y servicios educativos de las actividades culturales, recreativas, deportivas y sociales en las que participa el propio centro. Este consentimiento tendrá validez mientras su hijo/a permanezca escolarizado en el centro de enseñanza.
+
+De igual manera, reconoce haber sido informado de la posibilidad de ejercitar los correspondientes derechos de acceso, rectificación, cancelación y oposición, de conformidad con lo establecido en la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, en el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la Ley Orgánica 15/1999, de 13 de diciembre de Protección de Datos de Carácter Personal, y en la Instrucción 1/1998, de 19 de enero, de la Agencia Española de Protección de Datos, relativa al ejercicio de los derechos de acceso, rectificación, cancelación y oposición.
+
+El responsable del citado tratamiento es la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla. 
 ";
-$titulo5 = "		
-En ".$config['centro_localidad'].", a $hoy
+
+$titulo5 = "En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª
-NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
+";
 
 // Fotos
 	$MiPDF->Addpage ();
@@ -24,14 +42,14 @@ NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
 	$MiPDF->SetFillColor(230,230,230);
 	#Cuerpo.
 	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
-	$MiPDF->Ln ( 20 );
+	$MiPDF->Ln ( 12 );
 	$MiPDF->Cell(168,5,$titulo4,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
 	$MiPDF->Ln ( 4 );
 	$MiPDF->Multicell ( 0, 6, $autoriza_fotos, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
+	$MiPDF->Ln ( 1 );
 	$MiPDF->Multicell ( 0, 6, $titulo5, 0, 'C', 0 );
-	$MiPDF->Ln ( 10 );
+	$MiPDF->Ln ( 3 );
 
 $titulo_religion = "SOLICITUD PARA CURSAR LAS ENSEÑANZAS DE RELIGIÓN";
 $an = substr($config['curso_actual'],0,4);
@@ -49,135 +67,38 @@ $firma_religion = "En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª";
-$final_religion="SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
-$direccion_junta = "Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
-Telf. 95 506 40 00. Fax: 95 506 40 03.
-e-mail: informacion.ced@juntadeandalucia.es
-";
+
 // Religion
 
 if (substr($religion, 0, 1)=="R") {
-	$MiPDF->Cell(168,5,"----------------------------------------------------------------------------------------------------------------------------------------",0,0,'C');
+	$MiPDF->Cell(168,4,"----------------------------------------------------------------------------------------------------------------------------------------",0,0,'C');
 	$MiPDF->Ln ( 10 );
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
 	$MiPDF->Cell(168,5,$titulo_religion,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
-	$MiPDF->Ln ( 4 );
-	$MiPDF->Multicell ( 0, 6, $autoriza_religion, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
+	$MiPDF->Multicell ( 0, 6, $autoriza_religion, 0, 'L', 0 );
+	$MiPDF->Ln ( 2 );
 	$MiPDF->Multicell ( 0, 6, $firma_religion, 0, 'C', 0 );
-	$MiPDF->Ln ( 8 );
-	$MiPDF->Multicell ( 0, 6, $final_religion, 0, 'L', 0 );
 	$MiPDF->Ln ( 5 );
-	$MiPDF->SetFont ( 'Times', '', 9  );
-	$MiPDF->Multicell ( 0, 6, $direccion_junta, 0, 'L', 0 );
+
 }
 
-// AMPA
-$dni_papa = explode(": ", $dnitutor);
-$dnipapa = $dni_papa[1];
-$hijos = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas where dnitutor = '$dnipapa'");
-$hijos_bach = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas_bach where dnitutor = '$dnipapa'");
-$num_hijos = mysqli_num_rows($hijos);
-$num_hijos_bach = mysqli_num_rows($hijos_bach);
-
-if ($num_hijos > 0) {
-$n_h="";
-while ($hij = mysqli_fetch_array($hijos)){
-	$n_h+=1;
-	${hijo.$n_h} = $hij[1]." ".$hij[0];
-	//echo $hij[2];
-	if (substr($hij[2], 0, 2) == '1E' or substr($hij[2], 0, 2) == '2E' or substr($hij[2], 0, 2) == '3E' or substr($hij[2], 0, 2) == '4E'){
-		$niv = substr($hij[2], 0, 1);
-		
-			${nivel.$n_h} = $niv." ESO";			
-		
-		}
-	}	
-}
-
-
-if ($num_hijos_bach > 0) {
-$n_h_p="";
-while ($hij_bach = mysqli_fetch_array($hijos_bach)){
-	$n_h_p+=1;
-	${hijop.$n_h_p} = $hij_bach[1]." ".$hij_bach[0];
-	//echo $hij[2];
-	if (substr($hij_bach[2], 0, 2) == '1B' or substr($hij_bach[2], 0, 2) == '2B'){
-		$niv_bach = substr($hij_bach[2], 0, 1);
-
-			${nivelp.$n_h_p} = $niv_bach." BACH";			
-
-		}	
-	}
-}	
-
-	
-	$tit_ampa = '
-I.E.S. MONTERROSO
-Avda. Sto. Tomás de Aquino s/n
-29680 ESTEPONA
-e-mail: ampa@iesmonterroso.org
-ampamonterroso@gmail.com
-
-     Como cada año, la labor del A.M.P.A. comienza informando a las madres y padres de la necesidad de pertenecer a la Asociación, pues con su aportación y colaboración ayudamos a la gran tarea que supone EDUCAR A NUESTROS HIJAS E HIJOS. Son muchas las cosas que hacemos pero más las que se pueden llevar a cabo, con el compromiso e implicación de toda la comunidad educativa: padres y madres, profesorado y alumnado.
-     Para más información de las actividades del A.M.P.A. consultar página www.iesmonterroso.org  pinchando en A.M.P.A, o directamente accediendo al blog   http://ampamonterroso.blogspot.com/ 
-     La  cuota  de  la Asociación  de  Madres  y  Padres  es  de  12 euros por  familia y por curso.  La  pertenencia  a la   A.M.P.A  es voluntaria. Las  madres,  padres o tutores  de  los  alumnos/as  que  deseen  pertenecer a la  A.M.P.A  deberán  presentar  este  impreso.';
-	
-	$ampa2 = '
-Nombre del Padre, Madre o Tutor Legal: '.$papa.'. DNI: '.$dnipapa.'
-'.$domicilio.'
-'.$telefono1.'
-'.$correo.'
-
-NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escolar.'
-';
-	$ampa31='EXCLUSIVO  PARA ALUMNOS  QUE  VAN  A  CURSAR 1º, 2º, 3º y 4º DE E.S.O.';
-	$ampa3 = '     Os recordamos que  es OBLIGATORIO el uso de la Agenda Escolar del Instituto para 1º, 2º, 3º y 4º de E.S.O., necesaria para el contacto permanente entre el profesorado y familia.  La Agenda será entregada gratuitamente a los alumnos que se hagan socios en el momento de la matriculación.
-   
-     Un cordial saludo.
-	
-	';
-
-	if ($num_hijos=="0" and $num_hijos_bach=="0") {
-		$hijo1 = "$row[3] $row[2]";
-		$nivel1= $curso;
-		$ampa2.=$hijo1." ".$nivel1;
-	}
-	else{
-		for ($i = 1; $i < $num_hijos+1; $i++) {
-		$ampa2.=${hijo.$i}.' '.${nivel.$i}.'
-';
-		
-	}
-	for ($i = 1; $i < $num_hijos_bach+1; $i++) {
-		if (empty(${nivelp.$i})) {
-			${nivelp.$i}=$curso;
-		}
-		$ampa2.=${hijop.$i}.' '.${nivelp.$i}.'
-';
-		
-		}		
-	}
-	
-	
+//RGPD
 	$MiPDF->Addpage ();
 	#### Cabecera con dirección
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
 	#Cuerpo.
-	$MiPDF->Image ( '../../img/ampa.jpg', 8, 8, 170, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
-	$MiPDF->Cell(168,8,"ASOCIACIÓN DE MADRES Y PADRES BACCALAUREATUS",1,1,'C');
+	$MiPDF->Cell(168,5,$titulo_rgpd,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
 	$MiPDF->Ln ( 4 );
-	$MiPDF->Multicell ( 0, 6, $tit_ampa, 0, 'L', 0 );
+	$MiPDF->Multicell ( 0, 6, $autoriza_rgpd, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->Multicell ( 0, 6, $ampa2, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	$MiPDF->Multicell ( 0, 6, $ampa31, 1, 'L', 1 );
-	$MiPDF->Multicell ( 0, 6, $ampa3, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	
+	$MiPDF->Multicell ( 0, 6, $titulo5, 0, 'C', 0 );
+	$MiPDF->Ln ( 10 );
+
 	?>
