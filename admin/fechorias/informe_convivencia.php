@@ -7,16 +7,16 @@ include("../../menu.php");
 
 <div class="container">
 
-  <div class="page-header">
-    <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
-  </div>
+  	<div class="page-header">
+    	<h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
+  	</div>
   
-    <div class="text-center" id="t_larga_barra">
+  	<div class="text-center" id="t_larga_barra">
         <span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando los datos. El proceso puede tardar un poco...</span>
-    </div>
-    <div id='t_larga' style='display:none' >
+  	</div>
+  	<div id='t_larga' style='display:none' >
         <div>
-           <ul class="nav nav-tabs">
+           	<ul class="nav nav-tabs">
                <li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
                <li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
                <li><a href="#tab3" data-toggle="tab">Resumen por Grupo</a></li>
@@ -73,95 +73,95 @@ include("../../menu.php");
                                 </tr>
                                 <?php 
  
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_conv1 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')  order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_conv2 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'  order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_conv3 = mysqli_num_rows($result);
                                 ?>
                                 <?php    
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_leves1 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_leves2 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_leves3 = mysqli_num_rows($result);
                                 ?>
                                 <?php    
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_graves1 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_graves2 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_graves3 = mysqli_num_rows($result);
                                 ?>
 
                                 <?php    
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_muygraves1 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_muygraves2 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_muygraves3 = mysqli_num_rows($result);
                                 ?>
 
                                 <?php    
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsion1 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsion2 = mysqli_num_rows($result);
-                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsion3 = mysqli_num_rows($result);
                                 ?>
 
                                 <?php    
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsados1 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsados2 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsados3 = mysqli_num_rows($result);
                                 ?>
 
                                 <?php    
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsados1 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsados2 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsados3 = mysqli_num_rows($result);
                                 ?>
 
                                 <?php    
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsadosaula1 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsadosaula2 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsadosaula3 = mysqli_num_rows($result);
                                 ?>
@@ -328,110 +328,110 @@ include("../../menu.php");
                                         while($nivel = mysqli_fetch_array($nivel1))
                                         {
                                             $nivel = $nivel[0];
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')  order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             //echo $SQL."<br>";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_conv1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')  order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_conv2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'  order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_conv3 = mysqli_num_rows($result);
                                             ?>
                                             <?php    
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_leves1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_leves2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and nivel = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_leves3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_graves1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_graves2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_graves3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_muygraves1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_muygraves2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_muygraves3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsion1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsion2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsion3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsados1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsados2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsados3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsados1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsados2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsados3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsadosaula1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsadosaula2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                                            $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_expulsadosaula3 = mysqli_num_rows($result);
                                             ?>
 
                                             <?php    
-                                            $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and month(F_ENTREV) >='09' and date(F_ENTREV) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by infotut_alumno.claveal";
+                                            $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and month(F_ENTREV) >='09' and date(F_ENTREV) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                             //echo $SQL."<br>";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_informes1 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and F_ENTREV >= (select max(fecha) from festivos where nombre like '%navidad%') and date(F_ENTREV) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by infotut_alumno.claveal";
+                                            $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and F_ENTREV >= (select max(fecha) from festivos where nombre like '%navidad%') and date(F_ENTREV) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_informes2 = mysqli_num_rows($result);
-                                            $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and date(F_ENTREV) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and F_ENTREV <= '".$config['curso_fin']."' order by infotut_alumno.claveal";
+                                            $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and date(F_ENTREV) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and F_ENTREV <= '".$config['curso_fin']."'";
                                             $result = mysqli_query($db_con, $SQL);
                                             $num_informes3 = mysqli_num_rows($result);
                                             ?>
@@ -540,101 +540,101 @@ include("../../menu.php");
                         $nivel = $cursos[0];
                         $grupo = $cursos[1];
                         $unidad = $cursos[0]."-".$cursos[1];  
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')  order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_conv1 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_conv2 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_conv3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_leves1 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_leves2 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_leves3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_graves1 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_graves2 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_graves3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_muygraves1 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_muygraves2 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_muygraves3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsion1 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsion2 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsion3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsados1 = mysqli_num_rows($result);
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsados2 = mysqli_num_rows($result);
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsados3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsados1 = mysqli_num_rows($result);
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsados2 = mysqli_num_rows($result);
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsados3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsadosaula1 = mysqli_num_rows($result);
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsadosaula2 = mysqli_num_rows($result);
-                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."' order by Fechoria.claveal";
+                        $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and date(Fechoria.fecha) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_expulsadosaula3 = mysqli_num_rows($result);
                         ?>
                         <?php    
-                        $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV) >='09' and date(F_ENTREV) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad') order by infotut_alumno.claveal";
+                        $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV) >='09' and date(F_ENTREV) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_informes1 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and Fe_ENTREV >= (select max(fecha) from festivos where nombre like '%navidad%') and date(F_ENTREV) <= (select min(fecha) from festivos where nombre like '%Semana Santa') order by infotut_alumno.claveal";
+                        $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and F_ENTREV >= (select max(fecha) from festivos where nombre like '%navidad%') and date(F_ENTREV) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
                         $result = mysqli_query($db_con, $SQL);
                         $num_informes2 = mysqli_num_rows($result);
-                        $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and date(F_ENTREV) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and month(F_ENTREV) >= '06' order by infotut_alumno.claveal";
+                        $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and date(F_ENTREV) >= (select max(fecha) from festivos where nombre like '%Semana Santa') and month(F_ENTREV) >= '06'";
                         $result = mysqli_query($db_con, $SQL);
                         $num_informes3 = mysqli_num_rows($result);
                         ?>
@@ -749,34 +749,35 @@ include("../../menu.php");
                         <div class="tabbable" style="margin-bottom: 18px;">
                             <ul class="nav nav-tabs">
                             <?php
-                            $cur = substr($config['curso_inicio'],0,4);
-                            for ($b = 0; $b < 4; $b++)
-                            {
-                                $anio_escolar = $cur-$b;
-                                $haydatos = 0;
+                            	$cur = substr($config['curso_inicio'],0,4);
+                            	for ($b = 0; $b < 4; $b++)
+                            	{
+                                	$anio_escolar = $cur-$b;
+                                	$haydatos = 0;
   
-                                if($b > 0 && ! empty($config['db_host_c'.$anio_escolar])) 
-                                {
-                                    $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
-                                    mysqli_query($db_con,"SET NAMES 'utf8'");
-                                    $haydatos = 1;
-                                }
+                                	if($b > 0 && ! empty($config['db_host_c'.$anio_escolar])) 
+                                	{
+                                    	$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+                                    	mysqli_query($db_con,"SET NAMES 'utf8'");
+                                    	$haydatos = 1;
+                                	}
   
-                                if ($b == 0) 
-                                {
-                                    $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
-                                    mysqli_query($db_con,"SET NAMES 'utf8'");
-                                    $haydatos = 1;
-                                }
+                                	if ($b == 0) 
+                                	{
+                                    	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+                                    	mysqli_query($db_con,"SET NAMES 'utf8'");
+                                    	$haydatos = 1;
+                                	}
   
-                                if($haydatos) 
-                                {  
+                                	if($haydatos) 
+                                	{  
+                            		?>
+                                    	<li<?php echo ($b == 0) ? ' class="active"' : '';?>><a href="#m<?php echo $b+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a>
+                                    	</li>
+                                    	<?php  
+                                	}
+                            	}
                             ?>
-                                    <li<?php echo ($b == 0) ? ' class="active"' : '';?>><a href="#m<?php echo $b+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
-                                    <?php  
-                                }
-                            }
-                                    ?>
                             </ul>
 
                             <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
@@ -841,47 +842,46 @@ include("../../menu.php");
                                         </div>
                                     <?php
                                 }
-                    }
-                    ?>
-                            </div>
-                        </div>
+                    	?>
+                    	</div>
                     </div>
+                <?php
+                }
+                ?>	
+                <div class="tab-pane fade in" id="tab5">
+                       	<br /><h3>Informe por Tipo de problema</h3><br />
+                        	<div class="tabbable" style="margin-bottom: 18px;">
+                            	<ul class="nav nav-tabs">
+                                	<?php
+                                	$cur = substr($config['curso_inicio'],0,4);
+                                	for ($c = 0; $c < 4; $c++)
+                                	{
+                                    	$anio_escolar = $cur-$c;
+                                    	$haydatos = 0;
 
-                    <div class="tab-pane fade in" id="tab5">
-                        <br /><h3>Informe por Tipo de problema</h3><br />
+                                    	if($c > 0 && ! empty($config['db_host_c'.$anio_escolar])) 
+                                    	{
+                                        	$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+                                        	mysqli_query($db_con,"SET NAMES 'utf8'");
+                                        	$haydatos = 1;
+                                    	}
 
-                        <div class="tabbable" style="margin-bottom: 18px;">
-                            <ul class="nav nav-tabs">
-                                <?php
-                                $cur = substr($config['curso_inicio'],0,4);
-                                for ($c = 0; $c < 4; $c++)
-                                {
-                                    $anio_escolar = $cur-$c;
-                                    $haydatos = 0;
+                                    	if ($c == 0) 
+                                    	{
+                                        	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+                                        	mysqli_query($db_con,"SET NAMES 'utf8'");
+                                        	$haydatos = 1;
+                                    	}
 
-                                    if($c > 0 && ! empty($config['db_host_c'.$anio_escolar])) 
-                                    {
-                                        $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
-                                        mysqli_query($db_con,"SET NAMES 'utf8'");
-                                        $haydatos = 1;
-                                    }
-
-                                    if ($c == 0) 
-                                    {
-                                        $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
-                                        mysqli_query($db_con,"SET NAMES 'utf8'");
-                                        $haydatos = 1;
-                                    }
-
-                                    if($haydatos) 
-                                    {
-                                    ?>
-                                        <li<?php echo ($c == 0) ? ' class="active"' : '';?>><a href="#p<?php echo $c+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
-                                    <?php  
-                                    }
-                                }
-                                    ?>
-                            </ul>
+                                    	if($haydatos) 
+                                    	{
+                                    	?>
+                                        	<li<?php echo ($c == 0) ? ' class="active"' : '';?>><a href="#p<?php echo $c+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
+                                    	<?php  
+                                    	}
+                                	}
+                                ?>
+                            	</ul>
 
                             <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 
@@ -944,13 +944,11 @@ include("../../menu.php");
                                 ?>
                             </div>
                         </div>
-                    </div>
-                
-                
                 </div>
+                
             </div>
         </div>
-    </div>
+  </div>
 </div>
 
 <?php 
