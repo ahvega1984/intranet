@@ -13,10 +13,15 @@ if ($_SERVER["HTTPS"] == "on") {
 }
 ini_set("session.cookie_httponly", 1);
 session_set_cookie_params(3600); // Duración de la sesión: 3600 segundos (1 hora)
-ini_set("session.gc_maxlifetime", 3600); 
+ini_set("session.gc_maxlifetime", 3600);
 session_name("is");
 session_start();
 
+// Regeneramos ID de sesión
+if (!isset($_SESSION['SERVER_GENERATED_SID_TIME']) || $_SESSION['SERVER_GENERATED_SID_TIME'] < (time() - 30)) {
+  session_regenerate_id();
+  $_SESSION['SERVER_GENERATED_SID_TIME'] = time();
+}
 
 // CONFIGURACIÓN INICIAL
 error_reporting(0);
@@ -30,7 +35,7 @@ define('CONFIG_FILE', INTRANET_DIRECTORY . '/config.php');
 define('VERSION_FILE', INTRANET_DIRECTORY .'/config/version.php');
 
 if (file_exists(CONFIG_FILE)) {
-	
+
 	include_once(CONFIG_FILE);
 	if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 		include_once(INTRANET_DIRECTORY . '/config_datos.php');
@@ -40,34 +45,34 @@ if (file_exists(CONFIG_FILE)) {
 	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
 }
 else {
-	
+
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
 	        header('Location:'.'https://'.$server_name.'/intranet/config/index.php');
 	        exit();
-	    } 
+	    }
 	}
 	else {
 		header('Location:'.'http://'.$server_name.'/intranet/config/index.php');
 		exit();
 	}
-	
+
 }
 
 unset($server_name);
 
 // CONEXIÓN A LA BASE DE DATOS
-$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
 mysqli_query($db_con,"SET NAMES 'utf8'");
 
 
 if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
-	
+
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['autentificado'] != 1) {
 		$_SESSION = array();
 		session_destroy();
-		
+
 		if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
 			header('Location:'.'https://'.$config['dominio'].'/intranet/logout.php');
 			exit();
@@ -78,7 +83,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		}
 	}
 	else {
-		
+
 		if ((stristr($_SESSION['cargo'],'1') != TRUE) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
 			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
 				header('Location:'.'https://'.$config['dominio'].'/intranet/mantenimiento.php');
@@ -89,7 +94,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 				exit();
 			}
 		}
-		
+
 	}
 
 	if($_SERVER['SCRIPT_NAME'] != '/intranet/totp.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php') {
@@ -104,7 +109,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 			}
 		}
 	}
-	
+
 	if($_SERVER['SCRIPT_NAME'] != '/intranet/clave.php') {
 		if(isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
 			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
@@ -119,21 +124,21 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	}
 
 	//session_regenerate_id();
-	
+
 	// REGISTRAMOS EL ACCESO A LA PAGINA
 	registraPagina($db_con, $_SERVER['REQUEST_URI']);
-	
+
 	// VER COMO USUARIO
-	
+
 	// Es el Administrador de la Aplicación.
 	if (($_SESSION['ide'] == 'admin') || (stristr($_SESSION['cargo'],'0') == TRUE)) {
 		$_SESSION['user_admin'] = 1;
 	}
-			
+
 	if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) {
 		$_SESSION['profi'] = $_POST['view_as_user'];
 		$profe = $_SESSION['profi'];
-		
+
 		// Variables de sesión del cargo del Profesor
 		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
 		$cargo1 = mysqli_fetch_array ( $cargo0 );
@@ -144,7 +149,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		else{
 		$_SESSION['ide'] = $cargo1 [2];
 		}
-			
+
 		// Si es tutor
 		if (stristr($_SESSION['cargo'], '2') == TRUE) {
 			$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$profe'" );
@@ -161,7 +166,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		if ($cur1>'0' or $cur11>'0') {
 			$_SESSION['n_cursos'] = 1;
 		}
-		
+
 		// Si tiene tema personalizado
 		$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );
 		if (mysqli_num_rows($res)>0) {
@@ -173,7 +178,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 			$_SESSION['tema']="bootstrap.min.css";
 			$_SESSION['fondo'] = "navbar-default";
 		}
-		
+
 	}
 
 }
