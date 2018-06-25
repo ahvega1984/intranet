@@ -513,13 +513,13 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminar campo segsocial'");
 if (! mysqli_num_rows($actua)) {
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
-	if (! mysqli_num_rows($result_update)) {
+	if (mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `alma` DROP `SEGSOCIAL`");
 	}
 	mysqli_free_result($result_update);
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma_seg` WHERE Field = 'SEGSOCIAL'");
-	if (! mysqli_num_rows($result_update)) {
+	if (mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `alma_seg` DROP `SEGSOCIAL`");
 	}
 	mysqli_free_result($result_update);
@@ -532,13 +532,13 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con,"SET NAMES 'utf8'");
 
 		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
-		if (! mysqli_num_rows($result_update)) {
+		if (mysqli_num_rows($result_update)) {
 			mysqli_query($db_con, "ALTER TABLE `alma` DROP `SEGSOCIAL`");
 		}
 		mysqli_free_result($result_update);
 
 		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma_seg` WHERE Field = 'SEGSOCIAL'");
-		if (! mysqli_num_rows($result_update)) {
+		if (mysqli_num_rows($result_update)) {
 			mysqli_query($db_con, "ALTER TABLE `alma_seg` DROP `SEGSOCIAL`");
 		}
 		mysqli_free_result($result_update);
