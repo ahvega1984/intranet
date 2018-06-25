@@ -15,15 +15,15 @@ include("../../menu.php");
 	<div class="page-header">
 		<h2>Administración <small> Actualización de alumnos</small></h2>
 	</div>
-	
+
 	<div id="status-loading" class="text-center">
 		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
 	</div>
 
 	<div id="wrap" class="row" style="display: none;">
-	
+
 		<div class="col-sm-8 col-sm-offset-2">
-	
+
 			<div class="well">
 				<?php
 				if($archivo1 and $archivo2){
@@ -31,11 +31,11 @@ include("../../menu.php");
 					// Copia de Seguridad
 					mysqli_query($db_con, "DROP TABLE alma_seg") ;
 					mysqli_query($db_con, "create table alma_seg select * from alma");
-			
+
 					// Creamos Base de datos y enlazamos con ella.
 					$base0 = "DROP TABLE `alma`";
 					mysqli_query($db_con, $base0);
-			
+
 					// Creación de la tabla alma
 					$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
@@ -76,10 +76,9 @@ include("../../menu.php");
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL,
-			 `SEGSOCIAL` CHAR(12) NULL,
-			 PRIMARY KEY (`CLAVEAL`)  
+			 PRIMARY KEY (`CLAVEAL`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
-			
+
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h5>ATENCIÓN:</h5>
@@ -88,12 +87,12 @@ include("../../menu.php");
 			<div align="center">
 			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>');
-			
+
 					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
 					$result6 = mysqli_query($db_con, $SQL6);
-			
+
 					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma2.
-			
+
 					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h5>ATENCIÓN:</h5>
@@ -101,7 +100,7 @@ include("../../menu.php");
 			</div></div><br />
 			<div align="center">
 			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-			</div>'); 
+			</div>');
 					while (!feof($fp))
 					{
 						$num_linea++;
@@ -119,14 +118,14 @@ include("../../menu.php");
 						$n_col_tabla++;
 					}
 
-					if ($n_col_tabla!=$num_col) { 
+					if ($n_col_tabla!=$num_col) {
 
 						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
 						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h5>ATENCIÓN:</h5>
-						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas. 
+						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas.
 						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicación o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
 						</div></div><br />
 						<div align="center">
@@ -134,32 +133,32 @@ include("../../menu.php");
 						</div>';
 						?>
 									</div><!-- /.well -->
-	
+
 							</div><!-- /.col-sm-8 -->
-							
+
 						</div><!-- /.row -->
-						
+
 					</div><!-- /.container -->
 
 					<?php include("../../pie.php");	?>
 					<?php
 					exit();
 					}
-					
+
 					//echo $num_linea++; // Si todo va bien, el valor de $num_linea en esta línea es 7
-					
+
 					while (!feof($fp))
 					{
 						$num_linea++;
-						
+
 						$linea="";
 						$lineasalto="";
 						$dato="";
 						$linea=fgets($fp);
-						
+
 						// En la línea 9 es donde comienza el listado de alumnos
 						if ($num_linea > 8) {
-							$tr=explode("|",$linea);						
+							$tr=explode("|",$linea);
 							$lineasalto = "INSERT INTO alma VALUES (";
 								foreach ($tr as $valor){
 									$dato.= "\"". mysqli_real_escape_string($db_con, trim(utf8_encode($valor))) . "\", ";
@@ -171,28 +170,28 @@ include("../../menu.php");
 							//Comprobamos que la matrícula no haya sido anulada o trasladada para añadirla
 							if (!preg_match('*Anulada*', $consulta[2]) and !preg_match('*Trasladada*',$consulta[2])){
 								mysqli_query($db_con, $lineasalto);
-							}		
+							}
 						}
 					}
 
 					fclose($fp);
-			
+
 					// Descomprimimos el zip de las calificaciones en el directorio exporta/
 					include('../../lib/pclzip.lib.php');
-					// Borramos archivos antiguos					
-					$files = glob('../exporta/*'); 
+					// Borramos archivos antiguos
+					$files = glob('../exporta/*');
 						foreach($files as $file)
-						{ 
+						{
   						if(is_file($file) and stristr($file, "index")==FALSE)
-    						unlink($file); 
+    						unlink($file);
 						}
-					
+
 					$archive = new PclZip($_FILES['archivo2']['tmp_name']);
 					if ($archive->extract(PCLZIP_OPT_PATH, '../exporta') == 0)
 					{
 						die("Error : ".$archive->errorInfo(true));
 					}
-			
+
 					// Procesamos los datos de RegAlum para crear la tabla alma
 					$crear = "ALTER TABLE  alma
 			ADD  `COMBASI` VARCHAR( 250 ) NULL FIRST ,
@@ -201,7 +200,7 @@ include("../../menu.php");
 			ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 			";
 					mysqli_query($db_con, $crear);
-			
+
 					// Apellidos unidos formando un solo campo.
 					$SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
 					$result2 = mysqli_query($db_con, $SQL2);
@@ -214,7 +213,7 @@ include("../../menu.php");
 						$actualiza1= "UPDATE alma SET APELLIDOS = \"". $apellidos1 . "\", NOMBRE = \"". $nombre1 . "\" where CLAVEAL = \"". $row2[2] . "\"";
 						mysqli_query($db_con, $actualiza1);
 					}
-			
+
 					// Apellidos y nombre del padre.
 					$SQL3 = "SELECT PRIMERAPELLIDOTUTOR, SEGUNDOAPELLIDOTUTOR, NOMBRETUTOR, CLAVEAL FROM  alma";
 					$result3 = mysqli_query($db_con, $SQL3);
@@ -225,7 +224,7 @@ include("../../menu.php");
 						$actualiza1P= "UPDATE alma SET PADRE = \"". $apellidos1P . "\" where CLAVEAL = \"". $row3[3] . "\"";
 						mysqli_query($db_con, $actualiza1P);
 					}
-			
+
 					// Eliminación de campos innecesarios por repetidos
 					$SQL3 = "ALTER TABLE alma
 			  DROP `apellido1`,
@@ -234,25 +233,25 @@ include("../../menu.php");
 					$result3 = mysqli_query($db_con, $SQL3);
 					$cambiar_nombre = "ALTER TABLE alma MODIFY COLUMN NOMBRE VARCHAR(30) AFTER APELLIDOS";
 					mysqli_query($db_con, $cambiar_nombre);
-			
+
 					// Eliminación de alumnos dados de baja
 					$SQL4 = "DELETE FROM alma WHERE unidad = ''";
 					$result4 = mysqli_query($db_con, $SQL4);
 					// Eliminación de alumnos dados de baja
 					$SQL5 = "DELETE FROM alma WHERE unidad = 'Unida'";
 					$result5 = mysqli_query($db_con, $SQL5);
-			
+
 					// Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
 					include("exportacodigos.php");
-			
+
 					// Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
 					$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%F.P.B%') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%' and ESTADOMATRICULA not like 'Pendiente de confirma%' and ESTADOMATRICULA not like 'Traslad%') or (COMBASI IS NULL and ESTADOMATRICULA like 'Traslad%')";
 					$result6 = mysqli_query($db_con, $SQL6);
-			
+
 					// Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
 					//$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA not like '' and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%'  and ESTADOMATRICULA not like 'Pendiente de confirm%'";
 					//mysqli_query($db_con, $SQL7);
-			
+
 					// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 					$SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
 					mysqli_query($db_con, $SQL8);
@@ -260,7 +259,7 @@ include("../../menu.php");
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
 			</div>';
-			
+
 					//Caso especial de 2º de Bachillerato en Mayo
 					/*if ((date('m')=='05' and date('d')>'25') OR (date('m')>'5' and date('m')<'9') ) {
 					$ct = mysqli_query($db_con,"select * from alma where curso like '2%' and curso like '%Bach%'");
@@ -277,9 +276,9 @@ include("../../menu.php");
 					}
 					}
 					}*/
-					
+
 					include("actualizar.php");
-					
+
 					if (isset($config['mod_sms']) && $config['mod_sms']) {
 						include("crear_hermanos.php");
 					}
@@ -291,50 +290,50 @@ include("../../menu.php");
 			Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
 			</div></div><br />';
 				}
-			
+
 				// Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
 				$matr = mysqli_query($db_con, "select * from matriculas");
 				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<11)) {
 					$pro = mysqli_query($db_con, "select claveal,	apellidos, nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
 					while ($prf = mysqli_fetch_array($pro)) {
-			
+
 						$pap = explode(", ",$prf[7]);
 						$papa = $pap[1]." ".$pap[0];
 						$papa=trim($papa);
-			
+
 						$mam = explode(", ",$prf[12]);
 						$nombretutor2 = $mam[1];
 						$apel_mam = explode(" ",$mam[0]);
 						$primerapellidotutor2 = $apel_mam[0];
 						$segundoapellidotutor2 = "$apel_mam[1] $apel_mam[2] $apel_mam[3]";
 						$segundoapellidotutor2=trim($segundoapellidotutor2);
-			
+
 						$alm = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provinciaresidencia, domicilio, localidad, dni, padre, dnitutor, telefono, telefonourgencia, localidadnacimiento, primerapellidotutor2, segundoapellidotutor2, nombretutor2, dnitutor2 from alma where claveal = '$prf[0]' and (apellidos not like '$prf[1]' or nombre not like '$prf[2]' or provinciaresidencia not like '$prf[3]' or domicilio not like '$prf[4]' or localidad not like '$prf[5]' or dni not like '$prf[6]' or padre not like '$papa'  or telefono not like '$prf[9]' or telefonourgencia not like '$prf[10]' or localidadnacimiento not like '$prf[11]' or dnitutor2 not like '$prf[13]')");
-			
+
 						if (mysqli_num_rows($alm)>0) {
-			
+
 							$num+=1;
 							$alma = mysqli_fetch_array($alm);
-			
+
 							$com = explode(", ",$prf[7]);
 							$nom = trim($com[1]);
 							$apel = explode(" ", $com[0]);
 							$apel1 = $apel[0];
 							$apel2 = $apel[1]." ".$apel[2]." ".$apel[3]." ".$apel[4];
 							$apel2 = trim($apel2);
-			
+
 							$com2 = explode(", ",$prf[12]);
 							$nom2 = trim($com2[1]);
 							$apel0 = explode(" ", $com2[0]);
 							$apel21 = $apel0[0];
 							$apel22 = $apel0[1]." ".$apel0[2]." ".$apel0[3]." ".$apel0[4];
 							$apel22 = trim($apel22);
-			
+
 							$padre_alma = ", padre = '$nom $apel1 $apel2'";
 							$padre_completo = ", nombretutor = '$nom', primerapellidotutor = '$apel1', segundoapellidotutor = '$apel2'";
 							$madre_completo = ", nombretutor2 = '$nom2', primerapellidotutor2 = '$apel21', segundoapellidotutor2 = '$apel22', dnitutor2 = '$prf[13]'";
-			
-								
+
+
 						 mysqli_query($db_con, "update alma set apellidos = '$prf[1]', nombre = '$prf[2]', provinciaresidencia = '$prf[3]', domicilio = '$prf[4]', localidad = '$prf[5]', dni = '$prf[6]', padre = '$prf[7]', dnitutor = '$prf[8]', telefono = '$prf[9]', telefonourgencia = '$prf[10]', localidadnacimiento = '$prf[11]' $padre_alma $padre_completo $madre_completo where claveal = '$prf[0]'");
 						 $num_filas+=mysqli_affected_rows($db_con);
 						}
@@ -345,51 +344,51 @@ include("../../menu.php");
 						<h5>ATENCIÓN:</h5>
 			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 				}
-				
-			
+
+
 			// Si se ha creado la tabla matriculas_bach y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas_bach.
 				$matr = mysqli_query($db_con, "select * from matriculas_bach");
 				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<13)) {
 					$pro = mysqli_query($db_con, "select claveal,	apellidos, nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas_bach where curso like '%BACH%'");
 					while ($prf = mysqli_fetch_array($pro)) {
-			
+
 						$pap = explode(", ",$prf[7]);
 						$papa = $pap[1]." ".$pap[0];
 						$papa=trim($papa);
-			
+
 						$mam = explode(", ",$prf[12]);
 						$nombretutor2 = $mam[1];
 						$apel_mam = explode(" ",$mam[0]);
 						$primerapellidotutor2 = $apel_mam[0];
 						$segundoapellidotutor2 = "$apel_mam[1] $apel_mam[2] $apel_mam[3]";
 						$segundoapellidotutor2=trim($segundoapellidotutor2);
-			
+
 						$alm = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provinciaresidencia, domicilio, localidad, dni, padre, dnitutor, telefono, telefonourgencia, localidadnacimiento, primerapellidotutor2, segundoapellidotutor2, nombretutor2, dnitutor2 from alma where claveal = '$prf[0]' and (apellidos not like '$prf[1]' or nombre not like '$prf[2]' or provinciaresidencia not like '$prf[3]' or domicilio not like '$prf[4]' or localidad not like '$prf[5]' or dni not like '$prf[6]' or padre not like '$papa'  or telefono not like '$prf[9]' or telefonourgencia not like '$prf[10]' or localidadnacimiento not like '$prf[11]' or dnitutor2 not like '$prf[13]')");
-			
+
 						if (mysqli_num_rows($alm)>0) {
-			
+
 							$num+=1;
 							$alma = mysqli_fetch_array($alm);
-			
+
 							$com = explode(", ",$prf[7]);
 							$nom = trim($com[1]);
 							$apel = explode(" ", $com[0]);
 							$apel1 = $apel[0];
 							$apel2 = $apel[1]." ".$apel[2]." ".$apel[3]." ".$apel[4];
 							$apel2 = trim($apel2);
-			
+
 							$com2 = explode(", ",$prf[12]);
 							$nom2 = trim($com2[1]);
 							$apel0 = explode(" ", $com2[0]);
 							$apel21 = $apel0[0];
 							$apel22 = $apel0[1]." ".$apel0[2]." ".$apel0[3]." ".$apel0[4];
 							$apel22 = trim($apel22);
-			
+
 							$padre_alma = ", padre = '$nom $apel1 $apel2'";
 							$padre_completo = ", nombretutor = '$nom', primerapellidotutor = '$apel1', segundoapellidotutor = '$apel2'";
 							$madre_completo = ", nombretutor2 = '$nom2', primerapellidotutor2 = '$apel21', segundoapellidotutor2 = '$apel22', dnitutor2 = '$prf[13]'";
-			
-								
+
+
 						 mysqli_query($db_con, "update alma set apellidos = '$prf[1]', nombre = '$prf[2]', provinciaresidencia = '$prf[3]', domicilio = '$prf[4]', localidad = '$prf[5]', dni = '$prf[6]', padre = '$prf[7]', dnitutor = '$prf[8]', telefono = '$prf[9]', telefonourgencia = '$prf[10]', localidadnacimiento = '$prf[11]' $padre_alma $padre_completo $madre_completo where claveal = '$prf[0]'");
 						 $num_filas+=mysqli_affected_rows();
 						}
@@ -400,22 +399,22 @@ include("../../menu.php");
 						<h5>ATENCIÓN:</h5>
 			Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 				}
-			
+
 				// Asignaturas y alumnos con pendientes
 				include("asignaturas.php");
-			
+
 				?>
-				
+
 				<div class="text-center">
 					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
 				</div>
-			
+
 			</div><!-- /.well -->
-	
+
 		</div><!-- /.col-sm-8 -->
-		
+
 	</div><!-- /.row -->
-	
+
 </div><!-- /.container -->
 
 <?php include("../../pie.php");	?>
@@ -423,7 +422,7 @@ include("../../menu.php");
 <script>
 function espera() {
 	document.getElementById("wrap").style.display = '';
-	document.getElementById("status-loading").style.display = 'none';        
+	document.getElementById("status-loading").style.display = 'none';
 }
 window.onload = espera;
 </script>
