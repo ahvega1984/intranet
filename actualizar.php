@@ -1,4 +1,4 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 /*
 	@descripcion: Tabla para control de faltas de asistencia
@@ -69,7 +69,7 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "ALTER TABLE `evaluaciones_actas` ADD `asistentes` VARCHAR(255) NULL AFTER `texto_acta`");
 		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla evaluaciones_actas', NOW())");
 	}
-	
+
 }
 
 mysqli_free_result($actua);
@@ -330,7 +330,7 @@ if (! mysqli_num_rows($actua)) {
 			$descripcion = $row['descripcion'];
 			$resolucion = "";
 		}
-		
+
 		mysqli_query($db_con, "INSERT INTO `incidencias_tic` (`fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`, `numincidencia`, `resolucion`) VALUES ('".$row['fecha']."', '".$row_profesor['idea']."', '".$dependencia."', 901, '".$descripcion."', $migracion_estado, '".$row['nincidencia']."', '".$resolucion."')");
 	}
 
@@ -368,27 +368,27 @@ if (! mysqli_num_rows($actua)) {
 */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación tabla alma bases de datos anteriores'");
 if (! mysqli_num_rows($actua)) {
-	
+
 	$actualizacion_anio = substr($config['curso_actual'], 0, 4) - 1;
 	while ($config['db_host_c'.$actualizacion_anio] != "") {
 
 		mysqli_close($db_con);
-		$db_con = mysqli_connect($config['db_host_c'.$actualizacion_anio], $config['db_user_c'.$actualizacion_anio], $config['db_pass_c'.$actualizacion_anio], $config['db_name_c'.$actualizacion_anio]) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+		$db_con = mysqli_connect($config['db_host_c'.$actualizacion_anio], $config['db_user_c'.$actualizacion_anio], $config['db_pass_c'.$actualizacion_anio], $config['db_name_c'.$actualizacion_anio]) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
 		mysqli_query($db_con,"SET NAMES 'utf8'");
-		
+
 		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
 		if (! mysqli_num_rows($result_update)) {
 			mysqli_query($db_con, "ALTER TABLE `alma` ADD `SEGSOCIAL` CHAR(12) NULL ;");
 		}
 		mysqli_free_result($result_update);
-		
+
 		$actualizacion_anio--;
 	}
 	unset($actualizacion_anio);
 	unset($result_update);
 
 	mysqli_close($db_con);
-	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
+	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
 	mysqli_query($db_con,"SET NAMES 'utf8'");
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla alma bases de datos anteriores', NOW())");
@@ -461,7 +461,7 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "INSERT INTO `libros_texto_alumnos` (`claveal`, `materia`, `estado`, `devuelto`, `fecha`, `curso`) VALUES ('".$row_update['claveal']."', '".$row_update['materia']."', '".$row_update['estado']."', ".$row_update['devuelto'].", '".$row_update['fecha']."', '".$row_update['curso']."')");
 	}
 	mysqli_free_result($result_update);
-	
+
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modulo de libros de texto (Solución de errores)', NOW())");
 }
 
@@ -502,4 +502,55 @@ if (! mysqli_num_rows($actua)) {
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt');
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Exportar usuarios TIC profesores', NOW())");
+}
+
+
+/*
+	@descripcion: Eliminado campo Nº Seguridad Social del alumno en tablas alma
+	@fecha: 23 de junio de 2018
+*/
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminar campo segsocial'");
+if (! mysqli_num_rows($actua)) {
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `alma` DROP `SEGSOCIAL`");
+	}
+	mysqli_free_result($result_update);
+
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma_seg` WHERE Field = 'SEGSOCIAL'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `alma_seg` DROP `SEGSOCIAL`");
+	}
+	mysqli_free_result($result_update);
+
+	$actualizacion_anio = substr($config['curso_actual'], 0, 4) - 1;
+	while ($config['db_host_c'.$actualizacion_anio] != "") {
+
+		mysqli_close($db_con);
+		$db_con = mysqli_connect($config['db_host_c'.$actualizacion_anio], $config['db_user_c'.$actualizacion_anio], $config['db_pass_c'.$actualizacion_anio], $config['db_name_c'.$actualizacion_anio]) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
+		mysqli_query($db_con,"SET NAMES 'utf8'");
+
+		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
+		if (! mysqli_num_rows($result_update)) {
+			mysqli_query($db_con, "ALTER TABLE `alma` DROP `SEGSOCIAL`");
+		}
+		mysqli_free_result($result_update);
+
+		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma_seg` WHERE Field = 'SEGSOCIAL'");
+		if (! mysqli_num_rows($result_update)) {
+			mysqli_query($db_con, "ALTER TABLE `alma_seg` DROP `SEGSOCIAL`");
+		}
+		mysqli_free_result($result_update);
+
+		$actualizacion_anio--;
+	}
+	unset($actualizacion_anio);
+	unset($result_update);
+
+	mysqli_close($db_con);
+	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
+	mysqli_query($db_con,"SET NAMES 'utf8'");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminar campo segsocial', NOW())");
 }

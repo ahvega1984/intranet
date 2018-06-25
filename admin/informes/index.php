@@ -1,6 +1,6 @@
 <?php
 require('../../bootstrap.php');
-     
+
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if(isset($_GET['unidad'])){$unidad = $_GET['unidad'];}else{$unidad = $_POST['unidad'];}
@@ -30,7 +30,7 @@ if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
 		$exp_c_escolar = explode("/", $c_escolar);
 		$anio_escolar = $exp_c_escolar[0];
-		
+
 		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
 		mysqli_query($db_con,"SET NAMES 'utf8'");
 	}
@@ -44,16 +44,16 @@ else {
 
 if ($claveal) {
   	$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, claveal, claveal1, numeroexpediente FROM alma WHERE claveal = '$claveal' ORDER BY apellidos");
-  	
+
 	if ($row1 = mysqli_fetch_array($result1)) {
 	  $claveal = $row1[3];
 	  $unidad = $row1[2];
 	  $claveal1 = $row1[4];
 	  $apellido = $row1[0];
 	  $nombrepil = $row1[1];
-  } 
+  }
 }
-  
+
 $clave = explode(" --> ", $nombre);
 
 if (!$claveal) {
@@ -68,20 +68,20 @@ if (!$claveal) {
 
 
 	<div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Expediente académico del alumno/a <small> Curso académico: <?php echo $c_escolar?></small></h2>
 			<h3 class="text-info"><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
-		
+
 		<?php $result = mysqli_query($db_con, "SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>
 		<?php $row2 = mysqli_fetch_array($result); ?>
 		<?php mysqli_free_result($result); ?>
-		
-		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente, segsocial from alma where alma.claveal= '$claveal'"); ?>
-		
-		<?php if ($row = mysqli_fetch_array($result)): 
+
+		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente from alma where alma.claveal= '$claveal'"); ?>
+
+		<?php if ($row = mysqli_fetch_array($result)):
 		$nivel_alumno = $row['curso'];
 		$tut = mysqli_query($db_con,"SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."'");
 		$tuto = mysqli_fetch_array($tut);
@@ -91,7 +91,7 @@ if (!$claveal) {
 		<!-- SCAFFOLDING -->
 		<div class="well">
 		<div class="row">
-			
+
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-2 text-center hidden-xs">
 				<?php if ($foto = obtener_foto_alumno($claveal)): ?>
@@ -99,17 +99,17 @@ if (!$claveal) {
 				<?php else: ?>
 				<h2><span class="img-thumbnail fa fa-user fa-fw fa-5x" style="width: 120px !important;"></span></h2>
 				<?php endif; ?>
-				
+
 			</div><!-- /.col-sm-2 -->
-			
-			
+
+
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-10">
-				
+
 				<div class="row">
-				
+
 					<div class="col-sm-6">
-						
+
 						<dl class="dl-horizontal">
 						  <dt>DNI / Pasaporte</dt>
 						  <dd><?php echo ($row['DNI'] != "") ? $row['DNI']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
@@ -126,7 +126,7 @@ if (!$claveal) {
 						  <dt>Teléfono urgencias</dt>
 						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Correo electrónico</dt>
-							<?php 
+							<?php
 							if ($row['correo'] != "") {
 								$correo = '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>';
 							}
@@ -141,9 +141,9 @@ if (!$claveal) {
 						  <dt>Representante legal</dt>
 						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						</dl>
-						
+
 					</div><!-- /.col-sm-6 -->
-					
+
 					<div class="col-sm-6">
 
 						<dl class="dl-horizontal">
@@ -151,8 +151,6 @@ if (!$claveal) {
 						  <dd><?php echo ($row['claveal'] != "") ? $row['claveal']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Nº Expediente</dt>
 						  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Nº Seguridad Social</dt>
-						  <dd><?php echo ($row['segsocial'] != "") ? $row['segsocial']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Año académico</dt>
 						  <dd><?php echo $c_escolar; ?></dd>
 						  <dt>Curso</dt>
@@ -164,21 +162,21 @@ if (!$claveal) {
 						  <dt>Repetidor/a</dt>
 						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
 						</dl>
-						
+
 					</div><!-- /.col-sm-6 -->
-					
+
 				</div><!-- /.row -->
-				
+
 			</div><!-- /.col-sm-10 -->
-			
+
 		</div><!-- /.row -->
 		</div><!-- /.well -->
-		
-		
+
+
 		<div class="row">
-		
+
 			<div class="col-sm-12">
-			
+
 				<style class="text/css">
 				@media print {
 					.tab-content>.tab-pane {
@@ -187,7 +185,7 @@ if (!$claveal) {
 					}
 				}
 				</style>
-				
+
 				<ul class="nav nav-tabs nav-justified" role="tablist">
 					<?php if (!($faltas == "" && $todos == "") && $config['mod_asistencia']): ?>
 					<?php $tab1 = 1; ?>
@@ -219,7 +217,7 @@ if (!$claveal) {
 				  <?php if ($config['mod_matriculacion']==1): ?>
 
 
-				  <?php 
+				  <?php
 				  	if (stristr($nivel_alumno, "E.S.O.")==TRUE) {
 				  		$tabla_matriculas = "matriculas";
 				  	}
@@ -236,10 +234,10 @@ if (!$claveal) {
 
 
 
-				  
+
 				  <?php endif; ?>
 				</ul>
-				
+
 				<div class="tab-content">
 				  <div class="tab-pane <?php echo ($tab1) ? 'active' : ''; ?>" id="asistencia">
 				  <?php if (!($faltas == "" && $todos == "")) include("faltas.php"); ?>
@@ -263,29 +261,29 @@ if (!$claveal) {
 				  </div>
 				  <?php endif; ?>
 				 </div>
-				
+
 			</div>
-			
+
 		</div><!-- /.row -->
-		
+
 		<br>
-		
+
 		<div class="row hidden-print">
-			
+
 			<div class="col-sm-12">
-			
+
 				<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
 				<a href="cinforme.php" class="btn btn-default">Consultar otro informe</a>
-			
+
 			</div>
-			
+
 		</div>
 		<?php else: ?>
-		
+
 		<h3>No hay información sobre el alumno/a en el curso seleccionado.</h3>
-		
+
 		<?php endif; ?>
-	
+
 	</div><!-- /.container -->
 
 
