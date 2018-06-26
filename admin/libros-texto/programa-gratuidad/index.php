@@ -118,22 +118,24 @@ while ($row = mysqli_fetch_array($result)) {
 mysqli_free_result($result);
 unset($alumno);
 
-// OBTENEMOS TODOS LOS REGISTROS DE LA TABLA LIBROS_TEXTO_ALUMNOS
+// OBTENEMOS TODOS LOS REGISTROS DE LA TABLA LIBROS_TEXTO_ALUMNOS DEL GRUPO DE ALUMNOS SELECCIONADO
 $estado_libros = array();
-$result = mysqli_query($db_con, "SELECT `claveal`, `materia`, `estado`, `devuelto`, `fecha` FROM `libros_texto_alumnos` ORDER BY `claveal` ASC");
-while ($row = mysqli_fetch_array($result)) {
+foreach ($alumnos as $alumno) {
+    $result = mysqli_query($db_con, "SELECT `materia`, `estado`, `devuelto`, `fecha` FROM `libros_texto_alumnos` WHERE `claveal` = '".$alumno['claveal']."'");
+    while ($row = mysqli_fetch_array($result)) {
 
-    $estado_libro = array(
-        'claveal'   => $row['claveal'],
-        'materia'   => $row['materia'],
-        'estado'    => $row['estado'],
-        'devuelto'  => $row['devuelto']
-    );
+        $estado_libro = array(
+            'claveal'   => $alumno['claveal'],
+            'materia'   => $row['materia'],
+            'estado'    => $row['estado'],
+            'devuelto'  => $row['devuelto']
+        );
 
-    array_push($estado_libros, $estado_libro);
+        array_push($estado_libros, $estado_libro);
+    }
+    mysqli_free_result($result);
+    unset($estado_libro);
 }
-mysqli_free_result($result);
-unset($estado_libro);
 
 include('../../../menu.php');
 include('../menu.php');
