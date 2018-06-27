@@ -315,6 +315,7 @@ else{
 
 <?php
 $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, alma where absentismo.claveal = alma.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
+
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -336,7 +337,7 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
 <?php
  echo "<table class='table table-bordered table-striped'>";
 		
-$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, alma  where FALTAS .claveal = alma .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
+$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, alma  where FALTAS .claveal = alma .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(FALTAS.fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
 $result = mysqli_query($db_con, $SQL);
 
   if ($row = mysqli_fetch_array($result))
@@ -356,7 +357,8 @@ $result = mysqli_query($db_con, $SQL);
   <hr><br /><h3>Problemas de Convivencia</h3>
 
 <?php
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(Fechoria.fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
+
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -377,7 +379,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <?php
   
  
- $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
+ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(Fechoria.fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -394,7 +396,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div> <div class="col-sm-4"><hr><br /><h3>Alumnos expulsados del aula</h3>
 
  <?php
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(Fechoria.fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
+
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -495,29 +498,21 @@ include("inc_notas.php");
 <a name="observaciones" id="obs"></a>
 <hr><br /><h3>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h3>
-<?php if($imprimir == 1): ?>
 <form action="" method="POST">
 	<textarea class="form-control autosize" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
-<?php else: ?>
-	<?php echo nl2br($obs2[0]);?>
-<?php endif; ?>
+
 <hr>
 <br />
 <h3>
  Otras Observaciones</h3>
- <?php if($imprimir == 1): ?>
  <textarea class="form-control autosize" name="observaciones2" rows="10"><?php echo $obs2[1];?></textarea>
- <?php else: ?>
- <?php echo nl2br($obs2[1]);?>
- <?php endif; ?>
+
  <br />
 <input type="hidden" name="tutor" value="<?php echo $_SESSION['mod_tutoria']['tutor']; ?>">
 <input type="hidden" name="unidad" value="<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">
 <br />
 <div class="hidden-print">
-<?php if($imprimir == 1): ?>
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary hidden-print">
- <?php endif; ?>
  <input type="button" class="btn btn-primary pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
 </form>
 </div>
