@@ -214,7 +214,7 @@ if (! mysqli_num_rows($actua)) {
 
 	// Las siguientes lineas solucionan un error en actualización anterior
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_principal WHERE Field = 'totp_secret'");
-	if (! mysqli_num_rows($result_update)) {
+	if (mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `reg_principal` DROP `totp_secret`;");
 	}
 
@@ -232,21 +232,6 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "UPDATE `horw_faltas` SET `asig` = 'Servicio de guardia (No Lectiva)' WHERE `c_asig` = '25' AND `asig` = 'Servicio de guardia'");
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nombre actividad Servicio de guardia', NOW())");
-}
-
-/*
-	@descripcion: Se añade columna con el número de Seguridad Social del alumno
-	@fecha: 10 de enero de 2018
-*/
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Número seguridad social'");
-if (! mysqli_num_rows($actua)) {
-
-	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM alma WHERE Field = 'SEGSOCIAL'");
-	if (! mysqli_num_rows($result_update)) {
-		mysqli_query($db_con, "ALTER TABLE `alma` ADD `SEGSOCIAL` CHAR(12) NULL ;");
-	}
-
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Número seguridad social', NOW())");
 }
 
 /*
@@ -363,39 +348,6 @@ if (! mysqli_num_rows($actua)) {
 
 
 /*
-	@descripcion: Modificación estructura tabla alma en bases de datos anteriores
-	@fecha: 15 de febrero de 2018
-*/
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación tabla alma bases de datos anteriores'");
-if (! mysqli_num_rows($actua)) {
-
-	$actualizacion_anio = substr($config['curso_actual'], 0, 4) - 1;
-	while ($config['db_host_c'.$actualizacion_anio] != "") {
-
-		mysqli_close($db_con);
-		$db_con = mysqli_connect($config['db_host_c'.$actualizacion_anio], $config['db_user_c'.$actualizacion_anio], $config['db_pass_c'.$actualizacion_anio], $config['db_name_c'.$actualizacion_anio]) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
-		mysqli_query($db_con,"SET NAMES 'utf8'");
-
-		$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
-		if (! mysqli_num_rows($result_update)) {
-			mysqli_query($db_con, "ALTER TABLE `alma` ADD `SEGSOCIAL` CHAR(12) NULL ;");
-		}
-		mysqli_free_result($result_update);
-
-		$actualizacion_anio--;
-	}
-	unset($actualizacion_anio);
-	unset($result_update);
-
-	mysqli_close($db_con);
-	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
-	mysqli_query($db_con,"SET NAMES 'utf8'");
-
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla alma bases de datos anteriores', NOW())");
-}
-
-
-/*
 	@descripcion: Modulo de libros de texto (Solución de errores en importación)
 	@fecha: 5 de marzo de 2018
 */
@@ -405,7 +357,7 @@ if (! mysqli_num_rows($actua)) {
 	// Creamos la nueva tabla para el registro de libros de texto
 	mysqli_query($db_con, "DROP TABLE IF EXISTS `libros_texto`");
 	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `libros_texto` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 	`materia` varchar(64) NOT NULL DEFAULT '',
 	`isbn` char(13) DEFAULT NULL,
 	`ean` char(13) DEFAULT NULL,

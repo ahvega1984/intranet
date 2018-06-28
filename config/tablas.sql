@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `absentismo` (
   `tutoria` mediumtext,
   `orientacion` mediumtext,
   `serv_sociales` mediumtext,
+  `fecha_registro` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -269,6 +270,23 @@ CREATE TABLE IF NOT EXISTS `control` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `control_faltas`
+--
+
+CREATE TABLE IF NOT EXISTS `control_faltas` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `profesor` int(11) UNSIGNED NOT NULL,
+  `unidad` varchar(128) COLLATE utf8_spanish_ci NOT NULL,
+  `dia` tinyint(1) UNSIGNED NOT NULL,
+  `hora` tinyint(1) UNSIGNED NOT NULL,
+  `fecha` date NOT NULL,
+  `asignatura` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  `numero` tinyint(2) UNSIGNED NOT NULL,
+  `hoy` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+--
 -- Estructura de tabla para la tabla `control_matriculas`
 --
 
@@ -471,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `evaluacion` char(3) NOT NULL,
   `fecha` date NOT NULL,
   `texto_acta` mediumtext NOT NULL,
-  `asistentes` varchar(255) DEFAULT NULL,
+  `asistentes` text DEFAULT NULL,
   `impresion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
@@ -655,7 +673,7 @@ CREATE TABLE IF NOT EXISTS `grupos` (
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `asignatura` int(6) NOT NULL DEFAULT '0',
   `curso` varchar(32) NOT NULL DEFAULT '',
-  `alumnos` varchar(124) NOT NULL DEFAULT '',
+  `alumnos` text NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -869,6 +887,42 @@ CREATE TABLE IF NOT EXISTS `inventario_tic` (
 	`marcadobaja` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`numregistro`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libros_texto`
+--
+
+CREATE TABLE IF NOT EXISTS `libros_texto` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `materia` varchar(64) NOT NULL DEFAULT '',
+  `isbn` char(13) DEFAULT NULL,
+  `ean` char(13) DEFAULT NULL,
+  `editorial` varchar(60) NOT NULL DEFAULT '',
+  `titulo` varchar(100) NOT NULL DEFAULT '',
+  `importe` decimal(5,2) DEFAULT NULL,
+  `nivel` varchar(48) NOT NULL DEFAULT '',
+  `programaGratuidad` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libros_texto_alumnos`
+--
+
+CREATE TABLE IF NOT EXISTS `libros_texto_alumnos` (
+  `claveal` varchar(12) NOT NULL,
+  `materia` varchar(10) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT '',
+  `devuelto` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `fecha` datetime DEFAULT '0000-00-00 00:00:00',
+  `curso` varchar(7) NOT NULL DEFAULT '',
+  PRIMARY KEY (`claveal`,`materia`),
+  KEY `claveal` (`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
 
@@ -1386,14 +1440,14 @@ CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
 
 DROP TABLE IF EXISTS `noticias`;
 CREATE TABLE IF NOT EXISTS `noticias` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `slug` mediumtext NOT NULL,
-  `content` longtext NOT NULL,
-  `contact` varchar(255) DEFAULT NULL,
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `clase` varchar(48) DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `titulo` text NOT NULL,
+  `contenido` longtext NOT NULL,
+  `autor` varchar(255) NOT NULL,
+  `fechapub` datetime NOT NULL,
   `fechafin` date DEFAULT NULL,
-  `pagina` tinyint(3) NOT NULL,
+  `categoria` varchar(200) NOT NULL,
+  `pagina` char(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -1506,6 +1560,7 @@ CREATE TABLE IF NOT EXISTS `reg_intranet` (
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ip` varchar(15) NOT NULL DEFAULT '',
+  `useragent` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
 
@@ -1536,6 +1591,8 @@ CREATE TABLE IF NOT EXISTS `reg_principal` (
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ip` varchar(15) NOT NULL DEFAULT '',
   `claveal` varchar(12) NOT NULL DEFAULT '',
+  `tutorlegal` varchar(255) DEFAULT NULL,
+  `useragent` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -1770,28 +1827,6 @@ CREATE TABLE IF NOT EXISTS `textos_alumnos` (
   `devuelto` char(1) DEFAULT '0',
   `fecha` datetime DEFAULT '0000-00-00 00:00:00',
   `curso` varchar(32) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `textos_gratis`
---
-
-DROP TABLE IF EXISTS `textos_gratis`;
-CREATE TABLE IF NOT EXISTS `textos_gratis` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `materia` varchar(64) NOT NULL DEFAULT '',
-  `isbn` int(10) NOT NULL DEFAULT '0',
-  `ean` int(14) NOT NULL DEFAULT '0',
-  `editorial` varchar(32) NOT NULL DEFAULT '',
-  `titulo` varchar(96) NOT NULL DEFAULT '',
-  `ano` year(4) NOT NULL DEFAULT '0000',
-  `caducado` char(2) NOT NULL DEFAULT '',
-  `importe` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `utilizado` char(2) NOT NULL DEFAULT '',
-  `nivel` varchar(48) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 

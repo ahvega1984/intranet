@@ -26,7 +26,7 @@ unset($nivel);
 
 if (isset($_GET['curso'])) {
     $curso = urldecode($_GET['curso']);
-} 
+}
 else {
     $curso = $niveles[0]['nombre'];
 }
@@ -34,7 +34,7 @@ else {
 // OBTENEMOS TODOS LOS LIBROS DE TEXTO DEL NIVEL SELECCIONADO
 $libros = array();
 $result_libros = mysqli_query($db_con, "SELECT `materia`, `programaGratuidad` FROM `libros_texto` WHERE `nivel` = '$curso'");
-while ($row_libros_materias = mysqli_fetch_array($result_libros)) { 
+while ($row_libros_materias = mysqli_fetch_array($result_libros)) {
     if ($row_libros_materias['programaGratuidad']) {
         $libros[] = $row_libros_materias['materia'];
     }
@@ -99,7 +99,7 @@ if (isset($grupo)) {
     $result = mysqli_query($db_con, "SELECT `claveal`, `apellidos`, `nombre`, `dni`, `curso`, `unidad`, `combasi` FROM `alma` WHERE `unidad` = '$grupo' ORDER BY `unidad` ASC, `apellidos` ASC, `nombre` ASC");
 }
 else {
-    $result = mysqli_query($db_con, "SELECT `claveal`, `apellidos`, `nombre`, `dni`, `curso`, `unidad`, `combasi` FROM `alma` ORDER BY `unidad` ASC, `apellidos` ASC, `nombre` ASC");
+    $result = mysqli_query($db_con, "SELECT `claveal`, `apellidos`, `nombre`, `dni`, `curso`, `unidad`, `combasi` FROM `alma` WHERE `curso` = '$curso' ORDER BY `unidad` ASC, `apellidos` ASC, `nombre` ASC");
 }
 
 while ($row = mysqli_fetch_array($result)) {
@@ -191,7 +191,7 @@ include('../menu.php');
 
                 <h3><?php echo (isset($grupo)) ? $grupo.' ('.$curso.')' : $curso; ?></h3>
 
-                <?php 
+                <?php
                 $numalumnos = 0;
                 foreach ($alumnos as $alumno) {
                     if ($alumno['nivel'] == $curso) {
@@ -267,7 +267,7 @@ include('../menu.php');
                                         <span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 52px !important;"></span>
                                         <?php endif; ?>
                                     </div>
-                                    
+
                                     <p style="margin-bottom: 2px;"><strong><?php echo $alumno['alumno']; ?></strong></p>
                                     <p class="text-muted" style="margin-bottom: 2px;">
                                         <strong>Unidad:</strong> <?php echo $alumno['unidad']; ?><br>
@@ -284,7 +284,7 @@ include('../menu.php');
                                         <?php
                                         foreach ($estados as $idestado => $nomestado) {
                                             if (isset($estado)) unset($estado);
-                                            
+
                                             foreach ($estado_libros as $estado_libro) {
                                                 if (($estado_libro['claveal'] == $alumno['claveal']) && ($estado_libro['materia'] == $materia['codigo'])) {
                                                     $estado = $estado_libro['estado'];
@@ -361,7 +361,7 @@ include('../menu.php');
                         </tbody>
                     </table>
                 </form>
-                
+
                 <?php else: ?>
                 <br><br><br><br><br>
                 <p class="lead text-center text-muted">No hay alumnos en el nivel y unidad seleccionados<p>
@@ -369,7 +369,7 @@ include('../menu.php');
                 <?php endif; ?>
 
             </div>
-        
+
         </div>
 
     </div>
@@ -391,7 +391,7 @@ include('../menu.php');
             var expbtnname = btnname.split('_');
             var claveal = expbtnname[0];
             var idmateria = expbtnname[1];
-            
+
             switch (btnvalue) {
                 case 'B': var btnstyle = 'btn btn-success btn-sm dropdown-toggle'; break;
                 case 'R': var btnstyle = 'btn btn-warning btn-sm dropdown-toggle'; break;
@@ -409,7 +409,7 @@ include('../menu.php');
                     $('#'+btnname).addClass(btnstyle);
 				}
 			});
-           
+
         });
     });
     </script>
