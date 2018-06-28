@@ -275,11 +275,9 @@ include('../menu.php');
                                     </p>
                                 </td>
                                 <?php foreach ($materias as $materia): ?>
-                                <?php $alumno['combasi'] = rtrim($alumno['combasi'], ':'); ?>
-                                <?php $combasi = explode(':', $alumno['combasi']); ?>
                                 <td class="text-center">
                                     <?php $estados = array('B' => 'Buen estado', 'R' => 'Regular / suficiente', 'M' => 'Malo', 'N' => 'No entregado / extraviado', 'S' => 'Prestado para septiembre'); ?>
-                                    <?php if (in_array($materia['codigo'], $combasi)): ?>
+                                    <?php if (strpos($alumno['combasi'], $materia['codigo']) !== false): ?>
                                     <div class="btn-group" data-toggle="buttons">
                                         <?php
                                         foreach ($estados as $idestado => $nomestado) {
