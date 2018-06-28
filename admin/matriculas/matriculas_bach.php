@@ -107,8 +107,8 @@ array(
 												'nombre' => 'El Padrón',
 ),
 array(
-												'id'     => 'Mc Donald\'s',
-												'nombre' => 'Mc Donald\'s',
+												'id'     => 'Mc Donalds',
+												'nombre' => 'Mc Donalds',
 ),
 );
 
