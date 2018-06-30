@@ -85,7 +85,6 @@ if (isset($_POST['btnGuardar'])) {
 				${c_1.$i}=${n_opt1.$i};
 			}
 		}
-
 // Itinerarios 2º Bach.
 		if (isset($_POST['it2_0'])) {
 			for ($z=0; $z<4 ; $z++) { 
@@ -223,6 +222,17 @@ if (isset($_POST['btnGuardar'])) {
 if (file_exists('config.php')) {
 	include('config.php');
 }
+
+for ($i=1; $i<5; $i++) { 
+	${ar_opt1.$i} = array_values(${opt1.$i});
+}
+
+for ($i=1; $i<5; $i++) { 
+	${ar_opt2.$i} = array_values(${opt1.$i});
+}
+
+$ar_opt_aut2 = array_values($opt_aut2);
+
 
 include("../../menu.php");
 include("menu.php");
@@ -1058,28 +1068,28 @@ include("menu.php");
 							<label for="opt11_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt11_0" type="text"
-								class="form-control" value="<?php echo (isset($opt11[0])) ? $opt11[0] : 'Cultura Científica 1'; ?>" id="opt11_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt11[0])) ? $ar_opt11[0] : 'Cultura Científica 1'; ?>" id="opt11_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt11_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt11_1" type="text"
-								class="form-control" value="<?php echo (isset($opt11[1])) ? $opt11[1] : 'Tecnologías de Información y Comunicación 1'; ?>" id="opt11_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt11[1])) ? $ar_opt11[1] : 'Tecnologías de Información y Comunicación 1'; ?>" id="opt11_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt11_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt11_2" type="text"
-								class="form-control" value="<?php echo (isset($opt11[2])) ? $opt11[2] : 'Robótica 1'; ?>" id="opt11_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt11[2])) ? $ar_opt11[2] : 'Robótica 1'; ?>" id="opt11_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt11_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt11_3" type="text"
-								class="form-control" value="<?php echo (isset($opt11[3])) ? $opt11[3] : ''; ?>" id="opt11_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt11[3])) ? $ar_opt11[3] : ''; ?>" id="opt11_3"> 
 							</div>
 						</div>
 							</td>
@@ -1090,28 +1100,28 @@ include("menu.php");
 							<label for="opt12_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt12_0" type="text"
-								class="form-control" value="<?php echo (isset($opt12[0])) ? $opt12[0] : 'Cultura Científica 2'; ?>" id="opt12_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt12[0])) ? $ar_opt12[0] : 'Cultura Científica 2'; ?>" id="opt12_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt12_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt12_1" type="text"
-								class="form-control" value="<?php echo (isset($opt12[1])) ? $opt12[1] : 'Tecnologías de Información y Comunicación 2'; ?>" id="opt12_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt12[1])) ? $ar_opt12[1] : 'Tecnologías de Información y Comunicación 2'; ?>" id="opt12_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt12_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt12_2" type="text"
-								class="form-control" value="<?php echo (isset($opt12[2])) ? $opt12[2] : ''; ?>" id="opt12_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt12[2])) ? $ar_opt12[2] : ''; ?>" id="opt12_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt12_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt12_3" type="text"
-								class="form-control" value="<?php echo (isset($opt12[3])) ? $opt12[3] : ''; ?>" id="opt12_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt12[3])) ? $ar_opt12[3] : ''; ?>" id="opt12_3"> 
 							</div>
 						</div>
 								</td>	
@@ -1122,28 +1132,28 @@ include("menu.php");
 							<label for="opt13_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt13_0" type="text"
-								class="form-control" value="<?php echo (isset($opt13[0])) ? $opt13[0] : 'Literatura Universal 3'; ?>" id="opt13_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt13[0])) ? $ar_opt13[0] : 'Literatura Universal 3'; ?>" id="opt13_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt13_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt13_1" type="text"
-								class="form-control" value="<?php echo (isset($opt13[1])) ? $opt13[1] : 'Historia del Mundo Contemporáneo 3'; ?>" id="opt13_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt13[1])) ? $ar_opt13[1] : 'Historia del Mundo Contemporáneo 3'; ?>" id="opt13_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt13_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt13_2" type="text"
-								class="form-control" value="<?php echo (isset($opt13[2])) ? $opt13[2] : ''; ?>" id="opt13_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt13[2])) ? $ar_opt13[2] : ''; ?>" id="opt13_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt13_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt13_3" type="text"
-								class="form-control" value="<?php echo (isset($opt13[3])) ? $opt13[3] : ''; ?>" id="opt13_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt13[3])) ? $ar_opt13[3] : ''; ?>" id="opt13_3"> 
 							</div>
 						</div>
 								</td>
@@ -1153,28 +1163,28 @@ include("menu.php");
 							<label for="opt14_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt14_0" type="text"
-								class="form-control" value="<?php echo (isset($opt14[0])) ? $opt14[0] : 'Literatura Universal 4'; ?>" id="opt14_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt14[0])) ? $ar_opt14[0] : 'Literatura Universal 4'; ?>" id="opt14_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt14_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt14_1" type="text"
-								class="form-control" value="<?php echo (isset($opt14[1])) ? $opt14[1] : 'Historia del Mundo Contemporáneo 4'; ?>" id="opt14_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt14[1])) ? $ar_opt14[1] : 'Historia del Mundo Contemporáneo 4'; ?>" id="opt14_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt14_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt14_2" type="text"
-								class="form-control" value="<?php echo (isset($opt14[2])) ? $opt14[2] : ''; ?>" id="opt14_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt14[2])) ? $ar_opt14[2] : ''; ?>" id="opt14_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt14_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt14_3" type="text"
-								class="form-control" value="<?php echo (isset($opt14[3])) ? $opt14[3] : ''; ?>" id="opt14_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt14[3])) ? $ar_opt14[3] : ''; ?>" id="opt14_3"> 
 							</div>
 						</div>
 						</div>
@@ -1398,63 +1408,63 @@ include("menu.php");
 							<label for="opt21_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_0" type="text"
-								class="form-control" value="<?php echo (isset($opt21[0])) ? $opt21[0] : 'Inglés 2º Idioma 1'; ?>" id="opt21_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[0])) ? $ar_opt21[0] : 'Inglés 2º Idioma 1'; ?>" id="opt21_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_1" type="text"
-								class="form-control" value="<?php echo (isset($opt21[1])) ? $opt21[1] : 'Francés 2º Idioma 1'; ?>" id="opt21_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[1])) ? $ar_opt21[1] : 'Francés 2º Idioma 1'; ?>" id="opt21_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_2" type="text"
-								class="form-control" value="<?php echo (isset($opt21[2])) ? $opt21[2] : 'Alemán 2º Idioma 1'; ?>" id="opt21_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[2])) ? $ar_opt21[2] : 'Alemán 2º Idioma 1'; ?>" id="opt21_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_3" type="text"
-								class="form-control" value="<?php echo (isset($opt21[3])) ? $opt21[3] : 'Tecnología Industrial 1 II'; ?>" id="opt21_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[3])) ? $ar_opt21[3] : 'Tecnología Industrial 1 II'; ?>" id="opt21_3"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_4" class="col-sm-5 control-label">Optativa 5</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_4" type="text"
-								class="form-control" value="<?php echo (isset($opt21[4])) ? $opt21[4] : 'Ciencias de la Tierra y del Medio Ambiente 1'; ?>" id="opt21_4"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[4])) ? $ar_opt21[4] : 'Ciencias de la Tierra y del Medio Ambiente 1'; ?>" id="opt21_4"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_5" class="col-sm-5 control-label">Optativa 6</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_5" type="text"
-								class="form-control" value="<?php echo (isset($opt21[5])) ? $opt21[5] : 'Psicología 1'; ?>" id="opt21_5"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[5])) ? $ar_opt21[5] : 'Psicología 1'; ?>" id="opt21_5"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_6" class="col-sm-5 control-label">Optativa 7</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_6" type="text"
-								class="form-control" value="<?php echo (isset($opt21[6])) ? $opt21[6] : 'Geología 1'; ?>" id="opt21_6"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[6])) ? $ar_opt21[6] : 'Geología 1'; ?>" id="opt21_6"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_7" class="col-sm-5 control-label">Optativa 8</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_7" type="text"
-								class="form-control" value="<?php echo (isset($opt21[7])) ? $opt21[7] : 'TIC 1 II'; ?>" id="opt21_7"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[7])) ? $ar_opt21[7] : 'TIC 1 II'; ?>" id="opt21_7"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt21_8" class="col-sm-5 control-label">Optativa 9</label>
 							<div class="input-group col-sm-5">
 							<input name="opt21_8" type="text"
-								class="form-control" value="<?php echo (isset($opt21[8])) ? $opt21[8] : ''; ?>" id="opt21_8"> 
+								class="form-control" value="<?php echo (isset($ar_opt21[8])) ? $ar_opt21[8] : ''; ?>" id="opt21_8"> 
 							</div>
 						</div>
 							</td>
@@ -1465,63 +1475,63 @@ include("menu.php");
 							<label for="opt22_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_0" type="text"
-								class="form-control" value="<?php echo (isset($opt22[0])) ? $opt22[0] : 'Inglés 2º Idioma 2'; ?>" id="opt22_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[0])) ? $ar_opt22[0] : 'Inglés 2º Idioma 2'; ?>" id="opt22_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_1" type="text"
-								class="form-control" value="<?php echo (isset($opt22[1])) ? $opt22[1] : 'Francés 2º Idioma 2'; ?>" id="opt22_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[1])) ? $ar_opt22[1] : 'Francés 2º Idioma 2'; ?>" id="opt22_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_2" type="text"
-								class="form-control" value="<?php echo (isset($opt22[2])) ? $opt22[2] : 'Alemán 2º Idioma 2'; ?>" id="opt22_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[2])) ? $ar_opt22[2] : 'Alemán 2º Idioma 2'; ?>" id="opt22_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_3" type="text"
-								class="form-control" value="<?php echo (isset($opt22[3])) ? $opt22[3] : 'Tecnología Industrial 2 II'; ?>" id="opt22_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[3])) ? $ar_opt22[3] : 'Tecnología Industrial 2 II'; ?>" id="opt22_3"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_4" class="col-sm-5 control-label">Optativa 5</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_4" type="text"
-								class="form-control" value="<?php echo (isset($opt22[4])) ? $opt22[4] : 'Ciencias de la Tierra y del Medio Ambiente 2'; ?>" id="opt22_4"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[4])) ? $ar_opt22[4] : 'Ciencias de la Tierra y del Medio Ambiente 2'; ?>" id="opt22_4"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_5" class="col-sm-5 control-label">Optativa 6</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_5" type="text"
-								class="form-control" value="<?php echo (isset($opt22[5])) ? $opt22[5] : 'Psicología 2'; ?>" id="opt22_5"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[5])) ? $ar_opt22[5] : 'Psicología 2'; ?>" id="opt22_5"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_6" class="col-sm-5 control-label">Optativa 7</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_6" type="text"
-								class="form-control" value="<?php echo (isset($opt22[6])) ? $opt22[6] : 'Geología 2'; ?>" id="opt22_6"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[6])) ? $ar_opt22[6] : 'Geología 2'; ?>" id="opt22_6"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_7" class="col-sm-5 control-label">Optativa 8</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_7" type="text"
-								class="form-control" value="<?php echo (isset($opt22[7])) ? $opt22[7] : 'TIC 2 II'; ?>" id="opt22_7"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[7])) ? $ar_opt22[7] : 'TIC 2 II'; ?>" id="opt22_7"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt22_8" class="col-sm-5 control-label">Optativa 9</label>
 							<div class="input-group col-sm-5">
 							<input name="opt22_8" type="text"
-								class="form-control" value="<?php echo (isset($opt22[8])) ? $opt22[8] : 'Física 2'; ?>" id="opt22_8"> 
+								class="form-control" value="<?php echo (isset($ar_opt22[8])) ? $ar_opt22[8] : 'Física 2'; ?>" id="opt22_8"> 
 							</div>
 						</div>
 							</td>
@@ -1531,63 +1541,63 @@ include("menu.php");
 							<label for="opt23_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_0" type="text"
-								class="form-control" value="<?php echo (isset($opt23[0])) ? $opt23[0] : 'Inglés 2º Idioma 3'; ?>" id="opt23_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[0])) ? $ar_opt23[0] : 'Inglés 2º Idioma 3'; ?>" id="opt23_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_1" type="text"
-								class="form-control" value="<?php echo (isset($opt23[1])) ? $opt23[1] : 'Francés 2º Idioma 3'; ?>" id="opt23_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[1])) ? $ar_opt23[1] : 'Francés 2º Idioma 3'; ?>" id="opt23_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_2" type="text"
-								class="form-control" value="<?php echo (isset($opt23[2])) ? $opt23[2] : 'Alemán 2º Idioma 3'; ?>" id="opt23_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[2])) ? $ar_opt23[2] : 'Alemán 2º Idioma 3'; ?>" id="opt23_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_3" type="text"
-								class="form-control" value="<?php echo (isset($opt23[3])) ? $opt23[3] : 'TIC II 3'; ?>" id="opt23_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[3])) ? $ar_opt23[3] : 'TIC II 3'; ?>" id="opt23_3"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_4" class="col-sm-5 control-label">Optativa 5</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_4" type="text"
-								class="form-control" value="<?php echo (isset($opt23[4])) ? $opt23[4] : ''; ?>" id="opt23_4"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[4])) ? $ar_opt23[4] : ''; ?>" id="opt23_4"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_5" class="col-sm-5 control-label">Optativa 6</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_5" type="text"
-								class="form-control" value="<?php echo (isset($opt23[5])) ? $opt23[5] : ''; ?>" id="opt23_5"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[5])) ? $ar_opt23[5] : ''; ?>" id="opt23_5"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_6" class="col-sm-5 control-label">Optativa 7</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_6" type="text"
-								class="form-control" value="<?php echo (isset($opt23[6])) ? $opt23[6] : ''; ?>" id="opt23_6"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[6])) ? $ar_opt23[6] : ''; ?>" id="opt23_6"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_7" class="col-sm-5 control-label">Optativa 8</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_7" type="text"
-								class="form-control" value="<?php echo (isset($opt23[7])) ? $opt23[7] : ''; ?>" id="opt23_7"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[7])) ? $ar_opt23[7] : ''; ?>" id="opt23_7"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt23_8" class="col-sm-5 control-label">Optativa 9</label>
 							<div class="input-group col-sm-5">
 							<input name="opt23_8" type="text"
-								class="form-control" value="<?php echo (isset($opt23[8])) ? $opt23[8] : ''; ?>" id="opt23_8"> 
+								class="form-control" value="<?php echo (isset($ar_opt23[8])) ? $ar_opt23[8] : ''; ?>" id="opt23_8"> 
 							</div>
 						</div>
 							</td>
@@ -1597,63 +1607,63 @@ include("menu.php");
 							<label for="opt24_0" class="col-sm-5 control-label">Optativa 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_0" type="text"
-								class="form-control" value="<?php echo (isset($opt24[0])) ? $opt24[0] : 'Inglés 2º Idioma 4'; ?>" id="opt24_0"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[0])) ? $ar_opt24[0] : 'Inglés 2º Idioma 4'; ?>" id="opt24_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_1" class="col-sm-5 control-label">Optativa 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_1" type="text"
-								class="form-control" value="<?php echo (isset($opt24[1])) ? $opt24[1] : 'Francés 2º Idioma 4'; ?>" id="opt24_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[1])) ? $ar_opt24[1] : 'Francés 2º Idioma 4'; ?>" id="opt24_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_2" class="col-sm-5 control-label">Optativa 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_2" type="text"
-								class="form-control" value="<?php echo (isset($opt24[2])) ? $opt24[2] : 'Alemán 2º Idioma 4'; ?>" id="opt24_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[2])) ? $ar_opt24[2] : 'Alemán 2º Idioma 4'; ?>" id="opt24_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_3" class="col-sm-5 control-label">Optativa 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_3" type="text"
-								class="form-control" value="<?php echo (isset($opt24[3])) ? $opt24[3] : 'TIC II 4'; ?>" id="opt24_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[3])) ? $ar_opt24[3] : 'TIC II 4'; ?>" id="opt24_3"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_4" class="col-sm-5 control-label">Optativa 5</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_4" type="text"
-								class="form-control" value="<?php echo (isset($opt24[4])) ? $opt24[4] : 'Fundamentos de Administracción y Gestión 4'; ?>" id="opt24_4"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[4])) ? $ar_opt24[4] : 'Fundamentos de Administracción y Gestión 4'; ?>" id="opt24_4"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_5" class="col-sm-5 control-label">Optativa 6</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_5" type="text"
-								class="form-control" value="<?php echo (isset($opt24[5])) ? $opt24[5] : ''; ?>" id="opt24_5"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[5])) ? $ar_opt24[5] : ''; ?>" id="opt24_5"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_6" class="col-sm-5 control-label">Optativa 7</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_6" type="text"
-								class="form-control" value="<?php echo (isset($opt24[6])) ? $opt24[6] : ''; ?>" id="opt24_6"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[6])) ? $ar_opt24[6] : ''; ?>" id="opt24_6"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_7" class="col-sm-5 control-label">Optativa 8</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_7" type="text"
-								class="form-control" value="<?php echo (isset($opt24[7])) ? $opt24[7] : ''; ?>" id="opt24_7"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[7])) ? $ar_opt24[7] : ''; ?>" id="opt24_7"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt24_8" class="col-sm-5 control-label">Optativa 9</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_8" type="text"
-								class="form-control" value="<?php echo (isset($opt24[8])) ? $opt24[8] : ''; ?>" id="opt24_8"> 
+								class="form-control" value="<?php echo (isset($ar_opt24[8])) ? $ar_opt24[8] : ''; ?>" id="opt24_8"> 
 							</div>
 						</div>
 							</td>		
@@ -1666,56 +1676,56 @@ include("menu.php");
 							<label for="opt_aut2_0" class="col-sm-3 control-label">Optativa de 2 horas 1</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_0" type="text"
-							class="form-control" value="<?php echo (isset($opt_aut2[0])) ? $opt_aut2['opt_aut21'] : 'Educación Física'; ?>" id="opt_aut2_0"> 
+							class="form-control" value="<?php echo (isset($ar_opt_aut2[0])) ? $ar_opt_aut2[0] : 'Educación Física'; ?>" id="opt_aut2_0"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_1" class="col-sm-3 control-label">Optativa de 2 horas 2</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_1" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[1])) ? $opt_aut2['opt_aut22'] : 'Estadística'; ?>" id="opt_aut2_1"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[1])) ? $ar_opt_aut2[1] : 'Estadística'; ?>" id="opt_aut2_1"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_2" class="col-sm-3 control-label">Optativa de 2 horas 3</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_2" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[2])) ? $opt_aut2['opt_aut23'] : 'Introducción Ciencias de la Salud'; ?>" id="opt_aut2_2"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[2])) ? $ar_opt_aut2[2] : 'Introducción Ciencias de la Salud'; ?>" id="opt_aut2_2"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_3" class="col-sm-3 control-label">Optativa de 2 horas 4</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_3" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[3])) ? $opt_aut2['opt_aut24'] : 'Electrotecnia'; ?>" id="opt_aut2_3"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[3])) ? $ar_opt_aut2[3] : 'Electrotecnia'; ?>" id="opt_aut2_3"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_4" class="col-sm-3 control-label">Optativa de 2 horas 5</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_4" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[4])) ? $opt_aut2['opt_aut25'] : 'Alemán 2º Idioma'; ?>" id="opt_aut2_4"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[4])) ? $ar_opt_aut2[4] : 'Alemán 2º Idioma'; ?>" id="opt_aut2_4"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_5" class="col-sm-3 control-label">Optativa de 2 horas 6</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_5" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[5])) ? $opt_aut2['opt_aut26'] : 'Francés 2º Idioma'; ?>" id="opt_aut2_5"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[5])) ? $ar_opt_aut2[5] : 'Francés 2º Idioma'; ?>" id="opt_aut2_5"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_6" class="col-sm-3 control-label">Optativa de 2 horas 7</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_6" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[6])) ? $opt_aut2['opt_aut27'] : 'Inglés 2º Idioma'; ?>" id="opt_aut2_6"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[6])) ? $ar_opt_aut2[6] : 'Inglés 2º Idioma'; ?>" id="opt_aut2_6"> 
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="opt_aut2_7" class="col-sm-3 control-label">Optativa de 2 horas 8</label>
 							<div class="input-group col-sm-5">
 							<input name="opt_aut2_7" type="text"
-								class="form-control" value="<?php echo (isset($opt_aut2[7])) ? $opt_aut2['opt_aut28'] : ''; ?>" id="opt_aut2_7"> 
+								class="form-control" value="<?php echo (isset($ar_opt_aut2[7])) ? $ar_opt_aut2[7] : ''; ?>" id="opt_aut2_7"> 
 							</div>
 						</div>
 								</td>
