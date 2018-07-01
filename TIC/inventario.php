@@ -234,7 +234,7 @@ include("menu.php");
                                 <form action="" method="post" style="display: inline; margin: 0; padding: 0;">
                                     <input type="hidden" name="numregistro" value="<?php echo $item['numregistro']; ?>">
                                     <input type="hidden" name="marcadobaja" value="<?php echo $item['marcadobaja']; ?>">
-                                    <button type="submit" class="btn btn-default" name="marcarBaja" data-bs="tooltip" title="<?php echo ($item['marcadobaja']) ? 'Desmarcar para dar de baja en Séneca' : 'Marcar para dar de baja en Séneca'; ?>"><?php echo ($item['marcadobaja']) ? '<span class="fas fa-undo fa-fw"></span>' : '<span class="far fa-times fa-fw"></span>'; ?></button>
+                                    <button type="submit" class="btn btn-default" name="marcarBaja" data-bs="tooltip" title="<?php echo ($item['marcadobaja']) ? 'Desmarcar para dar de baja en Séneca' : 'Marcar para dar de baja en Séneca'; ?>"><?php echo ($item['marcadobaja']) ? '<span class="fas fa-undo fa-fw"></span>' : '<span class="fas fa-times fa-fw"></span>'; ?></button>
                                 </form>
                             </td>
                             <?php endif; ?>
