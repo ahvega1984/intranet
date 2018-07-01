@@ -246,7 +246,7 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 				}	
 				
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
-				if($recibido == '1'){$comentarios1="<i class='far fa-check' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='far fa-exclamation-triangle' title='No recibido'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='fas fa-check' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fas fa-exclamation-triangle' title='No recibido'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td>";
 		if ($foto = obtener_foto_alumno($claveal)) {
@@ -272,12 +272,12 @@ if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSIO
 		$tr_f = explode("-",$fecha);
 		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+172800;
 		if ($ahora < $antes or stristr($_SESSION['cargo'],'1') == TRUE) {
-			echo "<A HREF='infechoria.php?id=$id&nombre=$claveal'><i class='far fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";
+			echo "<A HREF='infechoria.php?id=$id&nombre=$claveal'><i class='fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";
 		}
 	echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='far fa-trash-alt fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></i></a>";
 }	
 		echo "<a href='lfechorias2.php?clave=$claveal'><span class='far fa-user fa-fw fa-lg' data-bs='tooltip' title='Historial del alumno'></span></a>
-		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='far fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles del problema e historial de problemas del alumno'></i></A></td>
+		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fas fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles del problema e historial de problemas del alumno'></i></A></td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {

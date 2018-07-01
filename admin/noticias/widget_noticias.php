@@ -2,7 +2,7 @@
 
 <!-- MODULO DE NOTICIAS -->
 
-<h4><span class="far fa-th-list fa-fw"></span> Noticias</h4>
+<h4><span class="fas fa-th-list fa-fw"></span> Noticias</h4>
 <hr>
 
 <!-- NOTICIAS DESTACADAS -->
@@ -41,7 +41,7 @@
 
 	<div class="text-center">
 		<br><br>
-		<span class="far fa-th-list fa-5x text-muted"></span>
+		<span class="fas fa-th-list fa-5x text-muted"></span>
 		<p class="lead text-muted">No se ha publicado ninguna noticia.</p>
 		<br><br>
 	</div>

@@ -104,14 +104,14 @@ include("menu.php");
 			
 			<?php if (! empty($diasem) && ! empty($hora)): ?>
 			<h4>
-				<span class="far fa-history fa-fw"></span> Histórico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>ª hora</span>		
+				<span class="fas fa-history fa-fw"></span> Histórico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>ª hora</span>		
 			</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' AND dia = '$diasem' AND hora = '$hora' ORDER BY fecha_guardia DESC"); ?>
 			<?php $uri_extra = "&diasem=$diasem&hora=$hora"; ?>
 
 			<?php else: ?>
 			
-			<h4><span class="far fa-history fa-fw"></span> Histórico de guardias</h4>
+			<h4><span class="fas fa-history fa-fw"></span> Histórico de guardias</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' ORDER BY fecha_guardia DESC"); ?>
 			
 			<?php endif; ?>

@@ -27,7 +27,7 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
     	
     	<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="far fa-question fa-lg"></span>
+			<span class="fas fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->

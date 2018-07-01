@@ -174,7 +174,7 @@ if ($j_s == '') {
 <?php
 }
 ?>
-&nbsp;<a href="editar.php?id=<?php echo $item[4];?>&departamento=<?php echo $departamento;?>"><i class="far fa-pencil-alt" title="Editar registro"> </i> </a></td></tr>
+&nbsp;<a href="editar.php?id=<?php echo $item[4];?>&departamento=<?php echo $departamento;?>"><i class="fas fa-pencil-alt" title="Editar registro"> </i> </a></td></tr>
 <?php
 }
 	echo '

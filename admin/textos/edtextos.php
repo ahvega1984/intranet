@@ -81,7 +81,7 @@ if ($textos) {
 			 <td>$row[3]</td>
 			 <td>$row[4]</td>
 		  <td>$row[8]</td>
-		  <td><a href='editextos.php?id=$row[6]'><i class='far fa-pencil-alt' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='far fa-trash-alt' title='Borrar' > </i></a></td>
+		  <td><a href='editextos.php?id=$row[6]'><i class='fas fa-pencil-alt' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='far fa-trash-alt' title='Borrar' > </i></a></td>
 		  </tr>";      	
 	}
 		  echo "</table>";

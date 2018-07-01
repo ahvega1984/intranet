@@ -466,7 +466,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
 		if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='far fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fas fa-sync-alt' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 		}
 
 		if ($curso=='4ESO') {
@@ -474,7 +474,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if (mysqli_num_rows($back4)>0) {
 				$id4 = mysqli_fetch_array($back4);
 				$respaldo = '1';
-				$backup="<a href='consultas_bach.php?copia=1&id=$id4[0]&id_4=$id&curso=$curso&consulta=1'><i class='far fa-refresh text-warning' rel='Tooltip' title='Restaurar datos originales de la matrícula de Bachillerato'> </i> <span class=text-warning>(B)</span></a>";
+				$backup="<a href='consultas_bach.php?copia=1&id=$id4[0]&id_4=$id&curso=$curso&consulta=1'><i class='fas fa-sync-alt text-warning' rel='Tooltip' title='Restaurar datos originales de la matrícula de Bachillerato'> </i> <span class=text-warning>(B)</span></a>";
 			}
 		}
 
@@ -792,7 +792,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			// Fin de Convivencia.
 			echo "</td>";
 			echo "<td class='hidden-print' nowrap>";
-			if($foto == 1){ echo '<span class="far fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
+			if($foto == 1){ echo '<span class="fas fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
 			if(!empty($enf)){ echo '<span class="far fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 			if(!empty($divorcio)){
 				if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="far fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}

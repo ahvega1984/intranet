@@ -308,7 +308,7 @@ include("../menu.php"); ?>
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<?php if (acl_permiso($carg, array('1'))): ?>
-				<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="far fa-cog fa-lg"></span></a>
+				<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fas fa-cog fa-lg"></span></a>
 			<?php endif; ?>
 			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
@@ -390,7 +390,7 @@ include("../menu.php"); ?>
 					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="far fa-calendar-plusfa-fw"></span> Nueva Actividad</a>
 
 					<div class="pull-right">
-						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="far fa-print fa-fw"></span></a>
+						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="fas fa-print fa-fw"></span></a>
 
 						<div class="btn-group">
 						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
@@ -400,7 +400,7 @@ include("../menu.php"); ?>
 
 						<!-- Button trigger modal -->
 					 	<a href="#"class="btn btn-default hidden-print" data-toggle="modal" data-target="#modalAyuda">
-					 		<span class="far fa-question fa-lg"></span>
+					 		<span class="fas fa-question fa-lg"></span>
 					 	</a>
 
 					 	<!-- Modal -->

@@ -86,9 +86,9 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 				
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}	
 				if($recibido == '1'){
-					$comentarios1="<i class='far fa-check' title='recibido'> </i>";
+					$comentarios1="<i class='fas fa-check' title='recibido'> </i>";
 				}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){
-					$comentarios1="<i class='far fa-exclamation-triangle' title='No recibido'> </i>";
+					$comentarios1="<i class='fas fa-exclamation-triangle' title='No recibido'> </i>";
 				}else{
 					$comentarios1="";
 				}
@@ -102,7 +102,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' data-bs='tooltip' title='Detalles'><span class='far fa-search fa-fw fa-lg'></span></a>";
+		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' data-bs='tooltip' title='Detalles'><span class='fas fa-search fa-fw fa-lg'></span></a>";
 if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' data-bs='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='far fa-trash-alt fa-fw fa-lg'></span></a></div>";}	
 		echo "</td>";
 		echo "</tr>";

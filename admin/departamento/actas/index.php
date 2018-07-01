@@ -503,7 +503,7 @@ $html_textarea = "<p>".$titulo."</p>
 								<?php else: ?>
 								<?php if (! $row['impreso']): ?>
 								<a href="<?php echo $uri; ?>edit_id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar acta"><span class="far fa-edit fa-fw fa-lg"></span></a>
-								<a href="pdf.php?id=<?php echo $row['id']; ?>&amp;imprimir=1" target="_blank" data-bs="tooltip" title="Imprimir acta"><span class="far fa-print fa-fw fa-lg"></span></a>
+								<a href="pdf.php?id=<?php echo $row['id']; ?>&amp;imprimir=1" target="_blank" data-bs="tooltip" title="Imprimir acta"><span class="fas fa-print fa-fw fa-lg"></span></a>
 								<a href="<?php echo $uri; ?>eliminar_id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar acta" data-bb="confirm-delete"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 								<?php else: ?>
 								<a href="pdf.php?id=<?php echo $row['id']; ?>" target="_blank" data-bs="tooltip" title="Ver acta"><span class="far fa-eye fa-fw fa-lg"></span></a>

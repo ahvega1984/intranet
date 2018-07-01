@@ -648,7 +648,7 @@ function show_contents() {
 	?>
 	<!-- Button trigger modal -->
 	<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-		<span class="far fa-question fa-lg"></span>
+		<span class="fas fa-question fa-lg"></span>
 	</a>
 
 	<!-- Modal -->
@@ -1021,9 +1021,9 @@ switch($action)
 		echo "<center><h4>$mess[26] : ";
 		echo "<img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" align=\"ABSMIDDLE\">\n";
 		echo "".$filenametoview."<br><br><hr>\n";
-		echo "<a href=\"javascript:window.print()\"><i class='far fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.print()\"><i class='fas fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "<a href=\"index.php?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='far fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
-		echo "<a href=\"javascript:window.close()\"><i class='far fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.close()\"><i class='fas fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "</h4>\n";
 
 
@@ -1062,9 +1062,9 @@ switch($action)
 			echo "<img src=\"getimg.php?image=$directory/$filename\">\n";
 		}
 		echo "<hr>\n";
-		echo "<a href=\"javascript:window.print()\"><i class='far fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.print()\"><i class='fas fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "<a href=\"index.php?action=downloadfile&filename=$filename&directory=$directory\"><i class='far fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
-		echo "<a href=\"javascript:window.close()\"><i class='far fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.close()\"><i class='fas fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "<hr></center>\n";
 		echo "</body>\n";
 		echo "</html>\n";

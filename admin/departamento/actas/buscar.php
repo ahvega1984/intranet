@@ -64,8 +64,8 @@ if(mysqli_num_rows($result) > 0)
 	?>	
 </td>
 <td style="text-align:right;">
-<a href="story.php?id=<?php echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="far fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<?php echo $row->id; ?>"  style="color:#990000"> <i class="far fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
+<a href="story.php?id=<?php echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fas fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
+<a href="pdf.php?id=<?php echo $row->id; ?>"  style="color:#990000"> <i class="fas fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
 </div>
         </td>
       </tr>

@@ -548,7 +548,7 @@ echo '<input name="fecha_dia" type="hidden" value="';
 echo $fecha_dia;
 echo '" />';
 
-if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="far fa-check"> </i> Registrar faltas de asistencia</button>';}
+if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="fas fa-check"> </i> Registrar faltas de asistencia</button>';}
 
 ?></form>
 </div>

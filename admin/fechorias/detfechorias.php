@@ -15,7 +15,7 @@ include("menu.php");
 			
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-				<span class="far fa-question fa-lg"></span>
+				<span class="fas fa-question fa-lg"></span>
 			</a>
 		
 			<!-- Modal -->
@@ -214,7 +214,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 	<td nowrap>$row[0]</td>
 	<td>$row[1]</td>
 	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='far fa-search fa-fw fa-lg'></i></a>";
+	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fas fa-search fa-fw fa-lg'></i></a>";
   if($_SESSION['profi']==$row[4] or stristr($_SESSION['cargo'],'1') == TRUE){
     echo "<a href='delfechorias.php?id= $row[3]' data-bs='tooltip' data-bb='confirm-delete' title='Eliminar'><i class='far fa-trash-alt fa-fw fa-lg'></i></a>";
   }

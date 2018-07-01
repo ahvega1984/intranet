@@ -71,7 +71,7 @@ if (mysqli_num_rows($result) > 0)
 		$si = mysqli_num_rows($t_si);
 		$no = mysqli_num_rows($t_no);
 		$nulo = mysqli_num_rows($vacio);
-		if ($nulo > 0){ $bola = "<i class='far fa-check' title='confirmado' />"; } else{ $bola = "<i class='far fa-exclamation-triangle' title='No confirmado' />"; }
+		if ($nulo > 0){ $bola = "<i class='fas fa-check' title='confirmado' />"; } else{ $bola = "<i class='fas fa-exclamation-triangle' title='No confirmado' />"; }
 
    echo "<tr><td nowrap style='vertical-align:middle'>";
 		if ($foto = obtener_foto_alumno($row->CLAVEAL)) {
@@ -84,19 +84,19 @@ if (mysqli_num_rows($result) > 0)
    <TD style='vertical-align:middle'>".stripslashes($row->unidad)."</TD>
    <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";
    
-   echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='far fa-search ' title='Ver Informe'> </i></a>";
+   echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-search ' title='Ver Informe'> </i></a>";
    
      $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysqli_fetch_array ( $result0 );	
 $tuti = $row0[0];
 	if (stristr($_SESSION ['cargo'],'1') == TRUE || nomprofesor($tuti) == nomprofesor($_SESSION['profi'])) {
-		echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='far fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
+		echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
 		echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini' data-bb='confirm-delete'><i class='far fa-trash-alt ' title='Borrar Informe' > </i> </a>";
 	}
 	else {
 		$result_profe = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='".nomprofesor($_SESSION['profi'])."' and grupo = '".stripslashes($row->unidad)."'");
 		if (mysqli_num_rows($result_profe) && date('Y-m-d') <= $row->FECHA) {
-			 echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='far fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
+			 echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
 			 
 		}
 	}

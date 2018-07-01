@@ -235,7 +235,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 <?php if(stristr($_SESSION['cargo'],'1') == TRUE) {
 	echo ' <div class="well well-lg" >';
 	echo '<legend>Impresión de todos los Alumnos</legend>';
-	echo "<a href='carnet.php?todos=1' class='btn btn-primary btn-block'><i class='far fa-print '> </i> Imprimir todos los cursos</a></div>";
+	echo "<a href='carnet.php?todos=1' class='btn btn-primary btn-block'><i class='fas fa-print '> </i> Imprimir todos los cursos</a></div>";
 }
 ?>
 </div>

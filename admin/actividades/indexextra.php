@@ -173,7 +173,7 @@ if($detalles == '1')
 					
 				if (mysqli_num_rows($result_actividad)):					
 				echo '<a href="extraescolares.php?id='.$datos[0].'&ver_lista=1">
-						<span class="far fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
+						<span class="fas fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
 					</a>';
 				endif;
 			?>		
@@ -184,7 +184,7 @@ if($detalles == '1')
 				title="Seleccionar alumnos que realizan la Actividad"></span></a> <?php } ?>
 			<a href="indexextra.php?id=<?php echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
-				class="far fa-search fa-fw fa-lg"></span></a> 
+				class="fas fa-search fa-fw fa-lg"></span></a> 
 			<?php
 					if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 			?>
@@ -197,12 +197,12 @@ if($detalles == '1')
 					?> <?php if($autoriz=="1"){
 					?>
 					<span
-				class="far fa-check-circle fa-fw fa-lg text-success"></span>
+				class="fas fa-check-circle fa-fw fa-lg text-success"></span>
 					<?	
 					}else{ ?> <a
 				href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1"
 				data-bs="tooltip" title="Autorizar"><span
-				class="far fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php 
+				class="fas fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php 
 				?> 
 				<?php
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){

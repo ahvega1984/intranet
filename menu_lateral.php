@@ -760,7 +760,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 		<?php if ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria"): ?>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/fechorias/infechoria.php">
-				<span class="far fa-gavel fa-2x"></span><br>
+				<span class="fas fa-gavel fa-2x"></span><br>
 				<small>Convivencia</small></a>
 		</div>
 		<?php endif; ?>
@@ -768,7 +768,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 		<?php if (strstr($_SESSION['cargo'], "2") or strstr($_SESSION['cargo'], "1") or strstr($_SESSION['cargo'], "8")){ ?>
 
 			<a href="admin/tutoria/index.php">
-				<span class="far fa-users fa-2x"></span><br>
+				<span class="fas fa-users fa-2x"></span><br>
 				<small>Tutoría</small></a>
 
 		<?php } else{ ?>
@@ -782,7 +782,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 
 		<div class="col-xs-3 text-center padmobile">
 			<a href="reservas/index_aula.php?recurso=aula_grupo">
-				<span class="far fa-key fa-2x"></span><br>
+				<span class="fas fa-key fa-2x"></span><br>
 				<small>Reservas</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
@@ -792,7 +792,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 		</div>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="tareas/index.php">
-				<span class="far fa-tasks fa-2x"></span><br>
+				<span class="fas fa-tasks fa-2x"></span><br>
 				<small>Tareas</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
@@ -808,7 +808,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 		</div>
 		<div class="col-xs-3 text-center padmobile hidden-sm hidden-md hidden-lg">
 			<a href="#" id="toggleMenu">
-				<span class="far fa-ellipsis-v fa-2x"></span><br>
+				<span class="fas fa-ellipsis-v fa-2x"></span><br>
 				<small>Menú</small></a>
 		</div>
 	</div>
@@ -826,7 +826,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 	  <div class="panel-heading">
 	    <h4 class="panel-title">
 	      <a data-toggle="collapse" data-parent="#accordion" href="#<?php echo $menu[$i]['menu_id']; ?>" style="display: block;">
-	      	<span class="far fa-chevron-down pull-right"></span>
+	      	<span class="fas fa-chevron-down pull-right"></span>
 	        <?php echo $menu[$i]['nombre']; ?>
 	      </a>
 	    </h4>
@@ -843,7 +843,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array($carg, $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a data-toggle="collapse" href="#<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>">
-						<span class="far fa-chevron-down pull-right"></span>
+						<span class="fas fa-chevron-down pull-right"></span>
 						<?php echo $menu[$i]['items'][$j]['titulo']; ?></a>
 					</li>
 					<div id="<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>" class="collapse">

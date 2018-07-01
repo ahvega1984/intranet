@@ -61,20 +61,20 @@ echo "<br /><div class='well'><table style='width:100%'><tr><td style='text-alig
 
 if ($key_claveal > 0) {
   $mens_ant = "informe.php?profesor=$profesor&claveal=$claveal&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&anterior=1";
-  echo '<a class="btn btn-primary btn-sm" href="'.$mens_ant.'"><i class="far fa-chevron-left"></i> Anterior</a>';
+  echo '<a class="btn btn-primary btn-sm" href="'.$mens_ant.'"><i class="fas fa-chevron-left"></i> Anterior</a>';
 }
 else {
-   echo '<a class="btn btn-primary btn-sm disabled" href="#"><i class="far fa-chevron-left"></i> Anterior</a>';
+   echo '<a class="btn btn-primary btn-sm disabled" href="#"><i class="fas fa-chevron-left"></i> Anterior</a>';
 }
 
 echo "&nbsp;&nbsp; $nombre $apellidos &nbsp;&nbsp;"; 
 
 if ($key_claveal < ($total_alumnos_unidad - 1)) {
   $mens_sig = "informe.php?profesor=$profesor&claveal=$claveal&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&siguiente=1";
-  echo '<a class="btn btn-primary btn-sm" href="'.$mens_sig.'">Siguiente <i class="far fa-chevron-right"></i></a>';
+  echo '<a class="btn btn-primary btn-sm" href="'.$mens_sig.'">Siguiente <i class="fas fa-chevron-right"></i></a>';
 }
 else {
-  echo '<a class="btn btn-primary btn-sm disabled" href="#">Siguiente <i class="far fa-chevron-right"></i></a>';
+  echo '<a class="btn btn-primary btn-sm disabled" href="#">Siguiente <i class="fas fa-chevron-right"></i></a>';
 }
 
 echo "</h4></td><td style='text-align:right'>";

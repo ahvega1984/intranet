@@ -95,7 +95,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades"><?php echo $feed_title; ?></a></li>
 						<li id="bs-tour-consejeria" class="dropdown hidden-xs">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="<?php echo $feed_title; ?>" data-placement="bottom" data-container="body">
-								<span class="far fa-rss fa-fw"></span> <b class="caret"></b>
+								<span class="fas fa-rss fa-fw"></span> <b class="caret"></b>
 							</a>
 
 							<ul class="dropdown-menu dropdown-feed">
@@ -126,7 +126,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/tareas/')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php">Tareas</a></li>
 						<li id="bs-tour-tareas" class="dropdown hidden-xs">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Tareas pendientes" data-placement="bottom" data-container="body">
-								<span class="far fa-tasks fa-fw <?php if(mysqli_num_rows($result_tareas)): ?>text-warning<?php endif; ?>"></span> <b class="caret"></b>
+								<span class="fas fa-tasks fa-fw <?php if(mysqli_num_rows($result_tareas)): ?>text-warning<?php endif; ?>"></span> <b class="caret"></b>
 							</a>
 
 							<ul class="dropdown-menu dropdown-messages">
@@ -140,7 +140,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 											<div class="col-sm-2">
 												<form action="" method="post">
 													<input type="hidden" name="id_tarea" value="<?php echo $row_tareas['id']; ?>">
-													<button type="submit" name="submit_tarea" class="btn btn-sm btn-default"><span class="far fa-check fa-fw"></span></button>
+													<button type="submit" name="submit_tarea" class="btn btn-sm btn-default"><span class="fas fa-check fa-fw"></span></button>
 												</form>
 											</div>
 											<div class="col-sm-10">
@@ -257,13 +257,13 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 									</div>
 								</li>
 								<li class="divider hidden-xs"></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="far fa-lock fa-fw"></span> Cambiar contraseña</a></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><span class="far fa-key fa-fw"></span> Autenticación en dos pasos</a></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="far fa-camera fa-fw"></span> Cambiar fotografía</a></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="far fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><span class="far fa-user-secret fa-fw"></span> Consultar accesos</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fas fa-lock fa-fw"></span> Cambiar contraseña</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><span class="fas fa-key fa-fw"></span> Autenticación en dos pasos</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fas fa-camera fa-fw"></span> Cambiar fotografía</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="fas fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><span class="fas fa-user-secret fa-fw"></span> Consultar accesos</a></li>
 								<li class="divider"></li>
-								<li><a href="//<?php echo $config['dominio']; ?>/intranet/logout.php"><span class="far fa-sign-out-alt fa-fw"></span> Cerrar sesión</a></li>
+								<li><a href="//<?php echo $config['dominio']; ?>/intranet/logout.php"><span class="fas fa-sign-out-alt fa-fw"></span> Cerrar sesión</a></li>
 							</ul>
 						</li>
 					</ul>

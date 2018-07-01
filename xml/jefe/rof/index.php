@@ -24,7 +24,7 @@ include("../../../menu.php");
 	  
 	  <!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="far fa-question fa-lg"></span>
+			<span class="fas fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -106,7 +106,7 @@ include("../../../menu.php");
 		    		echo "  <td>$fechoria[2]</td>\n";
 		    		echo "  <td>$fechoria[3]</td>\n";
 		    		echo "  <td nowrap>\n";
-		    		echo "    <a href=\"regla.php?id=$id\" rel=\"tooltip\" title=\"Editar\"><span class=\"far fa-pencil-alt fa-fw fa-lg\"></span></a>\n";
+		    		echo "    <a href=\"regla.php?id=$id\" rel=\"tooltip\" title=\"Editar\"><span class=\"fas fa-pencil-alt fa-fw fa-lg\"></span></a>\n";
 		    		echo "    <a href=\"index.php?eliminar=$id\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"far fa-trash-alt fa-fw fa-lg\"></span></a>\n";
 		    		echo "  </td>\n";
 		    		echo "</tr>\n";

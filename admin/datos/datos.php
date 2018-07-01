@@ -189,9 +189,9 @@ if ($row = mysqli_fetch_array($result))
    </button>
   <ul class="dropdown-menu dropdown-menu-right">';
 
-echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo'><i class='far fa-search fa-fw'></i> Informe completo</a></li>";
+echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo'><i class='fas fa-search fa-fw'></i> Informe completo</a></li>";
 echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'><i class='far fa-calendar fa-fw'></i> Informe histórico</a></li>";
-echo "<li><a href='../fechorias/infechoria.php?seleccionado=1&nombre=$claveal'><i class='far fa-bug fa-fw'></i> Problema de disciplina</a></li>";
+echo "<li><a href='../fechorias/infechoria.php?seleccionado=1&nombre=$claveal'><i class='fas fa-bug fa-fw'></i> Problema de disciplina</a></li>";
 echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?curso=$unidad&claveal=$claveal'><i class='far fa-calendar fa-fw'></i> Horario</a></li>";
 
 // Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos
@@ -230,7 +230,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 		echo "<li><a href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'><i class='far fa-edit fa-fw'></i> Intervención de Orientación</a></li>";
 	}
 	if ($s_control=='1' and (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE)) {
-			echo "<li><a href='datos.php?resetear=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'><i class='far fa-refresh fa-fw'></i> Reiniciar contraseña</a></li>";
+			echo "<li><a href='datos.php?resetear=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'><i class='fas fa-sync-alt fa-fw'></i> Reiniciar contraseña</a></li>";
 			}
 	
 

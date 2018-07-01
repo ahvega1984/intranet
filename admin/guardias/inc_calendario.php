@@ -48,9 +48,9 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 	echo '<table id="calendar" class="table table-bordered table-condensed" style="font-size: 0.9em;">';
 	echo '	<thead>';
 	echo '      <tr>';
-	echo '			<th class="text-center"><h5><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="far fa-chevron-left fa-fw"></span></a></h5></th>';
+	echo '			<th class="text-center"><h5><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="fas fa-chevron-left fa-fw"></span></a></h5></th>';
 	echo '			<th colspan="5" class="text-center"><h5>'.strftime('%B, %Y', strtotime($anio.'-'.$mes)).'</h5></th>';
-	echo '			<th class="text-center"><h5><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="far fa-chevron-right fa-fw"></span></a></h5></th>';
+	echo '			<th class="text-center"><h5><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="fas fa-chevron-right fa-fw"></span></a></h5></th>';
 	echo '		</tr>';
 	echo '		<tr>';
 	echo '			<th class="text-center">L</th>';

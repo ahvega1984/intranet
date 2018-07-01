@@ -103,7 +103,7 @@ include ("menu.php");
 								<ul class="dropdown-menu">
 									<?php mysqli_data_seek($result, 0); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
-									<li><a href="pdf.php?id=<?php echo $row['id']; ?>"><?php echo ($row['impreso']) ? '<span class="far fa-check-circle fa-fw"></span>' : '<span class="far fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row['numero'].' - '.$row['fecha']; ?></a></li>
+									<li><a href="pdf.php?id=<?php echo $row['id']; ?>"><?php echo ($row['impreso']) ? '<span class="fas fa-check-circle fa-fw"></span>' : '<span class="far fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row['numero'].' - '.$row['fecha']; ?></a></li>
 									<?php endwhile; ?>
 									<li class="divider"></li>
 									<?php if (! $verTodas): ?>
@@ -116,7 +116,7 @@ include ("menu.php");
 							</div>
 						</td>
 						<td>
-							<a href="pdf.php?depto=<?php echo $organo; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="far fa-print fa-fw fa-lg"></span></a>
+							<a href="pdf.php?depto=<?php echo $organo; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fas fa-print fa-fw fa-lg"></span></a>
 							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete2"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 						</td>
 					</tr>
@@ -185,7 +185,7 @@ include ("menu.php");
 								<ul class="dropdown-menu">
 									<?php mysqli_data_seek($result_actas_depto, 0); ?>
 									<?php while ($row_actas = mysqli_fetch_array($result_actas_depto)): ?>
-									<li><a href="pdf.php?id=<?php echo $row_actas['id']; ?>"><?php echo ($row_actas['impreso']) ? '<span class="far fa-check-circle fa-fw"></span>' : '<span class="far fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row_actas['numero'].' - '.$row_actas['fecha']; ?></a></li>
+									<li><a href="pdf.php?id=<?php echo $row_actas['id']; ?>"><?php echo ($row_actas['impreso']) ? '<span class="fas fa-check-circle fa-fw"></span>' : '<span class="far fa-exclamation-circle fa-fw"></span>'; ?> &nbsp;Acta nº <?php echo $row_actas['numero'].' - '.$row_actas['fecha']; ?></a></li>
 									<?php endwhile; ?>
 									<li class="divider"></li>
 									<?php if (! $verTodas): ?>
@@ -198,7 +198,7 @@ include ("menu.php");
 							</div>
 						</td>
 						<td>
-							<a href="pdf.php?depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="far fa-print fa-fw fa-lg"></span></a>
+							<a href="pdf.php?depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fas fa-print fa-fw fa-lg"></span></a>
 							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $row['departamento']; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete2"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 						</td>
 					</tr>

@@ -2,7 +2,7 @@
 
 <div class="container  hidden-print">
 	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
-	<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="far fa-cog fa-lg"></span></a>
+	<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fas fa-cog fa-lg"></span></a>
 	<?php endif; ?>
 
 	<ul class="nav nav-tabs">

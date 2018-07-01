@@ -271,7 +271,7 @@ include("menu.php");
 
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="cga_nincidencia">Nº Incidencia (CAUCE-CGA) <span class="far fa-question-circle fa-lg fa-fw" data-bs="tooltip" data-html="yes" title="Teléfonos: <br>300 300 | 955 06 10 71"></span></label>
+                                        <label for="cga_nincidencia">Nº Incidencia (CAUCE-CGA) <span class="fas fa-question-circle fa-lg fa-fw" data-bs="tooltip" data-html="yes" title="Teléfonos: <br>300 300 | 955 06 10 71"></span></label>
                                         <input type="text" class="form-control" id="cga_nincidencia" name="cga_nincidencia" value="<?php echo (isset($cga_nincidencia) && !empty($cga_nincidencia)) ? $cga_nincidencia : ''; ?>">
                                     </div>
                                 </div>

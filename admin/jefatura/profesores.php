@@ -260,7 +260,7 @@ include("menu.php");
 							<td><?php echo $row['accion']; ?></td>
 							<td><?php echo $row['causa']; ?></td>
 							<td>
-							<a href="profesores.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver informe"><span class="far fa-search fa-lg fa-fw"></span></a>
+							<a href="profesores.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver informe"><span class="fas fa-search fa-lg fa-fw"></span></a>
 							</td>
 						</tr>
 						<?php endwhile; ?>

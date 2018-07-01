@@ -299,7 +299,7 @@ include('menu.php');
                                 <a href="#" class="btn btn-default btn-sm" bs-data="tooltip" title="Editar" data-toggle="modal" data-target="#modalLibroTexto" data-idlibro="<?php echo $libro['id']; ?>" data-materia="<?php echo $libro['materia']; ?>" data-isbn="<?php echo $libro['isbn']; ?>" data-ean="<?php echo $libro['ean']; ?>" data-titulo="<?php echo $libro['titulo']; ?>" data-editorial="<?php echo $libro['editorial']; ?>" data-importe="<?php echo $libro['importe']; ?>"><span class="far fa-edit fa-lg fa-fw"></span></a>
                                 <a href="index.php?curso=<?php echo $curso; ?>&accion=eliminar&id=<?php echo $libro['id']; ?>" class="btn btn-danger btn-sm" bs-data="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
                                 <?php else: ?>
-                                <a href="#" class="btn btn-default btn-sm disabled" bs-data="tooltip" title="No hay opciones disponibles para este libro"><span class="far fa-lock fa-lg fa-fw"></span></a>
+                                <a href="#" class="btn btn-default btn-sm disabled" bs-data="tooltip" title="No hay opciones disponibles para este libro"><span class="fas fa-lock fa-lg fa-fw"></span></a>
                                 <?php endif; ?>
                             </td>
                             <?php endif; ?>

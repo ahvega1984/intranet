@@ -85,7 +85,7 @@ $( document ).ready(function() {
 	           $('#stats-mensajes-modal').html('<div style="height: 350px; overflow: scroll;"><table class="table table-condensed table-hover table-striped"><thead><tr><th>Profesor/a</th><th class="text-center">Sin leer</th></tr></thead><tbody id="mensajes_tabla"></tbody></table></div>');
 	           
 	           $.each(data.mensajes_tabla, function(i, item) {
-	          	 $('#mensajes_tabla').append('<tr><td>' + item.profesor + '</td><td class="text-center"><a href="index.php?resetea_mensaje=1&idea_mensaje=' + item.idea + '" class="pull-right"><span class="far fa-refresh fa-fw" data-bs="tooltip" title="Marcar todos los mensajes como leÃ­dos"></span></a>' + item.numero + '</td></tr>');
+	          	 $('#mensajes_tabla').append('<tr><td>' + item.profesor + '</td><td class="text-center"><a href="index.php?resetea_mensaje=1&idea_mensaje=' + item.idea + '" class="pull-right"><span class="fas fa-sync-alt fa-fw" data-bs="tooltip" title="Marcar todos los mensajes como leÃ­dos"></span></a>' + item.numero + '</td></tr>');
 	           });
 	       }
 	       else {

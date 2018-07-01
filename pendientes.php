@@ -24,12 +24,12 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 	<div class="row">
 		<div class="col-sm-8">
-			Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación. 
+			Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.
 			<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" class="alert-link" target="_blank">Ver historial de cambios</a>.
 		</div>
 		<div class="col-sm-4">
 			<a href="//<?php echo $config['dominio']; ?>/intranet/xml/actualizaciones/index.php" class="btn btn-primary pull-right">
-				<span class="far fa-refresh fa-fw"></span> Actualizar
+				<span class="fas fa-sync-alt fa-fw"></span> Actualizar
 			</a>
 		</div>
 	</div>
@@ -130,20 +130,20 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 	$hoy = date('Y') . "-" . date('m') . "-" . date('d');
 	$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id, alma.claveal
 FROM tareas_alumnos, tareas_profesor, alma
-WHERE alma.claveal = tareas_alumnos.claveal 
+WHERE alma.claveal = tareas_alumnos.claveal
 AND tareas_alumnos.id = tareas_profesor.id_alumno
-AND (date(tareas_alumnos.fin) =  date_sub('$hoy', interval 1 day) 
-OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 2 day) 
-OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 3 day) 
-OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 4 day) 
+AND (date(tareas_alumnos.fin) =  date_sub('$hoy', interval 1 day)
+OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 2 day)
+OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 3 day)
+OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 4 day)
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 5 day)
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 6 day)
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 7 day)
 )
 AND alma.unidad =  '$unidad'
-AND alma.combasi LIKE  '%$cod_asig[0]%' 
+AND alma.combasi LIKE  '%$cod_asig[0]%'
 and tareas_profesor.profesor='$pr'
-and tareas_profesor.asignatura='$materia' 
+and tareas_profesor.asignatura='$materia'
 and confirmado is null
 ORDER BY tareas_alumnos.fecha";
 	$result = mysqli_query($db_con, $expul);
@@ -151,14 +151,14 @@ ORDER BY tareas_alumnos.fecha";
 	{
 
 	$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_asig[0]' limit 1) and grupo like '$unidad' and codigo not like '$cod_asig[0]' and abrev not like '%\_%'");
-		if (mysqli_num_rows($asig_bach)>0) {							
+		if (mysqli_num_rows($asig_bach)>0) {
 			$as_bach=mysqli_fetch_array($asig_bach);
-			$cod_asig_bach = $as_bach[0];	
-			$extra_asig = "or asignatura like '$cod_asig_bach'";									
+			$cod_asig_bach = $as_bach[0];
+			$extra_asig = "or asignatura like '$cod_asig_bach'";
 		}
 		else{
 			$extra_asig = "";
-		}	
+		}
 
 		$nc_grupo = $row['claveal'];
 		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and (asignatura = '$cod_asig[0]' $extra_asig)");
@@ -208,14 +208,14 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 		{
 
 		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$cod_mat' limit 1) and grupo like '$unidad' and codigo not like '$cod_mat' and abrev not like '%\_%'");
-		if (mysqli_num_rows($asig_bach)>0) {							
+		if (mysqli_num_rows($asig_bach)>0) {
 			$as_bach=mysqli_fetch_array($asig_bach);
-			$cod_asig_bach = $as_bach[0];	
-			$extra_asig = "or asignatura like '$cod_asig_bach'";									
+			$cod_asig_bach = $as_bach[0];
+			$extra_asig = "or asignatura like '$cod_asig_bach'";
 		}
 		else{
 			$extra_asig = "";
-		}	
+		}
 
 		$nc_grupo = $row['claveal'];
 		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and (asignatura = '$cod_mat' $extra_asig)");
@@ -263,7 +263,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	if(mysqli_num_rows($asigna1)>1){
 	$texto_asig2="";
 	while($asigna2 = mysqli_fetch_array($asigna1)){
-		$codasi = $asigna2[0];	
+		$codasi = $asigna2[0];
 		$texto_asig2.=" combasi like '%$asigna2[0]:%' or";
 		$c_asig2.=" asignatura = '$asigna2[0]' or";
 	}
@@ -272,7 +272,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	}
 	else{
 		$asigna2 = mysqli_fetch_array($asigna1);
-		$codasi = $asigna2[0];	
+		$codasi = $asigna2[0];
 		$texto_asig2=" combasi like '%$asigna2[0]:%'";
 		$c_asig2=" asignatura = '$asigna2[0]'";
 	}
@@ -292,15 +292,15 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 		{
 
 		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi' limit 1) and grupo like '$unidad_t' and codigo not like '$codasi' and abrev not like '%\_%'");
-		if (mysqli_num_rows($asig_bach)>0) {							
+		if (mysqli_num_rows($asig_bach)>0) {
 			$as_bach=mysqli_fetch_array($asig_bach);
-			$cod_asig_bach = $as_bach[0];	
-			$extra_asig = "or asignatura like '$cod_asig_bach'";						
-			
+			$cod_asig_bach = $as_bach[0];
+			$extra_asig = "or asignatura like '$cod_asig_bach'";
+
 		}
 		else{
 			$extra_asig = "";
-		}	
+		}
 
 		$nc_grupo = $row['CLAVEAL'];
 		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and (asignatura = '$codasi' $extra_asig)");
@@ -357,7 +357,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	if(mysqli_num_rows($asigna13)>1){
 	$texto_asig="";
 	while($asigna23 = mysqli_fetch_array($asigna13)){
-		$codasi1 = $asigna23[0];	
+		$codasi1 = $asigna23[0];
 		$texto_asig3.=" combasi like '%$asigna23[0]:%' or";
 		$c_asig3.=" asignatura = '$asigna23[0]' or";
 	}
@@ -366,7 +366,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	}
 	else{
 		$asigna23 = mysqli_fetch_array($asigna13);
-		$codasi1 = $asigna23[0];	
+		$codasi1 = $asigna23[0];
 		$texto_asig3=" combasi like '%$asigna23[0]:%'";
 		$c_asig3=" asignatura = '$asigna23[0]'";
 	}
@@ -379,7 +379,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 
 	$query33 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno WHERE date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and apellidos like 'Informe general%' ORDER BY F_ENTREV asc";
 	//echo $query3."<br>";
-	
+
 	$result3 = mysqli_query($db_con, $query3);
 	$result33 = mysqli_query($db_con, $query33);
 
@@ -401,19 +401,19 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 			while($row3 = mysqli_fetch_array($result3))
 			{
 				$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$codasi1' limit 1) and grupo like '$unidad3' and codigo not like '$codasi1' and abrev not like '%\_%'");
-				if (mysqli_num_rows($asig_bach)>0) {							
+				if (mysqli_num_rows($asig_bach)>0) {
 					$as_bach=mysqli_fetch_array($asig_bach);
-					$cod_asig_bach = $as_bach[0];	
-					$extra_asig = "or asignatura like '$cod_asig_bach'";						
-					
+					$cod_asig_bach = $as_bach[0];
+					$extra_asig = "or asignatura like '$cod_asig_bach'";
+
 				}
 				else{
 					$extra_asig = "";
-				}	
+				}
 
 				$nc_grupo = $row3['claveal'];
 				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and (asignatura = '$codasi1' $extra_asig)");
-				
+
 				$hay_grupo = mysqli_num_rows($sel);
 				if ($hay_grupo>0) {
 					$sel_al = mysqli_fetch_array($sel);
@@ -451,7 +451,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 					else
 					{
 						$count03 = $count03 + 1;
-					}						
+					}
 				}
 			}
 		}
@@ -476,10 +476,10 @@ if(strstr($_SESSION['cargo'],"4")==TRUE){
 					else
 					{
 						$count0333 = $count0333 + 1;
-					}						
-				}				
-			}			
-		}		
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -713,9 +713,9 @@ else {
 <p><?php echo date('d-m-Y'); ?> <a class='alert-link'
 	data-toggle='modal' href='#'> Pedro Pérez</a> -- 1B-A <span
 	class=' pull-right'> <a href='#' class='alert-link'
-	style='margin-right: 10px'> <i class='far fa-search fa-fw fa-lg'
+	style='margin-right: 10px'> <i class='fas fa-search fa-fw fa-lg'
 	title='Ver informe'> </i></a> <a href='#' class='alert-link'
-	style='margin-right: 10px'> <i class='far fa-pencil-alt fa-fw fa-lg'
+	style='margin-right: 10px'> <i class='fas fa-pencil-alt fa-fw fa-lg'
 	title='Rellenar informe'> </i> </a> </span></p>
 </div>
 

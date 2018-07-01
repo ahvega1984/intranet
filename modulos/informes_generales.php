@@ -47,8 +47,8 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 				echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
 	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[5]</a> -- $curso $row[6]  
 	<span class='pull-right'>
-	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='far fa-search fa-fw fa-lg'></span></a>
-	<a href='./admin/infotutoria/informar_general.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='far fa-pencil-alt fa-fw fa-lg'></span></a>
+	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fas fa-search fa-fw fa-lg'></span></a>
+	<a href='./admin/infotutoria/informar_general.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fas fa-pencil-alt fa-fw fa-lg'></span></a>
 	</span>
 	</p>";
 			?>

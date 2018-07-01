@@ -63,7 +63,7 @@ include("../../menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="far fa-question fa-lg"></span>
+			<span class="fas fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -282,9 +282,9 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<?php echo $claveal;?>&imprimir=si&nivel=<?php echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="far fa-print " title="imprimir"> </i></a> <br><br>
+<a  href="libros.php?claveal=<?php echo $claveal;?>&imprimir=si&nivel=<?php echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fas fa-print " title="imprimir"> </i></a> <br><br>
 <?php
-	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="far fa-check" title="Devueltos"> </i> </button>';}
+	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fas fa-check" title="Devueltos"> </i> </button>';}
 	echo "</td>";
 	}
 

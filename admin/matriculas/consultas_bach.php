@@ -466,7 +466,7 @@ if (!($orden)) {
 
 		if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='far fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fas fa-sync-alt' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 		}
 // Problemas de Convivencia
 $n_fechorias="";
@@ -531,7 +531,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if($bilinguismo=="Si"){ echo " checked";} elseif ($bl == '1') { echo " checked";}
 		echo ' />';
 		if ($bilinguismo=="Si" and $bl != 1 and $curso=='2BACH') {
-			$extra_bil = "<i class='far fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
+			$extra_bil = "<i class='fas fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
 		}
 		echo $extra_bil.'</td>';
 
@@ -690,7 +690,7 @@ echo "</td>";
 		}
 		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='far fa-trash-alt' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>&nbsp;";
 
-if($foto == 1){ echo '<span class="far fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
+if($foto == 1){ echo '<span class="fas fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
 if(!empty($enf)){ echo '<span class="far fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 if(!empty($divorcio)){ 
 	if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="far fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}

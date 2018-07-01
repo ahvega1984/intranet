@@ -130,7 +130,7 @@ include 'menu.php';
 							<td><?php echo $row['grupo']; ?></td>
 							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['dpt'] == $row['departamento']))): ?>
 							<td nowrap>
-								<a href="editextos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar"><span class="far fa-pencil-alt fa-fw fa-lg"></span></a>
+								<a href="editextos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar"><span class="fas fa-pencil-alt fa-fw fa-lg"></span></a>
 								<a href="consulta.php?action=delete&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 							</td>
 							<?php endif; ?>

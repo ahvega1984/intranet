@@ -13,7 +13,7 @@ include ("menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="far fa-question fa-lg"></span>
+			<span class="fas fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -215,7 +215,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>
-		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='far fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='fas fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
@@ -239,10 +239,10 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		$asiste1 = mysqli_query($db_con, $asiste0);
 			$asiste = mysqli_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
-			echo "<center><i data-bs='tooltip' title='No trabaja' class='far fa-exclamation-triangle text-warning'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='No trabaja' class='fas fa-exclamation-triangle text-warning'> </i> </center";
 			}
 			if ($asiste[1] == '1') {
-			echo "<center><i data-bs='tooltip' title='Trabaja' class='far fa-check text-success'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='Trabaja' class='fas fa-check text-success'> </i> </center";
 			}
 			if (!empty($asiste[3])) {
 			echo "<center><i data-bs='tooltip' title='$asiste[3]' class='far fa-comment text-danger'> </i> </center";

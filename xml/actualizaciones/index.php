@@ -115,7 +115,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 						
 						<div class="text-center">
 							<br><br>
-							<p id="icon"><i class="far fa-refresh fa-spin fa-5x fa-fw"></i></p>
+							<p id="icon"><i class="fas fa-sync-alt fa-spin fa-5x fa-fw"></i></p>
 							<br>
 							<p id="status" class="lead text-muted"></p>
 							<br><br>
@@ -185,7 +185,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 
 		// En caso de error, detenemos el proceso de actualización
 		if (! $result) {
-			echo '$("#icon").html("<i class=\"far fa-refresh fa-5x fa-fw\"></i>");';
+			echo '$("#icon").html("<i class=\"fas fa-sync-alt fa-5x fa-fw\"></i>");';
 			echo '$("#status").html("<strong class=\"text-danger\">Error al descargar el fichero de actualización. Realice la actualización manualmente.</strong>");';
 			flush();
 			ob_flush();
@@ -212,7 +212,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 					}
 					$msg_error_list .= '</ul>';
 
-					echo '$("#icon").html("<i class=\"far fa-refresh fa-5x fa-fw text-danger\"></i>");';
+					echo '$("#icon").html("<i class=\"fas fa-sync-alt fa-5x fa-fw text-danger\"></i>");';
 					echo '$("#status").html("<strong class=\"text-danger\">'.$msg_error.'</strong></p>'.$msg_error_list.'<p>Realice la actualización manualmente.");';
 					
 				}
@@ -230,12 +230,12 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 
 					// Finalizamos la actualización
 
-					echo '$("#icon").html("<i class=\"far fa-check-circlefa-5x fa-fw text-success\"></i>");';
+					echo '$("#icon").html("<i class=\"fas fa-check-circlefa-5x fa-fw text-success\"></i>");';
 					echo '$("#status").html("<strong class=\"text-success\">Actualización completada</strong><br><br><a href=\"//'.$config['dominio'].'/intranet/index.php\" class=\"btn btn-primary\">Ir a la página principal</a>");';
 				}
 				
 			} else {
-				echo '$("#icon").html("<i class=\"far fa-refresh fa-5x fa-fw\"></i>");';
+				echo '$("#icon").html("<i class=\"fas fa-sync-alt fa-5x fa-fw\"></i>");';
 				echo '$("#status").html("<strong class=\"text-danger\">Error al abrir el archivo de actualización. Realice la actualización manualmente.</strong>");';
 			}
 		}
@@ -245,7 +245,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 
 	}
 	else {
-		echo '$("#icon").html("<i class=\"far fa-check-circlefa-5x fa-fw\"></i>");';
+		echo '$("#icon").html("<i class=\"fas fa-check-circlefa-5x fa-fw\"></i>");';
 		echo '$("#status").html("<strong>No hay actualizaciones disponibles</strong><br><br><a href=\"//'.$config['dominio'].'/intranet/index.php\" class=\"btn btn-primary\">Ir a la página principal</a>");';
 	}
 	?>

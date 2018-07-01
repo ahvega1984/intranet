@@ -132,7 +132,7 @@ include("menu.php");
             }
             echo $dest;
             ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
-            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&amp;idprof=<?php echo $row[4]; ?>"><?php echo $row[1]; if($pos !== false) echo ' <span class="pull-right far fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&amp;idprof=<?php echo $row[4]; ?>"><?php echo $row[1]; if($pos !== false) echo ' <span class="pull-right fas fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="15%" data-order="<?php echo $row[0]; ?>" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&amp;idprof=<?php echo $row[4]; ?>"><?php echo strftime('%d %B, %H:%Mh', strtotime($row[0])); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="5%" nowrap>
             	<a href="?inbox=<?php echo $_buzon; ?>&amp;delete=<?php echo $row[4] ;?>" data-bb="confirm-delete"  data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>

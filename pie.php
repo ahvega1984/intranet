@@ -18,7 +18,7 @@
     
     <?php if(isset($_SESSION['user_admin'])): ?>
     <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: -10px; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%;">
-    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%; text-transform: uppercase;"><span class="far fa-user-plus fa-fw"></span> Cambiar perfil</a>
+    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%; text-transform: uppercase;"><span class="fas fa-user-plus fa-fw"></span> Cambiar perfil</a>
     	<div id="debug" class="row" style="display: none;">
     			<form method="post" class="col-sm-4" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="height: 50px;">
 							<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 90%;">

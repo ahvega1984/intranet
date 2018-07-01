@@ -417,7 +417,7 @@ include("menu.php");
 								<td>
 									<?php if ((nomprofesor($row['tutor']) == nomprofesor($pr) || acl_permiso($_SESSION['cargo'], array('1'))) && !$row['impresion']): ?>
 									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=edit" data-bs="tooltip" title="Editar"><span class="far fa-edit fa-fw fa-lg"></span></a>
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="far fa-print fa-fw fa-lg"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fas fa-print fa-fw fa-lg"></span></a>
 									<?php else: ?>
 									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-filefa-fw fa-lg"></span></a>
 									<?php endif; ?>

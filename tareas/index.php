@@ -126,7 +126,7 @@ include("../menu.php");
 
 								<div class="col-sm-11">
 									<div class="pull-right">
-										<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=finalizar" data-bs="tooltip" title="Finalizar tarea"><span class="far fa-check fa-lg"></span></a>&nbsp;
+										<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=finalizar" data-bs="tooltip" title="Finalizar tarea"><span class="fas fa-check fa-lg"></span></a>&nbsp;
 										<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=eliminar" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-lg"></span></a>
 									</div>
 									<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $tarea['id']; ?>">
@@ -142,7 +142,7 @@ include("../menu.php");
 
 					<br><br>
 					<div class="text-center text-muted">
-						<span class="far fa-tasks fa-4x"></span>
+						<span class="fas fa-tasks fa-4x"></span>
 						<p class="lead">No hay tareas pendientes</p>
 					</div>
 					<br><br>
@@ -163,7 +163,7 @@ include("../menu.php");
 						<?php foreach ($tareas_finalizadas as $tarea): ?>
 						<li class="list-group-item">
 							<div class="pull-right">
-								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=rehacer" data-bs="tooltip" title="Rehacer tarea"><span class="far fa-undo fa-lg"></span></a>&nbsp;
+								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=rehacer" data-bs="tooltip" title="Rehacer tarea"><span class="fas fa-undo fa-lg"></span></a>&nbsp;
 								<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?id=<?php echo $tarea['id']; ?>&amp;accion=eliminar" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-lg"></span></a>
 							</div>
 							<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php?id=<?php echo $tarea['id']; ?>">
@@ -177,7 +177,7 @@ include("../menu.php");
 
 					<br><br>
 					<div class="text-center text-muted">
-						<span class="far fa-tasks fa-4x"></span>
+						<span class="fas fa-tasks fa-4x"></span>
 						<p class="lead">No hay tareas finalizadas</p>
 					</div>
 					<br><br>

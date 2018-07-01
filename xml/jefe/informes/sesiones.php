@@ -1,17 +1,17 @@
 <?php
 require('../../../bootstrap.php');
-include("../../../menu.php"); 
+include("../../../menu.php");
 ?>
-	
+
 	<div class="container">
 
 		<div class="page-header">
 			<h2 class="page-title">Accesos a la Intranet <small>Dónde iniciaste sesión</small></h2>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-sm-12">
-				
+
 				<table class="table table-bordered table-condensed table-striped table-hover">
                     <thead>
                         <tr>
@@ -23,18 +23,18 @@ include("../../../menu.php");
                         <?php while ($row = mysqli_fetch_array($result)): ?>
                         <?php $u_agent = getBrowser($row['useragent']); ?>
                         <?php switch ($u_agent['platform_name']) {
-                            case 'Windows 10': 
-                            case 'Windows 8.1': 
-                            case 'Windows 8': 
-                            case 'Windows 7': 
-                            case 'Windows Vista': 
-                            case 'Windows XP': 
-                            case 'Windows 2000': 
+                            case 'Windows 10':
+                            case 'Windows 8.1':
+                            case 'Windows 8':
+                            case 'Windows 7':
+                            case 'Windows Vista':
+                            case 'Windows XP':
+                            case 'Windows 2000':
                             case 'Windows':
                                 $icon1 = 'fa-desktop';
                                 $icon2 = 'fa-windows';
                                 break;
-                            
+
                             case 'Ubuntu':
                             case 'Linux Mint':
                             case 'GNU/Linux':
@@ -44,29 +44,29 @@ include("../../../menu.php");
                                 break;
 
                             case 'Android':
-                                $icon1 = 'fa-mobile';
+                                $icon1 = 'fa-mobile-alt';
                                 $icon2 = 'fa-android';
                                 break;
 
-                            case 'macOS': 
-                            case 'OS X': 
-                            case 'Mac OS X': 
+                            case 'macOS':
+                            case 'OS X':
+                            case 'Mac OS X':
                                 $icon1 = 'fa-desktop';
                                 $icon2 = 'fa-apple';
                                 break;
-                            
-                            case 'iPhone OS':  
-                                $icon1 = 'fa-mobile';
+
+                            case 'iPhone OS':
+                                $icon1 = 'fa-mobile-alt';
                                 $icon2 = 'fa-apple';
                                 break;
-                            
-                            case 'iPad; CPU OS':  
-                                $icon1 = 'fa-tablet';
+
+                            case 'iPad; CPU OS':
+                                $icon1 = 'fa-tablet-alt';
                                 $icon2 = 'fa-apple';
                                 break;
-                            
+
                             default:
-                                $icon1 = 'fa-dot-circle-o';
+                                $icon1 = 'fa-dot-circle';
                                 $icon2 = '';
                                 break;
                         }
@@ -81,8 +81,8 @@ include("../../../menu.php");
                             <td>
                                 <div class="col-xs-2 col-md-1 text-center float-left">
                                     <span class="fa-stack fa-lg" style="margin-top: 10px;">
-                                        <i class="far <?php echo $icon1; ?> fa-stack-2x" style="font-size: 3em;"></i>
-                                        <i class="far <?php echo $icon2; ?> fa-stack-1x" style="<?php echo ($icon1 == 'fa-desktop') ? 'font-size: 0.65em; margin-top: 0px; margin-left: 12px;' : 'font-size: 0.55em; margin-top: 8px;'; ?>"></i>
+                                        <i class="fas <?php echo $icon1; ?> fa-stack-2x" style="font-size: 3em;"></i>
+                                        <i class="fab <?php echo $icon2; ?> fa-stack-1x" style="<?php echo ($icon1 == 'fa-desktop') ? 'font-size: 0.8em; margin-top: 2px; margin-left: 14px;' : 'font-size: 0.65em; margin-top: 5px;'; ?>"></i>
                                     </span>
                                 </div>
                                  <div class="col-xs-10 col-md-11 float-left">
@@ -90,14 +90,14 @@ include("../../../menu.php");
                                     <div class="pull-right" style="margin-top: 20px;">
                                         <div class="btn-group">
                                         <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="far fa-ellipsis-v fa-fw fa-lg"></span>
+                                            <span class="fas fa-ellipsis-v fa-fw fa-lg"></span>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li><a href="#" data-toggle="modal" data-target="#modal-<?php echo $row['id']; ?>">No he sido yo</a></li>
                                         </ul>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="modal fade" id="modal-<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -113,7 +113,7 @@ include("../../../menu.php");
                                                     <?php if (mysqli_num_rows($result_historico)): ?>
                                                     <ul>
                                                     <?php while ($row_historico = mysqli_fetch_array($result_historico)): ?>
-                                                    
+
                                                     <?php
                                                         // Página principal
                                                         if (stristr($row_historico['pagina'], 'index.php') == true) {
@@ -136,7 +136,7 @@ include("../../../menu.php");
                                                         elseif (stristr($row_historico['pagina'], 'upload/index.php?index=privado') == true) {
                                                             echo '<li>Acceso a documentos personales</li>';
                                                         }
-                                                        
+
 
                                                         // Mensajes
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/post_verifica.php') == true) {
@@ -144,18 +144,18 @@ include("../../../menu.php");
                                                         }
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/mensaje.php') == true) {
                                                             echo '<li><a href="../../../'.$row_historico['pagina'].'" target="_blank">Lectura de un mensaje</a></li>';
-                                                        } 
+                                                        }
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/redactar.php?profes=1') == true) {
                                                             echo '<li>Redacción de respuesta a un mensaje</li>';
-                                                        } 
+                                                        }
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/redactar.php') == true) {
                                                             echo '<li>Redacción de nuevo mensaje</li>';
                                                         }
                                                         elseif (stristr($row_historico['pagina'], 'admin/mensajes/') == true) {
                                                             echo '<li>Consulta de los mensajes recibidos</li>';
-                                                        } 
+                                                        }
 
-                                                        // Consultas 
+                                                        // Consultas
                                                         elseif (stristr($row_historico['pagina'], 'admin/datos/datos.php?seleccionado=1&alumno=') == true) {
                                                             echo '<li><a href="../../../'.$row_historico['pagina'].'" target="_blank">Consulta de datos de un alumno</a></li>';
                                                         }
@@ -230,13 +230,13 @@ include("../../../menu.php");
                                                         }
 
                                                         // Intervenciones
-                                                        elseif (stristr($row_historico['pagina'], 'admin/jefatura/index.php') == true) {  
+                                                        elseif (stristr($row_historico['pagina'], 'admin/jefatura/index.php') == true) {
                                                             echo '<li>Consulta o registro de una intervención a un alumno</li>';
                                                         }
-                                                        elseif (stristr($row_historico['pagina'], 'admin/jefatura/profesores.php') == true) {  
+                                                        elseif (stristr($row_historico['pagina'], 'admin/jefatura/profesores.php') == true) {
                                                             echo '<li>Consulta o registro de una intervención a un profesor</li>';
                                                         }
-                                                        elseif (stristr($row_historico['pagina'], 'admin/tutoria/intervencion.php') == true) {  
+                                                        elseif (stristr($row_historico['pagina'], 'admin/tutoria/intervencion.php') == true) {
                                                             echo '<li>Consulta o registro de una intervención a un alumno</li>';
                                                         }
 
@@ -296,7 +296,7 @@ include("../../../menu.php");
                                                         elseif (stristr($row_historico['pagina'], 'admin/actividades/indexextra.php') == true) {
                                                             echo '<li>Administración de actividades extraescolares</li>';
                                                         }
-                                                        
+
 
                                                         // Fotografias
                                                         elseif (stristr($row_historico['pagina'], 'admin/fotos/profes.php') == true) {
@@ -314,7 +314,7 @@ include("../../../menu.php");
                                                             echo '<li><a href="../../../'.$row_historico['pagina'].'" target="_blank">Consulta de reservas de aula</a></li>';
                                                         }
 
-                                                        // Tareas 
+                                                        // Tareas
                                                         elseif (stristr($row_historico['pagina'], 'tareas/tarea.php') == true) {
                                                             echo '<li><a href="../../../'.$row_historico['pagina'].'" target="_blank">Consulta una tarea pediente</a></li>';
                                                         }
@@ -460,8 +460,8 @@ include("../../../menu.php");
                                                     </ul>
                                                     <?php else: ?>
                                                     <p>Solo iniciaste sesión en la Intranet</p>
-                                                    <?php endif; ?> 
-                                                    
+                                                    <?php endif; ?>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -488,13 +488,13 @@ include("../../../menu.php");
                         <?php endwhile; ?>
 					</tbody>
 				</table>
-				
+
 			</div><!-- /.col-sm-12 -->
 		</div><!-- /.row -->
-	  
+
 	</div><!-- /.container -->
 
 <?php include('../../../pie.php'); ?>
-	
+
 </body>
 </html>

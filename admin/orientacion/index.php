@@ -324,7 +324,7 @@ if($alumno){
 			$dia3 = explode("-",$row[2]);
 			$fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 			echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-						<a href='index.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='far fa-search fa-lg fa-fw'></i></a>
+						<a href='index.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='fas fa-search fa-lg fa-fw'></i></a>
 						</td></tr>";
 		}
 		while($row = mysqli_fetch_array($result));

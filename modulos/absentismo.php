@@ -6,7 +6,7 @@ while ($ausente=mysqli_fetch_array($result0)) {
 	echo "<p><a href='./faltas/absentismo/index2.php?claveal=$ausente[0]&mes=$ausente[6]&inf=1' class='alert-link'>";
 	echo "$ausente[1], $ausente[2] ($ausente[3])";
 	echo ($ausente[4] > 1) ? ' Repetidor' : '';
-	echo "<span class='pull-right far fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Rellenar'></span></a></p>";
+	echo "<span class='pull-right fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Rellenar'></span></a></p>";
 }
 ?>
 </div>

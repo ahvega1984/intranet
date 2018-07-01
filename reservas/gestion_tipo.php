@@ -127,7 +127,7 @@ include("menu.php");
 								<td><?php echo $row['tipo']; ?></td>
 								<td><?php echo (! empty($row['observaciones'])) ? $row['observaciones'] : '<em class="text-muted">Sin observaciones</em>'; ?></td>
 								<td class="text-right">
-									<a href="gestion_elementos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Administrar elementos"><span class="far fa-cogs fa-fw fa-lg"></span></a>
+									<a href="gestion_elementos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Administrar elementos"><span class="fas fa-cogs fa-fw fa-lg"></span></a>
 									<?php if($row['id'] > 2): ?>
 									<a href="#" data-bs="tooltip" title="Editar" data-toggle="modal" data-target="#modalNuevoTipo" data-id="<?php echo $row['id']; ?>" data-name="<?php echo $row['tipo']; ?>" data-obs="<?php echo $row['observaciones']; ?>"><span class="far fa-edit fa-fw fa-lg"></span></a>
 									<a href="gestion_tipo.php?id=<?php echo $row['id']; ?>&action=delete" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>

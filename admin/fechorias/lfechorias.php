@@ -28,7 +28,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="far fa-question fa-lg"></span>
+			<span class="fas fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -172,7 +172,7 @@ if ($config['mod_convivencia']==1) {
 				}	
 				
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
-				if($recibido == '1'){$comentarios1="<i class='far fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='far fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='fas fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fas fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td>";
 		if ($foto = obtener_foto_alumno($claveal)) {
@@ -192,8 +192,8 @@ if ($config['mod_convivencia']==1) {
 		<td>$caducada</td>
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 	
 
-		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='far fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>
-		<a href='lfechorias2.php?clave=$claveal'><span class='far fa-history fa-fw fa-lg' data-bs='tooltip' title='Historial'></span></a>
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fas fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>
+		<a href='lfechorias2.php?clave=$claveal'><span class='fas fa-history fa-fw fa-lg' data-bs='tooltip' title='Historial'></span></a>
 		";
 		$ahora = mktime();
 		$tr_f = explode("-",$fecha);

@@ -49,9 +49,9 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 	echo '<table id="calendar" class="table table-bordered table-condensed">';
 	echo '	<thead>';
 	echo '      <tr>';
-	echo '			<th class="text-center"><h4><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="far fa-chevron-left fa-fw"></span></a></h4></th>';
+	echo '			<th class="text-center"><h4><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="fas fa-chevron-left fa-fw"></span></a></h4></th>';
 	echo '			<th colspan="5" class="text-center"><h4><span class="far fa-calendar fa-fw"></span> '.strftime('%B, %Y', strtotime($anio.'-'.$mes)).'</h4></th>';
-	echo '			<th class="text-center"><h4><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="far fa-chevron-right fa-fw"></span></a></h4></th>';
+	echo '			<th class="text-center"><h4><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="fas fa-chevron-right fa-fw"></span></a></h4></th>';
 	echo '		</tr>';
 	echo '		<tr>';
 	echo '			<th class="text-center">L</th>';
@@ -155,7 +155,7 @@ vista_mes($calendario, $dia, $mes, $anio);
 
 $profesor_libre = 1;
 
-echo '<h4><span class="far fa-tasks fa-fw"></span> Programado para hoy...</h4>';
+echo '<h4><span class="fas fa-tasks fa-fw"></span> Programado para hoy...</h4>';
 echo '<div class="list-group">';
 
 // Consultamos los calendarios privados
@@ -215,7 +215,7 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 						<span class="pull-right badge">'.$hora_evento.'</span><span class="far fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'
 					</a>
 					<a href="admin/actividades/extraescolares.php?id='.$idact.'&ver_lista=1" class="text-center" style=" float: right; width: 15%; padding: 15px; color: #555555; text-decoration: none;">
-						<span class="far fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
+						<span class="fas fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
 					</a>
 					<div class="clearfix"></div>
 					</div>';
@@ -260,7 +260,7 @@ unset($festivo);
 
 if ($profesor_libre) {
 	echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php" class="list-group-item lead text-center">
-	<span class="far fa-coffee fa-2x"></span><br>
+	<span class="fas fa-coffee fa-2x"></span><br>
 	<p>Nada programado para hoy</p>
 	<small class="btn btn-default btn-sm">Ver calendario</small></a>';
 	

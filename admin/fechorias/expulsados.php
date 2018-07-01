@@ -51,8 +51,8 @@ $tareas0 = "select id from tareas_alumnos where fecha = '$row[5]' and claveal = 
         }	
         printf ("<tr><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td>
 <td>
-<A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='far fa-search' title='Detalles'> </i> </A></td>
-<td ><A HREF='../tareas/infocompleto.php?ver=ver&id=$idtareas'><i class='far fa-tasks' title='Tareas' title='Ver Tareas del Alumno'> </i> </A>
+<A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='fas fa-search' title='Detalles'> </i> </A></td>
+<td ><A HREF='../tareas/infocompleto.php?ver=ver&id=$idtareas'><i class='fas fa-tasks' title='Tareas' title='Ver Tareas del Alumno'> </i> </A>
 </td><td >%s</td></tr>", $row[0], $row[1], $row[2], $row[4], $row[5], $row[6], $foto0);
 
         }
@@ -87,7 +87,7 @@ echo "<br /><legend align='center'>Alumnos expulsados del Centro actualmente</le
                     }
 
 				    if(strlen($row[9]) > 0 or strlen($row[10]) > 0 ){$comentarios="(*)";}else{$comentarios="";}
-                    printf ("<tr ><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td  align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='far fa-search' title='Detalles'> </i> </A></td><td >%s</td></tr>", $row[0], $row[1], $row[2],$row[4], $row[5], $row[6], $foto0);
+                    printf ("<tr ><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td >%s</td><td  align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i class='fas fa-search' title='Detalles'> </i> </A></td><td >%s</td></tr>", $row[0], $row[1], $row[2],$row[4], $row[5], $row[6], $foto0);
 
         }
 while( $row = mysqli_fetch_array($result));

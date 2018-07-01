@@ -220,7 +220,7 @@ if ($existenNotas) {
 			
 			<div class="col-sm-2 hidden-print">
 				<?php if (! $evaluacionSinNotas): ?>
-				<a href="niveles.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="far fa-refresh fa-fw"></span> Recalcular</a>
+				<a href="niveles.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fas fa-sync-alt fa-fw"></span> Recalcular</a>
 				<?php endif; ?>
 			</div>
 		</div>

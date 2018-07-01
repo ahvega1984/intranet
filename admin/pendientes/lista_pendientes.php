@@ -112,7 +112,7 @@ else{
 	 echo "<form class=\"pull-right\" action='lista_pendientes.php' method='post'>";	
 	 echo "<input type='hidden' name='grupos' value='".$grupos."' />";
 	 echo "<input type='hidden' name='pdf' value='1' />";
-	 echo "<button class='btn btn-primary' name='submit10' type='submit' formtarget='_blank'><i class='far fa-print fa-fw'></i> Imprimir</button>";
+	 echo "<button class='btn btn-primary' name='submit10' type='submit' formtarget='_blank'><i class='fas fa-print fa-fw'></i> Imprimir</button>";
 	 echo "</form>";
 	echo '	  
 	</div>

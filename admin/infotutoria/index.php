@@ -116,7 +116,7 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 		 if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
 		//echo "$grupo == ".$_SESSION['mod_tutoria']['unidad'];
-			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='far fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fas fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
 			if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']) and ($grupo == $_SESSION['mod_tutoria']['unidad']))) {
 				echo "<a href='borrar_informe.php?id=$row[0]&del=1' class='' data-bb='confirm-delete'><i class='far fa-trash-alt fa-fw fa-lg' data-bs='tooltip' title='Borrar Informe' ></i></a>";
 			}
@@ -124,13 +124,13 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 		 
 	  if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
-echo "<a href='informar.php?id=$row[0]' class=''><i class='far fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
+echo "<a href='informar.php?id=$row[0]' class=''><i class='fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
 				}
 		echo "</td><td>";	
 		//echo "$tuti == ".$_SESSION['profi']."<br>";
 				if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']))) {
 					if ($validado==1) {
-				echo "<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='far fa-check-squarefa-fw fa-lg' data-bs='tooltip' title='Informe validado por el Tutor' > </i></a>";				
+				echo "<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='fas fa-check-squarefa-fw fa-lg' data-bs='tooltip' title='Informe validado por el Tutor' > </i></a>";				
 					}
 					else{
 				echo "<a href='index.php?id=$row[0]&validar=0' class='text-danger'><i class='far fa-minus-circle fa-fw fa-lg' data-bs='tooltip' title='Informe no validado por el Tutor' > </i> </a> 	";					
@@ -158,7 +158,7 @@ echo "<a href='informar.php?id=$row[0]' class=''><i class='far fa-pencil-alt fa-
 		 if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
 		//echo "$grupo == ".$_SESSION['mod_tutoria']['unidad'];
-			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='far fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fas fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
 			if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']) and ($grupo == $_SESSION['mod_tutoria']['unidad']))) {
 				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''>
 				<i class='far fa-trash-alt fa-fw fa-lg' data-bs='tooltip' title='Borrar Informe' > </i> </a> 	";
@@ -167,7 +167,7 @@ echo "<a href='informar.php?id=$row[0]' class=''><i class='far fa-pencil-alt fa-
 		 
 	  if (mysqli_num_rows($si) > 0 and $count_g < 1)
 		{} else{ 
-echo "&nbsp;<a href='informar_general.php?id=$row[0]' class=''><i class='far fa-pencil-alt fa-fw fa-lg' data-bs='tooltip'  title='Redactar Informe'> </i> </a>";
+echo "&nbsp;<a href='informar_general.php?id=$row[0]' class=''><i class='fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip'  title='Redactar Informe'> </i> </a>";
 				}
 		echo "</td><td>";	
    echo "</td>
@@ -182,7 +182,7 @@ echo "&nbsp;<a href='informar_general.php?id=$row[0]' class=''><i class='far fa-
 
 
 if (strstr($si_al,"1")==FALSE and $n_infotut < 1) {
-	 echo "<div class='alert alert-warning' align='center'><p><i class='far fa-check-square'> </i> No hay Informes de Tutoría activos para los alumnos de tus grupos. </p></div><br>";
+	 echo "<div class='alert alert-warning' align='center'><p><i class='fas fa-check-square'> </i> No hay Informes de Tutoría activos para los alumnos de tus grupos. </p></div><br>";
  } 	
 
 // Alumnos pendientes con asignaturas sin continuidad para los Jefes de Departamento
@@ -228,8 +228,8 @@ while($row = mysqli_fetch_array($query)){
 
 				$n_pend++;
 
-				echo "<a href='infocompleto.php?id=$row[0]&c_asig=$row2[1]' class='pull-right'><i class='far fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
-				echo "<a href='informar.php?id=$row[0]&materia=$row2[1]' class='pull-right'><i class='far fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
+				echo "<a href='infocompleto.php?id=$row[0]&c_asig=$row2[1]' class='pull-right'><i class='fas fa-search fa-fw fa-lg' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
+				echo "<a href='informar.php?id=$row[0]&materia=$row2[1]' class='pull-right'><i class='fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
 										
 		?>
 			</td>
@@ -249,7 +249,7 @@ while($row = mysqli_fetch_array($query)){
 </table>
 <?
  if (strstr($_SESSION['cargo'],"4")==TRUE and $n_pend < 1) {
-	 echo "<div class='alert alert-info' align='center'><p><i class='far fa-check-square'> </i> No hay Informes de Tutoría activos para alumnos con materias pendientes de tu Departamento. </p></div><br>";
+	 echo "<div class='alert alert-info' align='center'><p><i class='fas fa-check-square'> </i> No hay Informes de Tutoría activos para alumnos con materias pendientes de tu Departamento. </p></div><br>";
  } 	
 ?>
   </div>  
