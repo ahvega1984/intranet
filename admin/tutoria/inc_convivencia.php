@@ -2,7 +2,7 @@
 
 <!-- PROBLEMAS DE CONVIVENCIA -->
 
-<h3 class="text-info">Problemas de convivencia</h3>
+<h3>Problemas de convivencia</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'"); ?>
 

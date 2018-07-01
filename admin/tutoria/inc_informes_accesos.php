@@ -15,7 +15,7 @@
 	elseif($_SESSION['pagina_centro']==1 and mysqli_num_rows($query_accesos)>0)
 	{
 	?>
-			<h3 class="text-info">Accesos de Padres/Alumnos</h3>
+			<h3>Accesos de Padres/Alumnos</h3>
 				<table class="table table-hover">
 					<thead>
 						<tr>

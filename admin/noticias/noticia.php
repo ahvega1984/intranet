@@ -27,7 +27,7 @@ include("menu.php");
 					<?php $exp_profesor = explode(',', $row['autor']); ?>
 					<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 					
-					<h3 class="text-info"><?php echo $row['titulo']; ?></h3>
+					<h3><?php echo $row['titulo']; ?></h3>
 					<h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> el <?php echo fecha_actual2($row['fechapub']); ?></h5>
 					
 					<br>

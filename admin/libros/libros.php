@@ -98,7 +98,7 @@ include("../../menu.php");
 			</div>
 		</div>
 
-		<h3 class="text-info"><?php echo (isset($unidad) && $unidad != "") ? $unidad : $_POST['nivel']; ?></h3>
+		<h3><?php echo (isset($unidad) && $unidad != "") ? $unidad : $_POST['nivel']; ?></h3>
 	</div>
 <br />
 <?php

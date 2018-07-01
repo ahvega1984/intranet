@@ -79,7 +79,7 @@ include("menu.php");
 				<div class="well">
 					
 					<fieldset>
-						<h3 class="text-info">Integración en la Web pública del Centro</h3>
+						<h3>Integración en la Web pública del Centro</h3>
 						<br>
 						<div class="form-group">
 							<label for="prefWeb" class="col-sm-3 control-label">Opción de publicar noticias en la Web del Centro (<span class="text-info">*</span>)</label>
@@ -93,7 +93,7 @@ include("menu.php");
 						</div>
 						<p class="help-block"><span class="text-info">*</span> Si el Centro ha instalado la <a href"https://github.com/IESMonterroso/pagina_centro" target="_blank">Página del Centro</a> integrada en la Intranet, tenemos la opción de <br>publicar noticias en ambas páginas (Intranet y Web del Centro) o bien sólo en una de ellas.</p>
 						<hr>
-						<h3 class="text-info">Categorías para el autor de la publicación</h3>
+						<h3>Categorías para el autor de la publicación</h3>
 						<br>
 						<div class="form-group">
 							<label for="cat_0" class="col-sm-3 control-label">Categoría 1</label>

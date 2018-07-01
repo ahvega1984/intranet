@@ -100,7 +100,7 @@ include 'menu.php';
 		<div class="col-sm-12">
 			<?php $result = mysqli_query($db_con, "SELECT DISTINCT id, departamento, asignatura, autor, titulo, editorial, notas, nivel, grupo FROM Textos $sql_where ORDER BY asignatura") or die (mysqli_error($db_con)); ?>
 			
-			<h3 class="text-info"><?php echo ($nivel != '') ? $nivel : 'Todos los cursos'; ?> <?php echo ($departamento != '') ? '('.$departamento.')' : ''; ?></h3>
+			<h3><?php echo ($nivel != '') ? $nivel : 'Todos los cursos'; ?> <?php echo ($departamento != '') ? '('.$departamento.')' : ''; ?></h3>
 			<br>
 			
 			<?php if (mysqli_num_rows($result)): ?>

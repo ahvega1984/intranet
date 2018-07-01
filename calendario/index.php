@@ -21,12 +21,12 @@ $anio = isset($_GET['anio']) ? $_GET['anio'] : date('Y');
 $semana = 1;
 
 for ($i = 1; $i <= date('t', strtotime($anio.'-'.$mes)); $i++) {
-	
+
 	$dia_semana = date('N', strtotime($anio.'-'.$mes.'-'.$i));
-	
+
 	$calendario[$semana][$dia_semana] = $i;
 	if ($dia_semana == 7) $semana++;
-	
+
 }
 
 
@@ -50,10 +50,10 @@ if ($mes == 12) {
 
 // HTML CALENDARIO MENSUAL
 function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
-	
+
 	// Corrección en mes
 	($mes < 10) ? $mes = '0'.$mes : $mes = $mes;
-	
+
 	echo '<div class"table-responsive">';
 	echo '<table id="calendar" class="table table-bordered">';
 	echo '	<thead>';
@@ -68,12 +68,12 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 	echo '		</tr>';
 	echo '	</thead>';
 	echo '	<tbody>';
-	
+
 	foreach ($calendario as $dias) {
 		echo '		<tr>';
-	
+
 		for ($i = 1; $i <= 7; $i++) {
-			
+
 			if ($i > 5) {
 				if (isset($dias[$i]) && ($mes == date('m')) && ($dias[$i] == date('d'))) {
 					echo '			<td class="text-muted today" width="14.28%">';
@@ -90,27 +90,27 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 					echo '			<td width="14.28%">';
 				}
 			}
-			
+
 			if (isset($dias[$i])) {
 
 				echo '				<p class="lead text-right">'.$dias[$i].'</p>';
-				
+
 				// Corrección en día
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
-				
-				
+
+
 				// Consultamos los calendarios privados del usuario
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin, unidades FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND '$mes' BETWEEN MONTH(fechaini) AND MONTH(fechafin) ORDER BY horaini ASC, horafin ASC");
-					
+
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-						
+
 						$horaini = substr($eventos['horaini'], 0, -3);
 						$horafin = substr($eventos['horafin'], 0, -3);
-						
+
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							
+
 							if ($eventos['fechafin'] == $anio.'-'.$mes.'-'.$dia0) {
 								$hora_evento = 'Hasta las '.$horafin;
 							}
@@ -120,30 +120,30 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 							else {
 								$hora_evento = $horaini.' - '.$horafin;
 							}
-							
+
 							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcal_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
 						}
-						
+
 						unset($horaini);
 						unset($horafin);
 					}
 					mysqli_free_result($result_eventos);
 				}
 				mysqli_free_result($result_calendarios);
-				
+
 				// Consultamos los calendarios públicos
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-					
+
 					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin, unidades FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND '$mes' BETWEEN MONTH(fechaini) AND MONTH(fechafin) ORDER BY horaini ASC, horafin ASC");
-					
+
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-						
+
 						$horaini = substr($eventos['horaini'], 0, -3);
 						$horafin = substr($eventos['horafin'], 0, -3);
-						
+
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							
+
 							if ($eventos['fechaini'] != $eventos['fechafin'] && ($eventos['fechaini'] == $anio.'-'.$mes.'-'.$dia0)) {
 								$hora_evento = 'Desde las '.$horaini;
 							}
@@ -156,39 +156,39 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 							else {
 								$hora_evento = $horaini.' - '.$horafin;
 							}
-							
+
 							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
 						}
-						
+
 						unset($horaini);
 						unset($horafin);
 					}
 					mysqli_free_result($result_eventos);
 				}
 				mysqli_free_result($result_calendarios);
-				
+
 				// FESTIVOS
 				$result = mysqli_query($GLOBALS['db_con'], "SELECT fecha, nombre FROM festivos");
 				while ($festivo = mysqli_fetch_assoc($result)) {
-					
+
 					if ($festivo['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
 						echo '<div class="label label-danger hidden_calendario_festivo visible" data-bs="tooltip" title="'.$festivo['nombre'].'">'.$festivo['nombre'].'</div>';
 					}
 				}
 				mysqli_free_result($result);
 				unset($festivo);
-				
-				
+
+
 			}
 			else {
 				echo '&nbsp;';
 			}
-			
+
 			echo '			</td>';
 		}
 		echo '		</tr>';
 	}
-	
+
 	echo '	</tbody>';
 	echo '</table>';
 	echo '</div>';
@@ -233,7 +233,7 @@ $PLUGIN_COLORPICKER = 1;
 include("../menu.php"); ?>
 
 	<div class="container">
-		
+
 		<style type="text/css">
 		table#calendar>tbody>tr>td {
 			height: 103px !important;
@@ -247,19 +247,19 @@ include("../menu.php"); ?>
 			font-size: 0.9em;
 			font-weight: 400;
 		}
-		
+
 		p.lead {
 			margin-bottom: 0;
 		}
-		
+
 		.today {
 			background-color: #ecf0f1;
 		}
-		
+
 		.today p.lead {
 			font-weight: bold;
 		}
-		
+
 		<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0"); ?>
 		<?php if (mysqli_num_rows($result)): ?>
 		<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -268,7 +268,7 @@ include("../menu.php"); ?>
 		}
 		<?php endwhile; ?>
 		<?php endif; ?>
-		
+
 		<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
 		<?php if (mysqli_num_rows($result)): ?>
 		<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -277,34 +277,34 @@ include("../menu.php"); ?>
 		}
 		<?php endwhile; ?>
 		<?php endif; ?>
-		
+
 		.hidden_calendario_festivo {
 			display: none;
 		}
-		
+
 		.visible {
 			display: block;
 		}
-		
+
 		@media print {
 			html, body {
 				width: 100%;
 			}
-			
+
 			.container, .col-md-12 {
 				width: 100%;
 			}
-			
+
 		}
 		</style>
-		
-		
+
+
 		<?php
 		include('modales_insercion.php');
 		include('modales_edicion.php');
 		?>
-		
-		
+
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<?php if (acl_permiso($carg, array('1'))): ?>
@@ -312,15 +312,15 @@ include("../menu.php"); ?>
 			<?php endif; ?>
 			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
-		
-		
-		
+
+
+
 		<!-- SCAFFOLDING -->
 		<div class="row">
-			
+
 			<!-- COLUMNA CENTRAL -->
 			<div class="col-md-12">
-			
+
 				<!-- BUTTONS -->
 				<div class="hidden-print">
 					<div class="btn-group">
@@ -335,7 +335,7 @@ include("../menu.php"); ?>
 					    <?php while ($row = mysqli_fetch_assoc($result)): ?>
 					    <li>
 					    	<a href="#" class="nohide" id="toggle_calendario_<?php echo $row['id']; ?>">
-					    		<span class="far fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+					    		<span class="fas fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 					    		<?php echo $row['nombre']; ?>
 					    		<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="far fa-eye fa-fw fa-lg"></span></span>
 					    		<?php if ($i > 1): ?>
@@ -359,7 +359,7 @@ include("../menu.php"); ?>
 				    	<?php while ($row = mysqli_fetch_assoc($result)): ?>
 				    	<li>
 				    		<a href="#" class="nohide" id="toggle_calendario_<?php echo $row['id']; ?>">
-				    			<span class="far fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+				    			<span class="fas fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 				    			<?php echo $row['nombre']; ?>
 				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="far fa-eye fa-fw fa-lg"></span></span>
 				    			<?php if ((stristr($_SESSION['cargo'], '1')==TRUE) && $row['id'] != 1 && $row['id'] != 2): ?>
@@ -373,14 +373,14 @@ include("../menu.php"); ?>
 				    	<?php endwhile; ?>
 				    	<li>
 				    		<a href="#" class="nohide" id="toggle_calendario_festivo">
-				    			<span class="far fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
+				    			<span class="fas fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
 				    			<span class="pull-right eyeicon_festivo"><span class="far fa-eye fa-fw fa-lg"></span></span>
 				    		</a>
 				    	</li>
 					    <?php endif; ?>
 					    <li class="divider"></li>
 					    <li><a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">Crear calendario...</a></li>
-					
+
 						<li class="divider"></li>
 						    <li><a href="index_unidades.php" target="_blank"><span class="far fa-user-circle fa-fw fa-lg text-info"></span> <span class="text-info">Calendarios de los Grupos</span></a>
 						</li>
@@ -388,21 +388,21 @@ include("../menu.php"); ?>
 					</div>
 
 					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="far fa-calendar-plusfa-fw"></span> Nueva Actividad</a>
-					
+
 					<div class="pull-right">
 						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="far fa-print fa-fw"></span></a>
-						
+
 						<div class="btn-group">
 						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
 						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>" class="btn btn-default">Hoy</a>
 						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>" class="btn btn-default">&raquo;</a>
 						 </div>
-						 
+
 						<!-- Button trigger modal -->
 					 	<a href="#"class="btn btn-default hidden-print" data-toggle="modal" data-target="#modalAyuda">
 					 		<span class="far fa-question fa-lg"></span>
 					 	</a>
-					 
+
 					 	<!-- Modal -->
 					 	<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
 					 		<div class="modal-dialog modal-lg">
@@ -413,27 +413,27 @@ include("../menu.php"); ?>
 					 				</div>
 					 				<div class="modal-body">
 					 					<p>Este módulo presenta los distintos calendarios que funcionan en la aplicación.</p>
-					 					<p>El <strong>Calendario personal</strong> es propio de todos y cada uno de los 
-					 					profesores. Sólo es visible para el profesor concreto que es su propietario. Si la 
-					 					actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), 
-					 					también es visible para los profesores que dan clase en esos grupos. Es una forma 
-					 					fácil de controlar los exámenes o actividades que afectan al grupo por parte del 
+					 					<p>El <strong>Calendario personal</strong> es propio de todos y cada uno de los
+					 					profesores. Sólo es visible para el profesor concreto que es su propietario. Si la
+					 					actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos),
+					 					también es visible para los profesores que dan clase en esos grupos. Es una forma
+					 					fácil de controlar los exámenes o actividades que afectan al grupo por parte del
 					 					Equipo Educativo del mismo.</p>
-					 					<p>Además del Calendario personal, podemos crear tantos calendarios personales como 
-					 					necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo 
-					 					con los alumnos, etc.). Para añadir un calendario hacemos click sobre el icono de 
-					 					<span class="far fa-calendar-plusfa-fw"></span> que aparece al lado del selector de 
+					 					<p>Además del Calendario personal, podemos crear tantos calendarios personales como
+					 					necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo
+					 					con los alumnos, etc.). Para añadir un calendario hacemos click sobre el icono de
+					 					<span class="far fa-calendar-plusfa-fw"></span> que aparece al lado del selector de
 					 					calendarios.</p>
-					 					<p>El <strong>Calendario del Centro</strong> es visible por todo el mundo, incluida 
+					 					<p>El <strong>Calendario del Centro</strong> es visible por todo el mundo, incluida
 					 					la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.</p>
-					 					<p>El <strong>Calendario de Actividades Complementarias y Extraescolares</strong> es 
-					 					también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, 
-					 					Tutores, DACE y Dirección. También pueden editar las actividades los profesores 
-					 					asociados a una de ellas. El formulario de registro de Actividades aparece cuando 
-					 					hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor 
-					 					quien registra una actividad complementaria se encontrará limitado a su Grupo de 
-					 					Tutoría, y aparecerá bajo el Departamento de Orientación. Más información sobre el 
-					 					mecanismo que regula las Actividades Extraescolares en el Menú de la página 
+					 					<p>El <strong>Calendario de Actividades Complementarias y Extraescolares</strong> es
+					 					también visible por todo el mundo y pueden crear entradas los Jefes de Departamento,
+					 					Tutores, DACE y Dirección. También pueden editar las actividades los profesores
+					 					asociados a una de ellas. El formulario de registro de Actividades aparece cuando
+					 					hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor
+					 					quien registra una actividad complementaria se encontrará limitado a su Grupo de
+					 					Tutoría, y aparecerá bajo el Departamento de Orientación. Más información sobre el
+					 					mecanismo que regula las Actividades Extraescolares en el Menú de la página
 					 					principal --> Departamento --> Actividades Extraescolares.</p>
 					 				</div>
 					 				<div class="modal-footer">
@@ -441,17 +441,17 @@ include("../menu.php"); ?>
 					 				</div>
 					 			</div>
 					 		</div>
-					 	</div>					  
-						
+					 	</div>
+
 					</div>
 
 				</div>
-				
+
 				<br class="hidden-print">
 
 				<?php if ($_GET['msg_cal'] and $_GET['msg_cal']==12): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<strong>ATENCIÓN: <br></strong> La fecha de Inicio de la actividad no puede ser posterior a la fecha de Finalización de la misma. Corrige las fechas e inténtalo de nuevo. 
+					<strong>ATENCIÓN: <br></strong> La fecha de Inicio de la actividad no puede ser posterior a la fecha de Finalización de la misma. Corrige las fechas e inténtalo de nuevo.
 				</div>
 
 				<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==1 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
@@ -469,25 +469,25 @@ include("../menu.php"); ?>
 
 				<?php endif; ?>
 
-							
+
 				<?php if ($_GET['msg'] && $_GET['msg'] != "EventoPendienteConfirmacion"): ?>
 				<div class="alert alert-danger alert-block hidden-print">
 					<strong>Error: </strong> <?php echo $lista_errores[$_GET['msg']]; ?>
 				</div>
 				<?php endif; ?>
-				
+
 				<?php if ($_GET['msg'] && $_GET['msg'] == "EventoPendienteConfirmacion"): ?>
 				<div class="alert alert-info alert-block hidden-print">
 					<?php echo $lista_errores[$_GET['msg']]; ?>
 				</div>
 				<?php endif; ?>
-				
+
 				<?php vista_mes($calendario, $dia, $mes, $anio, $_SESSION['cargo']); ?>
-				
+
 			</div><!-- /.col-md-12 -->
-			
+
 		</div><!-- /.row -->
-		
+
 	</div><!-- /.container -->
 
 <?php include("../pie.php"); ?>
@@ -509,7 +509,7 @@ include("../menu.php"); ?>
 			});
 			<?php endwhile; ?>
 			<?php endif; ?>
-			
+
 			<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
 			<?php if (mysqli_num_rows($result)): ?>
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -524,7 +524,7 @@ include("../menu.php"); ?>
 			});
 			<?php endwhile; ?>
 			<?php endif; ?>
-			
+
 			$("#toggle_calendario_festivo").click(function() {
 			  $('.hidden_calendario_festivo').toggleClass("visible");
 			  if ($(".eyeicon_festivo").html() == '<span class="far fa-eye fa-fw fa-lg"></span>') {
@@ -534,34 +534,34 @@ include("../menu.php"); ?>
 			  	$(".eyeicon_festivo").html('<span class="far fa-eye fa-fw fa-lg"></span>');
 			  }
 			});
-			
-			
+
+
 			// OPCIONES DROPDOWN
 			$('.dropdown-menu input, .dropdown-menu a.nohide').click(function(e) {
 			    e.stopPropagation();
 			});
-			
+
 			// ABRIR MODALES
 			<?php if(isset($_GET['viewModal'])): ?>
 			$('#modalEvento<?php echo $_GET['viewModal']; ?>').modal('show');
 			<?php endif; ?>
-			
+
 			<?php if(isset($_GET['action']) && $_GET['action'] == 'nuevoEvento'): ?>
 			$('#modalNuevoEvento').modal('show');
 			<?php endif; ?>
-			
-			
+
+
 			// MODAL NUEVO CALENDARIO
 			$('#colorpicker1').colorpicker();
-			
+
 			// MODAL NUEVO EVENTO
 			$('#modalNuevoEvento').modal({
 			  show: false,
 			  keyboard: false,
 			  backdrop: true
 			})
-			
-			
+
+
 			if ($('#cmp_calendario').val() == 2) {
 			    $('#opciones_actividades').show();
 			    $('#opciones_diario').hide();
@@ -570,7 +570,7 @@ include("../menu.php"); ?>
 				$('#opciones_actividades').hide();
 				$('#opciones_diario').show();
 			}
-			
+
 			$('#cmp_calendario').change(function() {
 			    if ($('#cmp_calendario').val() == 2) {
 			        $('#opciones_actividades').show();
@@ -579,82 +579,82 @@ include("../menu.php"); ?>
 			        $('#opciones_actividades').hide();
 			    }
 			});
-			
-			$('#cmp_fecha_diacomp').click(function() {  
+
+			$('#cmp_fecha_diacomp').click(function() {
 				if($('#cmp_fecha_diacomp').is(':checked')) {
 					$(".cmp_fecha_toggle").attr('disabled', true);
 					$(".cmp_fecha_toggle").attr('disabled', true);
 					$(".cmp_fecha_toggle").attr('disabled', true);
-				} else {  
+				} else {
 					$(".cmp_fecha_toggle").attr('disabled', false);
 					$(".cmp_fecha_toggle").attr('disabled', false);
 					$(".cmp_fecha_toggle").attr('disabled', false);
-				}  
+				}
 			});
-			
+
 			<?php
 			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 				$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND '$mes' BETWEEN MONTH(fechaini) AND MONTH(fechafin)");
-				
+
 				while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {  
+					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {
 						if($("#cmp_fecha_diacomp_'.$eventos['id'].'").is(":checked")) {
 							$(".cmp_fecha_toggle").attr("disabled", true);
 							$(".cmp_fecha_toggle").attr("disabled", true);
 							$(".cmp_fecha_toggle").attr("disabled", true);
-						} else {  
+						} else {
 							$(".cmp_fecha_toggle").attr("disabled", false);
 							$(".cmp_fecha_toggle").attr("disabled", false);
 							$(".cmp_fecha_toggle").attr("disabled", false);
-						}  
+						}
 					});';
 				}
 				mysqli_free_result($result_eventos);
 			}
 			mysqli_free_result($result_calendarios);
-			
+
 			// Consultamos los calendarios públicos
 			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-				
+
 				$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND '$mes' BETWEEN MONTH(fechaini) AND MONTH(fechafin)");
-				
+
 				while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {  
+					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {
 						if($("#cmp_fecha_diacomp_'.$eventos['id'].'").is(":checked")) {
 							$(".cmp_fecha_toggle").attr("disabled", true);
 							$(".cmp_fecha_toggle").attr("disabled", true);
 							$(".cmp_fecha_toggle").attr("disabled", true);
-						} else {  
+						} else {
 							$(".cmp_fecha_toggle").attr("disabled", false);
 							$(".cmp_fecha_toggle").attr("disabled", false);
 							$(".cmp_fecha_toggle").attr("disabled", false);
-						}  
+						}
 					});';
 				}
 				mysqli_free_result($result_eventos);
 			}
 			mysqli_free_result($result_calendarios);
-			?>			
+			?>
 			<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
 			<?php if (mysqli_num_rows($result)): ?>
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
-			$('#cmp_fecha_diacomp_<?php echo $row['id']; ?>').click(function() {  
+			$('#cmp_fecha_diacomp_<?php echo $row['id']; ?>').click(function() {
 				if($('#cmp_fecha_diacomp_<?php echo $row['id']; ?>').is(':checked')) {
 					alert(1);
 					$(".cmp_fecha_toggle").attr('disabled', true);
 					$(".cmp_fecha_toggle").attr('disabled', true);
 					$(".cmp_fecha_toggle").attr('disabled', true);
-				} else {  
+				} else {
 					$(".cmp_fecha_toggle").attr('disabled', false);
 					$(".cmp_fecha_toggle").attr('disabled', false);
 					$(".cmp_fecha_toggle").attr('disabled', false);
-				}  
+				}
 			});
 			<?php endwhile; ?>
 			<?php endif; ?>
-			
+
 			$('#cmp_calendario').change(function() {
 			    if ($('#cmp_calendario').val() != 1 && $('#cmp_calendario').val() != 2) {
 			        $('#opciones_diario').show();
@@ -663,35 +663,35 @@ include("../menu.php"); ?>
 			        $('#opciones_diario').hide();
 			    }
 			});
-			
+
 			$('#modalNuevoEvento').on('hidden.bs.modal', function () {
 				$('#formNuevoEvento')[0].reset();
 				$('#opciones_actividades').hide();
 			})
-			
+
 			// DATETIMEPICKERS
 			$('.datetimepicker1').datetimepicker({
 				language: 'es',
 				pickTime: false
 			})
-			
+
 			$('.datetimepicker2').datetimepicker({
 				language: 'es',
 				pickTime: true,
 				pickDate: false
 			})
-			
+
 			$('.datetimepicker3').datetimepicker({
 				language: 'es',
 				pickTime: false
 			})
-			
+
 			$('.datetimepicker4').datetimepicker({
 				language: 'es',
 				pickTime: true,
 				pickDate: false
 			})
-			
+
 			// MODAL CONFIRMACION PARA ELIMINAR
             $(".delete-calendar").on("click", function(e) {
             	bootbox.setDefaults({
@@ -702,7 +702,7 @@ include("../menu.php"); ?>
             	  animate: true,
             	  title: "Confirmación para eliminar",
             	});
-            	
+
                 e.preventDefault();
                 var _this = this;
                 bootbox.confirm("Esta acción eliminará permanentemente los eventos del calendario ¿Seguro que desea continuar?", function(result) {
@@ -712,7 +712,7 @@ include("../menu.php"); ?>
                 });
             });
 
-			// Control de errores en fechas y horas   
+			// Control de errores en fechas y horas
 			$("#bCrear").click(function(){
 				bootbox.setDefaults({
 					locale: "es",
@@ -741,7 +741,7 @@ include("../menu.php"); ?>
 					return false;
 				}
 
-				
+
 				if((fechaInicioSQL == fechaFinSQL) && (horaFin <= horaInicio)){
 					bootbox.alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día.");
 					$(".datetimepicker2").addClass("has-error");
@@ -753,6 +753,6 @@ include("../menu.php"); ?>
 
 		});
 	</script>
-	
+
 </body>
 </html>

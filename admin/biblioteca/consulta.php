@@ -20,7 +20,7 @@ function seleccionar_todo(){
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 	  <h2>Biblioteca <small>Gestión de los Préstamos</small></h1>
-		<h3 class="text-info">Lista de morosos</small></h3>
+		<h3>Lista de morosos</small></h3>
 	</div>
 	
 	<!-- SCAFFOLDING -->

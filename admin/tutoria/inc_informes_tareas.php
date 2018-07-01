@@ -2,7 +2,7 @@
 
 <!-- INFORMES DE TAREAS -->
 
-<h3 class="text-info">Informes de tareas</h3>
+<h3>Informes de tareas</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT id, apellidos, nombre, fecha FROM tareas_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY fecha DESC"); ?>
 

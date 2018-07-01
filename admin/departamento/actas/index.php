@@ -322,9 +322,9 @@ include ("menu.php");
 				</div><!-- /.col-sm-6 -->
 			</div><!-- /.row -->
 			<?php elseif (isset($organo) && in_array($organo, $organos)): ?>
-			<h3 class="text-info"><?php echo $departamento; ?></h3>
+			<h3><?php echo $departamento; ?></h3>
 			<?php else: ?>
-			<h3 class="text-info"><?php echo $departamento; ?></h3>
+			<h3><?php echo $departamento; ?></h3>
 			<?php endif; ?>
 		
 		</div><!-- /.page-header -->

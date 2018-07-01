@@ -2,7 +2,7 @@
 
 <!-- FALTAS DE ASISTENCIA -->
 
-<h3 class="text-info">Faltas sin justificar</h3>
+<h3>Faltas sin justificar</h3>
 
 <?php $exp_inicio_curso = explode('-', $config['curso_inicio']); ?>
 <?php $inicio_curso = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0]; ?>

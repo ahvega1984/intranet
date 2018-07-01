@@ -2,7 +2,7 @@
 
 <!-- INTERVENCIONES DE TUTORIA -->
 
-<h3 class="text-info">Intervenciones de tutoría</h3>
+<h3>Intervenciones de tutoría</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '".$config['curso_inicio']."' ORDER BY apellidos ASC, nombre ASC"); ?>
 <?php if (mysqli_num_rows($result)): ?>

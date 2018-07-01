@@ -2,7 +2,7 @@
 
 <!-- Biblioteca -->
 <?php if($config['mod_biblioteca']): ?>
-<h3 class="text-info">Devolución de Libros</h3>
+<h3>Devolución de Libros</h3>
 
 <?php $grupo = $_SESSION['mod_tutoria']['unidad']; 
 	  $fecha_act = date('Y-m-d');

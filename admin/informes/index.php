@@ -72,7 +72,7 @@ if (!$claveal) {
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Expediente académico del alumno/a <small> Curso académico: <?php echo $c_escolar?></small></h2>
-			<h3 class="text-info"><?php echo $apellido.', '.$nombrepil; ?></h3>
+			<h3><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
 
 		<?php $result = mysqli_query($db_con, "SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>

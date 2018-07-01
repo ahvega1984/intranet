@@ -320,7 +320,7 @@ include("menu.php");
 
 					<div class="tab-pane fade in active" id="tab1">
 						
-						<h3 class="text-info">1º de E.S.O.</h3>
+						<h3>1º de E.S.O.</h3>
 						<br>
 						<table class='table table-bordered' style='border:none;'>
 							<tr>
@@ -428,7 +428,7 @@ include("menu.php");
 
 					<div class="tab-pane fade in" id="tab2">
 
-					<h3 class="text-info">2º de E.S.O.</h3>
+					<h3>2º de E.S.O.</h3>
 					<br>					
 						<table class='table table-bordered' style='border:none;'>
 							<tr>
@@ -528,7 +528,7 @@ include("menu.php");
 
 					<div class="tab-pane fade in" id="tab3">
 											
-						<h3 class="text-info">3º de E.S.O.</h3>
+						<h3>3º de E.S.O.</h3>
 						<br>
 						<table class='table table-bordered' style='border:none;'>
 							<tr>
@@ -644,7 +644,7 @@ include("menu.php");
 
 					<div class="tab-pane fade in" id="tab4">
 
-						<h3 class="text-info">4º de E.S.O.</h3>
+						<h3>4º de E.S.O.</h3>
 						<br>
 						<table class='table table-bordered' style='border:none;'>
 							<tr>
@@ -828,7 +828,7 @@ include("menu.php");
 
 						<div class="tab-pane fade in" id="tab5">
 						
-						<h3 class="text-info">1º de Bachillerato</h3>
+						<h3>1º de Bachillerato</h3>
 						<br>
 						<table class='table table-bordered' style='border:none;'>
 							<tr>
@@ -1199,7 +1199,7 @@ include("menu.php");
 
 					<div class="tab-pane fade in" id="tab6">
 						
-						<h3 class="text-info">2º de Bachillerato</h3>
+						<h3>2º de Bachillerato</h3>
 						<br>
 						<table class='table table-bordered' style='border:none;'>
 							<tr>

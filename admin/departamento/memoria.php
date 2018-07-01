@@ -164,7 +164,7 @@ if (!($memoria[1]=='')){$profe=$memoria[1];}
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 	  <h2>Jefatura de Departamento <small>Memoria final</small></h2>
-	  <h3 class="text-info">Departamento de <?php echo $_SESSION['dpt']; ?></h3>
+	  <h3>Departamento de <?php echo $_SESSION['dpt']; ?></h3>
 	</div>
 	
 	

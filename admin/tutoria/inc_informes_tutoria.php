@@ -2,7 +2,7 @@
 
 <!-- INFORMES DE TUTORIA -->
 
-<h3 class="text-info">Informes de tutoría</h3>
+<h3>Informes de tutoría</h3>
 
 <?php $result = mysqli_query($db_con, "SELECT id, claveal, apellidos, nombre, f_entrev FROM infotut_alumno WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY f_entrev DESC"); ?>
 <?php if (mysqli_num_rows($result)): ?>

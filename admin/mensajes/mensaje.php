@@ -63,7 +63,7 @@ include("menu.php");
 	  	<!-- COLUMNA CENTRAL -->
 	    <div class="col-sm-12">
 
-	    	<h3 class="text-info"><?php echo $mensaje['asunto']; ?></h3>
+	    	<h3><?php echo $mensaje['asunto']; ?></h3>
 	    	<h5 class="text-muted">Enviado por <?php echo nomprofesor($nom_profesor); ?> el <?php echo fecha_actual2($mensaje['ahora']); ?>
 	    	</h5>
 	    	

@@ -62,7 +62,7 @@ include("menu.php");
 				
 				<?php include("inc_asistencias.php"); ?>
 				<hr>
-				<h3 class="text-info">Actividades extraescolares</h3>
+				<h3>Actividades extraescolares</h3>
 				<?php include("inc_actividades.php"); ?>
 				<hr>
 				
