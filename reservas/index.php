@@ -208,7 +208,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
       }
     }
     
-	echo '<p><span class="far fa-calendarfa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
+	echo '<p><span class="far fa-calendar fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
 	echo '<a href="//'.$config['dominio'].'/intranet/reservas/reservar/index.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
   //Nombre del día

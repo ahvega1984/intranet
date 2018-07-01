@@ -50,7 +50,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 	echo '	<thead>';
 	echo '      <tr>';
 	echo '			<th class="text-center"><h4><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="far fa-chevron-left fa-fw"></span></a></h4></th>';
-	echo '			<th colspan="5" class="text-center"><h4><span class="far fa-calendarfa-fw"></span> '.strftime('%B, %Y', strtotime($anio.'-'.$mes)).'</h4></th>';
+	echo '			<th colspan="5" class="text-center"><h4><span class="far fa-calendar fa-fw"></span> '.strftime('%B, %Y', strtotime($anio.'-'.$mes)).'</h4></th>';
 	echo '			<th class="text-center"><h4><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="far fa-chevron-right fa-fw"></span></a></h4></th>';
 	echo '		</tr>';
 	echo '		<tr>';

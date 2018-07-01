@@ -192,7 +192,7 @@ if ($row = mysqli_fetch_array($result))
 echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo'><i class='far fa-search fa-fw'></i> Informe completo</a></li>";
 echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'><i class='far fa-calendar fa-fw'></i> Informe histórico</a></li>";
 echo "<li><a href='../fechorias/infechoria.php?seleccionado=1&nombre=$claveal'><i class='far fa-bug fa-fw'></i> Problema de disciplina</a></li>";
-echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?curso=$unidad&claveal=$claveal'><i class='far fa-calendarfa-fw'></i> Horario</a></li>";
+echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?curso=$unidad&claveal=$claveal'><i class='far fa-calendar fa-fw'></i> Horario</a></li>";
 
 // Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos
 	$sql_control = mysqli_query($db_con, "select * from control where claveal = '$claveal'");

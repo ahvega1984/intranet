@@ -24,7 +24,7 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2 style="display: inline;">Guardias de aula <small>Consulta por fechas</small></h2>
-		<h4 class="text-info"><span class="far fa-calendarfa-fw"></span> <?php echo strftime("%e, %B %Y",strtotime($fecha)); ?></h4>
+		<h4 class="text-info"><span class="far fa-calendar fa-fw"></span> <?php echo strftime("%e, %B %Y",strtotime($fecha)); ?></h4>
 	</div>
 	
 	<!-- SCAFFOLDING -->
