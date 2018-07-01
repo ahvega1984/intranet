@@ -290,7 +290,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 			}
 		}
 
-		echo '<p><span class="fa fa-calendar-o fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
+		echo '<p><span class="far fa-calendarfa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
 		echo '<a href="//'.$config['dominio'].'/intranet/reservas/reservar/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
 		//Nombre del día

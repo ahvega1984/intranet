@@ -104,14 +104,14 @@ include("menu.php");
 			
 			<?php if (! empty($diasem) && ! empty($hora)): ?>
 			<h4>
-				<span class="fa fa-history fa-fw"></span> Histórico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>ª hora</span>		
+				<span class="far fa-history fa-fw"></span> Histórico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>ª hora</span>		
 			</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' AND dia = '$diasem' AND hora = '$hora' ORDER BY fecha_guardia DESC"); ?>
 			<?php $uri_extra = "&diasem=$diasem&hora=$hora"; ?>
 
 			<?php else: ?>
 			
-			<h4><span class="fa fa-history fa-fw"></span> Histórico de guardias</h4>
+			<h4><span class="far fa-history fa-fw"></span> Histórico de guardias</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' ORDER BY fecha_guardia DESC"); ?>
 			
 			<?php endif; ?>
@@ -140,7 +140,7 @@ include("menu.php");
 							<td><?php if ($row['turno'] == 1) echo 'Hora completa'; elseif ($row['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
 							<?php if (acl_permiso($_SESSION['cargo'], array(1)) || nomprofesor($profesor) == nomprofesor($pr)): ?>
 							<td class="hidden-print">
-								<a href="?id=<?php echo $row['id']; ?>&borrar=1&profesor=<?php echo nomprofesor($row['profesor']); ?><?php if (isset($uri_extra)) echo $uri_extra; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar"><span class="fa fa-trash fa-lg fa-fw"></span></a>
+								<a href="?id=<?php echo $row['id']; ?>&borrar=1&profesor=<?php echo nomprofesor($row['profesor']); ?><?php if (isset($uri_extra)) echo $uri_extra; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 							</td>
 							<?php endif; ?>
 						</tr>

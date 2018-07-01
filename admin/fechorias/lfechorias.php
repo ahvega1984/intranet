@@ -28,7 +28,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -71,7 +71,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 
 <?php  
     echo '<div class="text-center" id="t_larga_barra">
-    	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+    	<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
     </div>';
      		 
     echo "<div id='t_larga' style='display:none' >";
@@ -172,14 +172,14 @@ if ($config['mod_convivencia']==1) {
 				}	
 				
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
-				if($recibido == '1'){$comentarios1="<i class='fa fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='far fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='far fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td>";
 		if ($foto = obtener_foto_alumno($claveal)) {
             echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
         }
         else {
-            echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
+            echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
         }	
 		echo "</td>";
 		echo "<td>$rowalumno</td>
@@ -192,20 +192,20 @@ if ($config['mod_convivencia']==1) {
 		<td>$caducada</td>
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 	
 
-		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>
-		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-history fa-fw fa-lg' data-bs='tooltip' title='Historial'></span></a>
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='far fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>
+		<a href='lfechorias2.php?clave=$claveal'><span class='far fa-history fa-fw fa-lg' data-bs='tooltip' title='Historial'></span></a>
 		";
 		$ahora = mktime();
 		$tr_f = explode("-",$fecha);
 		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+172800;
         if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){
         	if (stristr($_SESSION['cargo'],'1') == TRUE) {
-        		echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";	
+        		echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='far fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";	
         	}
         	elseif($ahora < $antes){
-        		echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";
+        		echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='far fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";
         	}
-        	echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a>";
+        	echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='far fa-trash-alt fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a>";
         }
 		echo "</td>
 		<td>";

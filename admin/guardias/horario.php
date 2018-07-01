@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
+<h4><span class="far fa-clock fa-fw"></span> Horario</h4>
 <table class="table table-bordered table-condensed table-striped table-centered">
 <thead>
   <tr>
@@ -14,12 +14,12 @@
 </thead>
 <tbody>
 <?php	
-// Horas del día
+// Horas del dï¿½a
 $todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
-echo '<tr><th>'.$nombre.'ª</th>';
+echo '<tr><th>'.$nombre.'ï¿½</th>';
 	
-	//Días
+	//Dï¿½as
 	for($z = 1; $z < 6; $z ++) {
 
 		?>

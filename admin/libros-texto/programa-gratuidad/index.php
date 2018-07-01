@@ -215,7 +215,7 @@ include('../menu.php');
 
                 <div class="hidden-xs">
                     <?php if (acl_permiso($_SESSION['cargo'], array(1, 2))): ?>
-                    <a href="certificado.php?curso=<?php echo $curso; ?><?php echo (isset($grupo)) ? '&grupo='.$grupo : ''; ?>" class="btn btn-primary btn-sm btn-print-cert" target="_blank"><span class="fa fa-print fa-lg fa-fw"></span> Imprimir certificados</a>
+                    <a href="certificado.php?curso=<?php echo $curso; ?><?php echo (isset($grupo)) ? '&grupo='.$grupo : ''; ?>" class="btn btn-primary btn-sm btn-print-cert" target="_blank"><span class="far fa-print fa-lg fa-fw"></span> Imprimir certificados</a>
                     <?php endif; ?>
                 </div>
 
@@ -243,7 +243,7 @@ include('../menu.php');
                                         <?php if ($foto = obtener_foto_alumno($alumno['claveal'])): ?>
                                         <img class="img-thumbnail" src="../../../xml/fotos/<?php echo $foto; ?>" style="width: 42px !important;" alt="">
                                         <?php else: ?>
-                                        <span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 42px !important;"></span>
+                                        <span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 42px !important;"></span>
                                         <?php endif; ?>
                                     </div>
 
@@ -264,7 +264,7 @@ include('../menu.php');
                                         <?php if ($foto = obtener_foto_alumno($alumno['claveal'])): ?>
                                         <img class="img-thumbnail" src="../../../xml/fotos/<?php echo $foto; ?>" style="width: 52px !important;" alt="">
                                         <?php else: ?>
-                                        <span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 52px !important;"></span>
+                                        <span class="img-thumbnail far fa-user fa-fw fa-4x" style="width: 52px !important;"></span>
                                         <?php endif; ?>
                                     </div>
 
@@ -335,7 +335,7 @@ include('../menu.php');
                                     <?php if ($librosReposicion): ?>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fa fa-print fa-lg"></span> <span class="caret"></span>
+                                            <span class="far fa-print fa-lg"></span> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li><a href="certificado.php?claveal=<?php echo $alumno['claveal']; ?>&reposicion=1" target="_blank"><strong class="text-warning">Imprimir certificado de entrega<br>(Libros repuestos por el alumno)</strong></a></li>
@@ -343,7 +343,7 @@ include('../menu.php');
                                         </ul>
                                     </div>
                                     <?php else: ?>
-                                    <a href="certificado.php?claveal=<?php echo $alumno['claveal']; ?>" class="btn btn-primary btn-sm" target="_blank" data-bs="tooltip" title="Imprimir certificado de reposición / entrega"><span class="fa fa-print fa-lg fa-fw"></span></a>
+                                    <a href="certificado.php?claveal=<?php echo $alumno['claveal']; ?>" class="btn btn-primary btn-sm" target="_blank" data-bs="tooltip" title="Imprimir certificado de reposición / entrega"><span class="far fa-print fa-lg fa-fw"></span></a>
                                     <?php endif; ?>
                                 </td>
                                 <?php endif; ?>

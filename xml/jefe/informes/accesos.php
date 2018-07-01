@@ -28,7 +28,7 @@ include("../../../menu.php");
 			
 			    <div class="no_imprimir">
 			      <a href="../../index.php" class="btn btn-default">Volver</a>
-			      <a href="#" class="btn btn-primary" onclick="print()"><i class="fa fa-print"></i> Imprimir</a>
+			      <a href="#" class="btn btn-primary" onclick="print()"><i class="far fa-print"></i> Imprimir</a>
 			      <br><br>
 			    </div>
 				

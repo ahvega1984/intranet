@@ -206,7 +206,7 @@ include("menu.php");
 					<div class="col-sm-2 text-center">
 						<div class="img-thumbnail" style="display: block;">
 							<br><br><br>
-							<span class="fa fa-user fa-5x"></span>
+							<span class="far fa-user fa-5x"></span>
 							<br><br><br><br>
 						</div>
 						<?php echo $row['apellidos'].', '.$row['nombre']; ?>

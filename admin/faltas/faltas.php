@@ -50,7 +50,7 @@ $result = mysqli_query($db_con, $SQL);
 					echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 				}
 				else {
-					echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
+					echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 				}
 				echo "</td><td>";
                 echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[1], $row[2]</a></td><td>$row[3]</td><td>$row[4]</td><td style='color:#9d261d'><strong>$row[5]</strong></td></tr>\n"; 

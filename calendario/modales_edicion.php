@@ -53,7 +53,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        					<label for="cmp_fecha_ini">Fecha inicio</label>
 		        					<div class="input-group">
 		            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$fechaini_evento.'" data-date-format="DD/MM/YYYY" required>
-		            					<span class="input-group-addon"><span class="fa fa-calendar">
+		            					<span class="input-group-addon"><span class="far fa-calendar">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -64,7 +64,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.substr($eventos1['horaini'], 0, -3).'" data-date-format="HH:mm"';
 		if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' disabled';
 		echo '>
-		            					<span class="input-group-addon"><span class="fa fa-clock-o">
+		            					<span class="input-group-addon"><span class="far fa-clock">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -75,7 +75,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		            					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$fechafin_evento.'" data-date-format="DD/MM/YYYY"';
 		if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' disabled';
 		echo '>
-		            					<span class="input-group-addon"><span class="fa fa-calendar">
+		            					<span class="input-group-addon"><span class="far fa-calendar">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -86,7 +86,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		            					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_hora_fin" name="cmp_hora_fin" value="'.substr($eventos1['horafin'], 0, -3).'" data-date-format="HH:mm"';
 		if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' disabled';
 		echo '>
-		            					<span class="input-group-addon"><span class="fa fa-clock-o">
+		            					<span class="input-group-addon"><span class="far fa-clock">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -263,7 +263,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        					<label for="cmp_fecha_ini">Fecha inicio</label>
 			        					<div class="input-group">
 			            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$fechaini_evento.'" data-date-format="DD/MM/YYYY" required>
-			            					<span class="input-group-addon"><span class="fa fa-calendar">
+			            					<span class="input-group-addon"><span class="far fa-calendar">
 			            				</div>
 			            			</div>
 			        			</div>
@@ -274,7 +274,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			            					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_hora_ini" name="cmp_hora_ini" value="'.substr($eventos1['horaini'], 0, -3).'" data-date-format="HH:mm"';
 			if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' disabled';
 			echo '>
-			            					<span class="input-group-addon"><span class="fa fa-clock-o">
+			            					<span class="input-group-addon"><span class="far fa-clock">
 			            				</div>
 			            			</div>
 			        			</div>
@@ -285,7 +285,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			            					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$fechafin_evento.'" data-date-format="DD/MM/YYYY"';
 			if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' disabled';
 			echo '>
-			            					<span class="input-group-addon"><span class="fa fa-calendar">
+			            					<span class="input-group-addon"><span class="far fa-calendar">
 			            				</div>
 			            			</div>
 			        			</div>
@@ -296,7 +296,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			            					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_hora_fin" name="cmp_hora_fin" value="'.substr($eventos1['horafin'], 0, -3).'" data-date-format="HH:mm"';
 			if ($eventos1['fechaini'] == $eventos1['fechafin'] && substr($eventos1['horaini'], 0, -3)=='00:00' && substr($eventos1['horafin'], 0, -3)=='00:00') echo ' disabled';
 			echo '>
-			            					<span class="input-group-addon"><span class="fa fa-clock-o">
+			            					<span class="input-group-addon"><span class="far fa-clock">
 			            				</div>
 			            			</div>
 			        			</div>

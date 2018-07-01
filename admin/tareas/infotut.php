@@ -84,7 +84,7 @@ $ano = $hoy[2];
 <label>Fecha prevista de la ausencia</label>
 <div class="input-group">
 <input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
-	<span class="input-group-addon"><i class="fa fa-calendar"></i>
+	<span class="input-group-addon"><i class="far fa-calendar"></i>
 	</span>
 	</div>
 </div>

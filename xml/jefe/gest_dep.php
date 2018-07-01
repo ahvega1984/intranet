@@ -118,7 +118,7 @@ if ($_GET['borrar']=='1') {
 			echo "<OPTION>$departamen2</OPTION>";
 		}
 		echo "</select>
-		  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]' data-bb='confirm-delete'><i class='fa fa-trash-o fa-lg fa-fw'></i></a></td></tr>";	
+		  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]' data-bb='confirm-delete'><i class='far fa-trash-alt fa-lg fa-fw'></i></a></td></tr>";	
 	}
 	?>
 	</tbody>

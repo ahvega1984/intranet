@@ -26,12 +26,12 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 		<div class="container hidden-print">
 			
 			<?php if (acl_permiso($carg, array('1'))): ?>
-			<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+			<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="far fa-cog fa-lg"></span></a>
 			<?php endif; ?>
 			
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-right: 5px;">
-				<span class="fa fa-question fa-lg"></span>
+				<span class="far fa-question fa-lg"></span>
 			</a>
 		
 			<!-- Modal -->

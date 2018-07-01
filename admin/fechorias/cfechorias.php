@@ -14,7 +14,7 @@ include("menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -111,7 +111,7 @@ include("menu.php");
 								  <label for="dia">Fecha</label>
 								  <div class="input-group">
 								  	<input type="text" class="form-control" name="dia" id="dia" placeholder="Fecha" data-date-format="DD-MM-YYYY">
-								  	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+								  	<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 								  </div>
 								</div>
 								

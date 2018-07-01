@@ -4,7 +4,7 @@
 	
 	<!-- Button trigger modal -->
 	<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-		<span class="fa fa-question fa-lg"></span>
+		<span class="far fa-question fa-lg"></span>
 	</a>
 
 	<!-- Modal -->
@@ -64,7 +64,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control input-sm" id="q" name="q" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar mensajes...">
 				<span class="input-group-btn">
-					<button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
+					<button class="btn btn-default btn-sm" type="submit"><span class="far fa-search fa-lg"></span></button>
 				</span>
 			</div><!-- /input-group -->
 		</div><!-- /.col-lg-3-->

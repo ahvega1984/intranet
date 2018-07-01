@@ -82,13 +82,13 @@ include("menu.php");
 				<?php if($config['mod_horarios'] && ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria")): ?>
 				
 				<div id="bs-tour-horario">
-					<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>	
+					<h4><span class="far fa-clock fa-fw"></span> Horario</h4>	
 					<?php include("horario.php"); ?>
 				</div>
 				
 				<?php else: ?>
 				
-				<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
+				<h4><span class="far fa-clock fa-fw"></span> Horario</h4>
 				<div class="text-center">
 					<a class="btn btn-sm btn-default" href="xml/jefe/horarios/index.php" style="margin-top:18px;">Crear/Modificar horario</a>
 				</div>

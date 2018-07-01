@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Grupo activos</p><br />";
+echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='far fa-bell'> </i> Informes de Grupo activos</p><br />";
 //echo $SQLcurso3."<br>";
 $resultcurs33 = mysqli_query($db_con, $SQLcurso3);
 while($rowcurs = mysqli_fetch_array($resultcurs33))
@@ -47,8 +47,8 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 				echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
 	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[5]</a> -- $curso $row[6]  
 	<span class='pull-right'>
-	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fa fa-search fa-fw fa-lg'></span></a>
-	<a href='./admin/infotutoria/informar_general.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fa fa-pencil fa-fw fa-lg'></span></a>
+	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='far fa-search fa-fw fa-lg'></span></a>
+	<a href='./admin/infotutoria/informar_general.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='far fa-pencil-alt fa-fw fa-lg'></span></a>
 	</span>
 	</p>";
 			?>

@@ -53,7 +53,7 @@ echo "<thead><tr  class='active'><th>Alumno/a </th>
 		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
 	}
 	else {
-		echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
+		echo '<span class="img-thumbnail far fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
 	}
 
 $coinciden = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]'");

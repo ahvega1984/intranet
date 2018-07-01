@@ -166,7 +166,7 @@ if (isset($_POST['sin_matricula'])) {
 		echo '<h3 align="center">Alumnos del Centro de 4º de ESO sin matricular.</h3><br />';
 		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
-			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] </li>";
+			echo "<li><i class='far fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] </li>";
 
 		}
 		echo "</ul></div><br />";
@@ -183,7 +183,7 @@ if (isset($_POST['sin_matricula'])) {
 		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
 			if(strlen($cam[6])>0){$cole = " ($cam[6])";}else{$cole="";}
-			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
+			echo "<li><i class='far fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
 			}
 		echo "</ul></div><br />";
 		}
@@ -196,7 +196,7 @@ if (isset($_POST['sin_matricula'])) {
 			echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysqli_fetch_array($camb)) {
 				
-			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[6] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+			echo "<li><i class='far fa-user'></i> &nbsp;$cam[6] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
 		
 }
 echo "</ul></div><br />";
@@ -205,7 +205,7 @@ echo "</ul></div><br />";
 			echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysqli_fetch_array($canf)) {
 				
-			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+			echo "<li><i class='far fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
 	}
 echo "</ul></div>";
@@ -466,7 +466,7 @@ if (!($orden)) {
 
 		if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='far fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 		}
 // Problemas de Convivencia
 $n_fechorias="";
@@ -531,7 +531,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if($bilinguismo=="Si"){ echo " checked";} elseif ($bl == '1') { echo " checked";}
 		echo ' />';
 		if ($bilinguismo=="Si" and $bl != 1 and $curso=='2BACH') {
-			$extra_bil = "<i class='fa fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
+			$extra_bil = "<i class='far fa-question text-warning' data-bs='tooltip' title='El alumno no aparece como bilingue en la matrícula del curso anterior'> </i>";
 		}
 		echo $extra_bil.'</td>';
 
@@ -575,7 +575,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 
 					$rp_cur="";
 					if ($promociona == "1" and $n_curso==$curs_ant) {
-						$rp_cur = "<i class='fa fa-exclamation-circle text-danger' data-bs='tooltip' title='El alumno ha promocionado y su matrícula debe ser restaurada'> </i>";
+						$rp_cur = "<i class='far fa-exclamation-circle text-danger' data-bs='tooltip' title='El alumno ha promocionado y su matrícula debe ser restaurada'> </i>";
 					}
 
 		if ($n_curso) {
@@ -672,7 +672,7 @@ echo "</td>";
 		else{
 		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
 			if ($control[$i-1] != 0) {
-						$icon="fa fa-info-circle";
+						$icon="far fa-info-circle";
 						$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";					
 				}	
 		}
@@ -683,19 +683,19 @@ echo "</td>";
 		echo "<i class='$icon' data-bs='tooltip' title='".$text_contr."'> </i>&nbsp;";
 		
 
-		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>&nbsp;";}
+		if ($observaciones) { echo "<i class='far fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>&nbsp;";}
 
 		if ($respaldo=='1') {
 			echo $backup."&nbsp;".$rp_cur;
 		}
-		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>&nbsp;";
+		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='far fa-trash-alt' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>&nbsp;";
 
-if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
-if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
+if($foto == 1){ echo '<span class="far fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
+if(!empty($enf)){ echo '<span class="far fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 if(!empty($divorcio)){ 
-	if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="fa fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
-	elseif($divorcio=="Guardia y Custodia de la Madre") {echo '<span class="fa fa-female" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
-	elseif($divorcio=="Guardia y Custodia del Padre") {echo '<span class="fa fa-male" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
+	if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="far fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
+	elseif($divorcio=="Guardia y Custodia de la Madre") {echo '<span class="far fa-female" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
+	elseif($divorcio=="Guardia y Custodia del Padre") {echo '<span class="far fa-male" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
 	}
 echo "</td>";
 echo '</tr>';	

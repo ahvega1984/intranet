@@ -20,7 +20,7 @@ include 'menu.php';
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -125,7 +125,7 @@ include 'menu.php';
 					    			<label for="fecha_guardia">Fecha</label>
 					    				<div class="input-group">
 					    					<input type="text" class="form-control" id="fecha_guardia" name="fecha_guardia" value="<?php echo date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" required>
-					    				<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					    				<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 					    			</div>   
 					    		</div>
 					    		

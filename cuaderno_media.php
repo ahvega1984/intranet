@@ -120,7 +120,7 @@ if($pr and $dia and $hora)
 <div class='row'>
 <div class='page-header hidden-print'>
 <h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small
-	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
+	class="text-info">&nbsp;<i class='far fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
 </div>
 
 <div align="center"><?php

@@ -173,7 +173,7 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
 	}
 	else {
-		echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
+		echo '<span class="img-thumbnail far fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
 	}
 }
 ?></div>
@@ -212,7 +212,7 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 	class="form-control"
 	value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>"
 	data-date-format="DD-MM-YYYY" id="fecha_reg" required> <span
-	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+	class="input-group-addon"><i class="far fa-calendar"></i></span></div>
 </div>
 </div>
 </div>
@@ -331,7 +331,7 @@ if($alumno){
 			$dia3 = explode("-",$row[2]);
 			$fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 			echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-						<a href='index.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
+						<a href='index.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='far fa-search fa-lg fa-fw'></i></a>
 						</td></tr>";
 		}
 		while($row = mysqli_fetch_array($result));

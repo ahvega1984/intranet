@@ -65,8 +65,8 @@ include '../../menu.php';
 						<?php else: ?>
 						<div class="text-center text-muted stack-print" style="height: 138px;">
 							<span class="fa-stack fa-4x">
-							  <i class="fa fa-circle fa-stack-2x"></i>
-							  <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+							  <i class="far fa-circle fa-stack-2x"></i>
+							  <i class="far fa-user fa-stack-1x fa-inverse"></i>
 							</span>
 						</div>
 						<?php endif; ?>

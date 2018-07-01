@@ -35,7 +35,7 @@ include("../../../menu.php");
 				<div align="center">
 					<div class="alert alert-warning alert-block fade in">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<i class="fa fa-exclamation-triangle fa-4x" ></i><br><hr>
+						<i class="far fa-exclamation-triangle fa-4x" ></i><br><hr>
 						<p class="text-left">No hay datos de acceso de padres o alumnos. Parece que no has instalado la página web del Centro en tu servidor. <br>Puedes encontrar más información sobre esta extensión de la Intranet en esta dirección: <a href="https://github.com/IESMonterroso/webcentros" target="_blank">https://github.com/IESMonterroso/webcentros</a>. 
 						<br>También puedes descargarla e instalarla siguiendo las instrucciones en la misma página.
 						</p>
@@ -46,7 +46,7 @@ include("../../../menu.php");
 						
 			    <div class="no_imprimir">
 			      <a href="../../index.php" class="btn btn-default">Volver</a>
-			      <a href="#" class="btn btn-primary" onclick="print()"><i class="fa fa-print"></i> Imprimir</a>
+			      <a href="#" class="btn btn-primary" onclick="print()"><i class="far fa-print"></i> Imprimir</a>
 			      <br><br>
 			    </div>
 				

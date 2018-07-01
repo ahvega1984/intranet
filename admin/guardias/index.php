@@ -31,7 +31,7 @@ include("menu.php");
 	
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 
 		<!-- Modal -->

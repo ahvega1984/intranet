@@ -20,7 +20,7 @@ include 'menu.php';
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -32,16 +32,16 @@ include 'menu.php';
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te 
-						aparecerá el horario del Profesor, para que puedas determinar con precisión la hora 
-						de la guardia (1ª hora, 2ª hora, etc) del día en cuestión.</p>
-						<p>Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de 
-						la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre 
-						la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.</p>
+						<p>Selecciona el Profesor al que quieres apuntar una sustituciï¿½n no registrada. Te 
+						aparecerï¿½ el horario del Profesor, para que puedas determinar con precisiï¿½n la hora 
+						de la guardia (1ï¿½ hora, 2ï¿½ hora, etc) del dï¿½a en cuestiï¿½n.</p>
+						<p>Seleccionas a continuaciï¿½n el Profesor sustituido. Al hacer click en el campo de 
+						la fecha, aparecerï¿½ una nueva ventana con el calendario en el que debes pinchar sobre 
+						la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envï¿½a los datos.</p>
 						<p>Si quieres consultar el historial de guardias de un Profesor, pincha en 
-						<em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerá un 
-						histórico con todas las sustituciones realizadas. Si pinchas en una de las guardias 
-						de su horario, podrás ver las sustituciones de todos los profesores de esa guardia 
+						<em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerï¿½ un 
+						histï¿½rico con todas las sustituciones realizadas. Si pinchas en una de las guardias 
+						de su horario, podrï¿½s ver las sustituciones de todos los profesores de esa guardia 
 						en esa hora a lo largo del curso.</p>
 					</div>
 					<div class="modal-footer">
@@ -110,10 +110,10 @@ include 'menu.php';
     </div>    
     
     <div class="form-group" id="datetimepicker1">     
-	<label>Fecha de la sustitución</label>
+	<label>Fecha de la sustituciï¿½n</label>
 	     <div class="input-group">
 <input name="gu_fecha" type="text" class="form-control" value="<?php echo $gu_fecha;?>" data-date-format="DD-MM-YYYY" id="gu_fecha" required>
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>   
 </div>
 
@@ -145,8 +145,8 @@ include 'menu.php';
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado
+			<h5>ATENCIï¿½N:</h5>
+El mï¿½dulo de Horarios debe ser activado en la Configuraciï¿½n general de la Intranet para poder acceder a estas pï¿½ginas, y ahora mismo estï¿½ desactivado
           </div></div>';
 }
 ?> 

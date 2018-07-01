@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 <div class='alert alert-danger'>
-<p class="lead"><i class='fa fa-bell'> </i> Informes de tareas activos</p>
+<p class="lead"><i class='far fa-bell'> </i> Informes de tareas activos</p>
 <br />
 <?php
 
@@ -77,8 +77,8 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 					$fechac = explode("-",$row1[6]);
 					echo "<p>$fechac[2]-$fechac[1]-$fechac[0] <a class='alert-link' data-toggle='modal' href='#tarea$n_tareas'> $row1[3] $row1[2]</a> -- $curso $row[6]  &nbsp;&nbsp;&nbsp;&nbsp;
 	<span class=' pull-right'>
-	<a href='./admin/tareas/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fa fa-search fa-fw fa-lg'></span></a>
-	<a href='./admin/tareas/informar.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fa fa-pencil fa-fw fa-lg'></span></a>
+	<a href='./admin/tareas/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='far fa-search fa-fw fa-lg'></span></a>
+	<a href='./admin/tareas/informar.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='far fa-pencil-alt fa-fw fa-lg'></span></a>
 	</span>
 	</p>";
 					?>

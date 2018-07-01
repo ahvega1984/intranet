@@ -6,7 +6,7 @@
 
 <div class="well well-sm">
     
-    <h4><span class="fa fa-tasks fa-fw"></span> Tareas pendientes</h4>
+    <h4><span class="far fa-tasks fa-fw"></span> Tareas pendientes</h4>
     
     <div class="list-group">
         <?php while ($row = mysqli_fetch_array($result)): ?>
@@ -15,7 +15,7 @@
                 <div class="col-sm-2">
                     <form action="" method="post">
                         <input type="hidden" name="id_tarea" value="<?php echo $row['id']; ?>">
-                        <button type="submit" name="submit_tarea" class="btn btn-xs btn-default" data-bs='tooltip' title='Pulsar con el ratón para finalizar la tarea'><span class="fa fa-check fa-fw"></span></button>
+                        <button type="submit" name="submit_tarea" class="btn btn-xs btn-default" data-bs='tooltip' title='Pulsar con el ratón para finalizar la tarea'><span class="far fa-check fa-fw"></span></button>
                     </form>
                 </div>
                 <div class="col-sm-10">
@@ -33,13 +33,13 @@
 <?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 <div class="well well-sm">
     
-    <h4><span class="fa fa-users fa-fw"></span> Tareas pendientes</h4>
+    <h4><span class="far fa-users fa-fw"></span> Tareas pendientes</h4>
     
     <div class="list-group">
         <a class="list-group-item" href="#">
             <div class="row">
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-xs btn-default"><span class="fa fa-check fa-fw"></span></button>
+                    <button type="button" class="btn btn-xs btn-default"><span class="far fa-check fa-fw"></span></button>
                 </div>
                 <div class="col-sm-10">
                     Subir programación a la Intranet
@@ -49,7 +49,7 @@
         <a class="list-group-item" href="#">
             <div class="row">
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-xs btn-default"><span class="fa fa-check fa-fw"></span></button>
+                    <button type="button" class="btn btn-xs btn-default"><span class="far fa-check fa-fw"></span></button>
                 </div>
                 <div class="col-sm-10">
                     Redactar acta de departamento

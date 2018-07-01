@@ -34,7 +34,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        					<label for="cmp_fecha_ini">Fecha inicio</label>
 		        					<div class="input-group">
 		            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
-		            					<span class="input-group-addon"><span class="fa fa-calendar">
+		            					<span class="input-group-addon"><span class="far fa-calendar">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -43,7 +43,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		            				<label for="cmp_hora_ini">Hora inicio</label>
 		            				<div class="input-group">
 		            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
-		            					<span class="input-group-addon"><span class="fa fa-clock-o">
+		            					<span class="input-group-addon"><span class="far fa-clock">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -52,7 +52,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		            				<label for="cmp_fecha_fin">Fecha fin</label>
 		            				<div class="input-group">
 		            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
-		            					<span class="input-group-addon"><span class="fa fa-calendar">
+		            					<span class="input-group-addon"><span class="far fa-calendar">
 		            				</div>
 		            			</div>
 		        			</div>
@@ -61,14 +61,14 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		            				<label for="cmp_hora_fin">Hora fin</label>
 		            				<div class="input-group">
 		            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
-		            					<span class="input-group-addon"><span class="fa fa-clock-o">
+		            					<span class="input-group-addon"><span class="far fa-clock">
 		            				</div>
 		            			</div>
 		        			</div>
 		        		</div>
 		        		
 		        		<div class="form-group">
-		        			<label for="cmp_descripcion">Descripción</label>
+		        			<label for="cmp_descripcion">Descripciï¿½n</label>
 		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion">'.$eventos1['descripcion'].'</textarea>
 		        		</div>
 		        		
@@ -151,7 +151,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        					<label for="cmp_fecha_ini">Fecha inicio</label>
 			        					<div class="input-group">
 			            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
-			            					<span class="input-group-addon"><span class="fa fa-calendar">
+			            					<span class="input-group-addon"><span class="far fa-calendar">
 			            				</div>
 			            			</div>
 			        			</div>
@@ -160,7 +160,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			            				<label for="cmp_hora_ini">Hora inicio</label>
 			            				<div class="input-group">
 			            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
-			            					<span class="input-group-addon"><span class="fa fa-clock-o">
+			            					<span class="input-group-addon"><span class="far fa-clock">
 			            				</div>
 			            			</div>
 			        			</div>
@@ -169,7 +169,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			            				<label for="cmp_fecha_fin">Fecha fin</label>
 			            				<div class="input-group">
 			            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
-			            					<span class="input-group-addon"><span class="fa fa-calendar">
+			            					<span class="input-group-addon"><span class="far fa-calendar">
 			            				</div>
 			            			</div>
 			        			</div>
@@ -178,14 +178,14 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			            				<label for="cmp_hora_fin">Hora fin</label>
 			            				<div class="input-group">
 			            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
-			            					<span class="input-group-addon"><span class="fa fa-clock-o">
+			            					<span class="input-group-addon"><span class="far fa-clock">
 			            				</div>
 			            			</div>
 			        			</div>
 			        		</div>
 			        		
 			        		<div class="form-group">
-			        			<label for="cmp_descripcion">Descripción</label>
+			        			<label for="cmp_descripcion">Descripciï¿½n</label>
 			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion">'.$eventos1['descripcion'].'</textarea>
 			        		</div>
 			        		
@@ -245,7 +245,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 	        		</div>
 	        		
 	        		<div class="form-group">
-	        			<label for="cmp_descripcion">Descripción</label>
+	        			<label for="cmp_descripcion">Descripciï¿½n</label>
 	        			<p class="form-control-static">'.$eventos1['descripcion'].'</p>
 	        		</div>
 	        		

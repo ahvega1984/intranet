@@ -15,7 +15,7 @@ include("menu.php");
 			
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-				<span class="fa fa-question fa-lg"></span>
+				<span class="far fa-question fa-lg"></span>
 			</a>
 		
 			<!-- Modal -->
@@ -137,7 +137,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
             echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
         }
         else {
-            echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
+            echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
         }
         ?>
         <table class="table table-striped">
@@ -214,9 +214,9 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 	<td nowrap>$row[0]</td>
 	<td>$row[1]</td>
 	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a>";
+	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='far fa-search fa-fw fa-lg'></i></a>";
   if($_SESSION['profi']==$row[4] or stristr($_SESSION['cargo'],'1') == TRUE){
-    echo "<a href='delfechorias.php?id= $row[3]' data-bs='tooltip' data-bb='confirm-delete' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a>";
+    echo "<a href='delfechorias.php?id= $row[3]' data-bs='tooltip' data-bb='confirm-delete' title='Eliminar'><i class='far fa-trash-alt fa-fw fa-lg'></i></a>";
   }
   echo "</td></tr>";
 	}
@@ -252,7 +252,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 <label>Inicio:</label>
 <div class="input-group">
   <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <?php if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div> 
 </div>
 
@@ -260,7 +260,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 <label>Fin:</label>
 <div class="input-group">
   <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <?php if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div> 
 </div>
 
@@ -350,7 +350,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 <label>Inicio:</label>
 <div class="input-group">
   <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?php if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div> 
 </div>
 
@@ -358,7 +358,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 <label>Fin:</label>
 <div class="input-group">
   <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?php if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div> 
 </div>
 <div class="row">

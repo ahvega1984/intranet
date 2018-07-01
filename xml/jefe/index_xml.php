@@ -30,7 +30,7 @@ include("../../menu.php");
 	
 	<?php if(isset($_FILES['ExpGenHor'])): ?>
 	<div id="status-loading" class="text-center">
-		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+		<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
 	</div>
 	<?php endif; ?>
 	

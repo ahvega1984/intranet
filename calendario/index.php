@@ -308,7 +308,7 @@ include("../menu.php"); ?>
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<?php if (acl_permiso($carg, array('1'))): ?>
-				<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+				<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="far fa-cog fa-lg"></span></a>
 			<?php endif; ?>
 			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
@@ -335,13 +335,13 @@ include("../menu.php"); ?>
 					    <?php while ($row = mysqli_fetch_assoc($result)): ?>
 					    <li>
 					    	<a href="#" class="nohide" id="toggle_calendario_<?php echo $row['id']; ?>">
-					    		<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+					    		<span class="far fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 					    		<?php echo $row['nombre']; ?>
-					    		<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+					    		<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="far fa-eye fa-fw fa-lg"></span></span>
 					    		<?php if ($i > 1): ?>
 					    		<form class="pull-right" method="post" action="post/eliminarCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" style="display: inline; margin-top: -5px;">
 					    			<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-					    			<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+					    			<button type="submit" class="btn-link delete-calendar"><span class="far fa-trash-alt fa-fw fa-lg"></span></button>
 					    		</form>
 					    		<?php else: ?>
 					    		<?php $idcal_diario = $row['id']; ?>
@@ -359,13 +359,13 @@ include("../menu.php"); ?>
 				    	<?php while ($row = mysqli_fetch_assoc($result)): ?>
 				    	<li>
 				    		<a href="#" class="nohide" id="toggle_calendario_<?php echo $row['id']; ?>">
-				    			<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+				    			<span class="far fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 				    			<?php echo $row['nombre']; ?>
-				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="far fa-eye fa-fw fa-lg"></span></span>
 				    			<?php if ((stristr($_SESSION['cargo'], '1')==TRUE) && $row['id'] != 1 && $row['id'] != 2): ?>
 				    			<form class="pull-right" method="post" action="post/eliminarCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" style="display: inline; margin-top: -5px;">
 				    				<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-				    				<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+				    				<button type="submit" class="btn-link delete-calendar"><span class="far fa-trash-alt fa-fw fa-lg"></span></button>
 				    			</form>
 				    			<?php endif; ?>
 				    		</a>
@@ -373,8 +373,8 @@ include("../menu.php"); ?>
 				    	<?php endwhile; ?>
 				    	<li>
 				    		<a href="#" class="nohide" id="toggle_calendario_festivo">
-				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
-				    			<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+				    			<span class="far fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
+				    			<span class="pull-right eyeicon_festivo"><span class="far fa-eye fa-fw fa-lg"></span></span>
 				    		</a>
 				    	</li>
 					    <?php endif; ?>
@@ -382,15 +382,15 @@ include("../menu.php"); ?>
 					    <li><a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">Crear calendario...</a></li>
 					
 						<li class="divider"></li>
-						    <li><a href="index_unidades.php" target="_blank"><span class="fa fa-user-circle fa-fw fa-lg text-info"></span> <span class="text-info">Calendarios de los Grupos</span></a>
+						    <li><a href="index_unidades.php" target="_blank"><span class="far fa-user-circle fa-fw fa-lg text-info"></span> <span class="text-info">Calendarios de los Grupos</span></a>
 						</li>
 					  </ul>
 					</div>
 
-					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="fa fa-calendar-plus-o fa-fw"></span> Nueva Actividad</a>
+					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="far fa-calendar-plusfa-fw"></span> Nueva Actividad</a>
 					
 					<div class="pull-right">
-						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="fa fa-print fa-fw"></span></a>
+						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="far fa-print fa-fw"></span></a>
 						
 						<div class="btn-group">
 						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
@@ -400,7 +400,7 @@ include("../menu.php"); ?>
 						 
 						<!-- Button trigger modal -->
 					 	<a href="#"class="btn btn-default hidden-print" data-toggle="modal" data-target="#modalAyuda">
-					 		<span class="fa fa-question fa-lg"></span>
+					 		<span class="far fa-question fa-lg"></span>
 					 	</a>
 					 
 					 	<!-- Modal -->
@@ -422,7 +422,7 @@ include("../menu.php"); ?>
 					 					<p>Además del Calendario personal, podemos crear tantos calendarios personales como 
 					 					necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo 
 					 					con los alumnos, etc.). Para añadir un calendario hacemos click sobre el icono de 
-					 					<span class="fa fa-calendar-plus-o fa-fw"></span> que aparece al lado del selector de 
+					 					<span class="far fa-calendar-plusfa-fw"></span> que aparece al lado del selector de 
 					 					calendarios.</p>
 					 					<p>El <strong>Calendario del Centro</strong> es visible por todo el mundo, incluida 
 					 					la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.</p>
@@ -500,11 +500,11 @@ include("../menu.php"); ?>
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
 			$("#toggle_calendario_<?php echo $row['id']; ?>").click(function() {
 			  $('.idcal_<?php echo $row['id']; ?>').toggleClass("visible");
-			  if ($(".eyeicon_<?php echo $row['id']; ?>").html() == '<span class="fa fa-eye fa-fw fa-lg"></span>') {
-			 	 $(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye-slash fa-fw fa-lg"></span>');
+			  if ($(".eyeicon_<?php echo $row['id']; ?>").html() == '<span class="far fa-eye fa-fw fa-lg"></span>') {
+			 	 $(".eyeicon_<?php echo $row['id']; ?>").html('<span class="far fa-eye-slash fa-fw fa-lg"></span>');
 			  }
 			  else {
-			  	$(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
+			  	$(".eyeicon_<?php echo $row['id']; ?>").html('<span class="far fa-eye fa-fw fa-lg"></span>');
 			  }
 			});
 			<?php endwhile; ?>
@@ -515,11 +515,11 @@ include("../menu.php"); ?>
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
 			$("#toggle_calendario_<?php echo $row['id']; ?>").click(function() {
 			  $('.idcalpub_<?php echo $row['id']; ?>').toggleClass("visible");
-			  if ($(".eyeicon_<?php echo $row['id']; ?>").html() == '<span class="fa fa-eye fa-fw fa-lg"></span>') {
-			  	 $(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye-slash fa-fw fa-lg"></span>');
+			  if ($(".eyeicon_<?php echo $row['id']; ?>").html() == '<span class="far fa-eye fa-fw fa-lg"></span>') {
+			  	 $(".eyeicon_<?php echo $row['id']; ?>").html('<span class="far fa-eye-slash fa-fw fa-lg"></span>');
 			  }
 			  else {
-			  	$(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
+			  	$(".eyeicon_<?php echo $row['id']; ?>").html('<span class="far fa-eye fa-fw fa-lg"></span>');
 			  }
 			});
 			<?php endwhile; ?>
@@ -527,11 +527,11 @@ include("../menu.php"); ?>
 			
 			$("#toggle_calendario_festivo").click(function() {
 			  $('.hidden_calendario_festivo').toggleClass("visible");
-			  if ($(".eyeicon_festivo").html() == '<span class="fa fa-eye fa-fw fa-lg"></span>') {
-			  	 $(".eyeicon_festivo").html('<span class="fa fa-eye-slash fa-fw fa-lg"></span>');
+			  if ($(".eyeicon_festivo").html() == '<span class="far fa-eye fa-fw fa-lg"></span>') {
+			  	 $(".eyeicon_festivo").html('<span class="far fa-eye-slash fa-fw fa-lg"></span>');
 			  }
 			  else {
-			  	$(".eyeicon_festivo").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
+			  	$(".eyeicon_festivo").html('<span class="far fa-eye fa-fw fa-lg"></span>');
 			  }
 			});
 			

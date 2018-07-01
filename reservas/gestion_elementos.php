@@ -128,8 +128,8 @@ include("menu.php");
 								<td><?php echo (! empty($row['observaciones'])) ? $row['observaciones'] : '<em class="text-muted">Sin observaciones</em>'; ?></td>
 								<td><?php echo (! $row['oculto']) ? 'Visible' : 'Oculto'; ?></td>
 								<td class="text-right">
-									<a href="#" data-bs="tooltip" title="Editar" data-toggle="modal" data-target="#modalNuevoElemento" data-id="<?php echo $row['id']; ?>" data-name="<?php echo $row['elemento']; ?>" data-obs="<?php echo $row['observaciones']; ?>" data-visibility="<?php echo $row['oculto']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
-									<a href="gestion_elementos.php?id=<?php echo $id_recurso; ?>&item_id=<?php echo $row['id']; ?>&action=delete" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="#" data-bs="tooltip" title="Editar" data-toggle="modal" data-target="#modalNuevoElemento" data-id="<?php echo $row['id']; ?>" data-name="<?php echo $row['elemento']; ?>" data-obs="<?php echo $row['observaciones']; ?>" data-visibility="<?php echo $row['oculto']; ?>"><span class="far fa-edit fa-fw fa-lg"></span></a>
+									<a href="gestion_elementos.php?id=<?php echo $id_recurso; ?>&item_id=<?php echo $row['id']; ?>&action=delete" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 								</td>
 							</tr>
 						<?php endwhile; ?>
@@ -140,7 +140,7 @@ include("menu.php");
 				
 				<br><br>
 				<div class="text-center">
-					<span class="fa fa-frown-o fa-4x text-muted"></span>
+					<span class="far fa-frownfa-4x text-muted"></span>
 					<p class="lead text-muted">No hay elementos de tipo <?php echo $nombre_tipo; ?></p>
 				</div>
 				<br><br><br><br>

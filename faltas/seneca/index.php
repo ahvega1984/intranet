@@ -91,7 +91,7 @@ Para poder subir las faltas de los alumnos a Séneca, es necesario en primer lug
 <div class="input-group">
 <input name="iniciofalta" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="iniciofalta"
-	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>
 </div>
 
@@ -101,7 +101,7 @@ Para poder subir las faltas de los alumnos a Séneca, es necesario en primer lug
 <div class="input-group">
 <input name="finfalta" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="finfalta"
-	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>
 </div>
       <br>

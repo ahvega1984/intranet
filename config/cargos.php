@@ -296,7 +296,7 @@ include ("../menu.php");
 			<input type="tel" class="form-control input-sm" name="<?php echo $dni; ?>14" value="<?php echo $telefono; ?>" style="width:100px" min="9" max="9"/>
 			</td>
 
-			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?php echo $dni;?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-lg fa-fw"></span></a></td>
+			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?php echo $dni;?>" data-bb='confirm-delete'><span class="far fa-trash-alt fa-lg fa-fw"></span></a></td>
 			</tr>
 		<?php
 			}

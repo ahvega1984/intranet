@@ -29,7 +29,7 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 		</div>
 		<div class="col-sm-4">
 			<a href="//<?php echo $config['dominio']; ?>/intranet/xml/actualizaciones/index.php" class="btn btn-primary pull-right">
-				<span class="fa fa-refresh fa-fw"></span> Actualizar
+				<span class="far fa-refresh fa-fw"></span> Actualizar
 			</a>
 		</div>
 	</div>
@@ -48,7 +48,7 @@ if (mysqli_num_rows($cal_personal)>0) {
 		echo '
 <div id="alert_cal" class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<p class="lead"><span class="fa fa-calendar fa-fw"></span> Actividades en el Calendario</p>
+	<p class="lead"><span class="far fa-calendar fa-fw"></span> Actividades en el Calendario</p>
 	<p>En tu Calendario personal aparecen actividades registradas para hoy. </p>
 	<br>
 	<ul>';
@@ -83,7 +83,7 @@ if(mysqli_num_rows($cal2) > 0)
 	echo '
 <div id="alert_cal" class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<p class="lead"><span class="fa fa-calendar fa-fw"></span> Actividades en el Calendario</p>
+	<p class="lead"><span class="far fa-calendar fa-fw"></span> Actividades en el Calendario</p>
 	<p>En el Calendario del Centro aparecen actividades extraescolares asociadas a tus grupos para hoy. </p>
 	<br>
 	<ul>';
@@ -179,7 +179,7 @@ ORDER BY tareas_alumnos.fecha";
 			}
 			else{
 				$count_vuelven = 1;
-				echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que se reincorporan tras su Expulsión<br /></h4>";
+				echo "<div class='alert alert-info'><h4><i class='far fa-warning'> </i> Alumnos que se reincorporan tras su Expulsión<br /></h4>";
 				echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
 				echo "<p>¿Ha realizado el alumno las tareas que le has encomendado en la asignatura de <b><em>$materia</em></b>?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary btn-sm'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger btn-sm'>NO</button></a></p>";
 				echo "</div>";
@@ -232,7 +232,7 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 			}
 
 	if ($hay_al=="1" or $hay_grupo<1) {
-		echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
+		echo "<div class='alert alert-info'><h4><i class='far fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
 		echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
 		echo "<h5>$materia</h5>
 		</div>";
@@ -550,7 +550,7 @@ if(stristr($carg,'2') == TRUE)
 		$count_mpadres =  1;
 		echo '<div id="alert_mensajes_familias" class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Familias y alumnos</p>
+	<p class="lead"><span class="far fa-comments fa-fw"></span> Mensajes de Familias y alumnos</p>
 	<br>
 	<ul id="lista_mensajes_familias">';
 		while($men = mysqli_fetch_row($men2))
@@ -631,7 +631,7 @@ if(mysqli_num_rows($men2) > 0)
 	echo '
 <div id="alert_mensajes" class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Profesores</p>
+	<p class="lead"><span class="far fa-comments fa-fw"></span> Mensajes de Profesores</p>
 	<br>
 	<ul id="lista_mensajes">';
 	while($men = mysqli_fetch_row($men2))
@@ -707,20 +707,20 @@ else {
 	<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 
 <div class='alert alert-warning'>
-<p class='lead'><i class='fa fa-bell'></i> Informes de tutoría activos</p>
+<p class='lead'><i class='far fa-bell'></i> Informes de tutoría activos</p>
 <br>
 
 <p><?php echo date('d-m-Y'); ?> <a class='alert-link'
 	data-toggle='modal' href='#'> Pedro Pérez</a> -- 1B-A <span
 	class=' pull-right'> <a href='#' class='alert-link'
-	style='margin-right: 10px'> <i class='fa fa-search fa-fw fa-lg'
+	style='margin-right: 10px'> <i class='far fa-search fa-fw fa-lg'
 	title='Ver informe'> </i></a> <a href='#' class='alert-link'
-	style='margin-right: 10px'> <i class='fa fa-pencil fa-fw fa-lg'
+	style='margin-right: 10px'> <i class='far fa-pencil-alt fa-fw fa-lg'
 	title='Rellenar informe'> </i> </a> </span></p>
 </div>
 
 <div class='alert alert-success'>
-<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de
+<p class="lead"><span class="far fa-comments fa-fw"></span> Mensajes de
 Profesores</p>
 <br>
 <ul>

@@ -101,7 +101,7 @@ include("menu.php");
 							<td><?php echo $row['mes']; ?></td>
 							<td><?php echo $row['numero']; ?></td>
 							<td>
-								<a href="consulta_absentismo.php?claveal=<?php echo $row['claveal']; ?>&mes=<?php echo $row['mes']; ?>&inf=1"><span class="fa fa-pencil fa-fw fa-lg" data-bs="tooltip" title="Rellenar"></span></a>
+								<a href="consulta_absentismo.php?claveal=<?php echo $row['claveal']; ?>&mes=<?php echo $row['mes']; ?>&inf=1"><span class="far fa-pencil-alt fa-fw fa-lg" data-bs="tooltip" title="Rellenar"></span></a>
 							</td>
 						</tr>
 					<?php endwhile; ?>

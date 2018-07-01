@@ -22,7 +22,7 @@ $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -156,7 +156,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>
-		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='far fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
@@ -180,13 +180,13 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		$asiste1 = mysqli_query($db_con, $asiste0);
 			$asiste = mysqli_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
-			echo "<center><i data-bs='tooltip' title='No trabaja' class='fa fa-exclamation-triangle text-warning'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='No trabaja' class='far fa-exclamation-triangle text-warning'> </i> </center";
 			}
 			if ($asiste[1] == '1') {
-			echo "<center><i data-bs='tooltip' title='Trabaja' class='fa fa-check text-success'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='Trabaja' class='far fa-check text-success'> </i> </center";
 			}
 			if (!empty($asiste[3])) {
-			echo "<center><i data-bs='tooltip' title='$asiste[3]' class='fa fa-comment text-danger'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='$asiste[3]' class='far fa-comment text-danger'> </i> </center";
 			}
 		echo "</td>";
 	}
@@ -195,7 +195,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
         echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
     }
     else {
-        echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
+        echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 	}
 	echo "</td></tr>";	
 } 

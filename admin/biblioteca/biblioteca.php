@@ -139,7 +139,7 @@ if (!($autor == "" and $titulo0 == "" and $editorial == "")) {
 			}
 			// echo $dospuntos;
 			$limpia = explode(":",$row[3]);
-			printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo0=$titulo0&editorial=$editorial' data-bs='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
+			printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo0=$titulo0&editorial=$editorial' data-bs='tooltip' title='Detalles'><span class='far fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
 		}
 		echo "</table>";
 	}

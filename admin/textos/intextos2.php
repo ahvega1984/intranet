@@ -80,7 +80,7 @@ while($row = mysqli_fetch_array($textos))
 			 <td>$row[1]</td>
 			 <td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>
 		  	<td>$row[8]</td>
-			<td nowrap><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></td>
+			<td nowrap><a href='editextos.php?id=$row[6]'><i class='far fa-pencil-alt' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='far fa-trash-alt' title='Borrar' > </i></a></td>
 			</tr>";
         }
 		echo '</table>';

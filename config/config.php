@@ -240,7 +240,7 @@ include('../menu.php');
 							
 							<div class="well">
 							
-								<h3><span class="fa fa-university fa-fw"></span> Información de su centro educativo</h3>
+								<h3><span class="far fa-university fa-fw"></span> Información de su centro educativo</h3>
 								<br>
 								
 								<input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
@@ -357,7 +357,7 @@ include('../menu.php');
 
 							<div class="well">
 								
-								<h3><span class="fa fa-sign-in fa-fw"></span> Opciones de acceso</h3>
+								<h3><span class="far fa-sign-in fa-fw"></span> Opciones de acceso</h3>
 								<br>
 
 								<div class="checkbox">
@@ -383,7 +383,7 @@ include('../menu.php');
 							
 							<div class="well">
 							
-								<h3><span class="fa fa-database fa-fw"></span> Base de datos</h3>
+								<h3><span class="far fa-database fa-fw"></span> Base de datos</h3>
 								<br>
 								
 								<?php $tam_label = 4; ?>
@@ -425,7 +425,7 @@ include('../menu.php');
 							
 							<div class="well">
 								
-								<h3><span class="fa fa-graduation-cap fa-fw"></span> Curso escolar</h3>
+								<h3><span class="far fa-graduation-cap fa-fw"></span> Curso escolar</h3>
 								<br>
 								  
 								  <?php $tam_label = 4; ?>
@@ -459,7 +459,7 @@ include('../menu.php');
 							
 							<div class="well">
 
-								<h3><span class="fa fa-envelope fa-fw"></span> Configuración SMTP</h3>
+								<h3><span class="far fa-envelope fa-fw"></span> Configuración SMTP</h3>
 								<br>
 								
 								<?php $tam_label = 4; ?>
@@ -517,7 +517,7 @@ include('../menu.php');
 				<div role="tabpanel" class="tab-pane" id="modulos">
 					
 					<div class="well">
-						<h3><span class="fa fa-cubes fa-fw"></span> Configuración de módulos</h3>
+						<h3><span class="far fa-cubes fa-fw"></span> Configuración de módulos</h3>
 						<br>
 					    
 						<div class="row">

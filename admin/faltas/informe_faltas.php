@@ -15,7 +15,7 @@ include("../../faltas/menu.php");
 </div>
 
 <div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo (minutos) la primera vez que se realiza esta consulta.</small><br><br></span>
+    <br><br><span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo (minutos) la primera vez que se realiza esta consulta.</small><br><br></span>
 </div>
 
 <div id="wrap" class="row" style="display: none;">

@@ -81,8 +81,8 @@ include("../../../menu.php");
                             <td>
                                 <div class="col-xs-2 col-md-1 text-center float-left">
                                     <span class="fa-stack fa-lg" style="margin-top: 10px;">
-                                        <i class="fa <?php echo $icon1; ?> fa-stack-2x" style="font-size: 3em;"></i>
-                                        <i class="fa <?php echo $icon2; ?> fa-stack-1x" style="<?php echo ($icon1 == 'fa-desktop') ? 'font-size: 0.65em; margin-top: 0px; margin-left: 12px;' : 'font-size: 0.55em; margin-top: 8px;'; ?>"></i>
+                                        <i class="far <?php echo $icon1; ?> fa-stack-2x" style="font-size: 3em;"></i>
+                                        <i class="far <?php echo $icon2; ?> fa-stack-1x" style="<?php echo ($icon1 == 'fa-desktop') ? 'font-size: 0.65em; margin-top: 0px; margin-left: 12px;' : 'font-size: 0.55em; margin-top: 8px;'; ?>"></i>
                                     </span>
                                 </div>
                                  <div class="col-xs-10 col-md-11 float-left">
@@ -90,7 +90,7 @@ include("../../../menu.php");
                                     <div class="pull-right" style="margin-top: 20px;">
                                         <div class="btn-group">
                                         <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fa fa-ellipsis-v fa-fw fa-lg"></span>
+                                            <span class="far fa-ellipsis-v fa-fw fa-lg"></span>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li><a href="#" data-toggle="modal" data-target="#modal-<?php echo $row['id']; ?>">No he sido yo</a></li>

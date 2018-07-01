@@ -123,7 +123,7 @@ if($pr and $dia and $hora)
 <div class='row'>
 <div class='page-header hidden-print'>
 <h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small
-	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
+	class="text-info">&nbsp;<i class='far fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
 </div>
 
 <div align="center">
@@ -304,7 +304,7 @@ include("cuaderno/menu_cuaderno.php");
 								echo '<img class="img-thumbnail" src="xml/fotos/'.$foto_alumno.'" style="width: 45px !important;" alt="">';
 							}
 							else {
-								echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
+								echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 							}											
 						}
 						echo $foto1;

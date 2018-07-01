@@ -210,7 +210,7 @@ include("menu.php");
 			
 			<div class="col-sm-2 hidden-print">
 				<?php if (! $evaluacionSinNotas): ?>
-				<a href="asignaturas.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fa fa-refresh fa-fw"></span> Recalcular</a>
+				<a href="asignaturas.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="far fa-refresh fa-fw"></span> Recalcular</a>
 				<?php endif; ?>
 			</div>
 		</div>

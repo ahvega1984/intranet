@@ -13,7 +13,7 @@ $( document ).ready(function() {
 	           });
 	       }
 	       else {
-	           $('#stats-accesos-modal').html('<p class="lead text-center text-muted"><span class="fa fa-thumbs-o-up fa-5x"></span><br>Todos los profesores han accedido hoy</p>');
+	           $('#stats-accesos-modal').html('<p class="lead text-center text-muted"><span class="far fa-thumbs-o-up fa-5x"></span><br>Todos los profesores han accedido hoy</p>');
 	       }
 	});
 	
@@ -85,11 +85,11 @@ $( document ).ready(function() {
 	           $('#stats-mensajes-modal').html('<div style="height: 350px; overflow: scroll;"><table class="table table-condensed table-hover table-striped"><thead><tr><th>Profesor/a</th><th class="text-center">Sin leer</th></tr></thead><tbody id="mensajes_tabla"></tbody></table></div>');
 	           
 	           $.each(data.mensajes_tabla, function(i, item) {
-	          	 $('#mensajes_tabla').append('<tr><td>' + item.profesor + '</td><td class="text-center"><a href="index.php?resetea_mensaje=1&idea_mensaje=' + item.idea + '" class="pull-right"><span class="fa fa-refresh fa-fw" data-bs="tooltip" title="Marcar todos los mensajes como leÃ­dos"></span></a>' + item.numero + '</td></tr>');
+	          	 $('#mensajes_tabla').append('<tr><td>' + item.profesor + '</td><td class="text-center"><a href="index.php?resetea_mensaje=1&idea_mensaje=' + item.idea + '" class="pull-right"><span class="far fa-refresh fa-fw" data-bs="tooltip" title="Marcar todos los mensajes como leÃ­dos"></span></a>' + item.numero + '</td></tr>');
 	           });
 	       }
 	       else {
-	           $('#stats-mensajes-modal').html('<p class="lead text-center text-muted"><span class="fa fa-thumbs-o-up fa-5x"></span><br>Sin mensajes no le&iacute;dos</p>');
+	           $('#stats-mensajes-modal').html('<p class="lead text-center text-muted"><span class="far fa-thumbs-o-up fa-5x"></span><br>Sin mensajes no le&iacute;dos</p>');
 	       }
 	});
 });

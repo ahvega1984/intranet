@@ -89,7 +89,7 @@ include("menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -221,7 +221,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 			</td>
 			<?php else: ?>
 			<td class="text-center">
-				<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>
+				<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>
 			</td>
 			<?php endif; ?>
 			<td>
@@ -230,7 +230,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 				<p><small><?php echo $row['fecha'].' ('.$row['edad'].' años)'; ?></small></p>
 				<?php if (mysqli_num_rows($result_transito) == 0): ?>
 				<div class="hidden-print">
-					<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" class="btn btn-info btn-xs" target="_blank" data-bs="tooltip" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"><span class="fa fa-address-card-o fa-fw fa-lg"></span></a>
+					<a href="../matriculas/informe_transito.php?claveal=<?php echo $claveal;?>" class="btn btn-info btn-xs" target="_blank" data-bs="tooltip" title="Ver el Informe de Tránsito de Primaria disponible para el alumno"><span class="far fa-address-cardfa-fw fa-lg"></span></a>
 				</div>
 				<?php endif; ?>
 			</td>

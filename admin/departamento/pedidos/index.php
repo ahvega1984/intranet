@@ -91,11 +91,11 @@ include("menu.php");
 								<td><?php echo $row['total']; ?> &euro;</td>
 								<td>
 									<?php if (! $row['entregado']): ?>
-									<a href="pedido.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar pedido"><span class="fa fa-edit fa-lg fa-fw"></span></a>
+									<a href="pedido.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar pedido"><span class="far fa-edit fa-lg fa-fw"></span></a>
 									<?php endif; ?>
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-lg fa-fw"></span></a>
-									<a href="../deparamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
-									<a href="index.php?action=eliminar&amp;id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="far fa-print fa-lg fa-fw"></span></a>
+									<a href="../deparamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-file fa-lg fa-fw"></span></a>
+									<a href="index.php?action=eliminar&amp;id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>
@@ -130,13 +130,13 @@ include("menu.php");
 								<td><?php echo $row['total']; ?> &euro;</td>
 								<td>
 									<?php if (! $row['entregado']): ?>
-									<a href="pedido.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar pedido"><span class="fa fa-edit fa-lg fa-fw"></span></a>
+									<a href="pedido.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar pedido"><span class="far fa-edit fa-lg fa-fw"></span></a>
 									<?php endif; ?>
 									<!--
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-lg fa-fw"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="far fa-print fa-lg fa-fw"></span></a>
 									-->
-									<a href="../../departamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
-									<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+									<a href="../../departamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-file fa-lg fa-fw"></span></a>
+									<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>
@@ -172,13 +172,13 @@ include("menu.php");
 						<td><?php echo $row['total']; ?> &euro;</td>
 						<td>
 							<?php if (! $row['entregado']): ?>
-							<a href="pedido.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar pedido"><span class="fa fa-edit fa-lg fa-fw"></span></a>
+							<a href="pedido.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar pedido"><span class="far fa-edit fa-lg fa-fw"></span></a>
 							<?php endif; ?>
 							<!--
-							<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-lg fa-fw"></span></a>
+							<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="far fa-print fa-lg fa-fw"></span></a>
 							-->
-							<a href="../../departamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file fa-lg fa-fw"></span></a>
-							<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+							<a href="../../departamento/actas/story.php?id=<?php echo $row['id_acta']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-file fa-lg fa-fw"></span></a>
+							<a href="index.php?action=eliminar&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar pedido" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 						</td>
 					</tr>
 					<?php endwhile; ?>

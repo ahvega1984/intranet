@@ -30,7 +30,7 @@ ksort ($archivos);
 			<ul class="list-group">
 				<?php 
 				foreach ($archivos as $archivo) {  
-					echo '<li class="list-group-item"><i class="fa fa-file-pdf-o"> </i><a target="_blank" href="'.$carpeta.'/'.$archivo.'"> '.$archivo.'</a></li>';
+					echo '<li class="list-group-item"><i class="far fa-file-pdf-o"> </i><a target="_blank" href="'.$carpeta.'/'.$archivo.'"> '.$archivo.'</a></li>';
 					}  
 				?>
 			</ul>

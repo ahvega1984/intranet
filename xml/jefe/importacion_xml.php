@@ -84,7 +84,7 @@ function importarDatos($db_con) {
 		echo '<div class="row">
 		  <div class="col-md-12">
 		    <div class="alert alert-danger">
-		      <span class="fa fa-times-circle fa-lg"></span> El archivo seleccionado no es correcto.
+		      <span class="far fa-times-circle fa-lg"></span> El archivo seleccionado no es correcto.
 		    </div>
 		  </div>
 		</div>';
@@ -93,7 +93,7 @@ function importarDatos($db_con) {
 		echo '<div class="row">
 		  <div class="col-md-12">
 		    <div class="alert alert-danger">
-		      <span class="fa fa-times-circle fa-lg"></span> La información del archivo seleccionado no corresponde al curso escolar '.$config['curso_actual'].'.
+		      <span class="far fa-times-circle fa-lg"></span> La información del archivo seleccionado no corresponde al curso escolar '.$config['curso_actual'].'.
 		    </div>
 		  </div>
 		</div>';

@@ -173,14 +173,14 @@ include("menu.php");
 					<h4>Inicio de sesión:</h4>
 					<br>
 					<?php if (isset($config['mod_sms']) && $config['mod_sms']): ?>
-					<h5 class="text-info"><strong><span class="fa fa-mobile fa-fw fa-lg"></span> Mensaje de texto (SMS)</strong></h5>
+					<h5 class="text-info"><strong><span class="far fa-mobile fa-fw fa-lg"></span> Mensaje de texto (SMS)</strong></h5>
 					<p>Usa tu teléfono como nivel adicional de seguridad para evitar que otras personas inicien sesión en tu cuenta.</p>
 					<p><a href="clave.php" class="pull-right btn btn-xs btn-default">Cambiar</a> <strong>Teléfono móvil: <?php echo $row['telefono']; ?></strong></p>
 
 					<hr>
 					<?php endif; ?>
 
-					<h5 class="text-info"><strong><span class="fa fa-code fa-fw fa-lg"></span> Generador de códigos</strong></h5>
+					<h5 class="text-info"><strong><span class="far fa-code fa-fw fa-lg"></span> Generador de códigos</strong></h5>
 					<p>Puedes utilizar la aplicación generador de códigos en tu dispositivo Android o iOS para iniciar sesión.</p>
 
 					<hr>
@@ -188,7 +188,7 @@ include("menu.php");
 					<h4>Notificaciones:</h4>
 					<br>
 
-					<h5 class="text-info"><strong><span class="fa fa-envelope fa-fw fa-lg"></span> Correo electrónico</strong></h5>
+					<h5 class="text-info"><strong><span class="far fa-envelope fa-fw fa-lg"></span> Correo electrónico</strong></h5>
 					<p>Te notificaremos cuando se inicie sesión desde un nuevo dispositivo o navegador, y si se ha desactivado la autenticación en dos pasos.</p>
 					<p><a href="clave.php" class="pull-right btn btn-xs btn-default">Cambiar</a> <strong>Correo electrónico: <?php echo $row['correo']; ?></strong></p>
 

@@ -23,7 +23,7 @@ endif;
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -108,15 +108,15 @@ endif;
 			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"5")==TRUE) {$ttd.= "Tiene dificultades de razonamiento matemático. <br>";}
 			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"6")==TRUE) {$ttd.= "Tiene dificultades en hábitos /  método de estudio. <br>";}
 			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"7")==TRUE) {$ttd.= "Tiene dificultades de cálculo. <br>";}
-			if (stristr($tipo,"dificulta")==TRUE and strlen($dato)>0) {$tt=" id='dific' data-bs='tooltip' data-html='true' title='$ttd'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}
+			if (stristr($tipo,"dificulta")==TRUE and strlen($dato)>0) {$tt=" id='dific' data-bs='tooltip' data-html='true' title='$ttd'";$dato='<span class="far fa-circle" style="color: red;"></span>';}
 				
-			if (stristr($tipo,"expuls")==TRUE and $dato==2) {$tt=" data-bs='tooltip' title='El alumno ha sido expulsado.'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}elseif(stristr($tipo,"expuls")==TRUE and strlen($dato)==1){$tt="";$dato='';}
+			if (stristr($tipo,"expuls")==TRUE and $dato==2) {$tt=" data-bs='tooltip' title='El alumno ha sido expulsado.'";$dato='<span class="far fa-circle" style="color: red;"></span>';}elseif(stristr($tipo,"expuls")==TRUE and strlen($dato)==1){$tt="";$dato='';}
 			
-			if (stristr($tipo,"exento")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Alumnado que por sus dificultades no se le recomienda cursar optativa'";$dato='<span class="fa fa-circle" style="color: green;"></span>';}
+			if (stristr($tipo,"exento")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Alumnado que por sus dificultades no se le recomienda cursar optativa'";$dato='<span class="far fa-circle" style="color: green;"></span>';}
 		
-			if (stristr($tipo,"acompa")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Se aconseja asistencia al Programa de Acompañamiento Escolar'";$dato='<span class="fa fa-circle" style="color: green;"></span>';}
+			if (stristr($tipo,"acompa")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='Se aconseja asistencia al Programa de Acompañamiento Escolar'";$dato='<span class="far fa-circle" style="color: green;"></span>';}
 			
-			if (stristr($tipo,"asiste")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='El alumno presenta faltas de asistencia.'";$dato='<span class="fa fa-circle" style="color: yellow;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==2){$tt=" data-bs='tooltip' title='El alumno falta más de lo normal'";$dato='<span class="fa fa-circle" style="color: orange;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==3){$tt=" data-bs='tooltip' title='El alumno es absentista'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}
+			if (stristr($tipo,"asiste")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='El alumno presenta faltas de asistencia.'";$dato='<span class="far fa-circle" style="color: yellow;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==2){$tt=" data-bs='tooltip' title='El alumno falta más de lo normal'";$dato='<span class="far fa-circle" style="color: orange;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==3){$tt=" data-bs='tooltip' title='El alumno es absentista'";$dato='<span class="far fa-circle" style="color: red;"></span>';}
 						
 			if (stristr($tipo,"nacion")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='No conoce el español'";}
 			if (stristr($tipo,"nacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Nociones básicas de español'";}
@@ -146,7 +146,7 @@ endif;
 		$dat1 = mysqli_num_rows($col2);
 		$notas="";
 				if ($dat1>0) {
-				$notas='<span class="fa fa-circle" style="color: orange;"></span>';
+				$notas='<span class="far fa-circle" style="color: orange;"></span>';
 				$tt=" data-bs='tooltip' title='Hay observaciones o notas sobre Actitud, Relación del Centro con la familia, etc.'";
 				}
 				
@@ -154,7 +154,7 @@ endif;
 		$dat2 = mysqli_num_rows($col3);
 
 				if ($dat2>0) {
-				$notas.='<span class="fa fa-warning" style="color: blue;"></span>';
+				$notas.='<span class="far fa-warning" style="color: blue;"></span>';
 				}
 				
 		echo "<td $tt>$notas</td>";		

@@ -135,8 +135,8 @@ $row = mysqli_fetch_array($result);
               <img class="media-object img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 64px !important;">
               <?php else: ?>
               <span class="fa-stack fa-3x text-muted">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                <i class="far fa-circle fa-stack-2x"></i>
+                <i class="far fa-user fa-stack-1x fa-inverse"></i>
               </span>
               <?php endif; ?>
           </div>
@@ -149,7 +149,7 @@ $row = mysqli_fetch_array($result);
         <br><br>
         <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
         <div class="alert alert-info hidden-print">
-            <span class="fa fa-filter fa-fw"></span> Mostrando resultados entre los días <strong><?php echo $fechasp1; ?></strong> y <strong><?php echo $fechasp3; ?></strong>.
+            <span class="far fa-filter fa-fw"></span> Mostrando resultados entre los días <strong><?php echo $fechasp1; ?></strong> y <strong><?php echo $fechasp3; ?></strong>.
         </div>
         <?php endif; ?>
 

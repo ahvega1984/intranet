@@ -43,7 +43,7 @@ $pr_trozos=explode(", ",$profe_baja);
 		                $hora = "Todas";
 	                echo "<td nowrap>".cambia_fecha($row[0])."</td><td nowrap>".cambia_fecha($row[1])."</td><td>$hora</td>";
 	                if ($row[6] != "") 
-                        echo "<td><a href='archivos/$row[6]' target='_blank'><i class='fa fa-file-o'> </i> $row[6]</a></td>";
+                        echo "<td><a href='archivos/$row[6]' target='_blank'><i class='far fa-file'> </i> $row[6]</a></td>";
 	                else 
                         echo "<td><em class=\"muted\">No hay archivo adjunto</em></td>";		
 	                echo "</tr></table>";

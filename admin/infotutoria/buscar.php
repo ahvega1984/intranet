@@ -103,27 +103,27 @@ if (mysqli_num_rows($result) > 0)
             echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
         }
         else {
-            echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
+            echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
 		}
 		echo "&nbsp;&nbsp;";	
    echo stripslashes($row->NOMBRE).' '.stripslashes($row->APELLIDOS).'</TD>';
   echo " <TD style='vertical-align:middle' nowrap>$row->unidad</TD>
    <TD style='vertical-align:middle' nowrap>$row->F_ENTREV</TD>";
-echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-search' title='Ver Informe'></i></a>";	
+echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='far fa-search' title='Ver Informe'></i></a>";	
 
 $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysqli_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or (nomprofesor($tuti) == nomprofesor($_SESSION['profi']))) {
-   			echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe'></i></a>";
-			echo "<a href='informar.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-pencil-square-o' title='Rellenar Informe'> </i> </a>";
+   			echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='far fa-trash-alt' title='Borrar Informe'></i></a>";
+			echo "<a href='informar.php?id=$row->ID' class='btn btn-primary'><i class='far fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
 
 			if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org' || $verInformesTutoria) {
 				if ($validado) {
-					echo "<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='fa fa-check-square-o' data-bs='tooltip' title='Informe validado por el Tutor'></i></a>";				
+					echo "<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='far fa-check-square' data-bs='tooltip' title='Informe validado por el Tutor'></i></a>";				
 				}
 				else {
-					echo "<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='fa fa-minus-circle' data-bs='tooltip' title='Informe no validado por el Tutor'></i> </a>";					
+					echo "<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='far fa-minus-circle' data-bs='tooltip' title='Informe no validado por el Tutor'></i> </a>";					
 				}
 			}
 
@@ -131,7 +131,7 @@ $tuti = $row0[0];
 		else {
 			$result_profe = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='".nomprofesor($_SESSION['profi'])."' and grupo = '".stripslashes($row->unidad)."'");
 			if (mysqli_num_rows($result_profe) && date('Y-m-d') <= $row->F_ENTREV) {
-				echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o' title='Rellenar Informe'> </i> </a>";
+				echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='far fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
 
 			}
 		}

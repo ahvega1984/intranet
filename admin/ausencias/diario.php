@@ -67,7 +67,7 @@ include("menu.php");
 	                echo '<table class="table table-striped table-bordered">';	
 	                echo "<tr><th class='text-center'>$profe_baja</th></tr><tr><td>$tar</td></tr>";
 	                if (strlen($row2[6]) > 0)
-		                echo "<tr class='info'><td>Archivo adjunto:&nbsp; <a href='archivos/$row2[6]'><i class='fa fa-file-o'> </i> $row2[6]</a></td></tr>";
+		                echo "<tr class='info'><td>Archivo adjunto:&nbsp; <a href='archivos/$row2[6]'><i class='far fa-file'> </i> $row2[6]</a></td></tr>";
 	
                     echo "</table><br />";
 	            }

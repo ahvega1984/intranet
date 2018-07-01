@@ -17,7 +17,7 @@ include ("menu.php");
 
 <div class="col-sm-12">	
 		<div class="text-center" id="t_larga_barra">
-			<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+			<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
 		</div>
    <div id='t_larga' style='display:none' >		
 <?php
@@ -74,7 +74,7 @@ include ("menu.php");
             echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 64px !important;" alt="">';
         }
         else {
-            echo '<span class="img-thumbnail fa fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
+            echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
 		}
 		echo "</td>";		
 		echo "<td nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>

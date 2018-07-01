@@ -113,7 +113,7 @@ else
 <div class="input-group">
 <input name="fecha4" type="text"
 	class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha4"
-	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>
 </div>
 
@@ -123,7 +123,7 @@ else
 <div class="input-group">
 <input name="fecha3" type="text"
 	class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha3"
-	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>
 </div>
 
@@ -221,7 +221,7 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 <div class="input-group">
 <input required name="fecha" type="text"
 	class="form-control" value="" data-date-format="YYYY-MM-DD" id="fecha4"
-	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>
 </div>
 
@@ -336,7 +336,7 @@ seleccionadas. )</p>
 <input name="fecha10" type="text"
 	class="form-control" value="" data-date-format="DD-MM-YYYY"
 	id="fecha10" required> <span class="input-group-addon"><i
-	class="fa fa-calendar"></i></span>
+	class="far fa-calendar"></i></span>
 </div>
 </div>
 
@@ -346,7 +346,7 @@ seleccionadas. )</p>
 <div class="input-group"><input name="fecha20" type="text"
 	class="form-control" value="" data-date-format="DD-MM-YYYY"
 	id="fecha20" required> <span class="input-group-addon"><i
-	class="fa fa-calendar"></i></span>
+	class="far fa-calendar"></i></span>
 </div>
 </div>
 

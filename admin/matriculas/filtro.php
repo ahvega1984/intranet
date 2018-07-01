@@ -59,7 +59,7 @@ echo "".$tipo20[0]."</label></div>";
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#filter" href="#avanzado">
-			          <span class="fa fa-filter"></span> Búsqueda avanzada
+			          <span class="far fa-filter"></span> Búsqueda avanzada
 			        </a>
 			      </h4>
 			    </div>

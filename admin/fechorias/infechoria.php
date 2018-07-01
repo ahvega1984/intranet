@@ -15,7 +15,7 @@ include("menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -195,7 +195,7 @@ if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TR
 <div class="input-group"><input name="fecha" type="text"
 	class="form-control" data-date-format="DD-MM-YYYY" id="fecha"
 	value="<?php if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>"
-	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div>
 </div>
 <div class="form-group"><label for="unidad">Unidad</label> <select

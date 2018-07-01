@@ -113,7 +113,7 @@ include('../../menu.php');
 				<br><br>
 				<div class="text-center">
 					
-					<span class="fa fa-mobile fa-4x text-muted"></span>
+					<span class="far fa-mobile fa-4x text-muted"></span>
 					<p class="lead text-muted">No se han enviado mensajes en esta semana</p>
 					
 				</div>

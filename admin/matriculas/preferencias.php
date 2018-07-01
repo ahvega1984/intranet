@@ -270,7 +270,7 @@ include("menu.php");
 							<div class="input-group">
 							<input name="prefInicio" type="text"
 								class="form-control" value="<?php echo $config['matriculas']['fecha_inicio']; ?>" data-date-format="YYYY-MM-DD" id="prefInicio"> 
-								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								<span class="input-group-addon"><i class="far fa-calendar"></i></span>
 							</div>
 							</div>
 						</div>
@@ -281,7 +281,7 @@ include("menu.php");
 							<div class="input-group">
 							<input name="prefFin" type="text"
 								class="form-control" value="<?php echo $config['matriculas']['fecha_fin']; ?>" data-date-format="YYYY-MM-DD" id="prefFin"> 
-								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								<span class="input-group-addon"><i class="far fa-calendar"></i></span>
 							</div>
 							</div>
 						</div>

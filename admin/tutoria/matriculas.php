@@ -94,7 +94,7 @@ while($row = mysqli_fetch_array($result))
 		$foto_alumno = "<img src='../../xml/fotos/$foto' width='55' class=\"img-thumbnail\" />";
 	}
 	else {
-		$foto_alumno = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
+		$foto_alumno = "<span class=\"far fa-user fa-3x fa-fw\"></span>";
 	}
 	
 	echo "<tr><td>$foto_alumno</td>";

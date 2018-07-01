@@ -32,7 +32,7 @@ include("menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -197,7 +197,7 @@ include("menu.php");
 					    		<label for="inicio">Inicio de la ausencia</label>
 					    		<div class="input-group">
 					    			<input type="text" class="form-control" id="inicio" name="inicio" value="<?php echo (isset($inicio) && $inicio) ? $inicio : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
-								    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+								    <span class="input-group-addon"><span class="far fa-calendar"></span></span>
 							    </div>
 						    </div>
 					    </div>
@@ -208,7 +208,7 @@ include("menu.php");
 						    	<label for="inicio">Fin de la ausencia</label>
 						    	<div class="input-group">
 						    		<input type="text" class="form-control" id="fin" name="fin" value="<?php echo (isset($fin) && $fin) ? $fin : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
-						    		<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+						    		<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 						    	</div>
 						    </div>
 					    </div>
@@ -281,7 +281,7 @@ include("menu.php");
 							<td nowrap>
 								<?php if(stristr($_SESSION['cargo'],'1') == TRUE or (mb_strtoupper($_SESSION['profi']) == mb_strtoupper($row['profesor']))): ?>	
 							<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg pull-right" data-bs="tooltip" title="Borrar"></span>
+									<span class="far fa-trash-alt fa-fw fa-lg pull-right" data-bs="tooltip" title="Borrar"></span>
 							</a>
 						    <?php endif; ?>
 							<a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
@@ -361,7 +361,7 @@ include("menu.php");
                                     echo (strlen($row['tareas']) > 0 or strlen($row['archivo'])>0) ? $row['tareas'] : 'No';
 							        if(strlen($row['archivo'])>0) 
                                     {
-							            echo "<hr><span class='text-warning'>Archivo adjunto con las Tareas: </span><a href='archivos/".$row['archivo']."'><i class='fa fa-file fa-lg' data-bs='tooltip' title='Archivo adjunto con las tareas del profesor'> </i>";
+							            echo "<hr><span class='text-warning'>Archivo adjunto con las Tareas: </span><a href='archivos/".$row['archivo']."'><i class='far fa-file fa-lg' data-bs='tooltip' title='Archivo adjunto con las tareas del profesor'> </i>";
 							            echo '</a>';
 							        }
                                     ?>
@@ -370,7 +370,7 @@ include("menu.php");
                                     if(stristr($_SESSION['cargo'],'1') == TRUE): 
                                     ?>
 							            <td><?php echo $row['observaciones']; ?></td>
-							            <td><a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span></a></td>
+							            <td><a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'><span class="far fa-trash-alt fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span></a></td>
 							        <?php 
                                     endif; 
                                     ?>

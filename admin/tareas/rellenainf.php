@@ -65,7 +65,7 @@ $fondo = "";
 if($informe[0] == $asignatura){$fondo=" class='info' ";}
 	echo "<tr $fondo><td nowrap >".stripslashes($informe[0])."</td>
 		  <td>".stripslashes($informe[1])."</td>";
-	echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=".stripslashes($asignatura)."&profesor=".stripslashes($profesor)."' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i> </a></td>";
+	echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=".stripslashes($asignatura)."&profesor=".stripslashes($profesor)."' data-bb='confirm-delete'><i class='far fa-trash-alt' title='Borrar' > </i> </a></td>";
 	echo"</tr>";
 }
 echo"</table>";

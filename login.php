@@ -19,7 +19,7 @@ mysqli_query($db_con,"SET NAMES 'utf8'");
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-	
+
 	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo, c_profes.telefono, c_profes.totp_secret FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."' LIMIT 1");
 	$usuarioExiste = mysqli_num_rows($pass0);
 
@@ -38,7 +38,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	else {
 		$totp_activado = 0;
 	}
-	
+
 
 	if (! $bloqueado) {
 
@@ -55,7 +55,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			}
 			else {
 				$_SESSION['pagina_centro'] = 0;
-			}		
+			}
 
 			$_SESSION['profi'] = $pass1[1];
 			$profe = $_SESSION['profi'];
@@ -151,12 +151,12 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$_SESSION['id_pag'] = $id_reg0[0];
 
 			unset($_SESSION['intentos']);
-			
+
 			session_regenerate_id(true);
 
 			if ($dni == $clave0 || (strlen($codigo) < '12'))
-			{	
-				
+			{
+
 				$_SESSION['autentificado'] = 1;
 				$_SESSION['cambiar_clave'] = 1;
 				header("location:clave.php?tour=1");
@@ -178,7 +178,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					$mail->From = 'no-reply@'.$config['dominio'];
 					$mail->FromName = utf8_decode($config['centro_denominacion']);
 					$mail->IsHTML(true);
-					
+
 					$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
 					$message = str_replace('{{dominio}}', $config['dominio'], $message);
 					$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
@@ -192,7 +192,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 					$message = str_replace('{{titulo}}', 'Tu usuario IdEA se ha usado para iniciar sesión en la Intranet', $message);
 					$message = str_replace('{{contenido}}', '<p>Tu usuario IdEA '.$_SESSION['ide'].' se ha usado para iniciar sesión en la Intranet desde un navegador web.</p><br><p>Fecha y hora: '.$fecha_conexion.'</p><br><p>Si la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje.</p><p>Si no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña.</p><p>Atentamente:<br>La Dirección del Centro</p>', $message);
-					
+
 					$mail->msgHTML(utf8_decode($message));
 					$mail->Subject = utf8_decode('Tu usuario IdEA se ha usado para iniciar sesión en la Intranet');
 					$mail->AltBody = utf8_decode("Tu usuario IdEA ".$_SESSION['ide']." se ha usado para iniciar sesión en la Intranet desde un navegador web. \n\n\nFecha y hora: ".$fecha_conexion." \n\n\nSi la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje. \n\nSi no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña. \n\nAtentamente: \nLa Dirección del Centro</p>");
@@ -203,7 +203,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					// Enviamos SMS con el código temporal de inicio de sesión
 					require_once(INTRANET_DIRECTORY.'/lib/google-authenticator/GoogleAuthenticator.php');
 					$ga = new PHPGangsta_GoogleAuthenticator();
-					
+
 					$_SESSION['totp_codigo_movil'] = 0;
 					if (isset($config['mod_sms']) && $config['mod_sms'] && $telefono != '') {
 						$oneCode = $ga->getCode($_SESSION['totp_secreto']);
@@ -243,7 +243,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
 					$mail->Port = $config['email_smtp']['port'];
 					$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
-					
+
 					$mail->Username = $config['email_smtp']['username'];
 					$mail->Password = $config['email_smtp']['password'];
 
@@ -312,7 +312,7 @@ include('control_acceso.php');
 	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-	<link href="//<?php echo $config['dominio']; ?>/intranet/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/animate.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css" rel="stylesheet">
 </head>
@@ -342,10 +342,7 @@ include('control_acceso.php');
 
 		  <form id="form-signin" class="form-signin well" method="POST" autocomplete="on">
 		      <div class="text-center text-muted form-signin-heading">
-		        <span class="fa-stack fa-4x">
-		          <i class="fa fa-circle fa-stack-2x"></i>
-		          <i class="fa fa-user fa-stack-1x fa-inverse"></i>
-		        </span>
+						<i class="far fa-user-circle fa-7x"></i>
 		      </div>
 
 		      <div id="form-group" class="form-group">

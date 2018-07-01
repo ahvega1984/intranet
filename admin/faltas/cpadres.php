@@ -70,14 +70,14 @@ $alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FRO
       <div class="form-group"  id="datetimepicker1">
       <div class="input-group">
             <input name="fecha12" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha12" value="<?php if($fecha12){ echo $fecha12;}?>" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div> 
 </div>
 <label>Fin: </label>
 	<div class="form-group"  id="datetimepicker2">
  <div class="input-group">
   <input name="fecha22" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha22" value="<?php if($fecha22){ echo $fecha22;}?>" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
  </div>
 </div> 
       

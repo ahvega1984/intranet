@@ -241,7 +241,7 @@ function acl_acceso($cargo_usuario, $cargo_requerido) {
 		echo "\t\t\t<div class=\"row\">\n";
 		echo "\t\t\t\t<div class=\"col-sm-offset-2 col-sm-8\">\n";
 		echo "\t\t\t\t\t<div class=\"well text-center\">\n";
-		echo "\t\t\t\t\t\t<span class=\"fa fa-hand-paper-o fa-5x\"></span>\n";
+		echo "\t\t\t\t\t\t<span class=\"far fa-hand-paperfa-5x\"></span>\n";
 		echo "\t\t\t\t\t\t<h2 class=\"text-center\">¡Acceso prohibido!</h2>";
 		echo "\t\t\t\t\t\t<hr>";
 		echo "\t\t\t\t\t\t<p class=\"lead text-center\">No tiene privilegios para acceder a esta página.<br>Si cree que se trata de algún error, póngase en contacto con algún miembro del equipo directivo de su centro.</p>";

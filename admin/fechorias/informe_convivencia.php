@@ -12,7 +12,7 @@ include("../../menu.php");
   	</div>
   
   	<div class="text-center" id="t_larga_barra">
-        <span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando los datos. El proceso puede tardar un poco...</span>
+        <span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando los datos. El proceso puede tardar un poco...</span>
   	</div>
   	<div id='t_larga' style='display:none' >
         <div>

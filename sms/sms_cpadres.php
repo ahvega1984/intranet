@@ -240,7 +240,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 	class="form-control"
 	value="<?php if(isset($_POST['fecha12'])){ echo $_POST['fecha12'];}else{echo $fech1;} ?>"
 	data-date-format="DD-MM-YYYY" id="fecha12"> <span
-	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+	class="input-group-addon"><i class="far fa-calendar"></i></span></div>
 </div>
 
 <div class="form-group" id="datetimepicker2"><label>Fin</label>
@@ -248,7 +248,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 	class="form-control"
 	value="<?php if(isset($_POST['fecha22'])){ echo $_POST['fecha22'];}else{echo $fech2;}  ?>"
 	data-date-format="DD-MM-YYYY" id="fecha22"> <span
-	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+	class="input-group-addon"><i class="far fa-calendar"></i></span></div>
 </div>
 
 <div class="form-group">

@@ -24,10 +24,10 @@ function enviar(){
 <ul class="nav nav-tabs">
 	<li><a
 		href='<?php echo "cuaderno/c_nota.php?$var";?>'><i
-		class="fa fa-plus-circle fa-fw"></i> Nueva columna de datos</a></li>
+		class="far fa-plus-circle fa-fw"></i> Nueva columna de datos</a></li>
 
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
-		href="#"><i class="fa fa-gears fa-fw"></i> Funciones <span
+		href="#"><i class="far fa-gears fa-fw"></i> Funciones <span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 	<?	
@@ -36,16 +36,16 @@ function enviar(){
 	else { $texto_foto = "Ocultar fotos"; $mens2 = "cuaderno.php?$var&foto=1";}
 	$mens3 = "cuaderno/orden.php?$var";
 
-	echo '<li><a href="'.$mens3.'"><i class="fa fa-reorder fa-fw"></i>&nbsp;Ordenar Columnas</a></li>';
-	echo '<li><a onclick="print()"><i class="fa fa-print fa-fw"></i>&nbsp;Imprimir tabla completa</a></li>';
-	echo '<li><a href="'.$mens2.'"><i class="fa fa-user fa-fw"></i>&nbsp;'.$texto_foto.'</a></li>';
+	echo '<li><a href="'.$mens3.'"><i class="far fa-reorder fa-fw"></i>&nbsp;Ordenar Columnas</a></li>';
+	echo '<li><a onclick="print()"><i class="far fa-print fa-fw"></i>&nbsp;Imprimir tabla completa</a></li>';
+	echo '<li><a href="'.$mens2.'"><i class="far fa-user fa-fw"></i>&nbsp;'.$texto_foto.'</a></li>';
 		?>
 	</ul>
 	</li>
 
 	<li><!-- Button trigger modal --> <a href="#" class="pull-right"
 		data-toggle="modal" data-target="#myModal1"><i
-		class="fa fa-columns fa-fw"></i> Operaciones con las Columnas </a> <!-- Modal -->
+		class="far fa-columns fa-fw"></i> Operaciones con las Columnas </a> <!-- Modal -->
 	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
 		aria-labelledby="myModal1Label" aria-hidden="true">
 	<div class="modal-dialog">
@@ -98,8 +98,8 @@ function enviar(){
 				$pond= $pon0[0];
 				$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$n_col&nom_asig=$nom_asig&asignatura=$asignatura";
 
-				$colum1[4] ? $icon_eye = '<i class="fa fa-eye" data-bs="tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" data-bs="tooltip" title="Columna oculta en la página pública del Centro"></i>';
-				$colum1[3] ? $icon_lock = '<i class="fa fa-lock" data-bs="tooltip" title="Columna oculta en el Cuaderno"></i>' : $icon_lock  = '';
+				$colum1[4] ? $icon_eye = '<i class="far fa-eye" data-bs="tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="far fa-eye-slash" data-bs="tooltip" title="Columna oculta en la página pública del Centro"></i>';
+				$colum1[3] ? $icon_lock = '<i class="far fa-lock" data-bs="tooltip" title="Columna oculta en el Cuaderno"></i>' : $icon_lock  = '';
 
 				echo "<tr><td nowrap style='vertical-align:middle;'>";
 				?> <input type="checkbox"  onchange="enviar();" name="<?php echo $id;?>"

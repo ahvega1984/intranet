@@ -132,7 +132,7 @@ while ($aula = mysqli_fetch_array($aulas)) {
 	echo "<tr>";
 	echo "<td><input type='checkbox' name='$abrev0' value='$abrev0' $check/></td>";
 	echo "<td>$abrev0</td><td>$nombre0</td>";
-	echo "<td>$nombre_nueva0 <span class='pull-right'><a href='ocultar.php?editar=1&id=$abrev0:$nombre0'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a></td>";
+	echo "<td>$nombre_nueva0 <span class='pull-right'><a href='ocultar.php?editar=1&id=$abrev0:$nombre0'><span class='far fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a></td>";
 	echo "</tr>";
 }
 ?>
@@ -153,8 +153,8 @@ while ($aula_nueva = mysqli_fetch_array($aulas_nueva)) {
 	echo "<td><input type='checkbox' name='$abrev_nueva0' value='$abrev_nueva0' $check/></td>";
 	echo "<td>$abrev_nueva0</td>
 	<td>$nombre_nueva0 <span class='pull-right'></td>
-	<td><a href='ocultar.php?editar=1&id=$id_nueva0'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>
-	<a href='ocultar.php?id= $id_nueva0&eliminar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a></td>";
+	<td><a href='ocultar.php?editar=1&id=$id_nueva0'><span class='far fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>
+	<a href='ocultar.php?id= $id_nueva0&eliminar=1' data-bb='confirm-delete'><span class='far fa-trash-alt fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a></td>";
 	echo "</tr>";
 }
 ?>

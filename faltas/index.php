@@ -100,7 +100,7 @@ if($mensaje){
 	id="fecha_dia" name="fecha_dia"
 	value="<?php echo (isset($fecha_dia)) ? $fecha_dia : date('d-m-Y'); ?>"
 	data-date-format="DD-MM-YYYY"> <span class="input-group-addon"><span
-	class="fa fa-calendar"></span></span></div>
+	class="far fa-calendar"></span></span></div>
 </div>
 
 <div class="form-group"><label for="grupo">Grupo</label> 
@@ -192,7 +192,7 @@ if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE)) { ?>
 
 if ($ndia>5) {
 	?>
-<h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
+<h2 class="text-muted text-center"><span class="far fa-clock fa-5x"></span>
 <br>
 Fuera de horario escolar</h2>
 	<?php
@@ -214,7 +214,7 @@ else{
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
 		?>
-<h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
+<h2 class="text-muted text-center"><span class="far fa-clock fa-5x"></span>
 <br>
 Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "ª";?>)</h2>
 		<?php
@@ -355,7 +355,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 						echo '<img class="img-thumbnail" src="../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
 					}
 					else {
-						echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
+						echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 					}
 					echo '</td>';
 					echo "<td style='vertical-align:middle'>
@@ -548,7 +548,7 @@ echo '<input name="fecha_dia" type="hidden" value="';
 echo $fecha_dia;
 echo '" />';
 
-if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
+if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="far fa-check"> </i> Registrar faltas de asistencia</button>';}
 
 ?></form>
 </div>

@@ -32,7 +32,7 @@ function seleccionar_todo(){
 <table class='table table-striped datatable'>
 	<thead>
 		<tr>		
-		<th  style="width:60px"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="fa fa-lg fa-check-square-o"> </i></a></th>
+		<th  style="width:60px"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="far fa-lg fa-check-square-o"> </i></a></th>
 		<th style="width:100px">Código</th>
 		<th style="width:100px">Grupo</th>
 		<th>Alumno</th>
@@ -63,10 +63,10 @@ function seleccionar_todo(){
 		<td style="text-align: left" nowrap>
 		<?php
 		if ($list[7] == "SI") {
-			echo '<span class="fa fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
+			echo '<span class="far fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}
 		if ($list[5]=='SI') {
-			echo '<span class="fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestación"></span>';
+			echo '<span class="far fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestación"></span>';
 		}
 		?>
 		</td>
@@ -79,9 +79,9 @@ function seleccionar_todo(){
 </table>
 
 <hr>
-<button type="submit" class="btn btn-danger" name="borrar" value="Borrar"><span class="fa fa-trash-o fa-fw"></span> Borrar</button>
-<button type="submit" class="btn btn-info" name="sms" value="sms"><span class="fa fa-mobile fa-fw"></span> Enviar SMS</button>
-<button type="submit" class="btn btn-warning" name="registro" value="registro"><span class="fa fa-gavel fa-fw"></span> Registrar Amonestaciones</button>
+<button type="submit" class="btn btn-danger" name="borrar" value="Borrar"><span class="far fa-trash-alt fa-fw"></span> Borrar</button>
+<button type="submit" class="btn btn-info" name="sms" value="sms"><span class="far fa-mobile fa-fw"></span> Enviar SMS</button>
+<button type="submit" class="btn btn-warning" name="registro" value="registro"><span class="far fa-gavel fa-fw"></span> Registrar Amonestaciones</button>
 <a href="lpdf.php" class="btn btn-primary" target="_blank">Listado por Grupo</a>
 <a href="lpdf.php?fecha_moroso=1" class="btn btn-primary" target="_blank">Listado por Fecha</a>
 </form>

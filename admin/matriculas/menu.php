@@ -15,7 +15,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -68,7 +68,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 		</div>
 
 		<?php if (acl_permiso($carg, array('1'))): ?>
-		<a href="preferencias.php" class="btn btn-sm btn-default pull-right" style="margin-right:2px;"><span class="fa fa-cog fa-lg"></span></a>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right" style="margin-right:2px;"><span class="far fa-cog fa-lg"></span></a>
 		<?php endif; ?>
 		
 		<ul class="nav nav-tabs">

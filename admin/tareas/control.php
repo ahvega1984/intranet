@@ -121,7 +121,7 @@ if(strlen($profesores) > 0)
 {
 if($detalles == '1')
 { 
-  echo "<li><i class='fa fa-user'> </i> $profesores ==> $nomasi[0]</li>";
+  echo "<li><i class='far fa-user'> </i> $profesores ==> $nomasi[0]</li>";
 } 
 }
 }

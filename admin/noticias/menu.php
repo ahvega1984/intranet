@@ -3,7 +3,7 @@
 	<div class="container">
 
 		<?php if (acl_permiso($carg, array('1'))): ?>
-		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="far fa-cog fa-lg"></span></a>
 		<?php endif; ?>
 		
 		<form method="get" action="buscar.php">
@@ -12,7 +12,7 @@
 			   <div class="input-group">
 			     <input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
 			     <span class="input-group-btn">
-			       <button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
+			       <button class="btn btn-default btn-sm" type="submit"><span class="far fa-search fa-lg"></span></button>
 			     </span>
 			   </div><!-- /input-group -->
 			 </div><!-- /.col-lg-3-->

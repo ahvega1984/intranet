@@ -51,7 +51,7 @@ include("menu.php");
 				   <div class="input-group">
 				     <input type="text" class="form-control" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar por título, contenido o destinatario del mensaje">
 				     <span class="input-group-btn">
-				       <button class="btn btn-default" type="submit"><span class="fa fa-search fa-lg"></span></button>
+				       <button class="btn btn-default" type="submit"><span class="far fa-search fa-lg"></span></button>
 				     </span>
 				   </div><!-- /input-group -->
 				</form>

@@ -1,5 +1,5 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
-echo "<div class='alert alert-info fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de tutoría activos (Asignaturas pendientes)</p><br />";
+echo "<div class='alert alert-info fade in' role='alert'><p class='lead'><i class='far fa-bell'> </i> Informes de tutoría activos (Asignaturas pendientes)</p><br />";
 
 // Alumnos pendientes con asignaturas sin continuidad para los Jefes de Departamento
 
@@ -23,8 +23,8 @@ while($row = mysqli_fetch_array($query)){
 					echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
 					<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row[2] $row[1]</a> -- $row[5]  
 					<span class='pull-right'>
-					<a href='./admin/infotutoria/infocompleto.php?id=$row[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fa fa-search fa-fw fa-lg'></span></a>
-					<a href='./admin/infotutoria/informar.php?id=$row[0]&materia=$row2[1]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fa fa-pencil fa-fw fa-lg'></span></a>
+					<a href='./admin/infotutoria/infocompleto.php?id=$row[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='far fa-search fa-fw fa-lg'></span></a>
+					<a href='./admin/infotutoria/informar.php?id=$row[0]&materia=$row2[1]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='far fa-pencil-alt fa-fw fa-lg'></span></a>
 					</span>
 					</p>";
 

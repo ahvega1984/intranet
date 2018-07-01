@@ -49,9 +49,9 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 	echo '<table id="calendar" class="table table-bordered table-condensed">';
 	echo '	<thead>';
 	echo '      <tr>';
-	echo '			<th class="text-center"><h4><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="fa fa-chevron-left fa-fw"></span></a></h4></th>';
-	echo '			<th colspan="5" class="text-center"><h4><span class="fa fa-calendar-o fa-fw"></span> '.strftime('%B, %Y', strtotime($anio.'-'.$mes)).'</h4></th>';
-	echo '			<th class="text-center"><h4><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="fa fa-chevron-right fa-fw"></span></a></h4></th>';
+	echo '			<th class="text-center"><h4><a href="?mes='.$mes_ant.'&anio='.$anio_ant.'"><span class="far fa-chevron-left fa-fw"></span></a></h4></th>';
+	echo '			<th colspan="5" class="text-center"><h4><span class="far fa-calendarfa-fw"></span> '.strftime('%B, %Y', strtotime($anio.'-'.$mes)).'</h4></th>';
+	echo '			<th class="text-center"><h4><a href="?mes='.$mes_sig.'&anio='.$anio_sig.'"><span class="far fa-chevron-right fa-fw"></span></a></h4></th>';
 	echo '		</tr>';
 	echo '		<tr>';
 	echo '			<th class="text-center">L</th>';
@@ -102,7 +102,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<span class="fa fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).' - '.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'"></span>';
+							echo '<span class="far fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).' - '.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'"></span>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -117,7 +117,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<span class="fa fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).' - '.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'"></span>';
+							echo '<span class="far fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).' - '.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'"></span>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -129,7 +129,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				while ($festivo = mysqli_fetch_assoc($result)) {
 					
 					if ($festivo['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
-						echo '<span class="fa fa-circle" style="color: #e14939;  margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="Día festivo - '.stripslashes(str_replace('"', '\'', $festivo['nombre'])).'"></span>';
+						echo '<span class="far fa-circle" style="color: #e14939;  margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="Día festivo - '.stripslashes(str_replace('"', '\'', $festivo['nombre'])).'"></span>';
 					}
 				}
 				mysqli_free_result($result);
@@ -155,7 +155,7 @@ vista_mes($calendario, $dia, $mes, $anio);
 
 $profesor_libre = 1;
 
-echo '<h4><span class="fa fa-tasks fa-fw"></span> Programado para hoy...</h4>';
+echo '<h4><span class="far fa-tasks fa-fw"></span> Programado para hoy...</h4>';
 echo '<div class="list-group">';
 
 // Consultamos los calendarios privados
@@ -174,7 +174,7 @@ if (mysqli_num_rows($result_calendarios)) {
 				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
 				else $hora_evento = "Todo el día";
 				
-				echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'</a>';
+				echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="far fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes(str_replace('"', '\'', $eventos['nombre'])).'</a>';
 				$profesor_libre=0;
 			}
 			mysqli_free_result($result_eventos);
@@ -212,23 +212,23 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 
 					echo '<div class="list-group-item" style="padding: 0px;">
 					<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" style=" float: left; width: 85%; padding: 15px; border-right: 1px solid #dddddd; color: #555555; text-decoration: none;">
-						<span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'
+						<span class="pull-right badge">'.$hora_evento.'</span><span class="far fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'
 					</a>
 					<a href="admin/actividades/extraescolares.php?id='.$idact.'&ver_lista=1" class="text-center" style=" float: right; width: 15%; padding: 15px; color: #555555; text-decoration: none;">
-						<span class="fa fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
+						<span class="far fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
 					</a>
 					<div class="clearfix"></div>
 					</div>';
 					
 				else:
 					
-					echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'</a>';
+					echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="far fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'</a>';
 					
 				endif;
 						
 			else:
 				
-				echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'</a>';
+				echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="far fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'</a>';
 				
 			endif;
 			
@@ -247,7 +247,7 @@ mysqli_free_result($result_calendarios);
 $result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos AND YEAR(fecha)='$anio_actual' AND MONTH(fecha)='$mes_actual' AND DAY(fecha)='$dia_actual'");
 while ($festivo = mysqli_fetch_assoc($result)) {
 	if (mysqli_num_rows($result_eventos)) {
-		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el día</span><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="Día festivo"></span>&nbsp;'.stripslashes($festivo['nombre']).'</a>';
+		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el día</span><span class="far fa-circle" style="color: #e14939;" data-bs="tooltip" title="Día festivo"></span>&nbsp;'.stripslashes($festivo['nombre']).'</a>';
 		$profesor_libre=0;
 	}
 	else {
@@ -260,7 +260,7 @@ unset($festivo);
 
 if ($profesor_libre) {
 	echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php" class="list-group-item lead text-center">
-	<span class="fa fa-coffee fa-2x"></span><br>
+	<span class="far fa-coffee fa-2x"></span><br>
 	<p>Nada programado para hoy</p>
 	<small class="btn btn-default btn-sm">Ver calendario</small></a>';
 	

@@ -3,7 +3,7 @@
 <div class="container">
 	
 	<?php if (acl_permiso($carg, array('1'))): ?>
-	<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fa fa-cog fa-lg"></span></a>
+	<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="far fa-cog fa-lg"></span></a>
 	<?php endif; ?>
 	
 	<ul class="nav nav-tabs">

@@ -13,7 +13,7 @@ include("../../menu.php");
 	</div>
 	
 	<div id="status-loading" class="text-center">
-		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+		<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
 	</div>
 
 	<div id="wrap" class="row" style="display: none;">

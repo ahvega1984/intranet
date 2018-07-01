@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
+<h4><span class="far fa-clock fa-fw"></span> Horario</h4>
 
 <div class="panel panel-default">
 

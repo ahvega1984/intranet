@@ -285,7 +285,7 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 					</form>
 					
 					<div class="pull-right">
-						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="fa fa-print fa-fw"></span></a>
+						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="far fa-print fa-fw"></span></a>
 						
 						<div class="btn-group">
 						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>&unidad=<?php echo $unidad; ?><?php if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) echo '&menu_cuaderno=1'; ?>" class="btn btn-default">&laquo;</a>
@@ -295,7 +295,7 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 						
 						<!-- Button trigger modal -->
 						<a href="#"class="btn btn-default hidden-print" data-toggle="modal" data-target="#modalAyuda">
-							<span class="fa fa-question fa-lg"></span>
+							<span class="far fa-question fa-lg"></span>
 						</a>
 					
 						<!-- Modal -->

@@ -77,7 +77,7 @@ $menu = array(
 			)
 		)
 	),
-	
+
 	array(
 		'menu_id' => 'extraescolares',
 		'nombre'  => 'Extraescolares',
@@ -93,7 +93,7 @@ $menu = array(
 			)
 		)
 	),
-	
+
 	array(
 		'menu_id' => 'orientacion',
 		'nombre'  => 'Orientación',
@@ -124,7 +124,7 @@ $menu = array(
 			)
 		)
 	),
-	
+
 	array(
 		'menu_id' => 'tutoria',
 		'nombre'  => 'Tutoría de '.$_SESSION['mod_tutoria']['unidad'],
@@ -149,7 +149,7 @@ $menu = array(
 			)
 		)
 	),
-	
+
 	array(
 		'menu_id' => 'biblioteca',
 		'nombre'  => 'Biblioteca',
@@ -180,7 +180,7 @@ $menu = array(
 		)
 	),
 
-		
+
 	array(
 		'menu_id' => 'consultas',
 		'nombre'  => 'Consultas',
@@ -220,7 +220,7 @@ $menu = array(
 					)
 				)
 			),
-			
+
 			array(
 				'href'   => '#',
 				'titulo' => 'Fotografías',
@@ -292,7 +292,7 @@ $menu = array(
 		)
 	)
 );
-	
+
 $menu_trabajo =  array(
 	array(
 		'menu_id' => 'trabajo',
@@ -436,7 +436,7 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'admin/infotutoria/index.php',
 						'titulo' => 'Informes de Tutoria',
-					)					
+					)
 				)
 			),
 			array(
@@ -604,50 +604,50 @@ $menu_actas = array(
 
 if (file_exists('./admin/departamento/actas/config.php')) {
 	include('./admin/departamento/actas/config.php');
-	
+
 	if (isset($config['actas_depto']['secretario_aca']) && $pr == $config['actas_depto']['secretario_aca']) {
 		$menu_actas_aca = array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Área Artística',
 			'titulo' => 'Actas del Área Ártística',
 			'ncargos'  => array('9')
 		);
-		
+
 		array_push($menu_actas[0]['items'], $menu_actas_aca);
 	}
-	
+
 	if (isset($config['actas_depto']['secretario_acct']) && $pr == $config['actas_depto']['secretario_acct']) {
 		$menu_actas_acct = array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Área Científico-Tecnológica',
 			'titulo' => 'Actas del Área Científico-Tecnológica',
 			'ncargos'  => array('1')
 		);
-		
+
 		array_push($menu_actas[0]['items'], $menu_actas_acct);
 	}
-	
+
 	if (isset($config['actas_depto']['secretario_acsl']) && $pr == $config['actas_depto']['secretario_acsl']) {
 		$menu_actas_acsl = array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Área Social-Lingüística',
 			'titulo' => 'Actas del Área Social-Lingüistica',
 			'ncargos'  => array('1')
 		);
-		
+
 		array_push($menu_actas[0]['items'], $menu_actas_acsl);
 	}
-	
+
 	if (isset($config['actas_depto']['secretario_afp']) && $pr == $config['actas_depto']['secretario_afp']) {
 		$menu_actas_afp = array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Área Formación Profesional',
 			'titulo' => 'Actas del Área Formación Profesional',
 			'ncargos'  => array('1')
 		);
-		
+
 		array_push($menu_actas[0]['items'], $menu_actas_afp);
 	}
 }
 
 array_push($menu_trabajo[0]['items'], $menu_actas);
-	
+
 
 if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
@@ -702,7 +702,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
 }
 else {
-	
+
 	$paginas_interes = array(
 		array(
 			'menu_id' => 'paginas_interes',
@@ -741,7 +741,7 @@ else {
 			)
 		)
 	);
-	
+
 }
 
 $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
@@ -753,28 +753,28 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia'] and ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria")): ?>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="faltas/index.php">
-				<span class="fa fa-clock-o fa-2x"></span><br>
+				<span class="far fa-clock fa-2x"></span><br>
 				<small>Asistencia</small></a>
 		</div>
 		<?php endif; ?>
 		<?php if ($dpto !== "Admin" && $dpto !== "Administracion" && $dpto !== "Conserjeria"): ?>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/fechorias/infechoria.php">
-				<span class="fa fa-gavel fa-2x"></span><br>
+				<span class="far fa-gavel fa-2x"></span><br>
 				<small>Convivencia</small></a>
 		</div>
 		<?php endif; ?>
 		<div class="col-xs-3 text-center padmobile">
 		<?php if (strstr($_SESSION['cargo'], "2") or strstr($_SESSION['cargo'], "1") or strstr($_SESSION['cargo'], "8")){ ?>
-		
+
 			<a href="admin/tutoria/index.php">
-				<span class="fa fa-users fa-2x"></span><br>
+				<span class="far fa-users fa-2x"></span><br>
 				<small>Tutoría</small></a>
-		
+
 		<?php } else{ ?>
 
 		<a href="admin/informes/cinforme.php">
-				<span class="fa fa-address-book-o fa-2x"></span><br>
+				<span class="far fa-address-book fa-2x"></span><br>
 				<small>Inf. alumno</small></a>
 
 		<?php } ?>
@@ -782,33 +782,33 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 
 		<div class="col-xs-3 text-center padmobile">
 			<a href="reservas/index_aula.php?recurso=aula_grupo">
-				<span class="fa fa-key fa-2x"></span><br>
+				<span class="far fa-key fa-2x"></span><br>
 				<small>Reservas</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/cursos/chorarios.php">
-				<span class="fa fa-calendar fa-2x"></span><br>
+				<span class="far fa-calendar fa-2x"></span><br>
 				<small>Horarios</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="tareas/index.php">
-				<span class="fa fa-tasks fa-2x"></span><br>
+				<span class="far fa-tasks fa-2x"></span><br>
 				<small>Tareas</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/mensajes/redactar.php">
-				<span class="fa fa-envelope-o fa-2x"></span><br>
+				<span class="far fa-envelope fa-2x"></span><br>
 				<small>Mensajes</small></a>
 		</div>
 
 		<div class="col-xs-3 text-center padmobile hidden-xs">
 			<a href="calendario/index.php">
-				<span class="fa fa-calendar-o fa-2x"></span><br>
+				<span class="far fa-calendar fa-2x"></span><br>
 				<small>Calendario</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile hidden-sm hidden-md hidden-lg">
 			<a href="#" id="toggleMenu">
-				<span class="fa fa-ellipsis-v fa-2x"></span><br>
+				<span class="far fa-ellipsis-v fa-2x"></span><br>
 				<small>Menú</small></a>
 		</div>
 	</div>
@@ -826,7 +826,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 	  <div class="panel-heading">
 	    <h4 class="panel-title">
 	      <a data-toggle="collapse" data-parent="#accordion" href="#<?php echo $menu[$i]['menu_id']; ?>" style="display: block;">
-	      	<span class="fa fa-chevron-down pull-right"></span>
+	      	<span class="far fa-chevron-down pull-right"></span>
 	        <?php echo $menu[$i]['nombre']; ?>
 	      </a>
 	    </h4>
@@ -843,7 +843,7 @@ $menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
 					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array($carg, $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a data-toggle="collapse" href="#<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>">
-						<span class="fa fa-chevron-down pull-right"></span>
+						<span class="far fa-chevron-down pull-right"></span>
 						<?php echo $menu[$i]['items'][$j]['titulo']; ?></a>
 					</li>
 					<div id="<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>" class="collapse">

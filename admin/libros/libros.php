@@ -63,7 +63,7 @@ include("../../menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -222,7 +222,7 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
 	}
 	else {
-		echo '<span class="img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
+		echo '<span class="img-thumbnail far fa-user fa-fw fa-4x" style="width: 85px !important;"></span>';
 	}       	
 	echo "</td>";
 	for ($i=1;$i<$num_asig+1;$i++){
@@ -282,9 +282,9 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<?php echo $claveal;?>&imprimir=si&nivel=<?php echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
+<a  href="libros.php?claveal=<?php echo $claveal;?>&imprimir=si&nivel=<?php echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="far fa-print " title="imprimir"> </i></a> <br><br>
 <?php
-	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check" title="Devueltos"> </i> </button>';}
+	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="far fa-check" title="Devueltos"> </i> </button>';}
 	echo "</td>";
 	}
 

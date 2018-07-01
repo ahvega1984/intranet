@@ -427,7 +427,7 @@ function contents_dir($current_dir, $directory)
 			
 		  echo "      <td>\n";
 		 	if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
-		  	echo "		  <span class=\"fa " . get_mimetype_img("$current_dir/$filename") . " fa-fw fa-lg\"></span>";	  
+		  	echo "		  <span class=\"far " . get_mimetype_img("$current_dir/$filename") . " fa-fw fa-lg\"></span>";	  
 		  	
 			if(strlen($filename) > $file_out_max_caracters) {
 				echo htmlspecialchars(substr($filename, 0, $file_out_max_caracters-4).'...', ENT_QUOTES, 'UTF-8');
@@ -444,14 +444,14 @@ function contents_dir($current_dir, $directory)
 			{
 				if (!is_dir("$current_dir/$filename"))
 				{
-					echo "<a href=\"index.php?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+					echo "<a href=\"index.php?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"far fa-trash-alt fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 			    }
 			    else
 			    {
 			    	if ($grants[$user_status][DELALL])
 			    	{
 			    		if ((! in_array($filename, $dir_protegidos) && ! in_array($directory, $subdir_protegidos)) || (in_array($directory, $subdir_protegidos) && stristr($_SESSION['cargo'],'1') == TRUE)) {
-					    	echo "<a href=\"index.php?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+					    	echo "<a href=\"index.php?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"far fa-trash-alt fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 							}
 						}
 			    }
@@ -463,7 +463,7 @@ function contents_dir($current_dir, $directory)
 				
 				if (! in_array($filename, $dir_protegidos) && ! in_array($directory, $subdir_protegidos)) {
 					// RENOMBRAR
-					echo "<a href=\"#\" data-toggle=\"modal\" data-target=\"#modal_$num_row\" rel=\"tooltip\" title=\"Renombrar\"><span class=\"fa fa-edit fa-lg fa-fw\" alt=\"Renombrar\"></span></a>
+					echo "<a href=\"#\" data-toggle=\"modal\" data-target=\"#modal_$num_row\" rel=\"tooltip\" title=\"Renombrar\"><span class=\"far fa-edit fa-lg fa-fw\" alt=\"Renombrar\"></span></a>
 						
 						<div id=\"modal_$num_row\" class=\"modal fade\">
 						  <div class=\"modal-dialog\">
@@ -507,19 +507,19 @@ function contents_dir($current_dir, $directory)
 				
 				
 				// DESCARGAR ARCHIVO
-				echo "<a href=\"index.php?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fa fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+				echo "<a href=\"index.php?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"far fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 			}
 				
 				if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
 					// COMPARTIR ARCHIVO
 					if (isset($directory)) {
-						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
+						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"far fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
 					}
 					else {
-						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
+						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"far fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
 					}
 					
-					echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fa fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+					echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"far fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 				}
 					
 				echo "</td>";
@@ -648,7 +648,7 @@ function show_contents() {
 	?>
 	<!-- Button trigger modal -->
 	<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-		<span class="fa fa-question fa-lg"></span>
+		<span class="far fa-question fa-lg"></span>
 	</a>
 
 	<!-- Modal -->
@@ -703,7 +703,7 @@ function show_contents() {
 	    
 			echo "<div class=\"text-uppercase\">\n";
 			echo "  <a href=\"index.php?index=$index&direction=$direction&order=$order&directory=$name\">\n";
-			echo "   <i class=\"fa fa-chevron-up iconf-fixed-width\"></i>\n";
+			echo "   <i class=\"far fa-chevron-up iconf-fixed-width\"></i>\n";
 			echo "  </a>\n";
 			echo split_dir("$directory");
 			echo "</div>";
@@ -1021,9 +1021,9 @@ switch($action)
 		echo "<center><h4>$mess[26] : ";
 		echo "<img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" align=\"ABSMIDDLE\">\n";
 		echo "".$filenametoview."<br><br><hr>\n";
-		echo "<a href=\"javascript:window.print()\"><i class='fa fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "<a href=\"index.php?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
-		echo "<a href=\"javascript:window.close()\"><i class='fa fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.print()\"><i class='far fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"index.php?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='far fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
+		echo "<a href=\"javascript:window.close()\"><i class='far fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "</h4>\n";
 
 
@@ -1062,9 +1062,9 @@ switch($action)
 			echo "<img src=\"getimg.php?image=$directory/$filename\">\n";
 		}
 		echo "<hr>\n";
-		echo "<a href=\"javascript:window.print()\"><i class='fa fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "<a href=\"index.php?action=downloadfile&filename=$filename&directory=$directory\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
-		echo "<a href=\"javascript:window.close()\"><i class='fa fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.print()\"><i class='far fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"index.php?action=downloadfile&filename=$filename&directory=$directory\"><i class='far fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
+		echo "<a href=\"javascript:window.close()\"><i class='far fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "<hr></center>\n";
 		echo "</body>\n";
 		echo "</html>\n";

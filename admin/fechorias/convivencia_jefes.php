@@ -13,7 +13,7 @@ include ("menu.php");
 		
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fa fa-question fa-lg"></span>
+			<span class="far fa-question fa-lg"></span>
 		</a>
 	
 		<!-- Modal -->
@@ -155,7 +155,7 @@ echo "$hoy0</legend>";
 <label>Selecciona el Día </label>
 <div class="input-group">
   <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?php echo $hoy0;?>" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 </div> 
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -215,7 +215,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>
-		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='far fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
@@ -239,26 +239,26 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		$asiste1 = mysqli_query($db_con, $asiste0);
 			$asiste = mysqli_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
-			echo "<center><i data-bs='tooltip' title='No trabaja' class='fa fa-exclamation-triangle text-warning'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='No trabaja' class='far fa-exclamation-triangle text-warning'> </i> </center";
 			}
 			if ($asiste[1] == '1') {
-			echo "<center><i data-bs='tooltip' title='Trabaja' class='fa fa-check text-success'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='Trabaja' class='far fa-check text-success'> </i> </center";
 			}
 			if (!empty($asiste[3])) {
-			echo "<center><i data-bs='tooltip' title='$asiste[3]' class='fa fa-comment text-danger'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='$asiste[3]' class='far fa-comment text-danger'> </i> </center";
 			}
 		echo "</td>";
 	}
 	echo "<td style='vertical-align:middle'>";
 	if (!empty($id0)) {
-		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy' data-bb='confirm-delete'><i title='Borrar' class='fa fa-trash-o' > </i> </A>";
+		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy' data-bb='confirm-delete'><i title='Borrar' class='far fa-trash-alt' > </i> </A>";
 	}
 	echo "</td><td>";
 	if ($foto = obtener_foto_alumno($row[8])) {
         echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 45px !important;" alt="">';
     }
     else {
-        echo '<span class="img-thumbnail fa fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
+        echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 	}
 	echo "</td></tr>";
 		

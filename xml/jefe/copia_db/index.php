@@ -116,9 +116,9 @@ include("../../../menu.php");
 							<td><?php echo mb_file(filesize($archivo)); ?></td>
 							<td><?php echo date("d-m-Y H:i:s", filectime($archivo)); ?></td>
 							<td nowrap>
-								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Restaurar"><span class="fa fa-undo fa-lg fa-fw"></span></a>
-								<a href="index.php?action=descargar&archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Descargar"><span class="fa fa-cloud-download fa-lg fa-fw"></span></a>
-								<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Restaurar"><span class="far fa-undo fa-lg fa-fw"></span></a>
+								<a href="index.php?action=descargar&archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Descargar"><span class="far fa-cloud-download fa-lg fa-fw"></span></a>
+								<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 							</td>
 						</tr>
 					</tbody>

@@ -63,7 +63,7 @@ if ($foto = obtener_foto_alumno($claveal)) {
 	echo '<img class="media-object img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important; margin-top: 15px;" alt="">';
 }
 else {
-	echo '<span class="media-object img-thumbnail fa fa-user fa-fw fa-4x" style="width: 85px !important; margin-top: 15px;"></span>';
+	echo '<span class="media-object img-thumbnail far fa-user fa-fw fa-4x" style="width: 85px !important; margin-top: 15px;"></span>';
 }
 echo '</div>';
 echo '
@@ -101,7 +101,7 @@ if($informe[3] == $_SESSION['profi']){$fondo="background-color:#dff0d8;";}
 		  <td>".stripslashes($informe[1])." ";
 		if (strlen($fondo) > '0') {
 		echo "<a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id&asignatura=$asignatura&profesor=$informe[3]'><i
-		class='fa fa-trash-o fa-fw fa-lg pull-right' title='Borrar'></a>";
+		class='far fa-trash-alt fa-fw fa-lg pull-right' title='Borrar'></a>";
 	}
 	echo"</td></tr>";
 }

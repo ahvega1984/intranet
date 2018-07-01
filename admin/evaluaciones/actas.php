@@ -334,7 +334,7 @@ include("menu.php");
 										<label for="fecha">Fecha</label>
 										<div class="input-group">
 											<input type="text" class="form-control" id="fecha" name="fecha" value="<?php echo (isset($fecha)) ? $fecha : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
-											<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+											<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 										</div>
 									</div>
 									
@@ -416,13 +416,13 @@ include("menu.php");
 								<td><?php echo $row['fecha']; ?></td>
 								<td>
 									<?php if ((nomprofesor($row['tutor']) == nomprofesor($pr) || acl_permiso($_SESSION['cargo'], array('1'))) && !$row['impresion']): ?>
-									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=edit" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fa fa-print fa-fw fa-lg"></span></a>
+									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=edit" data-bs="tooltip" title="Editar"><span class="far fa-edit fa-fw fa-lg"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="far fa-print fa-fw fa-lg"></span></a>
 									<?php else: ?>
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver acta"><span class="fa fa-file-o fa-fw fa-lg"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-filefa-fw fa-lg"></span></a>
 									<?php endif; ?>
 									<?php if ((nomprofesor($row['tutor']) == nomprofesor($pr) && !$row['impresion']) || acl_permiso($_SESSION['cargo'], array('1'))): ?>
-									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=delete" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=delete" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 									<?php endif; ?>
 								</td>
 							</tr>

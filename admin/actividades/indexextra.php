@@ -173,22 +173,22 @@ if($detalles == '1')
 					
 				if (mysqli_num_rows($result_actividad)):					
 				echo '<a href="extraescolares.php?id='.$datos[0].'&ver_lista=1">
-						<span class="fa fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
+						<span class="far fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
 					</a>';
 				endif;
 			?>		
 			 <?php
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or ($_SESSION['dpt'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
 					?> <a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span
-				class="fa fa-user fa-fw fa-lg" data-bs="tooltip"
+				class="far fa-user fa-fw fa-lg" data-bs="tooltip"
 				title="Seleccionar alumnos que realizan la Actividad"></span></a> <?php } ?>
 			<a href="indexextra.php?id=<?php echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
-				class="fa fa-search fa-fw fa-lg"></span></a> 
+				class="far fa-search fa-fw fa-lg"></span></a> 
 			<?php
 					if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 			?>
-				<a href="<?php echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+				<a href="<?php echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="far fa-edit fa-fw fa-lg"></span></a>
 			<?php
 					}
 					?>	
@@ -197,18 +197,18 @@ if($detalles == '1')
 					?> <?php if($autoriz=="1"){
 					?>
 					<span
-				class="fa fa-check-circle fa-fw fa-lg text-success"></span>
+				class="far fa-check-circle fa-fw fa-lg text-success"></span>
 					<?	
 					}else{ ?> <a
 				href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1"
 				data-bs="tooltip" title="Autorizar"><span
-				class="fa fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php 
+				class="far fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php 
 				?> 
 				<?php
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 					?> <a href="indexextra.php?id=<?php echo $datos[0];?>&eliminar=1"
 				data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span
-				class="fa fa-trash-o fa-fw fa-lg"></span></a> <?php } ?>
+				class="far fa-trash-alt fa-fw fa-lg"></span></a> <?php } ?>
 			</td>
 				<?php }?>
 		</tr>

@@ -417,7 +417,7 @@ include ("menu.php");
 									<label for="fecha_reunion">Fecha de la reunión</label>
 									<div class="input-group">
 										<input type="text" class="form-control" id="fecha_reunion" name="fecha_reunion" value="<?php echo (isset($fecha_reunion)) ? $fecha_reunion : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" <?php echo ($bloquea_campos) ? 'disabled' : 'required'; ?>>
-										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+										<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 									</div>
 								</div>
 								
@@ -499,14 +499,14 @@ $html_textarea = "<p>".$titulo."</p>
 							</td>
 							<td>
 								<?php if ($bloquea_campos): ?>
-								<a href="pdf.php?id=<?php echo $row['id']; ?>" target="_blank" data-bs="tooltip" title="Ver acta"><span class="fa fa-eye fa-fw fa-lg"></span></a>
+								<a href="pdf.php?id=<?php echo $row['id']; ?>" target="_blank" data-bs="tooltip" title="Ver acta"><span class="far fa-eye fa-fw fa-lg"></span></a>
 								<?php else: ?>
 								<?php if (! $row['impreso']): ?>
-								<a href="<?php echo $uri; ?>edit_id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar acta"><span class="fa fa-edit fa-fw fa-lg"></span></a>
-								<a href="pdf.php?id=<?php echo $row['id']; ?>&amp;imprimir=1" target="_blank" data-bs="tooltip" title="Imprimir acta"><span class="fa fa-print fa-fw fa-lg"></span></a>
-								<a href="<?php echo $uri; ?>eliminar_id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar acta" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+								<a href="<?php echo $uri; ?>edit_id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar acta"><span class="far fa-edit fa-fw fa-lg"></span></a>
+								<a href="pdf.php?id=<?php echo $row['id']; ?>&amp;imprimir=1" target="_blank" data-bs="tooltip" title="Imprimir acta"><span class="far fa-print fa-fw fa-lg"></span></a>
+								<a href="<?php echo $uri; ?>eliminar_id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar acta" data-bb="confirm-delete"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
 								<?php else: ?>
-								<a href="pdf.php?id=<?php echo $row['id']; ?>" target="_blank" data-bs="tooltip" title="Ver acta"><span class="fa fa-eye fa-fw fa-lg"></span></a>
+								<a href="pdf.php?id=<?php echo $row['id']; ?>" target="_blank" data-bs="tooltip" title="Ver acta"><span class="far fa-eye fa-fw fa-lg"></span></a>
 								<?php endif; ?>
 								
 								<?php endif; ?>

@@ -182,7 +182,7 @@ include("menu.php");
 								<div class="form-group" id="datetimepicker1"><label for="fecha_reg">Fecha</label>
 									<div class="input-group">
 										<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($fecha_reg)) ? $fecha_reg : '' ?>" data-date-format="DD-MM-YYYY" id="fecha_reg">
-										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+										<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 									</div>
 								</div>
 							</div>
@@ -260,7 +260,7 @@ include("menu.php");
 							<td><?php echo $row['accion']; ?></td>
 							<td><?php echo $row['causa']; ?></td>
 							<td>
-							<a href="profesores.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver informe"><span class="fa fa-search fa-lg fa-fw"></span></a>
+							<a href="profesores.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver informe"><span class="far fa-search fa-lg fa-fw"></span></a>
 							</td>
 						</tr>
 						<?php endwhile; ?>

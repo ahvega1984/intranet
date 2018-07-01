@@ -163,7 +163,7 @@ include("menu.php");
 			
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-				<span class="fa fa-question fa-lg"></span>
+				<span class="far fa-question fa-lg"></span>
 			</a>
 		
 			<!-- Modal -->
@@ -275,7 +275,7 @@ include("menu.php");
 									  <label for="fecha_reg">Fecha</label>
 										<div class="input-group">
 											<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($fecha_reg) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" id="fecha_reg" >
-										  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										  <span class="input-group-addon"><i class="far fa-calendar"></i></span>
 										</div>
 									</div>
 								</div>
@@ -355,7 +355,7 @@ include("menu.php");
 						  $dia3 = explode("-",$row[2]);
 						  $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 							echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-							<a href='intervencion.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
+							<a href='intervencion.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='far fa-search fa-lg fa-fw'></i></a>
 							</td></tr>";
 						}
 						while($row = mysqli_fetch_array($result));

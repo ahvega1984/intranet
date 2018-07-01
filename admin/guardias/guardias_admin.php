@@ -14,7 +14,7 @@ if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['bo
 
 if ($no_dia== '1') {$nombre_dia = 'Lunes';}
 if ($no_dia== '2') {$nombre_dia = 'Martes';}
-if ($no_dia== '3') {$nombre_dia = 'Miércoles';}
+if ($no_dia== '3') {$nombre_dia = 'Miï¿½rcoles';}
 if ($no_dia== '4') {$nombre_dia = 'Jueves';}
 if ($no_dia== '5') {$nombre_dia = 'Viernes';}
 $mes=date('m');
@@ -75,7 +75,7 @@ if ($borrar=='1') {
 	mysqli_query($db_con, "delete from guardias where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La sustitución ha sido borrada correctamente. Puedes comprobarlo en la tabla de la derecha.
+La sustituciï¿½n ha sido borrada correctamente. Puedes comprobarlo en la tabla de la derecha.
           </div></div>';
 }
 ?>
@@ -114,7 +114,7 @@ if (mysqli_num_rows($h_gu0)>0) {
 if ($profeso and $no_dia and $hora) {
 	echo '<a name="marca"></a>';
 	?>
-<legend>Sustituciones realizadas durante la <?php echo "<span class='text-danger'>".$hora."ª </span>";?>
+<legend>Sustituciones realizadas durante la <?php echo "<span class='text-danger'>".$hora."ï¿½ </span>";?>
 hora del <?php echo "<span class='text-danger'>$nombre_dia</span>";?></legend>
 	<?php 
 }
@@ -140,29 +140,29 @@ echo "</table><br>";
 ?> <?php
 if ($profeso) {
 	$extra = " and hora = '$hora' and dia = '$no_dia'";
-	$extra1 = " a ".$hora."ª hora del ".$nombre_dia;
+	$extra1 = " a ".$hora."ï¿½ hora del ".$nombre_dia;
 	$h_hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia, dia from guardias where profesor = '$profeso'");
 	if (mysqli_num_rows($h_hoy0) > 0) {
 
 		echo "<legend>Sustituciones realizadas por el profesor</legend>";
 		echo '<table class="table table-striped">';
-		echo "<tr><th>Profesor Ausente</th><th>Fecha de la Guardia</th><th>Día</th><th>Hora</th><th></th></tr>";
+		echo "<tr><th>Profesor Ausente</th><th>Fecha de la Guardia</th><th>Dï¿½a</th><th>Hora</th><th></th></tr>";
 		while ($h_hoy = mysqli_fetch_array($h_hoy0)) {
 			$nu_dia = $h_hoy[5];
 			if ($nu_dia == '1') {$nom_dia = 'Lunes';}
 			if ($nu_dia == '2') {$nom_dia = 'Martes';}
-			if ($nu_dia == '3') {$nom_dia = 'Miércoles';}
+			if ($nu_dia == '3') {$nom_dia = 'Miï¿½rcoles';}
 			if ($nu_dia == '4') {$nom_dia = 'Jueves';}
 			if ($nu_dia == '5') {$nom_dia = 'Viernes';}
 			$fecha_sp = formatea_fecha($h_hoy[4]);
-			echo "<tr><td>".nomprofesor($h_hoy[2])."</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' title='Borrar' > </i></a>";
+			echo "<tr><td>".nomprofesor($h_hoy[2])."</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' data-bb='confirm-delete'><i class='far fa-trash-alt fa-fw fa-lg' title='Borrar' > </i></a>";
 		}
 		echo "</table><br>";
 	}
 	else{
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIï¿½N:</h5>
 No hay datos sobre las Guardias del profesor.
 </div></div>';
 	}

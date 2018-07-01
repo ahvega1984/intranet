@@ -86,7 +86,7 @@ $texto2=" Se debe reponer o en su caso abonar el importe indicado ";
 $titulo2="NOTIFICACIÓN DE REPOSICIÓN DE LIBROS DE TEXTO";
 $cuerpo21="D./Dña. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la Direccción: ";
 $cuerpo22="CERTIFICA que el/la alumno/a: $alumno matriculado/a en el curso $unidad, revisados sus libros con fecha $fecha, debe ";
-$cuerpo22.="reponer (o en su caso abonar el importe segun tarifa marcada por la Junta de Andalucía) los siguientes libros: ";
+$cuerpo22.="reponer (o en su caso abonar el importe segun tarifar marcada por la Junta de Andalucía) los siguientes libros: ";
 $importante2='En caso de no atender a este requerimiento el/la alumno/a no podrá disfrutar del programa de gratuidad el curso próximo.'; 
 
 # insertamos la primera página del documento
