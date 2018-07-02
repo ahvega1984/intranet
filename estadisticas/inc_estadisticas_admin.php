@@ -6,7 +6,7 @@
 
 	<div class="col-xs-6 col-sm-20">
 		<h5 class="text-center">
-			<a href="#" data-toggle="modal" data-target="#accesos">
+			<a href="#" style="text-decoration: none;" data-toggle="modal" data-target="#accesos">
 				<span class="lead"><span id="stats-numprof"></span> <span class="text-muted">(<span id="stats-totalprof"></span>)</span></span><br>
 				<small class="text-uppercase text-muted">Profesores sin entrar</small>
 			</a>
@@ -38,7 +38,7 @@
 	<div class="col-xs-6 col-sm-20">
 
 		<h5 class="text-center">
-			<a href="#" data-toggle="modal" data-target="#fechoria">
+			<a href="#" style="text-decoration: none;" data-toggle="modal" data-target="#fechoria">
 				<span class="lead"><span id="stats-convivencia"></span></span><br>
 				<small class="text-uppercase text-muted">Problemas convivencia</small>
 			</a>
@@ -66,7 +66,7 @@
 	<div class="col-xs-6 col-sm-20">
 
 		<h5 class="text-center">
-			<a href="#" data-toggle="modal" data-target="#expulsiones">
+			<a href="#" style="text-decoration: none;" data-toggle="modal" data-target="#expulsiones">
 				<span class="lead"><span id="stats-expulsados"></span> / <span id="stats-reingresos"></span></span><br>
 				<small class="text-uppercase text-muted">Expulsiones Reingresos</small>
 			</a>
@@ -104,7 +104,7 @@
 	<div class="col-xs-6 col-sm-20">
 
 		<h5 class="text-center">
-			<a href="#" data-toggle="modal" data-target="#visitas">
+			<a href="#" style="text-decoration: none;" data-toggle="modal" data-target="#visitas">
 				<span class="lead"><span id="stats-visitas"></span></span><br>
 				<small class="text-uppercase text-muted">Visitas de padres</small>
 			</a>
@@ -132,7 +132,7 @@
 	<div class="col-xs-6 col-sm-20">
 
 		<h5 class="text-center">
-			<a href="#" data-toggle="modal" data-target="#noleidos">
+			<a href="#" style="text-decoration: none;" data-toggle="modal" data-target="#noleidos">
 				<span class="lead"><span id="stats-mensajes"></span></span><br>
 				<small class="text-uppercase text-muted">+25 Mensajes sin leer</small>
 			</a>

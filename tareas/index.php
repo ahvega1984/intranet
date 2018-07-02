@@ -1,47 +1,54 @@
 <?php
 require('../bootstrap.php');
 
-if (isset($_GET['id']) && isset($_GET['accion'])) {
-	$id = intval($_GET['id']);
+if ((isset($_GET['id']) && isset($_GET['accion'])) || (isset($_GET['accion']) && $_GET['accion'] == "eliminar-todo")) {
+	if (isset($_GET['id'])) $id = intval($_GET['id']);
 	$accion = htmlspecialchars($_GET['accion']);
 
 	switch ($accion) {
-		case 'eliminar' : 
+		case 'eliminar-todo' :
+
+			$result = mysqli_query($db_con, "DELETE FROM tareas WHERE idea = '".$idea."'");
+			if (! $result) $msg_error = "Error al eliminar el listado de tareas. ".mysqli_error($db_con);
+
+			break;
+
+		case 'eliminar' :
 
 			$result = mysqli_query($db_con, "DELETE FROM tareas WHERE id = ".$id." AND idea = '".$idea."' LIMIT 1");
 			if (! $result) $msg_error = "Error al eliminar la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		case 'finalizar' : 
+		case 'finalizar' :
 
 			$result = mysqli_query($db_con, "UPDATE tareas SET estado = 1 WHERE id = ".$id." AND idea = '".$idea."' AND estado = 0 LIMIT 1");
 			if (! $result) $msg_error = "Error al actualizar el estado de la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		case 'rehacer' : 
+		case 'rehacer' :
 
 			$result = mysqli_query($db_con, "UPDATE tareas SET estado = 0 WHERE id = ".$id." AND idea = '".$idea."' AND estado = 1 LIMIT 1");
 			if (! $result) $msg_error = "Error al actualizar el estado de la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		case 'con-prioridad' : 
-		
+		case 'con-prioridad' :
+
 			$result = mysqli_query($db_con, "UPDATE tareas SET prioridad = 1 WHERE id = ".$id." AND idea = '".$idea."' AND prioridad = 0 LIMIT 1");
 			if (! $result) $msg_error = "Error al actualizar el estado de la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		case 'sin-prioridad' : 
-		
+		case 'sin-prioridad' :
+
 			$result = mysqli_query($db_con, "UPDATE tareas SET prioridad = 0 WHERE id = ".$id." AND idea = '".$idea."' AND prioridad = 1 LIMIT 1");
 			if (! $result) $msg_error = "Error al actualizar el estado de la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		default: 
+		default:
 			$msg_error = "Acción no disponible";
 			break;
 	}
@@ -77,7 +84,7 @@ unset($tarea);
 
 
 include("../menu.php");
-?>	
+?>
 
 	<div class="container">
 
@@ -102,12 +109,12 @@ include("../menu.php");
 		</div>
 		<?php endif; ?>
 
-		
+
 		<div class="row">
-			
+
 			<!-- Tareas pendientes -->
 			<div class="col-md-6">
-				
+
 				<div class="well">
 					<h3 class="text-warning text-center">Tareas pendientes</h3>
 
@@ -148,13 +155,13 @@ include("../menu.php");
 					<br><br>
 					<?php endif; ?>
 				</div>
-	
+
 			</div><!-- /.col-md-6 -->
-			
-			
+
+
 			<!-- Tareas realizadas -->
 			<div class="col-md-6">
-				
+
 				<div class="well">
 					<h3 class="text-info text-center">Tareas finalizadas</h3>
 
@@ -173,6 +180,9 @@ include("../menu.php");
 						</li>
 						<?php endforeach; ?>
 					</ul>
+
+					<a href="//<?php echo $config['dominio']; ?>/intranet/tareas/index.php?accion=eliminar-todo" class="btn btn-sm btn-danger" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar">Eliminar todo</a>
+
 					<?php else: ?>
 
 					<br><br>
@@ -183,12 +193,12 @@ include("../menu.php");
 					<br><br>
 					<?php endif; ?>
 				</div>
-				
-				
+
+
 			</div><!-- /.col-md-6 -->
-			
+
 		</div><!-- /.row -->
-		
+
 	</div><!-- /.container -->
 
 	<?php include("../pie.php"); ?>

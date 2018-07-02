@@ -719,6 +719,16 @@ else {
 					'target' => '_blank',
 				),
 				array(
+					'href'   => 'https://www.mecd.gob.es/portada-mecd/',
+					'titulo' => 'Ministerio de Educación',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.juntadeandalucia.es/educacion/portals/web/ced',
+					'titulo' => 'Consejería de Educación',
+					'target' => '_blank',
+				),
+				array(
 					'href'   => 'http://www.juntadeandalucia.es/educacion/webportal/web/delegacion-'.$web_delegacion.'/',
 					'titulo' => 'Delegación de Educación',
 					'target' => '_blank',
@@ -726,11 +736,6 @@ else {
 				array(
 					'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
 					'titulo' => 'Portal del Personal Docente',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.mecd.gob.es/portada-mecd/',
-					'titulo' => 'Ministerio de Educación',
 					'target' => '_blank',
 				),
 				array(
