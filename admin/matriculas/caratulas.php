@@ -266,7 +266,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la L
 	$MiPDF->Cell(84,8,$act3,0);
 	$MiPDF->Ln ( 5 );
 	if ($n_curso=='2') {
-	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,$optativa4,0);
 	}
 	else{
 	$MiPDF->Cell(84,8,$optativa4,0);
