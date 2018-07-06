@@ -223,20 +223,18 @@ include('../menu.php');
 
                 <form action="" method="POST">
                     <table class="table table-bordered table-condensed table-vcentered table-striped" style="font-size: 0.85em;">
-                        <thead class="hidden-xs">
-                            <tr>
-                                <th>Alumnos</th>
-                                <?php foreach ($materias as $materia): ?>
-                                <th class="text-center"><?php echo $materia['abreviatura']; ?></th>
-                                <?php endforeach; ?>
-                                <?php if (acl_permiso($_SESSION['cargo'], array(1))): ?>
-                                <th></th>
-                                <?php endif; ?>
-                            </tr>
-                        </thead>
                         <tbody>
                             <?php foreach ($alumnos as $alumno): ?>
                             <?php if ($alumno['nivel'] == $curso): ?>
+                            <tr class="hidden-xs">
+                              <th></th>
+                              <?php foreach ($materias as $materia): ?>
+                              <th class="text-center"><?php echo $materia['abreviatura']; ?></th>
+                              <?php endforeach; ?>
+                              <?php if (acl_permiso($_SESSION['cargo'], array(1))): ?>
+                              <th></th>
+                            </tr>
+                            <?php endif; ?>
                             <tr class="visible-xs">
                                 <th colspan="<?php echo count($materias); ?>">
                                     <div class="pull-left" style="margin-right: 10px;">

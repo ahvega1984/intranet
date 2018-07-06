@@ -41,7 +41,7 @@ unset($libro);
 // Procesamos la variable de selección de curso
 if (isset($_GET['curso'])) {
     $curso = urldecode($_GET['curso']);
-} 
+}
 else {
     $curso = $niveles[0]['nombre'];
 }
@@ -65,7 +65,7 @@ unset($materia);
 if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true) {
     if (isset($_POST['submitImportacion'])) {
         if (isset($_FILES['archivo']) && ! empty($_FILES['archivo']["tmp_name"])) {
-            
+
             $file = fopen($_FILES['archivo']["tmp_name"], "r") or die("Error: No ha sido posible abrir el archivo.");
 
             mysqli_query($db_con, "DELETE FROM `libros_texto` WHERE `nivel` = '$curso'");
@@ -130,7 +130,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
         }
 
         if (! empty($curso) && ! empty($materia) && (! empty($isbn) || ! empty($ean)) && ! empty($titulo) && ! empty($editorial)) {
-            
+
             // Comprobamos si se trata de una edición o nuevo libro
             if (! empty($idlibro)) {
                 $result = mysqli_query($db_con, "UPDATE `libros_texto` SET `materia` = '$materia', `isbn` = '$isbn', `ean` = '$ean', `editorial` = '$editorial', `titulo` = '$titulo', `importe` = '$importe' WHERE `id` = $idlibro LIMIT 1");
@@ -141,7 +141,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
             else {
                 // Comprobamos si el ISBN o EAN existen.
                 $result_isbn_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE `isbn` = '$isbn' OR `ean` = '$ean' LIMIT 1");
-                
+
                 if (! mysqli_num_rows($result_isbn_ean)) {
                     $result = mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('$materia', '$isbn', '$ean', '$editorial', '$titulo', '$importe', '$curso', 0)");
 
@@ -161,7 +161,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
                     $msg_error_text = 'Este libro ya existe con el título <strong><em>'.$row['titulo'].'</em></strong> para el curso <strong>'.$row['nivel'].'</strong>.';
                 }
             }
-            
+
 
         }
         else {
@@ -172,7 +172,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
 
     // ELIMINAR LIBRO DE TEXTO
     if ((isset($_GET['accion']) && $_GET['accion'] == 'eliminar') && (isset($_GET['id']) && intval($_GET['id']))) {
-        
+
         $id = $_GET['id'];
 
         // Comprobamos si se trata de un libro del Programa de Gratuidad.
@@ -191,7 +191,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
                 exit();
             }
 
-            
+
         }
         else {
             $msg_error = true;
@@ -259,7 +259,7 @@ include('menu.php');
                 <br>
                 <?php endif; ?>
 
-                <?php 
+                <?php
                 $numlibros = 0;
                 foreach ($libros as $libro) {
                     if ($libro['nivel'] == $curso) {
@@ -315,7 +315,7 @@ include('menu.php');
                 <?php endif; ?>
 
             </div>
-        
+
         </div>
 
     </div>
@@ -357,7 +357,7 @@ include('menu.php');
                             <label for="ean">EAN (European Article Number) <span class="text-danger" id="ean-require">(*)</span></label>
                             <input class="form-control" type="text" name="ean" id="ean" placeholder="EAN de 13 dígitos" value="" maxlength="13">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="titulo">Título <span class="text-danger">(*)</span></label>
                             <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Título del libro" value="">
@@ -375,7 +375,7 @@ include('menu.php');
                                 <span class="input-group-addon">€</span>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -409,8 +409,8 @@ include('menu.php');
                         <br>
 
                         <div class="form-group">
-                            <label for="archivo">RegNoEdiInvCen.txt</label>
-                            <input type="file" id="archivo" name="archivo">
+                            <label for="archivo">RegAsiLibMat.txt</label>
+                            <input type="file" id="archivo" name="archivo" accept="text/plain">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -428,11 +428,11 @@ include('menu.php');
     <?php if (acl_permiso($_SESSION['cargo'], array(1, 4))): ?>
     <script>
     function isValidISBN(isbn) {
-        
+
         if(isbn.length != 10 && isbn.length != 13){
             return false;
         }
-        
+
         if (isbn.length == 10) {
 
             isbn = isbn.replace(/[^\dX]/gi, '');
@@ -458,7 +458,7 @@ include('menu.php');
                 }
                 else {
                     sum += (parseInt(chars[i]) * 1);
-                } 
+                }
             }
             var result = 10 - (sum % 10);
             return (result == last);
@@ -474,7 +474,7 @@ include('menu.php');
         for (counter = ean.length-1; counter >=0; counter--){
             result = result + parseInt(ean.charAt(counter)) * (1+(2*(counter % 2)));
         }
-        
+
         return ((10 - (result % 10)) % 10 == 0);
     }
 
@@ -525,7 +525,7 @@ include('menu.php');
                 var importe = button.data('importe');
                 var modal = $(this);
                 modal.find('.modal-title').text(titulo);
-                
+
                 modal.find('.modal-body #materia').val(materia);
                 modal.find('.modal-body #isbn').val(isbn);
                 modal.find('.modal-body #ean').val(ean);
