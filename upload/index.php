@@ -10,9 +10,9 @@ $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í'
 $caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 $result = mysqli_query($db_con, "SELECT grupo FROM profesores WHERE profesor ='".$_SESSION['profi']."'");
-$unidades = array(); 
+$unidades = array();
 while ($row = mysqli_fetch_array($result)) {
-	$unidades[] = $row['grupo']; 
+	$unidades[] = $row['grupo'];
 }
 mysqli_free_result($result);
 
@@ -380,11 +380,11 @@ function contents_dir($current_dir, $directory)
 	global $file_out_max_caracters,$normalfontcolor, $hidden_dirs, $showhidden;
 	global $comment_max_caracters,$datetimeformat, $logged_user_name;
 	global $user_status,$activationcode,$max_filesize_to_mail,$mail_functions_enabled, $timeoffset, $grants;
-	
+
 	$direction = 0;
-	
+
 	$num_row = 0;
-	
+
   // Read directory
   list($liste, $totalsize) = listing($current_dir);
 
@@ -392,9 +392,9 @@ function contents_dir($current_dir, $directory)
   {
     while (list($filename,$mime) = each($liste))
     {
-    	
+
     	$num_row++;
-    	
+
       if (is_dir("$current_dir/$filename"))
       {
 
@@ -419,16 +419,16 @@ function contents_dir($current_dir, $directory)
         }
         $filenameandpath .= $filename;
       }
-  
+
 		  $dir_protegidos = array('Biblioteca', 'Recursos educativos', 'Departamentos');
 		  $subdir_protegidos = array('Recursos educativos', 'Departamentos');
-		
+
 			echo "    <tr>\n";
-			
+
 		  echo "      <td>\n";
 		 	if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
-		  	echo "		  <span class=\"far " . get_mimetype_img("$current_dir/$filename") . " fa-fw fa-lg\"></span>";	  
-		  	
+		  	echo "		  <i class=\"" . get_mimetype_img("$current_dir/$filename") . " fa-fw\"></i>";
+
 			if(strlen($filename) > $file_out_max_caracters) {
 				echo htmlspecialchars(substr($filename, 0, $file_out_max_caracters-4).'...', ENT_QUOTES, 'UTF-8');
 			}
@@ -438,7 +438,7 @@ function contents_dir($current_dir, $directory)
 			if (is_dir("$current_dir/$filename")) echo "</a>";
 			echo "        $content\n";
 			echo "      </td>\n";
-			
+
 			echo "      <td nowrap>\n";
 			if ($grants[$user_status][DELALL] || ($upl_user == $logged_user_name && $grants[$user_status][DELOWN]))
 			{
@@ -456,15 +456,15 @@ function contents_dir($current_dir, $directory)
 						}
 			    }
 			}
-		
-		
+
+
 			if ($grants[$user_status][MODALL] || ($upl_user == $logged_user_name && $grants[$user_status][MODOWN]))
 			{
-				
+
 				if (! in_array($filename, $dir_protegidos) && ! in_array($directory, $subdir_protegidos)) {
 					// RENOMBRAR
 					echo "<a href=\"#\" data-toggle=\"modal\" data-target=\"#modal_$num_row\" rel=\"tooltip\" title=\"Renombrar\"><span class=\"far fa-edit fa-lg fa-fw\" alt=\"Renombrar\"></span></a>
-						
+
 						<div id=\"modal_$num_row\" class=\"modal fade\">
 						  <div class=\"modal-dialog\">
 						  	<form method=\"post\" action=\"\">
@@ -474,18 +474,18 @@ function contents_dir($current_dir, $directory)
 							        <h4 class=\"modal-title\">Renombrar</h4>
 							      </div>
 							      <div class=\"modal-body\">
-							        		
+
 					        		<input type=\"hidden\" name=\"action\" value=\"rename\">
 					        		<input type=\"hidden\" name=\"directory\" value=\"$directory\">
 					        		<input type=\"hidden\" name=\"filename\" value=\"$filename\">
 					        		<input type=\"hidden\" name=\"index\" value=\"$index\">
 					        		<input type=\"hidden\" name=\"direction\" value=\"$direction\">
-					        		
+
 						        	<div class=\"form-group\">
 						        		<label for=\"userfile\">Nuevo nombre</label>
 					        			<input type=\"text\" class=\"form-control\" id=\"userfile\" name=\"userfile\" value=\"$filename\" maxlenght=\"250\">
 					        		</div>
-							        	
+
 							      </div>
 							      <div class=\"modal-footer\">
 							        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancelar</button>
@@ -496,32 +496,32 @@ function contents_dir($current_dir, $directory)
 						  </div><!-- /.modal-dialog -->
 						</div><!-- /.modal -->";
 				}
-					
+
 				if (!is_dir("$current_dir/$filename") || $grants[$user_status][MODALL])
 				{
 			  }
 			}
-		
-		
+
+
 			if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename")) {
-				
-				
+
+
 				// DESCARGAR ARCHIVO
-				echo "<a href=\"index.php?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"far fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+				echo "<a href=\"index.php?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fas fa-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 			}
-				
+
 				if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
 					// COMPARTIR ARCHIVO
 					if (isset($directory)) {
-						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"far fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
+						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fas fa-download fa-lg fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
 					}
 					else {
-						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"far fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
+						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fas fa-download fa-lg fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
 					}
-					
-					echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"far fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+
+					echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fas fa-share-square fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 				}
-					
+
 				echo "</td>";
 				echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
 				echo "<span class=\"text-muted\">";
@@ -531,16 +531,16 @@ function contents_dir($current_dir, $directory)
 				echo "</span>";
 				echo "</td>";
 				echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
-				
+
 				// FECHA DE MODIFICACIÓN
 				$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
 				echo "<span class=\"text-muted\">".date($datetimeformat, $file_modif_time)."</span>";
-				
+
 				echo "</td>\n";
 				echo "</tr>\n";
 			}
-			
-			
+
+
   }
 }
 
@@ -554,7 +554,7 @@ function list_dir($directory)
 	$directory = clean_path($directory);
 	$current_dir = init($directory);
 	$filenameandpath = ($directory != '') ? "&directory=".$directory : '';
-	
+
 	echo "<div class=\"table-responsive\">";
 	echo "<table class=\"table table-striped table-hover\">";
 	echo "  <thead>\n";
@@ -565,9 +565,9 @@ function list_dir($directory)
 	echo "      <th class=\"hidden-xs hidden-sm\" nowrap>$mess[18]</th>\n";
 	echo "    </tr>\n";
 	echo "  </thead>\n";
-	
+
 	contents_dir($current_dir, $directory);
-	
+
 	echo "  <tfoot>\n";
 	echo "    <tr>\n";
 	echo "      <td colspan=\"4\"><p class=\"text-right text-muted\">$mess[43]: $totalsize</p></td>\n";
@@ -575,7 +575,7 @@ function list_dir($directory)
 	echo "	</tfooter>\n";
 	echo "</table>\n";
 	echo "</div>";
-	
+
 }
 
 //
@@ -626,7 +626,7 @@ function normalize_filename($name)
 
 	$name = substr($name, 0, $file_name_max_caracters);
 	$name = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $name);
-	
+
 	return $name;
 }
 
@@ -643,7 +643,7 @@ function show_contents() {
 		case 'publico' : $activo1 = 'class="active"'; $titulo='Documentos públicos'; break;
 		case 'privado' : $activo2 = 'class="active"'; $titulo='Documentos personales'; break;
 	}
-	
+
 	echo "<div class=\"container\">\n";
 	?>
 	<!-- Button trigger modal -->
@@ -660,20 +660,20 @@ function show_contents() {
 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 				</div>
 				<div class="modal-body">
-					<p>La página presenta dos tipos de documentos: los <strong><em>Documentos 
-					públicos del Centro</em></strong> y los <strong><em>Documentos privados de 
+					<p>La página presenta dos tipos de documentos: los <strong><em>Documentos
+					públicos del Centro</em></strong> y los <strong><em>Documentos privados de
 					cada Profesor</em></strong>.</p>
-					<p>Los <strong><em>Documentos Públicos</em></strong> se configuran en la 
-					instalación de la Intranet, y son visibles desde la página pública del Centro. Ofrecen un directorio donde el Equipo 
-					directivo y demás profesores colocan aquellos archivos que consideran relevantes para la Comunidad 
-					educativa (Programaciones, Plan del Centro, etc.). <br>					
-					Dependiendo de las opciones elegidas en la instalación, podemos encontrar tres categorías: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del 
+					<p>Los <strong><em>Documentos Públicos</em></strong> se configuran en la
+					instalación de la Intranet, y son visibles desde la página pública del Centro. Ofrecen un directorio donde el Equipo
+					directivo y demás profesores colocan aquellos archivos que consideran relevantes para la Comunidad
+					educativa (Programaciones, Plan del Centro, etc.). <br>
+					Dependiendo de las opciones elegidas en la instalación, podemos encontrar tres categorías: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del
 					cual encontraremos directorios de los distintos Departamentos del Centro y que pueden ser utilizados por los miembros de los mismos; y <strong><em>Recursos</em></strong>, con un directorio para cada grupo del Centro en el que los Equipos educativos pueden colocar materiales diversos para sus alumnos.</p>
-					<p>Los <strong><em>Documentos Personales</em></strong> son propios de cada 
-					Profesor y sólo son accesibles por él. Podemos subir archivos para luego usarlos en el Centro, o bien 
-					utilizar esos archivos para incrustarlos en un mensaje que luego se comparte 
-					dentro de la Intranet. Este módulo se puede también entender como un pequeño 
-					Explorador personal de nuestros archivos. No es visible desde la Página 
+					<p>Los <strong><em>Documentos Personales</em></strong> son propios de cada
+					Profesor y sólo son accesibles por él. Podemos subir archivos para luego usarlos en el Centro, o bien
+					utilizar esos archivos para incrustarlos en un mensaje que luego se comparte
+					dentro de la Intranet. Este módulo se puede también entender como un pequeño
+					Explorador personal de nuestros archivos. No es visible desde la Página
 					pública del Centro.</p>
 				</div>
 				<div class="modal-footer">
@@ -687,11 +687,11 @@ function show_contents() {
 	echo "    <li $activo1><a href=\"index.php?index=publico\">Documentos públicos</a></li>\n";
 	echo "    <li $activo2><a href=\"index.php?index=privado\">Documentos personales</a></li>\n";
 	echo "  </ul>\n";
-	
+
 	echo "   <div class=\"page-header\">\n";
   echo "      <h2>$titulo</h2>\n";
   echo "   </div>\n";
-    
+
 	// BREADCUMB
 	$directory = clean_path($directory);
 	if (!file_exists("$uploads_folder_name/$directory")) {
@@ -700,7 +700,7 @@ function show_contents() {
 	if ($directory != '') {
 	    $name = dirname($directory);
 	    if ($directory == $name || $name == '.') $name = '';
-	    
+
 			echo "<div class=\"text-uppercase\">\n";
 			echo "  <a href=\"index.php?index=$index&direction=$direction&order=$order&directory=$name\">\n";
 			echo "   <i class=\"far fa-chevron-up iconf-fixed-width\"></i>\n";
@@ -709,29 +709,29 @@ function show_contents() {
 			echo "</div>";
 			echo "<br>";
 	}
-	
+
 	if ($grants[$user_status][UPLOAD] || $grants[$user_status][MKDIR]) {
 		$col_sm = 'col-sm-8';
 	}
 	else {
 		$col_sm = 'col-sm-12';
 	}
-	
+
 	// COLUMNA IZQUIERDA
-	
+
 	echo "      <div class=\"row\">\n";
 	echo "        <div class=\"$col_sm\">\n";
-	
+
 	if ($grants[$user_status][VIEW]) {
 		list_dir($directory);
 	}
   echo "        </div>\n";
-	
+
 	// COLUMNA DERECHA
 	echo "        <div class=\"col-sm-4\">\n";
-	
+
 	if ($grants[$user_status][UPLOAD]) {
-		
+
 		echo "          <div class=\"well\">\n";
 		echo "            <form name=\"upload\" enctype=\"multipart/form-data\" method=\"POST\">\n";
 		echo "              <fieldset>\n";
@@ -749,7 +749,7 @@ function show_contents() {
 		echo "            </form>\n";
 		echo "          </div>\n";
 	}
-	
+
 	if ($grants[$user_status][MKDIR]) {
 		echo "          <div class=\"well\">\n";
 		echo "            <form name=\"newdir\" enctype=\"multipart/form-data\" method=\"POST\">\n";
@@ -767,11 +767,11 @@ function show_contents() {
 		echo "              </fieldset>\n";
 		echo "            </form>\n";
 		echo "          </div>\n";
-		
+
 	}
-	
+
 	echo "       </div>\n";
-	
+
 	echo "    </div>\n";
 	echo "</div>\n";
 }
@@ -797,42 +797,42 @@ function is_path_safe(&$path, &$filename) {
 if($index=='publico') {
 	// Biblioteca
 	if(isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) {
-	
+
 		if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
-		
+
 	}
 	else {
 		delete_dir($config['mod_documentos_dir'].'/Biblioteca');
 	}
-	
+
 	// Recursos educativos
 	if(isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) {
-	
+
 		if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
 		$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
 		while ($row = mysqli_fetch_array($result)) {
-		
+
 			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']))) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']), 0777);
-			
+
 			// Se puede eliminar esta linea en futuras actualizaciones...
 			if(file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) rename($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], $config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']));
 		}
 		mysqli_free_result($result);
-		
+
 	}
 	else {
 		delete_dir($config['mod_documentos_dir'].'/Recursos educativos');
 	}
-	
+
 	// Departamentos
 	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
-		
+
 		if(!file_exists($config['mod_documentos_dir'].'/Departamentos')) mkdir($config['mod_documentos_dir'].'/Departamentos', 0777);
 		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Auxiliar de Conversaci_n' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
 		while ($row = mysqli_fetch_array($result)) {
-		
+
 			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']))) mkdir($config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']), 0777);
-			
+
 			// Se puede eliminar esta linea en futuras actualizaciones...
 			if(file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) rename($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], $config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']));
 		}
@@ -841,7 +841,7 @@ if($index=='publico') {
 	else {
 		//delete_dir($config['mod_documentos_dir'].'/Departamentos');
 	}
- 
+
 }
 
 if($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
@@ -1073,13 +1073,13 @@ switch($action)
 
 	case 'upload';
 		$message = $mess[40];
-		
+
 		for ($i = 0; $i < count($userfile['name']); $i++) {
-				
+
 				$userfile_name = $userfile['name'][$i];
 				$userfile_size = $userfile['size'][$i];
 				$destination = $uploads_folder_name."/$directory";
-		
+
 				if (!$grants[$user_status][UPLOAD])
 				{
 					place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
@@ -1088,7 +1088,7 @@ switch($action)
 					include("../pie.php");
 					break;
 				}
-		
+
 				if (!is_path_safe($directory, $userfile_name))
 				{
 					place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
@@ -1097,12 +1097,12 @@ switch($action)
 					include("../pie.php");
 					break;
 				}
-		
+
 				if ($userfile_name == '')
 				{
 					$message = $mess[34];
 				}
-		
+
 				if ($userfile_size != 0)
 				{
 					$size_kb = $userfile_size/1024;
@@ -1112,7 +1112,7 @@ switch($action)
 					$message = $mess[34];
 					$size_kb = 0;
 				}
-		
+
 				if ($userfile_name != '' && $userfile_size !=0)
 				{
 					$userfile_name = normalize_filename($userfile_name);
@@ -1134,10 +1134,10 @@ switch($action)
 							$files_uploaded++;
 							save_userstat($logged_user_name, $files_uploaded, $files_downloaded, $files_emailed, time());
 						}
-		
+
 						// Save description
 						$ip = getenv('REMOTE_ADDR');
-		
+
 						if (!move_uploaded_file($userfile['tmp_name'][$i], "$destination/$userfile_name"))
 							$message="$mess[33] $userfile_name";
 						else
@@ -1145,9 +1145,9 @@ switch($action)
 						chmod("$destination/$userfile_name",0777);
 						}
 				}
-				
+
 		}
-				
+
 	  include("../menu.php");
 	  show_contents();
 	  include("../pie.php");
@@ -1267,18 +1267,18 @@ switch($action)
 					{
 						if (file_exists("$current_dir/$filename"))
 						{
-						
+
 							if(! is_dir("$current_dir/$filename")) {
 								$filetype = end(explode(".", $filename));
 								$userfile2 = str_replace('.'.$filetype, '', $userfile);
-								
+
 								rename("$current_dir/$filename", "$current_dir/$userfile2.$filetype");
 							}
 							else {
 								rename("$current_dir/$filename", "$current_dir/$userfile");
 							}
-							
-							
+
+
 						}
 					}
 
@@ -1297,11 +1297,10 @@ switch($action)
 		break;
 
 	default;
-	    
+
 	  include("../menu.php");
 	  show_contents();
 	  include("../pie.php");
 		break;
 }
 ?>
-

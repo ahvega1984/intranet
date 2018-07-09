@@ -172,106 +172,56 @@ $font = 'Verdana';
 //
 //
 $mimetypes = array (
-// text
-'.css'  => array('img' => 'fa-file-code',    'mime' => 'text/css'),
-'.djvu' => array('img' => 'fa-file',   'mime' => 'image/vnd.djvu'),
-'.epub' => array('img' => 'fa-file',   'mime' => 'application/epub+zip'),
-'.html' => array('img' => 'fa-file-code',   'mime' => 'text/html'),
-'.htm'  => array('img' => 'fa-file-code',   'mime' => 'text/html'),
-'.log'  => array('img' => 'fa-file-text',    'mime' => 'text/plain'),
-'.php'  => array('img' => 'fa-file-code',    'mime' => 'text/php'),
-'.rtf'  => array('img' => 'fa-file-text',    'mime' => 'application/rtf'),
-'.sql'  => array('img' => 'fa-file-code',    'mime' => 'application/x-sql'),
-'.txt'  => array('img' => 'fa-file-text',    'mime' => 'text/plain'),
-'.xml'  => array('img' => 'fa-file-code',    'mime' => 'application/xml'),
-
-// documents
-'.csv'  => array('img' => 'fa-file-word',    'mime' => 'text/csv'),
-'.doc'  => array('img' => 'fa-file-word',    'mime' => 'application/msword'),
-'.dot'  => array('img' => 'fa-file-word',    'mime' => 'application/msword'),
-'.docx' => array('img' => 'fa-file-word',   'mime' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),
-'.pdf'  => array('img' => 'fa-file-pdf',    'mime' => 'application/pdf'),
-'.ppt'  => array('img' => 'fa-file-powerpoint',    'mime' => 'application/vnd.ms-powerpoint'),
-'.pps'  => array('img' => 'fa-file-powerpoint',    'mime' => 'application/vnd.ms-powerpoint'),
-'.pot'  => array('img' => 'fa-file-powerpoint',    'mime' => 'application/vnd.ms-powerpoint'),
-'.pptx' => array('img' => 'fa-file-powerpoint',   'mime' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation'),
-'.ppsx' => array('img' => 'fa-file-powerpoint',   'mime' => 'application/vnd.openxmlformats-officedocument.presentationml.slideshow'),
-'.pub'  => array('img' => 'fa-file',    'mime' => 'application/x-mspublisher'),
-'.odt'  => array('img' => 'fa-file-word',    'mime' => 'application/vnd.oasis.opendocument.text'),
-'.ott'  => array('img' => 'fa-file-word',    'mime' => 'application/vnd.oasis.opendocument.text-template'),
-'.ods'  => array('img' => 'fa-file-excel',    'mime' => 'application/vnd.oasis.opendocument.spreadsheet'),
-'.ots'  => array('img' => 'fa-file-excel',    'mime' => 'application/vnd.oasis.opendocument.spreadsheet-template'),
-'.odp'  => array('img' => 'fa-file-powerpoint',    'mime' => 'application/vnd.oasis.opendocument.presentation'),
-'.otp'  => array('img' => 'fa-file-powerpoint',    'mime' => 'application/vnd.oasis.opendocument.presentation-template'),
-'.xls'  => array('img' => 'fa-file-excel',    'mime' => 'application/vnd.ms-excel'),
-'.xlsx' => array('img' => 'fa-file-excel',   'mime' => 'application/vnd.ms-excel'),
-
-// image
-
-'.bmp'  => array('img' => 'fa-file-image',    'mime' => 'image/bmp'),
-'.gif'  => array('img' => 'fa-file-image',    'mime' => 'image/gif'),
-'.ico'  => array('img' => 'fa-file-image',    'mime' => 'image/x-icon'),
-'.jpg'  => array('img' => 'fa-file-image',    'mime' => 'image/jpeg'),
-'.jpeg' => array('img' => 'fa-file-image',   'mime' => 'image/jpeg'),
-'.png'  => array('img' => 'fa-file-image',    'mime' => 'image/png'),
-'.skp'  => array('img' => 'fa-file-image',    'mime' => 'application/vnd.koan'),
-'.tiff' => array('img' => 'fa-file-image',   'mime' => 'image/tiff'),
-'.tif'  => array('img' => 'fa-file-image',   'mime' => 'image/tiff'),
-
-// compression
-'.gz'   => array('img' => 'fa-file-archive',     'mime' => 'application/x-compressed'),
-'.rar'  => array('img' => 'fa-file-archive',    'mime' => 'application/x-rar-compressed'),
-'.tar'  => array('img' => 'fa-file-archive',    'mime' => 'application/x-tar'),
-'.tgz'  => array('img' => 'fa-file-archive',    'mime' => 'application/x-compressed'),
-'.zip'  => array('img' => 'fa-file-archive',    'mime' => 'application/zip'),
-
-// compression images
-'.dmg'  => array('img' => 'fa-file',    'mime' => 'application/x-apple-diskimage'),
-'.iso'  => array('img' => 'fa-file',    'mime' => 'application/x-iso9660-image'),
-
-// executable
-'.deb'  => array('img' => 'fa-file',    'mime' => 'application/x-debian-package'),
-'.exe'  => array('img' => 'fa-file',    'mime' => 'application/x-msdownload'),
-'.msi'  => array('img' => 'fa-file',    'mime' => 'application/x-msdownload'),
-'.xpi'  => array('img' => 'fa-file',    'mime' => 'application/x-xpinstall'),
-
-
-// audio
-'.mid'  => array('img' => 'fa-file-audio',   'mime' => 'audio/mid'),
-'.midi' => array('img' => 'fa-file-audio',   'mime' => 'audio/mid'),
-'.m4a'  => array('img' => 'fa-file-audio',    'mime' => 'audio/mp4'),
-'.mp3'  => array('img' => 'fa-file-audio',    'mime' => 'audio/mpeg'),
-'.ogg'  => array('img' => 'fa-file-audio',    'mime' => 'audio/ogg'),
-'.wav'  => array('img' => 'fa-file-audio',    'mime' => 'audio/x-wav'),
-
-// video
-'.3g2'  => array('img' => 'fa-file-video',    'mime' => 'video/3gpp2'),
-'.3gp'  => array('img' => 'fa-file-video',    'mime' => 'video/3gpp'),
-'.asf'  => array('img' => 'fa-file-video',    'mime' => 'video/x-ms-asf'),
-'.avi'  => array('img' => 'fa-file-video',    'mime' => 'video/x-msvideo'),
-'.flv'  => array('img' => 'fa-file-video',    'mime' => 'video/x-flv'),
-'.m4v'  => array('img' => 'fa-file-video',    'mime' => 'video/x-m4v'),
-'.mkv'  => array('img' => 'fa-file-video',    'mime' => 'video/x-matroska'),
-'.mp4'  => array('img' => 'fa-file-video',    'mime' => 'video/mp4'),
-'.mpg'  => array('img' => 'fa-file-video',   'mime' => 'video/mpeg'),
-'.mpeg' => array('img' => 'fa-file-video',   'mime' => 'video/mpeg'),
-'.mov'  => array('img' => 'fa-file-video',     'mime' => 'video/quicktime'),
-'.ogv'  => array('img' => 'fa-file-video',    'mime' => 'video/ogg'),
-'.qt'   => array('img' => 'fa-file-video'  ,   'mime' => 'video/quicktime'),
-'.wmv'  => array('img' => 'fa-file-video',    'mime' => 'video/x-ms-wmv'),
-
-// tipography
-'.ttf'  => array('img' => 'fa-file-text',    'mime' => 'application/x-font-ttf'),
-
-// postscript
-'.ai'   => array('img' => 'fa-file-image',     'mime' => 'application/postscript'),
-'.psd'  => array('img' => 'fa-file-image',    'mime' => 'image/vnd.adobe.photoshop'),
-'.eps'  => array('img' => 'fa-file-image',    'mime' => 'application/postscript'),
-'.ps'   => array('img' => 'fa-file-image',    'mime' => 'application/postscript'),
-
-// directoy and default
-'directory' => array('img' => 'fa-folder', 'mime' => ''),
-'default' =>   array('img' => 'fa-file',  'mime' => 'application/octet-stream')
+'.txt'  => array('img' => 'far fa-lg fa-edit',    'mime' => 'text/plain'),
+'.html' => array('img' => 'far fa-lg fa-globe',   'mime' => 'text/html'),
+'.htm'  => array('img' => 'far fa-lg fa-globe',   'mime' => 'text/html'),
+'.mdb'  => array('img' => 'far fa-lg fa-database',    'mime' => 'application/vnd.ms-access'),
+'.doc'  => array('img' => 'far fa-lg fa-file-word',    'mime' => 'application/msword'),
+'.docx' => array('img' => 'far fa-lg fa-file-word',    'mime' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),
+'.dotx' => array('img' => 'far fa-lg fa-file-word',    'mime' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.template'),
+'.docm' => array('img' => 'far fa-lg fa-file-word',    'mime' => ' application/vnd.ms-word.document.macroEnabled.12'),
+'.dotm' => array('img' => 'far fa-lg fa-file-word',    'mime' => ' application/vnd.ms-word.template.macroEnabled.12'),
+'.odf'  => array('img' => 'far fa-lg fa-file-word',    'mime' => 'application/msword'),
+'.odt'  => array('img' => 'far fa-lg fa-file-word',    'mime' => 'application/msword'),
+'.ppt'  => array('img' => 'far fa-lg fa-file-powerpoint',    'mime' => 'application/msword'),
+'.pptx' => array('img' => 'far fa-lg fa-file-powerpoint',    'mime' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation'),
+'.ppsx' => array('img' => 'far fa-lg fa-file-powerpoint',    'mime' => 'application/vnd.openxmlformats-officedocument.presentationml.slideshow'),
+'.pptm' => array('img' => 'far fa-lg fa-file-powerpoint',    'mime' => 'application/vnd.ms-powerpoint.presentation.macroEnabled.12'),
+'.pdf'  => array('img' => 'far fa-lg fa-file-pdf',    'mime' => 'application/pdf'),
+'.xls'  => array('img' => 'far fa-lg fa-file-excel',    'mime' => 'application/msexcel'),
+'.xlsx'  => array('img' => 'far fa-lg fa-file-excel',    'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+'.xltx'  => array('img' => 'far fa-lg fa-file-excel',    'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.template'),
+'.xlsm'  => array('img' => 'far fa-lg fa-file-excel',    'mime' => 'application/vnd.ms-excel.sheet.macroEnabled.12'),
+'.xltm'  => array('img' => 'far fa-lg fa-file-excel',    'mime' => 'application/vnd.ms-excel.template.macroEnabled.12'),
+'.gif'  => array('img' => 'far fa-lg fa-file-image',    'mime' => 'image/gif'),
+'.jpg'  => array('img' => 'far fa-lg fa-file-image',    'mime' => 'image/jpeg'),
+'.jpeg' => array('img' => 'far fa-lg fa-file-image',    'mime' => 'image/jpeg'),
+'.bmp'  => array('img' => 'far fa-lg fa-file-image',    'mime' => 'image/bmp'),
+'.png'  => array('img' => 'far fa-lg fa-file-image',    'mime' => 'image/png'),
+'.zip'  => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/zip'),
+'.rar'  => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/x-rar-compressed'),
+'.gz'   => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/x-compressed'),
+'.tgz'  => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/x-compressed'),
+'.z'    => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/x-compress'),
+'.exe'  => array('img' => 'far fa-lg fa-gear',			'mime' => 'application/x-msdownload'),
+'.mid'  => array('img' => 'far fa-lg fa-file-sound',    'mime' => 'audio/mid'),
+'.midi' => array('img' => 'far fa-lg fa-file-sound',    'mime' => 'audio/mid'),
+'.wav'  => array('img' => 'far fa-lg fa-file-sound',    'mime' => 'audio/x-wav'),
+'.mp3'  => array('img' => 'far fa-lg fa-file-sound',    'mime' => 'audio/x-mpeg'),
+'.avi'  => array('img' => 'far fa-lg fa-file-movie',    'mime' => 'video/x-msvideo'),
+'.mpg'  => array('img' => 'far fa-lg fa-file-movie',    'mime' => 'video/mpeg'),
+'.mpeg' => array('img' => 'far fa-lg fa-file-movie',    'mime' => 'video/mpeg'),
+'.mov'  => array('img' => 'far fa-lg fa-file-movie',    'mime' => 'video/quicktime'),
+'.swf'  => array('img' => 'far fa-lg fa-file-flash',  'mime' => 'application/x-shockwave-flash'),
+'.gtar' => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/x-gtar'),
+'.tar'  => array('img' => 'far fa-lg fa-file-zip',    'mime' => 'application/x-tar'),
+'.tiff' => array('img' => 'far fa-lg fa-file-image', 'mime' => 'image/tiff'),
+'.tif'  => array('img' => 'far fa-lg fa-file-image', 'mime' => 'image/tiff'),
+'.rtf'  => array('img' => 'far fa-lg fa-edit',    'mime' => 'application/rtf'),
+'.ps'   => array('img' => 'far fa-lg fa-file-pdf', 'mime' => 'application/postscript'),
+'.qt'   => array('img' => 'far fa-lg fa-file-movie'  ,  'mime' => 'video/quicktime'),
+'directory' => array('img' => 'far fa-lg fa-folder-open', 'mime' => ''),
+'default' =>   array('img' => 'far fa-lg fa-file',  'mime' => 'application/octet-stream')
 );
 
 //

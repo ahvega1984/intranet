@@ -41,7 +41,7 @@ function clean_path($path)
 //
 function is_viewable($filename)
 {
-	if(preg_match('\.txt$|\.sql$|\.php$|\.php3$|\.phtml$|\.htm$|\.html$|\.cgi$|\.pl$|\.js$|\.css$|\.inc$', $filename))
+	if(preg_match('/\.txt$|\.sql$|\.php$|\.php3$|\.phtml$|\.htm$|\.html$|\.cgi$|\.pl$|\.js$|\.css$|\.inc$/i', $filename))
 		return TRUE;
 
 	return FALSE;
@@ -51,7 +51,7 @@ function is_viewable($filename)
 //
 function is_image($filename)
 {
-	if (preg_match("\.png$|\.bmp$|\.jpg$|\.jpeg$|\.gif$", $filename))
+	if (preg_match("/\.png$|\.bmp$|\.jpg$|\.jpeg$|\.gif$/i", $filename))
 		return TRUE;
 
 	return FALSE;
@@ -62,7 +62,7 @@ function is_image($filename)
 //
 function is_browsable($filename)
 {
-	if(preg_match("\.zip$", $filename))
+	if(preg_match("/\.zip$/i", $filename))
 		return TRUE;
 
 	return FALSE;
@@ -99,7 +99,7 @@ function get_mimetype_img($filename)
 		reset($mimetypes);
 		while (list($key, $value) = each($mimetypes))
 		{
-			if (preg_match($key.'$', $filename))
+			if (preg_match('/'.$key.'$/i', $filename))
 			{
 				return $value['img'];
 			}
@@ -119,7 +119,7 @@ function mime_type($filename)
 	reset($mimetypes);
 	while (list($key, $value) = each($mimetypes))
 	{
-		if (preg_match($key.'$', $filename))
+		if (preg_match('/'.$key.'$/i', $filename))
 		{
 			return $value['mime'];
 		}
@@ -136,13 +136,13 @@ function get_filesize($filename)
 	$size = filesize($filename);
 
 	if ($size >= 1073741824)
-		$size = intval(round($size / 1073741824 * 100) / 100) . ' GB';
+		$size = round($size / 1073741824 * 100) / 100 . ' Gb';
 	elseif ($size >= 1048576)
-		$size = intval(round($size / 1048576 * 100) / 100) . ' MB';
+		$size = round($size / 1048576 * 100) / 100 . ' Mb';
 	elseif ($size >= 1024)
-		$size = intval(round($size / 1024 * 100) / 100) . ' KB';
+		$size = round($size / 1024 * 100) / 100 . ' Kb';
 	elseif ($size > 0)
-		$size = intval($size) . ' B';
+		$size = $size . ' b';
 	else
 		$size = '-';
 
@@ -212,19 +212,18 @@ function page_header($title)
   global $charsetencoding,$skins,$skinindex,$headerpage;
 
   $bodytag = $skins[$skinindex]["bodytag"];
-  echo "<html><head><title>$title</title>";
-  echo "<link rel=\"stylesheet\" href=\"../css/bootstrap.css\" type=\"text/css\">";
   if ($charsetencoding != "")
-    echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
-  echo "<style type=\"text/css\"></style></head><body>";
+    echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$charsetencoding\">";
+  echo "</head><body $bodytag>";
   if (file_exists($headerpage))
-    include($headerpage);        
+    include($headerpage);
 }
 
 //
 //
 function place_message($title, $message, $link)
 {
+	global $phpExt;
 	global $mess, $font, $normalfontcolor, $selectedfontcolor, $homeurl;
 	global $uploadcentercaption, $logged_user_name, $user_status, $page_title;
 	global $tablecolor, $bordercolor, $headercolor, $headerfontcolor;
@@ -245,7 +244,7 @@ function place_message($title, $message, $link)
 	        <table border=\"0\" width=\"100%\">
 	          <tr>
 	            <th align=\"left\" bgcolor=\"$headercolor\" valign=\"middle\" width=\"50%\">
-	              <h2><font color=\"$headerfontcolor\" size=\"5\"><b>$uploadcentercaption</b></font></h1>
+	              <h1><font color=\"$headerfontcolor\" size=\"5\"><b>$uploadcentercaption</b></font></h1>
 	            </th>
 	            <td align=\"right\" bgcolor=\"$headercolor\" valign=\"middle\" width=\"50%\" nowrap>
 	              <p><font face=\"$font\" size=\"1\" color=\"$headerfontcolor\">
@@ -278,12 +277,12 @@ function place_message($title, $message, $link)
 	              <a href=\"$link?".SID."\"><img src=\"images/refresh.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[97]\" border=\"0\" /></a>&nbsp;";
 	if ($user_status == ADMIN)
 	{
-		echo "    <a href=\"configure.php?".SID."\"><img src=\"images/config.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[132]\" border=\"0\" /></a>&nbsp;
-				  <a href=\"usrmanag.php?".SID."\"><img src=\"images/users.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[137]\" border=\"0\" /></a>&nbsp;";
+		echo "    <a href=\"configure.".$phpExt."?".SID."\"><img src=\"images/config.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[132]\" border=\"0\" /></a>&nbsp;
+				  <a href=\"usrmanag.".$phpExt."?".SID."\"><img src=\"images/users.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[137]\" border=\"0\" /></a>&nbsp;";
 	}
 	if ($user_status != ANONYMOUS)
 	{
-		echo "    <a href=\"login.php?".SID."\"><img src=\"images/user.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[81]\" border=\"0\" /></a>&nbsp;";
+		echo "    <a href=\"login.".$phpExt."?".SID."\"><img src=\"images/user.gif\"  align=\"ABSMIDDLE\" alt=\"$mess[81]\" border=\"0\" /></a>&nbsp;";
 	}
 	echo "       </td>
 	             <td align=\"right\" valign=\"middle\" width=\"10%\">";
@@ -377,7 +376,7 @@ function save_user_profile($username)
   fwrite($fp, "\n");
   fwrite($fp, $user_account_creation_time);  // 8 line: The time when user account created
   fwrite($fp, "\n");
-  fwrite($fp, $language);  // 
+  fwrite($fp, $language);  //
   fwrite($fp, "\n");
   fclose($fp);
 }
@@ -445,7 +444,7 @@ function userslist($order = "name")
   $handle=opendir($users_folder_name);
   while (false !== ($filename = readdir($handle)))
   {
-    if (substr($filename,0,1) != '.' && !preg_match('^index\.', $filename))
+    if (substr($filename,0,1) != '.' && !eregi('^index\.', $filename))
     {
       if (!is_dir("$users_folder_name/$filename"))
       {
@@ -611,7 +610,7 @@ class MIME_MAIL {
 
   function send($to)
   {
-  	global $use_smtp;
+  	global $use_smtp, $phpExt;
 
   	if (!$use_smtp)
 	{
@@ -621,7 +620,7 @@ class MIME_MAIL {
 	{
 		if (!defined('SMTP_INCLUDED'))
 		{
-			include('include/smtp.php');
+			include('include/smtp.'.$phpExt);
 		}
 		$result = smtpmail($to, $this->subject, ' ', $this->_build());
 	}
@@ -654,8 +653,7 @@ function add_file($filename)
 //
 function split_dir($directory)
 {
-	global $index;
-	global $uploads_folder_name, $direction, $order;
+	global $uploads_folder_name, $direction, $order, $phpExt;
 
 	$directory = clean_path($directory);
 	if (!file_exists("$uploads_folder_name/$directory"))
@@ -706,7 +704,7 @@ function available_languages($folder)
 	$handle = opendir($folder);
 	while (false !== ($filename = readdir($handle)))
 	{
-		if (preg_match('\.lang$', $filename))
+		if (preg_match('/\.lang$/i', $filename))
 		{
 			$fp = @fopen("$folder/$filename", "r");
 	  		if ($fp)
