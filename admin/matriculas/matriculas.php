@@ -158,7 +158,7 @@ if(isset($_POST['enviar'])){
 		${$key} = $val;
 	}
 	$cargo = "1";
-	
+
 	$nacimiento = str_replace("/","-",$nacimiento);
 	$fecha0 = explode("-",$nacimiento);
 	$fecha_nacimiento = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
@@ -193,7 +193,7 @@ if(isset($_POST['enviar'])){
 		$num+=1;
 	}
 	}
-	
+
 	if (substr($curso,0,1)<'4') {
 		if (empty($act1)) {
 		$vacios.= "Refuerzo o Ampliación de $curso, ";
@@ -218,7 +218,7 @@ if(isset($_POST['enviar'])){
 			}
 		}
 	}
-	
+
 	if (($itinerario == '1' or $itinerario == '3') and empty($optativas4)) {
 		$vacios.= "optativas4, ";
 		$num+=1;
@@ -235,7 +235,7 @@ if(isset($_POST['enviar'])){
 		$vacios.= "sexo, ";
 		$num+=1;
 	}
-	
+
 	// Control de errores
 	if($num > 0){
 		$adv = substr($vacios,0,-2);
@@ -257,7 +257,7 @@ if(isset($_POST['enviar'])){
 		if (substr($curso,0,1)==4){
 			if ($optativa1==$optativa2) {
 				$opt_rep4 = 1;
-			}			
+			}
 		}
 		else{
 			for ($i = 1; $i < 8; $i++) {
@@ -352,20 +352,19 @@ $n_curso="";
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Intranet del <?php echo $config['centro_denominacion']; ?>">
-<meta name="author"
-	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
+	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+	<meta name="robots" content="noindex, nofollow">
 
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/otros.css" rel="stylesheet">
+	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
-<link href="../../js/datetimepicker/bootstrap-datetimepicker.css"
-	rel="stylesheet">
-<link href="../../css/font-awesome.min.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/animate.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css" rel="stylesheet">
 </head>
 
 <body style="padding-top: 10px;">
@@ -529,13 +528,13 @@ exit();
 			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[20],-1); $claveal= $al_alma[19]; $nacido = $al_alma[22];
 			if (substr($curso,0,1) == substr($n_curso_ya,0,1)) {
 				echo '
-<script> 
+<script>
  if(confirm("ATENCIÓN:\n ';
 				echo 'Has elegido matricularte en el mismo Curso( ';
 				echo strtoupper($n_curso_ya);
 				echo ') que ya has estudiado este año. \nEsta situación solo puede significar que estás absolutamente seguro de que vas a repetir el mismo Curso. Si te has equivocado al elegir Curso para el próximo año escolar, vuelve atrás y selecciona el curso correcto. De lo contrario, puedes continuar.")){}else{history.back()};
  </script>
- 
+
 ';
 				$repetidor = '1';
 			}
@@ -720,7 +719,7 @@ exit();
 				class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
 			<label for="colegio">Centro de procedencia</label> <select
 				class="form-control" id="colegio" name="colegio">
-				<?php if($curso == "1ESO"): 
+				<?php if($curso == "1ESO"):
 				$cole_1=mysqli_query($db_con,"select distinct colegio from alma_primaria order by colegio");
 				?>
 				<option value="<?php echo (isset($colegio)) ? $colegio : ''; ?>"><?php echo (isset($colegio)) ? $colegio : ''; ?></option>
@@ -905,7 +904,7 @@ exit();
 
 			<td colspan="2">
 			<div class="form-horizontal"><?php $num1 = ''; ?>
-			<?php 
+			<?php
 			for ($i = 1; $i < 3; $i++) {
 				if (substr($curso, 0, 1) == $i) {
 				$num_optativas = count(${opt.$i})+1;
@@ -939,13 +938,13 @@ exit();
 			<?php $n_a = count(${a.$i})+1; ?> <?php $num1 += 1; ?> <?php if (${act.$num1} == 0) ${act.$num1} = ''; ?>
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" name="act1" required
-				value="<?php echo $num1; ?>" 
+				value="<?php echo $num1; ?>"
 				<?php echo ($act1 == $num1) ? 'checked' : ''; ?>> <?php echo $act_1; ?>
 			</label></div>
 			</div>
 			<?php endforeach; ?> <?php endif; ?> <?php endfor; ?>
 			</td>
-		
+
 
 		</tr>
 
@@ -957,17 +956,17 @@ exit();
 		<tr>
 			<td valign=top colspan="4">
 			<div class="radio">
-	<?	
+	<?
 			echo "<label class='radio-inline'><input type='radio' name = 'matematicas3' value='A' ";
 			if ($matematicas3=="A") { echo "checked";}
 			echo " required/>Matemáticas Académicas</label><label class='radio-inline'><input type='radio' name = 'matematicas3' value='B' ";
 			if ($matematicas3=="B") { echo "checked";}
-			echo " required/>Matemáticas Aplicadas</label>";				
+			echo " required/>Matemáticas Aplicadas</label>";
 		?>
 		</div>
 	</td>
 		</tr>
-		
+
 		<tr>
 
 	<th class="active text-uppercase" colspan="2">
@@ -984,7 +983,7 @@ exit();
 			</th>
 
 		</tr>
-		<tr>	
+		<tr>
 			<td colspan="1" style="border-right: 0;">
 			<div class="form-horizontal"><?php $num1 = ""; ?> <?php for ($i = 1; $i < 8; $i++): ?>
 			<?php if (substr($curso, 0, 1) == $i): ?> <?php foreach (${opt.$i} as $opt_1): ?>
@@ -1036,7 +1035,7 @@ exit();
 					<tr>
 						<td class="info text-center text-uppercase" style="width:66%">
 							<strong>Opción de Enseñanzas Académicas para la Iniciación al Bachillerato</strong>
-						</td>	
+						</td>
 						<td class="warning text-center text-uppercase" style="width:33%">
 							<strong>Opción de Enseñanzas Aplicadas para la Iniciación a la Formación Profesional</strong>
 						</td>
@@ -1060,7 +1059,7 @@ exit();
 							<div class="radio">
 							<label> <input type="radio"
 				id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'> 
+							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'>
 							<strong>Ingenieria y Arquitectura</strong>
 							</label>
 							</div>
@@ -1068,7 +1067,7 @@ exit();
 							<div class="radio">
 							<label> <input type="radio"
 				id="ciencias4" name="ciencias4"
-							<?php if($ciencias4 == 2){echo " checked";} ?> value="2" onClick='document.getElementById("optativa2").disabled=false;'> 
+							<?php if($ciencias4 == 2){echo " checked";} ?> value="2" onClick='document.getElementById("optativa2").disabled=false;'>
 							<strong>Ciencias de la Salud y de la Tierra</strong>
 							</label>
 							</div>
@@ -1088,14 +1087,14 @@ exit();
 			<!-- Optativas de It. 1 --> <?php if($i == 1): ?>
 			<p class="form-control-static"><?php echo ${it4.$i}[3]; ?></p>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio" id="r1" 
+			<div class="radio"><label> <input type="radio" id="r1"
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Biología y Geología"
 				<?php echo ($optativas4 == 'Biología y Geología') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>
 			</div>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio" id="r1" 
+			<div class="radio"><label> <input type="radio" id="r1"
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Economía"
 				<?php echo ($optativas4 == 'Economía') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[5]; ?>
@@ -1104,7 +1103,7 @@ exit();
 
 			<!-- Optativas de It. 3 --> <?php elseif($i == 3): ?>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio" id="r2" 
+			<div class="radio"><label> <input type="radio" id="r2"
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Ciencias Aplicadas"
 				<?php echo ($optativas4 == 'Ciencias Aplicadas') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[3]; ?>
@@ -1131,7 +1130,7 @@ exit();
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4º de ESO
 			<p class="help-block">
-			<small>(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.).<br> 
+			<small>(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.).<br>
 				<span class="text-warning">
 					Todos los alumnos cursan 2 optativas, excepto la Opción de <mark><em>Ingeniería y Arquitectura</em></mark> del Itinerario de Ciencias que cursa 1 sola pues todos cursan TIC.
 				</span></small></p></th>
@@ -1153,7 +1152,7 @@ exit();
 				<?php endforeach; ?>
 			</select>
 
-			
+
 			</div>
 
 			<?php $num2 = ""; ?>
@@ -1165,15 +1164,15 @@ exit();
 				<option value=""></option>
 				<?php foreach ($opt4 as $key2=>$val2): ?>
 				<?php $num2++; ?>
-				<?php if (stristr($val2, "idioma")==FALSE): ?>				
+				<?php if (stristr($val2, "idioma")==FALSE): ?>
 				<option value="<?php echo $num2;?>"<?php echo ($optativa2 == $num2) ? 'selected':'';?>><?php echo $val2; ?></option>
 				<?php endif; ?>
 				<?php endforeach; ?>
 			</select>
 
-			
+
 			</div>
-			
+
 			</div>
 			</td>
 		</tr>
@@ -1198,12 +1197,12 @@ exit();
 		<tr>
 			<td valign=top colspan="4">
 			<div class="radio">
-	<?	
+	<?
 			echo "<label class='radio-inline'><input type='radio' name = 'matematicas3' value='A' ";
 			if ($matematicas3=="A") { echo "checked";}
 			echo " required/>Matemáticas Académicas</label><label class='radio-inline'><input type='radio' name = 'matematicas3' value='B' ";
 			if ($matematicas3=="B") { echo "checked";}
-			echo " required/>Matemáticas Aplicadas</label>";				
+			echo " required/>Matemáticas Aplicadas</label>";
 		?>
 		</div>
 	</td>
@@ -1212,9 +1211,9 @@ exit();
 
 			<td colspan="1">
 			<div class="form-horizontal <?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '' ; ?>">
-				<?php $num1 = "";?> 
+				<?php $num1 = "";?>
 			<?php for($i = 1; $i < 8; $i++): ?>
-			<?php if (substr($curso, 0, 1)-1 == $i): ?> 
+			<?php if (substr($curso, 0, 1)-1 == $i): ?>
 			<?php foreach (${opt.$i} as $opt_1): ?>
 
 			<?php $num1 += 1; ?>
@@ -1232,7 +1231,7 @@ exit();
 				class="col-sm-8 control-label">
 			<div class="text-left"><?php echo $opt_1; ?></div>
 			</label></div>
-			<?php 
+			<?php
 			if ($opt_rep2 == 1) {
 				$extr_error = 'has-error';
 			}
@@ -1243,7 +1242,7 @@ exit();
 			</td>
 
 
-			<td colspan="2"><?php $num1 = ''; ?> 
+			<td colspan="2"><?php $num1 = ''; ?>
 			<?php if (substr($curso, 0, 1) == 4): ?> <?php foreach ($a3 as $act_1): ?>
 			<?php $n_a = count($a3)+1; ?> <?php $num1 += 1; ?> <?php if (${act.$num1} == 0) ${act.$num1} = ''; ?>
 			<div class="form-group">
@@ -1252,7 +1251,7 @@ exit();
 				<?php echo ($act1 == $num1) ? 'checked' : ''; ?>> <?php echo $act_1; ?>
 			</label></div>
 			</div>
-			<?php endforeach; ?> <?php endif; ?> 
+			<?php endforeach; ?> <?php endif; ?>
 			</td>
 
 
@@ -1318,7 +1317,7 @@ exit();
 		<?php if($bilinguismo == 'Si'): ?>
 		<input type="hidden" name="bilinguismo" value="Si">
 		<?php endif; ?>
-	
+
 		<!-- EXENCIÓN DE ASIGNATURA OPTATIVA -->
 		<?php if(substr($curso, 0, 1) < 3): ?>
 		<tr>
@@ -1359,36 +1358,36 @@ exit();
 			Señalar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida académica del alumno.</small></p>
 		<div
 				class="form-group col-sm-5">
-			<label for="enfermedad">Enfermedades del Alumno</label>					 
+			<label for="enfermedad">Enfermedades del Alumno</label>
 			<select
 				class="form-control" id="enfermedad" name="enfermedad">
-			<option value=""></option>	
+			<option value=""></option>
 				<?php for ($i = 0; $i < count($enfermedades); $i++): ?>
 				<option value="<?php echo $enfermedades[$i]['id']; ?>"
 				<?php echo (isset($enfermedad) && $enfermedad == $enfermedades[$i]['id']) ? 'selected' : ''; ?>><?php echo $enfermedades[$i]['nombre']; ?></option>
 				<?php endfor; ?>
 				<option value="Otra enfermedad"<?php echo (isset($enfermedad) && $enfermedad == "Otra enfermedad") ? 'selected' : ''; ?>>Otra enfermedad</option>
 			</select></div>
-			
+
 			<div id="form-otraenfermedad"
 				class="form-group <?php echo (isset($otraenfermedad) && !empty($otraenfermedad)) ? '' : 'hidden'; ?> col-sm-7">
 			<label for="otraenfermedad">Otras enfermedades</label>
 			<input type="text"
 				class="form-control" id="otraenfermedad" name="otraenfermedad"
 				value="<?php echo (isset($otraenfermedad)) ? $otraenfermedad : ''; ?>"
-				maxlength="60" placeholder="Escribe aquí el nombre de la enfermedad"> 
+				maxlength="60" placeholder="Escribe aquí el nombre de la enfermedad">
 				</div>
 			</td>
-			
+
 			<td colspan="2" style="border-top: 0;">
 			<p class="help-block"><small>
 			Señalar si el alumno procede de padres divorciados y cual es la situación legal de la Guardia y Custodia respecto al mismo.</small></p>
 		<div
 				class="form-group col-sm-10">
-			<label for="divorcio">Alumno con padres divorciados</label>					 
+			<label for="divorcio">Alumno con padres divorciados</label>
 			<select
 				class="form-control" id="divorcio" name="divorcio">
-			<option value=""></option>	
+			<option value=""></option>
 				<?php for ($i = 0; $i < count($divorciados); $i++): ?>
 				<option value="<?php echo $divorciados[$i]['id']; ?>"
 				<?php echo (isset($divorcio) && $divorcio == $divorciados[$i]['id']) ? 'selected' : ''; ?>><?php echo $divorciados[$i]['nombre']; ?></option>
@@ -1396,7 +1395,7 @@ exit();
 			</select>
 			</div>
 			</td>
-			
+
 		</tr>
 		<!-- FOTO -->
 		<tr>
@@ -1407,14 +1406,14 @@ exit();
 			<td colspan="4" style="border-top: 0;">
 		<div
 				class="checkbox">
-			<label for="foto"> 
+			<label for="foto">
 			<?php if ($foto==1 or $foto=="") { $extra_foto = "checked";	} else {$extra_foto="";} ?>
 			<input	type="checkbox" name = "foto"  id="foto" value = "1" <?php echo $extra_foto;?>>
 			 Foto del Alumno </label>
 			</div>
 			</td>
 		</tr>
-		
+
 		<!-- OBSERVACIONES -->
 		<tr>
 			<th class="active text-center" colspan="4"><span class="text-uppercase">Observaciones:</span><p class="help-block"><small>
@@ -1441,7 +1440,7 @@ exit();
 	type="hidden" name="repite"
 	value="<?php echo (isset($repetidor)) ? $repetidor : ''; ?>">
 
-<?php 
+<?php
 if (strstr($_SESSION['cargo'],"1")==TRUE) {
 ?>
 <button type="submit" class="btn btn-primary" name="enviar">Guardar
@@ -1465,16 +1464,16 @@ que solicita la matriculación en este centro.</div>
 <?php endif; ?> <?php } ?>
 
 </div>
-<!-- /.container --> <?php include("../../pie.php"); ?> 
+<!-- /.container --> <?php include("../../pie.php"); ?>
 <script>
-	$(function ()  
-	{ 
+	$(function ()
+	{
 		$('#nacimiento').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})
-	});  
-	
+	});
+
 		$(document).ready(function() {
 			// Selector de Enfermedad
 			$('#enfermedad').change(function() {
@@ -1493,49 +1492,49 @@ que solicita la matriculación en este centro.</div>
 				else {
 					$('#form-otrocolegio').addClass('hidden');
 				}
-			});	
-		
+			});
+
 		// Selector de itinerarios
-		$('#itinerario1').click(function() { 
-			if($('#itinerario1').is(':checked')) {  
+		$('#itinerario1').click(function() {
+			if($('#itinerario1').is(':checked')) {
 				$('.itinerario1').prop('disabled', false);
-				
+
 				$('.itinerario2').prop('disabled', true);
 				$('.itinerario3').prop('disabled', true);
 				$('.itinerario4').prop('disabled', true);
 			}
 		});
-		
-		$('#itinerario2').click(function() { 
-			if($('#itinerario2').is(':checked')) {  
+
+		$('#itinerario2').click(function() {
+			if($('#itinerario2').is(':checked')) {
 				$('.itinerario2').prop('disabled', false);
-				
+
 				$('.itinerario1').prop('disabled', true);
 				$('.itinerario3').prop('disabled', true);
 				$('.itinerario4').prop('disabled', true);
 			}
 		});
-		
-		$('#itinerario3').click(function() { 
-			if($('#itinerario3').is(':checked')) {  
+
+		$('#itinerario3').click(function() {
+			if($('#itinerario3').is(':checked')) {
 				$('.itinerario3').prop('disabled', false);
-				
+
 				$('.itinerario1').prop('disabled', true);
 				$('.itinerario2').prop('disabled', true);
 				$('.itinerario4').prop('disabled', true);
 			}
 		});
-		
-		$('#itinerario4').click(function() { 
-			if($('#itinerario4').is(':checked')) {  
+
+		$('#itinerario4').click(function() {
+			if($('#itinerario4').is(':checked')) {
 				$('.itinerario4').prop('disabled', false);
-				
+
 				$('.itinerario1').prop('disabled', true);
 				$('.itinerario2').prop('disabled', true);
 				$('.itinerario3').prop('disabled', true);
 			}
 		});
-		
+
 	});
 	</script>
 

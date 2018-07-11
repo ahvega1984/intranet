@@ -249,11 +249,11 @@ if (isset($_POST['instalar']))
 
 			// CREACIÓN DE LA BASE DE DATOS
 			mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_name` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
-			mysqli_select_db($db_con, $db_name);
+			mysqli_select_db($db_con, $db_name) or die (mysqli_error($db_con));
 
 			// IMPORTACIÓN DE TABLAS
 			$sql = file_get_contents('tablas.sql');
-			mysqli_multi_query($db_con, $sql);
+			mysqli_multi_query($db_con, $sql) or die (mysqli_error($db_con));
 			while (mysqli_next_result($db_con));
 
 			// AÑADIENDO USUARIO ADMINISTRADOR
@@ -284,15 +284,16 @@ if (isset($_POST['instalar']))
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
 	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 	<meta name="robots" content="noindex, nofollow">
 
-	<title><?php echo $page_header; ?></title>
+	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<link href="../css/animate.css" rel="stylesheet">
 	<link href="../css/otros.css" rel="stylesheet">
-	<link href="../css/font-awesome.min.css" rel="stylesheet">
 
 	<style type="text/css">
 	.dl-horizontal dt
@@ -327,7 +328,7 @@ if (isset($_POST['instalar']))
 
 		<div class="page-header">
 			<h1 class="text-center">
-				<span class="far fa-dashboard fa-2x"></span><br>
+				<span class="fas fa-tachometer-alt fa-2x"></span><br>
 				<?php echo $page_header; ?>
 			</h1>
 		</div>
@@ -987,8 +988,8 @@ if (isset($_POST['instalar']))
 
 			<ul class="pull-right list-inline">
 				<li>Versión <?php echo INTRANET_VERSION; ?></li>
-				<li><a href="//<?php echo $config['dominio']; ?>/intranet/aviso-legal/">Aviso legal</a></li>
-				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
+				<li><a href="../aviso-legal/">Aviso legal</a></li>
+				<li><a href="../LICENSE.md" target="_blank">Licencia</a></li>
 				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
 			</ul>
 		</div>
