@@ -10,15 +10,14 @@ if ($n>2) {
 	$mostrar_filtro = ' in';
 }
 ?>
+<br>
 <form action="consultas_bach.php" method="post" name="form2">
 <div class="well well-sm hidden-print">
 <div class="row">
 <div class="col-sm-4">
-
 <div class="form-group" align="left">
-
-<label>Selecciona Nivel&nbsp;</label>
-<select class="form-control" name="curso" id="curso" onChange="submit()">
+<label>Curso:</label>
+<select class="form-control" name="curso" id="curso" onChange="submit()" style="width:272px;">
 	<option><?php echo $curso;?></option>
 	<option>1BACH</option>
 	<option>2BACH</option>
@@ -26,33 +25,44 @@ if ($n>2) {
 </div>
 </div>
 <div class="col-sm-8">
-<div class="checkbox-inline">
-<label>Grupos:</label><br>
+<div class="form-group">	
+<label>Unidades:</label>
+<div class="checkbox">
 <?					
 $tipo0 = "select distinct grupo_actual from matriculas_bach where curso = '$curso' order by grupo_actual";
 $tipo10 = mysqli_query($db_con, $tipo0);
   while($tipo20 = mysqli_fetch_array($tipo10))
         {	
         	if ($tipo20[0]=="") {
-        		$tipo20[0]="Ninguno";
+        		$tipo20[0]="Sin asignar";
         	}
 
-echo "<div class='checkbox-inline'><label class='badge'><input name='grupo_actua[]' type='checkbox' value='$tipo20[0]' ";
 if ($_POST['grupo_actua']) {			
 		foreach ($_POST['grupo_actua'] as $grup_actua){
 			  if ($grup_actua==$tipo20[0]) {
-			  	echo " checked ";
+			  	$chk = " checked ";
 			  }
+			  else{
+			  	$chk = "";
+			  }
+			  echo $tipo0;
 		}	
 	}
-echo ">";
-echo "".$tipo20[0]."</label></div>";
+?>
+
+	<label>
+		<input name='grupo_actua[]' type='checkbox' value='<?php echo $tipo20[0]; ?>' <?php echo $chk; ?>>
+<strong class="text-info"><?php echo $tipo20[0]; ?></strong>
+</label>
+&nbsp;&nbsp;
+<?php
         }
 						
 	?>
     </div>
     </div>
     </div>
+	</div>
 	
 			<div class="panel-group" id="filter">
 			  <div class="panel panel-default">
@@ -430,6 +440,5 @@ else{
 	<input type="submit" name="consulta" value="Ver matrículas" alt="Introducir" class="btn btn-primary hidden-print" />
 	
 </form>
-</div>
-
 <br />
+</div>
