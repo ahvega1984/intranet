@@ -727,17 +727,18 @@ echo '</tr>';
 
 	
 echo "<br>
-<input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;
-<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;
-<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;
-<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
+<input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' formtarget='_blank' />&nbsp;&nbsp;
+<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' formtarget='_blank' />&nbsp;&nbsp;
+<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' formtarget='_blank' />&nbsp;&nbsp;
+<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' formtarget='_blank' />";
 	if(count($grupo_actua)=='1'){ echo "
 	<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;
-	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-info hidden-print' />";} 
+	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-info hidden-print' formtarget='_blank' />";} 
 	else{ 
 	echo "&nbsp;&nbsp;
-	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-info hidden-print' />
-	&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-info hdden-print' />";
+	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-info hidden-print' formtarget='_blank' />
+	&nbsp;&nbsp;
+	<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-info hdden-print' formtarget='_blank' />";
 	}
 	echo "</div></form>";
 	?>
