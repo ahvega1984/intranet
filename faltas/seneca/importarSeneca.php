@@ -127,9 +127,9 @@ if (isset($_POST['submit'])) {
 					// Obtenemos el tramo horario
 					$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' LIMIT 1");
 					$row = mysqli_fetch_assoc($result);
-					
+
 						$hora_tramo = $row['hora'];
-					
+
 					mysqli_free_result($result);
 
 					if ($C_TIPFAL == 'I') {
@@ -147,18 +147,18 @@ if (isset($_POST['submit'])) {
 						$inicio = $hora_tramo;
 						$fin = $hora_tramo + 1;
 					}
-					
+
 					for ($i = $inicio; $i < $fin; $i++) {
 						// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
 						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
-						
+
 						$codasig="";
 						$nprofesor="";
-						
+
 						while ($row = mysqli_fetch_assoc($result)) {
 							$cod_orig = $row['c_asig'];
 							$prof_orig = $row['c_prof'];
-							
+
 							if(in_array($row['c_asig'], $asignaturas)) {
 								$nprofesor = $row['c_prof'];
 								$codasig = $row['c_asig'];
@@ -172,15 +172,15 @@ if (isset($_POST['submit'])) {
 								$codasig = "21";
 							}
 						}
-						
+
 						mysqli_free_result($result);
-						
+
 						if ($codasig == "") {
 							$nprofesor = $prof_orig;
 							$codasig = $cod_orig;
 						}
-						
-						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')");
+
+						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')") or die (mysqli_error($db_con));
 					}
 
 					unset($nprofesor);

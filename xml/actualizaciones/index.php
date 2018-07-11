@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("../../bootstrap.php");
 include("../../lib/pclzip.lib.php");
 
@@ -78,7 +78,6 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 	acl_acceso();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -112,7 +111,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				<div class="col-sm-offset-3 col-sm-6">
 
 					<div class="well">
-						
+
 						<div class="text-center">
 							<br><br>
 							<p id="icon"><i class="fas fa-sync-alt fa-spin fa-5x fa-fw"></i></p>
@@ -126,7 +125,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				</div>
 
 			</div>
-		
+
 		</div>
 
 	</div><!-- /#wrap -->
@@ -149,14 +148,14 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap.min.js"></script>
 
 	<script>
-	<?php 
+	<?php
 	if(version_compare($ultima_version, INTRANET_VERSION, '>')) {
-		
+
 		echo '$("#status").html("Iniciando actualización...");';
 
 		// Asignamos el nombre al archivo de descarga con la actualización
 		$zipfile = INTRANET_DIRECTORY.'/xml/actualizaciones/intranet-'.$ultima_version.'.zip';
-		
+
 		// Eliminamos el archivo si existiese y creamos uno nuevo
 		if (file_exists($zipfile)) unlink($zipfile);
 
@@ -168,7 +167,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 		// Establecemos las opciones de conexión
 		curl_setopt($ch, CURLOPT_URL, "https://github.com/IESMonterroso/intranet/archive/v".$ultima_version .".zip");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); 
+		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
@@ -179,7 +178,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 		// Ejecutamos la sesión cURL
 
 		echo '$("#status").html("Descargando archivo de actualización...");';
-		
+
 		$result = curl_exec($ch);
 		fclose($fp);
 
@@ -201,7 +200,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 				// Descomprimimos el contenido en la carpeta raíz de la Intranet
 				$result = $zip->extractSubdirTo(INTRANET_DIRECTORY.'/', 'intranet-'.$ultima_version);
 				$zip->close();
-				
+
 				// Comprobamos si se produjeron errores en la descompresión
 				if (count($result) > 2) {
 					$msg_error = 'Se han producido '.count($result) .' errores';
@@ -214,15 +213,15 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 
 					echo '$("#icon").html("<i class=\"fas fa-sync-alt fa-5x fa-fw text-danger\"></i>");';
 					echo '$("#status").html("<strong class=\"text-danger\">'.$msg_error.'</strong></p>'.$msg_error_list.'<p>Realice la actualización manualmente.");';
-					
+
 				}
 				else {
-					
+
 					// Eliminamos archivo .gitignore de la raíz de la Intranet
 					if (file_exists(INTRANET_DIRECTORY.'/.gitignore')) {
 						unlink(INTRANET_DIRECTORY.'/.gitignore');
 					}
-					
+
 					// Actualizaciones de la base de datos
 					echo '$("#status").html("Aplicando actualizaciones de la base de datos");';
 
@@ -233,7 +232,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 					echo '$("#icon").html("<i class=\"fas fa-check-circlefa-5x fa-fw text-success\"></i>");';
 					echo '$("#status").html("<strong class=\"text-success\">Actualización completada</strong><br><br><a href=\"//'.$config['dominio'].'/intranet/index.php\" class=\"btn btn-primary\">Ir a la página principal</a>");';
 				}
-				
+
 			} else {
 				echo '$("#icon").html("<i class=\"fas fa-sync-alt fa-5x fa-fw\"></i>");';
 				echo '$("#status").html("<strong class=\"text-danger\">Error al abrir el archivo de actualización. Realice la actualización manualmente.</strong>");';
