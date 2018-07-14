@@ -17,20 +17,6 @@ Que la Secretaría General Técnica de la Consejería de Educación de la Junta 
 Tengo derecho a saber, en cualquier momento, qué datos personales míos (incluyendo mi imagen) guarda la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía y para qué, modificarlos si éstos han cambiado, o borrarlos (en los casos que ello fuera legalmente posible). Para ello, deberé dirigirme por escrito a la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla.
  ";
 
-$autoriza_rgpd="
-De conformidad con lo establecido en los artículos 6.1 y 11.1 de la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal y en el art. 2.2 de la Ley Orgánica 1/1982, de 5 de mayo, de protección civil del derecho al honor, a la intimidad personal y familiar y a la propia imagen,
-
-CONSIENTE EXPRESAMENTE
-
-A la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla, a proceder a la publicación de la imagen de su hijo/a o menor cuya representación legal ostenta, en la página web del centro de enseñanza, con la finalidad de promoción y difusión en los sitios web de los centros y servicios educativos de las actividades culturales, recreativas, deportivas y sociales en las que participa el propio centro. Este consentimiento tendrá validez mientras su hijo/a permanezca escolarizado en el centro de enseñanza.
-
-De igual manera, reconoce haber sido informado de la posibilidad de ejercitar los correspondientes derechos de acceso, rectificación, cancelación y oposición, de conformidad con lo establecido en la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, en el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la Ley Orgánica 15/1999, de 13 de diciembre de Protección de Datos de Carácter Personal, y en la Instrucción 1/1998, de 19 de enero, de la Agencia Española de Protección de Datos, relativa al ejercicio de los derechos de acceso, rectificación, cancelación y oposición.
-
-El responsable del citado tratamiento es la Secretaría General Técnica de la Consejería de Educación de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla. 
-
-
-";
-
 $titulo5 = "En ".$config['centro_localidad'].", a $hoy
 
 
@@ -86,21 +72,4 @@ if (substr($religion, 0, 1)=="R") {
 	$MiPDF->Ln ( 5 );
 
 }
-
-//RGPD
-	$MiPDF->Addpage ();
-	#### Cabecera con dirección
-	$MiPDF->SetFont ( 'Times', 'B', 11  );
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->SetFillColor(230,230,230);
-	#Cuerpo.
-	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
-	$MiPDF->Ln ( 20 );
-	$MiPDF->Cell(168,5,$titulo_rgpd,0,0,'C');
-	$MiPDF->SetFont ( 'Times', '', 10  );	
-	$MiPDF->Ln ( 4 );
-	$MiPDF->Multicell ( 0, 6, $autoriza_rgpd, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	$MiPDF->Multicell ( 0, 6, $titulo5, 0, 'C', 0 );
-	$MiPDF->Ln ( 10 );
 	?>
