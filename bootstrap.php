@@ -145,9 +145,8 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		$_SESSION['cargo'] = $cargo1 [0];
 		$carg = $_SESSION['cargo'];
 		$_SESSION['dpt'] = $cargo1 [1];
-		if (isset($_POST['idea'])) {}
-		else{
-		$_SESSION['ide'] = $cargo1 [2];
+		if (! isset($_POST['idea'])) {
+			$_SESSION['ide'] = $cargo1 [2];
 		}
 
 		// Si es tutor

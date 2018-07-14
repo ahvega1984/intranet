@@ -5,10 +5,10 @@ $GLOBALS['db_con'] = $db_con;
 function getRealIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP']))
         return $_SERVER['HTTP_CLIENT_IP'];
-        
+
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
         return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    
+
     return $_SERVER['REMOTE_ADDR'];
 }
 
@@ -30,7 +30,7 @@ function getBrowser($u_agent) {
     $u_agent = str_replace('; es-es', '', $u_agent);
     $u_agent = str_replace('; en-us', '', $u_agent);
     $u_agent = str_replace('; en-uk', '', $u_agent);
-    
+
     // First get the platform?
     if (preg_match('/android/i', $u_agent)) {
         $platform_name = 'Android';
@@ -124,7 +124,7 @@ function getBrowser($u_agent) {
             $pversion = trim($exp_pversion[0]);
         }
     }
-    
+
 
     // Next get the name of the useragent yes seperately and for good reason
     if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
@@ -191,10 +191,10 @@ function registraPagina($db_link, $pagina)
 }
 
 function acl_permiso($cargo_usuario, $cargo_requerido) {
-	
+
 	$nopermitido = 0;
 	$permitido = 0;
-	
+
 	if(empty($cargo_usuario)) {
 		$nopermitido = 1;
 	}
@@ -213,28 +213,28 @@ function acl_permiso($cargo_usuario, $cargo_requerido) {
 		else {
 			// Convertimos a string si se trata de cualquier otro tipo de dato
 			$cargo_requerido = (string) $cargo_requerido;
-			
+
 			if (stristr($cargo_usuario, $cargo_requerido) == FALSE) {
 				$nopermitido = 1;
 			}
-		}	
+		}
 	}
-	
+
 	// Si se activó el flag 'permitido' se permite el acceso a la página
 	if ($permitido) {
 		$nopermitido = 0;
 	}
-	
+
 	return $nopermitido ? 0 : 1;
 }
 
 
 function acl_acceso($cargo_usuario, $cargo_requerido) {
 	$tienePermiso = acl_permiso($cargo_usuario, $cargo_requerido);
-	
+
 	if (! $tienePermiso) {
 		$db_con = $GLOBALS['db_con'];
-		
+
 		include(INTRANET_DIRECTORY . '/config.php');
 		include(INTRANET_DIRECTORY . '/menu.php');
 		echo "\t\t<div class=\"container\" style=\"margin-top: 80px; margin-bottom: 120px;\">\n";
@@ -268,7 +268,7 @@ function redondeo($n){
 		else {$n = $entero10[0].".". substr($entero10[1],0,2);}
 		echo $n;
 	}
-		
+
 	else {echo $n;}
 }
 
@@ -282,7 +282,7 @@ function media_ponderada($n){
 		else {$n = $entero10[0].".". substr($entero10[1],0,2);}
 		return $n;
 	}
-		
+
 	else {return $n;}
 }
 
@@ -380,7 +380,7 @@ function dia_dma($a)
 {
 if (es_fecha($a)){
 					$a = strtr($a,"/","-");
-					$a_ok=explode("-",$a);				
+					$a_ok=explode("-",$a);
 					$fecha = getdate(mktime(0,0,0,$a_ok[1],$a_ok[0],$a_ok[2]));
 					if ($fecha['wday']!=0){return $fecha['wday'];}else{return 7;}
 					}else{
@@ -546,6 +546,26 @@ function obtener_foto_alumno($claveal) {
 		$exp_ruta_foto_alumno = array_reverse(array_map('strrev', explode('.', strrev($ruta_foto_alumno), 2)));
 		$nombre = str_replace($directorio_fotos, '', $exp_ruta_foto_alumno[0]);
 		$extension = $exp_ruta_foto_alumno[1];
+
+		return $nombre.'.'.$extension;
+	}
+	else {
+		return false;
+	}
+}
+
+function obtener_foto_profesor($idea) {
+	$directorio_fotos = INTRANET_DIRECTORY."/xml/fotos_profes/";
+	$ruta_foto_profesor = "";
+
+	foreach (glob($directorio_fotos . $idea . "*") as $foto) {
+		$ruta_foto_profesor = $foto;
+	}
+
+	if (file_exists($ruta_foto_profesor)) {
+		$exp_ruta_foto_profesor = array_reverse(array_map('strrev', explode('.', strrev($ruta_foto_profesor), 2)));
+		$nombre = str_replace($directorio_fotos, '', $exp_ruta_foto_profesor[0]);
+		$extension = $exp_ruta_foto_profesor[1];
 
 		return $nombre.'.'.$extension;
 	}

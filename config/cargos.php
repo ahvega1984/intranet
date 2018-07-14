@@ -10,7 +10,7 @@ include ("../menu.php");
 	<div class="page-header">
 	  <h2>Administración <small> Perfiles de Profesores</small></h2>
 	</div>
-	
+
 	<?php
 	if ($_GET['borrar']=='1') {
 		mysqli_query($db_con, "delete from departamentos where dni = '".$_GET['dni_profe']."'");
@@ -24,12 +24,12 @@ include ("../menu.php");
 	mysqli_query($db_con, "update c_profes set telefono = ''" );
 	mysqli_query($db_con, "truncate table FTUTORES" );
 	mysqli_query($db_con, "truncate table cargos " );
-		
+
 		foreach ( $_POST as $dni => $cargo_profe ) {
 			// echo "$dni => $cargo_profe<br>";
 			if ($cargo_profe == "Enviar") {
 				continue;
-			} 
+			}
 			elseif (is_numeric($cargo_profe) and strlen ( $cargo_profe ) == "9") {
 				$dni = substr ( $dni, 1, -2 );
 				$n_profe = mysqli_query($db_con, "update c_profes set telefono = '$cargo_profe' where dni like '%$dni'" );
@@ -41,9 +41,9 @@ include ("../menu.php");
 				$n_prof = mysqli_fetch_array ( $n_profe );
 				$unidad = $cargo_profe;
 				$n_tutor = mb_strtoupper ( $n_prof [0], 'UTF-8' );
-				
+
 				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor`, `observaciones1`, `observaciones2` ) VALUES ('$unidad', '$n_tutor', '', '')" ) or die (mysqli_error($db_con));
-			
+
 			} elseif (strlen ( $cargo_profe ) < "2") {
 				$dni=trim($dni);
 				mysqli_query($db_con, "update departamentos set cargo = ''" );
@@ -66,11 +66,11 @@ include ("../menu.php");
 	          </div>';
 	}
 	?>
-	
+
   <div class="row">
-  	
-   <div class="col-sm-12"> 
-   
+
+   <div class="col-sm-12">
+
    <style type="text/css">
    thead th {
    	font-size: 0.8em;
@@ -94,7 +94,7 @@ include ("../menu.php");
 			<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
 		if($config['mod_bilingue']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
 
-		if ($config['mod_convivencia']==1) { 
+		if ($config['mod_convivencia']==1) {
 		$head .= '<th><span data-bs="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
 		}
 		if($config['mod_biblioteca']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
@@ -105,13 +105,13 @@ include ("../menu.php");
 			</tr>
 			</thead>';
 		?>
-		
+
 		<form name="cargos" action="cargos.php" method="post">
-		
+
 		<p class="help-block">
 			Si necesitas información sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del ratón sobre los distintos tipos de perfiles.
 		</p>
-		
+
 		<table class="table table-bordered table-striped table-condensed">
 		<?php echo $head;?>
 			<tbody>
@@ -137,7 +137,7 @@ include ("../menu.php");
 			echo $pro;
 			?></small>
 			</td>
-			
+
 			<?php if ($_SESSION['ide'] == "admin" || stristr($_SESSION['cargo'], '0') == TRUE): ?>
 			<td class="text-center">
 				<input type="checkbox" name="<?php echo $dni; ?>0" value="0" <?php if (stristr ( $car, '0' ) == TRUE) { echo "checked"; } if ($idea == "admin") { echo "checked disabled"; } ?> />
@@ -156,7 +156,7 @@ include ("../menu.php");
 				<td class="form-inline" nowrap><input type="checkbox" name="<?php
 			echo $dni;
 			?>2"
-					value="2" 
+					value="2"
 					<?php
 			if (stristr ( $car, '2' ) == TRUE) {
 				echo "checked";
@@ -182,13 +182,13 @@ include ("../menu.php");
 			while ( $tipo2 = mysqli_fetch_array ( $tipo1 ) ) {
 				echo "<option value=\"" . $tipo2[0] . "\">" . $tipo2 [0] . "</option>";
 			}
-			
+
 			?>
 		  </select></td>
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>4"
-					value="4" 
+					value="4"
 					<?php
 			if (stristr ( $car, '4' ) == TRUE) {
 				echo "checked";
@@ -197,7 +197,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>15"
-					value="9" 
+					value="9"
 					<?php
 			if (stristr ( $car, '9' ) == TRUE) {
 				echo "checked";
@@ -206,7 +206,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>5"
-					value="5" 
+					value="5"
 					<?php
 			if (stristr ( $car, '5' ) == TRUE) {
 				echo "checked";
@@ -215,7 +215,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>6"
-					value="6" 
+					value="6"
 					<?php
 			if (stristr ( $car, '6' ) == TRUE) {
 				echo "checked";
@@ -224,7 +224,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>7"
-					value="7" 
+					value="7"
 					<?php
 			if (stristr ( $car, '7' ) == TRUE) {
 				echo "checked";
@@ -233,7 +233,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>8"
-					value="8" 
+					value="8"
 					<?php
 			if (stristr ( $car, '8' ) == TRUE) {
 				echo "checked";
@@ -243,7 +243,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>9"
-					value="a" 
+					value="a"
 					<?php
 			if (stristr ( $car, 'a' ) == TRUE) {
 				echo "checked";
@@ -254,7 +254,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>10"
-					value="b" 
+					value="b"
 					<?php
 			if (stristr ( $car, 'b' ) == TRUE) {
 				echo "checked";
@@ -266,7 +266,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>11"
-					value="c" 
+					value="c"
 					<?php
 			if (stristr ( $car, 'c' ) == TRUE) {
 				echo "checked";
@@ -276,7 +276,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>12"
-					value="d" 
+					value="d"
 					<?php
 			if (stristr ( $car, 'd' ) == TRUE) {
 				echo "checked";
@@ -285,7 +285,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>13"
-					value="f" 
+					value="f"
 					<?php
 			if (stristr ( $car, 'f' ) == TRUE) {
 				echo "checked";
