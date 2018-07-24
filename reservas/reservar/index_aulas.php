@@ -11,11 +11,11 @@ if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 
 	for ($i=1;$i<=7;$i++)
 	{
-		if (isset($_POST['day_event'.$i]) and 
-strstr($_POST['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = 
+		if (isset($_POST['day_event'.$i]) and
+strstr($_POST['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} =
 $_POST['day_event'.$i]; }
-		elseif (isset($_GET['day_event'.$i]) and 
-strstr($_GET['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = 
+		elseif (isset($_GET['day_event'.$i]) and
+strstr($_GET['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} =
 $_GET['day_event'.$i]; }
 		else{${day_event.$i}="";}
 	}
@@ -41,7 +41,7 @@ $_GET['day_event'.$i]; }
 	$hoy = getdate($semana);
 	$numero_dia = $hoy['wday'];
 
-	$eventQuery = "SELECT id FROM `reservas` WHERE eventdate 
+	$eventQuery = "SELECT id FROM `reservas` WHERE eventdate
 = '$sql_date' and servicio='$servicio'";
 	//echo $eventQuery;
 	$eventExec = mysqli_query($db_con, $eventQuery);
@@ -60,28 +60,28 @@ $_GET['day_event'.$i]; }
 
 	if ($event_found == 1) {
 		//UPDATE
-		$postQuery = "UPDATE `reservas` SET event1 = '".$day_event1."', 
+		$postQuery = "UPDATE `reservas` SET event1 = '".$day_event1."',
 event2 = '".$day_event2."', event3 = '".$day_event3."',
-    event4 = '".$day_event4."', event5 = '".$day_event5."', event6 = 
+    event4 = '".$day_event4."', event5 = '".$day_event5."', event6 =
 '".$day_event6."', event7 = '".$day_event7."' WHERE eventdate = '$sql_date' and servicio='$servicio';";
 		// echo $postQuery;
 		$postExec = mysqli_query($db_con, $postQuery) or die('Error al actualizar la información de reservas. MySQL Error: '.mysqli_error($db_con));
-		mysqli_query($db_con, "DELETE FROM `reservas` 
-WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 
+		mysqli_query($db_con, "DELETE FROM `reservas`
+WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5
 = ''  and event6 = ''  and event7 = '' and servicio='$servicio' ");
 		$mens="actualizar";
 	} else {
 		//INSERT
-		$postQuery = "INSERT INTO `reservas` 
-(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html, servicio) VALUES 
+		$postQuery = "INSERT INTO `reservas`
+(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html, servicio) VALUES
 ('$sql_date','$numero_dia','".$day_event1."','".$day_event2."','".$day_event3."'
 ,'".$day_event4."','".$day_event5."','".$day_event6."','".$day_event7."',
 '$show_html', '$servicio')";
 		 //echo $postQuery;
 		$postExec = mysqli_query($db_con, $postQuery) or die('Error al insertar la información de reservas. MySQL Error: '.mysqli_error($db_con));
 
-		mysqli_query($db_con, "DELETE FROM `reservas` 
-WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 
+		mysqli_query($db_con, "DELETE FROM `reservas`
+WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5
 = ''  and event6 = ''  and event7 = '' and servicio='$servicio'");
 		$mens="insertar";
 	}
@@ -105,7 +105,7 @@ if (isset($_POST['permanente'])) {
 			$_POST['day_event'.$i]="";
 		}
 	}
-	$post_perm = "INSERT INTO reservas_hor (dia, hora1, hora2, hora3, hora4, hora5, hora6, hora7, servicio) VALUES 
+	$post_perm = "INSERT INTO reservas_hor (dia, hora1, hora2, hora3, hora4, hora5, hora6, hora7, servicio) VALUES
 ('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST[
 'day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST
 ['day_event6']."','".$_POST['day_event7']."','".$servicio."')";
@@ -114,15 +114,15 @@ if (isset($_POST['permanente'])) {
 }
 
 
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace 
-("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", 
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace
+("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "",
 $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace 
-("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); 
-$year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace
+("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year);
+$year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year =
 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace 
-("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", 
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace
+("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "",
 $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 $month = (isset($month)) ? $month : date("n",time());
@@ -229,14 +229,14 @@ if ($mes_sig == 13) {
 
 //Nombre del Mes
 echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
-echo "<th><h4><a 
+echo "<th><h4><a
 href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_ant."&month=".
-$mes_ant."\"><span class=\"far fa-arrow-circle-left fa-fw 
+$mes_ant."\"><span class=\"fas fa-arrow-circle-left fa-fw 
 fa-lg\"></span></a></h4></th>";
 echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
-echo "<th><h4><a 
+echo "<th><h4><a
 href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_sig."&month=".
-$mes_sig."\"><span class=\"far fa-arrow-circle-right fa-fw 
+$mes_sig."\"><span class=\"fas fa-arrow-circle-right fa-fw
 fa-lg\"></span></a></h4></th>";
 echo "</tr><tr>";
 
@@ -260,20 +260,20 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 	if ($i >= 7) {  print("</tr><tr>"); $i=0; }
 
 	// Enlace
-	$enlace = 
+	$enlace =
 $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.
 $aula;
 
 	// Mirar a ver si hay alguna ctividad en el dÃÂ­as
 	$result_found = 0;
 	if ($zz == $today) {
-		echo '<td class="calendar-today"><a 
+		echo '<td class="calendar-today"><a
 href="'.$enlace.'">'.$zz.'</a></td>';
 		$result_found = 1;
 	}
 
 	// Enlace
-	$enlace = 
+	$enlace =
 $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.
 $aula;
 
@@ -281,19 +281,19 @@ $aula;
 		//Buscar actividad para el dóa y marcarla
 		$sql_currentday = "$year-$month-$zz";
 
-		$eventQuery = "SELECT event1, event2, event3, event4, event5, 
+		$eventQuery = "SELECT event1, event2, event3, event4, event5,
 event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
 		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
-				echo '<td class="calendar-orange"><a 
+				echo '<td class="calendar-orange"><a
 href="'.$enlace.'">'.$zz.'</a></td>';
 				$result_found = 1;
 			}
 		}
 		else{
 			$sql_currentday = "$year-$month-$zz";
-			$fest = mysqli_query($db_con, "select distinct fecha, 
+			$fest = mysqli_query($db_con, "select distinct fecha,
 nombre from $db.festivos WHERE fecha = '$sql_currentday'");
 			if (mysqli_num_rows($fest)>0) {
 				$festiv=mysqli_fetch_array($fest);
@@ -301,7 +301,7 @@ nombre from $db.festivos WHERE fecha = '$sql_currentday'");
 				$result_found = 1;
 			}
 		}
-			
+
 	}
 
 	if ($result_found != 1) {
@@ -326,15 +326,15 @@ echo "";
 <div class="col-sm-7">
 
 <div class="well"><?php
-echo "<form method=\"post\" 
-action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\" 
+echo "<form method=\"post\"
+action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\"
 name=\"jcal_post\">";
 echo "<legend>Reserva para el $daylong, $today de $monthlong</legend><br />";
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
-$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, 
+$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7,
 html FROM `reservas` WHERE eventdate = '$sql_date' and servicio='$servicio'";
 $eventExec = mysqli_query($db_con, $eventQuery);
 while($row = mysqli_fetch_array($eventExec)) {
@@ -358,7 +358,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE || $esTIC){
 	$SQL = "select distinct nombre from $db.departamentos order by nombre";
 }
 else{
-	$SQL = "select distinct nombre from $db.departamentos where nombre = '". 
+	$SQL = "select distinct nombre from $db.departamentos where nombre = '".
 $_SESSION['profi'] ."'";
 }
 
@@ -372,15 +372,15 @@ if($aula){
 		echo '<div class="form-group">';
 
 		// Comprobamos reserva definitiva del aula
-		$aula_hor = "SELECT hora$i FROM reservas_hor WHERE dia = 
+		$aula_hor = "SELECT hora$i FROM reservas_hor WHERE dia =
 '$numero_dia' and servicio='$servicio'";
 //echo $aula_hor."<br>";
 		$res_aula_hor = mysqli_query($db_con, $aula_hor);
 		$num_aula_hor = mysqli_fetch_row($res_aula_hor);
 
 		// Comprobamos horario de profesores
-		$hor = "SELECT distinct a_grupo, a_asig FROM $db.horw WHERE dia 
-= '$numero_dia' and hora='$i' and a_aula = '$aula' and a_grupo is not null and 
+		$hor = "SELECT distinct a_grupo, a_asig FROM $db.horw WHERE dia
+= '$numero_dia' and hora='$i' and a_aula = '$aula' and a_grupo is not null and
 a_grupo not like 'G%'";
 //echo $hor;
 		$res_hor = mysqli_query($db_con, $hor);
@@ -401,7 +401,7 @@ a_grupo not like 'G%'";
 				echo "<select name=\"day_event$i\" class='form-control'>";
 				echo "<option value=\"".$grupo_aula."\" selected>Asignada por Horario: $grupo_aula</option>";
 			}
-		}		
+		}
 		elseif(strlen(${event_event.$i})>0){
 			echo "<select name=\"day_event$i\" class='form-control'>";
 			echo "<option value=\"\">Eliminar reserva</option>";
@@ -411,7 +411,7 @@ a_grupo not like 'G%'";
 			echo "<select name=\"day_event$i\" class='form-control'>";
 			echo "<option value=\"\">Eliminar reserva</option>";
 			echo "<option value=\"".$num_aula_hor[0]."\" selected>Asignada por Dirección: $num_aula_hor[0]</option>";
-		}		
+		}
 		else {
 			echo "<select name=\"day_event$i\" class='form-control'>";
 			echo "<option value=\"\" selected></option>";
@@ -427,11 +427,11 @@ a_grupo not like 'G%'";
 	else{
 
 		if (strlen($num_hor[0])>0) {
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p 
+			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p
 class=\"help-block text-info\">Asignada por horario</p>";
 		}
 		elseif (strlen($num_aula_hor[0])>0) {
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p 
+			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p
 class=\"help-block text-danger\">Asignada por Dirección";
 		if (strlen(${event_event.$i})>0) {
 				echo ": <span class='text-info'>".${event_event.$i}."</span>";
@@ -444,7 +444,7 @@ class=\"help-block text-danger\">Asignada por Dirección";
 		else
 		{
 			if (${event_event.$i}  == "") {
-				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; 
+				echo "<label>".$i."ª hora</label> &nbsp;&nbsp;
 <select name=\"day_event$i\" class='form-control'>";
 				echo "<option value=\"\"></option>";
 				$result1 = mysqli_query($db_con, $SQL);
@@ -455,16 +455,16 @@ class=\"help-block text-danger\">Asignada por Dirección";
 				echo "</select>";
 			}
 			else {
-				if(mb_strtolower($pr) == 
+				if(mb_strtolower($pr) ==
 mb_strtolower(${event_event.$i})) {
-					echo "<label>".$i."ª hora</label> 
-&nbsp;&nbsp; <input class='form-control' type='text' name=\"day_event$i\"  
+					echo "<label>".$i."ª hora</label>
+&nbsp;&nbsp; <input class='form-control' type='text' name=\"day_event$i\"
 value=\"${event_event.$i}\">";
 			}
 				else{
-				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; 
-<input disabled class='form-control' type='text'  
-value='${event_event.$i}'><input type=\"hidden\" value=\"${event_event.$i}\" 
+				echo "<label>".$i."ª hora</label> &nbsp;&nbsp;
+<input disabled class='form-control' type='text'
+value='${event_event.$i}'><input type=\"hidden\" value=\"${event_event.$i}\"
 name=\"day_event$i\">";
 	}
 }
@@ -478,12 +478,12 @@ echo "<input type=\"hidden\" value=\"$year\" name=\"year\">
       <input type=\"hidden\" value=\"$month\" name=\"month\">
       <input type=\"hidden\" value=\"$today\" name=\"today\">
       <input type=\"hidden\" value=\"$numero_dia\" name=\"numero_dia\">
-      <input type=\"submit\" class=\"btn btn-primary\" id=\"formsubmit\" 
+      <input type=\"submit\" class=\"btn btn-primary\" id=\"formsubmit\"
 name=\"enviar\" value=\"Reservar\">";
 
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
-	echo "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" class=\"btn 
-btn-danger\" id=\"formsubmit1\" name=\"permanente\" value=\"Reservar todo el 
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" class=\"btn
+btn-danger\" id=\"formsubmit1\" name=\"permanente\" value=\"Reservar todo el
 Curso\">";;
 }
 
