@@ -229,7 +229,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 
 					// Finalizamos la actualización
 
-					echo '$("#icon").html("<i class=\"fas fa-check-circlefa-5x fa-fw text-success\"></i>");';
+					echo '$("#icon").html("<i class=\"fas fa-check-circle fa-5x fa-fw text-success\"></i>");';
 					echo '$("#status").html("<strong class=\"text-success\">Actualización completada</strong><br><br><a href=\"//'.$config['dominio'].'/intranet/index.php\" class=\"btn btn-primary\">Ir a la página principal</a>");';
 				}
 
