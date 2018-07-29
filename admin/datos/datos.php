@@ -20,14 +20,14 @@ include("../informes/menu_alumno.php");
 ?>
 
 <div class="container">
-	
+
 	<div class="page-header">
 		<h2>Datos de los alumnos <small>Consultas</small></h2>
 	</div>
-	
+
 
 	<div class="row">
-	
+
 		<div class="col-sm-12">
 <?php
 // Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
@@ -53,13 +53,13 @@ if (isset($_GET['resetear']) and $_GET['resetear']==1) {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La contraseña del alumno para el acceso a la página pública del Centro se ha reiniciado correctamente. El alumno debe entrar ahora con el NIE como usuario y contraseña. Una vez dentro se le forzará a cambiar la contraseña.
-		</div></div>';    
+		</div></div>';
 		if (strstr($_GET['correo'],'@')==TRUE) {
 		$direccion = $_GET['correo'];
 		$tema = "Contraseña de acceso privado reiniciada en ".$config['dominio'];
 		$texto = "La clave de acceso privada del alumno/a ha sido reiniciada. Para entrar en las páginas personales del alumno deberás introducir de nuevo el NIE (Número de Identificación Escolar) que el Centro te ha proporcionado en los dos campos del formulario de acceso. Si a pesar de todo persisten los problemas y no puedes entrar, ponte en contacto con el Tutor o Jefatura de Estudios. Gracias. ";
-		mail($direccion, $tema, $texto);  
-		}  
+		mail($direccion, $tema, $texto);
+		}
 	}
 }
 
@@ -72,7 +72,7 @@ if (isset($_GET['borrar']) and $_GET['borrar']==1) {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 		El alumno ha sido eliminado correctamente de la Base de datos.
-		</div></div>';  
+		</div></div>';
 	}
 }
 
@@ -90,7 +90,7 @@ if (isset($seleccionado) and $seleccionado=="1") {
 $AUXSQL == "";
 if  (TRIM("$apellidos")==""){}else{	$AUXSQL .= " and alma.apellidos like '%$apellidos%'";}
 if  (TRIM("$nombre")==""){}else{ $AUXSQL .= " and alma.nombre like '%$nombre%'";}
-if  (isset($_POST['unidad'])){ 
+if  (isset($_POST['unidad'])){
 	$AUXSQL=" and (";
 	foreach ($_POST['unidad'] as $grupo){
 		$AUXSQL .= " alma.unidad like '$grupo' or";
@@ -109,35 +109,22 @@ $result = mysqli_query($db_con, $SQL);
 if ($row = mysqli_fetch_array($result))
 {
 
-	echo "<table class='table table-bordered table-striped table-vcentered table-condensed $d_table'>";
+	echo "<table class='table table-bordered table-striped table-vcentered table-condensed $d_table' style=\"font-size:0.875em;\">";
 	echo "<thead><tr>
-	<th></th>
 	<th>Alumno/a</th>
-	<th>NIE</th>
+	<th class=\"hidden-xs\">DNI</th>
+	<th class=\"hidden-xs\">Fecha ncto.</th>
 	<th>Unidad</th>
-	<th>Fecha Ncto.</th>	        
-	<th>DNI</th>
-	<th>Padre</th>
-	<th>Teléfonos</th>	
-	<th>Repite</th>";
+	<th class=\"hidden-xs hidden-sm\">Representante legal</th>
+	<th class=\"hidden-xs hidden-sm\">Teléfonos</th>";
 
-	// Usuario y clave para Centros TIC y Moodle
-	$us_al = mysqli_query($db_con,"select usuarioalumno.usuario, usuarioalumno.pass from usuarioalumno where claveal='$row[0]'");
-	$al_tic=mysqli_num_rows($us_al);
-	if ($al_tic>0) {
-		echo "<th>Gesuser<br>Moodle</th>";
+	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'){
+		echo "<th class=\"hidden-xs\">Plataforma Moodle</th>";
 	}
-
 
 	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
-		if ($row[10]>1) {
-			$repite="Sí";
-		}
-		else{
-			$repite="No";
-		}
 		$nom=$row[1].", ".$row[2];
 		$unidad = $row[3];
 		$claveal = $row[0];
@@ -146,44 +133,48 @@ if ($row = mysqli_fetch_array($result))
 		$pass = $row[14];
 		$alumno = "$nom --> $claveal";
 
-		// Usuario y clave para Centros TIC y Moodle
-		$us_al = mysqli_query($db_con,"select usuarioalumno.usuario, usuarioalumno.pass from usuarioalumno where claveal='$row[0]'");
-		$us_query = mysqli_fetch_array($us_al);
-		$us_tic = $us_query[0];
-		$us_pass = $us_query[1];
-		
 		echo "<tr>";
 	if($_POST['sin_foto']=="1" or isset($_GET['unidad']) or $seleccionado==1){
 		if ($foto = obtener_foto_alumno($claveal)) {
-			$foto_alumno = "<img class=\"img-thumbnail\" src=\"../../xml/fotos/$foto\" style=\"width: 64px !important\";>";
+			$foto_alumno = "<img class=\"img-thumbnail\" src=\"../../xml/fotos/$foto\" style=\"width: 42px !important\";>";
 		}
 		else {
-			$foto_alumno = "<span class=\"far fa-user fa-3x fa-fw\"></span>";
+			$foto_alumno = "<span class=\"far fa-user fa-2x fa-fw\"></span>";
 		}
 	}
 	else{
 	$foto='';
 	}
 
-	echo "<td>$foto_alumno</td><td>$nom</td>
-	<td>$row[0]</td>
+	echo "
+	<td data-order=\"$nom\">
+	<div class=\"pull-left\" style=\"margin-right: 10px;\">
+			$foto_alumno
+	</div>
+
+	<p><strong>$nom</strong></p>
+	<p class=\"text-muted\">
+			<strong>NIE:</strong> $claveal
+	</p>
+
+	</td>
+	<td class=\"hidden-xs\">$row[6]</td>
+	<td class=\"hidden-xs\">$row[5]</td>
 	<td>$unidad</td>
-	<td>$row[5]</td>
-	<td>$row[6]</td>
-	<td>$row[9]</td>
-	<td>$row[7]</td>
-	<td>$repite</td>";
-	
-	if ($al_tic>0) {
-		echo "<td>".$us_tic."<br>".$us_pass."</td>";
+	<td class=\"hidden-xs hidden-sm\">$row[9]</td>
+	<td class=\"hidden-xs hidden-sm\">$row[7]<br>$row[8]</td>";
+
+	if ($_SERVER['NAME_SERVER'] == 'iesmonterroso.org') {
+		echo "<td class=\"hidden-xs\">Usuario: ".$claveal."<br>Contraseña: ".substr(sha1($claveal),0,8)."</td>";
+
 	}
 
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td style='width:100px'>";
+		echo "<td class=\"text-center\">";
 		echo '<div class="btn-group hidden-print">
- 	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+ 	<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
      <span class="far fa-user fa-fw"></span>
      <span class="caret"></span>
    </button>
@@ -210,7 +201,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 		$unidad=$tut[0];
 		$unidad_tutor=$tut2[0];
 		if ($unidad==$unidad_tutor) {
-			echo "<li><a href='../tutoria/intervencion.php?seleccionado=1&alumno=$alumno&unidad=$unidad&tutor=$tutor'><i class='far fa-edit fa-fw'></i> Intervención de Tutoría</a></li>";		
+			echo "<li><a href='../tutoria/intervencion.php?seleccionado=1&alumno=$alumno&unidad=$unidad&tutor=$tutor'><i class='far fa-edit fa-fw'></i> Intervención de Tutoría</a></li>";
 		}
 		if ($unidad!==$unidad_tutor) {
 			$s_control="";
@@ -221,7 +212,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 		$tut=mysqli_fetch_row($dat);
 		$unidad=$tut[0];
 		echo "<li><a href='../jefatura/index.php?seleccionado=1&alumno=$alumno&unidad=$unidad'><i class='far fa-edit fa-fw'></i> Intervención de Tutoría</a>";
-		echo "<li><a href='datos.php?borrar=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado.' data-bb='confirm-delete'><i class='far fa-trash-alt fa-fw'></i>  Borrar alumno</a></li>";	
+		echo "<li><a href='datos.php?borrar=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado.' data-bb='confirm-delete'><i class='far fa-trash-alt fa-fw'></i>  Borrar alumno</a></li>";
 	}
 	if (stristr($_SESSION['cargo'],'8') == TRUE) {
 		$dat = mysqli_query($db_con, "select unidad from alma where claveal='$claveal'");
@@ -232,10 +223,10 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 	if ($s_control=='1' and (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE)) {
 			echo "<li><a href='datos.php?resetear=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'><i class='fas fa-sync-alt fa-fw'></i> Reiniciar contraseña</a></li>";
 			}
-	
+
 
 	echo '</td></tr>';
-		
+
 	} while($row = mysqli_fetch_array($result));
 	echo "</tbody></table>\n";
 } else
@@ -249,7 +240,7 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 		</div></div>';
 	}
 }
-?> 
+?>
 
 <br />
 </div>
@@ -291,13 +282,13 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 
 		var table = $('.datatable').DataTable({
 			"paging":   true,
-			"ordering": true,
+			"ordering": false,
 			"info":     false,
 			"columnDefs": [{ type: 'latin', targets: "_all" }],
 
 			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
 
-			"order": [[ 1, "asc" ]],
+			"order": [[ 0, "asc" ]],
 
 			"language": {
 				"lengthMenu": "_MENU_",
