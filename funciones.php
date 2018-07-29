@@ -633,7 +633,10 @@ function sistemaPuntos($claveal) {
   else $fecha_inicio = $config['curso_inicio'];
 
   if ($fecha_hoy >= $fecha_inicio) {
-    $interval = date_diff(date_create($fecha_inicio), date_create($fecha_hoy));
+    if ($fecha_hoy > $config['curso_fin']) $fecha_fin = $config['curso_fin'];
+    else $fecha_fin = $fecha_hoy;
+
+    $interval = date_diff(date_create($fecha_inicio), date_create($fecha_fin));
     $numero_semanas = floor($interval->format('%a')/7) * 0.15;
     $total -= $numero_semanas;
   }
