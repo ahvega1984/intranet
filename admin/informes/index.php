@@ -161,6 +161,8 @@ if (!$claveal) {
 						  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'UTF-8'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Repetidor/a</dt>
 						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
+							<dt>Puntos</dt>
+						  <dd><?php echo sistemaPuntos($row['claveal']); ?></dd>
 						</dl>
 
 					</div><!-- /.col-sm-6 -->

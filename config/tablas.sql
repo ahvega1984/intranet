@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `convivencia` (
   `hora` char(1) NOT NULL DEFAULT '0',
   `trabajo` int(1) NOT NULL DEFAULT '0',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
-  `observaciones` mediumtext NOT NULL,
+  `observaciones` mediumtext NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 

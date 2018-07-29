@@ -15,11 +15,11 @@ include ("menu.php");
 
 <div class="row">
 
-<div class="col-sm-12">	
+<div class="col-sm-12">
 		<div class="text-center" id="t_larga_barra">
 			<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
 		</div>
-   <div id='t_larga' style='display:none' >	
+   <div id='t_larga' style='display:none' >
 <?php
 
 		echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
@@ -34,9 +34,10 @@ include ("menu.php");
 		<th nowrap>Muy Graves</th>
 		<th>Expulsion</th>
 		<th>Convivencia</th>
+    <th>Puntos</th>
 		</tr></thead><tbody>";
 
-		$t1 = mysqli_query($db_con,"SELECT fecha FROM festivos WHERE nombre like '%navidad%' limit 1");	
+		$t1 = mysqli_query($db_con,"SELECT fecha FROM festivos WHERE nombre like '%navidad%' limit 1");
 		$t2 = mysqli_query($db_con,"SELECT fecha FROM festivos WHERE nombre like '%santa%' limit 1");
 		$tt1 = mysqli_fetch_array($t1);
 		$tt2 = mysqli_fetch_array($t2);
@@ -45,7 +46,7 @@ include ("menu.php");
 
 		mysqli_query($db_con, "create table Fechoria_temp SELECT DISTINCT claveal, COUNT( * ) as total FROM Fechoria GROUP BY claveal" );
 		$num0 = mysqli_query($db_con, "select * from Fechoria_temp order by total desc" );
-		while ( $num = mysqli_fetch_array ( $num0 ) ) 
+		while ( $num = mysqli_fetch_array ( $num0 ) )
 		{
 			$query0 = "select apellidos, nombre, unidad from alma where claveal = '$num[0]'";
 			$result = mysqli_query($db_con, $query0 );
@@ -57,7 +58,7 @@ include ("menu.php");
 			$rownumero = $num[1];
 			$rowcurso = $unidad ;
 			$rowalumno = $nombre . "&nbsp;" . $apellidos;
-		
+
 		$leve="";
 		$grave="";
 		$m_grave="";
@@ -116,7 +117,7 @@ include ("menu.php");
 
 
 
-	
+
 		if(!(empty($apellidos))){
 		echo "<tr>
 		<td>";
@@ -125,7 +126,7 @@ include ("menu.php");
         }
         else {
             echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
-        }	
+        }
 		echo "</td>";
 		echo "<td nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>";
 		echo "<td>$rowcurso</td>";
@@ -135,6 +136,7 @@ include ("menu.php");
 		echo "<td>$m_grave</td>";
 		echo "<td>$expulsion</td>";
 		echo "<td>$conv</td>";
+    echo "<td>".sistemaPuntos($claveal)."</td>";
 		echo "</tr>";
 		}
 		}
@@ -152,11 +154,11 @@ include ("menu.php");
      		"paging":   true,
          "ordering": true,
          "info":     false,
-         
+
      		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-     		
+
      		"order": [[ 3, "desc" ]],
-     		
+
      		"language": {
      		            "lengthMenu": "_MENU_",
      		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -177,9 +179,9 @@ include ("menu.php");
   <script>
  function espera( ) {
          document.getElementById("t_larga").style.display = '';
-         document.getElementById("t_larga_barra").style.display = 'none';        
+         document.getElementById("t_larga_barra").style.display = 'none';
  }
  window.onload = espera;
-</script>     
+</script>
   </body>
 </html>

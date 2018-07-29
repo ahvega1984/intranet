@@ -15,11 +15,11 @@ include ("menu.php");
 
 <div class="row">
 
-<div class="col-sm-12">	
+<div class="col-sm-12">
 		<div class="text-center" id="t_larga_barra">
 			<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
 		</div>
-   <div id='t_larga' style='display:none' >		
+   <div id='t_larga' style='display:none' >
 <?php
 
 		echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
@@ -34,6 +34,7 @@ include ("menu.php");
 		<th nowrap>Muy Graves</th>
 		<th>Expulsion</th>
 		<th>Convivencia</th>
+    <th>Puntos</th>
 		</thead><tbody>";
 		mysqli_query($db_con, "create table Fechoria_ult_exp SELECT DISTINCT claveal, Max(fecha) as Ultima FROM Fechoria where date(inicio)>'0000-00-00' GROUP BY claveal" );
 		mysqli_query($db_con, "create table Fechoria_post_exp SELECT Fechoria.* FROM Fechoria LEFT JOIN Fechoria_ult_exp ON Fechoria_ult_exp.claveal=Fechoria.claveal WHERE date(Fechoria.fecha)>date(Fechoria_ult_exp.Ultima) OR Fechoria_ult_exp.Ultima IS NULL" );
@@ -44,7 +45,7 @@ include ("menu.php");
 			$result = mysqli_query($db_con, $query0 );
 			$row = mysqli_fetch_array ( $result );
 			$claveal = $num [0];
-			
+
 			$apellidos = $row [0];
 			$nombre = $row [1];
 			$unidad = $row [2];
@@ -55,7 +56,7 @@ include ("menu.php");
 		//echo "por aqui".$lev_sql.aa;
 		$lev = mysqli_query($db_con,$lev_sql );
 		$leve = mysqli_num_rows($lev);
-		
+
 		$grav = mysqli_query($db_con, "select grave from Fechoria_post_exp where grave='grave' and claveal = '$claveal'");
 		$grave = mysqli_num_rows($grav);
 		$m_grav = mysqli_query($db_con, "select grave from Fechoria_post_exp where grave='muy grave' and claveal = '$claveal'");
@@ -76,7 +77,7 @@ include ("menu.php");
         else {
             echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
 		}
-		echo "</td>";		
+		echo "</td>";
 		echo "<td nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td $bgcolor>$rowcurso</td>
 		<td $bgcolor>$rownumero</td>
@@ -85,16 +86,17 @@ include ("menu.php");
 		<td $bgcolor>$m_grave</td>
 		<td $bgcolor>$expulsion</td>
 		<td $bgcolor>$conv</td>
+    <td $bgcolor>".sistemaPuntos($claveal)."</td>
 		</tr>";
 		}
 		}
-		mysqli_query($db_con, "drop table Fechoria_tem2" );		
+		mysqli_query($db_con, "drop table Fechoria_tem2" );
 		echo "</tbody></table>\n";
-		
+
 		mysqli_query($db_con, "drop table Fechoria_tem2" );
 		mysqli_query($db_con, "drop table Fechoria_ult_exp" );
 		mysqli_query($db_con, "drop table Fechoria_post_exp" );
-		
+
 		?>
 		</div>
 		</div>
@@ -107,11 +109,11 @@ include ("menu.php");
      		"paging":   true,
          "ordering": true,
          "info":     false,
-         
+
      		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-     		
+
      		"order": [[ 3, "desc" ]],
-     		
+
      		"language": {
      		            "lengthMenu": "_MENU_",
      		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -132,9 +134,9 @@ include ("menu.php");
   <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';
-        document.getElementById("t_larga_barra").style.display = 'none';        
+        document.getElementById("t_larga_barra").style.display = 'none';
 }
 window.onload = espera;
-</script>     
+</script>
   </body>
 </html>
