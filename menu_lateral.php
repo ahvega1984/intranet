@@ -143,7 +143,7 @@ $menu = array(
 				'titulo' => 'Intervenciones',
 			),
 			array(
-				'href'   => 'admin/libros-texto/programa-gratuidad.php',
+				'href'   => 'admin/libros-texto/programa-gratuidad/index.php',
 				'titulo' => 'Programa de Gratuidad',
 				'meses'	 => array(6, 7, 8, 9)
 			)
