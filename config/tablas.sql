@@ -249,7 +249,7 @@ DROP TABLE IF EXISTS `cargos`;
 CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `cargo` varchar(8) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`dni`)
+  PRIMARY KEY (`dni`, `cargo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
@@ -1963,7 +1963,7 @@ CREATE TABLE IF NOT EXISTS `unidades` (
   `idunidad` int(11) UNSIGNED NOT NULL,
   `nomunidad` varchar(10) NOT NULL,
   `idcurso` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idunidad`)
+  PRIMARY KEY (`idunidad`, `idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------
