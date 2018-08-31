@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['exportar']) && ! empty($_GET['exportar'])) { 
+if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['exportar']) && ! empty($_GET['exportar'])) {
 
 	$directorio			= INTRANET_DIRECTORY.'/xml/jefe/TIC/';
 
@@ -36,7 +36,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				} else if (function_exists('finfo_file')) {
 					$info = finfo_open(FILEINFO_MIME);
 					$type = finfo_file($info, $directorio.$gesuser_alumnos);
-					finfo_close($info);  
+					finfo_close($info);
 				}
 				if ($type == '') {
 					$type = "application/force-download";
@@ -66,7 +66,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$nombre = trim($exp_nombre[1]);
 				$apellidos = trim($exp_nombre[0]);
 				$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
-				
+
 				fwrite($fp, $row['idea'].";".$nombre_completo.";p;;".$cuota_profesores."\r\n");
 			}
 
@@ -90,7 +90,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				} else if (function_exists('finfo_file')) {
 					$info = finfo_open(FILEINFO_MIME);
 					$type = finfo_file($info, $directorio.$gesuser_profesores);
-					finfo_close($info);  
+					finfo_close($info);
 				}
 				if ($type == '') {
 					$type = "application/force-download";
@@ -121,14 +121,14 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 		else {
 			// Cabecera del archivo
-			fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
+			fwrite($fp, "username;password;firstname;lastname;email;city;country;institution\r\n");
 
 			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, correo FROM alma ORDER BY unidad ASC, apellidos ASC, nombre ASC");
 
 			while ($row = mysqli_fetch_array($result)) {
 				$correo_electronico = mb_strtolower('alumno.'.$row['claveal'].'@'.$config['dominio'], 'UTF-8');
 
-				fwrite($fp, $row['claveal'].";".substr(sha1($row['claveal']),0,8).";".$row['nombre'].";".$row['apellidos'].";".$correo_electronico.";".$config['centro_localidad'].";ES\r\n");
+				fwrite($fp, $row['claveal'].";".substr(sha1($row['claveal']),0,8).";".$row['nombre'].";".$row['apellidos'].";".$correo_electronico.";".$config['centro_localidad'].";ES;alumnos\r\n");
 			}
 			fclose($fp);
 
@@ -139,7 +139,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				} else if (function_exists('finfo_file')) {
 					$info = finfo_open(FILEINFO_MIME);
 					$type = finfo_file($info, $directorio.$moodle_alumnos);
-					finfo_close($info);  
+					finfo_close($info);
 				}
 				if ($type == '') {
 					$type = "application/force-download";
@@ -163,8 +163,8 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 		else {
 			// Cabecera del archivo
-			fwrite($fp, "username;password;firstname;lastname;email;city;country\r\n");
-			
+			fwrite($fp, "username;password;firstname;lastname;email;city;country;institution\r\n");
+
 			// Perfil profesor: Todos los profesores excepto equipo directivo
 			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' AND d.departamento <> 'Educador' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
@@ -174,7 +174,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
 				$correo_electronico = ($row['correo'] == "") ? 'profesor.'.$row['idea'].'@'.mb_strtolower($config['dominio'],'UTF-8') : mb_strtolower($row['correo'], 'UTF-8');
 
-				fwrite($fp, $row['idea'].";".$row['dni'].";".$nombre.";".$apellidos.";".$correo_electronico.";".$config['centro_localidad'].";ES\r\n");
+				fwrite($fp, $row['idea'].";".$row['dni'].";".$nombre.";".$apellidos.";".$correo_electronico.";".$config['centro_localidad'].";ES;profesores\r\n");
 			}
 
 			fclose($fp);
@@ -186,7 +186,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				} else if (function_exists('finfo_file')) {
 					$info = finfo_open(FILEINFO_MIME);
 					$type = finfo_file($info, $directorio.$moodle_profesores);
-					finfo_close($info);  
+					finfo_close($info);
 				}
 				if ($type == '') {
 					$type = "application/force-download";
@@ -217,7 +217,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		else {
 			// Cabecera del archivo
 			fwrite($fp, "First Name,Last Name,Email Address,Password,Secondary Email,Work Phone 1,Home Phone 1,Mobile Phone 1,Work address 1,Home address 1,Employee Id,Employee Type,Employee Title,Manager,Department,Cost Center\r\n");
-			
+
 			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
 				$exp_nombre = explode(', ', $row['nombre']);
@@ -234,7 +234,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
 
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
-				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');			
+				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
 				$correo = $primer_nombre.$primer_apellido;
 				$correo = str_ireplace('M ª', 'María', $correo);
@@ -269,7 +269,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				} else if (function_exists('finfo_file')) {
 					$info = finfo_open(FILEINFO_MIME);
 					$type = finfo_file($info, $directorio.$gsuite_profesores);
-					finfo_close($info);  
+					finfo_close($info);
 				}
 				if ($type == '') {
 					$type = "application/force-download";
@@ -300,7 +300,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		else {
 			// Cabecera del archivo
 			fwrite($fp, utf8_decode("Nombre de usuario,Nombre,Apellidos,Nombre para mostrar,Puesto,Departamento,Número del trabajo,Teléfono del trabajo,Teléfono móvil,Número de fax,Dirección,Ciudad,Estado o provincia,Código postal,País o región\r\n"));
-			
+
 			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
 				$exp_nombre = explode(', ', $row['nombre']);
@@ -317,7 +317,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$nombre_completo = trim($exp_nombre[1].' '.$exp_nombre[0]);
 
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
-				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');			
+				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
 				$correo = $primer_nombre.$primer_apellido;
 				$correo = str_ireplace('M ª', 'María', $correo);
@@ -352,7 +352,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				} else if (function_exists('finfo_file')) {
 					$info = finfo_open(FILEINFO_MIME);
 					$type = finfo_file($info, $directorio.$office365_profesores);
-					finfo_close($info);  
+					finfo_close($info);
 				}
 				if ($type == '') {
 					$type = "application/force-download";
@@ -380,4 +380,3 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 	unset($cuota_profesores);
 	unset($cuota_gestion);
 }
-
