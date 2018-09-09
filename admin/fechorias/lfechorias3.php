@@ -1,6 +1,9 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 $PLUGIN_DATATABLES = 1;
 

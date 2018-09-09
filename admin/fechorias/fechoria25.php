@@ -1,4 +1,4 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 if (strlen($id)>0 and $grave == "muy grave" and stristr($_SESSION['cargo'],'1') == TRUE) {
 	$confirm = mysqli_query($db_con,"select confirmado from Fechoria where confirmado = '1' and id = '$id'");
@@ -21,8 +21,8 @@ elseif (strlen ($notas) < '10' ) {
             La descripci&oacute;n de lo sucedido es demasiado breve. Es necesario que proporciones m&aacute;s detalles de lo ocurrido para que Jefatura de Estudios y Tutor puedan hacerse una idea precisa del suceso.<br />Vuelve atr&aacute;s e int&eacute;ntalo de nuevo.
           </div></div>';
 }
-elseif (isset($_POST['nombre'])) {	
-	
+elseif (isset($_POST['nombre'])) {
+
 if (is_array($nombre)) {
 	$num_a = count($_POST['nombre']);
 }
@@ -60,9 +60,9 @@ for ($i=0;$i<$num_a;$i++){
             <legend>Atenci&oacute;n:</legend>
             Ya hay un problema de convivencia registrado que contiene los mismos datos que est&aacute;s enviando, y no queremos repetirlos... .
           </div></div><br />';
-	}	
+	}
 	else{
-		
+
 		$alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
 		$rowa = mysqli_fetch_array ( $alumno );
 		$apellidos = trim ( $rowa [0] );
@@ -81,23 +81,23 @@ for ($i=0;$i<$num_a;$i++){
 		else{
 			$sms_ya = 0;
 			}
-			
+
 		if ($config['mod_sms'] && $sms_ya == 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
-			
+
 			$hora_f = date ( "G" );
 			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
 				$sms_n = mysqli_query($db_con, "select max(id) from sms" );
 				$n_sms = mysqli_fetch_array ( $sms_n );
 				$extid = $n_sms [0] + 1;
 
-				if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "6") {
+				if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7") {
 					$mobile = $tfno;
 				} else {
 					$mobile = $tfno_u;
 				}
 
 				if(strlen($mobile) == 9) {
-					
+
 					// ENVIO DE SMS
 					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 					$sms = new Trendoo_SMS();
@@ -107,17 +107,17 @@ for ($i=0;$i<$num_a;$i++){
 					$sms->sender = $config['mod_sms_id'];
 					$sms->set_immediate();
 
-					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {
 					}
 					else{
 						if ($sms->validate()){
 							$sms_enviado=1;
-						// Envío de SMS	
+						// Envío de SMS
 							$sms->send();
-							if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+							if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {
 								}
 							else{
-						// Registro de SMS		
+						// Registro de SMS
 						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
 
 						// Registro de Tutoría
@@ -126,8 +126,8 @@ for ($i=0;$i<$num_a;$i++){
 						$accion = "Env&iacute;o de SMS";
 						$causa = "Problemas de convivencia";
 						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
-							}	
-						} 
+							}
+						}
 					}
 				}
 				else {
@@ -155,7 +155,7 @@ for ($i=0;$i<$num_a;$i++){
 		 	$correo = $correo2[0];
 		 }
 		 if (strlen($correo)>0 and $sms_enviado != 1) {
-		 	
+
 		 	 require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 		 	 $mail = new PHPMailer();
 		 	 if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
@@ -164,7 +164,7 @@ for ($i=0;$i<$num_a;$i++){
 				$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
 				$mail->Port = $config['email_smtp']['port'];
 				$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
-				
+
 				$mail->Username = $config['email_smtp']['username'];
 				$mail->Password = $config['email_smtp']['password'];
 
@@ -175,7 +175,7 @@ for ($i=0;$i<$num_a;$i++){
 				$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
 			 }
 		 	 $mail->IsHTML(true);
-		 	 
+
 		 	 $message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
 		 	 $message = str_replace('{{dominio}}', $config['dominio'], $message);
 		 	 $message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
@@ -189,24 +189,24 @@ for ($i=0;$i<$num_a;$i++){
 		 	 $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 		 	 $message = str_replace('{{titulo}}', 'Comunicación de Problemas de Convivencia', $message);
 		 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
-		 	 
+
 		 	 $mail->msgHTML(utf8_decode($message));
 		 	 $mail->Subject = utf8_decode($config['centro_denominacion'].' - Comunicación de Problemas de Convivencia');
 		 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
-	
+
 		 	 $mail->AddAddress($correo, $nombre_alumno);
-		 	 if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {						
+		 	 if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {
 				}
 				else{
-					$mail->Send();	
+					$mail->Send();
 					// Registro de Tutoría
 					$fecha2 = date ( 'Y-m-d' );
 					$observaciones = $message;
 					$accion = "Env&iacute;o de SMS";
 					$causa = "Problemas de convivencia";
 					mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
-				}	
-				
+				}
+
 		 	}
 		 	// Fin Correo
 		 }
@@ -221,7 +221,7 @@ for ($i=0;$i<$num_a;$i++){
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
-	elseif ($grave == "muy grave" and $_POST['submit1']=="Actualizar datos") {	
+	elseif ($grave == "muy grave" and $_POST['submit1']=="Actualizar datos") {
 		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', confirmado='1' where id = '$id'");
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -235,7 +235,7 @@ for ($i=0;$i<$num_a;$i++){
 		 if ($inserta) {
 		 	$z++;
 		 	}
-		}	 
+		}
 	}
 }
 
@@ -251,4 +251,3 @@ if ($z>0 and !($_POST['confirmado']=="1" and $confirma_db != 1)) {
 	}
 }
 ?>
-

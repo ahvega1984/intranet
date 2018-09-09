@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 acl_acceso($_SESSION['cargo'], array(1));
 
 include ("../../menu.php");
@@ -10,12 +14,12 @@ include ("menu.php");
 
 	<div class="page-header">
 		<h2 style="display: inline;">Aula de Convivencia <small> Últimos Problemas de Convivencia</small></h2>
-		
+
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 			<span class="fas fa-question fa-lg"></span>
 		</a>
-	
+
 		<!-- Modal -->
 		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -25,18 +29,18 @@ include ("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Este módulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia, 
-						en caso de que el Centro disponga de una. Los Profesores que atienden el Aula en una determinada 
-						hora en su Guardia deben  haber sido seleccionados en los <em><strong>Perfiles de los Profesores</strong></em>. 
-						Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia acceden desde el <em>Menú 
+						<p>Este módulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia,
+						en caso de que el Centro disponga de una. Los Profesores que atienden el Aula en una determinada
+						hora en su Guardia deben  haber sido seleccionados en los <em><strong>Perfiles de los Profesores</strong></em>.
+						Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia acceden desde el <em>Menú
 						de la Página de Inicio --> Trabajo --> Problemas de Convivencia --> Aula de Convivencia</em>.</p>
-						<p>Esta página nos presenta una tabla con los alumnos que deberían encontrarse en el Aula (al haber 
-						rellenado Jefatura el formulario de Expulsión al Aula de Convivencia en el Informe del Problema) 
-						en una hora y día determinados. El Profesor puede informar sobre la <strong><em>Asistencia</em></strong> 
-						y <strong><em>Trabajo</em></strong> del alumno. Si necesita además informar sobre otro asunto, 
-						puede utilizar el campo <strong><em>Observaciones</em></strong>. Una vez terminado de marcar las 
-						opciones de cada alumno, enviamos los datos para guardarlos. El Equipo directivo, por su parte, 
-						visualiza en todo momento la actividad en el Aula al recibir los datos de todos los Profesores que 
+						<p>Esta página nos presenta una tabla con los alumnos que deberían encontrarse en el Aula (al haber
+						rellenado Jefatura el formulario de Expulsión al Aula de Convivencia en el Informe del Problema)
+						en una hora y día determinados. El Profesor puede informar sobre la <strong><em>Asistencia</em></strong>
+						y <strong><em>Trabajo</em></strong> del alumno. Si necesita además informar sobre otro asunto,
+						puede utilizar el campo <strong><em>Observaciones</em></strong>. Una vez terminado de marcar las
+						opciones de cada alumno, enviamos los datos para guardarlos. El Equipo directivo, por su parte,
+						visualiza en todo momento la actividad en el Aula al recibir los datos de todos los Profesores que
 						hacen allí su Guardia.</p>
 					</div>
 					<div class="modal-footer">
@@ -47,10 +51,10 @@ include ("menu.php");
 		</div>
 
 	</div>
-	
+
 <div class="row">
 <div class="col-sm-12">
- <?php 
+ <?php
 $borrar = $_GET['borrar'];
 $id = $_GET['id'];
 $claveal = $_GET['claveal'];
@@ -85,16 +89,16 @@ if (empty($hoy)) {
 foreach ( $_POST as $clave => $valor ) {
 	if(is_numeric($clave)) {
 	$tr=explode("-", $valor);
-	// Comprobacion de duplicacion de datos 
+	// Comprobacion de duplicacion de datos
 	$sel1 =  mysqli_query($db_con, "select * from convivencia where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 	//echo "select * from convivencia where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'";
 	if (mysqli_num_rows($sel1) == 0) {
 		mysqli_query($db_con, "insert into convivencia (claveal, dia, hora, fecha) VALUES ('$tr[0]','$tr[1]','$tr[2]', '$hoy')");
-			$mens = '1';	
+			$mens = '1';
 			}
 	else{
 			mysqli_query($db_con, "update convivencia set dia = '$tr[1]', hora = '$tr[2]' where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
-			$mens = '2';	
+			$mens = '2';
 	}
 	}
 if (stristr($clave,"observa")==TRUE) {
@@ -130,7 +134,7 @@ if ($fecha1) {
 	}
 	elseif (strlen($fecha0)<'6' and strlen($fecha11) < '6') {
 		$fecha0 = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );
-	}else{		
+	}else{
 		$fechasp0 = explode ( "-", $fecha0 );
 		$fecha0 = $fechasp0 [2] . "-" . $fechasp0 [1] . "-" . $fechasp0 [0];
 	}
@@ -139,7 +143,7 @@ else
 {
 $fecha0=$hoy;
 }
-     
+
 echo " <legend class='text-info' align='center'>";
 if (empty($hor))  {$hoy0 = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else {$hoy0 = $fecha0;}
 if ($hoy) {
@@ -150,17 +154,17 @@ $hoy0 = "$tr_h[2]-$tr_h[1]-$tr_h[0]";
 echo "$hoy0</legend>";
 	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
-<div class="well">	
+<div class="well">
 	<div class="form-group" id="datetimepicker1">
 <label>Selecciona el Día </label>
 <div class="input-group">
   <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?php echo $hoy0;?>" >
   <span class="input-group-addon"><i class="far fa-calendar"></i></span>
-</div> 
+</div>
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <?php $array_horas = array('1','2','3','R','4','5','6'); ?>
-<div class="form-group">	
+<div class="form-group">
     <label>
 	<?php
 	echo "  y la Hora &nbsp;</label>";
@@ -217,7 +221,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td style='vertical-align:middle'>$row[5]</td>
 		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='fas fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
-	
+
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
 		<td style='vertical-align:middle' align='center'>
 		<input type='checkbox' name='$row[8]-trabajo'  value='1' $ch_tr/>
@@ -226,13 +230,13 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 		<td>
 		<textarea name='$row[8]-observaciones' rows='3' cols='25'>$obs_al</textarea>
 		</td>";
-		
+
 	for ($i = 1; $i < 8; $i++) {
-		
+
 		if ($i == 4) $conv_hora = 'R';
 		elseif($i > 4) $conv_hora = $i - 1;
 		else $conv_hora = $i;
-		
+
 		echo "<td>";
 		$asiste0 = "select hora, trabajo, id, observaciones from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$conv_hora'";
 		//echo $asiste0;
@@ -261,23 +265,22 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
         echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 	}
 	echo "</td></tr>";
-		
-} 
+
+}
 	echo "</table><input type='submit' name = 'enviar' value = 'Registrar' class='btn btn-primary' /></form></center>";
 ?>
 </div>
 </div>
 </div>
 <?php include("../../pie.php");?>
-<script>  
-$(function ()  
-{ 
+<script>
+$(function ()
+{
 	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	})
-});  
+});
 </script>
   </body>
 </html>
-

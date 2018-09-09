@@ -1,6 +1,9 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 $tutor = $_SESSION['profi'];
 
@@ -9,15 +12,15 @@ include("../../menu.php");
 include("menu.php");
 ?>
 	<div class="container">
-	
+
 		<div class="page-header">
 			<h2 style="display: inline;">Problemas de convivencia <small> Informe personal del Problema</small></h2>
-			
+
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 				<span class="fas fa-question fa-lg"></span>
 			</a>
-		
+
 			<!-- Modal -->
 			<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
@@ -27,18 +30,18 @@ include("menu.php");
 							<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 						</div>
 						<div class="modal-body">
-							<p>Esta página tiene varias funciones. En primer lugar, ofrece información detallada de un 
-							problema de convivencia registrado por un Profesor. Presenta también datos numéricos sobre 
-							los problemas y tipos de problema del alumno. En la parte inferior tenemos una tabla donde 
+							<p>Esta página tiene varias funciones. En primer lugar, ofrece información detallada de un
+							problema de convivencia registrado por un Profesor. Presenta también datos numéricos sobre
+							los problemas y tipos de problema del alumno. En la parte inferior tenemos una tabla donde
 							se recoge el historial delictivo del alumno.</p>
-							<p>En la parte derecha nos encontramos, si pertenecemos al Equipo directivo, un par de 
-							formularios para expulsar al alumno del Centro o expulsarlo al Aula de Convivencia una serie 
-							de horas o días. La fecha de la expulsión no debe ser inmediata, considerando que los 
-							Profesores del Equipo educativo del alumno que va a ser expulsado necesitarán algún tiempo 
+							<p>En la parte derecha nos encontramos, si pertenecemos al Equipo directivo, un par de
+							formularios para expulsar al alumno del Centro o expulsarlo al Aula de Convivencia una serie
+							de horas o días. La fecha de la expulsión no debe ser inmediata, considerando que los
+							Profesores del Equipo educativo del alumno que va a ser expulsado necesitarán algún tiempo
 							para rellenar su Informe de Tareas de tal modo que éste trabaje durante su ausencia.</p>
-							<p>También nos encontramos una serie de botones para imprimir partes oficiales relacionados 
-							con el problema registrado, en caso de que necesitemos hacerlo. Generan documentos oficiales 
-							preparados para ser enviados a los Padres del alumno, por lo que su uso está limitado a 
+							<p>También nos encontramos una serie de botones para imprimir partes oficiales relacionados
+							con el problema registrado, en caso de que necesitemos hacerlo. Generan documentos oficiales
+							preparados para ser enviados a los Padres del alumno, por lo que su uso está limitado a
 							Tutores y Equipo directivo.</p>
 						</div>
 						<div class="modal-footer">
@@ -47,7 +50,7 @@ include("menu.php");
 					</div>
 				</div>
 			</div>
-		  
+
 		</div>
 
 <?php
@@ -102,27 +105,27 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		$inicio_aula = $row[16];
 		$fin_aula = $row[17];
 		$horas = $row[18];
-    
+
     if (!$claveal) {
       $claveal = $row[19];
     }
-    
+
  	if($inicio){ $inicio1 = explode("-",$inicio); $inicio = $inicio1[2] . "-" . $inicio1[1] ."-" . $inicio1[0];}
     if($fin){ $fin1 = explode("-",$fin); $fin = $fin1[2] . "-" . $fin1[1] ."-" . $fin1[0];}
 	 if($inicio_aula){ $inicio1 = explode("-",$inicio_aula); $inicio_aula = $inicio1[2] . "-" . $inicio1[1] ."-" . $inicio1[0];}
     if($fin_aula){ $fin1 = explode("-",$fin_aula); $fin_aula = $fin1[2] . "-" . $fin1[1] ."-" . $fin1[0];}
 		}
-		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
+		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal
+		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha");
 		$numerototal= mysqli_num_rows($numero);
-		$numerograves0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and grave = 'grave' order by Fechoria.fecha"); 
+		$numerograves0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal
+		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and grave = 'grave' order by Fechoria.fecha");
 		$numerograves= mysqli_num_rows($numerograves0);
-		$numeromuygraves0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and grave = 'muy grave' order by Fechoria.fecha"); 
+		$numeromuygraves0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal
+		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and grave = 'muy grave' order by Fechoria.fecha");
 		$numeromuygraves= mysqli_num_rows($numeromuygraves0);
-		$numeroexpulsiones0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and expulsion >= '1' order by Fechoria.fecha"); 
+		$numeroexpulsiones0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal
+		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and expulsion >= '1' order by Fechoria.fecha");
 		$numeroexpulsiones= mysqli_num_rows($numeroexpulsiones0);
 ?>
 <legend align="center">
@@ -192,7 +195,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
         <br />
         <div align="center"><a href="../informes/index.php?claveal=<?php echo $claveal;?>&todos=1" target="_blank" class="btn btn-primary">
         Ver Informe del Alumno
-        </a> 
+        </a>
         <a href="../jefatura/index.php?alumno=<?php echo $apellidos.", ".$nombre;?>&unidad=<?php echo $unidad;?>&grupo=<?php echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
     </div>
     <hr>
@@ -208,7 +211,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		</tr>";
 	// Consulta de datos del alumno.
 	$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id, Fechoria.informa from Fechoria where claveal = '$claveal' and fecha >= '".$config['curso_inicio']."' order by fecha DESC" );
-	
+
 	while ( $row = mysqli_fetch_array ( $result ) ) {
 		echo "<tr>
 	<td nowrap>$row[0]</td>
@@ -222,9 +225,9 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 	}
 	echo "</table>\n";
     ?>
-    
+
   </div>
-  
+
   <div class="col-sm-5">
     <?php
    $pr = $_SESSION ['profi'];
@@ -235,25 +238,25 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		{
 	if (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) {
 	?>
-    
+
     <div class="well"><h4>Expulsión del alumno</h4><br>
     <form id="form1" name="form1" method="post" action="detfechorias.php" class="">
       <div class="form-group">
 	<label> N&ordm; de D&iacute;as:</label>
         <input name="expulsion" type="text" id="textfield" <?php if($expulsion > 0){echo "value=$expulsion";}?> maxlength="2" class="form-control" />
-        
+
       </div>
-       
+
       <input name="id" type="hidden" value="<?php echo $id; ?>"/>
       <input name="claveal" type="hidden" value="<?php echo $claveal; ?>"/>
- 
+
 
 <div class="form-group " id="datetimepicker1">
 <label>Inicio:</label>
 <div class="input-group">
   <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <?php if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
   <span class="input-group-addon"><i class="far fa-calendar"></i></span>
-</div> 
+</div>
 </div>
 
 <div class="form-group " id="datetimepicker2">
@@ -261,13 +264,13 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 <div class="input-group">
   <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <?php if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
   <span class="input-group-addon"><i class="far fa-calendar"></i></span>
-</div> 
+</div>
 </div>
 
 <div class="row">
-<?php if($config['mod_sms']){?>      
+<?php if($config['mod_sms']){?>
    <div class="form-group col-sm-4">
-      <div class="checkbox">    
+      <div class="checkbox">
          <label>
          <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked" />
         Enviar SMS </label>
@@ -283,7 +286,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
           </div>
           </div>
   <div class="form-group col-sm-4">
-      <div class="checkbox pull-right">    
+      <div class="checkbox pull-right">
          <label>
          <input name="borrar_exp" type="checkbox" id="borrar_exp" value="<?php echo $id;?>" />
         Borrar datos </label>
@@ -291,13 +294,13 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
       </div>
       </div>
         <input name="submit" type="submit" value="Enviar datos" class="btn btn-primary" />
-      
+
     </form>
     </div>
     <?php
 		}
     ?>
-    <?php 
+    <?php
  $hora = date ( "G" ); // hora
 	$ndia = date ( "w" );
 	if (($hora == '8' and $minutos > 15) or ($hora == '9' and $minutos < 15)) {
@@ -316,23 +319,23 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		$hora_dia = '6';
 	} else {
 		$hora_dia = "0";
-	}	
+	}
  ?>
 
  <?php if ($config['mod_convivencia']==1) { ?>
  <div class="well">
     <h4>Expulsión al Aula de convivencia </h4><br>
     <form id="form2" name="form2" method="post" action="detfechorias.php" >
-      
+
       <div class="form-group">
       <label >N&uacute;mero de D&iacute;as</label>
         <input name="convivencia" type="text" id="expulsion" <?php if($convivencia > 0){echo "value=$convivencia";}else{ if ($gucon == '1') {
           	echo "value=''";}}?> size="2" maxlength="2" class="form-control" />
       </div>
-      
+
       <div class="form-group">
       	<label >Horas sueltas</label>
-        <input name="horas" type="text" <?php if($horas > 0 || $horas == 'R'){echo "value=$horas";}else{ 
+        <input name="horas" type="text" <?php if($horas > 0 || $horas == 'R'){echo "value=$horas";}else{
           	if (stristr($_SESSION['cargo'],'1') == TRUE) {
           		echo "value=123R456";
           	}else{
@@ -345,13 +348,13 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
       <input name="id" type="hidden" value="<?php echo $id;?>" />
       <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
       <hr>
-     
+
      <div class="form-group"  id="datetimepicker3">
 <label>Inicio:</label>
 <div class="input-group">
   <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?php if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
   <span class="input-group-addon"><i class="far fa-calendar"></i></span>
-</div> 
+</div>
 </div>
 
     <div class="form-group" id="datetimepicker4">
@@ -359,7 +362,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 <div class="input-group">
   <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?php if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
   <span class="input-group-addon"><i class="far fa-calendar"></i></span>
-</div> 
+</div>
 </div>
 <div class="row">
           <div class="form-group col-sm-6">
@@ -378,7 +381,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
           <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked"  />
           Enviar SMS
           </label>
-          </div>             
+          </div>
           </div>
           <?php } ?>
           <div class="form-group  col-sm-6">
@@ -390,9 +393,9 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
           </div>
           </div>
 </div>
-          
+
 <input type="submit" name="imprimir4" value="Enviar datos" class="btn btn-primary"/>
-        
+
     </form>
     </div>
     <?php } ?>
@@ -410,14 +413,14 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
       <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
       <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <?php if($inicio){echo "value=$inicio";}?> />
       <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <?php if($fin){echo "value=$fin";}?> />
-      
+
         <input type="submit" name="imprimir" value="Expulsi&oacute;n del Centro" class="btn btn-danger"/>
-      
+
     </form>
 
      <?php if ($config['mod_convivencia']==1) { ?>
     <h6>EXPULSI&Oacute;N AL AULA DE CONVIVENCIA</h6>
-    
+
       <form id="form3" name="form3" method="post" action="imprimir/convivencia.php">
         <input name="id" type="hidden" value="<?php echo $id;?>" />
         <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
@@ -433,19 +436,19 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
     <h6>EXPULSI&Oacute;N
       DEL AULA </h6>
     <form id="form3" name="form3" method="post" action="imprimir/expulsionaula.php">
-      
+
         <input name="id" type="hidden" value="<?php echo $id;?>" />
         <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
         <input type="submit" name="imprimir2" value="Parte de Expulsi&oacute;n del Aula" class="btn btn-danger" />
-      
+
     </form>
     <h6>AMONESTACI&Oacute;N ESCRITA </h6>
     <form id="form3" name="form3" method="post" action="imprimir/amonestescrita.php">
-      
+
         <input name="id" type="hidden" value="<?php echo $id;?>" />
         <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
         <input type="submit" name="imprimir3" value="Amonestaci&oacute;n escrita " class="btn btn-danger" />
-      
+
     </form>
     </div>
   </div>
@@ -453,29 +456,29 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 </div>
 </div>
 <?php include("../../pie.php");?>
-	<script>  
-	$(function ()  
-	{ 
+	<script>
+	$(function ()
+	{
 		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
-		
+
 		$('#datetimepicker2').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
-		
+
 		$('#datetimepicker3').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
-		
+
 		$('#datetimepicker4').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
-	});  
+	});
 	</script>
 </body>
 </html>

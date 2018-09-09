@@ -1,6 +1,9 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 $idea = $_SESSION ['ide'];
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activ1 = ' class="active" ';}
@@ -62,16 +65,26 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 							Aquí es importante contar con una actuación concreta y conocida por todos cuando se pierdan todos los puntos
 							(mal comportamiento reiterado y/o grave).</p>
 
-						<p>Cada alumno comienza con <strong>12 puntos</strong> y los va perdiendo según la gravedad del problema de convivencia.
-							Por cada parte leve pierde <strong>2 puntos</strong>, por cada parte grave <strong>4 puntos</strong>
-							y por cada parte muy grave <strong>6 puntos</strong>.</p>
+						<p>Cada alumno comienza con
+							<strong><?php echo (isset($config['convivencia']['puntos']['total'])) ? $config['convivencia']['puntos']['total'] : '8'; ?> puntos</strong>
+							y los va perdiendo según la gravedad del problema de convivencia. Por cada parte leve pierde
+							<strong><?php echo (isset($config['convivencia']['puntos']['resta_leves'])) ? $config['convivencia']['puntos']['resta_leves'] : '2'; ?> puntos</strong>,
+							por cada parte grave
+							<strong><?php echo (isset($config['convivencia']['puntos']['resta_graves'])) ? $config['convivencia']['puntos']['resta_graves'] : '4'; ?> puntos</strong>
+							y por cada parte muy grave
+							<strong><?php echo (isset($config['convivencia']['puntos']['resta_mgraves'])) ? $config['convivencia']['puntos']['resta_mgraves'] : '6'; ?> puntos</strong>.</p>
 						</p>
 
-						<p>Si en una semana no ha registrado ningún problema se <strong>suma 0,15 puntos</strong> y así sucesivamente hasta un <strong>máximo de 15 puntos</strong>.</p>
+						<p>Si en una semana no ha registrado ningún problema se
+							<strong>incrementa <?php echo (isset($config['convivencia']['puntos']['recupera_semana'])) ? $config['convivencia']['puntos']['recupera_semana'] : '0,15'; ?> puntos</strong>
+							y así sucesivamente hasta un <strong>máximo de <?php echo (isset($config['convivencia']['puntos']['maximo'])) ? $config['convivencia']['puntos']['maximo'] : '15'; ?> puntos</strong>.</p>
 
-						<p>Cuando el alumno se reincorpora de una expulsión se <strong>recuperan los 12 puntos</strong>.</p>
+						<p>Cuando el alumno se reincorpora de una expulsión se
+							<strong>recuperan los <?php echo (isset($config['convivencia']['puntos']['total'])) ? $config['convivencia']['puntos']['total'] : '8'; ?> puntos</strong>.</p>
 
-						<p>Cuando el alumno es expulsado al aula de convivencia, tiene la posibilidad de <strong>recuperar 2 puntos</strong> si asiste y realiza las tareas.</p>
+						<p>Cuando el alumno es expulsado al aula de convivencia, tiene la posibilidad de
+							<strong>recuperar <?php echo (isset($config['convivencia']['puntos']['recupera_convivencia'])) ? $config['convivencia']['puntos']['recupera_convivencia'] : '2'; ?> puntos</strong>
+							si asiste y realiza las tareas.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>

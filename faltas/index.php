@@ -1,6 +1,11 @@
 <?php
 require('../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
+
 if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
 if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
 if (isset($_POST['profe_ausente'])) {$profe_ausente = $_POST['profe_ausente'];}elseif (isset($_GET['profe_ausente'])) {$profe_ausente = $_GET['profe_ausente'];}
@@ -71,7 +76,7 @@ if ($config['mod_asistencia']) {
 	}
 ?>
 
-<div class="container"> 
+<div class="container">
 
 <div class="page-header">
 <h2 style="display: inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
@@ -83,7 +88,7 @@ if($mensaje){
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Las Faltas han sido registradas correctamente.
-          </div></div>'; 
+          </div></div>';
 }
 ?>
 <div class="col-md-5"><br>
@@ -103,7 +108,7 @@ if($mensaje){
 	class="far fa-calendar"></span></span></div>
 </div>
 
-<div class="form-group"><label for="grupo">Grupo</label> 
+<div class="form-group"><label for="grupo">Grupo</label>
 	<?php
 	?>
 	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
@@ -119,7 +124,7 @@ if($mensaje){
 				else{
 					$grup.="$grupo_hora[0] ";
 				}
-				
+
 				$asign = $grupo_hora[1];
 			}
 			$grupos = "$grup ($asign)";
@@ -140,7 +145,7 @@ if($mensaje){
 	?>
 </select></div>
 
-<?php 
+<?php
 
 
 $gu = mysqli_query($db_con,"select distinct c_asig, a_asig from horw where prof = '$pr' and hora='$hora_dia' and dia='$ndia'");
@@ -257,7 +262,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 	$curso_asig = substr($curso_bach[0],3,15);
 
 	//if (stristr($curso_bach['curso'],"Bachiller")==TRUE) {
-		
+
 		$asignat="";
 		$cod_asig_bach="";
 		// Cursos con dos códigos distintos de una misma asignatura o Bachillerato.
@@ -267,9 +272,9 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignat' limit 1) and grupo like '$curso' and codigo not like '$asignat' and abrev not like '%\_%'");
 
-		if (mysqli_num_rows($asig_bach)>0) {							
+		if (mysqli_num_rows($asig_bach)>0) {
 			$as_bach=mysqli_fetch_array($asig_bach);
-			$cod_asig_bach = $as_bach[0];							
+			$cod_asig_bach = $as_bach[0];
 			$res.=" combasi like '%$asignat:%' or combasi like '%$cod_asig_bach:%'";
 			$fal_e =" FALTAS.codasi='$asignat' or FALTAS.codasi='$cod_asig_bach'";
 			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
@@ -282,7 +287,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 				}
 				else{
 					$res.="1=1 ";
-					$cod_asig = "asignatura like '$asignat'";					
+					$cod_asig = "asignatura like '$asignat'";
 				}
 			}
 			else{
@@ -290,8 +295,8 @@ while($hora2 = mysqli_fetch_row($hora0))
 				$cod_asig = "asignatura like '$asignat'";
 			}
 			$fal_e =" FALTAS.codasi='$asignat' ";
-		}		
-	
+		}
+
 	$res.=") order by alma.apellidos ASC, alma.nombre ASC";
 	// echo $res;
 	$result = mysqli_query($db_con, $res);
@@ -347,7 +352,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 					?>
 
 					<tr>
-					<td class="text-center" width="70">	
+					<td class="text-center" width="70">
 
 					<?php
 
@@ -384,14 +389,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 				$hoy2 = strtotime($hoy);
 
 				$comienzo_del_curso = strtotime($config['curso_inicio']);
-				
+
 				// Es festivo
 				$fiesta=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$hoy')");
 
 				if (mysqli_num_rows($fiesta) > '0') {
 					$dia_festivo='1';
 				}
-				
+
 				$hoy_num = strtotime($hoy);
 				$inicio_num = strtotime($config['curso_inicio']);
 				$fin_num = strtotime($config['curso_fin']);
@@ -448,20 +453,20 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" data-html="true" title="No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha."';
-				}		
+				}
 
 ?>
 
 <div style="width: 120px; display: block;<?php echo $extra_act; ?>" <?php echo $chkT; ?>>
-<span class="text-danger">F</span> 
+<span class="text-danger">F</span>
 <input type="radio"	id="falta_<?php echo $row[0]."_".$curso;?>"
 	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkF; ?>
-	value="F" onClick="uncheckRadio(this)" /> &nbsp; 
-<span class="text-success">J</span> 
+	value="F" onClick="uncheckRadio(this)" /> &nbsp;
+<span class="text-success">J</span>
 <input type="radio" id="falta_<?php echo $row[0]."_".$curso;?>"
 	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkJ; ?>
-	value="J" onClick="uncheckRadio(this)" /> &nbsp; 
-<span class="text-warning">R</span> 
+	value="J" onClick="uncheckRadio(this)" /> &nbsp;
+<span class="text-warning">R</span>
 <input type="radio"	id="falta_<?php echo $row[0]."_".$curso;?>"
 	name="falta_<?php echo $row[0]."_".$curso;?>" <?php echo $chkR; ?>
 	value="R" onClick="uncheckRadio(this)" />
@@ -473,7 +478,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 <td>
 
-<?php 
+<?php
 
 //Cuaderno correcta
 $faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and ($fal_e) and claveal='$row[0]' and falta='F'");
@@ -496,7 +501,7 @@ if ($f_faltaT>0) {echo "<br>";}
 			}
 		}
 	}
-?> 
+?>
 
 <?php
 	echo '</tbody></table>';
@@ -563,7 +568,7 @@ else {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El módulo de Faltas de Asistencia debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
-          </div></div>'; 
+          </div></div>';
 	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 }
 ?>
@@ -589,19 +594,19 @@ while ($row = mysqli_fetch_array($result)) {
 
 $festivos = substr($festivos,0,-2);
 ?>
-<script>  
-	$(function ()  
-	{ 
+<script>
+	$(function ()
+	{
 		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false,
 			minDate:'<?php echo $inicio_curso; ?>',
 			maxDate:'<?php echo $fin_curso; ?>',
 			disabledDates: [<?php echo $festivos; ?>],
-			daysOfWeekDisabled:[0,6] 
+			daysOfWeekDisabled:[0,6]
 		});
 	});
-	
+
 	$('#datetimepicker1').change(function() {
 	  $('#form1').submit();
 	});
@@ -613,12 +618,12 @@ $('#disable').tooltip('show')
 
 function seleccionar_todo(){
 	for (i=0;i<document.Cursos.elements.length;i++)
-		if(document.Cursos.elements[i].type == "checkbox")	
+		if(document.Cursos.elements[i].type == "checkbox")
 			document.Cursos.elements[i].checked=1
 }
 function deseleccionar_todo(){
 	for (i=0;i<document.Cursos.elements.length;i++)
-		if(document.Cursos.elements[i].type == "checkbox")	
+		if(document.Cursos.elements[i].type == "checkbox")
 			document.Cursos.elements[i].checked=0
 }
 </script>

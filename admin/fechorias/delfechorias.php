@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -22,7 +26,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
           </div></div>';
 ?>
 
-</div>  
+</div>
 <?php include("../../pie.php");?>
 </body>
 </html>

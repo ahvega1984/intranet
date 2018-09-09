@@ -1,5 +1,10 @@
 <?php
 require('../bootstrap.php');
+
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
 include("../menu.php");
 if (isset($_GET['menu_cuaderno'])) {
 	include("../cuaderno/menu.php");
@@ -30,7 +35,7 @@ if (isset($_POST['reg_guardias'])) {$reg_guardia = $_POST['reg_guardias'];}
 </div>
 
 <div class="row">
-<?php		
+<?php
 // Borramos faltas para luego colocarlas de nuevo.
 $borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and profesor = '$nprofe' and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
 
@@ -64,12 +69,12 @@ foreach($_POST as $clave => $valor)
 					if (stristr($codasis, $codasi)==FALSE) {
 						$codasis.=$cod_bch[0].";";
 					}
-				
+
 				$comb = mysqli_query($db_con,"select * from alma where claveal='$claveal' and combasi like '%$cod_bch[0]%'");
 				if (mysqli_num_rows($comb)>0) {
 						$codigo_asignatura = $cod_bch[0];
 					}
-				}					
+				}
 				if (strlen($codigo_asignatura)>0) {}
 					else{
 						$codigo_asignatura = $codasi;
@@ -79,8 +84,54 @@ foreach($_POST as $clave => $valor)
 		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad , FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$unidad', '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
 		// echo $t0;
 		$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
-		$count += mysqli_affected_rows();	
+		$count += mysqli_affected_rows();
 
+		// Enviamos un SMS a los padres si el alumno ha faltado a primera hora
+		if (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) {
+			$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
+			$sms_row = mysqli_fetch_array($sms_alumno);
+			$sms_apellidos = trim($sms_row[0]);
+			$sms_nombre_alum = trim($sms_row[1]);
+			$sms_unidad = trim($sms_row[2]);
+			$sms_tfno = trim($sms_row[5]);
+			$sms_tfno_u = trim($sms_row[6]);
+			$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
+
+			if (substr($sms_tfno, 0, 1) == "6" || substr($sms_tfno, 0, 1 ) == "7") {
+				$mobile = $sms_tfno;
+			}
+			elseif (substr($sms_tfno_u, 0, 1) == "6" || substr($sms_tfno_u, 0, 1 ) == "7") {
+				$mobile = $sms_tfno_u;
+			}
+			else {
+				$mobile = 0;
+			}
+
+			if ($mobile != 0) {
+				// ENVIO DE SMS
+				include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+				$sms = new Trendoo_SMS();
+				$sms->sms_type = SMSTYPE_GOLD_PLUS;
+				$sms->add_recipient('+34'.$mobile);
+				$sms->message = $sms_message;
+				$sms->sender = $config['mod_sms_id'];
+				$sms->set_immediate();
+
+				if ($sms->validate()){
+					$sms->send();
+
+					// Registro de SMS
+					mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$sms_message','$profesor')");
+
+					// Registro de Tutoría
+					$observaciones = $message;
+					$accion = "Env&iacute;o de SMS";
+					$causa = "Faltas de Asistencia";
+					mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
+				}
+			}
+
+		}
 	}
 }
 
@@ -97,11 +148,11 @@ if (!empty($_POST['profesor_ausente'])) {
 	$profesor_ausente = $_POST['profesor_ausente'];
 	$profesor_real = $_POST['profesor'];
 	$n_dia = $_POST['ndia'];
-	
+
 	// Cambiamos fecha
 	$inicio1=$_POST['hoy'];
 	$fin1 = $inicio1;
-	
+
 	//Horas
 	$horas=$_POST['hora'];
 
@@ -116,7 +167,7 @@ if (!empty($_POST['profesor_ausente'])) {
 				echo '<div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamente.
-          </div>';	
+          </div>';
 			}
 			}
 		else{
@@ -124,12 +175,12 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 			echo '<div class="alert alert-info">
 	    <button type="button" class="close" data-dismiss="alert">&times;</button>
 	Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
-	  </div>';		
+	  </div>';
 		}
 
 	//Registramos sustitución en la tabla de Guardias
 	if ($_POST['reg_guardias']=="1") {
-	
+
 		$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
 			if (mysqli_num_rows($gu)>0) {
 				$guardi = mysqli_fetch_row($gu);
@@ -151,31 +202,31 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 			Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
 			</div>';
 				}
-			}			
+			}
 		}
-	}			
+	}
 }
 
 if (empty($mens_fecha)) {
 	echo '<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Las Faltas han sido registradas.
-          </div>'; 
+          </div>';
 }
 else{
 	echo '<div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            '. $mens_fecha.'</div>'; 
+            '. $mens_fecha.'</div>';
 }
 
 if (empty($tiempo)) {
 	$tiempo="3000";
 }
-?> 
+?>
 
 <script language="javascript">
-setTimeout("window.location='index.php?fecha_dia=<?php if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<?php echo $hora; ?><?php echo $extra;?>'", <?php echo $tiempo;?>) 
-</script> 
+setTimeout("window.location='index.php?fecha_dia=<?php if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<?php echo $hora; ?><?php echo $extra;?>'", <?php echo $tiempo;?>)
+</script>
 
 </body>
 </html>

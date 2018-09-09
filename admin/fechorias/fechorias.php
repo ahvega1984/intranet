@@ -1,6 +1,9 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 $PLUGIN_DATATABLES = 1;
 
@@ -14,19 +17,19 @@ include("menu.php");
 }
 </style>
 	<div class="container">
-	
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 		  <h2>Problemas de convivencia <small> Consultas</small></h2>
 		</div>
-		
-		
+
+
 		<!-- SCAFFOLDING -->
   	<div class="row">
-  		
+
   		<!-- COLUMNA CENTRAL -->
   		<div class="col-sm-12">
- 
+
 <?php
 if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}elseif(isset($_GET['submit1'])){$submit1 = $_GET['submit1'];}else{ $submit1=""; }
 if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}elseif(isset($_GET['unidad'])){$unidad = $_GET['unidad'];}else{ $unidad=""; }
@@ -46,7 +49,7 @@ if (!(empty($confirma))) {
   		$actualiza = "update Fechoria set confirmado = '1' where id = '$clave'";
   		//echo $actualiza;
   		$act = mysqli_query($db_con, $actualiza);
-  		} 
+  		}
   	}
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -56,14 +59,14 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 	onClick="history.back()"></div>';
 exit();
   }
-  
+
    if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             El registro ha sido eliminado de la base de datos.
-          </div></div>';	
+          </div></div>';
 exit();
 }
 	if(empty($NOMBRE) and empty($APELLIDOS) and empty($MES) and empty($DIA) and empty($unidad) and empty($claveal) and empty($clase))
@@ -79,7 +82,7 @@ exit();
 exit();
     }
 	$AUXSQL = "";
-	$clase=$_POST["clase"]; 
+	$clase=$_POST["clase"];
   #Comprobamos si se han metido Apellidos o no, etc.
   if  (TRIM("$NOMBRE")=="")
     {
@@ -136,7 +139,7 @@ exit();
     if (isset($clase)) {
     	$AUXSQL .=" AND (";
         foreach ($clase as $tipo_fech){
-    	    
+
 	     if  ($tipo_fech == "Expulsion del Centro")
     {
     $AUXSQL .= " expulsion > '0' OR";
@@ -170,9 +173,9 @@ exit();
     	$AUXSQL .=" )";
     }
 
-    
+
 if (isset($submit1))
-	{			
+	{
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
 $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, alma, FechCaduca where FechCaduca.id = Fechoria.id and alma.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, alma.unidad, alma.apellidos";
   // echo $query0;
@@ -196,9 +199,9 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		<th width='48'>CAD.</th>
 		<th></th>
 		<th></th>
-		<th></th>		
-		</tr></thead><tbody>";	
-        	
+		<th></th>
+		</tr></thead><tbody>";
+
    while($row = mysqli_fetch_array($result))
         {
         $marca = '';
@@ -227,15 +230,15 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		}
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
 		{$caducada="Sí";} else {$caducada="No";}
-		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' order by Fechoria.fecha"); 
+		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal
+		like '%$claveal%' order by Fechoria.fecha");
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";
 				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
 				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
-				
+
 				if($aula_conv > 0){
 					if ($horas == "123R456") {
 						$bgcolor="class='aula-convivencia-jefatura'";
@@ -243,9 +246,9 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 					else{
 						$bgcolor="class='aula-convivencia-profesor'";
 					}
-				}	
-				
-				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
+				}
+
+				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}
 				if($recibido == '1'){$comentarios1="<i class='fas fa-check' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fas fa-exclamation-triangle' title='No recibido'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td>";
@@ -254,7 +257,7 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
         }
         else {
             echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
-        }	
+        }
 		echo "</td>";
 		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>
@@ -265,7 +268,7 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		<td nowrap><center>$rownumero</center></td>
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
-		<td  nowrap>"; 
+		<td  nowrap>";
 
 if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSION['cargo'],'1') == TRUE or (stristr($_SESSION['cargo'],'c') == TRUE and stristr($asunto,"Biblioteca")==TRUE)){
 		$ahora = mktime();
@@ -275,22 +278,22 @@ if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSIO
 			echo "<A HREF='infechoria.php?id=$id&nombre=$claveal'><i class='fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";
 		}
 	echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='far fa-trash-alt fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></i></a>";
-}	
+}
 		echo "<a href='lfechorias2.php?clave=$claveal'><span class='far fa-user fa-fw fa-lg' data-bs='tooltip' title='Historial del alumno'></span></a>
 		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fas fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles del problema e historial de problemas del alumno'></i></A></td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {
-			echo "<input type='checkbox' name='$id' value='1'  $marca onChange='submit()' />";			
+			echo "<input type='checkbox' name='$id' value='1'  $marca onChange='submit()' />";
 		}
 
-		
+
 		echo "</td></tr>";
         }
         echo "</tbody></table></div>
         <input type='hidden' name='confirma' value='si' />
         </form></center>\n";
-        
+
  	}
  	mysqli_query($db_con, "drop table FechCaduca");
   ?>
@@ -298,18 +301,18 @@ if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSIO
   </div>
   </div>
   <?php include("../../pie.php");?>
-  
+
   <script>
   $(document).ready(function() {
     var table = $('.datatable').DataTable({
     		"paging":   true,
         "ordering": true,
         "info":     false,
-        
+
     		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-    		
+
     		"order": [[ 2, "desc" ]],
-    		
+
     		"language": {
     		            "lengthMenu": "_MENU_",
     		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -327,6 +330,6 @@ if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSIO
     	});
   });
   </script>
-  
+
 </body>
 </html>

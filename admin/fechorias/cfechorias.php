@@ -1,22 +1,25 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 include("../../menu.php");
 include("menu.php");
 ?>
 
 <div class="container">
-	
+
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2 style="display:inline;">Problemas de convivencia <small>Consultas</small></h2>
-		
+
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 			<span class="fas fa-question fa-lg"></span>
 		</a>
-	
+
 		<!-- Modal -->
 		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -26,12 +29,12 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>Las Consultas de Problemas de Convivencia no tienen ningún campo obligatorio, pero al menos uno 
-						de los campos debe contener criterios de búsqueda. Hay campos con criterios de tiempo 
-						(<strong>Mes</strong>, <strong>Fecha</strong>); criterios relacionados con un alumno o grupo de 
-						alumnos (<strong>Unidad</strong>, <strong>Apellidos</strong>, etc.); o podemos elegir entre criterios 
+						<p>Las Consultas de Problemas de Convivencia no tienen ningún campo obligatorio, pero al menos uno
+						de los campos debe contener criterios de búsqueda. Hay campos con criterios de tiempo
+						(<strong>Mes</strong>, <strong>Fecha</strong>); criterios relacionados con un alumno o grupo de
+						alumnos (<strong>Unidad</strong>, <strong>Apellidos</strong>, etc.); o podemos elegir entre criterios
 						relacionados con los <strong>Problemas de Convivencia</strong>.</p>
-						<p>Hay que tener en cuenta que los campos de búsqueda se pueden sumar: como regla general, cuanto mayor 
+						<p>Hay que tener en cuenta que los campos de búsqueda se pueden sumar: como regla general, cuanto mayor
 						sea el número de criterios, más reducido será el resultado de la búsqueda.</p>
 					</div>
 					<div class="modal-footer">
@@ -40,26 +43,26 @@ include("menu.php");
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
-	
-	
+
+
 	<!-- SCAFFOLDING -->
 	<div class="row">
-	
+
 		<!-- COLUMNA IZQUIERDA -->
 		<div class="col-sm-8 col-sm-offset-2">
-			
+
 			<div class="well">
-				
+
 				<form method="POST" action="fechorias.php">
 					<fieldset>
 						<legend>Criterios de búsqueda</legend>
-						
+
 						<div class="row">
 							<!-- FORMULARIO COLUMNA IZQUIERDA -->
 							<div class="col-sm-7">
-							
+
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
@@ -91,22 +94,22 @@ include("menu.php");
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="apellido">Apellidos</label>
 								  <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellidos" maxlength="60">
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="nombre">Nombre</label>
 								  <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" maxlength="60">
 								</div>
-								
+
 							</div>
-							
+
 							<!-- FORMULARIO COLUMNA DERECHA -->
 							<div class="col-sm-5">
-								
+
 								<div class="form-group" id="datetimepicker1">
 								  <label for="dia">Fecha</label>
 								  <div class="input-group">
@@ -114,7 +117,7 @@ include("menu.php");
 								  	<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="clase">Otros criterios</label>
 									<select class="form-control" id="clase" name="clase[]" multiple size="7">
@@ -129,35 +132,35 @@ include("menu.php");
 										<option value="Biblioteca">Biblioteca</option>
 									</select>
 								</div>
-								
+
 							</div>
-							
+
 						</div>
-						
+
 					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
 				  </fieldset>
 				</form>
-				
+
 			</div><!-- /.well -->
-			
+
 		</div><!-- /.col-sm-8 -->
-		
-	
+
+
 	</div><!-- /.row -->
-	
+
 </div><!-- /.container -->
-  
+
 <?php include("../../pie.php"); ?>
 
-	<script>  
-	$(function ()  
-	{ 
+	<script>
+	$(function ()
+	{
 		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})
-	});  
+	});
 	</script>
-	
+
 </body>
 </html>

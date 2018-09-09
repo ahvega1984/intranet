@@ -1,13 +1,16 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
 
 include("../../menu.php");
 include("menu.php");
 
 
 if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
-  
+
  $nom = mysqli_query($db_con, "select nombre, apellidos, unidad from alma where claveal = '$clave'");
    $nom0 = mysqli_fetch_array($nom);
   mysqli_query($db_con, "create table FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
@@ -16,7 +19,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   echo "<div class='container'>";
   echo '<div class="row">
   <div class="col-sm-12">';
-  
+
   echo '
 <div class="page-header">
   <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
@@ -26,7 +29,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 </div>';
 
  echo "<table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td>";
- if ($config['mod_convivencia']==1) { 
+ if ($config['mod_convivencia']==1) {
  echo "<td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td>";
  }
  echo "</tr></table><br />";
@@ -39,10 +42,10 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<th>INFORMA</th>
 		<th>GRAV.</th>
 		<th width='48'>NUM.</th>
-		<th width='45'>CAD.</th>		
+		<th width='45'>CAD.</th>
 		<th></th>
 		<th></th>
-		</thead><tbody>";	
+		</thead><tbody>";
    while($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
@@ -66,15 +69,15 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		$ident=$row[19];
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
 		{$caducada="Sí";} else {$caducada="No";}
-		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
+		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal
+		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha");
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";
 				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
 				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
-				
+
 				if($aula_conv > 0){
 					if ($horas == "123456") {
 						$bgcolor="class='aula-convivencia-jefatura'";
@@ -82,9 +85,9 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 					else{
 						$bgcolor="class='aula-convivencia-profesor'";
 					}
-				}	
-				
-				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}	
+				}
+
+				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}
 				if($recibido == '1'){
 					$comentarios1="<i class='fas fa-check' title='recibido'> </i>";
 				}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){
@@ -101,9 +104,9 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td ><center>$rownumero</center></td>
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
-		<td  nowrap>"; 
+		<td  nowrap>";
 		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' data-bs='tooltip' title='Detalles'><span class='fas fa-search fa-fw fa-lg'></span></a>";
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' data-bs='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='far fa-trash-alt fa-fw fa-lg'></span></a></div>";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' data-bs='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='far fa-trash-alt fa-fw fa-lg'></span></a></div>";}
 		echo "</td>";
 		echo "</tr>";
         }
