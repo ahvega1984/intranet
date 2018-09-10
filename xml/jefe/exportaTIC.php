@@ -216,7 +216,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 		else {
 			// Cabecera del archivo
-			fwrite($fp, "First Name,Last Name,Email Address,Password,Secondary Email,Work Phone 1,Home Phone 1,Mobile Phone 1,Work address 1,Home address 1,Employee Id,Employee Type,Employee Title,Manager,Department,Cost Center\r\n");
+			fwrite($fp, "First Name [Required],Last Name [Required],Email Address [Required],Password [Required]\r\n");
 
 			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
