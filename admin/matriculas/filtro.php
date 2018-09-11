@@ -47,7 +47,6 @@ if ($_POST['grupo_actua']) {
 			  else{
 			  	$chk = "";
 			  }
-			  echo $tipo0;
 		}	
 	}
 ?>

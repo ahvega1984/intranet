@@ -521,6 +521,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				if (mysqli_num_rows($clg)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank' data-bs='tooltip' title='Alumno de Primaria con Informe de Tránsito' class='text-info'>$colegio</a>";}else{ echo $colegio;}
 				echo '</td>';
 			}
+			$color_rel = "";
 			if (strstr($religion,"Cat")==TRUE) {
 				$color_rel = " style='background-color:#FFFF99;'";
 			}
