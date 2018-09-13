@@ -703,7 +703,7 @@ function show_contents() {
 
 			echo "<div class=\"text-uppercase\">\n";
 			echo "  <a href=\"index.php?index=$index&direction=$direction&order=$order&directory=$name\">\n";
-			echo "   <i class=\"far fa-chevron-up iconf-fixed-width\"></i>\n";
+			echo "   <i class=\"fas fa-chevron-up iconf-fixed-width\"></i>\n";
 			echo "  </a>\n";
 			echo split_dir("$directory");
 			echo "</div>";
