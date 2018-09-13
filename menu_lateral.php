@@ -672,7 +672,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 					'target' => '_blank',
 				),
 				array(
-					'href'   => 'http://iesmonterroso.org/PC/',
+					'href'   => 'https://iesmonterroso.org/plan-anual-de-centro//',
 					'titulo' => 'Plan de centro',
 					'target' => '_blank',
 				),
