@@ -518,7 +518,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		echo '<td> '.$idioma2.'</td>';
 		}
 
-		$an_bd = substr($config['curso_fin'],0,4);
+		$an_bd = substr($config['curso_inicio'],0,4);
 		$bl="";
 		$extra_bil="";
 		if ($curso=='2BACH') {
