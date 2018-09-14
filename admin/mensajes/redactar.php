@@ -5,15 +5,15 @@ $pr = $_SESSION['profi'];
 
 if (isset($_POST['profes'])) {
 	$profes = $_POST['profes'];
-} 
+}
 elseif (isset($_GET['profes'])) {
 	$profes = $_GET['profes'];
-} 
+}
 
 $_SESSION['msg_block'] = 0;
 
 if($_POST['token']) $token = $_POST['token'];
-if(!isset($token)) $token = time(); 
+if(!isset($token)) $token = time();
 
 $profeso = $_POST['profeso'];
 $tutores = $_POST['tutores'];
@@ -35,36 +35,36 @@ $profesor = $_POST['profesor'];
 
 if (isset($_POST['padres'])) {
 	$padres = $_POST['padres'];
-} 
+}
 elseif (isset($_GET['padres'])) {
 	$padres = $_GET['padres'];
-} 
+}
 else
 {
 $padres="";
 }
 if (isset($_POST['asunto'])) {
 	$asunto = htmlspecialchars($_POST['asunto'], ENT_QUOTES, 'UTF-8');
-} 
+}
 elseif (isset($_GET['asunto'])) {
 	$asunto = htmlspecialchars($_GET['asunto'], ENT_QUOTES, 'UTF-8');
-} 
+}
 else
 {
 $asunto="";
 }
 if (isset($_POST['texto'])) {
 	$texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'UTF-8');
-} 
+}
 elseif (isset($_GET['texto'])) {
 	$texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'UTF-8');
-} 
+}
 if (isset($_POST['origen'])) {
 	$origen = $_POST['origen'];
-} 
+}
 elseif (isset($_GET['origen'])) {
 	$origen = $_GET['origen'];
-} 
+}
 else
 {
 $origen="";
@@ -77,10 +77,10 @@ if($verifica){
 }
 
 if (isset($_GET['id'])) {
-	
+
 	if (isset($_POST['submit1'])) {
 		$result = mysqli_query($db_con, "UPDATE mens_texto SET asunto='$asunto', texto='$texto' WHERE id=".$_GET['id']." LIMIT 1");
-		
+
 		if(!$result) {
 			$msg_error = "No se ha podido editar el mensaje. Error: ".mysqli_error($db_con);
 			$_SESSION['msg_block'] == 0;
@@ -91,27 +91,27 @@ if (isset($_GET['id'])) {
 			exit;
 		}
 	}
-	
+
 	$result = mysqli_query($db_con, "SELECT ahora, asunto, texto, destino FROM mens_texto WHERE id=".$_GET['id']."");
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
-		
+
 		$ahora = $row['ahora'];
 		$asunto = htmlspecialchars($row['asunto']);
 		$texto = htmlspecialchars($row['texto']);
 		$destino = trim($row['destino']);
-		
+
 		$num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($ahora)) * 60;
 		if ($num_seg > (60 * 60)) {
 			header('Location:'.'index.php?inbox=enviados&action=exceeded');
 		}
-		
+
 		$bloq_destinatarios = 1;
 	}
 	else {
 		unset($_GET['id']);
 	}
-	
+
 }
 else {
 	include("profesores.php");
@@ -122,71 +122,71 @@ include('menu.php');
 $page_header = "Redactar mensaje";
 ?>
 	<div class="container">
-  	
-  	
+
+
   	<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 	    <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
 	  </div>
-	  
+
 	  <!-- MENSAJES -->
 	  <?php if (isset($msg_error)): ?>
 	  <div class="alert alert-danger">
 	  	<?php echo $msg_error; ?>
 	  </div>
 	  <?php endif; ?>
-	  
-	  
+
+
 	  <form id="formMensaje" method="post" action="" name="formulario" onsubmit="return checkAsunto(this);">
-	  
+
 	  <!-- SCALLFODING -->
 		<div class="row">
-    
+
     	<!-- COLUMNA IZQUIERDA -->
       <div class="col-sm-7">
-      
+
       	<div class="well">
-      		
+
       		<fieldset>
       			<legend>Redactar mensaje</legend>
-      			
+
       			<input type="hidden" name="token" value="<?php echo $token; ?>">
-      		
+
 	      		<div class="form-group">
 	      			<label for="asunto">Asunto</label>
 	      			<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del mensaje" value="<?php echo (isset($asunto)) ? $asunto : ''; ?>" maxlength="120" required autofocus>
 	      		</div>
-	      		
+
 	      		<div class="form-group">
 	      			<label for="texto" class="sr-only">Contenido</label>
 	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
-	      		
+
 	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
 	      		<a href="index.php" class="btn btn-default">Volver</a>
-      		
+
       		</fieldset>
-      		
+
       	</div><!-- /.well-->
-         
+
       </div><!-- /.col-sm-7 -->
-      
+
       <!-- COLUMNA DERECHA -->
       <div class="col-sm-5">
-      
+
       	<div id="grupos_destinatarios" class="well">
-      		
+
       		<fieldset>
       			<legend>Grupos de destinatarios</legend>
-      			
+
       			<input type="hidden" name="profesor" value="<?php echo $_SESSION['ide']; ?>">
-      			
+
       			<?php if (!isset($bloq_destinatarios) && !$bloq_destinatarios): ?>
             <div class="row">
-            	
+
             	<!-- COLUMNA IZQUIERDA -->
               <div class="col-sm-6">
-                
+
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -194,7 +194,7 @@ $page_header = "Redactar mensaje";
                 		</label>
                 	</div>
                 </div>
-                
+
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -202,7 +202,7 @@ $page_header = "Redactar mensaje";
                 		</label>
                 	</div>
                 </div>
-                
+
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -210,7 +210,7 @@ $page_header = "Redactar mensaje";
                 		</label>
                 	</div>
                 </div>
-                
+
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -218,7 +218,7 @@ $page_header = "Redactar mensaje";
                 		</label>
                 	</div>
                 </div>
-                
+
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -226,7 +226,7 @@ $page_header = "Redactar mensaje";
                 		</label>
                 	</div>
                 </div>
-                
+
                  <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -244,13 +244,13 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
                 <?php endif; ?>
-                
+
               </div>
-              
-              
+
+
               <!-- COLUMNA DERECHA -->
               <div class="col-sm-6">
-              	
+
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
@@ -258,7 +258,7 @@ $page_header = "Redactar mensaje";
               			</label>
               		</div>
               	</div>
-              	
+
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
@@ -266,7 +266,7 @@ $page_header = "Redactar mensaje";
               			</label>
               		</div>
               	</div>
-              	
+
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
@@ -274,7 +274,7 @@ $page_header = "Redactar mensaje";
               			</label>
               		</div>
               	</div>
-              	
+
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
@@ -282,7 +282,7 @@ $page_header = "Redactar mensaje";
               			</label>
               		</div>
               	</div>
-              	
+
               	<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
               	<div class="form-group">
               		<div class="checkbox">
@@ -312,29 +312,29 @@ $page_header = "Redactar mensaje";
               <?php endif; ?>
               </div>
               <?php else: ?>
-              
+
               <p class="help-block">
-              <?php 
+              <?php
             $n_p = str_ireplace("; ","",$row[3]);
             $numero = trim(substr($n_p,strlen($n_p)-3,strlen($n_p)));
-            
-            if(is_numeric(trim($n_p))){           	
-            $real = "";	
-            $trozos = explode("; ",$destino);	
+
+            if(is_numeric(trim($n_p))){
+            $real = "";
+            $trozos = explode("; ",$destino);
             foreach($trozos as $val){
             $query0 = mysqli_query($db_con,"select nombre, apellidos from alma where claveal = '$val'");
 			$row0 = mysqli_fetch_array($query0);
-            $real.=$row0[0]." ". $row0[1]."; ";           
+            $real.=$row0[0]." ". $row0[1]."; ";
             }
             $dest = substr($real,0,-2);
-            }            
+            }
             elseif(is_numeric($numero)) {
-            $real = "";	
-            $trozos = explode("; ",$destino);	
+            $real = "";
+            $trozos = explode("; ",$destino);
             foreach($trozos as $val){
             $query0 = mysqli_query($db_con,"select nombre from departamentos where idea = '$val'");
 			$row0 = mysqli_fetch_array($query0);
-            $real.=$row0[0]."; ";           
+            $real.=$row0[0]."; ";
             }
             $dest = substr($real,0,-2);
             }
@@ -343,22 +343,22 @@ $page_header = "Redactar mensaje";
             }
             echo $dest;
               ?></p>
-              
+
               <?php endif; ?>
-            
+
       		</fieldset>
-      	
+
       	</div>
-      	
-				
+
+
 				<!-- PROFESORES -->
 				<div id="grupo_profesores" class="well <?php echo (isset($profes) && !empty($profes)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Selección de Personal</legend>
-						
+
 						<?php $s_origen = mb_strtoupper($origen); ?>
-						
+
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
@@ -373,20 +373,20 @@ $page_header = "Redactar mensaje";
 								<option value=""></option>
 							</select>
 							<?php endif; ?>
-							
+
 							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples profesores.</div>
 						</div>
-						
+
 					</fieldset>
-					
+
 				</div>
 
 				<!-- TUTORES -->
 				<div id="grupo_tutores" class="well <?php echo (isset($tutores) && !empty($tutores)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Seleccione tutores</legend>
-						
+
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT tutor, unidad, idea FROM FTUTORES, departamentos where tutor = nombre  ORDER BY unidad ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
@@ -401,21 +401,21 @@ $page_header = "Redactar mensaje";
 								<option value=""></option>
 							</select>
 							<?php endif; ?>
-							
+
 							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples tutores.</div>
 						</div>
-						
+
 					</fieldset>
 				</div>
-				
+
 				<!-- JEFES DE DEPARTAMENTO -->
 				<div id="grupo_departamentos" class="well <?php echo (isset($departamentos) && !empty($departamentos)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Seleccione departamentos</legend>
-						
+
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento not like 'Admin%' and departamento not like 'Conserje%' ORDER BY departamento ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento <> 'Admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' ORDER BY departamento ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="departamento[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
@@ -428,19 +428,19 @@ $page_header = "Redactar mensaje";
 								<option value=""></option>
 							</select>
 							<?php endif; ?>
-							
+
 							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples departamentos.</div>
 						</div>
-						
+
 					</fieldset>
 				</div>
-				
+
 				<!-- EQUIPOS EDUCATIVOS -->
 				<div id="grupo_equipos" class="well <?php echo (isset($equipos) && !empty($equipos)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Seleccione equipos educativos</legend>
-						
+
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo FROM profesores ORDER BY grupo ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
@@ -455,20 +455,20 @@ $page_header = "Redactar mensaje";
 								<option value=""></option>
 							</select>
 							<?php endif; ?>
-							
+
 							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples equipos educativos.</div>
 						</div>
-						
+
 					</fieldset>
 				</div>
-				
-				
+
+
 				<!-- CLAUSTRO DEL CENTRO -->
 				<div id="grupo_claustro" class="well <?php echo (isset($claustro) && !empty($claustro)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Claustro de profesores</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -478,17 +478,17 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
-				
-				
+
+
 				<!-- PAS -->
 				<div id="grupo_pas" class="well <?php echo (isset($pas) && !empty($pas)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Personal de Administración</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%7%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -498,17 +498,17 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
-				
+
 
 				<!-- BIBLIOTECA -->
 				<div id="grupo_biblioteca" class="well <?php echo (isset($biblio) && !empty($biblio)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Biblioteca</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%c%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -518,18 +518,18 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
-				
-				
-				
+
+
+
 				<!-- JEFES DE DEPARTAMENTO -->
 				<div id="grupo_etcp" class="well <?php echo (isset($etcp) && !empty($etcp)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Jefes de departamento</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%4%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -539,16 +539,16 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
-				</div>				
-				
+				</div>
+
 				<!-- COORDINADORES DE AREA -->
 				<div id="grupo_coordinadores" class="well <?php echo (isset($ca) && !empty($ca)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Coordinadores de área</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -558,17 +558,17 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
-				
-				
+
+
 				<!-- EQUIPO DIRECTIVO -->
 				<div id="grupo_directivo" class="well <?php echo (isset($direccion) && !empty($direccion)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Equipo directivo</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -578,17 +578,17 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
-				
-				
+
+
 				<!-- ORIENTACION -->
 				<div id="grupo_orientacion" class="well <?php echo (isset($orientacion) && !empty($orientacion)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Orientación</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%8%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -598,17 +598,17 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
 
 				<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
 				<!-- BILINGÜE -->
 				<div id="grupo_bilingue" class="well <?php echo (isset($bilingue) && !empty($bilingue)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Profesores Bilinguismo</legend>
-						
+
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
@@ -618,31 +618,31 @@ $page_header = "Redactar mensaje";
 							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
-						
+
 					</fieldset>
 				</div>
 				<?php endif; ?>
-				
+
 				<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
-				
+
 				<?php $sql_where = ""; ?>
-				
+
 				<?php if(stristr($_SESSION['cargo'],'2')): ?>
 					<?php $result = mysqli_query($db_con, "SELECT unidad FROM FTUTORES WHERE tutor='$pr'"); ?>
 					<?php $unidad = mysqli_fetch_array($result); ?>
 					<?php $unidad = $unidad['unidad']; ?>
 					<?php mysqli_free_result($result); ?>
-					
+
 					<?php $sql_where = "WHERE unidad='$unidad'"; ?>
 				<?php endif; ?>
-										
-				
+
+
 				<!-- FAMILIAS Y ALUMNOS -->
 				<div id="grupo_padres" class="well <?php echo (isset($padres) && !empty($padres)) ? '' : 'hidden'; ?>">
-					
+
 					<fieldset>
 						<legend>Familias y alumnos</legend>
-						
+
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, claveal FROM alma $sql_where ORDER BY unidad ASC, apellidos ASC, nombre ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
@@ -657,30 +657,30 @@ $page_header = "Redactar mensaje";
 								<option value=""></option>
 							</select>
 							<?php endif; ?>
-							
+
 							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples alumnos.</div>
 						</div>
-						
+
 					</fieldset>
 				</div>
-				
+
 				<?php endif; ?>
-				
+
 			</div><!-- /.col-sm-5 -->
-			
+
 		</div><!-- /.row -->
-		
+
 		</form>
-	
+
 	</div><!-- /.container -->
-  
+
 
 <?php include("../../pie.php"); ?>
-	
+
 	<script>
-	
+
 	$(document).ready(function() {
-		
+
 		// Campos visibles
 
 			//Personal
@@ -754,10 +754,10 @@ $page_header = "Redactar mensaje";
 					$('#orientacion').prop('disabled', false);
 					$('#bilingue').prop('disabled', false);
 					$('#padres').prop('disabled', false);
-					
+
 				}
 			});
-			
+
 			// Biblioteca
 			$('#pas').change(function() {
 				if(pas.checked==true) {
@@ -836,7 +836,7 @@ $page_header = "Redactar mensaje";
 				else {
 					$('#grupo_padres').addClass('hidden');
 				}
-			});	
+			});
 
 		// EDITOR DE TEXTO
 		$('#texto').summernote({
@@ -853,26 +853,26 @@ $page_header = "Redactar mensaje";
 				['media', ['link', 'picture', 'video']],
 				['code', ['codeview']]
 			],
-			
+
 			onChange: function(content) {
 				var sHTML = $('#texto').code();
 		    	localStorage['summernote-<?php echo $token; ?>'] = sHTML;
 			}
 		});
-		
+
 		if (localStorage['summernote-<?php echo $token; ?>']) {
 			$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
 		}
-	  
+
 	  	$('#mostrar_grupos').click(function() {
 	  	mostrar_grupos();
 	  });
-	  
+
 	});
 	</script>
-	
+
 	<script>
-	
+
 	bootbox.setDefaults({
 	  locale: "es",
 	  show: true,
@@ -881,10 +881,10 @@ $page_header = "Redactar mensaje";
 	  animate: true,
 	  title: "Enviar mensaje",
 	});
-	
-	
-	
-	
+
+
+
+
 	function checkAsunto(form)
 	  {
 
@@ -894,13 +894,13 @@ $page_header = "Redactar mensaje";
 	      $('#asunto').parent('.form-group').addClass('has-error');
 	      return false;
 	    }
-	
-	    // Comprobación de Grupo de destinatarios sin marcar       
+
+	    // Comprobación de Grupo de destinatarios sin marcar
 	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
 			bootbox.alert("No ha seleccionado ningún grupo de destinatarios para el mensaje.");
 			return false;
 	    }
-		
+
 	    // Comprobación de destinatario vacío
 	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
 		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
@@ -908,9 +908,9 @@ $page_header = "Redactar mensaje";
 		    	return false;
 		  	}
 		}
-		
+
 		return true;
-	
+
 	  }
 	</script>
 </body>

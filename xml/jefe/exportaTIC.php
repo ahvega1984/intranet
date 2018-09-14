@@ -236,7 +236,12 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
-				$correo = $primer_nombre.$primer_apellido;
+				if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
+					$correo = $primer_nombre . '.' . $primer_apellido;
+				}
+				else {
+					$correo = $primer_nombre.$primer_apellido;
+				}
 				$correo = str_ireplace('M ª', 'María', $correo);
 				$correo = str_ireplace('Mª', 'María', $correo);
 				$correo = str_ireplace('M.', 'María', $correo);
@@ -246,7 +251,13 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 
 				// Si ya existe la cuenta de correo, añadimos el segundo apellido
 				if (in_array($correo, $array_correos)) {
-					$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
+
+					if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
+						$correo = $primer_nombre . '.' . $primer_apellido . '.' . $segundo_apellido;
+					}
+					else {
+						$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
+					}
 					$correo = str_ireplace('M ª', 'María', $correo);
 					$correo = str_ireplace('Mª', 'María', $correo);
 					$correo = str_ireplace('M.', 'María', $correo);
