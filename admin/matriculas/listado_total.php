@@ -229,8 +229,9 @@ if ($curso=="2ESO") {
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
 				'c4'=>$datatmp[4],
-				'c5'=>$datatmp['act1'],
-				'c6'=>$datatmp['diversificacion'],
+				'c5'=>$datatmp[5],
+				'c6'=>$datatmp['act1'],
+				'c7'=>$datatmp['diversificacion'],
 				);
 
 	$titles = array(
@@ -240,8 +241,9 @@ if ($curso=="2ESO") {
 				'c2'=>'Opt1',
 				'c3'=>'Opt2',
 				'c4'=>'Opt3',
-				'c5'=>'Act.',
-				'c6'=>'PMAR',
+				'c5'=>'Opt4',
+				'c6'=>'Act.',
+				'c7'=>'PMAR',
 			);
 	}
 	else{
@@ -252,7 +254,8 @@ if ($curso=="2ESO") {
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
 				'c4'=>$datatmp[4],
-				'c5'=>$datatmp['act1'],
+				'c5'=>$datatmp[5],
+				'c6'=>$datatmp['act1'],
 				);
 
 	$titles = array(
@@ -262,7 +265,8 @@ if ($curso=="2ESO") {
 				'c2'=>'Opt1',
 				'c3'=>'Opt2',
 				'c4'=>'Opt3',
-				'c5'=>'Act.',
+				'c5'=>'Opt4',
+				'c6'=>'Act.',
 			);
 	}
 
