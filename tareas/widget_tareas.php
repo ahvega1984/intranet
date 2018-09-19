@@ -27,6 +27,7 @@
     </div>
 
     <a href="//<?php echo $config['dominio']; ?>/intranet/tareas/" class="btn btn-default btn-sm">Ver tareas</a>
+    <a href="//<?php echo $config['dominio']; ?>/intranet/tareas/tarea.php" class="btn btn-default btn-sm pull-right">Nueva tarea</a>
 </div>
 <?php else: ?>
 

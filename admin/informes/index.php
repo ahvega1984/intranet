@@ -230,7 +230,7 @@ if (!$claveal) {
 				  	if (mysqli_num_rows($mtr)>0){
 				  	$id_mtr = mysqli_fetch_array($mtr);
 				  	?>
-				  	<li><a href="../matriculas/matriculas.php?id=<?php echo $id_mtr[0]; ?>" target="_blank">Matrícula</a></li>
+				  	<li><a href="../matriculas/<?php echo $tabla_matriculas; ?>.php?id=<?php echo $id_mtr[0]; ?>" target="_blank">Matrícula</a></li>
 				  	<?php } ?>
 
 

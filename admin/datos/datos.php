@@ -117,11 +117,6 @@ if ($row = mysqli_fetch_array($result))
 	<th>Unidad</th>
 	<th class=\"hidden-xs hidden-sm\">Representante legal</th>
 	<th class=\"hidden-xs hidden-sm\">Teléfonos</th>";
-
-	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'){
-		echo "<th class=\"hidden-xs\">Plataforma Moodle</th>";
-	}
-
 	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
@@ -163,11 +158,6 @@ if ($row = mysqli_fetch_array($result))
 	<td>$unidad</td>
 	<td class=\"hidden-xs hidden-sm\">$row[9]</td>
 	<td class=\"hidden-xs hidden-sm\">$row[7]<br>$row[8]</td>";
-
-	if ($_SERVER['NAME_SERVER'] == 'iesmonterroso.org') {
-		echo "<td class=\"hidden-xs\">Usuario: ".$claveal."<br>Contraseña: ".substr(sha1($claveal),0,8)."</td>";
-
-	}
 
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
