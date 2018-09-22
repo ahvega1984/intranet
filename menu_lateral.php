@@ -667,7 +667,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 					'target' => '_blank',
 				),
 				array(
-					'href'   => 'http://www.iesmonterroso.net/moodle/',
+					'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/29002885/moodle2/',
 					'titulo' => 'Plataforma Moodle',
 					'target' => '_blank',
 				),

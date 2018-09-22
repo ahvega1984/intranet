@@ -292,6 +292,14 @@ if ($curso=="1ESO") {
 		$opt.="$num => $val, ";
 	}
 	$opt = substr($opt, 0, -2);
+
+
+	if ($datatmp['exencion']==1) {
+		$exencion = 'X';
+	}
+	else{
+		$exencion = '';
+	}
 	
 	$data[] = array(
 				'num'=>$nc,
@@ -302,6 +310,7 @@ if ($curso=="1ESO") {
 				'c4'=>$datatmp[4],
 				'c5'=>$datatmp[5],
 				'c6'=>$datatmp['act1'],
+				'c8'=>$exencion,
 				);
 
 	$titles = array(
@@ -313,6 +322,7 @@ if ($curso=="1ESO") {
 				'c4'=>'Opt3',
 				'c5'=>'Opt4',
 				'c6'=>'Act.',
+				'c8'=>'Exen',
 			);
 }
 

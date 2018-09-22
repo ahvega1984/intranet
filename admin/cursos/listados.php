@@ -203,12 +203,17 @@ foreach ($unidades as $unidad) {
 				// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
 				$result_datos_matricula = mysqli_query($db_con, "SELECT bilinguismo, exencion FROM matriculas WHERE claveal = '".$row['claveal']."'");
 				$row_datos_matricula = mysqli_fetch_array($result_datos_matricula);
+				$result_datos_matricula_bach = mysqli_query($db_con, "SELECT bilinguismo FROM matriculas_bach WHERE claveal = '".$row['claveal']."'");
+				$row_datos_matricula_bach = mysqli_fetch_array($result_datos_matricula_bach);
 
-				if ($row['bilinguismo'] == 'Si') { 
+				if ($row_datos_matricula['bilinguismo'] == 'Si') { 
+					$aux = ' (Bil.)';
+				}
+				if ($row_datos_matricula_bach['bilinguismo'] == 'Si') { 
 					$aux = ' (Bil.)';
 				}
 
-				if ($row['exencion'] == 1) { 
+				if ($row_datos_matricula['exencion'] == 1) { 
 					$aux = ' (Exe.)';
 				}
 				
@@ -308,12 +313,17 @@ foreach ($unidades as $unidad) {
 			// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
 			$result_datos_matricula = mysqli_query($db_con, "SELECT bilinguismo, exencion FROM matriculas WHERE claveal = '".$row['claveal']."'");
 			$row_datos_matricula = mysqli_fetch_array($result_datos_matricula);
+			$result_datos_matricula_bach = mysqli_query($db_con, "SELECT bilinguismo FROM matriculas_bach WHERE claveal = '".$row['claveal']."'");
+			$row_datos_matricula_bach = mysqli_fetch_array($result_datos_matricula_bach);
 
-			if ($row['bilinguismo'] == 'Si') { 
+			if ($row_datos_matricula['bilinguismo'] == 'Si') { 
+				$aux = ' (Bil.)';
+			}
+			if ($row_datos_matricula_bach['bilinguismo'] == 'Si') { 
 				$aux = ' (Bil.)';
 			}
 
-			if ($row['exencion'] == 1) { 
+			if ($row_datos_matricula['exencion'] == 1) { 
 				$aux = ' (Exe.)';
 			}
 			
