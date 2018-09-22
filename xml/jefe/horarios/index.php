@@ -75,6 +75,11 @@ else {
 	}
 }
 
+if (isset($profesor)) {
+	$result_idprofesor = mysqli_query($db_con, "SELECT idprofesor FROM profesores_seneca WHERE nomprofesor='".$profesor."'");
+	$row_idprofesor = mysqli_fetch_array($result_idprofesor);
+	$idprofesor = $row_idprofesor['idprofesor'];
+}
 
 // MODIFICADORES DE FORMULARIO
 if (isset($_GET['dia'])) $dia = urldecode($_GET['dia']);
@@ -552,6 +557,17 @@ include("../../../menu.php");
 					</tbody>
 				</table>
 			</div>
+
+			<?php if (isset($idprofesor) && ! empty($idprofesor)): ?>
+			<form action="exportar.php" method="POST">
+				<input type="hidden" name="idempleado" value="<?php echo $idprofesor; ?>">
+				<button type="submit" class="btn btn-info" name="exportar">Exportar horario <span class="badge">BETA</span></button>
+			</form>
+			<?php else: ?>
+			<div class="alert alert-info">
+				<strong>Aviso:</strong> No se ha encontrado el código de empleado en la base de datos.
+			</div>
+			<?php endif; ?>
 
 		</div><!-- /.col-sm-7 -->
 

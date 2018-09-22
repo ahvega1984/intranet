@@ -11,40 +11,42 @@ include("../../menu.php");
 	<div class="page-header">
 	  <h2>Administración <small> Departamentos del Centro</small></h2>
 	</div>
-	
+
 	<div id="status-loading" class="text-center">
 		<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
 	</div>
 
 	<div id="wrap" class="row" style="display: none;">
-	
+
 		<div class="col-sm-8 col-sm-offset-2">
-	
+
 			<div class="well">
 				<?php
-				if(isset($_FILES['archivo'])){  
+				if(isset($_FILES['archivo'])){
 				// BacKup de la tabla
 				mysqli_query($db_con, "drop table departamentos_seg");
 				mysqli_query($db_con, "create table departamentos_seg select * from departamentos");
-				 
+
 				 //  Estructura de tabla para la tabla `departamento_temp`
 				mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamento_temp` (
-				  `NOMBRE` varchar(48) NOT NULL default '',
-				  `DNI` varchar(10) NOT NULL default '',
-				  `DEPARTAMENTO` varchar(48) NOT NULL default '',
-				  `CARGO` varchar(16) default NULL,
-				  `IDEA` varchar(12) NOT NULL default '',
+				  `nombre` varchar(48) NOT NULL default '',
+				  `dni` varchar(10) NOT NULL default '',
+				  `departamento` varchar(48) NOT NULL default '',
+				  `cargo` varchar(16) default NULL,
+				  `idea` varchar(12) NOT NULL default '',
+					'fechatoma' DATE NOT NULL,
+					'fechacese' DATE NULL,
 				   KEY `NOMBRE` (`NOMBRE`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
-				if(isset($_POST['actualizar'])){	
+				if(isset($_POST['actualizar'])){
 				}
 				else{
-				 $base0 = "delete from departamentos where idea not like 'admin' and departamento not like '%Administracion%' and departamento not like '%Conserjeria%' and departamento not like '' and cargo not like '%1%'";
+				 $base0 = "delete from departamentos where idea <> 'admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' and departamento <> '' and cargo not like '%1%'";
 				  mysqli_query($db_con, $base0);
 				}
-				 
-				
-				// Importamos los datos del fichero CSV 
+
+
+				// Importamos los datos del fichero CSV
 				$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
 				            <button type="button" class="close" data-dismiss="alert">&times;</button>
 							<h5>ATENCIÓN:</h5>
@@ -52,18 +54,24 @@ include("../../menu.php");
 				</div></div><br />
 				<div align="center">
 				  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-				</div><br />'); 
-				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
+				</div><br />');
+				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 				{
 				$dep_mod = trim(utf8_encode($data1[2]));
 				$dep_mod = str_replace("(Inglés)","",$dep_mod);
 				$dep_mod = str_replace("(Francés)","",$dep_mod);
 				$dep_mod = str_replace("(Alemán)","",$dep_mod);
-				$dep_mod = str_replace("P.E.S.","",$dep_mod);
-				$dep_mod = str_replace(" P.T.F.P","",$dep_mod);
+				$dep_mod = str_replace(" P.E.S.","",$dep_mod);
+				$dep_mod = str_replace(" P.T.F.P.","",$dep_mod);
 				$dep_mod = str_replace("(Secundaria)","",$dep_mod);
 				$dep_mod = trim($dep_mod);
-				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\")";
+
+				$fechatoma_exp = explode('/', trim(utf8_encode($data1[3])));
+				$fechatoma = $fechatoma_exp[2].'-'.$fechatoma_exp[1].'-'.$fechatoma_exp[0];
+				$fechacese_exp = explode('/', trim(utf8_encode($data1[4])));
+				$fechacese = $fechacese_exp[2].'-'.$fechacese_exp[1].'-'.$fechacese_exp[0];
+
+				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA, fechatoma, fechacese) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\",,\"". $fechatoma . "\",,\"". $fechacese . "\")";
 				mysqli_query($db_con, $datos1);
 				}
 				fclose($handle);
@@ -95,7 +103,7 @@ include("../../menu.php");
 				Tabla <strong>Departamentos</strong>: No se ha añadido ningún registro a la tabla.
 				</div></div>';
 					}
-				
+
 				// Actualizamos nombre de los departamentos en la tabla y tablas relacionadas
 				include("actualiza_dep.php");
 				// Registramos los tutores desde FTUTORES
@@ -109,9 +117,24 @@ include("../../menu.php");
 				mysqli_query($db_con, "update departamentos set cargo = '$cargo_tutor' where  nombre='$tut[0]'");
 				}
 				}
+
+				// ACTUALIZAMOS FECHA DE TOMA Y FECHA DE CESE
+				$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" );
+				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) {
+
+					$usridea = trim(utf8_encode($data1[5]));
+					$fechatoma_exp = explode('/', trim(utf8_encode($data1[3])));
+					$fechatoma = $fechatoma_exp[2].'-'.$fechatoma_exp[1].'-'.$fechatoma_exp[0];
+					$fechacese_exp = explode('/', trim(utf8_encode($data1[4])));
+					$fechacese = $fechacese_exp[2].'-'.$fechacese_exp[1].'-'.$fechacese_exp[0];
+
+					mysqli_query($db_con, "UPDATE departamentos SET fechatoma = '$fechatoma', fechacese = '$fechacese' WHERE idea = '$usridea'");
+				}
+				fclose($handle);
+
 				// Usuario
 				  // Actualización de IDEA de los Profesores del Centro.
-				$SQL1 = "select distinct nombre, dni, idea from departamentos where nombre NOT IN (select distinct profesor from c_profes) and departamento not like '%Conserjer%' and idea not like 'admin'";
+				$SQL1 = "select distinct nombre, dni, idea, fechacese from departamentos where nombre NOT IN (select distinct profesor from c_profes) and departamento <> 'Conserjeria' and idea <> 'admin'";
 				$result1 = mysqli_query($db_con, $SQL1);
 				$total = mysqli_num_rows($result1);
 				if ($total !== 0)
@@ -119,15 +142,18 @@ include("../../menu.php");
 					echo "<div class='form-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido añadidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
 				while  ($row1= mysqli_fetch_array($result1))
 				 {
-				$SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". sha1($row1[1]) . "\",\"". $row1[2] . "\")";
+					 if ($row1['fechacese'] >= date('Y-m-d')) $estado = 1;
+					 else $estado = 0;
+
+				$SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea, estado) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". sha1($row1[1]) . "\",\"". $row1[2] . "\", \"". $estado ."\")";
 				echo "<li>".$row1[0] . "</li>";
 				$result2 = mysqli_query($db_con, $SQL2);
 				}
 				echo "<br />";
 				}
-				
+
 				mysqli_query($db_con, "drop table departamento_temp");
-				
+
 				//------------------------------------------------------------------------------------------------------------
 				//  Profesores TIC
 					$borrar = "truncate table usuarioprofesor";
@@ -152,7 +178,7 @@ include("../../menu.php");
 				$n_a = $n_a +1;
 				$nuevo = $num1[0].$n_a;
 				mysqli_query($db_con, "update usuarioprofesor set usuario = '$nuevo' where nombre = '$num1[1]'");
-				}	
+				}
 				}
 				}
 				mysqli_query($db_con, "delete from usuarioprofesor where usuario like 'pprofesor%'");
@@ -164,7 +190,7 @@ include("../../menu.php");
 				Parece que te está olvidando de enviar el archivo con los datos de los Profesores. Asegúrate de enviar el archivo descargado desde Séneca.
 				</div></div><br />';
 				}
-				
+
 				// CALENDARIO
 				$result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos");
 				while ($row = mysqli_fetch_assoc($result)) {
@@ -175,8 +201,8 @@ include("../../menu.php");
 						$nombre = trim($exp_nombre[0]);
 					}
 					$idea = $row['idea'];
-					
-					
+
+
 					$calendarioExiste = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE profesor='$idea'");
 					if (! mysqli_num_rows($calendarioExiste)) {
 						$query = "INSERT INTO `calendario_categorias` (`nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES ('$nombre', '".date('Y-m-d')."', '$idea', '#3498db', 0)";
@@ -185,19 +211,19 @@ include("../../menu.php");
 					mysqli_free_result($calendarioExiste);
 				}
 				mysqli_free_result($result);
-				
+
 				?>
-			
+
 				<div class="text-center">
 					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
 				</div>
-			
+
 			</div><!-- /.well -->
-	
+
 		</div><!-- /.col-sm-8 -->
-		
+
 	</div><!-- /.row -->
-	
+
 </div><!-- /.container -->
 
 <?php include("../../pie.php");	?>
@@ -205,7 +231,7 @@ include("../../menu.php");
 <script>
 function espera() {
 	document.getElementById("wrap").style.display = '';
-	document.getElementById("status-loading").style.display = 'none';        
+	document.getElementById("status-loading").style.display = 'none';
 }
 window.onload = espera;
 </script>

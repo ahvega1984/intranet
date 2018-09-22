@@ -506,3 +506,18 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminar campo segsocial', NOW())");
 }
+
+/*
+	@descripcion: Añadido fecha de toma de posesión y cese de los profesores
+	@fecha: 22 de septiembre de 2018
+*/
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Campos fechatoma y fechacese en tabla departamentos'");
+if (! mysqli_num_rows($actua)) {
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `departamentos` WHERE Field = 'fechatoma'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `departamentos` ADD `fechatoma` DATE NOT NULL , ADD `fechacese` DATE NULL ;");
+	}
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campos fechatoma y fechacese en tabla departamentos', NOW())");
+}
