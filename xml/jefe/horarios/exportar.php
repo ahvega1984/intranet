@@ -8,9 +8,7 @@ else {
 	die('No direct script access allowed');
 }
 
-$actividades_seneca = array();
-$result_actividades_seneca = mysqli_query($db_con, "SELECT `idactividad` FROM `actividades_seneca`");
-while($row = mysqli_fetch_array($result_actividades_seneca)) array_push($actividades_seneca, $row['idactividad']);
+$actividades_seneca_noregular = array('661','156','289','286','284','5','346','285','36','780','96');
 
 $horario_regular = array();
 $horario_noregular = array();
@@ -55,7 +53,7 @@ while ($row = mysqli_fetch_array($result)) {
 	$fecha_fin_exp = explode('-', $config['curso_fin']);
 	$fecha_fin = $fecha_fin_exp['2'].'/'.$fecha_fin_exp['1'].'/'.$fecha_fin_exp['0'];
 
-	if (in_array($row['c_asig'], $actividades_seneca) && ($row['a_grupo'] == "" || $row['a_aula'] == "")) {
+	if (in_array($row['c_asig'], $actividades_seneca_noregular) && ($row['a_grupo'] == "" || $row['a_aula'] == "")) {
 
 		if (! in_array($row['c_asig'], $noregular_aux)) {
 			array_push($noregular_aux, $row['c_asig']);
@@ -74,18 +72,27 @@ while ($row = mysqli_fetch_array($result)) {
 
 	}
 	else {
+		if (empty($id_unidad) && empty($id_curso)) {
+			$codigo_actividad = $row['c_asig'];
+			$codigo_asignatura = '';
+		}
+		else {
+			$codigo_actividad = '1';
+			$codigo_asignatura = $row['c_asig'];
+		}
+
 		$regular = array(
 			'dia_semana'					=> $row['dia'],
 			'tramo_horario'				=> $row_tramo['tramo'],
 			'codigo_dependencia'	=> $row_dependencia['iddependencia'],
 			'codigo_unidad'				=> $id_unidad,
 			'codigo_curso'				=> $id_curso,
-			'codigo_asignatura'		=> $row['c_asig'],
-			'fecha_inicio'				=> $fecha_inicio,
-			'fecha_fin'						=> $fecha_fin,
+			'codigo_asignatura'		=> $codigo_asignatura,
+			'fecha_inicio'				=> '01/09/'.substr($config['curso_inicio'], 0, 4),
+			'fecha_fin'						=> '31/08/'.(substr($config['curso_inicio'], 0, 4) + 1),
 			'hora_inicio'					=> $row_tramo['horini'],
 			'hora_fin'						=> $row_tramo['horfin'],
-			'codigo_actividad' 		=> '1'
+			'codigo_actividad' 		=> $codigo_actividad
 		);
 
 		array_push($horario_regular, $regular);
@@ -133,9 +140,9 @@ fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
 					<dato nombre_dato="N_DIASEMANA">'.$horario['dia_semana'].'</dato>
 					<dato nombre_dato="X_TRAMO">'.$horario['tramo_horario'].'</dato>');
 					fwrite($fp, (! empty ($horario['codigo_dependencia'])) ? '<dato nombre_dato="X_DEPENDENCIA">'.$horario['codigo_dependencia'].'</dato>' : '');
-					fwrite($fp, '<dato nombre_dato="X_UNIDAD">'.$horario['codigo_unidad'].'</dato>
-					<dato nombre_dato="X_OFERTAMATRIG">'.$horario['codigo_curso'].'</dato>
-					<dato nombre_dato="X_MATERIAOMG">'.$horario['codigo_asignatura'].'</dato>
+					fwrite($fp, (! empty ($horario['codigo_unidad'])) ? '<dato nombre_dato="X_UNIDAD">'.$horario['codigo_unidad'].'</dato>' : '');
+					fwrite($fp, (! empty ($horario['codigo_curso'])) ? '<dato nombre_dato="X_OFERTAMATRIG">'.$horario['codigo_curso'].'</dato>' : '');
+					fwrite($fp, '<dato nombre_dato="X_MATERIAOMG">'.$horario['codigo_asignatura'].'</dato>
 					<dato nombre_dato="F_INICIO">'.$horario['fecha_inicio'].'</dato>
 					<dato nombre_dato="F_FIN">'.$horario['fecha_fin'].'</dato>
 					<dato nombre_dato="N_HORINI">'.$horario['hora_inicio'].'</dato>
