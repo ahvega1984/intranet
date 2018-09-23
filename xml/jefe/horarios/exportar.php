@@ -138,11 +138,11 @@ fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
 				foreach ($horario_regular as $horario):
 				fwrite($fp, '<grupo_datos seq="ACTIVIDAD_'.$i.'">
 					<dato nombre_dato="N_DIASEMANA">'.$horario['dia_semana'].'</dato>
-					<dato nombre_dato="X_TRAMO">'.$horario['tramo_horario'].'</dato>');
-					fwrite($fp, (! empty ($horario['codigo_dependencia'])) ? '<dato nombre_dato="X_DEPENDENCIA">'.$horario['codigo_dependencia'].'</dato>' : '');
-					fwrite($fp, (! empty ($horario['codigo_unidad'])) ? '<dato nombre_dato="X_UNIDAD">'.$horario['codigo_unidad'].'</dato>' : '');
-					fwrite($fp, (! empty ($horario['codigo_curso'])) ? '<dato nombre_dato="X_OFERTAMATRIG">'.$horario['codigo_curso'].'</dato>' : '');
-					fwrite($fp, '<dato nombre_dato="X_MATERIAOMG">'.$horario['codigo_asignatura'].'</dato>
+					<dato nombre_dato="X_TRAMO">'.$horario['tramo_horario'].'</dato>
+					<dato nombre_dato="X_DEPENDENCIA">'.$horario['codigo_dependencia'].'</dato>
+					<dato nombre_dato="X_UNIDAD">'.$horario['codigo_unidad'].'</dato>
+					<dato nombre_dato="X_OFERTAMATRIG">'.$horario['codigo_curso'].'</dato>
+					<dato nombre_dato="X_MATERIAOMG">'.$horario['codigo_asignatura'].'</dato>
 					<dato nombre_dato="F_INICIO">'.$horario['fecha_inicio'].'</dato>
 					<dato nombre_dato="F_FIN">'.$horario['fecha_fin'].'</dato>
 					<dato nombre_dato="N_HORINI">'.$horario['hora_inicio'].'</dato>
