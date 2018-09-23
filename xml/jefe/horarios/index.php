@@ -455,14 +455,14 @@ include("../../../menu.php");
 								<?php $jornada_aux = ""; ?>
 								<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora, idjornada FROM tramos ORDER BY idjornada ASC, horini ASC"); ?>
 								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
+								<?php if ($i_sep > 1 && $jornada_aux != $horas['idjornada']): ?>
+								<hr style="border: 1px solid #000;">
+								<?php endif; ?>
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" name="hora_<?php echo $numdia; ?>_<?php echo $horas['hora']; ?>"> <?php echo $horas['hora']; ?><?php echo ($horas['hora'] != 'R' && $horas['hora'] != 'Rn') ? 'ª' : ''; ?>
 									</label>
 								</div>
-								<?php if ($i_sep > 1 && $jornada_aux != $horas['idjornada']): ?>
-								<hr style="border: 1px solid #000;">
-								<?php endif; ?>
 								<?php $jornada_aux = $horas['idjornada']; ?>
 								<?php $i_sep++; ?>
 								<?php endwhile; ?>
