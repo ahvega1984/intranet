@@ -15,60 +15,63 @@ include("../../menu.php");
 ?>
 
 <div class="container">
-	
+
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2 style="display: inline;"><?php echo $n_dia; ?> <small>Consulta de Guardias</small></h2>
-		
+
 		<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
 		<form class="pull-right col-sm-2" method="post" action="">
 			<select class="form-control" id="n_dia" name="n_dia" onChange="submit()">
-				<?php for($i = 0; $i < count($dias); $i++): ?>	
+				<?php for($i = 0; $i < count($dias); $i++): ?>
 				<option value="<?php echo $dias[$i]; ?>" <?php echo ($dias[$i] == $n_dia) ? 'selected' : ''; ?>><?php echo $dias[$i]; ?></option>
 				<?php endfor; ?>
 			</select>
 		</form>
 	</div>
-	
+
 	<!-- SCAFFOLDING -->
 	<div class="row">
-	
+
 		<div class="col-sm-12">
-			
+
 			<div class="table-responsive">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
 						<?php
-						$hr = mysqli_query($db_con,"select hora_inicio, hora_fin, hora from tramos where hora < 7 or hora like 'R' order by tramo");
+						$horas = array();
+						$hr = mysqli_query($db_con,"SELECT `hora_inicio`, `hora_fin`, `hora` FROM `tramos` ORDER BY `idjornada` ASC, `horini` ASC");
+						$count_cols = 0;
 						while ($hor = mysqli_fetch_array($hr)) {
-							if ($hor[2]=="R") {
-								echo "<th>Recreo</th>";
+							array_push($horas, $hor);
+							if ($hor[2]=="R" || $hor[2] == "Rn") {
+								echo "<th nowrap>Recreo</th>";
 							}
 							else{
-								echo "<th>".substr($hor[0],0,5)." - ".substr($hor[1],0,5)."</th>";
+								echo "<th nowrap>".substr($hor[0],0,5)." - ".substr($hor[1],0,5)."</th>";
 							}
+							$count_cols++;
 						}
 						?>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<?php 
-							$horas = array("1","2","3","R","4","5","6");
+							<?php
 							foreach($horas as $hora): ?>
 							<td>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof, a_aula, n_aula, c_asig, a_asig FROM horw WHERE (c_asig='25' or c_asig='26' or c_asig='353') and dia='$dia' and hora='$hora' ORDER BY a_asig, a_aula ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof, a_aula, n_aula, c_asig, a_asig FROM horw WHERE (c_asig='25' or c_asig='26' or c_asig='353') and dia='$dia' and hora='".$hora['hora']."' ORDER BY a_asig, a_aula ASC"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<?php if ($row['c_asig'] == "353"){ ?>
 								<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-success"><small><?php echo $row['prof']; ?></small></a><span class="text-warning pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GUREC";} else{ echo $row['a_aula'];} ?></span></p><hr>
-							<?php } 
+							<?php }
 							elseif($row['a_asig']=="GUCON") { ?>
 								<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-warning"><small><?php echo $row['prof']; ?></small></a><span class="text-success pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GUCON";} else{ echo $row['a_aula'];} ?></span></p><hr>
 							<?php }
 							elseif($row['c_asig']=="26") { ?>
 								<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-default"><small><?php echo $row['prof']; ?></small></a><span class="text-info pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GUBIB";} else{ echo $row['a_aula'];} ?></span></p><hr>
-							<?php } 
+							<?php }
 							else { ?>
 							<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>"><small><?php echo $row['prof']; ?></small></a><span class="text-danger pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GU";} else{ echo $row['a_aula'];} ?></span></p><hr>
 							<?php } ?>
@@ -79,17 +82,17 @@ include("../../menu.php");
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div class="hidden-print">
 				<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
 				<a class="btn btn-default" href="chorarios.php">Volver</a>
 				<a class="btn btn-info" href="../guardias/informe_guardias.php">Estadísticas</a>
 			</div>
-		
+
 		</div><!-- /.col-sm-12 -->
-		
+
 	</div><!-- /.row -->
-		
+
 </div>
 
 	<?php include("../../pie.php"); ?>

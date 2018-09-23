@@ -7,9 +7,9 @@ function obtenerIdCurso($curso) {
 	include_once '../../config.php';
 	$result = mysqli_query($db_con, "SELECT idcurso FROM cursos WHERE nomcurso='$curso' LIMIT 1");
 	$idcurso = mysqli_fetch_array($result);
-	
+
 	if(!$curso) $idcurso[0] = 'NULL';
-		
+
 	return $idcurso[0];
 }
 
@@ -21,9 +21,9 @@ function obtenerIdUnidad($unidad) {
 include_once '../../config.php';
 	$result = mysqli_query($db_con, "SELECT idunidad FROM unidades WHERE nomunidad='$unidad' LIMIT 1");
 	$idunidad = mysqli_fetch_array($result);
-	
+
 	if(!$unidad) $idunidad[0] = 'NULL';
-		
+
 	return $idunidad[0];
 }
 
@@ -45,7 +45,7 @@ function limpiarNombreDepartamento($departamento) {
 	}
 	$departamento = trim($departamento);
 	$departamento = rtrim($departamento,'.');
-	
+
 	return $departamento;
 }
 
@@ -55,15 +55,15 @@ function limpiarNombreDepartamento($departamento) {
  * ----------------------------------------------------------------------*/
 function obtenerIdDepartamento($departamento) {
 	include_once '../../config.php';
-	
+
 	// Limpiamos el nombre del departamento
 	$departamento = limpiarNombreDepartamento($departamento);
-	
+
 	$result = mysqli_query($db_con, "SELECT iddepartamento FROM departamentos WHERE nomdepartamento='$departamento' LIMIT 1");
 	$iddepartamento = mysqli_fetch_array($result);
-	
+
 	if(!$departamento) $iddepartamento[0] = 'NULL';
-		
+
 	return $iddepartamento[0];
 }
 
@@ -74,11 +74,11 @@ function obtenerIdDepartamento($departamento) {
  * ----------------------------------------------------------------------*/
 
 function importarDatos($db_con) {
-	$ExpGenHor = $_FILES['ExpGenHor']['tmp_name'];	
-	$curso_escolar = $_POST['curso_escolar'];      	
-    
+	$ExpGenHor = $_FILES['ExpGenHor']['tmp_name'];
+	$curso_escolar = $_POST['curso_escolar'];
+
 	 // Cargamos el archivo XML
-	$xml = simplexml_load_file($ExpGenHor);	
+	$xml = simplexml_load_file($ExpGenHor);
 	// Comprobamos que se trata del archivo que necesitamos
 	if($xml->attributes()->modulo != "HORARIOS" || $xml->attributes()->tipo != "E") {
 		echo '<div class="row">
@@ -98,8 +98,8 @@ function importarDatos($db_con) {
 		  </div>
 		</div>';
 	}
-	else { 
-		
+	else {
+
 		// Obtenemos el total de registros a importar
 		$total = 0;
 		for ($i=1; $i<9; $i++) {
@@ -107,7 +107,7 @@ function importarDatos($db_con) {
 			if($i==9) $total += $xml->BLOQUE_DATOS->grupo_datos[8]->attributes()->registros;
 		}
 		$unid = 100/$total;
-		
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA CURSOS
 		 * ----------------------------------------------------------------------*/
@@ -116,27 +116,25 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cursos` (
   `nomcurso` varchar(80) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		
+
 		$tabla = 'cursos'; // Descripción del trabajo para la barra de progreso
-		
+
 		mysqli_query($db_con, "TRUNCATE TABLE cursos") or die("No existe la tabla Cursos. No podemos continuar.");
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[1]->grupo_datos as $curso) {
 			$idcurso = $curso->dato[0];
 			$nomcurso = $curso->dato[1];
-			
+
 			$result = mysqli_query($db_con, "INSERT cursos (idcurso, nomcurso) VALUES ('$idcurso','$nomcurso')");
 			if (!$result) echo '<span class="text-danger">ERROR en la Importación</span><br>';
-			
+
 			// Vací­a los búferes de escritura de PHP
-			
-			
 			flush();
 			ob_flush();
 		}
-		
+
 		// Eliminamos cursos que no pertenecen al Centro
 		mysqli_query($db_con,"delete from cursos where nomcurso not in (select distinct curso from alma)");
-		
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA UNIDADES
 		 * ----------------------------------------------------------------------*/
@@ -146,28 +144,26 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY (`idunidad`,`idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		
+
 		$tabla = 'unidades'; // Descripción del trabajo para la barra de progreso
-		
+
 		mysqli_query($db_con, "TRUNCATE TABLE unidades") or die ("No existe la tabla Unidades. No podemos continuar.");
-		
+
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[7]->grupo_datos as $tramos) {
-			
+
 			$idunidad = $tramos->dato[0];
 			$nomunidad = $tramos->dato[1];
 			$idcurso = $tramos->dato[2];
-			
+
 			$result = mysqli_query($db_con, "INSERT unidades (idunidad, nomunidad, idcurso) VALUES ('$idunidad','$nomunidad','$idcurso')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
-			
+
 			// Vací­a los búferes de escritura de PHP
-			
-			
 			flush();
 			ob_flush();
 		}
-		
-		
+
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA MATERIAS
 		 * ----------------------------------------------------------------------*/
@@ -178,31 +174,29 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY (`idmateria`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		
+
 		$tabla = 'materias_seneca'; // Descripción del trabajo para la barra de progreso
-		
+
 		mysqli_query($db_con, "TRUNCATE TABLE materias_seneca") or die (mysqli_error("No existe la tabla materias_seneca. No podemos continuar."));
-		
+
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[2]->grupo_datos as $materias) {
-		
+
 			$idmateria = $materias->dato[1];
 			$nommateria = $materias->dato[2];
 			$idcurso = $materias->dato[0];
-			
+
 			$result = mysqli_query($db_con, "SELECT nomcurso FROM cursos WHERE idcurso='$idcurso'");
 			$nomcurso = mysqli_fetch_array($result);
-			
+
 			$result = mysqli_query($db_con, "INSERT materias_seneca (idmateria, nommateria, idcurso) VALUES ('$nommateria','$idmateria','$idcurso')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
-			
+
 			// Vací­a los búferes de escritura de PHP
-			
-			
 			flush();
 			ob_flush();
 		}
-		
-		
+
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA ACTIVIDADES
 		 * ----------------------------------------------------------------------*/
@@ -214,30 +208,28 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `reqmateriaactividad` char(1) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`idactividad`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-				
+
 		$tabla = 'actividades_seneca'; // Descripción del trabajo para la barra de progreso
-		
+
 		mysqli_query($db_con, "TRUNCATE TABLE actividades_seneca") or die ("No existe la tabla actividades_seneca. No podemos continuar.");
-	
+
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[3]->grupo_datos as $actividades) {
-			
+
 			$regular = $actividades->dato[0];
 			$idactividad = $actividades->dato[1];
 			$nomactividad = $actividades->dato[2];
 			$requnidad = $actividades->dato[3];
 			$reqmateria = $actividades->dato[4];
-			
+
 			$result = mysqli_query($db_con, "INSERT actividades_seneca (regactividad, idactividad, nomactividad, requnidadactividad, reqmateriaactividad) VALUES ('$regular',$idactividad,'$nomactividad','$requnidad','$reqmateria')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
-			
+
 			// Vací­a los búferes de escritura de PHP
-			
-			
 			flush();
 			ob_flush();
 		}
-		
-		
+
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA DEPENDENCIAS
 		 * ----------------------------------------------------------------------*/
@@ -248,33 +240,32 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `reservadependencia` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`iddependencia`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-				
+
 		$tabla = 'dependencias'; // Descripción del trabajo para la barra de progreso
-		
+
 		if($truncate) mysqli_query($db_con, "TRUNCATE TABLE dependencias") or die (mysqli_error("No existe la tabla dependencias. No podemos continuar."));
-	
+
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[4]->grupo_datos as $actividades) {
-			
+
 			$iddependencia = $actividades->dato[0];
 			$nomdependencia = $actividades->dato[1];
-			
+
 			$result = mysqli_query($db_con, "INSERT dependencias (iddependencia, nomdependencia, descdependencia, reservadependencia) VALUES ('$iddependencia','$nomdependencia','$nomdependencia',0)");
-			
+
 			if(mysqli_errno()==1062) mysqli_query($db_con, "UPDATE dependencias SET nomdependecia='$nomdependencia' WHERE iddependencia='$iddependencia'");
 			elseif(mysqli_errno()!=0) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
-			
+
 			// Vací­a los búferes de escritura de PHP
-			
-			
 			flush();
 			ob_flush();
 		}
-		
-		
+
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA TRAMOS
 		 * ----------------------------------------------------------------------*/
-		
+
+		mysqli_query($db_con, "DROP TABLE tramos");
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS tramos (
   `tramo` int(6) unsigned NOT NULL,
   `hora` varchar(80) COLLATE utf8_general_ci NOT NULL,
@@ -282,53 +273,66 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `horfin` int(4) unsigned NOT NULL,
   `hora_inicio` TIME NOT NULL,
   `hora_fin` TIME NOT NULL,
+	`idjornada` int(12) unsigned NOT NULL,
   PRIMARY KEY (`tramo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		mysqli_query($db_con, "truncate TABLE tramos");				
-		
+		mysqli_query($db_con, "truncate TABLE tramos");
+
 		$tabla = 'tramos'; // Descripción del trabajo para la barra de progreso
-		
+
 		$i = 1;
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[6]->grupo_datos as $tramos) {
-		
+
 			$idtramo = $tramos->dato[0];
 			$nomtramo = $tramos->dato[1];
 			$horini = $tramos->dato[2];
 			$horfin = $tramos->dato[3];
-			
+			$idjornada = $tramos->dato[4];
+
 			$div_ini = floor($horini / 60);
 			$rest_ini = $horini % 60;
 			$div_fin = floor($horfin / 60);
 			$rest_fin = $horfin % 60;
-			
+
 			if (strlen($rest_ini)=="1") {
 				$rest_ini.="0";
 			}
 			if (strlen($rest_fin)=="1") {
 				$rest_fin.="0";
 			}
-			
+
 			$hora_inicio = "$div_ini:$rest_ini";
 			$hora_fin = "$div_fin:$rest_fin";
-			
-			if($i == 4) $numtramo = 'R';
-			elseif($i > 4) $numtramo = $i-1;
-			else $numtramo = $i;
-			
-			$result = mysqli_query($db_con, "INSERT tramos (tramo, hora, horini, horfin, hora_inicio, hora_fin) VALUES ('".$idtramo."','".$numtramo."','".$horini."','".$horfin."','".$hora_inicio."','".$hora_fin."')");
+
+			$result = mysqli_query($db_con, "INSERT tramos (tramo, hora, horini, horfin, hora_inicio, hora_fin, idjornada) VALUES ('".$idtramo."','".$i."','".$horini."','".$horfin."','".$hora_inicio."','".$hora_fin."','".$idjornada."')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
-			
+
 			$i++;
-			
+
 			// Vací­a los búferes de escritura de PHP
-			
-			
 			flush();
 			ob_flush();
 		}
 		unset($i);
-		
-		
+
+		// Reordenamos la tabla
+		$i = 1;
+		$result = mysqli_query($db_con, "SELECT `idjornada`, `tramo`, `hora_inicio`, `horini`, `horfin` FROM `tramos` ORDER BY `idjornada` ASC, `horini` ASC");
+		while ($row = mysqli_fetch_array($result)) {
+
+			$idjornada = $row['idjornada'];
+			$idtramo = $row['tramo'];
+			$numminutos = $row['horfin'] - $row['horini'];
+
+			if (($row['hora_inicio'] == '11:00:00' || $row['hora_inicio'] == '11:15:00' || $row['hora_inicio'] == '11:30:00') && $numminutos == 30) $numtramo = 'R';
+			elseif (($row['hora_inicio'] == '19:00:00' || $row['hora_inicio'] == '19:15:00' || $row['hora_inicio'] == '19:30:00') && $numminutos == 15) $numtramo = 'Rn';
+			else $numtramo = $i++;
+
+			mysqli_query($db_con, "UPDATE `tramos` SET `hora` = '".$numtramo."' WHERE `tramo` = '$idtramo' LIMIT 1");
+		}
+		unset($i);
+
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA PROFESORES
 		 * ----------------------------------------------------------------------*/
@@ -340,13 +344,13 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `telefonoprofesor` char(9) COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`idprofesor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		
+
 		$tabla = 'profesores_seneca'; // Descripción del trabajo para la barra de progreso
-		
+
 		//mysqli_query($db_con, "TRUNCATE TABLE profesores_seneca") or die (mysqli_error("No existe la tabla profesores_seneca. No podemos continuar."));
-	
+
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[8]->grupo_datos as $tramos) {
-		
+
 			$idprofesor = $tramos->dato[0];
 			$ape1profesor = $tramos->dato[3];
 			$ape2profesor = $tramos->dato[4];
@@ -359,18 +363,18 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			}
 			$nombre_profesor = $ape1profesor.$ape2profesor.", ".$nomprofesor;
 			$deptoprofesor = limpiarNombreDepartamento($tramos->dato[2]);
-			
+
 			$result = mysqli_query($db_con, "INSERT profesores_seneca (idprofesor, nomprofesor, deptoprofesor) VALUES ($idprofesor,'$nombre_profesor','$deptoprofesor')");
-			
+
 			if(mysqli_errno()==1062) mysqli_query($db_con, "UPDATE profesores_seneca SET nomprofesor='$nombre_profesor', deptoprofesor='$deptoprofesor' WHERE idprofesor=$idprofesor");
 			elseif(mysqli_errno()!=0) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
-			
+
 			// Vací­a los búferes de escritura de PHP
 			flush();
 			ob_flush();
 		}
-		
-			
+
+
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA DEPARTAMENTOS
 		 * ----------------------------------------------------------------------*/
@@ -379,16 +383,16 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamentos_seneca` (
   `nomdepartamento` varchar(80) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`iddepartamento`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
-			
+
 		$tabla = 'departamentos_seneca'; // Descripción del trabajo para la barra de progreso
-		
+
 		mysqli_query($db_con, "TRUNCATE TABLE departamentos_seneca") or die (mysqli_error("No existe la tabla Departamentos. No podemos continuar."));
-			
+
 		// Añade el departamento para personal no docente
 		$personal_no_docente = "Personal de Administración y Servicios";
 		mysqli_query($db_con, "INSERT into departamentos_seneca (nomdepartamento) values('$personal_no_docente')");
 		mysqli_query($db_con, "INSERT into departamentos_seneca (nomdepartamento) select distinct deptoprofesor from profesores_seneca");
-	}		
-	                	
+	}
+
 }
 ?>

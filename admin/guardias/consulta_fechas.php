@@ -8,7 +8,7 @@ include("inc_calendario.php");
 include("../../menu.php");
 include("menu.php");
 
-$fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio)); 
+$fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 ?>
 
 <style type="text/css">
@@ -20,24 +20,24 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 </style>
 
 <div class="container">
-	
+
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2 style="display: inline;">Guardias de aula <small>Consulta por fechas</small></h2>
 		<h4 class="text-info"><span class="far fa-calendar fa-fw"></span> <?php echo strftime("%e, %B %Y",strtotime($fecha)); ?></h4>
 	</div>
-	
+
 	<!-- SCAFFOLDING -->
 	<div class="row">
-	
+
 		<div class="col-sm-3 hidden-print">
-		
+
 			<?php vista_mes($calendario, $dia, $mes, $anio); ?>
-				
+
 		</div><!-- /.col-sm-3 -->
-		
+
 		<div class="col-sm-9 col-print-100">
-			
+
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped" style="font-size: 0.9em;">
 					<thead>
@@ -51,13 +51,13 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos WHERE hora < 7 OR hora LIKE 'R' ORDER BY tramo ASC"); ?>
+						<?php $result = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos ORDER BY idjornada ASC, horini ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-	
+
 							<?php $result2 = mysqli_query($db_con, "SELECT profesor, profe_aula, turno, a_grupo, n_aula FROM guardias, horw WHERE guardias.profe_aula = horw.prof AND guardias.hora = horw.hora AND guardias.dia = horw.dia AND guardias.hora ='".$row[2]."'AND fecha_guardia = '".$fecha."' ORDER BY turno ASC"); ?>
-							
+
 							<?php $num_results2 = mysqli_num_rows($result2); ?>
-							
+
 							<?php if ($num_results2): ?>
 							<?php $rows = 0; ?>
 							<?php while ($row2 = mysqli_fetch_array($result2)): ?>
@@ -93,23 +93,23 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 					</tbody>
 				</table>
 			</div>
-		
+
 		</div><!-- /.col-sm-9 -->
-		
+
 	</div><!-- /.row -->
-	
+
 	<br>
-	
+
 	<div class="row">
-		
+
 		<div class="col-sm-12">
 			<div class="hidden-print">
 				<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
 			</div>
 		</div>
-		
+
 	</div>
-		
+
 </div>
 <?php unset($fecha); ?>
 

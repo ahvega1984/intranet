@@ -28,7 +28,7 @@ $extra_al = " and (c_asig in (select codigo from asig_tmp) or c_asig = '2')";
 $extra_asig = " and materia in (select nombre from asignaturas where codigo in (select codigo from asig_tmp) and abrev not like '%\_%')";
 }
 else{
-$extra_asig="";	
+$extra_asig="";
 $extra_al="";
 }
 ?>
@@ -37,7 +37,7 @@ $extra_al="";
 
 	<div class="page-header">
 		<h2 style="display: inline;"><?php echo $curso; ?> <small>Consulta de horario y profesores</small></h2>
-		
+
 		<form class="pull-right col-sm-2" method="post" action="horarios.php?">
 			<?php $result = mysqli_query($db_con, "SELECT nomunidad from unidades ORDER BY idunidad"); ?>
 			<select class="form-control" id="curso" name="curso" onChange="submit()">
@@ -51,9 +51,9 @@ $extra_al="";
 
 	<!-- SCAFFOLDING -->
 	<div class="row">
-	
+
 		<div class="col-sm-12">
-		
+
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped">
 					<thead>
@@ -67,12 +67,22 @@ $extra_al="";
 						</tr>
 					</thead>
 					<tbody>
-					<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", 4 => "4ª", 5 => "5ª", 6 => "6ª" ); ?>
-					<?php foreach($horas as $hora => $desc): ?>
+          <?php $horas = array(); ?>
+					<?php $result_horas = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` ORDER BY `idjornada` ASC, `horini` ASC"); ?>
+          <?php while ($row_horas = mysqli_fetch_array($result_horas)) array_push($horas, $row_horas); ?>
+					<?php foreach ($horas as $hora): ?>
 						<tr>
-							<th><?php echo $desc; ?></th>
-							<?php for($i = 1; $i < 6; $i++): ?>
-							<td width="20%" style="border-right: 2px solid #ddd;"><?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, a_aula, n_aula FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora' $extra_al"); ?>
+							<th>
+                <?php echo ($hora['hora'] != 'R' && $hora['hora'] != 'Rn') ? $hora['hora'].'ª' : 'Recreo'; ?>
+                <hr style="margin: 5px 0;">
+                <p>
+                  <small><?php echo substr($hora['hora_inicio'], 0, 5); ?><br>
+                  <?php echo substr($hora['hora_fin'], 0, 5); ?></small>
+                </p>
+              </th>
+							<?php for ($i = 1; $i < 6; $i++): ?>
+							<td width="20%" style="border-right: 2px solid #ddd;">
+              <?php $result = mysqli_query($db_con, "SELECT DISTINCT `asig`, `a_aula`, `n_aula` FROM `horw` WHERE `a_grupo` = '$curso' AND `dia` = '$i' AND `hora` = '".$hora['hora']."' $extra_al"); ?>
 							<?php while($row = mysqli_fetch_array($result)): ?> <?php echo '<div style="display: block; font-size: 0.9em; margin-bottom: 5px;">'; ?>
 							<?php echo ($row['a_aula']) ? '<abbr class="text-danger pull-right" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : '<abbr class="text-danger pull-right" data-bs="tooltip" title="Sin asignar o sin aula">Sin aula</abbr>'; ?>
 							<?php echo $row['asig']; ?> <?php echo '</div>'; ?> <?php endwhile; ?>
@@ -83,9 +93,9 @@ $extra_al="";
 					</tbody>
 				</table>
 			</div>
-	
+
 		</div><!-- /.col-sm-12 -->
-	
+
 	</div><!-- /.row -->
 
 	<div class="row">
@@ -116,9 +126,9 @@ $extra_al="";
 			</table>
 			</div>
 			<?php endif; ?>
-			
+
 		</div><!-- /.col-sm-12 -->
-		
+
 	</div><!-- /.row -->
 
 	<div class="hidden-print">

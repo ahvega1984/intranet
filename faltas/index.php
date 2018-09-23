@@ -25,8 +25,8 @@ if (empty($c_prof)) {
 if(empty($hora_dia)){
 	$hora_real = strtotime(date("H:i:s"));
 
-	// Se han importado los daos de la tramos escolar desde Séneca
-	$result_jornada = mysqli_query($db_con, "SELECT hora, hora_inicio, hora_fin FROM tramos");
+	// Se han importado los datos de la tramos escolar desde Séneca
+	$result_jornada = mysqli_query($db_con, "SELECT hora, hora_inicio, hora_fin FROM tramos ORDER BY idjornada ASC, horini ASC");
 		while($jornada = mysqli_fetch_array($result_jornada)){
 				$h_inicio = strtotime($jornada[1]);
 				$h_fin = strtotime($jornada[2]);

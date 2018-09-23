@@ -193,7 +193,7 @@ if ($codasignatura=="25") {
 	$flag_registro = 0;
 
 	for ($i = 1; $i < 6; $i++) {
-		$result_horas = mysqli_query($db_con, "SELECT hora_inicio, hora_fin, hora FROM tramos");
+		$result_horas = mysqli_query($db_con, "SELECT hora_inicio, hora_fin, hora FROM tramos ORDER BY idjornada ASC, horini ASC");
 		while ($row_horas = mysqli_fetch_array($result_horas)) {
 			if(isset($_POST['hora_'.$i.'_'.$row_horas['hora']]) && ! empty($_POST['hora_'.$i.'_'.$row_horas['hora']])) {
 				${'hora_'.$i.'_'.$row_horas['hora']} = $_POST['hora_'.$i.'_'.$row_horas['hora']];
@@ -440,7 +440,7 @@ include("../../../menu.php");
 						  <label for="hora">Hora</label>
 						  <select class="form-control" id="hora" name="hora">
 						  	<option value=""></option>
-						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
+						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos ORDER BY idjornada ASC, horini ASC"); ?>
 							<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
 							<option value="<?php echo $horas['hora']; ?>" <?php echo (isset($hora) && $horas['hora'] == $hora) ? 'selected' : ''; ?>><?php echo $horas['hora_inicio'].' - '.$horas['hora_fin'].' ('.$horas['hora'].')'; ?></option>
 							<?php endwhile; ?>
@@ -451,13 +451,20 @@ include("../../../menu.php");
 							<?php foreach ($arrdias as $numdia => $nomdia): ?>
 							<div class="col-sm-20">
 								<label><small><?php echo $nomdia; ?></small></label>
-								<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos"); ?>
+								<?php $i_sep = 1; ?>
+								<?php $jornada_aux = ""; ?>
+								<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora, idjornada FROM tramos ORDER BY idjornada ASC, horini ASC"); ?>
 								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="hora_<?php echo $numdia; ?>_<?php echo $horas['hora']; ?>"> <?php echo $horas['hora']; ?><?php echo ($horas['hora'] != 'R') ? 'ª' : ''; ?>
+										<input type="checkbox" name="hora_<?php echo $numdia; ?>_<?php echo $horas['hora']; ?>"> <?php echo $horas['hora']; ?><?php echo ($horas['hora'] != 'R' && $horas['hora'] != 'Rn') ? 'ª' : ''; ?>
 									</label>
 								</div>
+								<?php if ($i_sep > 1 && $jornada_aux != $horas['idjornada']): ?>
+								<hr style="border: 1px solid #000;">
+								<?php endif; ?>
+								<?php $jornada_aux = $horas['idjornada']; ?>
+								<?php $i_sep++; ?>
 								<?php endwhile; ?>
 							</div>
 							<?php endforeach; ?>
@@ -530,29 +537,41 @@ include("../../../menu.php");
 						</tr>
 					</thead>
 					<tbody>
-					<?php $thoras = ""; ?>
-					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos"); ?>
+					<?php $i_sep = 1; ?>
+					<?php $jornada_aux = ""; ?>
+					<?php $thoras = array(); ?>
+					<?php $result_horas = mysqli_query($db_con,"SELECT hora, hora_inicio, hora_fin, idjornada FROM tramos ORDER BY idjornada ASC, horini ASC"); ?>
 					<?php while ($row = mysqli_fetch_array($result_horas)): ?>
-					<?php $thoras[] = $row['hora']; ?>
+					<?php array_push($thoras, $row); ?>
 					<?php endwhile; ?>
 
 					<?php foreach($thoras as $thora): ?>
+						<?php if ($i_sep > 1 && $jornada_aux != $thora['idjornada']): ?>
+						<tr style="border-top: 2px solid #000;">
+						<?php else: ?>
 						<tr>
-							<th><?php echo $thora; ?></th>
+						<?php endif; ?>
+							<th>
+							<?php echo ($thora['hora'] != 'R' && $thora['hora'] != 'Rn') ? $thora['hora'].'ª' : $thora['hora']; ?>
+							<hr style="margin: 5px 0;">
+							<small><?php echo substr($thora['hora_inicio'], 0, 5); ?><br><?php echo substr($thora['hora_fin'], 0, 5); ?></small>
+							</th>
 							<?php for($i = 1; $i < 6; $i++): ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profesor' AND dia='$i' AND hora='$thora'"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profesor' AND dia='$i' AND hora='".$thora['hora']."'"); ?>
 							<td width="20%">
 					 			<?php while($row = mysqli_fetch_array($result)): ?>
 					 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
 					 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != ' ' || $row['a_aula'] != ' ') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
 					 			<?php echo (!empty($row['a_grupo'])) ? '<span class="text-warning">'.$row['a_grupo'].'</span>' : ''; ?><br>
-					 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $thora; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="far fa-edit fa-fw fa-lg"></span></a>
+					 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $thora['hora']; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="far fa-edit fa-fw fa-lg"></span></a>
 				 				<?php echo '<hr>'; ?>
 					 			<?php endwhile; ?>
 					 			<?php mysqli_free_result($result); ?>
 					 		</td>
 					 		<?php endfor; ?>
 					 	</tr>
+						<?php $jornada_aux = $thora['idjornada']; ?>
+						<?php $i_sep++; ?>
 					<?php endforeach; ?>
 					</tbody>
 				</table>

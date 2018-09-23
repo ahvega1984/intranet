@@ -18,7 +18,7 @@
 		<tbody>
 		<?php
 		// Horas del dÃ­a
-		$t_hora = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
+		$t_hora = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos ORDER BY idjornada ASC, horini ASC");
 		while($todas_horas=mysqli_fetch_array($t_hora)){
 		$n_hora = $todas_horas[0];
 		$hora_inicio = $todas_horas[1];

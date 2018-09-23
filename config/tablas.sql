@@ -1853,6 +1853,7 @@ CREATE TABLE IF NOT EXISTS `tramos` (
   `horfin` int(4) UNSIGNED NOT NULL,
   `hora_inicio` TIME NOT NULL,
   `hora_fin` TIME NOT NULL,
+  `idjornada` int(12) unsigned NOT NULL,
   PRIMARY KEY (`tramo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
