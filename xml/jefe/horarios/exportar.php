@@ -4,6 +4,9 @@ require('../../../bootstrap.php');
 if (isset($_POST['idempleado'])) {
 	$idempleado = $_POST['idempleado'];
 }
+else {
+	die('No direct script access allowed');
+}
 
 $actividades_seneca = array();
 $result_actividades_seneca = mysqli_query($db_con, "SELECT `idactividad` FROM `actividades_seneca`");
@@ -29,6 +32,19 @@ while ($row = mysqli_fetch_array($result)) {
 
 	$result_unidad = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."'");
 	$row_unidad = mysqli_fetch_array($result_unidad);
+
+	$result_curso_por_asignatura = mysqli_query($db_con, "SELECT `idcurso` FROM `materias_seneca` WHERE `idmateria` = '".$row["c_asig"]."'  LIMIT 1");
+	$row_curso_por_asignatura = mysqli_fetch_array($result_curso_por_asignatura);
+	$id_curso = $row_curso_por_asignatura['idcurso'];
+
+	$result_unidad_por_curso = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."' AND `idcurso` = '".$id_curso."'");
+	$row_unidad_por_curso = mysqli_fetch_array($result_unidad_por_curso);
+	if ($row_unidad['idunidad'] != $row_unidad_por_curso['idunidad']) {
+		$id_unidad = $row_unidad_por_curso['idunidad'];
+	}
+	else {
+		$id_unidad = $row_unidad['idunidad'];
+	}
 
 	$result_dependencia = mysqli_query($db_con, "SELECT `iddependencia` FROM `dependencias` WHERE `nomdependencia` = '".$row["a_aula"]."'");
 	$row_dependencia = mysqli_fetch_array($result_dependencia);
@@ -62,7 +78,8 @@ while ($row = mysqli_fetch_array($result)) {
 			'dia_semana'					=> $row['dia'],
 			'tramo_horario'				=> $row_tramo['tramo'],
 			'codigo_dependencia'	=> $row_dependencia['iddependencia'],
-			'codigo_unidad'				=> $row_unidad['idunidad'],
+			'codigo_unidad'				=> $id_unidad,
+			'codigo_curso'				=> $id_curso,
 			'codigo_asignatura'		=> $row['c_asig'],
 			'fecha_inicio'				=> $fecha_inicio,
 			'fecha_fin'						=> $fecha_fin,
@@ -78,53 +95,82 @@ while ($row = mysqli_fetch_array($result)) {
 unset($regular);
 unset($noregular);
 
-header("Content-type: text/xml");
-?>
-<?//xml version="1.0" encoding="iso-8859-1"?>
+if (file_exists('ExportacionHorario_'.$idempleado.'.xml')) unlink('ExportacionHorario_'.$idempleado.'.xml');
+if (!$fp = fopen('ExportacionHorario_'.$idempleado.'.xml', 'w+')) {
+	die ("Error: No se puede crear o abrir el archivo ".'ExportacionHorario_'.$idempleado.'.xml');
+}
+else {
 
-<SERVICIO modulo="HORARIOS" tipo="I" autor="<?php echo $config['centro_denominacion']; ?>" fecha="<?php echo date('d/m/Y H:i:s'); ?>">
+fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
+<SERVICIO modulo="HORARIOS" tipo="I" autor="'.$config['centro_denominacion'].'" fecha="'.date('d/m/Y H:i:s').'">
 	<BLOQUE_DATOS>
 		<grupo_datos seq="ANNO_ACADEMICO">
-			<dato nombre_dato="C_ANNO"><?php echo substr($config['curso_actual'], 0, 4); ?></dato>
+			<dato nombre_dato="C_ANNO">'.substr($config['curso_actual'], 0, 4).'</dato>
 		</grupo_datos>
 		<grupo_datos seq="HORARIOS_NO_REGULARES" registros="1">
-			<grupo_datos seq="HORARIO_NO_REGULAR_PROFESOR_1" registros="<?php echo count($horario_noregular); ?>">
-				<dato nombre_dato="X_EMPLEADO"><?php echo $idempleado; ?></dato>
-				<dato nombre_dato="F_TOMAPOS"><?php echo $fecha_toma_posesion; ?></dato>
-				<?php $i = 1; ?>
-				<?php foreach ($horario_noregular as $horario): ?>
-				<grupo_datos seq="ACTIVIDAD_<?php echo $i; ?>">
-					<dato nombre_dato="X_ACTIVIDAD"><?php echo $horario['codigo_actividad']; ?></dato>
-					<dato nombre_dato="N_MINSEN"><?php echo $horario['numero_minutos']; ?></dato>
-				</grupo_datos>
-				<?php $i++; ?>
-				<?php endforeach; ?>
-				<?php unset($horario); ?>
-				<?php unset($i); ?>
-			</grupo_datos>
+			<grupo_datos seq="HORARIO_NO_REGULAR_PROFESOR_1" registros="'.count($horario_noregular).'">
+				<dato nombre_dato="X_EMPLEADO">'.$idempleado.'</dato>
+				<dato nombre_dato="F_TOMAPOS">'.$fecha_toma_posesion.'</dato>');
+				$i = 1;
+				foreach ($horario_noregular as $horario):
+				fwrite($fp,'<grupo_datos seq="ACTIVIDAD_'.$i.'">
+					<dato nombre_dato="X_ACTIVIDAD">'.$horario['codigo_actividad'].'</dato>
+					<dato nombre_dato="N_MINSEN">'.$horario['numero_minutos'].'</dato>
+				</grupo_datos>');
+				$i++;
+				endforeach;
+				unset($horario);
+				unset($i);
+			fwrite($fp, '</grupo_datos>
 		</grupo_datos>
 		<grupo_datos seq="HORARIOS_REGULARES" registros="1">
-			<grupo_datos seq="HORARIO_REGULAR_PROFESOR_1" registros="<?php echo count($horario_regular); ?>">
-				<dato nombre_dato="X_EMPLEADO"><?php echo $idempleado; ?></dato>
-				<dato nombre_dato="F_TOMAPOS"><?php echo $fecha_toma_posesion; ?></dato>
-				<?php $i = 1; ?>
-				<?php foreach ($horario_regular as $horario): ?>
-				<grupo_datos seq="ACTIVIDAD_<?php echo $i; ?>">
-					<dato nombre_dato="N_DIASEMANA"><?php echo $horario['dia_semana']; ?></dato>
-					<dato nombre_dato="X_TRAMO"><?php echo $horario['tramo_horario']; ?></dato>
-					<?php echo (! empty ($horario['codigo_dependencia'])) ? '<dato nombre_dato="X_DEPENDENCIA">'.$horario['codigo_dependencia'].'</dato>' : ''; ?>
-					<dato nombre_dato="X_UNIDAD"><?php echo $horario['codigo_unidad']; ?></dato>
-					<dato nombre_dato="X_OFERTAMATRIG">100323</dato>
-					<dato nombre_dato="X_MATERIAOMG"><?php echo $horario['codigo_asignatura']; ?></dato>
-					<dato nombre_dato="F_INICIO"><?php echo $horario['fecha_inicio']; ?></dato>
-					<dato nombre_dato="F_FIN"><?php echo $horario['fecha_fin']; ?></dato>
-					<dato nombre_dato="N_HORINI"><?php echo $horario['hora_inicio']; ?></dato>
-					<dato nombre_dato="N_HORFIN"><?php echo $horario['hora_fin']; ?></dato>
-					<dato nombre_dato="X_ACTIVIDAD"><?php echo $horario['codigo_actividad']; ?></dato>
-				</grupo_datos>
-				<?php $i++; ?>
-				<?php endforeach; ?>
-			</grupo_datos>
+			<grupo_datos seq="HORARIO_REGULAR_PROFESOR_1" registros="'.count($horario_regular).'">
+				<dato nombre_dato="X_EMPLEADO">'.$idempleado.'</dato>
+				<dato nombre_dato="F_TOMAPOS">'.$fecha_toma_posesion.'</dato>');
+				$i = 1;
+				foreach ($horario_regular as $horario):
+				fwrite($fp, '<grupo_datos seq="ACTIVIDAD_'.$i.'">
+					<dato nombre_dato="N_DIASEMANA">'.$horario['dia_semana'].'</dato>
+					<dato nombre_dato="X_TRAMO">'.$horario['tramo_horario'].'</dato>');
+					fwrite($fp, (! empty ($horario['codigo_dependencia'])) ? '<dato nombre_dato="X_DEPENDENCIA">'.$horario['codigo_dependencia'].'</dato>' : '');
+					fwrite($fp, '<dato nombre_dato="X_UNIDAD">'.$horario['codigo_unidad'].'</dato>
+					<dato nombre_dato="X_OFERTAMATRIG">'.$horario['codigo_curso'].'</dato>
+					<dato nombre_dato="X_MATERIAOMG">'.$horario['codigo_asignatura'].'</dato>
+					<dato nombre_dato="F_INICIO">'.$horario['fecha_inicio'].'</dato>
+					<dato nombre_dato="F_FIN">'.$horario['fecha_fin'].'</dato>
+					<dato nombre_dato="N_HORINI">'.$horario['hora_inicio'].'</dato>
+					<dato nombre_dato="N_HORFIN">'.$horario['hora_fin'].'</dato>
+					<dato nombre_dato="X_ACTIVIDAD">'.$horario['codigo_actividad'].'</dato>
+				</grupo_datos>');
+				$i++;
+				endforeach;
+			fwrite($fp, '</grupo_datos>
 		</grupo_datos>
 	</BLOQUE_DATOS>
-</SERVICIO>
+</SERVICIO>');
+
+fclose($fp);
+
+if (is_file('ExportacionHorario_'.$idempleado.'.xml')) {
+	$size = filesize('ExportacionHorario_'.$idempleado.'.xml');
+	if (function_exists('mime_content_type')) {
+		$type = mime_content_type('ExportacionHorario_'.$idempleado.'.xml');
+	} else if (function_exists('finfo_file')) {
+		$info = finfo_open(FILEINFO_MIME);
+		$type = finfo_file('ExportacionHorario_'.$idempleado.'.xml');
+		finfo_close($info);
+	}
+	if ($type == '') {
+		$type = "application/force-download";
+	}
+	// Set Headers
+	header("Content-Type: $type");
+	header("Content-Disposition: attachment; filename=ExportacionHorario_$idempleado.xml");
+	header("Content-Transfer-Encoding: binary");
+	header("Content-Length: " . $size);
+	// Download File
+	readfile('ExportacionHorario_'.$idempleado.'.xml');
+}
+	unlink('ExportacionHorario_'.$idempleado.'.xml');
+}
+?>
