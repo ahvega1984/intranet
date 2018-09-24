@@ -34,9 +34,9 @@ include("../../menu.php");
 				  `departamento` varchar(48) NOT NULL default '',
 				  `cargo` varchar(16) default NULL,
 				  `idea` varchar(12) NOT NULL default '',
-					'fechatoma' DATE NOT NULL,
-					'fechacese' DATE NULL,
-				   KEY `NOMBRE` (`NOMBRE`)
+					`fechatoma` DATE NOT NULL,
+					`fechacese` DATE NULL,
+				   PRIMARY KEY (`dni`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 				if(isset($_POST['actualizar'])){
 				}
@@ -55,24 +55,31 @@ include("../../menu.php");
 				<div align="center">
 				  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 				</div><br />');
+				$fila = 0;
 				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 				{
-				$dep_mod = trim(utf8_encode($data1[2]));
-				$dep_mod = str_replace("(Inglés)","",$dep_mod);
-				$dep_mod = str_replace("(Francés)","",$dep_mod);
-				$dep_mod = str_replace("(Alemán)","",$dep_mod);
-				$dep_mod = str_replace(" P.E.S.","",$dep_mod);
-				$dep_mod = str_replace(" P.T.F.P.","",$dep_mod);
-				$dep_mod = str_replace("(Secundaria)","",$dep_mod);
-				$dep_mod = trim($dep_mod);
+					$fila++;
 
-				$fechatoma_exp = explode('/', trim(utf8_encode($data1[3])));
-				$fechatoma = $fechatoma_exp[2].'-'.$fechatoma_exp[1].'-'.$fechatoma_exp[0];
-				$fechacese_exp = explode('/', trim(utf8_encode($data1[4])));
-				$fechacese = $fechacese_exp[2].'-'.$fechacese_exp[1].'-'.$fechacese_exp[0];
+					if ($fila > 8) {
+						$dep_mod = trim(utf8_encode($data1[2]));
+						$dep_mod = str_replace("(Inglés)","",$dep_mod);
+						$dep_mod = str_replace("(Francés)","",$dep_mod);
+						$dep_mod = str_replace("(Alemán)","",$dep_mod);
+						$dep_mod = str_replace(" P.E.S.","",$dep_mod);
+						$dep_mod = str_replace(" P.T.F.P.","",$dep_mod);
+						$dep_mod = str_replace("(Secundaria)","",$dep_mod);
+						$dep_mod = trim($dep_mod);
 
-				$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA, fechatoma, fechacese) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\",,\"". $fechatoma . "\",,\"". $fechacese . "\")";
-				mysqli_query($db_con, $datos1);
+						$fechatoma_exp = explode('/', trim(utf8_encode($data1[3])));
+						$fechatoma = $fechatoma_exp[2].'-'.$fechatoma_exp[1].'-'.$fechatoma_exp[0];
+						if ($data1[4] != "") {
+							$fechacese_exp = explode('/', trim(utf8_encode($data1[4])));
+							$fechacese = $fechacese_exp[2].'-'.$fechacese_exp[1].'-'.$fechacese_exp[0];
+						}
+
+						$datos1 = "INSERT INTO `departamento_temp` (`nombre`, `dni`, `departamento`, `idea`, `fechatoma`, `fechacese`) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\",\"". $fechatoma . "\",\"". $fechacese . "\")";
+						mysqli_query($db_con, $datos1);
+					}
 				}
 				fclose($handle);
 				$borrarvacios = "delete from departamento_temp where DNI = ''";
@@ -80,7 +87,7 @@ include("../../menu.php");
 				$borrarpuesto = "delete from departamento_temp where DEPARTAMENTO LIKE '%Puesto%'";
 				mysqli_query($db_con, $borrarpuesto);
 				// Eliminar duplicados e insertar nuevos
-				$elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_temp where dni NOT IN (select distinct dni from departamentos where departamento not like '%Conserjeria%' and departamento not like '%Administracion%' and idea not like 'admin')";
+				$elimina = "SELECT DISTINCT nombre, dni, departamento, idea FROM departamento_temp where dni NOT IN (SELECT DISTINCT dni FROM departamentos WHERE departamento <> 'Conserjeria' AND departamento <> 'Administracion' AND idea <> 'admin')";
 				$elimina1 = mysqli_query($db_con, $elimina);
 				 if(mysqli_num_rows($elimina1) > 0)
 				{
@@ -91,7 +98,7 @@ include("../../menu.php");
 				while($elimina2 = mysqli_fetch_array($elimina1))
 				{
 				echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li>";
-				  $SQL6 = "insert into departamentos  (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". $elimina2[0] . "\",\"". $elimina2[1] . "\",\"". $elimina2[2] . "\",\"". $elimina2[3] . "\")";
+				  $SQL6 = "insert into departamentos (nombre, dni, departamento, idea) VALUES (\"". $elimina2[0] . "\",\"". $elimina2[1] . "\",\"". $elimina2[2] . "\",\"". $elimina2[3] . "\")";
 				  $result6 = mysqli_query($db_con, $SQL6);
 				}
 				echo "<br />";
