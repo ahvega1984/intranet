@@ -88,46 +88,48 @@ foreach($_POST as $clave => $valor)
 
 		// Enviamos un SMS a los padres si el alumno ha faltado a primera hora
 		if (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) {
-			$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
-			$sms_row = mysqli_fetch_array($sms_alumno);
-			$sms_apellidos = trim($sms_row[0]);
-			$sms_nombre_alum = trim($sms_row[1]);
-			$sms_unidad = trim($sms_row[2]);
-			$sms_tfno = trim($sms_row[5]);
-			$sms_tfno_u = trim($sms_row[6]);
-			$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
+			if ($valor == 'F') {
+				$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
+				$sms_row = mysqli_fetch_array($sms_alumno);
+				$sms_apellidos = trim($sms_row[0]);
+				$sms_nombre_alum = trim($sms_row[1]);
+				$sms_unidad = trim($sms_row[2]);
+				$sms_tfno = trim($sms_row[5]);
+				$sms_tfno_u = trim($sms_row[6]);
+				$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
 
-			if (substr($sms_tfno, 0, 1) == "6" || substr($sms_tfno, 0, 1 ) == "7") {
-				$mobile = $sms_tfno;
-			}
-			elseif (substr($sms_tfno_u, 0, 1) == "6" || substr($sms_tfno_u, 0, 1 ) == "7") {
-				$mobile = $sms_tfno_u;
-			}
-			else {
-				$mobile = 0;
-			}
+				if (substr($sms_tfno, 0, 1) == "6" || substr($sms_tfno, 0, 1 ) == "7") {
+					$mobile = $sms_tfno;
+				}
+				elseif (substr($sms_tfno_u, 0, 1) == "6" || substr($sms_tfno_u, 0, 1 ) == "7") {
+					$mobile = $sms_tfno_u;
+				}
+				else {
+					$mobile = 0;
+				}
 
-			if ($mobile != 0) {
-				// ENVIO DE SMS
-				include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-				$sms = new Trendoo_SMS();
-				$sms->sms_type = SMSTYPE_GOLD_PLUS;
-				$sms->add_recipient('+34'.$mobile);
-				$sms->message = $sms_message;
-				$sms->sender = $config['mod_sms_id'];
-				$sms->set_immediate();
+				if ($mobile != 0) {
+					// ENVIO DE SMS
+					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+					$sms = new Trendoo_SMS();
+					$sms->sms_type = SMSTYPE_GOLD_PLUS;
+					$sms->add_recipient('+34'.$mobile);
+					$sms->message = $sms_message;
+					$sms->sender = $config['mod_sms_id'];
+					$sms->set_immediate();
 
-				if ($sms->validate()){
-					$sms->send();
+					if ($sms->validate()){
+						$sms->send();
 
-					// Registro de SMS
-					mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$sms_message','$profesor')");
+						// Registro de SMS
+						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$sms_message','$profesor')");
 
-					// Registro de Tutoría
-					$observaciones = $message;
-					$accion = "Env&iacute;o de SMS";
-					$causa = "Faltas de Asistencia";
-					mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
+						// Registro de Tutoría
+						$observaciones = $message;
+						$accion = "Env&iacute;o de SMS";
+						$causa = "Faltas de Asistencia";
+						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
+					}
 				}
 			}
 

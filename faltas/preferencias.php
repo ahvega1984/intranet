@@ -73,8 +73,8 @@ include("menu.php");
 							<label for="prefNotificacionPrimeraHora" class="col-sm-4 control-label">Enviar notificación a padres si el alumno ha faltado a primera hora</label>
 							<div class="col-sm-3">
 								<select class="form-control" id="prefNotificacionPrimeraHora" name="prefNotificacionPrimeraHora">
-									<option value="0" <?php echo (isset($config['convivencia']['notificacion_primerahora']) && $config['convivencia']['notificacion_primerahora'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
-									<option value="1" <?php echo (isset($config['convivencia']['notificacion_primerahora']) && $config['convivencia']['notificacion_primerahora'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+									<option value="0" <?php echo (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+									<option value="1" <?php echo (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
 								</select>
 							</div>
 						</div>
