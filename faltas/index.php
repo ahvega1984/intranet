@@ -114,12 +114,12 @@ if($mensaje){
 	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25')");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '820' and idactividad not like '25')");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
 				if ($grupo_hora['c_asig']=="25") {
-					$grup="SG";
+					$grup="SGUA";
 				}
 				else{
 					$grup.="$grupo_hora[0] ";
