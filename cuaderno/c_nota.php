@@ -10,12 +10,12 @@ $pr = $_SESSION['profi'];
 ?>
 <div class="container">
 		<div class="row">
-<br>		
+<br>
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva columna de datos</small></h2>
 		</div>
-					
+
 			<div class="col-sm-6 col-sm-offset-3">
 <?php
 
@@ -37,8 +37,8 @@ $asig = mysqli_fetch_array($asig1);
 $asignatura = $asig[0];
 
 if(strlen($id) > '0'){
-		
-$ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo, color from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
+
+$ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo, color from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2;
 $ident0 = mysqli_fetch_array($ident1);
 $id = $ident0[0];
 $nombre = $ident0[1];
@@ -47,7 +47,7 @@ $color =$ident0[6];
 
 $ident0[4] ? $visible_nota = 1 : $visible_nota = 0;
 $tipo = $ident0[5];
-} 
+}
 
 
 // Formulario general y datos ocultos
@@ -61,11 +61,11 @@ $tipo = $ident0[5];
 	<input type="hidden" name="hora" value = "<?php echo $hora;?>" />
 	<input type="hidden" name="id" value = "<?php echo $id;?>" />
 	<input type="hidden" name="nom_asig" value = "<?php echo $nom_asig;?>" />
-	
+
 	<div class="well well-large" align="left">
 		<div class="form-group">
 		<label for="cmp_nombre">Nombre de la columna</label>
-		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<?php echo $nombre;?>" class="form-control" />
+		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<?php echo $nombre;?>" class="form-control" autofocus />
 		</div>
 		<div class="form-group">
 			<label for="select_tipo">Tipo de datos</label>
@@ -74,7 +74,7 @@ $tipo = $ident0[5];
 			<option>Números</option>
 			<option>Texto largo</option>
 			<option>Texto corto</option>
-			<option>Casilla de verificación</option>			
+			<option>Casilla de verificación</option>
 			</select>
 			<p class="help-block well well-small well-transparent small">
 			<strong>Números. </strong>Cualquier número entero o con decimales<br />
@@ -90,8 +90,8 @@ $tipo = $ident0[5];
 		<div class="row">
 		<div class="col-sm-5">
 		<div class="input-group" id="colorpicker1">
-			<input type="text" class="form-control" id="color_nombre" style="border:1px solid #aaa" name="color" value="<?php if(strlen($color)>0){echo $color;}else{ echo "#fff";}?>">
-			<span class="input-group-addon" style="border:1px solid #aaa; background-color:#fee"><i></i></span>
+			<input type="text" class="form-control" id="color_nombre" name="color" value="<?php if(strlen($color)>0){echo $color;}else{ echo "#fff";}?>">
+			<span class="input-group-addon" style="background-color: #dce4ec; "><i></i></span>
 		</div>
 		</div>
 		</div>
@@ -116,8 +116,6 @@ $tipo = $ident0[5];
 <?php include('../pie.php'); ?>
 
   <script type="text/javascript">
-  document.forms[0].elements['nombre'].focus(); 
-  
   $('#colorpicker1').colorpicker();
   </script>
 
