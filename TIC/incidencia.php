@@ -7,7 +7,7 @@ if (file_exists('config.php')) {
 }
 
 // Obtenemos los datos de la incidencia si se trata de una actualización de datos
-if (isset($_GET['id']) && intval($_GET['id'])) { 
+if (isset($_GET['id']) && intval($_GET['id'])) {
     $id_ticket = $_GET['id'];
 
     $result = mysqli_query($db_con, "SELECT `fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`, `numincidencia`, `resolucion` FROM `incidencias_tic` WHERE `id` = $id_ticket LIMIT 1") or die (mysqli_error($db_con));
@@ -37,7 +37,7 @@ if (isset($_GET['id']) && intval($_GET['id'])) {
             header("Location:"."index.php");
             exit();
         }
-        
+
     }
 }
 
@@ -74,14 +74,14 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
                         $notificacion_idea_coordinador = (! empty($config['tic']['coordinador'])) ? obtener_idea_por_nombre_profesor($config['tic']['coordinador']) : 'admin';
                         $notificacion_array_tipoproblema = obtener_problema_por_id_asunto($asunto, $tipos_incidencia);
                         $notificacion_tipoproblema = $notificacion_array_tipoproblema['asunto'];
-                        $notificacion_mensaje = "<p>El estado de la incidencia que registró el día $fecha, con número de caso <strong>#$id_ticket</strong> con el asunto $notificacion_tipoproblema ha sido actualizado.</p><p><br></p><p><a href=\"//".$config['dominio']."/intranet/TIC/incidencias/incidencia.php?id=$id_ticket\" class=\"btn btn-info\" target=\"_blank\">Ver incidencia</a></p><p><br></p>";
-                        
+                        $notificacion_mensaje = "<p>El estado de la incidencia que registró el día $fecha, con número de caso <strong>#$id_ticket</strong> con el asunto $notificacion_tipoproblema ha sido actualizado.</p><p><br></p><p><a href=\"//".$config['dominio']."/intranet/TIC/incidencia.php?id=$id_ticket\" class=\"btn btn-info\" target=\"_blank\">Ver incidencia</a></p><p><br></p>";
+
                         $notificacion_sql = "INSERT INTO `mens_texto` (`origen`, `asunto`, `texto`, `destino`, `oculto`) VALUES ('$notificacion_idea_coordinador', 'Registro de incidencia TIC #$id_ticket', '$notificacion_mensaje', '$solicitante', 0)";
                         mysqli_query($db_con, $notificacion_sql) or die (mysqli_error($db_con));
                         $id_mens_texto = mysqli_insert_id($db_con);
                         mysqli_query($db_con, "INSERT INTO `mens_profes` (`id_texto`, `profesor`, `recibidoprofe`, `recibidojefe`) VALUES ($id_mens_texto, '$solicitante', 0, 0)") or die (mysqli_error($db_con));
                     }
-                    
+
                 }
                 else {
                     $result = mysqli_query($db_con, "UPDATE `incidencias_tic` SET `dependencia` = '".$dependencia."', `problema` = ".$asunto.", `descripcion` = '".$descripcion."' WHERE `id` = $id_ticket;");
@@ -106,7 +106,7 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
                 }
 
                 $id_ticket_nuevo = mysqli_insert_id($db_con);
-                
+
                 if (! $result) {
                     $msg_error = true;
                     $msg_error_text = "Ha ocurrido un error al registrar la incidencia en la base de datos. Error: ".mysqli_error($db_con);
@@ -119,7 +119,7 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
                         $notificacion_array_tipoproblema = obtener_problema_por_id_asunto($asunto, $tipos_incidencia);
                         $notificacion_tipoproblema = $notificacion_array_tipoproblema['asunto'];
                         $notificacion_mensaje = "<p>El profesor/a <strong>$solicitante</strong> ha registrado una incidencia el día $fecha, con número de caso <strong>#$id_ticket_nuevo</strong> con el siguiente asunto:</p><p><strong>$notificacion_tipoproblema</strong></p><p>$descripcion</p><p><br></p><p><a href=\"//".$config['dominio']."/intranet/TIC/incidencias/incidencia.php?id=$id_ticket_nuevo\" class=\"btn btn-info\" target=\"_blank\">Ver incidencia</a></p><p><br></p>";
-                        
+
                         $notificacion_sql = "INSERT INTO `mens_texto` (`origen`, `asunto`, `texto`, `destino`, `oculto`) VALUES ('admin', 'Registro de incidencia TIC #$id_ticket_nuevo', '$notificacion_mensaje', '$notificacion_idea_coordinador', 0)";
                         mysqli_query($db_con, $notificacion_sql) or die (mysqli_error($db_con));
                         $id_mens_texto = mysqli_insert_id($db_con);
@@ -130,7 +130,7 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
                     exit();
                 }
             }
-           
+
         }
         else {
             $msg_error = true;
@@ -150,7 +150,7 @@ include("menu.php");
 ?>
 
     <div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Centro TIC <small><?php echo (! isset($id_ticket)) ? 'Nueva incidencia' : 'Incidencia #'.$id_ticket; ?></small></h2>
@@ -174,7 +174,7 @@ include("menu.php");
                             <legend><?php echo (! isset($id_ticket)) ? 'Nueva incidencia' : 'Incidencia #'.$id_ticket; ?></legend>
 
                             <div class="row">
-                            
+
                                 <div class="col-sm-3">
                                     <div class="form-group" id="datetimepicker1">
                                         <label for="fecha">Fecha <span class="text-danger">(*)</span></label>
@@ -241,7 +241,7 @@ include("menu.php");
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                    
+
                             <div class="form-group">
                                 <label for="descripcion">Descripción de la incidencia <?php if (isset($asunto) && substr($asunto, -2, 2) == '00'): ?><span class="text-danger">(*)</span><?php endif; ?></label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="5" placeholder="Describa brevemente el problema para ayudar a su resolución. Si hay varios ordenadores en el aula, recuerda indicar qué ordenador presenta el problema."><?php echo (isset($descripcion) && !empty($descripcion)) ? $descripcion : ''; ?></textarea>
@@ -255,9 +255,9 @@ include("menu.php");
                         <hr>
 
                         <fieldset>
-                            
+
                             <div class="row">
-                            
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="estado">Estado de la incidencia</label>
@@ -282,7 +282,7 @@ include("menu.php");
                                         <p class=""><a href="//<?php echo $config['dominio']; ?>/intranet/TIC/inventario.php?localizacion=<?php echo $dependencia; ?>" class="btn btn-default btn-block" target="_blank">Consultar inventario TIC del aula</a></p>
                                     </div>
                                 </div>
-                                
+
                             </div><!-- /.row -->
 
                              <div class="form-group">
@@ -295,9 +295,9 @@ include("menu.php");
                         <hr>
 
                         <fieldset>
-                            
+
                             <div class="row">
-                            
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="estado">Estado de la incidencia</label>
@@ -317,7 +317,7 @@ include("menu.php");
                                     </div>
                                 </div>
                                 <?php endif; ?>
-                                
+
                             </div><!-- /.row -->
 
                             <?php if (isset($resolucion) && !empty($resolucion)): ?>
@@ -350,13 +350,13 @@ include("menu.php");
 
     <?php include("../pie.php"); ?>
 
-    <script>  
+    <script>
 	$(function() {
 		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
-	});  
+	});
     </script>
 
 </body>
