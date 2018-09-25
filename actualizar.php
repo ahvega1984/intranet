@@ -4,7 +4,7 @@
 	@descripcion: Tabla para control de faltas de asistencia
 	@fecha: 13 de julio de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla de control de faltas'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tabla de control de faltas'");
 if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `control_faltas` (
@@ -20,25 +20,25 @@ if (! mysqli_num_rows($actua)) {
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla de control de faltas', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla de control de faltas', NOW())");
 }
 
 /*
 	@descripcion: Actualizacion tabla de noticias
 	@fecha: 31 de julio de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Actualizacion tabla noticias'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Actualizacion tabla noticias'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `noticias` CHANGE `id` `id` INT UNSIGNED NOT NULL AUTO_INCREMENT, CHANGE `slug` `titulo` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `content` `contenido` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `contact` `autor` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `timestamp` `fechapub` DATETIME NOT NULL, CHANGE `clase` `categoria` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, CHANGE `fechafin` `fechafin` DATE NULL DEFAULT NULL, CHANGE `pagina` `pagina` CHAR(2) NOT NULL;");
 	mysqli_query($db_con, "ALTER TABLE `noticias` CHANGE `fechafin` `fechafin` DATE NULL DEFAULT NULL AFTER `fechapub`;");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Actualizacion tabla noticias', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Actualizacion tabla noticias', NOW())");
 }
 
 /*
 	@descripcion: Creación tabla tareas
 	@fecha: 9 de septiembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla tareas'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tabla tareas'");
 if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "DROP TABLE IF EXISTS `tareas`");
@@ -52,7 +52,7 @@ if (! mysqli_num_rows($actua)) {
 		`prioridad` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla tareas', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla tareas', NOW())");
 }
 
 mysqli_free_result($actua);
@@ -61,13 +61,13 @@ mysqli_free_result($actua);
 	@descripcion: Corrección estructura tabla evaluaciones_actas
 	@fecha: 5 de octubre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla evaluaciones_actas'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Estructura tabla evaluaciones_actas'");
 if (! mysqli_num_rows($actua)) {
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM evaluaciones_actas WHERE Field = 'asistentes'");
 	if (! mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `evaluaciones_actas` ADD `asistentes` VARCHAR(255) NULL AFTER `texto_acta`");
-		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla evaluaciones_actas', NOW())");
+		mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Estructura tabla evaluaciones_actas', NOW())");
 	}
 
 }
@@ -78,10 +78,10 @@ mysqli_free_result($actua);
 	@descripcion: Ampliación columna asistentes en tabla evaluaciones_actas
 	@fecha: 18 de octubre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Columna asistentes tabla evaluaciones_actas'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Columna asistentes tabla evaluaciones_actas'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `evaluaciones_actas` CHANGE `asistentes` `asistentes` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Columna asistentes tabla evaluaciones_actas', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Columna asistentes tabla evaluaciones_actas', NOW())");
 }
 
 mysqli_free_result($actua);
@@ -90,10 +90,10 @@ mysqli_free_result($actua);
 	@descripcion: Ampliación de caracteres en la columna "página" para incluir sistema de documentación permanente
 	@fecha: 21 de octubre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla Noticias'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Estructura tabla Noticias'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE  `noticias` CHANGE  `pagina`  `pagina` CHAR( 3 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla Noticias', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Estructura tabla Noticias', NOW())");
 }
 
 mysqli_free_result($actua);
@@ -102,11 +102,11 @@ mysqli_free_result($actua);
 	@descripcion: Cambio del tipo de datos (varchar a time) de los campos hora_inicio y hora_fin
 	@fecha: 21 de noviembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla Tramos'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Estructura tabla Tramos'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE  `tramos` CHANGE  `hora_inicio`  `hora_inicio` TIME NOT NULL ,
 CHANGE  `hora_fin`  `hora_fin` TIME NOT NULL");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla Tramos', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Estructura tabla Tramos', NOW())");
 }
 
 mysqli_free_result($actua);
@@ -116,7 +116,7 @@ mysqli_free_result($actua);
 	@descripcion: Eliminado archivos de exportación. A partir de ahora se genera y se fuerza la descarga. De esta manera evitamos que queden los archivos publicados en la red
 	@fecha: 21 de noviembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Exportar usuarios TIC'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Exportar usuarios TIC'");
 if (! mysqli_num_rows($actua)) {
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/download.php')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/download.php');
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/alumnos.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/alumnos.txt');
@@ -125,31 +125,31 @@ if (! mysqli_num_rows($actua)) {
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt');
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_gsuite.csv')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_gsuite.csv');
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Exportar usuarios TIC', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Exportar usuarios TIC', NOW())");
 }
 
 /*
 	@descripcion: Eliminado archivo de configuración de Trendoo
 	@fecha: 2 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado archivo config.php de Trendoo'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminado archivo config.php de Trendoo'");
 if (! mysqli_num_rows($actua)) {
 	if (file_exists(INTRANET_DIRECTORY.'/lib/trendoo/config.php')) unlink(INTRANET_DIRECTORY.'/lib/trendoo/config.php');
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado archivo config.php de Trendoo', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminado archivo config.php de Trendoo', NOW())");
 }
 
 /*
 	@descripcion: Nuevo campo en tabla reg_principal
 	@fecha: 7 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo campo en tabla reg_principal'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Nuevo campo en tabla reg_principal'");
 if (! mysqli_num_rows($actua)) {
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_principal WHERE Field = 'tutorlegal'");
 	if (! mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `reg_principal` ADD `tutorlegal` VARCHAR(255) NULL");
-		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla reg_principal', NOW())");
+		mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevo campo en tabla reg_principal', NOW())");
 	}
 }
 
@@ -157,13 +157,13 @@ if (! mysqli_num_rows($actua)) {
 	@descripcion: Nuevo campo en tabla Absentismo
 	@fecha: 10 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo campo en tabla Absentismo'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Nuevo campo en tabla Absentismo'");
 if (! mysqli_num_rows($actua)) {
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM absentismo WHERE Field = 'fecha_registro'");
 	if (! mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `absentismo` ADD `fecha_registro` DATE NOT NULL AFTER `serv_sociales`");
-		mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo campo en tabla Absentismo', NOW())");
+		mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevo campo en tabla Absentismo', NOW())");
 	}
 }
 
@@ -172,7 +172,7 @@ if (! mysqli_num_rows($actua)) {
 	@descripcion: Registro de agente de usuario en tabla reg_principal e reg_intranet
 	@fecha: 16 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Registro agente de usuario'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Registro agente de usuario'");
 if (! mysqli_num_rows($actua)) {
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM reg_principal WHERE Field = 'useragent'");
@@ -185,26 +185,26 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "ALTER TABLE `reg_intranet` ADD `useragent` VARCHAR(255) NULL");
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Registro agente de usuario', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Registro agente de usuario', NOW())");
 }
 
 /*
 	@descripcion: Eliminado archivo salir.php para evitar filtro de contenidos de la Junta.
 	@fecha: 21 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado archivo salir.php'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminado archivo salir.php'");
 if (! mysqli_num_rows($actua)) {
 
 	if (file_exists(INTRANET_DIRECTORY.'/salir.php')) unlink(INTRANET_DIRECTORY.'/salir.php');
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado archivo salir.php', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminado archivo salir.php', NOW())");
 }
 
 /*
 	@descripcion: Añadido campo para segundo factor de autenticación en tabla c_profes
 	@fecha: 27 de diciembre de 2017
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Módulo TOTP'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Módulo TOTP'");
 if (! mysqli_num_rows($actua)) {
 
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM c_profes WHERE Field = 'totp_secret'");
@@ -218,27 +218,27 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "ALTER TABLE `reg_principal` DROP `totp_secret`;");
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Módulo TOTP', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Módulo TOTP', NOW())");
 }
 
 /*
 	@descripcion: Cambio nombre de actividad Servicio de guardia
 	@fecha: 8 de enero de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nombre actividad Servicio de guardia'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Nombre actividad Servicio de guardia'");
 if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "UPDATE `horw` SET `asig` = 'Servicio de guardia (No Lectiva)' WHERE `c_asig` = '25' AND `asig` = 'Servicio de guardia'");
 	mysqli_query($db_con, "UPDATE `horw_faltas` SET `asig` = 'Servicio de guardia (No Lectiva)' WHERE `c_asig` = '25' AND `asig` = 'Servicio de guardia'");
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nombre actividad Servicio de guardia', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nombre actividad Servicio de guardia', NOW())");
 }
 
 /*
 	@descripcion: Nuevo módulo de incidencias TIC
 	@fecha: 26 de enero de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Nuevo módulo incidencias TIC'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Nuevo módulo incidencias TIC'");
 if (! mysqli_num_rows($actua)) {
 
 	// Creamos la tabla de inventario de material TIC
@@ -322,17 +322,17 @@ if (! mysqli_num_rows($actua)) {
 	// Eliminamos tabla antigua
 	mysqli_query($db_con, "DROP TABLE `partestic`");
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Nuevo módulo incidencias TIC', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevo módulo incidencias TIC', NOW())");
 }
 
 /*
 	@descripcion: Modificación de la tabla tutoría para registrar intervenciones sobre el grupo
 	@fecha: 12 de febrero de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación tabla tutoria'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación tabla tutoria'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `tutoria` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, CHANGE `claveal` `claveal` VARCHAR(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `apellidos` `apellidos` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `nombre` `nombre` VARCHAR(24) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `jefatura` `jefatura` TINYINT(1) NOT NULL DEFAULT '0';");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla tutoria', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación tabla tutoria', NOW())");
 }
 
 
@@ -340,10 +340,10 @@ if (! mysqli_num_rows($actua)) {
 	@descripcion: Modificación de la tabla textos_gratis
 	@fecha: 12 de febrero de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación tabla textos_gratis'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación tabla textos_gratis'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `textos_gratis` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, CHANGE `isbn` `isbn` CHAR(13) NULL DEFAULT NULL, CHANGE `ean` `ean` CHAR(13) NULL DEFAULT NULL, CHANGE `ano` `ano` YEAR(4) NULL DEFAULT NULL;");
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación tabla textos_gratis', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación tabla textos_gratis', NOW())");
 }
 
 
@@ -351,7 +351,7 @@ if (! mysqli_num_rows($actua)) {
 	@descripcion: Modulo de libros de texto (Solución de errores en importación)
 	@fecha: 5 de marzo de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modulo de libros de texto (Solución de errores)'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modulo de libros de texto (Solución de errores)'");
 if (! mysqli_num_rows($actua)) {
 
 	// Creamos la nueva tabla para el registro de libros de texto
@@ -414,7 +414,7 @@ if (! mysqli_num_rows($actua)) {
 	}
 	mysqli_free_result($result_update);
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modulo de libros de texto (Solución de errores)', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modulo de libros de texto (Solución de errores)', NOW())");
 }
 
 
@@ -422,7 +422,7 @@ if (! mysqli_num_rows($actua)) {
 	@descripcion: Cambio NC a Claveal en tabla grupos
 	@fecha: 25 de marzo de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Cambio NC a Claveal en tabla grupos'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Cambio NC a Claveal en tabla grupos'");
 if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con,"ALTER TABLE `grupos` CHANGE `alumnos` `alumnos` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''");
@@ -441,19 +441,19 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con,"update grupos set alumnos='$nc' where id='$cambio1[2]'");
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Cambio NC a Claveal en tabla grupos', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Cambio NC a Claveal en tabla grupos', NOW())");
 }
 
 /*
 	@descripcion: Eliminado archivos de exportación de usuarios TIC
 	@fecha: 3 de mayo de 2018
 */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Exportar usuarios TIC profesores'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Exportar usuarios TIC profesores'");
 if (! mysqli_num_rows($actua)) {
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores.txt');
 	if (file_exists(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt')) unlink(INTRANET_DIRECTORY.'/xml/jefe/TIC/profesores_moodle.txt');
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Exportar usuarios TIC profesores', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Exportar usuarios TIC profesores', NOW())");
 }
 
 
@@ -462,7 +462,7 @@ if (! mysqli_num_rows($actua)) {
 	@fecha: 23 de junio de 2018
 */
 
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminar campo segsocial'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminar campo segsocial'");
 if (! mysqli_num_rows($actua)) {
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `alma` WHERE Field = 'SEGSOCIAL'");
 	if (mysqli_num_rows($result_update)) {
@@ -504,7 +504,7 @@ if (! mysqli_num_rows($actua)) {
 	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
 	mysqli_query($db_con,"SET NAMES 'utf8'");
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminar campo segsocial', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar campo segsocial', NOW())");
 }
 
 /*
@@ -512,14 +512,14 @@ if (! mysqli_num_rows($actua)) {
 	@fecha: 22 de septiembre de 2018
 */
 
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Campos fechatoma y fechacese en tabla departamentos'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Campos fechatoma y fechacese en tabla departamentos'");
 if (! mysqli_num_rows($actua)) {
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `departamentos` WHERE Field = 'fechatoma'");
 	if (! mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `departamentos` ADD `fechatoma` DATE NOT NULL , ADD `fechacese` DATE NULL ;");
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campos fechatoma y fechacese en tabla departamentos', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Campos fechatoma y fechacese en tabla departamentos', NOW())");
 }
 
 /*
@@ -527,12 +527,42 @@ if (! mysqli_num_rows($actua)) {
 	@fecha: 23 de septiembre de 2018
 */
 
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Id jornada en tramos horarios'");
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Id jornada en tramos horarios'");
 if (! mysqli_num_rows($actua)) {
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `tramos` WHERE Field = 'idjornada'");
 	if (! mysqli_num_rows($result_update)) {
 		mysqli_query($db_con, "ALTER TABLE `tramos` ADD `idjornada` int(12) unsigned NOT NULL ;");
 	}
 
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Id jornada en tramos horarios', NOW())");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Id jornada en tramos horarios', NOW())");
+}
+
+
+/*
+	@descripcion: Añadido columna idactividad en horw
+	@fecha: 25 de septiembre de 2018
+*/
+
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Columna idactividad en tabla horw'");
+if (! mysqli_num_rows($actua)) {
+	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `horw` WHERE Field = 'idactividad'");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "ALTER TABLE `horw` ADD `idactividad` INT(11) UNSIGNED NULL AFTER `clase`;");
+		mysqli_query($db_con, "ALTER TABLE `horw_faltas` ADD `idactividad` INT(11) UNSIGNED NULL AFTER `clase`;");
+
+		// Actualizamos los códigos
+		$result2_update = mysqli_query($db_con, "SELECT DISTINCT `id`, `c_asig` FROM `horw`");
+		while ($row2_update = mysqli_fetch_array($result2_update)) {
+			if ($row2_update['c_asig'] < 1000) {
+				mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
+				mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
+			}
+			else {
+				mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
+				mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
+			}
+		}
+	}
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Columna idactividad en tabla horw', NOW())");
 }
