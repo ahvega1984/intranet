@@ -14,7 +14,7 @@ $horario_regular = array();
 $horario_noregular = array();
 $noregular_aux = array();
 
-$result = mysqli_query($db_con, "SELECT `dia`, `hora`, `c_asig`, `prof`, `a_aula`, `a_grupo` FROM `horw` WHERE `c_prof` = '$idempleado' ORDER BY `dia` ASC, `hora` ASC");
+$result = mysqli_query($db_con, "SELECT `dia`, `hora`, `c_asig`, `prof`, `a_aula`, `a_grupo`, `idactividad` FROM `horw` WHERE `c_prof` = '$idempleado' ORDER BY `dia` ASC, `hora` ASC");
 while ($row = mysqli_fetch_array($result)) {
 
 	$result_empleado = mysqli_query($db_con, "SELECT `fechatoma`, `fechacese` FROM `departamentos` WHERE `nombre` = '".$row["prof"]."' LIMIT 1");
@@ -72,14 +72,6 @@ while ($row = mysqli_fetch_array($result)) {
 
 	}
 	else {
-		if (empty($id_unidad) && empty($id_curso)) {
-			$codigo_actividad = $row['c_asig'];
-			$codigo_asignatura = '';
-		}
-		else {
-			$codigo_actividad = '1';
-			$codigo_asignatura = $row['c_asig'];
-		}
 
 		$regular = array(
 			'dia_semana'					=> $row['dia'],
@@ -92,7 +84,7 @@ while ($row = mysqli_fetch_array($result)) {
 			'fecha_fin'						=> '31/08/'.(substr($config['curso_inicio'], 0, 4) + 1),
 			'hora_inicio'					=> $row_tramo['horini'],
 			'hora_fin'						=> $row_tramo['horfin'],
-			'codigo_actividad' 		=> $codigo_actividad
+			'codigo_actividad' 		=> $row['idactividad']
 		);
 
 		array_push($horario_regular, $regular);
@@ -120,7 +112,8 @@ fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
 				<dato nombre_dato="F_TOMAPOS">'.$fecha_toma_posesion.'</dato>');
 				$i = 1;
 				foreach ($horario_noregular as $horario):
-				fwrite($fp,'<grupo_datos seq="ACTIVIDAD_'.$i.'">
+				fwrite($fp,'
+				<grupo_datos seq="ACTIVIDAD_'.$i.'">
 					<dato nombre_dato="X_ACTIVIDAD">'.$horario['codigo_actividad'].'</dato>
 					<dato nombre_dato="N_MINSEN">'.$horario['numero_minutos'].'</dato>
 				</grupo_datos>');
@@ -128,7 +121,8 @@ fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
 				endforeach;
 				unset($horario);
 				unset($i);
-			fwrite($fp, '</grupo_datos>
+			fwrite($fp, '
+			</grupo_datos>
 		</grupo_datos>
 		<grupo_datos seq="HORARIOS_REGULARES" registros="1">
 			<grupo_datos seq="HORARIO_REGULAR_PROFESOR_1" registros="'.count($horario_regular).'">
@@ -136,7 +130,8 @@ fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
 				<dato nombre_dato="F_TOMAPOS">'.$fecha_toma_posesion.'</dato>');
 				$i = 1;
 				foreach ($horario_regular as $horario):
-				fwrite($fp, '<grupo_datos seq="ACTIVIDAD_'.$i.'">
+				fwrite($fp, '
+				<grupo_datos seq="ACTIVIDAD_'.$i.'">
 					<dato nombre_dato="N_DIASEMANA">'.$horario['dia_semana'].'</dato>
 					<dato nombre_dato="X_TRAMO">'.$horario['tramo_horario'].'</dato>
 					<dato nombre_dato="X_DEPENDENCIA">'.$horario['codigo_dependencia'].'</dato>
@@ -151,7 +146,8 @@ fwrite($fp,'<?xml version="1.0" encoding="iso-8859-1"?>
 				</grupo_datos>');
 				$i++;
 				endforeach;
-			fwrite($fp, '</grupo_datos>
+			fwrite($fp, '
+			</grupo_datos>
 		</grupo_datos>
 	</BLOQUE_DATOS>
 </SERVICIO>');
