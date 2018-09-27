@@ -6,28 +6,28 @@ if (isset($_GET['id']) && isset($_GET['accion'])) {
 	$accion = htmlspecialchars($_GET['accion']);
 
 	switch ($accion) {
-		case 'eliminar' : 
+		case 'eliminar' :
 
 			$result = mysqli_query($db_con, "DELETE FROM tareas WHERE id = ".$id." AND idea = '".$idea."' LIMIT 1");
 			if (! $result) $msg_error = "Error al eliminar la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		case 'finalizar' : 
+		case 'finalizar' :
 
 			$result = mysqli_query($db_con, "UPDATE tareas SET estado = 1 WHERE id = ".$id." AND idea = '".$idea."' AND estado = 0 LIMIT 1");
 			if (! $result) $msg_error = "Error al actualizar el estado de la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		case 'rehacer' : 
+		case 'rehacer' :
 
 			$result = mysqli_query($db_con, "UPDATE tareas SET estado = 0 WHERE id = ".$id." AND idea = '".$idea."' AND estado = 1 LIMIT 1");
 			if (! $result) $msg_error = "Error al actualizar el estado de la tarea. ".mysqli_error($db_con);
 
 			break;
 
-		default: 
+		default:
 			$msg_error = "Acción no disponible";
 			break;
 	}
@@ -87,7 +87,7 @@ if (isset($_GET['id'])) {
 
 
 include("../menu.php");
-?>	
+?>
 
 	<div class="container">
 
@@ -101,11 +101,11 @@ include("../menu.php");
 			<strong>Error:</strong> <?php echo $msg_error; ?>
 		</div>
 		<?php endif; ?>
-		
+
 		<div class="row">
-			
+
 			<div class="col-md-offset-2 col-md-8">
-				
+
 				<div class="well">
 
 					<form action="" method="post">
@@ -143,11 +143,11 @@ include("../menu.php");
 					</form>
 
 				</div>
-	
+
 			</div><!-- /.col-md-12 -->
-			
+
 		</div><!-- /.row -->
-		
+
 	</div><!-- /.container -->
 
 	<?php include("../pie.php"); ?>
@@ -167,7 +167,21 @@ include("../menu.php");
 			['table', ['table']],
 			['media', ['link', 'picture', 'video']],
 			['code', ['codeview']]
-		]
+		],
+		cleaner: {
+				action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+				newline: '<br>', // Summernote's default is to use '<p><br></p>'
+				notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
+				icon: '<i class="note-icon">[Your Button]</i>',
+				keepHtml: false, // Remove all Html formats
+				keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
+				keepClasses: false, // Remove Classes
+				badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
+				badAttributes: ['style', 'start'], // Remove attributes from remaining tags
+				limitChars: false, // 0/false|# 0/false disables option
+				limitDisplay: 'both', // text|html|both
+				limitStop: false // true/false
+		}
 	});
 	</script>
 

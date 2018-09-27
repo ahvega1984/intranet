@@ -26,7 +26,7 @@ if (isset($_POST['curso']) && isset($_POST['curso'])) {
 			header('Location:'.'actas.php?id='.$row_acta['id'].'&action=edit');
 			exit;
 		}
-		
+
 	}
 }
 
@@ -71,7 +71,7 @@ if ($esPMAR) {
 	$result_codasig_pmar = mysqli_query($db_con, "SELECT codigo FROM materias WHERE grupo = '".$curso."' AND abrev LIKE '%*%' LIMIT 1");
 	$row_cosasig_pmar = mysqli_fetch_array($result_codasig_pmar);
 	$cosasig_pmar = $row_cosasig_pmar['codigo'];
-	
+
 	$result = mysqli_query($db_con, "SELECT CONCAT(apellidos, ', ', nombre) AS alumno, claveal FROM alma WHERE unidad = '".$curso."' AND combasi LIKE '%".$cosasig_pmar."%' ORDER BY apellidos ASC, nombre ASC");
 }
 else {
@@ -79,14 +79,14 @@ else {
 }
 
 if (mysqli_num_rows($result)) {
-	
+
 	$datos_recopilados = "";
 	while ($row = mysqli_fetch_array($result)) {
 
-		
+
 		// Rango de fechas según evaluación
 		$anio_escolar = substr($config['curso_actual'],0,4);
-		
+
 		$fecha_evi = $anio_escolar.'-09-30';
 
 		$result_festivos = mysqli_query($db_con, "SELECT fecha, MONTH(fecha) AS mes FROM festivos WHERE nombre LIKE '%Navidad' ORDER BY fecha ASC LIMIT 1");
@@ -98,32 +98,32 @@ if (mysqli_num_rows($result)) {
 		$row_festivo = mysqli_fetch_array($result_festivos);
 		$fecha_2ev = $row_festivo['fecha'];
 		$fecha_mes_2ev = $row_festivo['mes'];
-		
+
 		switch ($evaluacion) {
-			case 'EVI' : 
+			case 'EVI' :
 				$rango_fechas = "AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$fecha_evi."'";
 				$rango_meses = "AND mes = 9";
 				break;
-			case '1EV' : 
+			case '1EV' :
 				$rango_fechas = "AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$fecha_1ev."'";
 				$rango_meses = "AND mes BETWEEN 9 AND $fecha_mes_1ev";
 				break;
-			case '2EV' : 
+			case '2EV' :
 				$rango_fechas = "AND fecha BETWEEN '".$fecha_1ev."' AND '".$fecha_2ev."'";
 				$rango_meses = "AND mes BETWEEN $fecha_mes_1ev AND $fecha_mes_2ev";
 				break;
-			case '3EV' : 
-			case 'ORD' : 
-			case 'EXT' : 
+			case '3EV' :
+			case 'ORD' :
+			case 'EXT' :
 				$rango_fechas = "AND fecha BETWEEN '".$fecha_2ev."' AND '".$config['curso_fin']."'";
 				$rango_meses = "AND mes BETWEEN 6";
 				break;
-			default : 
+			default :
 				$rango_fechas = "";
 				$rango_meses = "";
 		}
-		
-		
+
+
 		// Comprobamos si es absentista o tiene más de 25 faltas de asistencia sin justificar
 		$result_absentimo = mysqli_query($db_con, "SELECT id FROM absentismo WHERE claveal = '".$row['claveal']."' $rango_meses");
 		if (mysqli_num_rows($result_absentimo)) {
@@ -168,7 +168,7 @@ $row = mysqli_fetch_array($result);
 
 // ENVIO DEL FORMULARIO
 if (isset($_POST['submit'])) {
-	
+
 	$evaluacion = $_POST['evaluacion'];
 	$curso = $_POST['unidad'];
 	$fecha = $_POST['fecha'];
@@ -176,22 +176,22 @@ if (isset($_POST['submit'])) {
 	$fecha_sql = $exp_fecha[2].'-'.$exp_fecha[1].'-'.$exp_fecha[0];
 	$texto_acta = trim($_POST['texto_acta']);
 	$asistencia = $_POST['asistencia'];
-	
+
 	if (!empty($evaluacion) && !empty($curso) && !empty($fecha) && !empty($texto_acta) && !empty($asistencia)) {
-		
+
 		$asistencia_serialize = serialize($asistencia);
 
 		if (isset($id)) {
 			$msg_insert = 0;
 			$result = mysqli_query($db_con, "UPDATE evaluaciones_actas SET fecha = '$fecha_sql', texto_acta = '$texto_acta', asistentes = '$asistencia_serialize' WHERE id = $id LIMIT 1");
-			
+
 			if (!$result) $msg_error = "El acta no ha podido ser actualizado. Error: ".mysqli_error($db_con);
 			else $msg_success = "El acta ha sido actualizado.";
 		}
 		else {
-			
+
 			$result = mysqli_query($db_con, "INSERT INTO evaluaciones_actas (unidad, evaluacion, fecha, texto_acta, asistentes) VALUES ('$curso', '$evaluacion', '$fecha_sql', '$texto_acta', '$asistencia_serialize')");
-			
+
 			if (!$result) {
 				$msg_error = "El acta no ha podido ser registrado. Error: ".mysqli_error($db_con);
 			}
@@ -201,7 +201,7 @@ if (isset($_POST['submit'])) {
 				exit();
 			}
 		}
-		
+
 	}
 
 	// COMPROBAMOS SI ES UN PMAR
@@ -214,16 +214,16 @@ if (isset($_POST['submit'])) {
 
 // RECOGEMOS LOS DATOS SI SE TRATA DE UNA ACTUALIZACION
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
-	
+
 	$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta, asistentes FROM evaluaciones_actas WHERE id = ".$id." LIMIT 1");
-	
+
 	if (!$result) {
 		$msg_error = "El acta al que intenta acceder no existe.";
 		unset($id);
 	}
 	else {
 		$row = mysqli_fetch_array($result);
-		
+
 		$curso = $row['unidad'];
 		$evaluacion = $row['evaluacion'];
 		$texto_acta = $row['texto_acta'];
@@ -241,7 +241,7 @@ if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
 // ELIMINAR UN ACTA
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'delete')) {
 	$result = mysqli_query($db_con, "DELETE FROM evaluaciones_actas WHERE id = ".$id." LIMIT 1");
-	
+
 	if (!$result) $msg_error = "El acta no ha podido ser eliminado. Error: ".mysqli_error($db_con);
 	else $msg_success = "El acta ha sido eliminado.";
 }
@@ -252,14 +252,14 @@ $PLUGIN_DATATABLES = 1;
 include("../../menu.php");
 include("menu.php");
 ?>
-	
+
 	<div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Actas de evaluación <small>Actas de sesiones de evaluación</small></h2>
 		</div>
-		
+
 		<!-- MENSAJES -->
 		<?php if (isset($msg_error)): ?>
 		<div class="alert alert-danger">
@@ -272,52 +272,52 @@ include("menu.php");
 			El acta ha sido registrado.
 		</div>
 		<?php endif; ?>
-		
+
 		<?php if (isset($msg_success)): ?>
 		<div class="alert alert-success">
 			<?php echo $msg_success; ?>
 		</div>
 		<?php endif; ?>
-		
+
 		<!-- SCAFFOLDING -->
 		<div class="row">
-			
+
 			<?php if (!empty($curso) && !empty($evaluacion)): ?>
-			
+
 			<!-- COLUMNA CENTRAL -->
 			<div class="col-sm-12">
-				
+
 				<h3>Redactar acta</h3>
-				
+
 				<form method="post" action="">
-						
+
 					<div class="well">
-						
+
 						<fieldset>
-							
+
 							<div class="row">
-								
+
 								<div class="col-sm-3">
-								
+
 									<div class="form-group">
 										<label for="evaluacion">Evaluación</label>
 										<input type="hidden" name="evaluacion" value="<?php echo $evaluacion ?>">
 										<input type="text" class="form-control" id="texto_evaluacion" name="texto_evaluacion" value="<?php echo $evaluaciones[$evaluacion]; ?>" readonly>
 									</div>
-								
+
 								</div>
-								
+
 								<div class="col-sm-2">
-								
+
 									<div class="form-group">
 										<label for="unidad">Unidad</label>
 										<input type="text" class="form-control" id="unidad" name="unidad" value="<?php echo ($esPMAR) ? $curso.' (PMAR)' : $curso; ?>" readonly>
 									</div>
-								
+
 								</div>
-								
+
 								<div class="col-sm-4">
-								
+
 									<div class="form-group">
 										<label for="tutor">Tutor/a</label>
 										<?php $result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$curso'"); ?>
@@ -325,11 +325,11 @@ include("menu.php");
 										<?php $tutor = mb_convert_case($row['tutor'], MB_CASE_TITLE, "UTF-8"); ?>
 										<input type="text" class="form-control" id="tutor" name="tutor" value="<?php echo $tutor; ?>" readonly>
 									</div>
-								
+
 								</div>
-								
+
 								<div class="col-sm-3">
-									
+
 									<div class="form-group" id="datetimepicker1">
 										<label for="fecha">Fecha</label>
 										<div class="input-group">
@@ -337,11 +337,11 @@ include("menu.php");
 											<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 										</div>
 									</div>
-									
+
 								</div>
-							
+
 							</div>
-								
+
 							<div class="form-group">
 								<textarea class="form-control" id="texto_acta" name="texto_acta">
 								<?php if (isset($texto_acta)): ?>
@@ -376,23 +376,23 @@ include("menu.php");
 							<?php endif; ?>
 
 							<br>
-							
+
 							<button type="submit" class="btn btn-primary" name="submit">Guardar</button>
 							<button type="reset" class="btn btn-default">Cancelar</button>
 						</fieldset>
-						
+
 					</div>
-				
+
 				</form>
-				
-				
+
+
 			</div><!-- /.col-sm-12 -->
-			
+
 			<?php else: ?>
-			
+
 			<div class="col-sm-12">
 				<?php $result = mysqli_query($db_con, "SELECT DISTINCT ea.id, ea.unidad, ea.evaluacion, ea.fecha, ea.impresion, tut.tutor FROM evaluaciones_actas AS ea, FTUTORES AS tut WHERE REPLACE(ea.unidad, ' (PMAR)', '') = tut.unidad ORDER BY ea.id DESC"); ?>
-				
+
 				<?php if (mysqli_num_rows($result)): ?>
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped table-hover datatable">
@@ -430,38 +430,38 @@ include("menu.php");
 						</tbody>
 					</table>
 					<?php else: ?>
-					
+
 					<h3>No se ha redactado ningún acta de sesión de evaluación.</h3>
 					<br>
 					<br>
-					
+
 					<?php endif; ?>
 				</div>
-			
+
 			</div><!-- /.col-sm-12 -->
-			
+
 			<?php endif; ?>
-			
-						
+
+
 		</div><!-- /.row -->
-			
+
 	</div><!-- /.container -->
 
 <?php include("../../pie.php"); ?>
 
  <script>
  $(document).ready(function() {
- 
+
  	// DATATABLES
 	var table = $('.datatable').DataTable({
 	"paging":   true,
     "ordering": true,
     "info":     false,
-    
+
 		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-		
+
 		"order": [[ 0, "desc" ]],
-		
+
 		"language": {
 		            "lengthMenu": "_MENU_",
 		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -477,7 +477,7 @@ include("menu.php");
 		                }
 		        }
 	});
- 	
+
  	// EDITOR DE TEXTO
  	$('#texto_acta').summernote({
  		height: 600,
@@ -493,8 +493,22 @@ include("menu.php");
 			['media', ['link', 'picture', 'video']],
 			['code', ['codeview']]
 		],
+		cleaner: {
+				action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+				newline: '<br>', // Summernote's default is to use '<p><br></p>'
+				notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
+				icon: '<i class="note-icon">[Your Button]</i>',
+				keepHtml: false, // Remove all Html formats
+				keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
+				keepClasses: false, // Remove Classes
+				badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
+				badAttributes: ['style', 'start'], // Remove attributes from remaining tags
+				limitChars: false, // 0/false|# 0/false disables option
+				limitDisplay: 'both', // text|html|both
+				limitStop: false // true/false
+		}
  	});
- 	
+
  	// DATETIMEPICKER
  	$(function () {
  	    $('#datetimepicker1').datetimepicker({
@@ -502,7 +516,7 @@ include("menu.php");
  	    	pickTime: false,
  	    });
  	});
- 	
+
  });
  </script>
 

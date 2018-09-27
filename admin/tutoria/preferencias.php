@@ -9,7 +9,7 @@ function limpiar_string($string)
 }
 
 if (isset($_POST['btnGuardar'])) {
-	
+
 	$prefImpExpulsionAula	= limpiar_string($_POST['prefImpExpulsionAula']);
 	$prefImpAmonestacion	= limpiar_string($_POST['prefImpAmonestacion']);
 	$prefAmonReiteracion	= limpiar_string($_POST['prefAmonReiteracion']);
@@ -18,19 +18,19 @@ if (isset($_POST['btnGuardar'])) {
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
-		
+
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE TUTORÍA\r\n");
 		fwrite($file, "\$config['tutoria']['impresion_expulsion_aula']\t= $prefImpExpulsionAula;\r\n");
 		fwrite($file, "\$config['tutoria']['impresion_amonestacion']\t= $prefImpAmonestacion;\r\n");
 		fwrite($file, "\$config['tutoria']['amonestacion_reiteracion']\t= $prefAmonReiteracion;\r\n");
-		
+
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
-		
+
 		fclose($file);
-		
+
 		$msg_success = "Las preferencias han sido guardadas correctamente.";
 	}
-	
+
 }
 
 if (file_exists('config.php')) {
@@ -47,14 +47,14 @@ include("menu.php");
 	<div class="page-header">
 		<h2>Control de tutorías <small>Preferencias</small></h2>
 	</div>
-	
+
 	<!-- MENSAJES -->
 	<?php if (isset($msg_error)): ?>
 	<div class="alert alert-danger alert-fadeout">
 		<?php echo $msg_error; ?>
 	</div>
 	<?php endif; ?>
-	
+
 	<?php if (isset($msg_success)): ?>
 	<div class="alert alert-success alert-fadeout">
 		<?php echo $msg_success; ?>
@@ -65,14 +65,14 @@ include("menu.php");
 	<div class="row">
 
 		<div class="col-sm-12">
-			
+
 			<form class="form-horizontal" method="post" action="preferencias.php">
-				
+
 				<div class="well">
-					
+
 					<fieldset>
 						<legend>Preferencias</legend>
-						
+
 						<div class="form-group">
 							<label for="prefImpExpulsionAula" class="col-sm-4 control-label">Imprimir parte de expulsión del aula</label>
 							<div class="col-sm-3">
@@ -82,7 +82,7 @@ include("menu.php");
 								</select>
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="prefImpAmonestacion" class="col-sm-4 control-label">Imprimir amonestaciones escritas</label>
 							<div class="col-sm-3">
@@ -92,7 +92,7 @@ include("menu.php");
 								</select>
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="prefAmonReiteracion" class="col-sm-4 control-label">Amonestación escrita automática por reiteración de cinco o más faltas leves</label>
 							<div class="col-sm-3">
@@ -102,22 +102,22 @@ include("menu.php");
 								</select>
 							</div>
 						</div>
-						
-						
-						
+
+
+
 					</fieldset>
-					
+
 				</div>
-				
+
 				<button type="submit" class="btn btn-primary" name="btnGuardar">Guardar cambios</button>
 				<?php if (isset($_GET['esAdmin']) && $_GET['esAdmin'] == 1): ?>
 				<a href="../../../xml/index.php" class="btn btn-default">Volver</a>
 				<?php else: ?>
 				<a href="index.php" class="btn btn-default">Volver</a>
 				<?php endif; ?>
-			
+
 			</form>
-		
+
 		</table>
 
 		</div>
@@ -143,7 +143,21 @@ $(document).ready(function() {
 			['table', ['table']],
 			['media', ['link', 'picture', 'video']],
 			['code', ['codeview']]
-		]
+		],
+		cleaner: {
+				action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+				newline: '<br>', // Summernote's default is to use '<p><br></p>'
+				notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
+				icon: '<i class="note-icon">[Your Button]</i>',
+				keepHtml: false, // Remove all Html formats
+				keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
+				keepClasses: false, // Remove Classes
+				badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
+				badAttributes: ['style', 'start'], // Remove attributes from remaining tags
+				limitChars: false, // 0/false|# 0/false disables option
+				limitDisplay: 'both', // text|html|both
+				limitStop: false // true/false
+		}
 	});
 });
 </script>

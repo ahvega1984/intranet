@@ -1,5 +1,5 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
-    
+
     <footer class="hidden-print">
 			<div class="container-fluid">
 				<hr>
@@ -15,7 +15,7 @@
 
 			<br>
 		</footer>
-    
+
     <?php if(isset($_SESSION['user_admin'])): ?>
     <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: -10px; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%;">
     	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%; text-transform: uppercase;"><span class="fas fa-user-plus fa-fw"></span> Cambiar perfil</a>
@@ -29,9 +29,9 @@
 								<?php mysqli_free_result($result); ?>
 							</select>
     			</form>
-    		</div>   		
+    		</div>
     	</div>
-    	
+
     </div>
     <?php endif; ?>
 
@@ -44,7 +44,7 @@
 			    <h4 class="modal-title">Inactividad de la cuenta</h4>
 			  </div>
 			  <div class="modal-body">
-			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de 
+			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de
 					<strong>3 minutos</strong>. Si está rellenando algún formulario, guarde inmediatamente los
 					 cambios antes de que finalice el tiempo. Esta acción detendrá el cierre de sesión y podrá continuar.</p>
 			  </div>
@@ -55,16 +55,17 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	<!-- FIN MODAL SESIÓN -->
-    
+
     <!-- BOOTSTRAP JS CORE -->
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-2.1.1.min.js"></script>  
+    <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-2.1.1.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap.min.js"></script>
-    
+
     <!-- PLUGINS JS -->
     <script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/validator/validator.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/summernote.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/lang/summernote-es-ES.min.js"></script>
+    <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/plugin/summernote-cleaner.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment-es.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
@@ -77,7 +78,7 @@
     <?php endif; ?>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/ajax_alumnos.js"></script>
 
-		
+
 	<script>
 	$(function () {
 	  var nua = navigator.userAgent
@@ -85,15 +86,15 @@
 	  if (isAndroid) {
 	    $('select.form-control').removeClass('form-control').css('width', '100%')
 	  }
-	  
+
 	  $("#debug_button").click(function() {
 	    $('#debug').slideToggle();
 	  });
-	  
+
 	  $("#toggleMenu").click(function() {
 	    $('#accordion').toggleClass("hidden-xs");
 	  });
-	  
+
 	})
 	</script>
 
@@ -101,12 +102,12 @@
 	$("[data-bs=tooltip]").tooltip({
 		container: 'body'
 	});
-	
+
 	$(document).on("click", "a[data-bb]", function(e) {
 	    e.preventDefault();
 	    var type = $(this).data("bb");
 			var link = $(this).attr("href");
-			
+
 			if (type == 'confirm-delete') {
 				bootbox.setDefaults({
 				  locale: "es",
@@ -116,7 +117,7 @@
 				  animate: true,
 				  title: "Confirmación para eliminar",
 				});
-				
+
 				bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
 				    if (result) {
 				    	document.location.href = link;

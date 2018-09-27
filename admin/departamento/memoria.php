@@ -1,5 +1,5 @@
 <?php
-ini_set("session.cookie_lifetime","5600"); 
+ini_set("session.cookie_lifetime","5600");
 ini_set("session.gc_maxlifetime","7200");
 
 require('../../bootstrap.php');
@@ -130,19 +130,19 @@ if($aceptar == "Si"){
 foreach($campos as $nombre_del_campo)
 {
 if (!isset($_POST[$nombre_del_campo]) or ($_POST[$nombre_del_campo]=='')){$_POST[$nombre_del_campo]="";
-}	
+}
 }
 
 
 $actualiza = "UPDATE  mem_dep SET  ";
-for ($i=1; $i<=$n_preg; $i++){ 
+for ($i=1; $i<=$n_preg; $i++){
 	$_POST[$campos[$i-1]] = mysqli_real_escape_string($db_con, $_POST[$campos[$i-1]]);
 	$actualiza.="p".$i." = '".$_POST[$campos[$i-1]]."',";
 }
 $actualiza.=" jefe = '".$profe."'";
 $actualiza.=" WHERE departamento =  '".$depto."' LIMIT 1 ";
 //echo $actualiza.'<br>';
-mysqli_query($db_con, $actualiza);	
+mysqli_query($db_con, $actualiza);
 }
 // Fin Actualización de datos
 
@@ -160,22 +160,22 @@ if (!($memoria[1]=='')){$profe=$memoria[1];}
 
 ?>
 <div class="container">
-	
+
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 	  <h2>Jefatura de Departamento <small>Memoria final</small></h2>
 	  <h3>Departamento de <?php echo $_SESSION['dpt']; ?></h3>
 	</div>
-	
-	
+
+
 	<!-- SCAFFOLDING -->
 	<div class="row">
-		
+
 		<!-- COLUMNA CENTRAL -->
 		<div class="col-sm-12">
-			
+
 			<div class="well">
-<?php 
+<?php
 
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 		echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria">';
@@ -187,7 +187,7 @@ if (!($memoria[1]=='')){$profe=$memoria[1];}
 
 	$prof = mysqli_query($db_con, "SELECT nombre FROM departamentos where departamento = '$depto' and cargo like '%4%'");
 	$profes = mysqli_fetch_row($prof);
-	
+
 	echo '<input type="text" class="form-control" disabled name="zprofe" value = "'.$profes[0].'">';
 	echo '</div>';
 
@@ -249,34 +249,48 @@ echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" target="_bl
 echo "</form>";
 ?>
 			</div><!-- /.well -->
-			 
+
 		</div><!-- /.col-sm-12 -->
-	
+
 	</div><!-- /.row -->
-	
+
 </div><!-- /.container -->
 
 <?php include('../../pie.php'); ?>
 
 	<script>
 	$(document).ready(function() {
-	
+
 		// EDITOR DE TEXTO
 		for (var i = 1; i <= 15; i++) {
 			$('#p'+i).summernote({
 				height: 260,
 				lang: 'es-ES',
 				toolbar: [
-				// [groupName, [list of button]]
-				['style', ['bold', 'italic', 'underline', 'clear']],
-				['font', ['strikethrough', 'superscript', 'subscript']],
-				['fontsize', ['fontsize']],
-				['color', ['color']],
-				['para', ['ul', 'ol', 'paragraph']],
-				['table', ['table']],
-				['media', ['link', 'picture', 'video']],
-				['code', ['codeview']]
-			]
+  				// [groupName, [list of button]]
+  				['style', ['bold', 'italic', 'underline', 'clear']],
+  				['font', ['strikethrough', 'superscript', 'subscript']],
+  				['fontsize', ['fontsize']],
+  				['color', ['color']],
+  				['para', ['ul', 'ol', 'paragraph']],
+  				['table', ['table']],
+  				['media', ['link', 'picture', 'video']],
+  				['code', ['codeview']]
+  			],
+        cleaner: {
+            action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+            newline: '<br>', // Summernote's default is to use '<p><br></p>'
+            notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
+            icon: '<i class="note-icon">[Your Button]</i>',
+            keepHtml: false, // Remove all Html formats
+            keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
+            keepClasses: false, // Remove Classes
+            badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
+            badAttributes: ['style', 'start'], // Remove attributes from remaining tags
+            limitChars: false, // 0/false|# 0/false disables option
+            limitDisplay: 'both', // text|html|both
+            limitStop: false // true/false
+      	}
 			});
 		}
 
