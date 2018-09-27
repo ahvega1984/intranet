@@ -213,7 +213,20 @@ if(isset($_POST['submit1'])) {
 				$ok=1;
 				}
 
-				if($dfeie == '1')
+			if($convivencia == '1')
+				{
+				$convivencia0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%b%'");
+				while($convivencia1 = mysqli_fetch_array($convivencia0)){
+				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$convivencia1[0]'");
+				$num0 = mysqli_fetch_row($rep0);
+				if(strlen($num0[0]) < 1)
+				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$convivencia1[0]."')");
+				}
+				mysqli_query($db_con, "update mens_texto set destino = 'Aula de Convivencia' where id = '$id'");
+				$ok=1;
+				}
+
+			if($dfeie == '1')
 				{
 				$biblio0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%f%'");
 				while($biblio1 = mysqli_fetch_array($biblio0)){

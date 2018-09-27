@@ -295,6 +295,16 @@ $page_header = "Redactar mensaje";
                 </div>
                 <?php endif; ?>
 
+								<?php if(isset($config['mod_convivencia']) && $config['mod_convivencia']): ?>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											<input id="convivencia" name="convivencia" type="checkbox" value="1" <?php if($convivencia=='1' and !$claustro) echo 'checked'; ?>> Aula de Convivencia
+										</label>
+									</div>
+								</div>
+								<?php endif; ?>
+
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
@@ -656,6 +666,26 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 
+				<!-- AULA DE CONVIVENCIA -->
+				<div id="grupo_aulaconv" class="well <?php echo (isset($convivencia) && !empty($convivencia)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Aula de Convivencia</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%b%' ORDER BY `nombre` ASC");?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+				<?php endif; ?>
+
 				<!-- DFEIE -->
 				<div id="grupo_dfeie" class="well <?php echo (isset($dfeie) && !empty($dfeie)) ? '' : 'hidden'; ?>">
 
@@ -834,6 +864,16 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
+			// Aula de convivencia
+			$('#convivencia').change(function() {
+				if(convivencia.checked==true) {
+					$('#grupo_aulaconv').removeClass('hidden');
+				}
+				else {
+					$('#grupo_aulaconv').addClass('hidden');
+				}
+			});
+
 			// Jefes Departamento
 			$('#etcp').change(function() {
 				if(etcp.checked==true) {
@@ -919,20 +959,6 @@ $page_header = "Redactar mensaje";
 				['media', ['link', 'picture', 'video']],
 				['code', ['codeview']]
 			],
-			cleaner: {
-          action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
-          newline: '<br>', // Summernote's default is to use '<p><br></p>'
-          notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
-          icon: '<i class="note-icon">[Your Button]</i>',
-          keepHtml: false, // Remove all Html formats
-          keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
-          keepClasses: false, // Remove Classes
-          badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
-          badAttributes: ['style', 'start'], // Remove attributes from remaining tags
-          limitChars: false, // 0/false|# 0/false disables option
-          limitDisplay: 'both', // text|html|both
-          limitStop: false // true/false
-    	},
 
 			onChange: function(content) {
 				var sHTML = $('#texto').code();
@@ -976,13 +1002,13 @@ $page_header = "Redactar mensaje";
 	    }
 
 	    // Comprobación de Grupo de destinatarios sin marcar
-	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.profesor_nocturno.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
+	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.profesor_nocturno.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.convivencia.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
 			bootbox.alert("No ha seleccionado ningún grupo de destinatarios para el mensaje.");
 			return false;
 	    }
 
 	    // Comprobación de destinatario vacío
-	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
+	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.convivencia.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
 		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['profesores_nocturnos[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
 		    	bootbox.alert("No ha seleccionado ningún destinatario para el mensaje.");
 		    	return false;
