@@ -30,9 +30,12 @@ $orientacion = $_POST['orientacion'];
 $bilingue = $_POST['bilingue'];
 $pas = $_POST['pas'];
 $biblio = $_POST['biblio'];
+$mantenimiento = $_POST['mantenimiento'];
 $dfeie = $_POST['dfeie'];
 $profesor = $_POST['profesor'];
 $convivencia = $_POST['convivencia'];
+$profesor_nocturno = $_POST['profesor_nocturno']; // Checkbox
+$profesores_nocturnos = $_POST['profesores_nocturnos']; // Select
 
 if (isset($_POST['padres'])) {
 	$padres = $_POST['padres'];
@@ -91,26 +94,6 @@ if (isset($_GET['id'])) {
 			header('Location:'.'index.php?inbox=recibidos&action=send');
 			exit;
 		}
-	}
-
-	$result = mysqli_query($db_con, "SELECT ahora, asunto, texto, destino FROM mens_texto WHERE id=".$_GET['id']."");
-	if (mysqli_num_rows($result)) {
-		$row = mysqli_fetch_array($result);
-
-		$ahora = $row['ahora'];
-		$asunto = htmlspecialchars($row['asunto']);
-		$texto = htmlspecialchars($row['texto']);
-		$destino = trim($row['destino']);
-
-		$num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($ahora)) * 60;
-		if ($num_seg > (60 * 60)) {
-			header('Location:'.'index.php?inbox=enviados&action=exceeded');
-		}
-
-		$bloq_destinatarios = 1;
-	}
-	else {
-		unset($_GET['id']);
 	}
 
 }
@@ -182,11 +165,12 @@ $page_header = "Redactar mensaje";
 
       			<input type="hidden" name="profesor" value="<?php echo $_SESSION['ide']; ?>">
 
-      			<?php if (!isset($bloq_destinatarios) && !$bloq_destinatarios): ?>
             <div class="row">
 
             	<!-- COLUMNA IZQUIERDA -->
               <div class="col-sm-6">
+
+								<h5>Por selección</h5>
 
                 <div class="form-group">
                 	<div class="checkbox">
@@ -220,37 +204,43 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
 
-                <div class="form-group">
+								<?php $result_profesores_nocturnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND `c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `prof` ASC"); ?>
+								<?php $existeProfesoresNocturnos = (mysqli_num_rows($result_profesores_nocturnos)) ? 1 : 0; ?>
+								<?php if ($existeProfesoresNocturnos): ?>
+								<div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input id="claustro" name="claustro" type="checkbox" value="1" <?php if($claustro=='1') echo 'checked'; ?>> Todo el claustro
+                			<input id="profesor_nocturno" name="profesor_nocturno" type="checkbox" value="1" <?php if($profesor_nocturno=='1' and !$claustro) echo 'checked'; ?>> Profesorado nocturno
                 		</label>
                 	</div>
                 </div>
+								<?php endif; ?>
 
-                 <div class="form-group">
-                	<div class="checkbox">
-                		<label>
-                			<input id="pas" name="pas" type="checkbox" value="1" <?php if($pas=='1' and !$claustro) echo 'checked'; ?>> Personal de Administración
-                		</label>
-                	</div>
-                </div>
-
-                <?php if(isset($config['mod_biblioteca']) && $config['mod_biblioteca']): ?>
-                <div class="form-group">
-                	<div class="checkbox">
-                		<label>
-                			<input id="biblio" name="biblio" type="checkbox" value="1" <?php if($biblio=='1' and !$claustro) echo 'checked'; ?>> Biblioteca
-                		</label>
-                	</div>
-                </div>
-                <?php endif; ?>
+								<?php if((stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE) and $_SESSION['pagina_centro'] == 1): ?>
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input id="padres" name="padres" type="checkbox" value="1" <?php if($padres=='1' and !$claustro) echo 'checked'; ?>> Familias y alumnos
+              			</label>
+              		</div>
+              	</div>
+              <?php endif; ?>
 
               </div>
 
 
               <!-- COLUMNA DERECHA -->
               <div class="col-sm-6">
+
+								<h5>Por grupo</h5>
+
+								<div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input id="claustro" name="claustro" type="checkbox" value="1" <?php if($claustro=='1') echo 'checked'; ?>> Todo el claustro
+                		</label>
+                	</div>
+                </div>
 
               	<div class="form-group">
               		<div class="checkbox">
@@ -276,6 +266,14 @@ $page_header = "Redactar mensaje";
               		</div>
               	</div>
 
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											<input id="pas" name="pas" type="checkbox" value="1" <?php if($pas=='1' and !$claustro) echo 'checked'; ?>> Administración
+										</label>
+									</div>
+								</div>
+
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
@@ -294,15 +292,17 @@ $page_header = "Redactar mensaje";
               	</div>
               	<?php endif; ?>
 
-              	 <div class="form-group">
+								<?php if(isset($config['mod_biblioteca']) && $config['mod_biblioteca']): ?>
+                <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input id="dfeie" name="dfeie" type="checkbox" value="1" <?php if($dfeie=='1' and !$claustro) echo 'checked'; ?>> DFEIE
+                			<input id="biblio" name="biblio" type="checkbox" value="1" <?php if($biblio=='1' and !$claustro) echo 'checked'; ?>> Biblioteca
                 		</label>
                 	</div>
                 </div>
+                <?php endif; ?>
 
-                <?php if(isset($config['mod_convivencia']) && $config['mod_convivencia']): ?>
+								<?php if(isset($config['mod_convivencia']) && $config['mod_convivencia']): ?>
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -311,17 +311,6 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
                 <?php endif; ?>
-
-<<<<<<< HEAD
-								<?php if(isset($config['mod_convivencia']) && $config['mod_convivencia']): ?>
-								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input id="convivencia" name="convivencia" type="checkbox" value="1" <?php if($convivencia=='1' and !$claustro) echo 'checked'; ?>> Aula de Convivencia
-										</label>
-									</div>
-								</div>
-								<?php endif; ?>
 
 								<div class="form-group">
 									<div class="checkbox">
@@ -343,59 +332,13 @@ $page_header = "Redactar mensaje";
 								</div>
 								<?php endif; ?>
 
-=======
-              	<?php if((stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE) and $_SESSION['pagina_centro'] == 1): ?>
-              	<div class="form-group">
-              		<div class="checkbox">
-              			<label>
-              				<input id="padres" name="padres" type="checkbox" value="1" <?php if($padres=='1' and !$claustro) echo 'checked'; ?>> Familias y alumnos
-              			</label>
-              		</div>
-              	</div>
-              <?php endif; ?>
->>>>>>> 98e9c333dc1fea3b3385d53e3747a2894478d079
               </div>
-              <?php else: ?>
-
-              <p class="help-block">
-              <?php
-            $n_p = str_ireplace("; ","",$row[3]);
-            $numero = trim(substr($n_p,strlen($n_p)-3,strlen($n_p)));
-
-            if(is_numeric(trim($n_p))){
-            $real = "";
-            $trozos = explode("; ",$destino);
-            foreach($trozos as $val){
-            $query0 = mysqli_query($db_con,"select nombre, apellidos from alma where claveal = '$val'");
-			$row0 = mysqli_fetch_array($query0);
-            $real.=$row0[0]." ". $row0[1]."; ";
-            }
-            $dest = substr($real,0,-2);
-            }
-            elseif(is_numeric($numero)) {
-            $real = "";
-            $trozos = explode("; ",$destino);
-            foreach($trozos as $val){
-            $query0 = mysqli_query($db_con,"select nombre from departamentos where idea = '$val'");
-			$row0 = mysqli_fetch_array($query0);
-            $real.=$row0[0]."; ";
-            }
-            $dest = substr($real,0,-2);
-            }
-            else{
-            $dest = $n_p;
-            }
-            echo $dest;
-              ?></p>
-
-              <?php endif; ?>
-
       		</fieldset>
 
       	</div>
 
 
-				<!-- PROFESORES -->
+				<!-- PERSONAL DEL CENTRO -->
 				<div id="grupo_profesores" class="well <?php echo (isset($profes) && !empty($profes)) ? '' : 'hidden'; ?>">
 
 					<fieldset>
@@ -404,7 +347,7 @@ $page_header = "Redactar mensaje";
 						<?php $s_origen = mb_strtoupper($origen); ?>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre, idea FROM departamentos ORDER BY `nombre` ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profeso[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
@@ -459,7 +402,7 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione departamentos</legend>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento <> 'Admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' ORDER BY departamento ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento <> 'Admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="departamento[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
@@ -506,6 +449,34 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 
+				<?php if ($existeProfesoresNocturnos): ?>
+				<!-- PROFESORADO NOCTURNO -->
+				<div id="grupo_profesor_nocturno" class="well <?php echo (isset($profesor_nocturno) && !empty($profesor_nocturno)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Seleccione profesorado de nocturno</legend>
+
+						<div class="form-group">
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `horw`.`prof`, `departamentos`.`idea` FROM `horw` JOIN `departamentos` ON `horw`.`prof` = `departamentos`.`nombre` WHERE `horw`.`hora` > 7 AND `horw`.`c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `horw`.`prof` ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
+							<select class="form-control" name="profesores_nocturnos[]" multiple="multiple" size="23">
+								<?php while($row = mysqli_fetch_array($result)): ?>
+								<option value="<?php echo $row['idea']; ?>"><?php echo $row['prof']; ?></option>
+								<?php endwhile; ?>
+								<?php mysqli_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="profesores_nocturnos[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples profesores de nocturno.</div>
+						</div>
+
+					</fieldset>
+				</div>
+				<?php endif; ?>
 
 				<!-- CLAUSTRO DEL CENTRO -->
 				<div id="grupo_claustro" class="well <?php echo (isset($claustro) && !empty($claustro)) ? '' : 'hidden'; ?>">
@@ -513,7 +484,7 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Claustro de profesores</legend>
 
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY `nombre` ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
 							<?php while($row = mysqli_fetch_array($result)): ?>
@@ -526,212 +497,7 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 
-
-				<!-- PAS -->
-				<div id="grupo_pas" class="well <?php echo (isset($pas) && !empty($pas)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Personal de Administración</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%7%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-
-				<!-- BIBLIOTECA -->
-				<div id="grupo_biblioteca" class="well <?php echo (isset($biblio) && !empty($biblio)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Biblioteca</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%c%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-
-
-				<!-- JEFES DE DEPARTAMENTO -->
-				<div id="grupo_etcp" class="well <?php echo (isset($etcp) && !empty($etcp)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Jefes de departamento</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%4%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-				<!-- COORDINADORES DE AREA -->
-				<div id="grupo_coordinadores" class="well <?php echo (isset($ca) && !empty($ca)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Coordinadores de área</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-
-				<!-- EQUIPO DIRECTIVO -->
-				<div id="grupo_directivo" class="well <?php echo (isset($direccion) && !empty($direccion)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Equipo directivo</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-
-				<!-- ORIENTACION -->
-				<div id="grupo_orientacion" class="well <?php echo (isset($orientacion) && !empty($orientacion)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Orientación</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%8%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-				<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
-				<!-- BILINGÜE -->
-				<div id="grupo_bilingue" class="well <?php echo (isset($bilingue) && !empty($bilingue)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Profesores Bilinguismo</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-				<?php endif; ?>
-
-				<!-- AULA DE CONVIVENCIA -->
-				<div id="grupo_dfeie" class="well <?php echo (isset($dfeie) && !empty($dfeie)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>DFEIE</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%f%' ORDER BY nombre ASC");?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-
-<<<<<<< HEAD
-				<!-- AULA DE CONVIVENCIA -->
-				<div id="grupo_aulaconv" class="well <?php echo (isset($convivencia) && !empty($convivencia)) ? '' : 'hidden'; ?>">
-
-					<fieldset>
-						<legend>Aula de Convivencia</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%b%' ORDER BY `nombre` ASC");?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-				<?php endif; ?>
-
-				<!-- DFEIE -->
-				<div id="grupo_dfeie" class="well <?php echo (isset($dfeie) && !empty($dfeie)) ? '' : 'hidden'; ?>">
-=======
-				<?php if(isset($config['mod_convivencia']) && $config['mod_convivencia']):?>
-				<!-- AULA DE CONVIVENCIA -->
-				<div id="grupo_aulaconv" class="well <?php echo (isset($convivencia) && !empty($convivencia)) ? '' : 'hidden'; ?>">
->>>>>>> 98e9c333dc1fea3b3385d53e3747a2894478d079
-
-					<fieldset>
-						<legend>Aula de Convivencia</legend>
-
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%b%' ORDER BY nombre ASC");?>
-						<?php if(mysqli_num_rows($result)): ?>
-						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysqli_fetch_array($result)): ?>
-							<li><?php echo $row['nombre'] ; ?></li>
-							<?php endwhile; ?>
-							<?php mysqli_free_result($result); ?>
-						</ul>
-						<?php endif; ?>
-
-					</fieldset>
-				</div>
-				<?php endif; ?>
-
+				<!-- FAMILIAS Y ALUMNOS -->
 				<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
 
 				<?php $sql_where = ""; ?>
@@ -745,8 +511,6 @@ $page_header = "Redactar mensaje";
 					<?php $sql_where = "WHERE unidad='$unidad'"; ?>
 				<?php endif; ?>
 
-
-				<!-- FAMILIAS Y ALUMNOS -->
 				<div id="grupo_padres" class="well <?php echo (isset($padres) && !empty($padres)) ? '' : 'hidden'; ?>">
 
 					<fieldset>
@@ -774,6 +538,204 @@ $page_header = "Redactar mensaje";
 				</div>
 
 				<?php endif; ?>
+
+				<!-- JEFES DE DEPARTAMENTO -->
+				<div id="grupo_etcp" class="well <?php echo (isset($etcp) && !empty($etcp)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Jefes de departamento</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%4%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+				<!-- COORDINADORES DE AREA -->
+				<div id="grupo_coordinadores" class="well <?php echo (isset($ca) && !empty($ca)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Coordinadores de área</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%9%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+
+				<!-- EQUIPO DIRECTIVO -->
+				<div id="grupo_directivo" class="well <?php echo (isset($direccion) && !empty($direccion)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Equipo directivo</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%1%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+				<!-- PAS -->
+				<div id="grupo_pas" class="well <?php echo (isset($pas) && !empty($pas)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Personal de Administración</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%7%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+				<!-- ORIENTACION -->
+				<div id="grupo_orientacion" class="well <?php echo (isset($orientacion) && !empty($orientacion)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Orientación</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%8%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+				<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
+				<!-- BILINGÜE -->
+				<div id="grupo_bilingue" class="well <?php echo (isset($bilingue) && !empty($bilingue)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Profesores Bilingüismo</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%a%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+				<?php endif; ?>
+
+				<!-- BIBLIOTECA -->
+				<div id="grupo_biblioteca" class="well <?php echo (isset($biblio) && !empty($biblio)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Biblioteca</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%c%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+				<?php if(isset($config['mod_convivencia']) && $config['mod_convivencia']):?>
+				<!-- AULA DE CONVIVENCIA -->
+				<div id="grupo_aulaconv" class="well <?php echo (isset($convivencia) && !empty($convivencia)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Aula de Convivencia</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%b%' ORDER BY `nombre` ASC");?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+				<?php endif; ?>
+
+				<!-- DFEIE -->
+				<div id="grupo_dfeie" class="well <?php echo (isset($dfeie) && !empty($dfeie)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Departamento de Formación, Evaluación e Innovación Educativa</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%f%' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+
+				<!-- SERVICIO TÉCNICO Y/O MANTENIMIENTO -->
+				<?php if ($existeDeptoMantenimiento): ?>
+				<div id="grupo_mantenimiento" class="well <?php echo (isset($mantenimiento) && !empty($mantenimiento)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Servicio Técnico y/o Mantenimiento</legend>
+
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `departamento` = 'Servicio Técnico y/o Mantenimiento' ORDER BY `nombre` ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysqli_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+
+					</fieldset>
+				</div>
+				<?php endif; ?>
+
 
 			</div><!-- /.col-sm-5 -->
 
@@ -832,6 +794,16 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
+			// Equipos
+			$('#profesor_nocturno').change(function() {
+				if(profesor_nocturno.checked==true) {
+					$('#grupo_profesor_nocturno').removeClass('hidden');
+				}
+				else {
+					$('#grupo_profesor_nocturno').addClass('hidden');
+				}
+			});
+
 			//Claustro
 			$('#claustro').change(function() {
 				if(claustro.checked==true) {
@@ -848,6 +820,10 @@ $page_header = "Redactar mensaje";
 					$('#orientacion').prop('disabled', true);
 					$('#bilingue').prop('disabled', true);
 					$('#padres').prop('disabled', true);
+					$('#dfeie').prop('disabled', true);
+					$('#convivencia').prop('disabled', true);
+					$('#mantenimiento').prop('disabled', true);
+					$('#profesor_nocturno').prop('disabled', true);
 				}
 				else {
 					$('#grupo_claustro').addClass('hidden');
@@ -863,11 +839,14 @@ $page_header = "Redactar mensaje";
 					$('#orientacion').prop('disabled', false);
 					$('#bilingue').prop('disabled', false);
 					$('#padres').prop('disabled', false);
-
+					$('#dfeie').prop('disabled', false);
+					$('#convivencia').prop('disabled', false);
+					$('#mantenimiento').prop('disabled', false);
+					$('#profesor_nocturno').prop('disabled', false);
 				}
 			});
 
-			// Biblioteca
+			// PAS
 			$('#pas').change(function() {
 				if(pas.checked==true) {
 					$('#grupo_pas').removeClass('hidden');
@@ -887,8 +866,7 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-<<<<<<< HEAD
-			// Biblioteca
+			// DFEIE
 			$('#dfeie').change(function() {
 				if(dfeie.checked==true) {
 					$('#grupo_dfeie').removeClass('hidden');
@@ -898,7 +876,7 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-			// Aula de convivencia
+			// Aula de Convivencia
 			$('#convivencia').change(function() {
 				if(convivencia.checked==true) {
 					$('#grupo_aulaconv').removeClass('hidden');
@@ -908,8 +886,6 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-=======
->>>>>>> 98e9c333dc1fea3b3385d53e3747a2894478d079
 			// Jefes Departamento
 			$('#etcp').change(function() {
 				if(etcp.checked==true) {
@@ -950,7 +926,7 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-			// Bilinguismo
+			// Bilingüismo
 			$('#bilingue').change(function() {
 				if(bilingue.checked==true) {
 					$('#grupo_bilingue').removeClass('hidden');
@@ -960,23 +936,13 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-			// Aula de convivencia
-			$('#dfeie').change(function() {
-				if(dfeie.checked==true) {
-					$('#grupo_dfeie').removeClass('hidden');
+			// Servicio Técnico y/o Mantenimiento
+			$('#mantenimiento').change(function() {
+				if(mantenimiento.checked==true) {
+					$('#grupo_mantenimiento').removeClass('hidden');
 				}
 				else {
-					$('#grupo_dfeie').addClass('hidden');
-				}
-			});
-
-			// Aula de convivencia
-			$('#convivencia').change(function() {
-				if(convivencia.checked==true) {
-					$('#grupo_aulaconv').removeClass('hidden');
-				}
-				else {
-					$('#grupo_aulaconv').addClass('hidden');
+					$('#grupo_mantenimiento').addClass('hidden');
 				}
 			});
 
@@ -1048,23 +1014,14 @@ $page_header = "Redactar mensaje";
 	    }
 
 	    // Comprobación de Grupo de destinatarios sin marcar
-<<<<<<< HEAD
 	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.profesor_nocturno.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.convivencia.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
-=======
-	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
->>>>>>> 98e9c333dc1fea3b3385d53e3747a2894478d079
 			bootbox.alert("No ha seleccionado ningún grupo de destinatarios para el mensaje.");
 			return false;
 	    }
 
 	    // Comprobación de destinatario vacío
-<<<<<<< HEAD
 	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.convivencia.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
 		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['profesores_nocturnos[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
-=======
-	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
-		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
->>>>>>> 98e9c333dc1fea3b3385d53e3747a2894478d079
 		    	bootbox.alert("No ha seleccionado ningún destinatario para el mensaje.");
 		    	return false;
 		  	}
