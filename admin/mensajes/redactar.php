@@ -402,7 +402,7 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione departamentos</legend>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento <> 'Admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento <> 'Admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' AND departamento <> '' ORDER BY departamento ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="departamento[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
