@@ -5,7 +5,7 @@ if(isset($_POST['submit1'])) {
 	if(!$asunto or empty($texto) or empty($profesor)) {
   		$msg_error = "Todos los campos del formulario son obligatorios.";
   	}
-	elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !($padres) and !$dfeie) {
+	elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$profesores_nocturnos and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !$mantenimiento and !($padres) and !$dfeie) {
 		$msg_error = "Debes seleccionar al menos un destinatario.";
 	}
 	else {
