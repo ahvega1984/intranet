@@ -16,7 +16,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
 ?>
   <?php
 include("../../menu.php");
-include("menu.php");  
+include("menu.php");
   ?>
 <div class="container">
 <div class="row">
@@ -26,7 +26,7 @@ include("menu.php");
 </div>
 
 <div class="col-sm-8 col-sm-offset-2">
-    <div class="well well-lg">      
+    <div class="well well-lg">
 <?php
 $profes_actividad = $_GET['profesores'];
 if (($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) and $_GET['ver_lista']!=="1") {
@@ -59,7 +59,7 @@ $trozos = explode(";",$uni);
 foreach($trozos as $valor)
 {
 $unidad = trim($valor);
-?> 
+?>
 <table class="table table-striped">
 <tr><td colspan="2"><h4><?php echo "Alumnos de $unidad";?></h4></td>
 </tr>
@@ -94,8 +94,8 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 <input name="actividad" type="hidden" id="A" value="<?php echo $actividad;?>">
 <input name="descripcion" type="hidden" id="A" value="<?php echo $descripcion;?>">
 <input name="observaciones" type="hidden" id="A" value="<?php echo $observaciones;?>">
-<input name="id" type="hidden" id="A" value="<?php echo $id;?>">  
-<?}
+<input name="id" type="hidden" id="A" value="<?php echo $id;?>">
+<?php }
 $nc = 0;
 while($alumno = mysqli_fetch_array($alumnos1)){
 $nc++;
@@ -111,18 +111,18 @@ if($_GET['ver_lista']=="1" and $extra_al!==""){
 ?>
 <tr>
 <td >
-<?php 
+<?php
 echo " $nc. $apellidos $nombre";
 ?>
 </td>
 </tr>
-<?php 
+<?php
 }
 elseif($_GET['ver_lista']!=="1"){
 ?>
 <tr>
 <td>
-<input name="<?php echo $nc.$claveal;?>" type="checkbox" id="A" value="<?php echo $claveal;?>" <?php echo $extra_al;?>> 
+<input name="<?php echo $nc.$claveal;?>" type="checkbox" id="A" value="<?php echo $claveal;?>" <?php echo $extra_al;?>>
 </td>
 <td>
 <?php
@@ -137,7 +137,6 @@ echo " $nc. $apellidos $nombre";
 <?php
 }
 }
-
 ?>
 <br />
 <div align="center">
@@ -157,21 +156,21 @@ if (($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSIO
   </div>
   </div>
   </div>
-</div> 
+</div>
   <script>
 function seleccionar_todo(){
 	for (i=0;i<document.imprime.elements.length;i++)
-		if(document.imprime.elements[i].type == "checkbox")	
+		if(document.imprime.elements[i].type == "checkbox")
 			document.imprime.elements[i].checked=1
 }
 function deseleccionar_todo(){
 	for (i=0;i<document.imprime.elements.length;i++)
-		if(document.imprime.elements[i].type == "checkbox")	
+		if(document.imprime.elements[i].type == "checkbox")
 			document.imprime.elements[i].checked=0
 }
 </script>
 
 	<?php include("../../pie.php"); ?>
-	
+
 </body>
 </html>
