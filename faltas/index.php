@@ -346,6 +346,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 				}
 			}
 
+			$result_bil = mysqli_query($db_con, "SELECT `bilinguismo` FROM `matriculas` WHERE `claveal` = '".$row['CLAVEAL']."' LIMIT 1");
+			$row_bil = mysqli_fetch_array($result_bil);
+			$esBilingue = ($row_bil['bilinguismo'] == 'Si') ? 1 : 0;
+
 			if ($hay_al=="1" or $hay_grupo<1) {
 				if ($row[5] == "") {}
 				else{
@@ -368,7 +372,8 @@ while($hora2 = mysqli_fetch_row($hora0))
 					<span class='label label-info'>$n</span>
 					&nbsp;&nbsp;$row[2], $row[3]
 				";
-					if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}
+					if ($row[4] == "2" or $row[4] == "3") {echo " <span class=\"label label-default\" data-bs=\"tooltip\" title=\"Repetidor\">(R)</span>";}
+					if ($esBilingue) echo ' <span class="label label-warning" data-bs="tooltip" title="Bilingüe">(B)</span>';
 				}
 				echo "<span class='pull-right' style='margin-right:5px'>";
 
