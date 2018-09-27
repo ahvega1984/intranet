@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 <div class="container hidden-print">
-	
+
 	<!-- Button trigger modal -->
 	<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 		<span class="fas fa-question fa-lg"></span>
@@ -25,13 +25,13 @@
 					<p>La redacción de un mensaje interno comienza con la selección de un
 					profesor o grupo de profesores. Los grupos de profesores pueden, a su
 					vez, admitir una selección múltiple (puedo marcar varios elementos
-					manteniendo apretada la tecla <kbd>Ctrl</kbd>) o pueden ser grupos cerrados. 
+					manteniendo apretada la tecla <kbd>Ctrl</kbd>) o pueden ser grupos cerrados.
 					Si, por ejemplo, selecciono Profesores, Departamentos o Equipos educativos
 					puedo elegir qué profesores, Departamentos o Equipos son los
 					destinatarios del mensaje. En los grupos cerrados (Equipo directivo,
 					Jefes de Departamento, Orientación, Claustro, etc.) reciben el mensaje
 					todos sus miembros y no podemos seleccionar entre ellos.</p>
-					<p>Una vez elegido el destinatario del mensaje escribimos el título (corto 
+					<p>Una vez elegido el destinatario del mensaje escribimos el título (corto
 					y explicativo, ya que es la cabecera que veremos en la página de entrada
 					de la Intranet) y contenido del mismo. El texto admite enlaces,
 					imágenes, etc.</p>
@@ -49,7 +49,7 @@
 					directivo, Tutores, DACE, Orientación, etc.) se puede enviar un SMS con
 					un máximo de 160 caracteres a los teléfonos registrados en Séneca por la
 					familia del alumno durante la matriculación. Si necesitamos seleccionar
-					múltiples alumnos de nuevo mantenemos presionada la tecla <kbd>Ctrl</kbd> 
+					múltiples alumnos de nuevo mantenemos presionada la tecla <kbd>Ctrl</kbd>
 					mientras los marcamos con el ratón.</p>
 				</div>
 				<div class="modal-footer">
@@ -69,7 +69,7 @@
 			</div><!-- /input-group -->
 		</div><!-- /.col-lg-3-->
 	</form>
-	
+
 	<ul class="nav nav-tabs">
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=recibidos')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>index.php?inbox=recibidos">Mensajes recibidos</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inbox=enviados')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>index.php?inbox=enviados">Mensajes enviados</a></li>
@@ -77,7 +77,7 @@
 
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'correo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>correo.php">Redactar correo</a></li>
 
-		<? if (file_exists(INTRANET_DIRECTORY .'/sms/config.php')) { include_once(INTRANET_DIRECTORY . '/sms/config.php');}?>
+		<?php if (file_exists(INTRANET_DIRECTORY .'/sms/config.php')) { include_once(INTRANET_DIRECTORY . '/sms/config.php');}?>
 		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && ((stristr($_SESSION['cargo'],'1') == TRUE) or (stristr($_SESSION['cargo'],'6') == TRUE) or (stristr($_SESSION['cargo'],'7') == TRUE) or (stristr($_SESSION['cargo'],'8') == TRUE)  or (stristr($_SESSION['cargo'],'a') == TRUE) or in_array($_SESSION['ide'],$permiso_sms))): ?>
 		<li><a href="//<?php echo $config['dominio'] .'/intranet/sms/';?>index.php">SMS</a></li>
 		<?php endif; ?>

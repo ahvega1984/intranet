@@ -6,7 +6,7 @@ $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
 header('Location:'.'http://'.$dominio.'/intranet/logout.php');
-exit;	
+exit;
 }
 
 
@@ -37,7 +37,7 @@ include("../menu.php");
 </FORM>
 <br />
 </div>
-    <? 
+    <?php 
 include("../../pie.php");
 ?>
 </body>

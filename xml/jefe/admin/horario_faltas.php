@@ -1,24 +1,24 @@
-<? 
+<?php
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
 header("location:http://$dominio/intranet/logout.php");
-exit;	
+exit;
 }
 
-// Conexi�n 
+// Conexi�n
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 // Backup
-mysqli_query($db_con,"truncate table horw_seg"); 
-mysqli_query($db_con,"insert into horw_seg select * from horw"); 
+mysqli_query($db_con,"truncate table horw_seg");
+mysqli_query($db_con,"insert into horw_seg select * from horw");
 
-mysqli_query($db_con,"drop table horw_faltas");  
+mysqli_query($db_con,"drop table horw_faltas");
 
 // Claveal primaria e �ndice
   $SQL6 = "ALTER TABLE  `horw_faltas` ADD INDEX (  `prof` )";
   $result6 =mysqli_query($db_con,$SQL6);
     $SQL7 = "ALTER TABLE  `horw_faltas` ADD INDEX (  `c_asig` )";
   $result7 =mysqli_query($db_con,$SQL7);
-while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) { 
+while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 // Mientras hay l�neas que leer... si necesitamos a�dir s�lo las clases hay que hacer aqu� un if ($data[9]!='')
 $sql="INSERT INTO horw_faltas (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo,nivel,n_grupo) ";
 $sql.=" VALUES ( ";
@@ -39,7 +39,7 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>'); 
+</div>');
 }
 fclose ( $fp );
 
@@ -48,7 +48,7 @@ fclose ( $fp );
   $result0 =mysqli_query($db_con,$SQL0);
  while  ($row0 =mysqli_fetch_array($result0))
  {
- 	if (is_numeric(substr($row0[0],0,1))) 
+ 	if (is_numeric(substr($row0[0],0,1)))
  	{
 $nivel0 = substr($row0[0], 0, 2);
 
@@ -59,10 +59,10 @@ $actualiza= "UPDATE horw_faltas SET nivel = '$nivel0', n_grupo = '$grupo0' where
  	else {
 $actualiza= "UPDATE horw_faltas SET nivel = '', n_grupo = '' where a_grupo = '$row0[0]'";
  	}
-mysqli_query($db_con,$actualiza); 
+mysqli_query($db_con,$actualiza);
  }
  // Eliminamos residuos y cambiamos alguna cosa.
- 
+
  $sin =mysqli_query($db_con,"SELECT nombre FROM departamentos WHERE nombre not in (select profesor from profesores)");
  if(mysql_num_rows($sin) > "0"){
  while($sin_hor=mysql_fetch_array($sin))
@@ -86,8 +86,8 @@ mysqli_query($db_con,$hora6);
   $nolectiva = "UPDATE  horw_faltas SET  nivel =  '', a_grupo = '', n_grupo = '' WHERE  a_grupo NOT LIKE '1%' and a_grupo NOT LIKE '2%' and a_grupo NOT LIKE '3%' and a_grupo NOT LIKE '4%'";
  mysqli_query($db_con,$nolectiva);
  mysqli_query($db_con,"delete from horw_faltas where a_grupo = ''");
- mysqli_query($db_con,"OPTIMIZE TABLE  `horw_faltas`");   
-  
+ mysqli_query($db_con,"OPTIMIZE TABLE  `horw_faltas`");
+
   // Cambiamos los numeros de Horw para dejarlos en orden alfab�tico.
  $hor =mysqli_query($db_con,"select distinct prof from horw order by prof");
 while($hor_profe =mysqli_fetch_array($hor)){
@@ -123,15 +123,15 @@ KEY  `c_asig` (  `c_asig` )
 ) ENGINE = MYISAM DEFAULT CHARSET = latin1");
 
 mysqli_query($db_con,"INSERT INTO  `reservas`.`horw`
-SELECT * 
+SELECT *
 FROM  `faltas`.`horw`");
-  
+
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Horw</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Profesores, una vez actualizados los horarios.<br>Vuelve a la p�gina principal y actualiza los Profesores inmediatamente.
 </div></div><br />';
 
-?> 
+?>
 <br />
 <div align="center">
   <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />

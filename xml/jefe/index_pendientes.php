@@ -15,7 +15,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   id int(11) NOT NULL auto_increment,
   claveal varchar(9) collate utf8_general_ci NOT NULL default '',
   codigo varchar(8) collate utf8_general_ci NOT NULL default '',
-  grupo varchar(32) collate utf8_general_ci NOT NULL default '',  
+  grupo varchar(32) collate utf8_general_ci NOT NULL default '',
   PRIMARY KEY  (id),
   KEY  claveal (claveal),
   KEY codigo (codigo)
@@ -27,17 +27,17 @@ while ($uni = mysqli_fetch_array($cur)) {
 	$combasi = $uni[1];
 	$unidad = $uni[2];
 	$curso = $uni[3];
-	
+
 $trozos1 = explode(":", $combasi);
  foreach ($trozos1 as $asig)
   {
 $nombreasig = "select NOMBRE, ABREV, CURSO, CODIGO from asignaturas where CODIGO = '" . $asig . "' and curso = '$curso' and abrev like '%\_%'";
 $asig2 = mysqli_query($db_con, $nombreasig);
 if (mysqli_num_rows($asig2)>0) {
-	$cod = "INSERT INTO pendientes VALUES ('', '$claveal', '$asig', '$unidad')";	
+	$cod = "INSERT INTO pendientes VALUES ('', '$claveal', '$asig', '$unidad')";
 	mysqli_query($db_con, $cod);
 }
-  }	
+  }
 }
 ?>
 <div class="alert alert-success alert-block fade in">
@@ -49,6 +49,6 @@ Los alumnos con asignaturas pendientes han sido importados en la base de datos. 
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

@@ -193,24 +193,16 @@ if($detalles == '1')
 			<?php
 					}
 					?>
-					<?php
-				if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
-					?> <?php if($autoriz=="1"){
-					?>
-					<span
-				class="fas fa-check-circle fa-fw fa-lg text-success"></span>
-					<?
-					}else{ ?> <a
-				href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1"
-				data-bs="tooltip" title="Autorizar"><span
-				class="fas fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php
-				?>
-				<?php
-				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
-					?> <a href="indexextra.php?id=<?php echo $datos[0];?>&eliminar=1"
-				data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span
-				class="far fa-trash-alt fa-fw fa-lg"></span></a> <?php } ?>
-			</td>
+					<?php if((stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'5') == TRUE)){ ?>
+					<?php if($autoriz == 1) { ?>
+					<span class="fas fa-check-circle fa-fw fa-lg text-success"></span>
+					<?php } else { ?>
+					<a href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1" data-bs="tooltip" title="Autorizar"><span class="fas fa-check-circle fa-fw fa-lg text-danger"></span></a>
+					<?php } ?>
+					<?php if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){ ?>
+					<a href="indexextra.php?id=<?php echo $datos[0];?>&eliminar=1" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
+					<?php } ?>
+				</td>
 				<?php }?>
 		</tr>
 		<?php

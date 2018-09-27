@@ -1,4 +1,4 @@
-<? $nums_ids=0;
+<?php $nums_ids=0;
 foreach ($_POST as $id => $valor) {
   if (is_numeric($id) and is_numeric($valor)){
 $columnas = $columnas + 1;
@@ -13,8 +13,8 @@ $celdas .= " id = '$id' or";
 			<h5>ATENCIӓN:</h5>
 Debes seleccionar al menos una Columna del cuaderno para poder operar.
 </div></div>';
- echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";	
-exit;			
+ echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";
+exit;
 		}
 // Procesamos los datos
 // Distintos códigos de la asignatura cuando hay varios grupos en una hora.
@@ -28,11 +28,11 @@ while($varias = mysqli_fetch_array($n_c))
 	$curso_alma1 = mysqli_fetch_row($curso_alma);
 	$nombre_curso = $curso_alma1[0];
 	$largo = strlen($varias[1]);
-	if (strlen($varias[1]) > 10) {$nombre_asig = substr($varias[1],0,10);} else {$nombre_asig = substr($varias[1],0,6);}	
+	if (strlen($varias[1]) > 10) {$nombre_asig = substr($varias[1],0,10);} else {$nombre_asig = substr($varias[1],0,6);}
 	$nombre_asig = trim($nombre_asig);
 	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%º'");
 	while($asig_sen1 = mysqli_fetch_row($asig_sen0)){
-	if (strstr($asigna_a , $asig_sen1[0]) == false) 
+	if (strstr($asigna_a , $asig_sen1[0]) == false)
 	{
 	$asigna_a .= $asig_sen1[0].",";
 	}
@@ -49,28 +49,28 @@ if (!(empty($asignatura2))) {
 	$otras .= " or combasi like '%$asignatura2:%' ";
 }
 // Tabla con las distintas notas_cuaderno y la mediaxx
-  		
+
   // Todos los Grupos juntos
 $n_cursos = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
   while($n_cur = mysqli_fetch_array($n_cursos))
   {
   	$curs .= $n_cur[0].", ";
-  } 
+  }
 // Eliminamos el espacio
   	$curs0 = substr($curs,0,(strlen($curs)-1));
 // Eliminamos la última coma para el título.
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 //Número de columnas
-	
+
 	$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso%' and oculto = '0' and ($celdas)  order by orden asc";
 	$col0 = mysqli_query($db_con, $col);
-	
+
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 // Titulos
 
-echo "<table align='center' class='table table-striped' style='width:auto'>"; 
+echo "<table align='center' class='table table-striped' style='width:auto'>";
 echo "<thead><th style='vertical-align:bottom;background-color:#fff'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#fff'>Alumno</th>";
-// Número de las columnas de la tabla	
+// Número de las columnas de la tabla
 	while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
@@ -90,12 +90,12 @@ echo "</thead>";
 	$nombre = $curso11[2];
 // Número de Columnas para crear la tabla
 	$num_col = 4 + $num_ids;
-	$nivel_curso = substr($curso,0,1);			
-	
-	//	Problemas con Diversificaci�n (4E-Dd)
+	$nivel_curso = substr($curso,0,1);
+
+	//	Problemas con Diversificaci�n (4E-Dd)
 			$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
-			if (mysqli_num_rows($profe_div)<1) {		
-				
+			if (mysqli_num_rows($profe_div)<1) {
+
 				$div = $curso;
 				$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%143733%' or combasi LIKE '%143727%')");
 				$grupo_diver = mysqli_fetch_row($grupo_div);
@@ -105,8 +105,8 @@ echo "</thead>";
 	mysqli_select_db($db_con, $db);
 	$hay0 = "select alumnos from grupos where profesor='$profesor' and asignatura = '$asignatura' and curso = '$curso'";
 	$hay1 = mysqli_query($db_con, $hay0);
-	$hay = mysqli_fetch_row($hay1);	
-	
+	$hay = mysqli_fetch_row($hay1);
+
 	if(mysqli_num_rows($hay1) == "1"){
 	$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
 	$t_al = explode(",",$seleccionados);
@@ -115,26 +115,26 @@ echo "</thead>";
 	$todos .=" or claveal = '$cadauno'";
 	}
 	$todos .= ")";
-	}	
+	}
 	mysqli_select_db($db_con, $db);
-	
+
 	$nc_a="";
 
 // Alumnos para presentar que tengan esa asignatura en combasi
 $resul = "select distinctrow alma.CLAVEAL, alma.correo, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi from alma WHERE alma.unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by alma.APELLIDOS, alma.NOMBRE";
-  $result = mysqli_query($db_con, $resul);	
+  $result = mysqli_query($db_con, $resul);
   $t_alumnos += mysqli_num_rows ($result);
         while($row = mysqli_fetch_array($result))
-		{  	
-		$nc_a++;	
-		$claveal = $row[0];            	
+		{
+		$nc_a++;
+		$claveal = $row[0];
 echo "<tr><td>$nc_a</td><td colspan='2' nowrap >$row[2], $row[3]</td>";
-  	
+
 // Si hay datos escritos rellenamos la casilla correspondiente
 	$colu10 = "select distinct id from notas_cuaderno where ";
 	 foreach ($_POST as $id => $valor) {
   		if (is_numeric($id) and is_numeric($valor)){
-  		$colu10 .= " id = '$id' or"; 
+  		$colu10 .= " id = '$id' or";
   		$n_1 = "1";
   		}
   		}
@@ -147,13 +147,13 @@ echo "<tr><td>$nc_a</td><td colspan='2' nowrap >$row[2], $row[3]</td>";
 	$dato0 = mysqli_query($db_con, "select nota from datos where claveal = '$claveal' and id = '$id'");
 	$dato1 = mysqli_fetch_array($dato0);
 	$suma += $dato1[0];
-	if ($dato1[0]==''){$dato1[0]='0';} 
-	if ($dato1[0]<'5'){ $color = ' class="text-danger" ';}else{ $color = ' class="text-success" ';} 
+	if ($dato1[0]==''){$dato1[0]='0';}
+	if ($dato1[0]<'5'){ $color = ' class="text-danger" ';}else{ $color = ' class="text-success" ';}
 echo "<td align='center' $color>$dato1[0]</td>";}
 
 mysqli_select_db($db_con, $db);
-echo "</tr>"; 
-        }  
+echo "</tr>";
+        }
 	}
 	$i=0;
 	foreach ($_POST as $id => $valor2) {
@@ -163,18 +163,18 @@ $i+=1;
 	$suspensos[$i]=0;
 	$sumanotas[$i]=0;
 
-$est=mysqli_query($db_con, "select nota from datos where id='$id'");	
+$est=mysqli_query($db_con, "select nota from datos where id='$id'");
 while ($esta=mysqli_fetch_array($est)){
-	
-	
+
+
 		if(($esta[0] < 5) or ($esta[0]=='')){$suspensos[$i]+=1;  $sumanotas[$i]+=$esta[0];}
-	else{$aprobados[$i]+=1;  $sumanotas[$i]+=$esta[0]; 
-	     	
+	else{$aprobados[$i]+=1;  $sumanotas[$i]+=$esta[0];
+
 		}
 				}
-	
+
 	}}
-	
+
 	//media del grupo
 	echo "</tr><tr class='info'><td colspan='3' align='left' style='font-weight:bold;'>Media del Grupo</td>";
 		for($j = 1;$j<=$i;$j++) {
@@ -195,8 +195,8 @@ while ($esta=mysqli_fetch_array($est)){
 	  $t_s[$j]=$t_alumnos-$aprobados[$j];
 	echo "<td align='center'>$t_s[$j]</td>";
 						}
-  
-	echo "</tr>";	
+
+	echo "</tr>";
 echo '</table>';
-echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary hidden-print'>";	
+echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary hidden-print'>";
 ?>

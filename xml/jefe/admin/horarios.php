@@ -52,7 +52,7 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>');	
+</div>');
 }
 fclose ( $fp );
 
@@ -85,7 +85,7 @@ while ($h2 = mysqli_fetch_array($h1)) {
 	$curso = $h2[5];
 	$cod = $h2[1];
 	$nombre_asignatura = $h2[3];
-	
+
 	$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'");
 	//echo "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'<br>";
 if (mysqli_num_rows($asig)>0) {
@@ -99,7 +99,7 @@ if (mysqli_num_rows($asig)>0) {
 	else{
 		$codasi="";
 	}
-	
+
 }
 
 }
@@ -148,4 +148,4 @@ El Horario ha sido importado correctamente.
 </div><br />
 	</div>
 	</div>
-	<? include("../../../pie.php");?>
+	<?php include("../../../pie.php");?>
