@@ -16,9 +16,9 @@ $organos = array('Claustro de Profesores','DFEIE', 'Equipo directivo', 'ETCP', '
 
 // ELIMINAR ACTAS
 if (isset($_GET['eliminar_depto'])) {
-	
+
 	$eliminar_depto = mysqli_real_escape_string($db_con, $_GET['eliminar_depto']);
-	
+
 	$result = mysqli_query($db_con, "DELETE FROM r_departamento WHERE departamento = $eliminar_depto");
 	if (! $result) $msg_error = "Ha ocurrido un error al eliminar las actas del departamento. Error: ".mysqli_error($db_con);
 	else $msg_success = "Las actas han sido eliminadas correctamente.";
@@ -37,17 +37,17 @@ include ("menu.php");
 ?>
 
 <div class="container">
-	
+
 	<div class="page-header">
 		<h2>Actas de departamentos <small>Administrar actas</small></h2>
 	</div>
-	
+
 	<div class="row">
-		
+
 		<div class="col-sm-12">
-			
+
 			<h3>Órganos del centro</h3>
-			
+
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -60,7 +60,7 @@ include ("menu.php");
 				</thead>
 				<tbody>
 					<?php foreach ($organos as $organo): ?>
-					<?php 
+					<?php
 					switch ($organo) {
 						case 'Claustro de Profesores' : $secretario = $config['actas_depto']['secretario_claustro']; break;
 						case 'DFEIE' : $secretario = $config['actas_depto']['secretario_dfeie']; break;
@@ -72,7 +72,7 @@ include ("menu.php");
 						case 'Área Social-Lingüística' : $secretario = $config['actas_depto']['secretario_acsl']; break;
 						case 'Área Formación Profesional' : $secretario = $config['actas_depto']['secretario_afp']; break;
 					}
-					
+
 					$total = 0;
 					$total_impresas = 0;
 					if ($verTodas) {
@@ -123,12 +123,12 @@ include ("menu.php");
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-			
+
 			<br>
 			<hr>
-			
+
 			<h3>Departamentos del Centro</h3>
-			
+
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -140,20 +140,20 @@ include ("menu.php");
 					</tr>
 				</thead>
 				<tbody>
-					<?php 
+					<?php
 					$mostrar_alerta = 0;
-					$result = mysqli_query($db_con, "SELECT DISTINCT departamento, (SELECT nombre FROM departamentos AS depto WHERE depto.departamento = departamentos.departamento AND depto.cargo LIKE '%4%' LIMIT 1) AS nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY departamento ASC"); ?>
+					$result = mysqli_query($db_con, "SELECT DISTINCT departamento, (SELECT nombre FROM departamentos AS depto WHERE depto.departamento = departamentos.departamento AND depto.cargo LIKE '%4%' LIMIT 1) AS nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
 					<?php while ($row = mysqli_fetch_array($result)): ?>
-					
-					<?php 
+
+					<?php
 					$total = 0;
 					$total_impresas = 0;
 					if ($verTodas) {
-						$result_actas_depto = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '".$row['departamento']."' ORDER BY numero DESC"); 
-						
+						$result_actas_depto = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '".$row['departamento']."' ORDER BY numero DESC");
+
 					}
 					else {
-						$result_actas_depto = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '".$row['departamento']."' AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' ORDER BY numero DESC"); 
+						$result_actas_depto = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '".$row['departamento']."' AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' ORDER BY numero DESC");
 					}
 					while ($row_actas_depto = mysqli_fetch_array($result_actas_depto)) {
 						$total++;
@@ -162,7 +162,7 @@ include ("menu.php");
 					?>
 					<tr>
 						<td><?php echo $row['departamento']; ?></td>
-						<td><?php 
+						<td><?php
 							if ($row['nombre'] != "") {
 								echo $row['nombre'];
 							}
@@ -205,15 +205,15 @@ include ("menu.php");
 					<?php endwhile; ?>
 				</tbody>
 			</table>
-			
+
 			<?php if ($mostrar_alerta): ?>
 			<div class="alert alert-warning">
 				<strong>Advertencia:</strong> Los Departamentos mostrados en esta página han sido creados a partir de la información aportada en la Administración de la Intranet. Si la relación de Departamentos y Jefes de Departamentos no es correcta, diríjase a <a href="../../xml/jefe/gest_dep.php" class="alert-link">Gestión de Departamentos</a> para modificar los Departamentos del centro y a <a href="../../../config/cargos.php" class="alert-link">Perfiles de los profesores</a> para asignar el perfil de Jefe de Departamento.
 			</div>
 			<?php endif; ?>
-			
+
 		</div>
-		
+
 	</div>
 
 
@@ -221,14 +221,14 @@ include ("menu.php");
 
 <?php include("../../../pie.php"); ?>
 
-	<script>  
+	<script>
 	$(document).ready(function() {
 
 		$(document).on("click", "a[data-bb]", function(e) {
 		    e.preventDefault();
 		    var type = $(this).data("bb");
 				var link = $(this).attr("href");
-				
+
 				if (type == 'confirm-print') {
 					bootbox.setDefaults({
 					  locale: "es",
@@ -238,14 +238,14 @@ include ("menu.php");
 					  animate: true,
 					  title: "Confirmación para imprimir",
 					});
-					
+
 					bootbox.confirm("Esta acción bloqueará permanentemente la edición de las actas de este departamento. ¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la Administración de la Intranet.", function(result) {
 					    if (result) {
 					    	document.location.href = link;
 					    }
 					});
 				}
-				
+
 				if (type == 'confirm-delete2') {
 					bootbox.setDefaults({
 					  locale: "es",
@@ -255,7 +255,7 @@ include ("menu.php");
 					  animate: true,
 					  title: "Confirmación para eliminar",
 					});
-					
+
 					bootbox.confirm("Esta acción eliminará permanentemente las actas de este departamento. ¿Seguro que desea continuar? Antes de Aceptar, es recomendable que realice una copia de seguridad en la Administración de la Intranet.", function(result) {
 					    if (result) {
 					    	document.location.href = link;
@@ -263,9 +263,9 @@ include ("menu.php");
 					});
 				}
 		});
-		
+
 	});
 	</script>
-	
+
 </body>
 </html>

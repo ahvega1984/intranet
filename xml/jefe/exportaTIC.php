@@ -60,7 +60,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 		else {
 			// Perfil profesor: Todos los profesores excepto equipo directivo
-			$result = mysqli_query($db_con, "SELECT nombre, idea, departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND cargo NOT LIKE '%1%' ORDER BY nombre ASC");
+			$result = mysqli_query($db_con, "SELECT nombre, idea, departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' AND cargo NOT LIKE '%1%' ORDER BY nombre ASC");
 			while ($row = mysqli_fetch_array($result)) {
 				$exp_nombre = explode(', ', $row['nombre']);
 				$nombre = trim($exp_nombre[1]);
@@ -156,7 +156,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 	}
 
-	// Perfil profesor, excepto Administración y Conserjería
+	// Perfil profesor, excepto Administración, Conserjería y Servicio Técnico y/o Mantenimiento
 	if ($_GET['exportar'] == $moodle_profesores) {
 		if (!$fp = fopen($directorio.$moodle_profesores, 'w+')) {
 			die ("Error: No se puede crear o abrir el archivo ".$directorio.$moodle_profesores);
@@ -166,7 +166,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 			fwrite($fp, "username;password;firstname;lastname;email;city;country;institution\r\n");
 
 			// Perfil profesor: Todos los profesores excepto equipo directivo
-			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' AND d.departamento <> 'Educador' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
+			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' AND d.departamento <> 'Administracion' AND d.departamento <> 'Conserjeria' AND d.departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
 				$exp_nombre = explode(', ', $row['nombre']);
 				$nombre = trim($exp_nombre[1]);

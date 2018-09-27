@@ -1,15 +1,15 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-if(isset($_POST['submit1'])) {	
+if(isset($_POST['submit1'])) {
 
-	if(!$asunto or empty($texto) or empty($profesor)) { 
+	if(!$asunto or empty($texto) or empty($profesor)) {
   		$msg_error = "Todos los campos del formulario son obligatorios.";
   	}
 	elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !($padres) and !$dfeie) {
 		$msg_error = "Debes seleccionar al menos un destinatario.";
 	}
 	else {
-		
+
 		$result = mysqli_query($db_con, "INSERT INTO mens_texto (asunto, texto, origen) VALUES ('".$asunto."','".$texto."','".$profesor."')");
 		$id = mysqli_insert_id($db_con);
 
@@ -19,22 +19,22 @@ if(isset($_POST['submit1'])) {
 		else {
 
 			$ok=0;
-		
+
 			if($profeso)
 				{
 			$profiso = $_POST["profeso"];
 				foreach($profiso as $nombre)
 				{
 				$trozo = explode(";",$nombre);
-				$idea = $trozo[0];	
+				$idea = $trozo[0];
 				$query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$idea."')";
 				mysqli_query($db_con, $query1);
 				$t_nombres.=$idea."; ";
 				}
 				$ok=1;
-				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");	
+				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
 				}
-				
+
 			if($tutor)
 				{
 			$tu = $_POST["tutor"];
@@ -51,7 +51,7 @@ if(isset($_POST['submit1'])) {
 				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
 				$ok=1;
 				}
-			
+
 			if($departamento)
 				{
 			$dep = $_POST["departamento"];
@@ -68,8 +68,8 @@ if(isset($_POST['submit1'])) {
 				}
 				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
 				$ok=1;
-				}	
-				
+				}
+
 			if($equipo)
 				{
 			$eq = $_POST["equipo"];
@@ -82,7 +82,7 @@ if(isset($_POST['submit1'])) {
 				{
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$eq1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$eq1[0]."')");
 				}
 				$t_nombres.="Equipo Educativo de ".$nombre_eq."; ";
@@ -90,7 +90,24 @@ if(isset($_POST['submit1'])) {
 				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
 				$ok=1;
 				}
-			
+
+			if($profesores_nocturnos)
+					{
+				$prof_noct = $_POST["profesores_nocturnos"];
+					foreach($prof_noct as $nombre)
+					{
+					$trozo = explode(";",$nombre);
+					$idea = $trozo[0];
+					$query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$idea."')";
+					mysqli_query($db_con, $query1);
+					$t_nombres.=$idea."; ";
+					}
+					$ok=1;
+					mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
+					}
+
+
+
 			if($ca == '1')
 				{
 				$ca0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%9%'");
@@ -103,7 +120,7 @@ if(isset($_POST['submit1'])) {
 				mysqli_query($db_con, "update mens_texto set destino = 'CA' where id = '$id'");
 				$ok=1;
 				}
-			
+
 			if($etcp == '1')
 				{
 				$etcp0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%4%'");
@@ -115,55 +132,55 @@ if(isset($_POST['submit1'])) {
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'ETCP' where id = '$id'");
 				$ok=1;
-				}	
-			
-				
+				}
+
+
 			if($claustro == '1')
 				{
 				$cl0 = mysqli_query($db_con, "select distinct idea from departamentos where departamento not like 'Administracion' and departamento not like 'Admin' and departamento not like 'Conserjeria'");
 				while($cl1 = mysqli_fetch_array($cl0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$cl1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$cl1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'Claustro del Centro' where id = '$id'");
 				$ok=1;
 				}
-			
+
 			if($direccion == '1')
 				{
 				$dir0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%1%'");
 				while($dir1 = mysqli_fetch_array($dir0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$dir1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$dir1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'Equipo Directivo' where id = '$id'");
 				$ok=1;
 				}
-			
+
 			if($orientacion == '1')
 				{
 				$orienta0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%8%'");
 				while($orienta1 = mysqli_fetch_array($orienta0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$orienta1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$orienta1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'Departamento de Orientaci&oacute;n' where id = '$id'");
 				$ok=1;
 				}
-				
+
 			if($bilingue == '1')
 				{
 				$bilingue0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%a%'");
 				while($bilingue1 = mysqli_fetch_array($bilingue0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$bilingue1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$bilingue1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'Bilinguismo' where id = '$id'");
@@ -176,12 +193,12 @@ if(isset($_POST['submit1'])) {
 				while($pas1 = mysqli_fetch_array($pas0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$pas1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$pas1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'PAS' where id = '$id'");
 				$ok=1;
-				}	
+				}
 
 			if($biblio == '1')
 				{
@@ -189,7 +206,7 @@ if(isset($_POST['submit1'])) {
 				while($biblio1 = mysqli_fetch_array($biblio0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$biblio1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$biblio1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'Biblioteca' where id = '$id'");
@@ -202,13 +219,26 @@ if(isset($_POST['submit1'])) {
 				while($biblio1 = mysqli_fetch_array($biblio0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$biblio1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
-				if(strlen($num0[0]) < 1)	
+				if(strlen($num0[0]) < 1)
 				mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$biblio1[0]."')");
 				}
 				mysqli_query($db_con, "update mens_texto set destino = 'DFEIE' where id = '$id'");
 				$ok=1;
-				}		
-				
+				}
+
+			if($mantenimiento == '1')
+				{
+				$mante0 = mysqli_query($db_con, "SELECT DISTINCT `idea` FROM `departamentos` WHERE `departamento` = 'Servicio Técnico y/o Mantenimiento'");
+				while($mante1 = mysqli_fetch_array($mante0)){
+				$rep0 = mysqli_query($db_con, "SELECT * FROM `mens_profes` WHERE `id` = '$id' AND `profesor` = '$mante1[0]'");
+				$num0 = mysqli_fetch_row($rep0);
+				if(strlen($num0[0]) < 1)
+				mysqli_query($db_con, "INSERT INTO `mens_profes` (`id_texto`, `profesor`) VALUES ('".$id."','".$mante1[0]."')");
+				}
+				mysqli_query($db_con, "UPDATE `mens_texto` SET `destino` = 'DFEIE' WHERE `id` = '$id'");
+				$ok=1;
+				}
+
 			if($padres)
 				{
 			$pa = $_POST["padres"];
@@ -218,15 +248,15 @@ if(isset($_POST['submit1'])) {
 				mysqli_query($db_con, $query1);
 				$t_nombres.=$nombre."; ";
 				}
-				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");	
+				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
 				$ok=1;
 				}
-				
+
 			if($ok) {
 				header('Location:'.'index.php?inbox=recibidos&action=send');
 				exit;
 			}
 		}
-			
+
 	}
 }

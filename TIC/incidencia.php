@@ -18,7 +18,7 @@ if (isset($_GET['id']) && intval($_GET['id'])) {
     else {
         $row = mysqli_fetch_array($result);
 
-        if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['ide'] == $row['solicitante']) {
+        if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento' || $_SESSION['ide'] == $row['solicitante']) {
             $fecha_sql = $row['fecha'];
             $exp_fecha = explode('-', $row['fecha']);
             $fecha = $exp_fecha[2].'-'.$exp_fecha[1].'-'.$exp_fecha[0];
@@ -66,7 +66,7 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
 
             // Comprobamos si se trata de una actualización o nuevo registro
             if (isset($id_ticket)) {
-                if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) {
+                if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento') {
                     $result = mysqli_query($db_con, "UPDATE `incidencias_tic` SET `fecha` = '".$fecha_sql."', `solicitante` = '".$solicitante."', `dependencia` = '".$dependencia."', `problema` = ".$asunto.", `descripcion` = '".$descripcion."', `estado` = '".$estado."', `fecha_estado` = '".$fecha_estado."', `numincidencia` = '".$cga_nincidencia."', `resolucion` = '".$resolucion."' WHERE `id` = $id_ticket LIMIT 1");
 
                     // Notificamos al solicitante de los cambios realizados en la incidencia mediante un mensaje interno
@@ -97,7 +97,7 @@ if (isset($_POST['registrar']) || isset($_POST['registrar-y-notificar'])) {
                 }
             }
             else {
-                if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) {
+                if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento') {
                     $result = mysqli_query($db_con, "INSERT INTO `incidencias_tic` (`fecha`, `solicitante`, `dependencia`, `problema`, `descripcion`, `estado`, `fecha_estado`, `numincidencia`, `resolucion`) VALUES ('".$fecha_sql."', '".$solicitante."', '".$dependencia."', ".$asunto.", '".$descripcion."', '".$estado."', '".$fecha_estado."', '".$cga_nincidencia."', '".$resolucion."')");
 
                 }
@@ -190,7 +190,7 @@ include("menu.php");
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="solicitante">Solicitante <span class="text-danger">(*)</span></label>
-                                        <?php if ($pr == 'Administrador' || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
+                                        <?php if ($pr == 'Administrador' || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
                                         <select class="form-control" id="solicitante" name="solicitante">
                                             <?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
                                             <?php while ($row = mysqli_fetch_array($result)): ?>
@@ -251,7 +251,7 @@ include("menu.php");
 
                         </fieldset>
 
-                        <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
+                        <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
                         <hr>
 
                         <fieldset>
@@ -332,9 +332,9 @@ include("menu.php");
                         </fieldset>
                         <?php endif; ?>
 
-                        <?php if (!isset($estado) || $estado == 1 || acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
+                        <?php if (!isset($estado) || $estado == 1 || acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
                         <button type="submit" class="btn btn-primary" name="registrar"><?php echo (! isset($id_ticket)) ? 'Registrar incidencia' : 'Guardar cambios'; ?></button>
-                        <?php if (isset($id_ticket) && (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) && (! isset($config['tic']['notificaciones_solicitante']) || $config['tic']['notificaciones_solicitante'] == 1)): ?>
+                        <?php if (isset($id_ticket) && (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento') && (! isset($config['tic']['notificaciones_solicitante']) || $config['tic']['notificaciones_solicitante'] == 1)): ?>
                         <button type="submit" class="btn btn-primary" name="registrar-y-notificar">Guardar cambios y notificar</button>
                         <?php endif; ?>
                         <?php endif; ?>

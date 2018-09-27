@@ -7,7 +7,7 @@ if (file_exists('config.php')) {
 }
 
 // Cambio de estado rápido y eliminado
-if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) {
+if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento') {
 
     if (isset($_GET['id']) && intval($_GET['id']) && isset($_GET['estado']) && intval($_GET['estado'])) {
         $result = mysqli_query($db_con, "UPDATE `incidencias_tic` SET `estado` = '".$_GET['estado']."' WHERE `id` = '".$_GET['id']."' LIMIT 1");
@@ -58,7 +58,7 @@ include("menu.php");
 ?>
 
     <div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Centro TIC <small>Incidencias TIC</small></h2>
@@ -122,7 +122,7 @@ include("menu.php");
                                 #<?php echo $incidencia['id']; ?>
 
                                 <div style="margin-top: 10px;">
-                                    <?php 
+                                    <?php
                                     switch ($incidencia['estado']) {
                                         case 1 : $btn_estado = 'btn-warning'; break;
                                         case 2 : $btn_estado = 'btn-info'; break;
@@ -130,7 +130,7 @@ include("menu.php");
                                         case 4 : $btn_estado = 'btn-danger'; break;
                                     }
                                     ?>
-                                    <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])): ?>
+                                    <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
                                     <div class="btn-group">
                                         <button type="button" class="btn <?php echo $btn_estado; ?> btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <?php echo $estados_incidencia[$incidencia['estado']]; ?> <span class="caret"></span>
@@ -156,7 +156,7 @@ include("menu.php");
                                 <p class="text-muted"><small><strong>Solicitante: <?php echo $incidencia['solicitante']; ?></strong> &middot; <strong>Fecha: <?php echo $incidencia['fecha']; ?></strong></small></p>
                             </td>
                             <td nowrap>
-                                <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || ($pr == $incidencia['solicitante'] && $incidencia['estado'] == 1)): ?>
+                                <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento' || ($pr == $incidencia['solicitante'] && $incidencia['estado'] == 1)): ?>
                                 <a href="incidencia.php?id=<?php echo $incidencia['id']; ?>" class="btn btn-sm btn-default"><span class="far fa-edit fa-lg fa-fw"></span></a>
                                 <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar" class="btn btn-sm btn-danger" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
                                 <?php endif; ?>
@@ -180,11 +180,11 @@ include("menu.php");
         "paging":   true,
         "ordering": true,
         "info":     false,
-        
+
             "lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-            
+
             "order": [[ 0, "asc" ]],
-            
+
             "language": {
                         "lengthMenu": "_MENU_",
                         "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",

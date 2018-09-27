@@ -41,7 +41,7 @@ include("../../menu.php");
 				if(isset($_POST['actualizar'])){
 				}
 				else{
-				 $base0 = "delete from departamentos where idea <> 'admin' and departamento <> 'Administracion' and departamento <> 'Conserjeria' and departamento <> '' and cargo not like '%1%'";
+				 $base0 = "DELETE FROM departamentos WHERE idea <> 'admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' AND departamento <> '' AND cargo NOT LIKE '%1%'";
 				  mysqli_query($db_con, $base0);
 				}
 
@@ -87,7 +87,7 @@ include("../../menu.php");
 				$borrarpuesto = "delete from departamento_temp where DEPARTAMENTO LIKE '%Puesto%'";
 				mysqli_query($db_con, $borrarpuesto);
 				// Eliminar duplicados e insertar nuevos
-				$elimina = "SELECT DISTINCT nombre, dni, departamento, idea FROM departamento_temp where dni NOT IN (SELECT DISTINCT dni FROM departamentos WHERE departamento <> 'Conserjeria' AND departamento <> 'Administracion' AND idea <> 'admin')";
+				$elimina = "SELECT DISTINCT nombre, dni, departamento, idea FROM departamento_temp where dni NOT IN (SELECT DISTINCT dni FROM departamentos WHERE idea <> 'admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento')";
 				$elimina1 = mysqli_query($db_con, $elimina);
 				 if(mysqli_num_rows($elimina1) > 0)
 				{

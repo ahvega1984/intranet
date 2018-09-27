@@ -28,47 +28,47 @@ $accion = mysqli_real_escape_string($db_con, $_POST['accion']);
 
 // INSERCIÓN
 if (isset($_POST['submit1'])) {
-	
+
 	if (! empty($profesor) && ! empty($fecha_reg) && ! empty($observaciones) && ! empty($causa) && ! empty($accion)) {
-		
+
 		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea = '$profesor'");
 		$row = mysqli_fetch_array($result);
 		$nombre_profesor = $row['nombre'];
 		mysqli_free_result($result);
-		
+
 		$exp_fecha_sql = explode('-', $fecha_reg);
 		$fecha_sql = $exp_fecha_sql[2].''.$exp_fecha_sql[1].''.$exp_fecha_sql[0];
-		
+
 		$result = mysqli_query($db_con, "INSERT intervenciones_profesores (idea, nombre, observaciones, causa, accion, fecha) VALUES ('$profesor', '$nombre_profesor', '$observaciones', '$causa', '$accion', '$fecha_sql')");
-		
+
 		if (! $result) {
 			$msg_error = "No se ha podido registrar la intervención. Error: ".mysqli_error($db_con);
 		}
 		else {
 			$msg_success = "La intervención ha sido registrada.";
 		}
-		
+
 	}
 	else {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
-	
+
 }
 
 // ACTUALIZACIÓN
 if (isset($_POST['submit2'])) {
-	
+
 	if (! empty($id) && ! empty($profesor) && ! empty($fecha_reg) && ! empty($observaciones) && ! empty($causa) && ! empty($accion)) {
-		
+
 		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea = '$profesor'");
 		$row = mysqli_fetch_array($result);
 		$nombre_profesor = $row['nombre'];
-		
+
 		$exp_fecha_sql = explode('-', $fecha_reg);
 		$fecha_sql = $exp_fecha_sql[2].'-'.$exp_fecha_sql[1].'-'.$exp_fecha_sql[0];
-		
+
 		$result = mysqli_query($db_con, "UPDATE intervenciones_profesores SET idea = '$profesor', nombre = '$nombre_profesor', observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha_sql' WHERE id = '$id'");
-		
+
 		if (! $result) {
 			$msg_error = "No se ha podido actualizar la intervención. Error: ".mysqli_error($db_con);
 		}
@@ -79,16 +79,16 @@ if (isset($_POST['submit2'])) {
 	else {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
-	
+
 }
 
 // ELIMINACIÓN
-		
+
 if (isset($_POST['submit3'])) {
-	
+
 	if (! empty($id)) {
 		$result = mysqli_query($db_con, "DELETE FROM intervenciones_profesores WHERE id = '$id' LIMIT 1");
-		
+
 		if (! $result) {
 			$msg_error = "No se ha podido eliminar la intervención. Error: ".mysqli_error($db_con);
 		}
@@ -96,22 +96,22 @@ if (isset($_POST['submit3'])) {
 			$msg_success = "La intervención ha sido eliminada correctamente.";
 		}
 	}
-	
+
 }
 
 
 if (isset($_GET['id'])) {
 	$id = mysqli_real_escape_string($db_con, $_GET['id']);
-	
+
 	$result = mysqli_query($db_con, "SELECT idea, nombre, fecha, observaciones, causa, accion FROM intervenciones_profesores WHERE id = '$id' LIMIT 1");
 	$row = mysqli_fetch_array($result);
-	
+
 	$profesor = $row['idea'];
 	$fecha_sql = $row['fecha'];
 	$observaciones = $row['observaciones'];
 	$causa = $row['causa'];
 	$accion = $row['accion'];
-	
+
 	$exp_fecha_reg = explode('-', $fecha_sql);
 	$fecha_reg = $exp_fecha_reg[2].'-'.$exp_fecha_reg[1].'-'.$exp_fecha_reg[0];
 }
@@ -125,7 +125,7 @@ include("menu.php");
 ?>
 
 <div class="container">
-	
+
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2>Jefatura de estudios <small>Intervenciones sobre los profesores</small></h2>
@@ -133,37 +133,37 @@ include("menu.php");
 
 	<!-- SCAFFOLDING -->
 	<div class="row">
-		
+
 		<?php if (isset($msg_success)): ?>
 		<div class="alert alert-success">
 			<?php echo $msg_success; ?>
 		</div>
 		<?php endif; ?>
-		
+
 		<?php if (isset($msg_error)): ?>
 		<div class="alert alert-danger">
 			<?php echo $msg_error; ?>
 		</div>
 		<?php endif; ?>
-	
+
 		<!-- COLUMNA IZQUIERDA -->
 		<div class="col-sm-7">
-			
+
 			<legend>Registro de datos</legend>
-			
+
 			<div class="well">
-			
+
 				<form method="post" action="">
-				
+
 					<fieldset>
-					
+
 						<div class="row">
-						
+
 							<div class="col-sm-7">
 								<div class="form-group">
-									<label for="profesor">Profesor/a</label> 
-									<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY nombre ASC"); ?>
-									<?php if(mysqli_num_rows($result)): ?> 
+									<label for="profesor">Profesor/a</label>
+									<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY nombre ASC"); ?>
+									<?php if(mysqli_num_rows($result)): ?>
 									<select class="form-control" id="profesor" name="profesor" onchange="submit()">
 										<option></option>
 										<?php while($row = mysqli_fetch_array($result)): ?>
@@ -177,7 +177,7 @@ include("menu.php");
 									</select> <?php endif; ?>
 								</div>
 							</div>
-							
+
 							<div class="col-sm-5">
 								<div class="form-group" id="datetimepicker1"><label for="fecha_reg">Fecha</label>
 									<div class="input-group">
@@ -186,7 +186,7 @@ include("menu.php");
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 
 						<div class="form-group">
@@ -206,11 +206,11 @@ include("menu.php");
 									</select>
 								</div>
 							</div>
-							
+
 							<div class="col-sm-6">
 								<div class="form-group">
 									<?php $array_tipos = array('Entrevista telefónica', 'Entrevista personal', 'Comunicación por escrito'); ?>
-									
+
 									<label for="accion">Tipo</label>
 									<select class="form-control" id="accion" name="accion">
 										<?php for($i = 0; $i < count($array_tipos); $i++): ?>
@@ -220,7 +220,7 @@ include("menu.php");
 								</div>
 							</div>
 						</div>
-						
+
 						<?php if(isset($id)): ?>
 						<button type="submit" class="btn btn-primary" name="submit2">Actualizar</button>
 						<button type="submit" class="btn btn-danger" name="submit3">Eliminar</button>
@@ -233,17 +233,17 @@ include("menu.php");
 				</form>
 
 			</div><!-- /.well -->
-		
+
 			<?php if($profesor): ?>
 			<div class="well">
-			
+
 				<?php $result = mysqli_query($db_con, "SELECT id, idea, nombre, fecha, observaciones, accion, causa FROM intervenciones_profesores WHERE idea = '$profesor' ORDER BY fecha DESC"); ?>
 
 				<?php if (mysqli_num_rows($result)>0): ?>
 				<h4>Historial de intervenciones de <?php echo $row['nombre']; ?></h4>
-				
+
 				<br>
-				
+
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -267,24 +267,24 @@ include("menu.php");
 					</tbody>
 				</table>
 				<?php else: ?>
-				
+
 				<div>
 					<p class="lead text-muted text-center">El profesor no tiene más intervenciones registradas.</p>
 				</div>
-				
+
 				<?php endif; ?>
 
 			</div><!-- /.well -->
 			<?php endif; ?>
-				
+
 		</div><!-- /.col-sm-7 -->
-			
-			
+
+
 		<!-- COLUMNA DERECHA -->
 		<div class="col-sm-5">
-			
+
 			<legend>Intervenciones</legend>
-			
+
 			<?php $result = mysqli_query($db_con, "SELECT DISTINCT idea, nombre FROM intervenciones_profesores ORDER BY fecha DESC"); ?>
 			<?php if (mysqli_num_rows($result)): ?>
 			<table class="table table-striped table-bordered datatable">
@@ -309,33 +309,33 @@ include("menu.php");
 				</tbody>
 			</table>
 			<?php else: ?>
-			
+
 			<div style="margin-top: 150px;">
 				<p class="lead text-muted text-center">No hay intervenciones registradas.</p>
 			</div>
-			
+
 			<?php endif; ?>
-				
+
 
 		</div><!-- /.col-sm-5 -->
-		
+
 	</div><!-- /.row -->
-	
+
 </div><!-- /.container -->
 
 	<?php include("../../pie.php");?>
 
-	<script>  
+	<script>
 	$(document).ready(function() {
 		var table = $('.datatable').DataTable({
 			"paging":   true,
 	    "ordering": true,
 	    "info":     false,
-	    
+
 			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-			
+
 			"order": [[ 0, "desc" ]],
-			
+
 			"language": {
 			            "lengthMenu": "_MENU_",
 			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -352,7 +352,7 @@ include("menu.php");
 			        }
 		});
 	});
-	
+
 	// DATETIMEPICKER
 	$(function () {
 	    $('#datetimepicker1').datetimepicker({
@@ -361,6 +361,6 @@ include("menu.php");
 	    });
 	});
 	</script>
-	
+
 </body>
 </html>

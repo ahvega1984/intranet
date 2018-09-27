@@ -379,7 +379,7 @@ include("../../../menu.php");
 						  <label for="profesor">Profesor/a</label>
 						  <select class="form-control" id="profesor" name="profesor" onchange="submit()">
 						  	<option value=""></option>
-						  	<?php $result = mysqli_query($db_con, "SELECT `nombre`, `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Educador'  AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `nombre` ASC"); ?>
+						  	<?php $result = mysqli_query($db_con, "SELECT `nombre`, `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Educador' AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `nombre` ASC"); ?>
 						  	<?php while ($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($profesor) && $row['nombre'] == $profesor) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 						  	<?php endwhile; ?>

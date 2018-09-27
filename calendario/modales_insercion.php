@@ -10,14 +10,14 @@
 	        <h4 class="modal-title">Nuevo calendario</h4>
 	      </div>
 	      <div class="modal-body">
-        
+
         	<fieldset>
-        		
+
         		<div class="form-group">
         			<label for="cmp_calendario_nombre" class="visible-xs">Nombre</label>
         			<input type="text" class="form-control" id="cmp_calendario_nombre" name="cmp_calendario_nombre" placeholder="Nombre del calendario" maxlength="30" required autofocus>
         		</div>
-        		
+
         		<div class="form-group" id="colorpicker1">
         			<label for="cmp_calendario_color">Color</label>
         			<div class="input-group">
@@ -25,7 +25,7 @@
         				<span class="input-group-addon"><i></i></span>
         			</div>
         		</div>
-        		
+
         		<?php if (stristr($_SESSION['cargo'],'1')): ?>
         		<div class="checkbox">
         		   <label>
@@ -34,9 +34,9 @@
         		   </label>
         		</div>
         		<?php endif; ?>
-        				        		
+
         	</fieldset>
-        
+
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -59,15 +59,15 @@
 	        <h4 class="modal-title">Nuevo evento o actividad</h4>
 	      </div>
 	      <div class="modal-body">
-        
+
         	<fieldset>
-        		
+
         		<div class="form-group">
         			<label for="cmp_nombre" class="visible-xs">Nombre</label>
         			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" maxlength="120" required autofocus>
         		</div>
-        		
-        		
+
+
     			<div class="row">
     				<div class="col-xs-12">
 	    				<div class="form-group">
@@ -79,8 +79,8 @@
 		    				</div>
 	    				</div>
     				</div>
-    				
-    				
+
+
     				<div class="col-xs-6 col-sm-3">
     					<div class="form-group datetimepicker1">
         					<label for="cmp_fecha_ini">Fecha inicio</label>
@@ -118,17 +118,17 @@
 	        			</div>
         			</div>
         		</div>
-        		
+
         		<div class="form-group">
         			<label for="cmp_descripcion">Descripción</label>
         			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3"></textarea>
         		</div>
-        		
+
         		<div class="form-group">
         			<label for="cmp_lugar">Lugar</label>
         			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar">
         		</div>
-        		
+
         		<div class="form-group">
         			<label for="cmp_calendario">Calendario</label>
         			<select class="form-control" id="cmp_calendario" name="cmp_calendario" required>
@@ -148,7 +148,7 @@
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
         				<?php endif; ?>
-        				
+
         				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
@@ -158,23 +158,23 @@
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
         				<?php endif; ?>
-        				
+
         			</select>
         		</div>
-        		
+
         		<div id="opciones_diario">
         			<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."' order by materia, grupo"); ?>
         			<?php if (mysqli_num_rows($result)): ?>
         			<div class="form-group">
         				<label for="cmp_unidad_asignatura">Unidad y asignatura</label>
-        				
+
         				<select class="form-control" id="cmp_unidad_asignatura" name="cmp_unidad_asignatura[]" size="5" multiple>
         				<?php while ($row = mysqli_fetch_array($result)): ?>
         					<option value="<?php echo $row['grupo'].' => '.$row['materia']; ?>" <?php echo (isset($grupos) && in_array($row['grupo'].' => '.$row['materia'], $grupos)) ? 'selected' : ''; ?>><?php echo $row['grupo'].' ('.$row['materia'].')'; ?></option>
         				<?php endwhile; ?>
         				</select>
         			</div>
-        			
+
         		    <div class="form-group">
         				<div class="checkbox">
         					<label for="cmp_cuaderno">
@@ -186,12 +186,12 @@
         			</div>
         			<?php endif; ?>
         		</div>
-        		
+
         		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')): ?>
         		<div id="opciones_actividades" class="row">
-        			
+
         			<div class="col-sm-6">
-        		
+
 		        		<div class="form-group">
 		        			<label for="cmp_departamento">Departamento que lo organiza</label>
 		        			<select class="form-control" id="cmp_departamento" name="cmp_departamento">
@@ -200,7 +200,7 @@
 		        				<?php } else{ ?>
 		        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)): ?>
 		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC"); ?>
-		        				
+
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
@@ -210,7 +210,7 @@
 		        				<option value="Múltiples Departamentos">Múltiples Departamentos</option>
 		        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
 		        				<option value="Relaciones de Género">Relaciones de Género</option>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY departamento ASC"); ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
@@ -219,11 +219,11 @@
 
 		        			</select>
 		        		</div>
-		        		
+
 		        		<div class="form-group">
 		        			<label for="cmp_profesores">Profesores que asistirán a la actividad</label>
 		        			<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' ORDER BY departamento ASC"); ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<?php $result_depto = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC"); ?>
 		        				<optgroup label="<?php echo $row['departamento']; ?>">
@@ -240,9 +240,9 @@
         				<textarea type="text" class="form-control" id="cmp_observaciones" name="cmp_observaciones" rows="3"></textarea>
 		        		</div>
 		        	</div><!-- /.col-sm-6 -->
-		        	
+
 		        	<div class="col-sm-6">
-		        		
+
 		        		<div class="form-group">
 		        			<label for="">Unidades que asistirán a la actividad</label>
 		        			<?php 	if (stristr($_SESSION['cargo'],'2') and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
@@ -251,24 +251,24 @@
 			        			<?php echo '<p class="text-info">'.$row['curso'].'</p>'; ?>
 			        			<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' $extra_tutor ORDER BY unidad ASC"); ?>
 			        			<?php while($row1 = mysqli_fetch_array($result1)): ?>
-			        		                 
-			        			<div class="checkbox-inline"> 
+
+			        			<div class="checkbox-inline">
 			        				<label>
 			        					<input name="cmp_unidades[]" type="checkbox" value="<?php echo $row1['unidad']; ?>">
 			        		            <?php echo $row1['unidad']; ?>
 			        		        </label>
 			        		    </div>
-			        		    
-			        		<?php endwhile; ?>         
+
+			        		<?php endwhile; ?>
 			        		<?php endwhile ?>
 			        	</div>
-		        		
+
 		        	</div><!-- /.col-sm-6 -->
 		        </div><!-- /.row -->
 		        <?php endif; ?>
-        				        		
+
         	</fieldset>
-        
+
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
