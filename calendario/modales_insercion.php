@@ -245,7 +245,7 @@
 
 		        		<div class="form-group">
 		        			<label for="">Unidades que asistirán a la actividad</label>
-		        			<?php 	if (stristr($_SESSION['cargo'],'2') and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
+		        			<?php	if (stristr($_SESSION['cargo'],'2') and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
 			        		<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
 			        		<?php while($row = mysqli_fetch_assoc($result)): ?>
 			        			<?php echo '<p class="text-info">'.$row['curso'].'</p>'; ?>
