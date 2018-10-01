@@ -168,15 +168,8 @@
 				mysqli_query($db_con, "drop table calificaciones_temp");
 
 				// Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
-				$crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO" ;
-				mysqli_query($db_con, $crear) or die('<div class="alert alert-danger alert-block fade in">
-			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
-			</div><br />
-			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
-			</div>');
+				$crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO";
+				mysqli_query($db_con, $crear);
 
 				// Añadimos excepciones
 				mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES

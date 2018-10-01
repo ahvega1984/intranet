@@ -114,7 +114,7 @@ if($mensaje){
 	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '820' and idactividad not like '25')");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '820' and idactividad not like '25') ORDER BY a_grupo ASC");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
@@ -210,12 +210,12 @@ elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_gua
 	$c_profe = $filaprof2[0];
 	$c_prof=$c_profe;
 	$profesor_ausente = $filaprof2[1];
-	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where c_prof = '$c_profe' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where c_prof = '$c_profe' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like '' ORDER BY a_grupo ASC";
 	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 }
 else{
-	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like '' ORDER BY a_grupo ASC";
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
 		?>
@@ -277,7 +277,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$cod_asig_bach = $as_bach[0];
 			$res.=" combasi like '%$asignat:%' or combasi like '%$cod_asig_bach:%'";
 			$fal_e =" FALTAS.codasi='$asignat' or FALTAS.codasi='$cod_asig_bach'";
-			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
+			$cod_asig = " asignatura like '$codasi'";
 		}
 		else{
 			if ($asignat=="2" or $asignat=="21" or $asignat=="386") {
@@ -333,7 +333,8 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$combasi = $row[5];
 
 			$nc_grupo = $row[0];
-			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig)");
+
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig) LIMIT 1");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
 				$sel_al = mysqli_fetch_array($sel);
@@ -341,7 +342,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 				$hay_al="";
 				foreach($al_sel as $num_al){
 					if ($num_al == $nc_grupo) {
-						$hay_al = "1";;
+						$hay_al = "1";
 					}
 				}
 			}
@@ -351,8 +352,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$esBilingue = ($row_bil['bilinguismo'] == 'Si') ? 1 : 0;
 
 			if ($hay_al=="1" or $hay_grupo<1) {
-				if ($row[5] == "") {}
-				else{
+				if ($row[5] != "") {
 					?>
 
 					<tr>
