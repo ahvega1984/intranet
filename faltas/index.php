@@ -225,8 +225,15 @@ Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo
 		<?php
 	}
 }
-while($hora2 = mysqli_fetch_row($hora0))
-{
+
+$array_unidades = array();
+while($hora2 = mysqli_fetch_row($hora0)) {
+	$found_key = array_search($hora2[1], array_column($array_unidades, 1));
+	if ($found_key === false) array_push($array_unidades, $hora2);
+}
+
+
+foreach ($array_unidades as $hora2) {
 	$c_a="";
 	$c_b="";
 	$codasi= $hora2[0];
@@ -259,6 +266,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 	$curs_bach = mysqli_query($db_con,"select distinct curso from alma where unidad = '$curso'");
 	$curso_bach = mysqli_fetch_array($curs_bach);
+	$curso_asig_0 = $curso_bach['curso'];
 	$curso_asig = substr($curso_bach[0],3,15);
 
 	//if (stristr($curso_bach['curso'],"Bachiller")==TRUE) {
@@ -272,12 +280,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignat' limit 1) and grupo like '$curso' and codigo not like '$asignat' and abrev not like '%\_%'");
 
+
 		if (mysqli_num_rows($asig_bach)>0) {
+			$esBachillerato = 1;
 			$as_bach=mysqli_fetch_array($asig_bach);
 			$cod_asig_bach = $as_bach[0];
 			$res.=" combasi like '%$asignat:%' or combasi like '%$cod_asig_bach:%'";
 			$fal_e =" FALTAS.codasi='$asignat' or FALTAS.codasi='$cod_asig_bach'";
-			$cod_asig = " asignatura like '$codasi'";
+			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
 			if ($asignat=="2" or $asignat=="21" or $asignat=="386") {
@@ -334,11 +344,17 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 			$nc_grupo = $row[0];
 
-			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig) LIMIT 1");
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig)");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
-				$sel_al = mysqli_fetch_array($sel);
-				$al_sel = explode(",",$sel_al[0]);
+				$alumnos_separado_comas = "";
+				while($sel_al = mysqli_fetch_array($sel)){
+					$alumnos_separado_comas .= $sel_al[0].',';
+				}
+
+				$alumnos_separado_comas = rtrim($alumnos_separado_comas, ',');
+
+				$al_sel = explode(",",$alumnos_separado_comas);
 				$hay_al="";
 				foreach($al_sel as $num_al){
 					if ($num_al == $nc_grupo) {

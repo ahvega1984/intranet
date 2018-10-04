@@ -116,7 +116,6 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
   `NOMBRE` varchar(255) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
   `CURSO` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`CODIGO`,`CURSO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
 -- --------------------------------------------------------

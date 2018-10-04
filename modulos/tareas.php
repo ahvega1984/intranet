@@ -24,7 +24,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	if(mysqli_num_rows($asigna1)>1){
 	$texto_asig2="";
 	while($asigna2 = mysqli_fetch_array($asigna1)){
-		$codasi = $asigna2[0];	
+		$codasi = $asigna2[0];
 		$texto_asig2.=" combasi like '%$asigna2[0]:%' or";
 		$c_asig2.=" asignatura = '$asigna2[0]' or";
 	}
@@ -33,7 +33,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	}
 	else{
 		$asigna2 = mysqli_fetch_array($asigna1);
-		$codasi = $asigna2[0];	
+		$codasi = $asigna2[0];
 		$texto_asig2=" combasi like '%$asigna2[0]:%'";
 		$c_asig2=" asignatura = '$asigna2[0]'";
 	}
@@ -91,7 +91,8 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 <button type="button" class="close" data-dismiss="modal">&times;</button>
 <h4 class="modal-title" style="color: #333;">Informe de Tareas<br><small><?php echo "$row1[3] $row1[2]";?></small></h4>
 </div>
-<div class="modal-body"><?	
+<div class="modal-body">
+<?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES
 WHERE FTUTORES.unidad = tareas_alumnos.unidad and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'",$c);
 $dalumno = mysqli_fetch_array($alumno);
@@ -101,7 +102,7 @@ if(mysqli_num_rows($datos) > 0)
 {
 	while($informe = mysqli_fetch_array($datos))
 	{
-		echo "<p style='color:#08c'>$informe[0]. <span style='color:#555'>$informe[1]</span></p>";
+		echo "<p style='color:#08c'>".$informe[0].". <span style='color:#555'>".$informe[1]."</span></p>";
 	}
 }
 else

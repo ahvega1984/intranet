@@ -200,8 +200,8 @@
 				$result_bach = mysqli_query($db_con, "SELECT `nomcurso` FROM `cursos` WHERE `nomcurso` LIKE '%Bachillerato%'");
 				while ($row_bach = mysqli_fetch_array($result_bach)) {
 					$nomcurso = $row_bach['nomcurso'];
-					mysqli_query($db_con, "INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('118', 'Tutoría para tareas administrativas', 'TTA', '".$row_bach."')");
-					mysqli_query($db_con, "INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('117', 'Tutoría de Atención a Padres y Madres', 'TAPM', '".$row_bach."')");
+					mysqli_query($db_con, "INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('118', 'Tutoría para tareas administrativas', 'TTA', '".$nomcurso."')");
+					mysqli_query($db_con, "INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('117', 'Tutoría de Atención a Padres y Madres', 'TAPM', '".$nomcurso."')");
 				}
 
 				$result_fpb = mysqli_query($db_con, "SELECT `nomcurso` FROM `cursos` WHERE `nomcurso` LIKE '%F.P.B.%'");

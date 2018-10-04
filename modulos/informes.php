@@ -10,7 +10,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$asignatura = trim($rowcurs[1]);
 	$texto_asig="";
 	$c_asig="";
-	
+
 	// Problema con asignaturas comunes de Bachillerato con distinto código
 	/*if(strlen($rowcurs[2])>15){
 		$rowcurs[2] = substr($rowcurs[2],0,15);
@@ -41,11 +41,11 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 		$n_inotut="";
 		if (mysqli_num_rows($result) > 0)
 		{
-				
+
 			$n_i=1;
 			while($row1 = mysqli_fetch_array($result))
 			{
-				
+
 				$nc_grupo = $row1['claveal'];
 				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$nivel_i' and ($c_asig)");
 				$hay_grupo = mysqli_num_rows($sel);
@@ -66,19 +66,19 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 
 				$query_pend = mysqli_query($db_con,$asigna_pend);
 				if (mysqli_num_rows($query_pend) > 0){
-									
+
 				while ($res_pend = mysqli_fetch_array($query_pend)) {
 
 				$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row1[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
 				if (mysqli_num_rows($si_pend) > 0)
 				{}
 				else{
-					$num_pend+=1; 
+					$num_pend+=1;
 				}
 
 				}
 				}
-								
+
 				$hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
 				$si = mysqli_query($db_con, $hay);
 				$num_inf = mysqli_num_rows($si);
@@ -91,7 +91,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 					$fechac = explode("-",$row1[3]);
 
 					echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
-	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[2] $row1[1]</a> -- $curso $row[6]  
+	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[2] $row1[1]</a> -- $curso $row[6]
 	<span class='pull-right'>
 	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fas fa-search fa-fw fa-lg'></span></a>
 	<a href='./admin/infotutoria/informar.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fas fa-pencil-alt fa-fw fa-lg'></span></a>
@@ -109,7 +109,8 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 <h4 class="modal-title" style="color: #333;">Informe de tutoría<br><small><?php echo "$row1[2] $row1[1]";?></small></h4>
 </div>
-<div class="modal-body"><?php
+<div class="modal-body">
+<?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
@@ -118,7 +119,7 @@ if(mysqli_num_rows($datos) > 0)
 {
 	while($informe = mysqli_fetch_array($datos))
 	{
-		echo "<p style='color:#08c'>$informe[0]. <span style='color:#555'> $informe[1]</span></p>";
+		echo "<p style='color:#08c'>".$informe[0].". <span style='color:#555'>".$informe[1]."</span></p>";
 	}
 }
 else{

@@ -21,7 +21,7 @@ $hora_inicio = $todas_horas[1];
 $nombre = substr($hora_inicio,0,5);
 $algo = 0;
 for($i = 1; $i < 6; $i ++) {
-$hay_algo = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' and dia = '$i' and hora = '$n_hora' ORDER BY a_grupo" );
+$hay_algo = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' and dia = '$i' and hora = '$n_hora' ORDER BY a_grupo ASC" );
 if (mysqli_num_rows($hay_algo)) {
 	$algo = 1;
 }
@@ -41,10 +41,10 @@ if ($algo) {
 			$extra = "and dia = '$z' and hora = '$n_hora'";
 		}
 
-		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' $extra ORDER BY a_grupo" );
+		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' $extra ORDER BY a_grupo ASC" );
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
 		$act_seneca = mysqli_query($db_con, "SELECT * FROM  actividades_seneca where idactividad = '$rowasignatur1[0]' and nomactividad not like 'TUT%' and idactividad not like '21'" );
-		$asig_seneca = mysqli_query($db_con, "SELECT * FROM  asignaturas where codigo = '$rowasignatur1[0]'" );
+    $asig_seneca = mysqli_query($db_con, "SELECT * FROM  asignaturas where codigo = '$rowasignatur1[0]'" );
 
 		if(mysqli_num_rows($act_seneca)>0 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")){
 			echo "<span class='label label-default' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span><br />";

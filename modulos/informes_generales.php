@@ -11,12 +11,12 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 	$asignatura = trim($rowcurs[1]);
 	$texto_asig="";
 	$c_asig="";
-	
+
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso like '$rowcurs[2]' and abrev not like '%\_%'";
 	//echo $asigna0."<br>";
 
 	$asigna1 = mysqli_query($db_con, $asigna0);
-	
+
 	$asigna2 = mysqli_fetch_array($asigna1);
 	$c_asig=" asignatura = '$asigna2[0]'";
 
@@ -28,11 +28,11 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 		$n_inotut="";
 		if (mysqli_num_rows($result) > 0)
 		{
-				
+
 			$n_i=1;
 			while($row1 = mysqli_fetch_array($result))
-			{			
-								
+			{
+
 			$hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
 			$si = mysqli_query($db_con, $hay);
 			$num_inf = mysqli_num_rows($si);
@@ -45,7 +45,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 				$fechac = explode("-",$row1[3]);
 
 				echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
-	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[5]</a> -- $curso $row[6]  
+	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[5]</a> -- $curso $row[6]
 	<span class='pull-right'>
 	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fas fa-search fa-fw fa-lg'></span></a>
 	<a href='./admin/infotutoria/informar_general.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fas fa-pencil-alt fa-fw fa-lg'></span></a>
@@ -61,7 +61,8 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 <h4 class="modal-title" style="color: #333;">Informe de tutoría<br><small><?php echo "$row1[5]";?></small></h4>
 </div>
-<div class="modal-body"><?php
+<div class="modal-body">
+	<?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
@@ -70,7 +71,7 @@ if(mysqli_num_rows($datos) > 0)
 {
 	while($informe = mysqli_fetch_array($datos))
 	{
-		echo "<p style='color:#08c'>$informe[0]. <span style='color:#555'> $informe[1]</span></p>";
+		echo "<p style='color:#08c'>".$informe[0].". <span style='color:#555'>".$informe[1]."</span></p>";
 	}
 }
 else{
@@ -84,7 +85,7 @@ else{
 </div>
 
 <?php
-				
+
 			}
 		}
 	}
