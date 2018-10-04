@@ -327,6 +327,14 @@ if (isset($_POST['eliminar'])) {
 	$result = mysqli_query($db_con, "DELETE FROM `horw` WHERE `dia` = '$dia' AND `hora` = '$hora' AND `a_grupo` = '$unidad' AND `prof` = '$profesor' LIMIT 1");
 	mysqli_query($db_con, "DELETE FROM `horw_faltas` WHERE `dia` = '$dia' AND `hora` = '$hora' AND `a_grupo` = '$unidad' AND `prof` = '$profesor' LIMIT 1");
 
+	// Borramos datos de las tablas y profesores si el grupo ( materia desaparece completamente del horario.
+	$control_profesores = mysqli_query($db_con, "SELECT * FROM `horw` WHERE  `a_grupo` = '$unidad' AND `prof` = '$profesor' and c_asig = '$asig'");
+	if (!mysqli_num_rows($control_profesores)>0) {
+	mysqli_query($db_con, "DELETE FROM `profesores` WHERE `grupo` = '$unidad' AND `profesor` = '$profesor' and materia like (select distinct nombre from asignaturas where codigo = '$asig' limit 1) LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM `grupos` WHERE `curso` = '$unidad' AND `profesor` = '$profesor' and asignatura like '$asig' LIMIT 1");
+		}
+
+
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
 	}
