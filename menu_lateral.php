@@ -609,10 +609,10 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 		$menu_actas_aca = array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Área Artística',
 			'titulo' => 'Actas del Área Ártística',
-			'ncargos'  => array('9')
+			'ncargos'  => array('1')
 		);
 
-		array_push($menu_actas[0]['items'], $menu_actas_aca);
+		array_push($menu_actas['items'], $menu_actas_aca);
 	}
 
 	if (isset($config['actas_depto']['secretario_acct']) && $pr == $config['actas_depto']['secretario_acct']) {
@@ -622,7 +622,7 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 			'ncargos'  => array('1')
 		);
 
-		array_push($menu_actas[0]['items'], $menu_actas_acct);
+		array_push($menu_actas['items'], $menu_actas_acct);
 	}
 
 	if (isset($config['actas_depto']['secretario_acsl']) && $pr == $config['actas_depto']['secretario_acsl']) {
@@ -632,7 +632,7 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 			'ncargos'  => array('1')
 		);
 
-		array_push($menu_actas[0]['items'], $menu_actas_acsl);
+		array_push($menu_actas['items'], $menu_actas_acsl);
 	}
 
 	if (isset($config['actas_depto']['secretario_afp']) && $pr == $config['actas_depto']['secretario_afp']) {
@@ -642,12 +642,11 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 			'ncargos'  => array('1')
 		);
 
-		array_push($menu_actas[0]['items'], $menu_actas_afp);
+		array_push($menu_actas['items'], $menu_actas_afp);
 	}
 }
 
 array_push($menu_trabajo[0]['items'], $menu_actas);
-
 
 if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
@@ -711,6 +710,11 @@ else {
 				array(
 					'href'   => '//'.$config['dominio'],
 					'titulo' => 'Página del '.$config['centro_denominacion'],
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'https://correo.juntadeandalucia.es/',
+					'titulo' => 'Correo corporativo',
 					'target' => '_blank',
 				),
 				array(

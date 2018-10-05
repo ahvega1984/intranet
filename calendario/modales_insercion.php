@@ -149,7 +149,7 @@
         				</optgroup>
         				<?php endif; ?>
 
-        				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
+        				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -187,7 +187,7 @@
         			<?php endif; ?>
         		</div>
 
-        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')): ?>
+        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
         		<div id="opciones_actividades" class="row">
 
         			<div class="col-sm-6">
@@ -195,12 +195,8 @@
 		        		<div class="form-group">
 		        			<label for="cmp_departamento">Departamento que lo organiza</label>
 		        			<select class="form-control" id="cmp_departamento" name="cmp_departamento">
-		        				<?php if (stristr($_SESSION['cargo'],'2') == TRUE and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)){ ?>
-		        				<option value="Orientación">Orientación</option>
-		        				<?php } else{ ?>
-		        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)): ?>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC"); ?>
-
+		        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) && !(stristr($_SESSION['cargo'],'5') == TRUE) && !(stristr($_SESSION['cargo'],'d') == TRUE) && !(stristr($_SESSION['cargo'],'f') == TRUE)): ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` = '".$_SESSION['dpt']."' ORDER BY `departamento` ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
@@ -210,22 +206,20 @@
 		        				<option value="Múltiples Departamentos">Múltiples Departamentos</option>
 		        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
 		        				<option value="Relaciones de Género">Relaciones de Género</option>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Educador' AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `departamento` ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
 		        				<?php endif; ?>
-		        				<?php } ?>
-
 		        			</select>
 		        		</div>
 
 		        		<div class="form-group">
 		        			<label for="cmp_profesores">Profesores que asistirán a la actividad</label>
 		        			<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>
-		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
+		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Educador' AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `departamento` ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
-		        				<?php $result_depto = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC"); ?>
+		        				<?php $result_depto = mysqli_query($db_con, "SELECT `nombre`, `idea` FROM `departamentos` WHERE `departamento` = '".$row['departamento']."' ORDER BY `nombre` ASC"); ?>
 		        				<optgroup label="<?php echo $row['departamento']; ?>">
 		        					<?php while ($row_profe = mysqli_fetch_assoc($result_depto)): ?>
 		        					<option value="<?php echo $row_profe['nombre']; ?>"><?php echo $row_profe['nombre']; ?></option>
@@ -245,7 +239,7 @@
 
 		        		<div class="form-group">
 		        			<label for="">Unidades que asistirán a la actividad</label>
-		        			<?php	if (stristr($_SESSION['cargo'],'2') and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
+		        			<?php	if (stristr($_SESSION['cargo'],'2') && !(stristr($_SESSION['cargo'],'1') == TRUE) && !(stristr($_SESSION['cargo'],'4') == TRUE) && !(stristr($_SESSION['cargo'],'5') == TRUE) && !(stristr($_SESSION['cargo'],'d') == TRUE) && !(stristr($_SESSION['cargo'],'f') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
 			        		<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
 			        		<?php while($row = mysqli_fetch_assoc($result)): ?>
 			        			<?php echo '<p class="text-info">'.$row['curso'].'</p>'; ?>
