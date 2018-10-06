@@ -265,7 +265,7 @@ if (isset($_POST['instalar']))
 
 			mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES
 			(1, 'Calendario del centro', '".date('Y-m-d')."', 'admin', '#f29b12', 1),
-			(2, 'Actividades extraescolares', '".date('Y-m-d')."', 'admin', '#3498db', 1),
+			(2, 'Actividades extraescolares', '".date('Y-m-d')."', 'admin', '#18bc9c', 1),
 			(3, 'Administrador', '".date('Y-m-d')."', 'admin', '#3498db', 0)");
 
 			mysqli_close($db_con);
