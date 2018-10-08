@@ -27,21 +27,25 @@ include("../../menu.php");
 		
 			<?php
 			$hoy = date('Y-m-d',strtotime('-18 year'));
-			$result = mysqli_query($db_con, "SELECT apellidos, nombre, nacimiento, CONCAT( curso, '-', grupo_actual ) FROM matriculas_bach where date(nacimiento) < '$hoy' order by apellidos, nombre, curso, grupo_actual");
+
+			# la devolvemos en el orden contrario
+
+			$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, unidad FROM alma order by apellidos, nombre, curso, unidad");
 			
-			if (mysqli_num_rows($result)>0) {
 				while($my = mysqli_fetch_array($result)){
-					$fech = cambia_fecha($my[2]);
-					echo "<tr><td nowrap>$my[0], $my[1]</td><td nowrap>$fech</td><td nowrap>$my[3]</td></tr>";
+					$fec_ok=explode("/",$my[2]);
+					$hoy2 = $fec_ok[2]."-".$fec_ok[1]."-".$fec_ok[0];
+					if ($hoy2 < $hoy) {
+						echo "<tr><td nowrap>$my[0], $my[1]</td><td nowrap>$my[2]</td><td nowrap>$my[3]</td></tr>";
+					}				
 				}
-			}
-			else{
+			/*else{
 				echo '<br><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Esta página sólo funciona si el Módulo de Matriculación está operativo y la tabla de matrículas de los alumnos de Bachillerato contiene datos. La tabla en cuestión no contiene datos por lo que parece que el módulo no está operativo. No podemos presentar los datos solicitados.
 </div></div><br>';
 			}
-		
+*/		
 			?>
 			</table>	
 		</div>
