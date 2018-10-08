@@ -54,8 +54,8 @@
 	<li><a href="jefe/index_fotos.php">Subir fotos de alumnos</a></li>
 	<?php if(isset($config['mod_matriculacion']) && $config['mod_matriculacion']): ?>
 	<li><a href="../admin/matriculas/index.php">Matriculación de alumnos</a></li>
-	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años</a></li>	
 	<?php endif; ?>
+	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años</a></li>	
 	<?php if($_SESSION['pagina_centro']==1): ?>	
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
 	<?php endif; ?>
