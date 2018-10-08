@@ -358,7 +358,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        			<div class="col-sm-6">
 
 			        				<div class="form-group">
-			        					<label for="cmp_departamento">Departamento que lo organiza '.$_SESSION['cargo'].'</label>
+			        					<label for="cmp_departamento">Departamento que lo organiza</label>
 			        					<select class="form-control" id="cmp_departamento" name="cmp_departamento">';
 
 												if (stristr($_SESSION['cargo'],'4') == TRUE):
