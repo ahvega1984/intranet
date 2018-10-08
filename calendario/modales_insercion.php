@@ -149,7 +149,7 @@
         				</optgroup>
         				<?php endif; ?>
 
-        				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
+        				<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -187,7 +187,7 @@
         			<?php endif; ?>
         		</div>
 
-        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
+        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
         		<div id="opciones_actividades" class="row">
 
         			<div class="col-sm-6">
@@ -239,11 +239,10 @@
 
 		        		<div class="form-group">
 		        			<label for="">Unidades que asistirán a la actividad</label>
-		        			<?php	if (stristr($_SESSION['cargo'],'2') && !(stristr($_SESSION['cargo'],'1') == TRUE) && !(stristr($_SESSION['cargo'],'4') == TRUE) && !(stristr($_SESSION['cargo'],'5') == TRUE) && !(stristr($_SESSION['cargo'],'d') == TRUE) && !(stristr($_SESSION['cargo'],'f') == TRUE)) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }?>
 			        		<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
 			        		<?php while($row = mysqli_fetch_assoc($result)): ?>
 			        			<?php echo '<p class="text-info">'.$row['curso'].'</p>'; ?>
-			        			<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' $extra_tutor ORDER BY unidad ASC"); ?>
+			        			<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' ORDER BY unidad ASC"); ?>
 			        			<?php while($row1 = mysqli_fetch_array($result1)): ?>
 
 			        			<div class="checkbox-inline">

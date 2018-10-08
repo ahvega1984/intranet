@@ -1,6 +1,64 @@
 <?php
 require('../../bootstrap.php');
 
+function abrevactividad($db_con, $actividad) {
+	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
+	while ($row = mysqli_fetch_array($result)) {
+		$exp_nomactividad = explode('(', $row['nomactividad']);
+
+		$exp_nomactividad = str_replace(' a ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' al ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' el ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' la ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' las ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' los ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' de ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' En ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' en ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' su ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' del ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' Del ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' con ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' que ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' y ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace('.', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(',', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace('-', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' para ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' cuando ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' caso ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' como ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' no ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' tengan ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' otros ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
+
+		$nomactividad = mb_convert_case($exp_nomactividad[0], MB_CASE_TITLE, 'UTF-8');
+
+		$abrev = "";
+		for ($i = 0; $i < strlen($nomactividad); $i++) {
+			if ($nomactividad[$i] == mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'UTF-8') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
+				$abrev .= mb_convert_case($nomactividad[$i], MB_CASE_UPPER, 'UTF-8');
+			}
+		}
+
+		if (strlen($abrev) < 3) {
+			$exp_nomactividad = explode(' ', $nomactividad);
+			$abrev .= $exp_nomactividad[1][1].$exp_nomactividad[1][2];
+			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'UTF-8');
+		}
+
+		if (strlen($abrev) < 2) {
+			$exp_nomactividad = explode(' ', $nomactividad);
+			$abrev .= $exp_nomactividad[0][1].$exp_nomactividad[0][2];
+			$abrev = mb_convert_case($abrev, MB_CASE_UPPER, 'UTF-8');
+		}
+	}
+
+	return $abrev;
+}
+
 acl_acceso($_SESSION['cargo'], array(1));
 
 $HorExpSen = $_FILES['HorExpSen']['tmp_name'];
@@ -95,6 +153,7 @@ else {
 					  `n_aula` varchar(64) COLLATE utf8_general_ci NOT NULL DEFAULT '',
 					  `a_grupo` varchar(64) COLLATE utf8_general_ci NOT NULL DEFAULT '',
 					  `clase` varchar(16) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+						`idactividad` INT(11) UNSIGNED NULL,
 					  PRIMARY KEY (`id`),
 					  KEY `prof` (`prof`),
 					  KEY `c_asig` (`c_asig`)
@@ -145,50 +204,27 @@ else {
 				$curso = $unidad[1];
 			}
 
-			$idactividad = $horario->dato[10];
+			$idactividad_seneca = $horario->dato[10];
 
-			if ($horario->dato[5] == "") {$idmateria="";}
-			else {$idmateria = $horario->dato[5];}
+			if ($horario->dato[5] == "") {$idactividad_materia="";}
+			else {$idactividad_materia = $horario->dato[5];}
 
 			if ($horario->dato[4] == "") {$idcurso="";}
 			else {$idcurso = $horario->dato[4];}
 
-			if ($idunidad == "" or $idmateria =="") {
-
-				$activ = mysqli_query($db_con, "select nomactividad, idactividad from actividades_seneca where idactividad = '$idactividad'");
+			if ($idunidad == "" or $idactividad_materia == "") {
+				$activ = mysqli_query($db_con, "select nomactividad, idactividad from actividades_seneca where idactividad = '$idactividad_seneca'");
 				$activida = mysqli_fetch_row($activ);
-				$nombre_asigna = $activida[0];
-				$idactividad = $activida[1];
+				$idactividad_materia = $activida[1];
 				$nombre_asignatura = $activida[0];
-
-				$nombre_asigna = str_replace(" de "," ",$nombre_asigna);
-				$nombre_asigna = str_replace("/","",$nombre_asigna);
-				$nombre_asigna = str_replace(" y "," ",$nombre_asigna);
-				$nombre_asigna = str_replace(" Ã¡"," a",$nombre_asigna);
-				$nombre_asigna = str_replace(" a "," ",$nombre_asigna);
-				$nombre_asigna = str_replace(" la "," ",$nombre_asigna);
-				$nombre_asigna = str_replace("(","",$nombre_asigna);
-				$nombre_asigna = str_replace(")","",$nombre_asigna);
-
-				$codigo_asig = $idactividad;
-
-				$tr_abrev = explode(" ",$nombre_asigna);
-
-				$letra1 = strtoupper(substr($tr_abrev[0],0,1));
-				$letra2 = strtoupper(substr($tr_abrev[1],0,1));
-				$letra3 = strtoupper(substr($tr_abrev[2],0,1));
-				$letra4 = strtoupper(substr($tr_abrev[3],0,1));
-
-
-				$abrev = $letra1.$letra2.$letra3.$letra4;
-
+				$abrev = abrevactividad($db_con, $nombre_asignatura);
 			}
 			else{
-				$nom_asig = mysqli_query($db_con, "select abrev, nombre from asignaturas where codigo = '$idmateria' and abrev not like '%\_%' and codigo is not NULL and codigo not like ''");
+				$nom_asig = mysqli_query($db_con, "select abrev, nombre from asignaturas where codigo = '$idactividad_materia' and abrev not like '%\_%' and codigo is not NULL and codigo not like ''");
 				$nom_asigna = mysqli_fetch_row($nom_asig);
 				$abrev = $nom_asigna[0];
 				$nombre_asignatura = $nom_asigna[1];
-				$codigo_asig = $idmateria;
+				$codigo_asig = $idactividad_materia;
 			}
 
 
@@ -196,7 +232,7 @@ else {
 			$nom_profe = mysqli_fetch_row($nom_prof);
 			$nombre_profesor = $nom_profe[0];
 
-			mysqli_query($db_con, "INSERT horw (`dia`, `hora`, `a_asig`, `asig`, `c_asig`, `prof`, `no_prof`, `c_prof`, `a_aula`, `n_aula`, `a_grupo`) VALUES ('$diasemana', '$hora', '$abrev', '$nombre_asignatura', '$codigo_asig', '$nombre_profesor', '$num_prof', '$idprofesor', '$descdependencia', '$nomdependencia', '$grupo')");
+			mysqli_query($db_con, "INSERT horw (`dia`, `hora`, `a_asig`, `asig`, `c_asig`, `prof`, `no_prof`, `c_prof`, `a_aula`, `n_aula`, `a_grupo`, `idactividad`) VALUES ('$diasemana', '$hora', '$abrev', '$nombre_asignatura', '$codigo_asig', '$nombre_profesor', '$num_prof', '$idprofesor', '$descdependencia', '$nomdependencia', '$grupo', '$idactividad_seneca')");
 
 			$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and abrev = '$abrev' and codigo not like '2'");
 
@@ -204,9 +240,9 @@ else {
 				$asignatur = mysqli_fetch_array($asig);
 				$asignatura=$asignatur[0];
 
-				if (!($asignatura==$idmateria)) {
+				if (!($asignatura==$idactividad_materia)) {
 					$codasi = $asignatura;
-					mysqli_query($db_con, "update horw set c_asig = '$codasi' where c_prof = '$idprofesor' and a_grupo = '$grupo' and c_asig = '$idmateria'");
+					mysqli_query($db_con, "update horw set c_asig = '$codasi' where c_prof = '$idprofesor' and a_grupo = '$grupo' and c_asig = '$idactividad_materia'");
 				}
 				else{
 					$codasi="";
@@ -215,9 +251,9 @@ else {
 		}
 
 		$i++;
-			
+
 		$porcentaje += $unid;
-			
+
 		echo '<script>callprogress('.round($porcentaje).' , \''.$tabla.'\');</script>';
 
 	}
@@ -225,22 +261,13 @@ else {
 
 	// Actualizamos nombre de las materias / actividades para hacerlas mÃ¡s intuitivas
 	mysqli_query($db_con, "update horw set a_asig = 'TCA' where c_asig = '2'");
-	mysqli_query($db_con, "update asignaturas set abrev = 'TCA' where codigo = '2'");	
+	mysqli_query($db_con, "update asignaturas set abrev = 'TCA' where codigo = '2'");
 	mysqli_query($db_con, "update horw set a_asig = 'TCF' where c_asig = '279'");
-	mysqli_query($db_con, "update horw set a_asig = 'TAP' where c_asig = '117'");		
+	mysqli_query($db_con, "update horw set a_asig = 'TAP' where c_asig = '117'");
 	mysqli_query($db_con, "update horw set a_asig = 'GU' where c_asig = '25'");
 	mysqli_query($db_con, "update horw set a_asig = 'GUREC' where c_asig = '353'");
 	mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 
-	// Eliminamos el Recreo como 4 Hora.
-	$hora0 = "update horw set hora = 'R' WHERE hora ='4'";
-	mysqli_query($db_con, $hora0);
-	$hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
-	mysqli_query($db_con, $hora4);
-	$hora5 = "UPDATE  horw SET  hora =  '5' WHERE  hora = '6'";
-	mysqli_query($db_con, $hora5);
-	$hora6 = "UPDATE  horw SET  hora =  '6' WHERE  hora = '7'";
-	mysqli_query($db_con, $hora6);
 	mysqli_query($db_con, "OPTIMIZE TABLE  `horw`");
 
 	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a SÃ©neca y consigamos los datos reales de los mismos
@@ -298,9 +325,9 @@ else {
 				$cargos.="2";
 			}
 		}
-		
+
 		mysqli_query($db_con,"update departamentos set cargo='$cargos' where nombre = '$cargo[0]'");
-		
+
 			// Tutores
 		$tabla_tut = mysqli_query($db_con, "select * from FTUTORES where tutor = '$cargo[0]'");
 		if(mysqli_num_rows($tabla_tut) > 0){}
@@ -411,10 +438,10 @@ generaci&oacute;n del archivo DEL aparecen marcadas en la imagen de abajo.</p>
 	function callprogress ( valor , tabla ) {
 	  var job = document.getElementById("progress_job");
 	  var bar = document.getElementById("progress");
-	  
+
 	  job.innerHTML = 'Importando '+tabla+'...';
 	  bar.innerHTML = '<div class="progress-bar" role="progressbar" aria-valuenow="'+valor+'" aria-valuemin="0" aria-valuemax="100" style="width: '+valor+'%;"><span class="sr-only">'+valor+'% Completado</span></div>';
-	  
+
 	  if (valor == 100) {
 	  	job.className = 'hidden';
 	  	bar.className = 'hidden';

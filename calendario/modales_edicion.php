@@ -107,39 +107,39 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        			<select class="form-control" id="cmp_calendario" name="cmp_calendario" required>
 								<optgroup label="Mis calendarios">';
 								// AQUI
-		$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
-		while ($row = mysqli_fetch_assoc($result)):
-		echo '<option value="'.$row['id'].'"';
-		if ($eventos1['categoria'] == $row['id']) echo ' selected';
-		echo '>'.$row['nombre'].'</option>';
-		endwhile;
-		mysqli_free_result($result);
-		echo '</optgroup>';
-		if (stristr($_SESSION['cargo'],'1')):
-		echo '<optgroup label="Otros calendarios">';
-		$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where");
-		while ($row = mysqli_fetch_assoc($result)):
-		echo '<option value="'.$row['id'].'"';
-		if ($eventos1['categoria'] == $row['id']) echo ' selected';
-		echo '>'.$row['nombre'].'</option>';
-		endwhile;
-		mysqli_free_result($result);
-		echo '</optgroup>';
-		endif;
+								$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
+								while ($row = mysqli_fetch_assoc($result)):
+								echo '<option value="'.$row['id'].'"';
+								if ($eventos1['categoria'] == $row['id']) echo ' selected';
+								echo '>'.$row['nombre'].'</option>';
+								endwhile;
+								mysqli_free_result($result);
+								echo '</optgroup>';
+								if (stristr($_SESSION['cargo'],'1')):
+								echo '<optgroup label="Otros calendarios">';
+								$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where");
+								while ($row = mysqli_fetch_assoc($result)):
+								echo '<option value="'.$row['id'].'"';
+								if ($eventos1['categoria'] == $row['id']) echo ' selected';
+								echo '>'.$row['nombre'].'</option>';
+								endwhile;
+								mysqli_free_result($result);
+								echo '</optgroup>';
+								endif;
 
 
-		if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
-		echo '<optgroup label="Otros calendarios">';
-		$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
-		while ($row = mysqli_fetch_assoc($result)):
-		echo '<option value="'.$row['id'].'"';
-		if ($eventos1['categoria'] == $row['id']) echo ' selected';
-		echo '>'.$row['nombre'].'</option>';
-		endwhile;
-		mysqli_free_result($result);
-		echo '</optgroup>';
-		endif;
-		echo '</select>
+								if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')):
+								echo '<optgroup label="Otros calendarios">';
+								$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
+								while ($row = mysqli_fetch_assoc($result)):
+								echo '<option value="'.$row['id'].'"';
+								if ($eventos1['categoria'] == $row['id']) echo ' selected';
+								echo '>'.$row['nombre'].'</option>';
+								endwhile;
+								mysqli_free_result($result);
+								echo '</optgroup>';
+								endif;
+								echo '</select>
 		        		</div>
 
 
@@ -223,7 +223,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		$exp_fechafin_evento = explode('-', $eventos1['fechafin']);
 		$fechafin_evento = $exp_fechafin_evento[2].'/'.$exp_fechafin_evento[1].'/'.$exp_fechafin_evento[0];
 
-		if (stristr($_SESSION['cargo'],'1') || ($calendario1['id'] == 2 && (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')))) {
+		if (stristr($_SESSION['cargo'],'1') || ($calendario1['id'] == 2 && (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')))) {
 			echo '<form id="formEditarEvento" method="post" action="post/editarEvento.php?mes='.$mes.'&anio='.$anio.'" data-toggle="validator">
 				<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
 				  <div class="modal-dialog modal-lg">
@@ -338,7 +338,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			endif;
 
 
-			if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
+			if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')):
 			echo '<optgroup label="Otros calendarios">';
 			$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
 			while ($row = mysqli_fetch_assoc($result)):
@@ -352,48 +352,44 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			echo '</select>
 			        		</div>';
 
-			if ($eventos1['categoria'] == 2 && (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')  || stristr($_SESSION['cargo'],'2'))):
+			if ($eventos1['categoria'] == 2 && (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f'))):
 			echo '<div id="opciones_actividades" class="row">
 
 			        			<div class="col-sm-6">
 
 			        				<div class="form-group">
-			        					<label for="cmp_departamento">Departamento que lo organiza</label>
+			        					<label for="cmp_departamento">Departamento que lo organiza '.$_SESSION['cargo'].'</label>
 			        					<select class="form-control" id="cmp_departamento" name="cmp_departamento">';
-			if (stristr($_SESSION['cargo'],'2') == TRUE  and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)){
-		       echo '<option value="Orientación">Orientación</option>';
-		    }
-		    else{
-			if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)):
-			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC");
-			while ($row = mysqli_fetch_assoc($result)):
-			echo '<option value="'.$row['departamento'].'"';
-			if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
-			echo '>'.$row['departamento'].'</option>';
-			endwhile;
-			elseif (stristr($_SESSION['cargo'],'d') == TRUE):
-			echo '<option value="Relaciones de Género"';
-			if ("Relaciones de Género" == $row['departamento']) echo ' selected';
-			echo '>Relaciones de Género</option>';
-			else:
-			echo '<option value="Múltiples Departamentos"';
-			if ("Múltiples Departamentos" == $row['departamento']) echo ' selected';
-			echo '>Múltiples Departamentos</option>
-			        						<option value="Actividades Extraescolares"';
-			if ("Actividades Extraescolares" == $row['departamento']) echo ' selected';
-			echo '>Actividades Extraescolares</option>
-			        						<option value="Relaciones de Género"';
-			if ("Relaciones de Género" == $row['departamento']) echo ' selected';
-			echo '>Relaciones de Género</option>';
-			$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC");
-			while ($row = mysqli_fetch_assoc($result)):
-			echo '<option value="'.$row['departamento'].'"';
-			if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
-			echo '>'.$row['departamento'].'</option>';
-			endwhile;
-			endif;
-		    }
-			echo'			</select>
+
+												if (stristr($_SESSION['cargo'],'4') == TRUE):
+													$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC");
+													while ($row = mysqli_fetch_assoc($result)):
+														echo '<option value="'.$row['departamento'].'"';
+														if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
+														echo '>'.$row['departamento'].'</option>';
+													endwhile;
+												elseif (stristr($_SESSION['cargo'],'d') == TRUE):
+													echo '<option value="Relaciones de Género"';
+													if ("Relaciones de Género" == $row['departamento']) echo ' selected';
+													echo '>Relaciones de Género</option>';
+												else:
+													echo '<option value="Múltiples Departamentos"';
+													if ("Múltiples Departamentos" == $row['departamento']) echo ' selected';
+													echo '>Múltiples Departamentos</option>
+													<option value="Actividades Extraescolares"';
+													if ("Actividades Extraescolares" == $row['departamento']) echo ' selected';
+													echo '>Actividades Extraescolares</option>
+													<option value="Relaciones de Género"';
+													if ("Relaciones de Género" == $row['departamento']) echo ' selected';
+													echo '>Relaciones de Género</option>';
+													$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC");
+													while ($row = mysqli_fetch_assoc($result)):
+														echo '<option value="'.$row['departamento'].'"';
+														if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
+														echo '>'.$row['departamento'].'</option>';
+													endwhile;
+												endif;
+												echo'			</select>
 			        				</div>
 
 			        				<div class="form-group">
@@ -425,11 +421,10 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 			        				<div class="form-group">
 			        					<label for="">Unidades que asistirán a la actividad</label>';
-			if (stristr($_SESSION['cargo'],'2')) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }
 			$result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC");
 			while($row = mysqli_fetch_assoc($result)):
 			echo '<p class="text-info">'.$row['curso'].'</p>';
-			$result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' $extra_tutor ORDER BY unidad ASC");
+			$result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' ORDER BY unidad ASC");
 			while($row1 = mysqli_fetch_array($result1)):
 
 			echo '<div class="checkbox-inline">
