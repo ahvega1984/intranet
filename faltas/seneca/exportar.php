@@ -133,9 +133,27 @@ if ($ni > 0) {
     }
     $zip->close();
 
-    header("Content-disposition: attachment; filename=ImportacionFaltasAlumnado.zip");
-  	header("Content-type: application/octet-stream");
-  	readfile($dir0.$filename);
+    if (is_file($filename)) {
+      $size = filesize($filename);
+      if (function_exists('mime_content_type')) {
+        $type = mime_content_type($filename);
+      } else if (function_exists('finfo_file')) {
+        $info = finfo_open(FILEINFO_MIME);
+        $type = finfo_file($filename);
+        finfo_close($info);
+      }
+      if ($type == '') {
+        $type = "application/force-download";
+      }
+      // Set Headers
+      header("Content-Type: $type");
+      header("Content-Disposition: attachment; filename=ImportacionFaltasAlumnado.zip");
+      header("Content-Transfer-Encoding: binary");
+      header("Content-Length: " . $size);
+      // Download File
+      readfile($filename);
+    }
+    unlink($filename);
   }
   else {
     header('Location:'.'index.php?msg_error=3');
