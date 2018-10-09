@@ -51,7 +51,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 		$n_t=1;
 		while($row1 = mysqli_fetch_array($result))
 		{
-
+			$id = $row1[0];
 			$nc_grupo = $row1['CLAVEAL'];
 			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and asignatura = '$codasi'");
 			$hay_grupo = mysqli_num_rows($sel);
@@ -94,10 +94,10 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 <div class="modal-body">
 <?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES
-WHERE FTUTORES.unidad = tareas_alumnos.unidad and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'",$c);
+WHERE FTUTORES.unidad = tareas_alumnos.unidad and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'");
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[7];
-$datos=mysqli_query($db_con, "SELECT asignatura, tarea FROM tareas_profesor WHERE id_alumno='$id'",$c);
+$datos=mysqli_query($db_con, "SELECT asignatura, tarea FROM tareas_profesor WHERE id_alumno='$id'");
 if(mysqli_num_rows($datos) > 0)
 {
 	while($informe = mysqli_fetch_array($datos))

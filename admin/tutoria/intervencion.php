@@ -9,10 +9,10 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
 // COMPROBAMOS SI ES EL TUTOR, SI NO, ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
-	
+
 	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
 	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
-	
+
 }
 else {
 
@@ -26,7 +26,7 @@ else {
 			header('Location:'.'tutores.php');
 		}
 	}
-	
+
 }
 
 if (isset($_POST['alumno'])) $alumno = $_POST['alumno'];
@@ -36,10 +36,10 @@ if (isset($_GET['alumno'])) $alumno = $_GET['alumno'];
 // COMPROBAMOS SI SE PASA UN ID DE INTERVENCION
 if (isset($_GET['id'])) {
 	$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal FROM tutoria, FTUTORES WHERE tutoria.unidad = FTUTORES.unidad AND id='".$_GET['id']."' AND tutoria.unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
-	
+
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
-		
+
 		$alumno = $row['apellidos'].", ".$row['nombre']." --> ".$row['claveal'];
 		$apellidos = $row['apellidos'];
 		$nombre = $row['nombre'];
@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 		$prohibido = $row['prohibido'];
 		$orientacion = $row['orienta'];
 		$jefatura = $row['jefatura'];
-		
+
 		mysqli_free_result($result);
 	}
 	else {
@@ -66,61 +66,61 @@ if (isset($_GET['id'])) {
 
 // ENVIO DEL FORMULARIO
 if (isset($_POST['enviar'])) {
-	
+
 	// VARIABLES DEL FORMULARIO
 	$alumno = $_POST['alumno'];
 	$fecha_reg = $_POST['fecha_reg'];
 	$observaciones = $_POST['observaciones'];
 	$causa = $_POST['causa'];
 	$accion = $_POST['accion'];
-	
+
 	if (empty($alumno) || empty($fecha_reg) || empty($observaciones) || empty($causa) || empty($accion)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
 	else {
-		
+
 		$exp_fecha_reg = explode("-", $fecha_reg);
 		$fecha_sql = $exp_fecha_reg[2].'-'.$exp_fecha_reg[1].'-'.$exp_fecha_reg[0];
-		
-		
+
+
 		// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN O INSERCIÓN
 		if (isset($_GET['id'])) {
-		
+
 			$result = mysqli_query($db_con, "UPDATE tutoria SET observaciones='$observaciones', causa='$causa', accion='$accion', fecha='$fecha_sql' WHERE id='".$_GET['id']."'");
-			
+
 			if (!$result) $msg_error = "La intervención no se ha podido actualizar. Error: ".mysqli_error($db_con);
 			else $msg_success = "La intervención ha sido actualizada.";
-			
+
 		}
 		else {
-			
+
 			if ($alumno == "Todos, todos") {
 				$apellidos = "Todos";
 				$nombre = "todos";
 				$claveal = "";
-				
+
 				$result1 = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
-					
+
 				if (!$result1) $msg_error = "La intervención sobre el grupo no ha podido registrarse. Error: ".mysqli_error($db_con);
 				else $msg_success = "La intervención ha sido registrada.";
 			}
 			else {
-				
+
 				$exp_alumno = explode(' --> ', $alumno);
 				$exp_nombre = explode(', ', $exp_alumno[0]);
 				$apellidos = trim($exp_nombre[0]);
 				$nombre = trim($exp_nombre[1]);
 				$claveal = trim($exp_alumno[1]);
-				
-				$result = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES 
+
+				$result = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES
 						('".$apellidos."', '".$nombre."', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
-						
+
 				if (!$result) $msg_error = "La intervención no se ha podido registrar. Error: ".mysqli_error($db_con);
 				else $msg_success = "La intervención ha sido registrada.";
 			}
-			
+
 		}
-		
+
 	}
 }
 
@@ -128,7 +128,7 @@ if (isset($_POST['enviar'])) {
 // ELIMINAR INTERVENCIÓN
 if (isset($_GET['eliminar']) && isset($_GET['id'])) {
 	$result = mysqli_query($db_con, "DELETE FROM tutoria WHERE id='".$_GET['id']."' LIMIT 1");
-	
+
 	if (!$result) $msg_error = "No se ha podido eliminar la intervención. Error: ".mysqli_error($db_con);
 	else $msg_success = "La intervención ha sido eliminada.";
 }
@@ -156,16 +156,16 @@ include("menu.php");
 ?>
 
 	<div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Intervenciones sobre los alumnos</small></h2>
-			
+
 			<!-- Button trigger modal -->
 			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 				<span class="fas fa-question fa-lg"></span>
 			</a>
-		
+
 			<!-- Modal -->
 			<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
@@ -175,20 +175,20 @@ include("menu.php");
 							<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 						</div>
 						<div class="modal-body">
-							<p>Las Intervenciones del Tutor funcionan a modo de Diario de Tutoría 
-							donde se registran las actividades de distinto tipo (entrevistas con 
-							Padres o Alumnos, llamadas de teléfono, etc.) que el Tutor realiza dentro 
+							<p>Las Intervenciones del Tutor funcionan a modo de Diario de Tutoría
+							donde se registran las actividades de distinto tipo (entrevistas con
+							Padres o Alumnos, llamadas de teléfono, etc.) que el Tutor realiza dentro
 							de sus funciones.</p>
-							<p>El Tutor recoge los datos de las intervenciones en el formulario de 
-							tal modo que pueda hacer un seguimiento de sus actividades con los 
-							alumnos de su tutoría. También aparecen registradas como Intervenciones 
-							los mensajes SMS enviados a los Padres con motivo de Problemas de 
-							Convivencia o Faltas de Asistencia. Estas intervenciones aparecen 
+							<p>El Tutor recoge los datos de las intervenciones en el formulario de
+							tal modo que pueda hacer un seguimiento de sus actividades con los
+							alumnos de su tutoría. También aparecen registradas como Intervenciones
+							los mensajes SMS enviados a los Padres con motivo de Problemas de
+							Convivencia o Faltas de Asistencia. Estas intervenciones aparecen
 							recogidas a final de Curso en la Memoria de Tutoría.</p>
-							<p>La página presenta el formulario de intervenciones y una lista con 
-							todas las intervenciones realizadas ordenadas por fecha. Al hacer click 
-							sobre un alumno de esta lista, se visualiza la intervención en el 
-							formulario (pudiendo editarla, borrarla, etc.) y aparece el historial 
+							<p>La página presenta el formulario de intervenciones y una lista con
+							todas las intervenciones realizadas ordenadas por fecha. Al hacer click
+							sobre un alumno de esta lista, se visualiza la intervención en el
+							formulario (pudiendo editarla, borrarla, etc.) y aparece el historial
 							de las intervenciones sobre el alumno bajo el formulario.</p>
 						</div>
 						<div class="modal-footer">
@@ -200,40 +200,40 @@ include("menu.php");
 
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
-		
-		
+
+
 		<!-- MENSAJES -->
 		<?php if(isset($msg_error)): ?>
 		<div class="alert alert-danger" role="alert">
 			<?php echo $msg_error; ?>
 		</div>
-		
+
 		<br>
 		<?php endif; ?>
-		
+
 		<?php if(isset($msg_success)): ?>
 		<div class="alert alert-success" role="alert">
 			<?php echo $msg_success; ?>
 		</div>
-		
+
 		<br>
 		<?php endif; ?>
-		
+
 		<?php if(isset($msg_info)): ?>
 		<div class="alert alert-info" role="alert">
 			<?php echo $msg_info; ?>
 		</div>
-		
+
 		<br>
 		<?php endif; ?>
-		
-		
+
+
 		<!-- SCAFFOLDING -->
 		<div class="row">
-		
+
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-7">
-			
+
 				<?php if($alumno && stristr($alumno, "Todos, todos") == false): ?>
 				<?php $exp_alumno = explode(" --> ", $alumno); ?>
 				<?php $claveal = $exp_alumno[1]; ?>
@@ -241,13 +241,13 @@ include("menu.php");
 				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" alt="" width="65" style="position: absolute; top: 5px; right: 0; margin-right: 35px;">
 				<?php endif; ?>
 				<?php endif; ?>
-				
+
 				<div class="well">
-					
+
 					<form method="post" action="">
 						<fieldset>
 							<legend>Registro de datos</legend>
-	
+
 							<div class="row">
 								<div class="col-sm-7">
 									<div class="form-group">
@@ -260,7 +260,7 @@ include("menu.php");
 									  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>" <?php echo (isset($alumno) && $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal'] == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 									  	<?php endwhile; ?>
 									  	<?php mysqli_free_result($result); ?>
-										
+
 									  </select>
 									  <?php else: ?>
 									  <select class="form-control" name="alumno" disabled>
@@ -269,7 +269,7 @@ include("menu.php");
 									  <?php endif; ?>
 									</div>
 								</div>
-								
+
 								<div class="col-sm-5">
 									<div class="form-group" id="datetimepicker1">
 									  <label for="fecha_reg">Fecha</label>
@@ -280,13 +280,13 @@ include("menu.php");
 									</div>
 								</div>
 							</div>
-							
-						  
+
+
 						  <div class="form-group">
 						  	<label for="observaciones">Observaciones</label>
 						    <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escriba la intervención realizada sobre el alumno..." rows="10"><?php echo (isset($observaciones) && $observaciones) ? $observaciones : ''; ?></textarea>
 						  </div>
-						  
+
 						  <div class="row">
 						  	<div class="col-sm-6">
 						  		<div class="form-group">
@@ -306,7 +306,7 @@ include("menu.php");
 						  		  </select>
 						  		</div>
 						  	</div>
-						  	
+
 						  	<div class="col-sm-6">
 						  		<div class="form-group">
 						  		  <label for="accion">Tipo</label>
@@ -314,11 +314,12 @@ include("menu.php");
 						  				<option value="Entrevista telefónica" <?php echo (isset($accion) && $accion == 'Entrevista telefónica') ? 'selected' : ''; ?>>Entrevista telefónica</option>
 						  				<option value="Entrevista personal" <?php echo (isset($accion) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista personal</option>
 						  				<option value="Comunicación por escrito" <?php echo (isset($accion) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación por escrito</option>
+											<option value="Tutoría grupal" <?php echo (isset($accion) && $accion == 'Tutoría grupal') ? 'selected' : ''; ?>>Tutoría grupal</option>
 						  			</select>
 						  		</div>
 						  	</div>
 						  </div>
-						  
+
 						  <?php if(isset($_GET['id'])): ?>
 						  <button type="submit" class="btn btn-primary" name="enviar">Actualizar</button>
 						  <a href="intervencion.php?id=<?php echo $_GET['id']; ?>&eliminar=1" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
@@ -327,11 +328,11 @@ include("menu.php");
 						  <button type="submit" class="btn btn-primary" name="enviar">Registrar</button>
 						  <?php endif; ?>
 						</fieldset>
-							
+
 					</form>
-					
+
 				</div><!-- /.well -->
-				
+
 				<?php
 				if($alumno){
 					$tr = explode(" --> ",$alumno);
@@ -344,12 +345,12 @@ include("menu.php");
 				<div class="well">
 					<h4>Historial de intervenciones de <?php echo ($nombre." ".$apellidos == 'todos Todos') ? ' la unidad' : $nombre." ".$apellidos; ?></h4>
 				<?php
-					$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, id FROM tutoria WHERE claveal='$claveal' AND prohibido = '0' ORDER BY fecha DESC");
-				
+					$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, id FROM tutoria WHERE claveal='$claveal' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND prohibido = '0' ORDER BY fecha DESC");
+
 					if ($row = mysqli_fetch_array($result)) {
 						echo '<table class="table table-striped">';
 						echo "<thead><tr><th>Fecha</th><th>Tipo</th><th>Causa</th><th></th></tr></thead><tbody>";
-						
+
 						do{
 						  $obs=substr($row[5],0,80)."...";
 						  $dia3 = explode("-",$row[2]);
@@ -359,7 +360,7 @@ include("menu.php");
 							</td></tr>";
 						}
 						while($row = mysqli_fetch_array($result));
-					
+
 						echo "</table>";
 					}
 					else {
@@ -370,15 +371,15 @@ include("menu.php");
 				<?php
 				}
 				?>
-				
+
 			</div><!-- /.col-sm-7 -->
-			
-			
+
+
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-5">
-				
+
 				<legend>Intervenciones registradas</legend>
-				
+
 				<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '".$config['curso_inicio']."' ORDER BY apellidos ASC, nombre ASC"); ?>
 				<?php if (mysqli_num_rows($result)): ?>
 				<table class="table table-striped datatable">
@@ -404,34 +405,34 @@ include("menu.php");
 						<?php mysqli_free_result($result); ?>
 					</tbody>
 				</table>
-				
+
 				<?php else: ?>
-				
+
 				<br>
 				<p class="lead text-muted">No hay intervenciones registradas para esta unidad.</p>
 				<br>
-				
+
 				<?php endif; ?>
-				
+
 			</div><!-- /.col-sm-5 -->
-		
+
 		</div><!-- /.row -->
-		
+
 	</div><!-- /.container -->
 
 <?php include("../../pie.php");?>
 
-	<script>  
+	<script>
 	$(document).ready(function() {
 		var table = $('.datatable').DataTable({
 			"paging":   true,
 	    "ordering": true,
 	    "info":     false,
-	    
+
 			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-			
+
 			"order": [[ 0, "desc" ]],
-			
+
 			"language": {
 			            "lengthMenu": "_MENU_",
 			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -448,7 +449,7 @@ include("menu.php");
 			        }
 		});
 	});
-	
+
 	// DATETIMEPICKER
 	$(function () {
 	    $('#datetimepicker1').datetimepicker({
