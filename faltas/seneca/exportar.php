@@ -127,11 +127,17 @@ if ($ni > 0) {
       while (FALSE !== ($file = readdir($handle))) {
         if ($file != '.' && $file != '..' && $file != 'index.php' && $file != 'ImportacionFaltasAlumnado.zip') {
           $zip->addFile($dir0.'/'.$file);
-          if (stristr($dir0.'/'.$file, '.xml') == true) unlink($dir0.'/'.$file);
         }
       }
     }
     $zip->close();
+
+    $handle0 = opendir($dir0);
+    while ($file0 = readdir($handle0)) {
+      if (is_file($dir0.$file0) && strstr($file0,"xml") == TRUE) {
+        unlink($dir0.$file0);
+      }
+    }
 
     if (is_file($filename)) {
       $size = filesize($filename);

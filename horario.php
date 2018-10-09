@@ -41,7 +41,7 @@ if ($algo) {
 			$extra = "and dia = '$z' and hora = '$n_hora'";
 		}
 
-		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' $extra ORDER BY a_grupo ASC" );
+		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM horw where prof = '$pr' $extra ORDER BY a_grupo ASC" );
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
 		$act_seneca = mysqli_query($db_con, "SELECT * FROM  actividades_seneca where idactividad = '$rowasignatur1[0]' and nomactividad not like 'TUT%' and idactividad not like '21'" );
     $asig_seneca = mysqli_query($db_con, "SELECT * FROM  asignaturas where codigo = '$rowasignatur1[0]'" );
@@ -74,7 +74,7 @@ if ($algo) {
 			$grupo = $rowasignaturas1 [1];
 
 			echo "<a href='//".$config['dominio']."/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
-			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
+      if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
 				if ($grupo != $rep_grupo) {
 
 					if($cont > 1) {
@@ -85,6 +85,9 @@ if ($algo) {
 					}
 				}
 			}
+      elseif ($grupo != 'GU') {
+        echo $grupo;
+      }
 			echo "</a>";
 			$rep_grupo = $grupo;
 			$cont++;
