@@ -293,8 +293,6 @@ if (isset($_POST['actualizar'])) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
 	}
 	else {
-		// ACTUALIZAMOS LA TABLA PROFESORES
-		mysqli_query($db_con, "DELETE FROM `profesores` WHERE `profesor` = '$profesor'");
 
 		$result_profesor = mysqli_query($db_con, "SELECT DISTINCT `prof`, `asig`, `a_grupo` FROM `horw` WHERE `prof` = '$profesor' AND `a_grupo` IN (SELECT `nomunidad` FROM `unidades`) AND `c_asig` <> '2' ORDER BY `prof` ASC");
 		while ($datos_profesor = mysqli_fetch_array($result_profesor)) {
