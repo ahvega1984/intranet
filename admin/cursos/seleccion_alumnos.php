@@ -11,9 +11,9 @@ if (isset($_POST['guardar_cambios'])) {
 
     foreach($_POST as $key => $val){
 
-        $exp_key = explode('_', $key);
+        $exp_key = explode(";", $key);
         $asignatura = $exp_key[1];
-        $unidad = $exp_key[2];
+        $unidad = str_replace('_', ' ', $exp_key[2]);
         $nc = $exp_key[3];
 
         if ($asignatura != $asignatura_ant || $unidad != $unidad_ant) {
@@ -131,7 +131,7 @@ include("../../menu.php");
 
                                     <?php while ($row_alumno = mysqli_fetch_array($result_alumnos)): ?>
                                     <?php
-                                    $nombre_checkbox = 'checkbox_'.$row['codigo'].'_'.$row['grupo'].'_'.$row_alumno['claveal'];
+                                    $nombre_checkbox = 'checkbox;'.$row['codigo'].';'.$row['grupo'].';'.$row_alumno['claveal'];
                                     if (mysqli_num_rows($result_alumnos_seleccionados) > 0 && in_array($row_alumno['claveal'], $nc_alumnos_seleccionados)) {
                                         $checkbox_checked = "checked";
                                     }
