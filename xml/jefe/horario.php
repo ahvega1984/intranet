@@ -294,6 +294,16 @@ else {
 		mysqli_query($db_con,"delete from profesores WHERE nivel = ''");
 	}
 
+	// Actualizamos los códigos de actividad
+	$result2_update = mysqli_query($db_con, "SELECT DISTINCT `id`, `c_asig` FROM `horw`");
+	while ($row2_update = mysqli_fetch_array($result2_update)) {
+		if ($row2_update['c_asig'] < 1000) {
+			mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
+		}
+		else {
+			mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
+		}
+	}
 
 // Cargos varios
 
@@ -345,19 +355,6 @@ else {
 	//
 	mysqli_query($db_con, "drop table horw_faltas");
 	mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386')");
-
-	// Actualizamos los códigos de actividad
-	$result2_update = mysqli_query($db_con, "SELECT DISTINCT `id`, `c_asig` FROM `horw`");
-	while ($row2_update = mysqli_fetch_array($result2_update)) {
-		if ($row2_update['c_asig'] < 1000) {
-			mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
-			mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
-		}
-		else {
-			mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
-			mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
-		}
-	}
 
 	// Eliminamos residuos y cambiamos alguna cosa.
 

@@ -190,6 +190,17 @@ $asig = mysqli_query($db_con, "select codigo from asignaturas where curso = '$cu
 	}
 }
 
+// Actualizamos los códigos de actividad
+$result2_update = mysqli_query($db_con, "SELECT DISTINCT `id`, `c_asig` FROM `horw`");
+while ($row2_update = mysqli_fetch_array($result2_update)) {
+	if ($row2_update['c_asig'] < 1000) {
+		mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
+	}
+	else {
+		mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
+	}
+}
+
 // Depuramos nombres y abreviaturas de asignaturas
 $pro =mysqli_query($db_con,"select distinct asig, a_asig, c_asig from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
@@ -247,19 +258,6 @@ mysqli_query($db_con, "drop table horw_faltas");
 mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '386' and idactividad not like '21')");
 mysqli_query($db_con,"ALTER TABLE `horw_faltas` ADD PRIMARY KEY(`id`)");
 mysqli_query($db_con,"ALTER TABLE  `horw_faltas` CHANGE  `id`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT");
-
-// Actualizamos los códigos de actividad
-$result2_update = mysqli_query($db_con, "SELECT DISTINCT `id`, `c_asig` FROM `horw`");
-while ($row2_update = mysqli_fetch_array($result2_update)) {
-	if ($row2_update['c_asig'] < 1000) {
-		mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
-		mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
-	}
-	else {
-		mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
-		mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
-	}
-}
 
 // Cargos varios
 $carg = mysqli_query($db_con, "select distinct prof from horw");
