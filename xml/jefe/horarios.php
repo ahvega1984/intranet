@@ -33,13 +33,13 @@ El archivo de Horw que intentas descargar está <strong>VACÍO</strong>. Intént
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><br />';
-		exit();	
+		exit();
 }
 foreach($contents as $linea){
 	$campo = explode('","',$linea);
 	$campo = str_replace('"','',$campo);
 	$num_col = count($campo);
-	
+
 	if ($num_col != 11) {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -51,11 +51,11 @@ El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' 
 </div><br />';
 		exit();
 	}
-			
+
 	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo) ";
-	$sql.=" VALUES ( ";		
+	$sql.=" VALUES ( ";
 	foreach ($campo as $indice=>$clave){
-		
+
 		if ($indice<11) {
 			$sql.="'".trim(utf8_encode($clave))."', ";
 		}
@@ -139,7 +139,7 @@ while($hor_profe = mysqli_fetch_array($hor)){
 // Limpiez de codigos
 $h1 = mysqli_query($db_con, "select id, c_asig, a_grupo, asig, unidades.idcurso, nomcurso from horw, unidades, cursos where a_grupo=nomunidad and unidades.idcurso=cursos.idcurso and a_grupo not like ''");
 while ($h2 = mysqli_fetch_array($h1)) {
-	
+
 	$id_horw = $h2[0];
 	$curso = $h2[5];
 	$curso_corto = substr($curso,0,10);
@@ -154,27 +154,27 @@ $asig2 = mysqli_query($db_con, "select codigo, nombre, abrev from asignaturas wh
 		$asignatura2=$asignatur2[0];
 		$nombre_asig2=$asignatur2[1];
 		$abrev_asig2=$asignatur2[2];
-		
+
 			$codasi2 = $asignatura2;
 			mysqli_query($db_con, "update horw set c_asig = '$codasi2', asig='$nombre_asig2', a_asig = '$abrev_asig2' where id = '$id_horw'");
-		
+
 	}
-	
+
 		// Problema con materias comunes en Bachillerato
-		if ($cod!=="") {			
+		if ($cod!=="") {
 	$bach0 = mysqli_query($db_con,"select distinct curso from asignaturas where codigo = '$cod' and abrev not like '%\_%' and curso like '%bachill%'");
 	$bc = mysqli_fetch_array($bach0);
 	if ($bc[0]!==$curso) {
 		$as0 = mysqli_query($db_con, "select codigo, nombre, abrev, curso from asignaturas where codigo !='$cod' and abrev=(select distinct abrev from asignaturas where codigo = '$cod' and abrev not like '%\_%') and nombre=(select distinct nombre from asignaturas where codigo = '$cod' and abrev not like '%\_%') and curso like '$curso_corto%' and curso like '%bach%' and abrev not like '%\_%'");
-		
+
 		if (mysqli_num_rows($as0)>0) {
 			$bc1 = mysqli_fetch_array($as0);
 			mysqli_query($db_con,"update horw set c_asig = '$bc1[0]', asig='$bc1[1]', a_asig = '$bc1[2]' where id = '$id_horw'");
-			}	
-		}	
+			}
+		}
 	}
-	
-		
+
+
 	// Segunda pasada
 $asig = mysqli_query($db_con, "select codigo from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'");
 	if (mysqli_num_rows($asig)>0) {
@@ -202,7 +202,7 @@ $pro =mysqli_query($db_con,"select distinct asig, a_asig, c_asig from horw where
 			mysqli_query($db_con,"update horw set asig = '$nive[0]', a_asig = '$nive[1]' where c_asig = '$c_asig'");
 		}
 	}
-	
+
 // Recorremos la tabla Profesores bajada de Séneca
 $tabla_profes =mysqli_query($db_con,"select * from profesores");
 if (mysqli_num_rows($tabla_profes) > 0) {
@@ -248,6 +248,19 @@ mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo
 mysqli_query($db_con,"ALTER TABLE `horw_faltas` ADD PRIMARY KEY(`id`)");
 mysqli_query($db_con,"ALTER TABLE  `horw_faltas` CHANGE  `id`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT");
 
+// Actualizamos los códigos de actividad
+$result2_update = mysqli_query($db_con, "SELECT DISTINCT `id`, `c_asig` FROM `horw`");
+while ($row2_update = mysqli_fetch_array($result2_update)) {
+	if ($row2_update['c_asig'] < 1000) {
+		mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
+		mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = ".$row2_update['c_asig']." WHERE `id` = ".$row2_update['id']."");
+	}
+	else {
+		mysqli_query($db_con, "UPDATE `horw` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
+		mysqli_query($db_con, "UPDATE `horw_faltas` SET `idactividad` = 1 WHERE `id` = ".$row2_update['id']."");
+	}
+}
+
 // Cargos varios
 $carg = mysqli_query($db_con, "select distinct prof from horw");
 while ($cargo = mysqli_fetch_array($carg)) {
@@ -276,7 +289,7 @@ while ($cargo = mysqli_fetch_array($carg)) {
 			$cargos.="2";
 		}
 	}
-	
+
 	$dep_ya = mysqli_query($db_con,"select * from departamentos where nombre = '$cargo[0]' and cargo = ''");
 	if (mysqli_num_rows($dep_ya)>0) {
 		mysqli_query($db_con,"update departamentos set cargo='$cargos' where nombre = '$cargo[0]'");
@@ -305,6 +318,6 @@ a Administración</a></div>
 </div>
 </div>
 	<?php include("../../pie.php"); ?>
-	
+
 </body>
 </html>
