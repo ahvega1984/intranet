@@ -167,7 +167,7 @@ include("menu.php");
 				<br>
 
 				<div class="panel-group" id="departamentos">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY departamento ASC"); ?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' AND departamento <> '' ORDER BY departamento ASC"); ?>
 					<?php $i = 0; ?>
 					<?php while ($departamento = mysqli_fetch_array($result)): ?>
 				  <div class="panel panel-default">
