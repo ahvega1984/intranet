@@ -35,7 +35,7 @@ include 'menu.php';
 						<p>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te 
 						aparecerá el horario del Profesor, para que puedas determinar con precisión la hora 
 						de la guardia (1ª hora, 2ª hora, etc) del día en cuestión.</p>
-						<p>Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de 
+						<p>Seleccionas a continuación el Profesor sustituido. Al hacer clic en el campo de 
 						la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre 
 						la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.</p>
 						<p>Si quieres consultar el historial de guardias de un Profesor, pincha en 

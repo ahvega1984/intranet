@@ -28,7 +28,7 @@
 						SMS por faltas de asistencia, problemas de convivencia, etc.) sobre un determinado 
 						alumno dentro del historial del mismo.</p>
 						<p>La página presenta el formulario de intervenciones y una lista con todas las 
-						intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta 
+						intervenciones realizadas ordenadas por fecha. Al hacer clic sobre un alumno de esta 
 						lista, se visualiza la intervención en el formulario (pudiendo editarla, borrarla, 
 						etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario.</p>
 						<p>Las Intervenciones de Jefatura sobre un Profesor funcionan de modo semejante a las 
@@ -39,7 +39,7 @@
 						los datos de las intervenciones en el formulario de tal modo que se pueda hacer un 
 						seguimiento de las actividades de Jefatura con los Profesores del Centro.</p>
 						<p>La página presenta el formulario de intervenciones y una lista con todas las 
-						intervenciones realizadas ordenadas por fecha. Al hacer click sobre un Profesor de 
+						intervenciones realizadas ordenadas por fecha. Al hacer clic sobre un Profesor de 
 						esta lista, se visualiza la intervención en el formulario (pudiendo editarla, borrarla,
 						 etc.) y aparece el historial de las intervenciones sobre el Profesor bajo el formulario.</p>
 					</div>

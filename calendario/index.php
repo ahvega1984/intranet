@@ -421,7 +421,7 @@ include("../menu.php"); ?>
 					 					Equipo Educativo del mismo.</p>
 					 					<p>Además del Calendario personal, podemos crear tantos calendarios personales como
 					 					necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo
-					 					con los alumnos, etc.). Para añadir un calendario hacemos click sobre el icono de
+					 					con los alumnos, etc.). Para añadir un calendario hacemos clic sobre el icono de
 					 					<span class="far fa-calendar-plusfa-fw"></span> que aparece al lado del selector de
 					 					calendarios.</p>
 					 					<p>El <strong>Calendario del Centro</strong> es visible por todo el mundo, incluida

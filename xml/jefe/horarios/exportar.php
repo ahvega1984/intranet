@@ -16,6 +16,15 @@ $noregular_aux = array();
 
 $result = mysqli_query($db_con, "SELECT `dia`, `hora`, `c_asig`, `prof`, `a_aula`, `a_grupo`, `idactividad` FROM `horw` WHERE `c_prof` = '$idempleado' ORDER BY `dia` ASC, `hora` ASC");
 while ($row = mysqli_fetch_array($result)) {
+	$num_dia = $row['dia'];
+	$id_tramo = '';
+	$id_dependencia = '';
+	$id_unidad = '';
+	$id_curso = '';
+	$codigo_asignatura = '';
+	$tramo_horini = '';
+	$tramo_horfin = '';
+	$id_actividad = $row['idactividad'];
 
 	$result_empleado = mysqli_query($db_con, "SELECT `fechatoma`, `fechacese` FROM `departamentos` WHERE `nombre` = '".$row["prof"]."' LIMIT 1");
 	$row_empleado = mysqli_fetch_array($result_empleado);
@@ -27,13 +36,20 @@ while ($row = mysqli_fetch_array($result)) {
 
 	$result_tramo = mysqli_query($db_con, "SELECT `tramo`, `horini`, `horfin`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` = '".$row["hora"]."' LIMIT 1");
 	$row_tramo = mysqli_fetch_array($result_tramo);
+	$id_tramo = $row_tramo['tramo'];
+	$tramo_horini = $row_tramo['horini'];
+	$tramo_horfin = $row_tramo['horfin'];
 
 	$result_unidad = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."'");
 	$row_unidad = mysqli_fetch_array($result_unidad);
 
 	$result_curso_por_asignatura = mysqli_query($db_con, "SELECT `idcurso` FROM `materias_seneca` WHERE `idmateria` = '".$row["c_asig"]."'  LIMIT 1");
-	$row_curso_por_asignatura = mysqli_fetch_array($result_curso_por_asignatura);
-	$id_curso = $row_curso_por_asignatura['idcurso'];
+	if (mysqli_num_rows($result_curso_por_asignatura)) {
+		$row_curso_por_asignatura = mysqli_fetch_array($result_curso_por_asignatura);
+		$id_curso = $row_curso_por_asignatura['idcurso'];
+		$codigo_asignatura = $row['c_asig'];
+	}
+
 
 	$result_unidad_por_curso = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."' AND `idcurso` = '".$id_curso."'");
 	$row_unidad_por_curso = mysqli_fetch_array($result_unidad_por_curso);
@@ -44,8 +60,13 @@ while ($row = mysqli_fetch_array($result)) {
 		$id_unidad = $row_unidad['idunidad'];
 	}
 
+	$result_materias = mysqli_query($db_con, "SELECT `idcurso` FROM `materias_seneca` WHERE `idmateria` = '".$row["c_asig"]."'  LIMIT 1");
+
 	$result_dependencia = mysqli_query($db_con, "SELECT `iddependencia` FROM `dependencias` WHERE `nomdependencia` = '".$row["a_aula"]."'");
-	$row_dependencia = mysqli_fetch_array($result_dependencia);
+	if (mysqli_num_rows($result_dependencia)) {
+			$row_dependencia = mysqli_fetch_array($result_dependencia);
+			$id_dependencia = $row_dependencia['iddependencia'];
+	}
 
 	$fecha_inicio_exp = explode('-', $config['curso_inicio']);
 	$fecha_inicio = $fecha_inicio_exp['2'].'/'.$fecha_inicio_exp['1'].'/'.$fecha_inicio_exp['0'];
@@ -74,17 +95,17 @@ while ($row = mysqli_fetch_array($result)) {
 	else {
 
 		$regular = array(
-			'dia_semana'					=> $row['dia'],
-			'tramo_horario'				=> $row_tramo['tramo'],
-			'codigo_dependencia'	=> $row_dependencia['iddependencia'],
+			'dia_semana'					=> $num_dia,
+			'tramo_horario'				=> $id_tramo,
+			'codigo_dependencia'	=> $id_dependencia,
 			'codigo_unidad'				=> $id_unidad,
 			'codigo_curso'				=> $id_curso,
 			'codigo_asignatura'		=> $codigo_asignatura,
 			'fecha_inicio'				=> '01/09/'.substr($config['curso_inicio'], 0, 4),
 			'fecha_fin'						=> '31/08/'.(substr($config['curso_inicio'], 0, 4) + 1),
-			'hora_inicio'					=> $row_tramo['horini'],
-			'hora_fin'						=> $row_tramo['horfin'],
-			'codigo_actividad' 		=> $row['idactividad']
+			'hora_inicio'					=> $tramo_horini,
+			'hora_fin'						=> $tramo_horfin,
+			'codigo_actividad' 		=> $id_actividad
 		);
 
 		array_push($horario_regular, $regular);

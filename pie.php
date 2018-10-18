@@ -13,6 +13,8 @@
 				</ul>
 			</div>
 
+      </div>
+
 			<br>
 		</footer>
 
@@ -129,16 +131,31 @@
 
 	<script>
 	$(document).ready(function() {
-		// Tiempo en milisegundos: tiempo de vida de la cookie menos 180 segundos (3 minutos)
-		var expired_time = (<?php echo ini_get("session.cookie_lifetime"); ?> - 180) * 1000;
-		var expired_time_logout = <?php echo ini_get("session.cookie_lifetime"); ?> * 1000;
+		var session_time = <?php echo ini_get("session.cookie_lifetime"); ?>;
+    var session_time_alert = 180; // Tiempo para mostrar alerta: 180 segundos (3 minutos)
+    var session_hours = 0;
+    var session_minutes = 0;
+    var session_seconds = 0;
 
-		setTimeout(function() {
-			$("#session_expired").modal('show');
-		}, expired_time);
+    var sessionCountdown = setInterval(function(){
+      session_time--;
 
-		setTimeout(function() {
-			document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/logout.php';
-		}, expired_time_logout);
+      session_hours = Math.floor(session_time / 3600);
+      session_minutes = Math.floor(session_time / 60);
+      session_seconds = session_time - session_minutes * 60;
+
+      if (session_time == session_time_alert) {
+        $("#session_expired").modal('show');
+      }
+
+      if (session_time <= session_time_alert) {
+        $("#sessionTimer").removeClass('hidden');
+        $("#sessionTimer").html(((session_hours < 10) ? '0' : '') + session_hours + ':' + ((session_minutes < 10) ? '0' : '') + session_minutes + ':' + ((session_seconds < 10) ? '0' : '') + session_seconds);
+      }
+
+      if (session_time <= 0) {
+        document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/logout.php';
+      }
+    }, 1000);
 	});
 	</script>

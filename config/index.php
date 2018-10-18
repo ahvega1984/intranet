@@ -291,7 +291,7 @@ if (isset($_POST['instalar']))
 	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 	<link href="../css/animate.css" rel="stylesheet">
 	<link href="../css/otros.css" rel="stylesheet">
 
@@ -950,7 +950,7 @@ if (isset($_POST['instalar']))
 				    		<h3 class="text-center text-success">La Intranet ha sido instalada correctamente</h3>
 
 				    		<br>
-				    		<p class="text-center" style="font-size: 1.12em;">Inicie sesión como Administrador para continuar con la importación de los datos de Séneca.<br>En el menú de la página principal encontrará el enlace <em>Administración de la Intranet</em>, lea atentamente las instrucciones que aparecen para la puesta en marcha de la aplicación. Haga click en el botón Iniciar sesión y utilice el usuario <strong>admin</strong> y la siguiente contraseña:</p>
+				    		<p class="text-center" style="font-size: 1.12em;">Inicie sesión como Administrador para continuar con la importación de los datos de Séneca.<br>En el menú de la página principal encontrará el enlace <em>Administración de la Intranet</em>, lea atentamente las instrucciones que aparecen para la puesta en marcha de la aplicación. Haga clic en el botón Iniciar sesión y utilice el usuario <strong>admin</strong> y la siguiente contraseña:</p>
 
 				    		<div class="text-center">
 				    			<code class="text-center lead"><?php echo $pass_admin; ?></code>

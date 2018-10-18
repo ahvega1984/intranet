@@ -73,7 +73,7 @@ if (isset($_POST['enviar'])) {
 			// Excepción para el usuario Administrador
 			if ($mail_nomprofesor == 'Administrador') {
 				$message = str_replace('{{titulo}}', 'Restablecimiento de la cuenta de Administrador', $message);
-				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haga click en el botón Iniciar sesión y utilice la contraseña que aparece a continuación:<br><br>
+				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haga clic en el botón Iniciar sesión y utilice la contraseña que aparece a continuación:<br><br>
 				<center>
 				<table cellpadding="0" cellspacing="0" width="250">
 				  <tr>
@@ -97,11 +97,11 @@ if (isset($_POST['enviar'])) {
 				<br><br>Para mantener su seguridad utilice una contraseña segura.<br><hr><small>Este es un mensaje automático y no es necesario responder.</small>', $message);
 				
 				$mail->Subject = utf8_decode($config['centro_denominacion'].' - Restablecimiento de la cuenta de Administrador');
-				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\n>Su contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haga click en la siguiente dirección http://".$config['dominio']."/intranet/ y utilice la contraseña que aparece a continuación:\n\n".$pass_admin."\n\n\nPara mantener su seguridad utilice una contraseña segura.\n\nEste es un mensaje automático y no es necesario responder.";
+				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\n>Su contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haga clic en la siguiente dirección http://".$config['dominio']."/intranet/ y utilice la contraseña que aparece a continuación:\n\n".$pass_admin."\n\n\nPara mantener su seguridad utilice una contraseña segura.\n\nEste es un mensaje automático y no es necesario responder.";
 			}
 			else {
 				$message = str_replace('{{titulo}}', 'Restablecimiento de contraseña', $message);
-				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haga click en el botón Iniciar sesión y utilice la contraseña que aparece a continuación:<br>br>
+				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Su contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haga clic en el botón Iniciar sesión y utilice la contraseña que aparece a continuación:<br>br>
 				<center>
 				<table cellpadding="0" cellspacing="0" width="250">
 				  <tr>
@@ -125,7 +125,7 @@ if (isset($_POST['enviar'])) {
 				<br><br>Para mantener su seguridad utilice una contraseña segura.<br><hr><small>Este es un mensaje automático y no es necesario responder.</small>', $message);
 				
 				$mail->Subject = utf8_decode('Restablecimiento de contraseña');
-				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\nTu contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haz click en la siguiente dirección http://".$config['dominio']."/intranet/ y utilice la contraseña que aparece a continuación:\n\n".$p_dni."\n\n\nPara mantener su seguridad utilice una contraseña segura.\n\nEste es un mensaje automático y no es necesario responder.";
+				$mail->AltBody = "Estimado ".$mail_nomprofesor.",\n\nTu contraseña ha sido restablecida por algún miembro del Equipo Directivo. Si tenía activada la autenticación en dos pasos, tendrá que activarla nuevamente una vez inicies sesión. Para acceder a la Intranet haz clic en la siguiente dirección http://".$config['dominio']."/intranet/ y utilice la contraseña que aparece a continuación:\n\n".$p_dni."\n\n\nPara mantener su seguridad utilice una contraseña segura.\n\nEste es un mensaje automático y no es necesario responder.";
 			}
 			
 			$mail->msgHTML(utf8_decode($message));
@@ -188,7 +188,7 @@ include("../../menu.php");
 		<div class="col-sm-6">
 			<legend>Instrucciones</legend>
 			
-			<p class="block-help">Selecciona en primer lugar el profesor o profesores a los que se necesita restablecer la clave de acceso. Si quieres seleccionar varios usuarios, mantén pulsada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón en cada uno de ellos.</p>
+			<p class="block-help">Selecciona en primer lugar el profesor o profesores a los que se necesita restablecer la clave de acceso. Si quieres seleccionar varios usuarios, mantén pulsada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón en cada uno de ellos.</p>
 			
 			<p>Tras enviar los datos del formulario se les enviará un correo comunicándoles que la clave ha sido restablecida y la nueva clave provisional es ahora el DNI como si el usuario entrase por primera vez en la aplicación. </p>
 		</div>

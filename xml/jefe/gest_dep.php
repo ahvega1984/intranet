@@ -20,7 +20,7 @@ el nombre</em> a una Especialidad o Departamento como <em>Incorporar a
 los miembros</em> de una Especialidad en otro Departamento. Para cambiar
 el nombre simplemente escribe el nuevo nombre en el campo de texto; para
 incorporar una Especialidad en un Departamento, selecciónalo en la lista
-desplegable. Una vez realizados los cambios, haz click en el botón <em><b>Enviar
+desplegable. Una vez realizados los cambios, haz clic en el botón <em><b>Enviar
 datos</b></em>. Si actualizas los Departamentos, no te olvides
 incorporar a los profesores nuevos en el Departamento correspondiente,
 ya que aparecerán asociados a su <em>Especialidad de Séneca</em>.</p>

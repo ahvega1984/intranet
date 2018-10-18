@@ -641,7 +641,8 @@ function show_contents() {
 	switch ($index) {
 		default :
 		case 'publico' : $activo1 = 'class="active"'; $titulo='Documentos públicos'; break;
-		case 'privado' : $activo2 = 'class="active"'; $titulo='Documentos personales'; break;
+		case 'interno' : $activo2 = 'class="active"'; $titulo='Documentos internos'; break;
+		case 'privado' : $activo3 = 'class="active"'; $titulo='Documentos personales'; break;
 	}
 
 	echo "<div class=\"container\">\n";
@@ -669,6 +670,8 @@ function show_contents() {
 					educativa (Programaciones, Plan del Centro, etc.). <br>
 					Dependiendo de las opciones elegidas en la instalación, podemos encontrar tres categorías: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del
 					cual encontraremos directorios de los distintos Departamentos del Centro y que pueden ser utilizados por los miembros de los mismos; y <strong><em>Recursos</em></strong>, con un directorio para cada grupo del Centro en el que los Equipos educativos pueden colocar materiales diversos para sus alumnos.</p>
+					<p>Los <strong><em>Documentos Internos</em></strong> no son visibles desde la página pública del Centro. Ofrecen un directorio donde el Equipo
+					directivo y demás profesores colocan aquellos archivos que consideran relevantes para el Claustro del Centro.<br>
 					<p>Los <strong><em>Documentos Personales</em></strong> son propios de cada
 					Profesor y sólo son accesibles por él. Podemos subir archivos para luego usarlos en el Centro, o bien
 					utilizar esos archivos para incrustarlos en un mensaje que luego se comparte
@@ -685,7 +688,8 @@ function show_contents() {
 	<?php
 	echo "  <ul class=\"nav nav-tabs\">\n";
 	echo "    <li $activo1><a href=\"index.php?index=publico\">Documentos públicos</a></li>\n";
-	echo "    <li $activo2><a href=\"index.php?index=privado\">Documentos personales</a></li>\n";
+	echo "    <li $activo2><a href=\"index.php?index=interno\">Documentos internos</a></li>\n";
+	echo "    <li $activo3><a href=\"index.php?index=privado\">Documentos personales</a></li>\n";
 	echo "  </ul>\n";
 
 	echo "   <div class=\"page-header\">\n";

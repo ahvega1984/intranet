@@ -81,7 +81,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 					la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente.
 					Aparecerán en rojo las faltas de asistencia del alumno y en verde las faltas justificadas.</p>
 
-					<p>Al hacer click sobre una celda del calendario cambiamos su estado: si está vacía se pone
+					<p>Al hacer clic sobre una celda del calendario cambiamos su estado: si está vacía se pone
 					roja, si está roja se pone verde, y si está verde la dejamos a cero.</p>
 
 					<p>Si la falta no ha sido registrada todavía (el día del calendario no es verde ni rojo),
@@ -204,7 +204,7 @@ if($festivos == 'actualizar'){
 	  	<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4><strong>No se han importado los días festivos de este curso escolar.</strong></h4>
 			<p>Hazlo antes de comenzar a utilizar la aplicación de Faltas de asistencia, o tendrás problemas para exportar posteriormente los datos a Séneca.</p>
-			<a href="../../xml/jefe/index_festivos.php" class="alert-link">Haz click para proceder a la importación de las fechas.</a>
+			<a href="../../xml/jefe/index_festivos.php" class="alert-link">Haz clic para proceder a la importación de las fechas.</a>
 		</div>
 	</div>';
 }

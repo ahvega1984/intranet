@@ -144,10 +144,10 @@ include("menu.php");
 					mensajes_profesores--;
 					mensajes_pendientes--;
 					notificar_mensajes(mensajes_pendientes);
+
+					location.reload();
 				}
 			});
-
-			location.reload();
 		}
 		else {
 			$.post( "./admin/mensajes/post_verifica.php", { "idp" : idp }, null, "json" )

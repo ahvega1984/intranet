@@ -67,12 +67,12 @@ include("menu.php");
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label for="unidad">Unidad</label>
-											<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
+											<?php $result = mysqli_query($db_con, "SELECT `nomunidad` FROM `unidades` ORDER BY `nomunidad` ASC"); ?>
 											<?php if(mysqli_num_rows($result)): ?>
 											<select class="form-control" name="unidad">
 												<option value=""></option>
 												<?php while($row = mysqli_fetch_array($result)): ?>
-												<option value="<?php echo $row['a_grupo']; ?>"><?php echo $row['a_grupo']; ?></option>
+												<option value="<?php echo $row['nomunidad']; ?>"><?php echo $row['nomunidad']; ?></option>
 												<?php endwhile; ?>
 											</select>
 											<?php else: ?>

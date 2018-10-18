@@ -65,7 +65,7 @@ include("../informes/menu_alumno.php");
 								</label>
 							</div>
 
-							<p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples unidades. Si no seleccionas ninguna se mostrarán todas unidades en el listado.</p>
+							<p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples unidades. Si no seleccionas ninguna se mostrarán todas unidades en el listado.</p>
 
 							<input type="hidden" name="todasUnidades" value="<?php echo $mostrarTodas; ?>">
 

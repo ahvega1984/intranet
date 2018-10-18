@@ -52,10 +52,10 @@ include("menu.php");
 						descripción de las tareas encargadas para los grupos de alumnos afectados, o bien subimos un documento
 						con las tareas.</p>
 						<p>A la derecha del formulario aparecen las ausencias de los profesores, ordenadas temporalmente. Al
-						hacer click con el ratón sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo
+						hacer clic con el ratón sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo
 						del Curso Escolar.</p>
 						<p>Las ausencias aparecen bajo el menú de la página de inicio de la aplicación y un icono señala si el
-						profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratón sobre el profesor ausente
+						profesor ha dejado o no tareas para los alumnos. Al hacer clic con el ratón sobre el profesor ausente
 						entraremos en una página donde podremos ver el horario del día del profesor ausente, así como las tareas
 						o documento con las mismas para poder atender a los alumnos durante esa hora.</p>
 					</div>

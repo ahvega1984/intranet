@@ -162,7 +162,7 @@ include("menu.php");
 			
 				<h3>Información sobre las fotografías</h3>
 				
-				<p>Utilizamos esta página para subir las fotos de los alumnos de la Tutoría. Preparamos en primer lugar las fotos que hemos hecho a los alumnos, en formato JPG; seleccionamos un alumno en el desplegable; hacemos click sobre el botón de <em>Seleccionar archivo</em> y elegimos el archivo de foto correspondiente al alumno en cuestion; hacemos click sobre el boton de <em>Actualizar</em>.</p>
+				<p>Utilizamos esta página para subir las fotos de los alumnos de la Tutoría. Preparamos en primer lugar las fotos que hemos hecho a los alumnos, en formato JPG; seleccionamos un alumno en el desplegable; hacemos clic sobre el botón de <em>Seleccionar archivo</em> y elegimos el archivo de foto correspondiente al alumno en cuestion; hacemos clic sobre el boton de <em>Actualizar</em>.</p>
 				
 				<p>La foto debe cumplir la norma especificada:<p>
 				 	

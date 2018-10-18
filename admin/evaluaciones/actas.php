@@ -419,7 +419,7 @@ include("menu.php");
 									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=edit" data-bs="tooltip" title="Editar"><span class="far fa-edit fa-fw fa-lg"></span></a>
 									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Imprimir"><span class="fas fa-print fa-fw fa-lg"></span></a>
 									<?php else: ?>
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-filefa-fw fa-lg"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver acta"><span class="far fa-file fa-fw fa-lg"></span></a>
 									<?php endif; ?>
 									<?php if ((nomprofesor($row['tutor']) == nomprofesor($pr) && !$row['impresion']) || acl_permiso($_SESSION['cargo'], array('1'))): ?>
 									<a href="actas.php?id=<?php echo $row['id']; ?>&amp;action=delete" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>

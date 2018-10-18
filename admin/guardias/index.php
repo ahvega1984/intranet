@@ -45,7 +45,7 @@ include("menu.php");
 					<div class="modal-body">
 						<p>Este módulo permite registrar las sustituciones de profesores ausentes que hemos
 						hecho en su aula (guardias de aula). Aparece de entrada el número de sustituciones
-						de todos los miembros del Equipo de Guardia. Si hacemos click sobre el nombre de un
+						de todos los miembros del Equipo de Guardia. Si hacemos clic sobre el nombre de un
 						Compañero de guardia aparecen en la parte inferior de la página las sustituciones que
 						ha realizado ese profesor. Hay que tener en cuenta que en la selección de profesores
 						a sustituir sólo aparecen los profesores que tienen hora lectiva en ese momento

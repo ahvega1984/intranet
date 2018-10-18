@@ -55,7 +55,7 @@ else {
 						<li>Descargue la copia de seguridad que ha generado.</li>
 						<li>Importe la copia de seguridad en la nueva base de datos. Para ello, el proveedor de alojamiento web, suele ofrecer una herramienta de Administración de Bases de datos como PHPMyAdmin.</li>
 						<li>Una vez importado los datos, modifique la configuración de la base de datos en <a href="../../config/config.php" class="alert-link" target="_blank">Configuración general y módulos</a> por los nuevos parámetros.</li>
-						<li>Haga click en <em>Continuar</em> e importe de nuevo los datos.</li>
+						<li>Haga clic en <em>Continuar</em> e importe de nuevo los datos.</li>
 					</ol>
 					
 					<a href="index2.php?action=bdtruncate" class="btn btn-primary">Continuar</a>

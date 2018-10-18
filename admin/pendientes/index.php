@@ -56,7 +56,7 @@ do {
   $rows = mysqli_num_rows($Recordset1);
 ?>
 						  </select>
-						  <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples asignaturas.</p>
+						  <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples asignaturas.</p>
 						</div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
@@ -94,7 +94,7 @@ do {
   }
 ?>
 					    </select>
-					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples grupos.</p>
 					  </div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit2">Consultar</button>

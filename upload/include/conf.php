@@ -38,6 +38,7 @@ $userstat_folder_name = 'userstat';
 switch ($_GET['index']) {
 	default :
 	case 'publico' : $uploads_folder_name = $config['mod_documentos_dir']; $index="publico"; break;
+	case 'interno' : $uploads_folder_name = '../varios/internos/'; $index="interno"; break;
 	case 'privado' : $uploads_folder_name = '../varios/'.$_SESSION['ide'].'/'; $index="privado"; break;
 }
 
@@ -54,25 +55,25 @@ $cookievalidity = 8760; //hours
 //                       V        V        V        V         V        V        V        V        V        V         V
 if(stristr($_SESSION['cargo'],'1') == TRUE){
 $grants = array(
-	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
-);
+		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+	);
 }
 elseif(strstr(rawurldecode(str_replace($caracteres_no_permitidos, $caracteres_permitidos, $_GET['directory'])), str_replace($caracteres_no_permitidos, $caracteres_permitidos, $_SESSION['dpt'])) == TRUE)
 {
 $grants = array(
-	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
-);
+		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+	);
 }
-elseif($_GET['index']=='privado') {
+elseif($_GET['index']=='privado' || $_GET['index']=='interno') {
 $grants = array(
-	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
-);
+		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+	);
 }
 else
 {
 $grants = array(
-	POWER     => array(TRUE,    FALSE,    FALSE,    TRUE,     FALSE,    FALSE,    FALSE,    FALSE,    FALSE ,   FALSE,     FALSE ),
-);
+		POWER     => array(TRUE,    FALSE,    FALSE,    TRUE,     FALSE,    FALSE,    FALSE,    FALSE,    FALSE ,   FALSE,     FALSE ),
+	);
 }
 
 // PERMISOS PARA BIBLIOTECA Y RECURSOS EDUCATIVOS
@@ -80,14 +81,14 @@ $exp_dir = explode('/', $_GET['directory']);
 
 if($exp_dir[0] == 'Biblioteca' && (stristr($_SESSION['cargo'],'c') == TRUE)) {
 	$grants = array(
-		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
-	);
+			POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+		);
 }
 
 if($exp_dir[0] == 'Recursos educativos' && in_array($exp_dir[1], $unidades)) {
 	$grants = array(
-		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
-	);
+			POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+		);
 }
 
 

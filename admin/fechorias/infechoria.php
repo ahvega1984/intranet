@@ -261,7 +261,7 @@ else{
 ?>
 </select>
 <p class="help-block">Puedes seleccionar varios alumnos manteniendo
-presionada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón
+presionada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón
 sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Problema a todos los alumnos del Grupo, marca con el ratón el primer alumno y, mientras mantienes pulsada la tecla <kbd>Mayúsculas (Shift)</kbd>, marca el último de los alumnos para seleccionarlos a todos.</p>
 <?php
 }

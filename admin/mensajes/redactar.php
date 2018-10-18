@@ -361,7 +361,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 
-							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples profesores.</div>
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples profesores.</div>
 						</div>
 
 					</fieldset>
@@ -389,7 +389,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 
-							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples tutores.</div>
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples tutores.</div>
 						</div>
 
 					</fieldset>
@@ -416,7 +416,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 
-							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples departamentos.</div>
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples departamentos.</div>
 						</div>
 
 					</fieldset>
@@ -443,7 +443,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 
-							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples equipos educativos.</div>
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples equipos educativos.</div>
 						</div>
 
 					</fieldset>
@@ -471,7 +471,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 
-							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples profesores de nocturno.</div>
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples profesores de nocturno.</div>
 						</div>
 
 					</fieldset>
@@ -531,7 +531,7 @@ $page_header = "Redactar mensaje";
 							</select>
 							<?php endif; ?>
 
-							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples alumnos.</div>
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples alumnos.</div>
 						</div>
 
 					</fieldset>

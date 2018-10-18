@@ -1,18 +1,20 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <script>
 // Instance the tour
 var tour = new Tour({
-	
+
 	onEnd: function() {
 		localStorage.removeItem('tour_current_step');
 	  return window.location.href = '//<?php echo $config['dominio']; ?>/intranet/index.php';
 	},
-	
+
 	keyboard: true,
-	
+
   steps: [
   {
     title: "<h1 class=\"text-center\">Primeros pasos</h1>",
-    content: "<p>Antes de comenzar, realiza un tour por la portada de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haz click en <strong>Siguiente</strong> para continuar o haz click en <strong>Omitir</strong> para saltarse el tour.",
+    content: "<p>Antes de comenzar, realiza un tour por la página de Inicio de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haz clic en <strong>Siguiente</strong> para continuar o haz clic en <strong>Omitir</strong> para saltarse el tour.",
     container: "body",
     template: "<div class='popover tour' style='max-width: 670px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='end'>Omitir</button><button class='btn btn-primary' data-role='next'>Siguiente »</button></div></div>",
     orphan: true,
@@ -27,19 +29,19 @@ var tour = new Tour({
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
     backdrop: false,
   },
-  {
-    element: "#bs-tour-mensajes",
-    title: "Mensajes",
-    content: "Consulta los últimos mensajes recibidos. Cuando recibas un mensaje, el icono cambiará de color para avisarte. Para leer el mensaje haz click en este icono o dirígete a la portada de la Intranet para ver todos los avisos.",
+	{
+    element: "#bs-tour-tareas",
+    title: "Tareas pendientes",
+    content: "Consulta las tareas que hayas marcado como pendientes. Puedes crear tareas o marcar mensajes recibidos como tarea para realizarla en cualquier momento. En el caso de que tengas tareas pendientes, este icono cambiará de color. Para ver las tareas pendientes y realizadas, haz clic en Ver tareas.",
     container: "body",
     placement: "bottom",
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
     backdrop: false,
   },
   {
-    element: "#bs-tour-tareas",
-    title: "Tareas pendientes",
-    content: "Consulta las tareas que hayas marcado como pendientes. Puedes crear tareas o marcar mensajes recibidos como tarea para realizarla en cualquier momento. En el caso de que tengas tareas pendientes, este icono cambiará de color. Para ver las tareas pendientes y realizadas, haz click en Ver tareas.",
+    element: "#bs-tour-mensajes",
+    title: "Mensajes",
+    content: "Consulta los últimos mensajes recibidos. Cuando recibas un mensaje, el icono cambiará de color para avisarte. Para leer el mensaje haz clic en este icono o dirígete a la página de Inicio de la Intranet para ver todos los avisos.",
     container: "body",
     placement: "bottom",
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
@@ -47,8 +49,8 @@ var tour = new Tour({
   },
   {
     element: "#bs-tour-consejeria",
-    title: "Novedades de la Consejería",
-    content: "Consulta las últimas novedades de la CONSEJERÍA DE EDUCACIÓN de la Junta de Andalucía. Este icono solo será visible desde la portada de la Intranet.",
+    title: "Consejería de Educación",
+    content: "Consulta las últimas novedades de la Consejería de Educación de la Junta de Andalucía o accede al portal Séneca.",
     container: "body",
     placement: "bottom",
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
@@ -75,7 +77,7 @@ var tour = new Tour({
   {
     element: "#bs-tour-tareas-2",
     title: "Tareas pendientes",
-    content: "Consulta las tareas que hayas marcado como pendientes. Este módulo solo aparece en la página de inicio. Puedes crear tareas o marcar mensajes recibidos como tarea para realizarla en cualquier momento. Para ver las tareas pendientes y realizadas, haz click en Ver tareas.",
+    content: "Consulta las tareas que hayas marcado como pendientes. Este módulo solo aparece en la página de inicio. Puedes crear tareas o marcar mensajes recibidos como tarea para realizarla en cualquier momento. Para ver las tareas pendientes y realizadas, haz clic en Ver tareas.",
     container: "body",
     placement: "right",
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
@@ -83,8 +85,8 @@ var tour = new Tour({
   },
   {
     element: "#bs-tour-pendientes",
-    title: "Tareas pendientes",
-    content: "Aquí aparecerán los avisos de tareas pendientes que debes realizar.",
+    title: "Notificaciones",
+    content: "Aquí aparecerán las notificaciones de mensajes sin leer, informes de tareas y tutorías pendientes de rellenar.",
     container: "body",
     placement: "bottom",
     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
@@ -102,7 +104,7 @@ var tour = new Tour({
   {
     element: "#bs-tour-calendario",
     title: "Calendario",
-    content: "El calendario mostrará información sobre los eventos del Centro, Actividades extraescolares y tus anotaciones personales. Cada evento está identificado con una bola de color; al pasar el ratón por encima aparecerá la descripción del evento. Debajo del calendario aparerán los eventos programados para el día de hoy. Para programar un evento haz click en <strong>Ver calendario</strong> o dirígite al menú <strong>Trabajo</strong>, <strong>Calendario</strong>, <strong>Ver calendario</strong>.",
+    content: "El calendario mostrará información sobre los eventos del Centro, Actividades extraescolares y tus anotaciones personales. Cada evento está identificado con una bola de color; al pasar el ratón por encima aparecerá la descripción del evento. Debajo del calendario aparerán los eventos programados para el día de hoy. Para programar un evento haz clic en <strong>Ver calendario</strong> o dirígite al menú <strong>Trabajo</strong>, <strong>Calendario</strong>, <strong>Ver calendario</strong>.",
     container: "body",
     placement: "left",
     <?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
@@ -116,7 +118,7 @@ var tour = new Tour({
   {
     element: "#bs-tour-horario",
     title: "Horario y cuaderno de notas",
-    content: "Por último, el horario contiene enlaces para acceder al <strong>Cuaderno de notas</strong> o a la <strong>Gestión de guardias</strong> si se trata de un grupo de alumnos o de una guardia (GU).",
+    content: "Por último, el horario contiene enlaces para acceder al <strong>Cuaderno de notas</strong>, si se trata de una asignatura, o a la <strong>Gestión de guardias</strong> si es un Servicio de guardia.",
     container: "body",
     placement: "left",
     template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button><button class='btn btn-primary' data-role='end'>Entendido</button></div></div>",
@@ -125,8 +127,8 @@ var tour = new Tour({
   <?php endif; ?>
   ],
  	});
- 	
- 
+
+
 
 // Initialize the tour
 tour.init();
