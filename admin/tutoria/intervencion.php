@@ -313,7 +313,8 @@ include("menu.php");
 						  			<select class="form-control" id="accion" name="accion">
 						  				<option value="Entrevista telefónica" <?php echo (isset($accion) && $accion == 'Entrevista telefónica') ? 'selected' : ''; ?>>Entrevista telefónica</option>
 						  				<option value="Entrevista personal" <?php echo (isset($accion) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista personal</option>
-						  				<option value="Comunicación por escrito" <?php echo (isset($accion) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación por escrito</option>
+											<option value="Entrevista con familia" <?php echo (isset($accion) && $accion == 'Entrevista con familia') ? 'selected' : ''; ?>>Entrevista con familia</option>
+											<option value="Comunicación por escrito" <?php echo (isset($accion) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación por escrito</option>
 											<option value="Tutoría grupal" <?php echo (isset($accion) && $accion == 'Tutoría grupal') ? 'selected' : ''; ?>>Tutoría grupal</option>
 						  			</select>
 						  		</div>

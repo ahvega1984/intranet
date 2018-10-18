@@ -167,7 +167,7 @@ if ($id and ($unidad=='' and $alumno=='')) {
 	<option></option>
 </select> <?php endif; ?></div>
 </div>
-<div class="col-md-2"><?php  
+<div class="col-md-2"><?php
 if ($alumno && stristr($alumno, "Todos, todos") == false) {
 	if (!empty($clave) && $foto = obtener_foto_alumno($clave)) {
 		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
@@ -181,11 +181,11 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 
 <div class="row">
 <div class="col-sm-7">
-<div class="form-group"><label for="alumno">Alumno/a</label> 
+<div class="form-group"><label for="alumno">Alumno/a</label>
 
 <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal, matriculas FROM alma WHERE unidad='$unidad' ORDER BY apellidos, nombre ASC"); ?>
 
-<?php if(mysqli_num_rows($result)): ?> 
+<?php if(mysqli_num_rows($result)): ?>
 <select class="form-control"
 	id="alumno" name="alumno" onchange="submit()">
 	<option></option>
@@ -196,9 +196,9 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 		<?php echo (isset($alumno) && ($row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']) == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 		<?php endwhile; ?>
 		<?php mysqli_free_result($result); ?>
-</select> 
+</select>
 
-<?php else: ?> 
+<?php else: ?>
 
 <select class="form-control" name="alumno" disabled>
 	<option></option>
@@ -278,15 +278,11 @@ if ($alumno && stristr($alumno, "Todos, todos") == false) {
 <div class="col-sm-6">
 <div class="form-group"><label for="accion">Tipo</label> <select
 	class="form-control" id="accion" name="accion">
-	<option value="Entrevista telefónica"
-	<?php echo (isset($id) && $accion == 'Entrevista telefónica') ? 'selected' : ''; ?>>Entrevista
-	telefónica</option>
-	<option value="Entrevista personal"
-	<?php echo (isset($id) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista
-	personal</option>
-	<option value="Comunicación por escrito"
-	<?php echo (isset($id) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación
-	por escrito</option>
+	<option value="Entrevista telefónica" <?php echo (isset($accion) && $accion == 'Entrevista telefónica') ? 'selected' : ''; ?>>Entrevista telefónica</option>
+	<option value="Entrevista personal" <?php echo (isset($accion) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista personal</option>
+	<option value="Entrevista con familia" <?php echo (isset($accion) && $accion == 'Entrevista con familia') ? 'selected' : ''; ?>>Entrevista con familia</option>
+	<option value="Comunicación por escrito" <?php echo (isset($accion) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación por escrito</option>
+	<option value="Tutoría grupal" <?php echo (isset($accion) && $accion == 'Tutoría grupal') ? 'selected' : ''; ?>>Tutoría grupal</option>
 </select></div>
 </div>
 </div>
@@ -325,7 +321,7 @@ if($alumno){
 	if ($row = mysqli_fetch_array($result)) {
 		echo '<table class="table table-striped">';
 		echo "<thead><tr><th>Fecha</th><th>Clase</th><th>Causa</th><th></th></tr></thead><tbody>";
-			
+
 		do{
 			$obs=substr($row[5],0,80)."...";
 			$dia3 = explode("-",$row[2]);
@@ -355,17 +351,17 @@ if($alumno){
 
 <?php include("../../pie.php");?>
 
-<script>  
+<script>
 	$(document).ready(function() {
 		var table = $('.datatable').DataTable({
 			"paging":   true,
 	    "ordering": true,
 	    "info":     false,
-	    
+
 			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-			
+
 			"order": [[ 0, "desc" ]],
-			
+
 			"language": {
 			            "lengthMenu": "_MENU_",
 			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -382,7 +378,7 @@ if($alumno){
 			        }
 		});
 	});
-	
+
 	// DATETIMEPICKER
 	$(function () {
 	    $('#datetimepicker1').datetimepicker({
@@ -391,6 +387,6 @@ if($alumno){
 	    });
 	});
 	</script>
-	
+
 </body>
 </html>
