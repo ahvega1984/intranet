@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'JuntaAndalucia';
+  src: url('../fonts/JuntaAndalucia.eot?61968121');
+  src: url('../fonts/JuntaAndalucia.eot?61968121#iefix') format('embedded-opentype'),
+       url('../fonts/JuntaAndalucia.woff2?61968121') format('woff2'),
+       url('../fonts/JuntaAndalucia.woff?61968121') format('woff'),
+       url('../fonts/JuntaAndalucia.ttf?61968121') format('truetype'),
+       url('../fonts/JuntaAndalucia.svg?61968121#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-junta:before { content: '\e800'; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "JuntaAndalucia";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
 /* BACKGROUND COLORS */
 
 .bg-black { background-color: #000000 !important; }
@@ -182,7 +207,7 @@ body {
 
 @media (min-width: 750px) {
 	.col-sm-20 {
-		position: relative; 
+		position: relative;
 		min-height: 1px;
 		padding-left: 15px;
 		padding-right: 15px;
@@ -333,7 +358,7 @@ ul.dropdown-feed>li>a {
 }
 
 
-/* DESCRIPTIONS */ 
+/* DESCRIPTIONS */
 
 dt, dd {
 	padding: 2px 0;
@@ -343,7 +368,7 @@ dt, dd {
 .tour-backdrop {
 	background-color: #fff !important;
 	opacity: .6 !important;
-} 
+}
 
 .popover.tour-tour {
 	border-radius: 2px;
@@ -355,21 +380,21 @@ div#step-0.popover.tour.orphan.tour-tour.tour-tour-0.fade.top.in {
 	top: 160px !important;
 }
 
-div.tour > h3.popover-title, 
+div.tour > h3.popover-title,
 div.tour > div.popover-content,
 div.tour > div.popover-navigation {
 	padding: 15px 25px !important;
 }
-	
+
 div.tour > div.popover-content {
 	font-size: 16px !important;
 }
 
 /* TOTP */
-#totp > input[type=number]::-webkit-inner-spin-button, 
-#totp > input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+#totp > input[type=number]::-webkit-inner-spin-button,
+#totp > input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 #totp > input[type=number] { -moz-appearance:textfield; }
@@ -390,7 +415,7 @@ html, body {
 	#login {
 	  padding-top: 0;
 	}
-	
+
 	#login h1 {
 		font-size: 30px;
 	}
@@ -437,26 +462,26 @@ html, body {
 
 @media (max-width: 321px) {
 
-	footer .pull-left { 
-		float: none !important; 
+	footer .pull-left {
+		float: none !important;
 		display: block !important;
 		text-align: center;
 	}
 
-	footer .pull-right { 
-		float: none !important; 
+	footer .pull-right {
+		float: none !important;
 		display: block !important;
 		text-align: center;
 	}
 
 }
-	
+
 /* small screen lanscape */
 
 @media (max-width: 480px) {
 
-	footer .pull-left { 
-		float: none !important; 
+	footer .pull-left {
+		float: none !important;
 		display: block !important;
 		text-align: center;
 	}
