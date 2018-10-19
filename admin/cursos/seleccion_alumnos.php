@@ -11,20 +11,22 @@ if (isset($_POST['guardar_cambios'])) {
 
     foreach($_POST as $key => $val){
 
-        $exp_key = explode(";", $key);
+        $exp_key = explode('_', $key);
         $asignatura = $exp_key[1];
-        $unidad = str_replace('_', ' ', $exp_key[2]);
+        $unidad = $exp_key[2];
         $nc = $exp_key[3];
 
         if ($asignatura != $asignatura_ant || $unidad != $unidad_ant) {
             // Saltamos este bloque la primera vez que se ejecuta foreach o si key corresponde al botón de envío de formulario
             if ($flag_primera_vez > 1 || $key != 'guardar_cambios') {
+                $result_alumnos_grupo = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE alma.unidad = '".$unidad_ant."' ORDER BY alma.apellidos ASC, alma.nombre ASC");
+                $total_alumnos_grupo = mysqli_num_rows($result_alumnos_grupo);
 
                 $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE alma.unidad = '".$unidad_ant."' AND alma.combasi LIKE '%".$asignatura_ant."%' ORDER BY alma.apellidos ASC, alma.nombre ASC");
                 $total_alumnos = mysqli_num_rows($result_alumnos);
                 $alumnos_seleccionados = count($array_nc);
 
-                if ($total_alumnos != $alumnos_seleccionados) {
+                if ($total_alumnos != $alumnos_seleccionados or $total_alumnos != $total_alumnos_grupo) {
 
                     $nc_separado_por_comas = implode(",", $array_nc);
 
@@ -33,11 +35,12 @@ if (isset($_POST['guardar_cambios'])) {
                     if (mysqli_num_rows($result_seleccion)) {
                         $row_seleccion = mysqli_fetch_array($result_seleccion);
                         $id_seleccion = $row_seleccion['id'];
-
                         mysqli_query($db_con, "UPDATE grupos SET alumnos = '$nc_separado_por_comas' WHERE id = '$id_seleccion'");
                     }
                     else {
+                        if (!empty($asignatura_ant) and !empty($nc_separado_por_comas)) {
                         mysqli_query($db_con, "INSERT INTO grupos (profesor, asignatura, curso, alumnos) VALUES ('$pr', '$asignatura_ant', '$unidad_ant', '$nc_separado_por_comas')") or die (mysqli_error($db_con));
+                        }
                     }
                 }
                 else {
@@ -131,7 +134,7 @@ include("../../menu.php");
 
                                     <?php while ($row_alumno = mysqli_fetch_array($result_alumnos)): ?>
                                     <?php
-                                    $nombre_checkbox = 'checkbox;'.$row['codigo'].';'.$row['grupo'].';'.$row_alumno['claveal'];
+                                    $nombre_checkbox = 'checkbox_'.$row['codigo'].'_'.$row['grupo'].'_'.$row_alumno['claveal'];
                                     if (mysqli_num_rows($result_alumnos_seleccionados) > 0 && in_array($row_alumno['claveal'], $nc_alumnos_seleccionados)) {
                                         $checkbox_checked = "checked";
                                     }

@@ -383,7 +383,18 @@ foreach ($array_unidades as $hora2) {
 						echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
 					}
 					echo '</td>';
-					echo "<td style='vertical-align:middle'>
+
+					// Código para eliminar el curso 2019
+					if ($config['mod_matriculacion']==1 and $asignat=='141346') {
+						$extra_tic="";
+						$result_tic = mysqli_query($db_con, "SELECT optativa1 FROM `matriculas` WHERE (`claveal` = '".$row['CLAVEAL']."' or (apellidos='$row[2]' and nombre='$row[3]')) and optativa1 = '3' LIMIT 1");
+						if (mysqli_num_rows($result_tic)>0) {
+							$extra_tic = 'background-color:yellow;';
+						}
+					}
+
+
+					echo "<td style='vertical-align:middle;$extra_tic'>
 				<label for='falta_".$row[0]."_".$curso."' style='display:block;'>
 					<span class='label label-info'>$n</span>
 					&nbsp;&nbsp;$row[2], $row[3]
