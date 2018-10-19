@@ -11,9 +11,10 @@ if (isset($_POST['guardar_cambios'])) {
 
     foreach($_POST as $key => $val){
 
-        $exp_key = explode('_', $key);
+        $exp_key = explode(';', $key);
         $asignatura = $exp_key[1];
         $unidad = $exp_key[2];
+        $unidad = str_replace('_', ' ', $unidad);
         $nc = $exp_key[3];
 
         if ($asignatura != $asignatura_ant || $unidad != $unidad_ant) {
@@ -26,7 +27,7 @@ if (isset($_POST['guardar_cambios'])) {
                 $total_alumnos = mysqli_num_rows($result_alumnos);
                 $alumnos_seleccionados = count($array_nc);
 
-                if ($total_alumnos != $alumnos_seleccionados or $total_alumnos != $total_alumnos_grupo) {
+                if (($total_alumnos != $alumnos_seleccionados) || ($total_alumnos != $total_alumnos_grupo)) {
 
                     $nc_separado_por_comas = implode(",", $array_nc);
 
@@ -38,7 +39,7 @@ if (isset($_POST['guardar_cambios'])) {
                         mysqli_query($db_con, "UPDATE grupos SET alumnos = '$nc_separado_por_comas' WHERE id = '$id_seleccion'");
                     }
                     else {
-                        if (!empty($asignatura_ant) and !empty($nc_separado_por_comas)) {
+                        if (!empty($asignatura_ant) && !empty($nc_separado_por_comas)) {
                         mysqli_query($db_con, "INSERT INTO grupos (profesor, asignatura, curso, alumnos) VALUES ('$pr', '$asignatura_ant', '$unidad_ant', '$nc_separado_por_comas')") or die (mysqli_error($db_con));
                         }
                     }
@@ -134,7 +135,7 @@ include("../../menu.php");
 
                                     <?php while ($row_alumno = mysqli_fetch_array($result_alumnos)): ?>
                                     <?php
-                                    $nombre_checkbox = 'checkbox_'.$row['codigo'].'_'.$row['grupo'].'_'.$row_alumno['claveal'];
+                                    $nombre_checkbox = 'checkbox;'.$row['codigo'].';'.$row['grupo'].';'.$row_alumno['claveal'];
                                     if (mysqli_num_rows($result_alumnos_seleccionados) > 0 && in_array($row_alumno['claveal'], $nc_alumnos_seleccionados)) {
                                         $checkbox_checked = "checked";
                                     }
