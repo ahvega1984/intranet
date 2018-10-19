@@ -449,7 +449,7 @@ if (isset($_POST['instalar']))
 				    		  <div class="form-group">
 				    		    <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
-				    		      <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" placeholder="I.E.S. Monterroso" data-error="La denominación del centro no es válida" required>
+				    		      <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" placeholder="IES Monterroso" data-error="La denominación del centro no es válida" required>
 				    		      <div class="help-block with-errors"></div>
 				    		    </div>
 				    		  </div>

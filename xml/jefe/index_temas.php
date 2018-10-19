@@ -125,6 +125,19 @@ include("../../menu.php");
 	<?php include("../../pie.php");	?>
 
 	<script>
+	$(document).ready(function() {
+		var tema = $('#tema').val();
+		if (tema != 'bootstrap.min.css') {
+			var exp_tema = tema.split('-');
+			var name = exp_tema[1].replace('.css','.png');
+		}
+		else {
+			var name = 'intranet.png';
+		}
+
+		$('#theme-preview').attr('src','../../img/temas/' + name);
+	});
+
 	$('#tema').on({
 	    'change': function(){
 	    		var tema = $('#tema').val();
