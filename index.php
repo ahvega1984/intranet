@@ -191,7 +191,7 @@ include("menu.php");
 
 	<?php if(isset($_GET['tour']) && $_GET['tour']): ?>
 	<script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
-	<?php //include("./js/bootstrap-tour/intranet-tour.php"); ?>
+	<?php include("./js/bootstrap-tour/intranet-tour.php"); ?>
 	<?php endif; ?>
 
 </body>
