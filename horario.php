@@ -85,7 +85,7 @@ if ($algo) {
 					}
 				}
 			}
-      elseif ($grupo != 'GU') {
+      elseif ($grupo != 'GU' && $grupo != 'GUCON') {
         echo $grupo;
       }
 			echo "</a>";
