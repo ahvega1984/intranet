@@ -146,18 +146,6 @@ include("../../menu.php");
                                 ?>
 
                                 <?php
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
-                                $result = mysqli_query($db_con, $SQL);
-                                $num_expulsados1 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and Fechoria.fecha >= (select max(fecha) from festivos where nombre like '%navidad%') and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre like '%Semana Santa')";
-                                $result = mysqli_query($db_con, $SQL);
-                                $num_expulsados2 = mysqli_num_rows($result);
-                                $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and date(Fechoria.fecha) >=(select max(fecha) from festivos where nombre like '%Semana Santa') and Fechoria.fecha <= '".$config['curso_fin']."'";
-                                $result = mysqli_query($db_con, $SQL);
-                                $num_expulsados3 = mysqli_num_rows($result);
-                                ?>
-
-                                <?php
                                 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and date(Fechoria.fecha) <= (select min(fecha) from festivos where nombre='Vacaciones de Navidad')";
                                 $result = mysqli_query($db_con, $SQL);
                                 $num_expulsadosaula1 = mysqli_num_rows($result);
