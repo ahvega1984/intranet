@@ -100,11 +100,11 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 									<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 										<div class="form-group" style="margin-bottom: 0;">
 											<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 90%;">
-												<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
-												<?php while($row = mysqli_fetch_assoc($result)): ?>
-												<option value="<?php echo $row['nombre']; ?>"<?php echo ($row['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+												<?php $result_perfiles = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
+												<?php while($row_perfiles = mysqli_fetch_assoc($result_perfiles)): ?>
+												<option value="<?php echo $row_perfiles['nombre']; ?>"<?php echo ($row_perfiles['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row_perfiles['nombre']; ?></option>
 												<?php endwhile; ?>
-												<?php mysqli_free_result($result); ?>
+												<?php mysqli_free_result($result_perfiles); ?>
 											</select>
 										</div>
 									</form>
