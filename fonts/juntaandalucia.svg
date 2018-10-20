@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2018 by original authors @ fontello.com</metadata>
+<defs>
+<font id="juntaandalucia" horiz-adv-x="1000" >
+<font-face font-family="juntaandalucia" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="vectorpaint" unicode="&#xe800;" d="M846 663c256 0 512-98 707-293 45-46 86-94 121-146-44 111-110 215-200 304-173 174-400 261-628 261-227 0-454-87-628-261-89-89-156-193-199-304 35 52 75 101 120 146 196 195 452 293 707 293l0 0z m0-251c199-1 398-77 549-228 29-29 55-59 78-91-32 91-84 177-157 249-129 130-299 195-470 196-170-1-340-66-470-196-73-72-125-158-157-249 23 32 50 62 78 91 152 151 351 227 549 228l0 0z m116-501l-231 0 115 376 116-376z" horiz-adv-x="1692" />
+</font>
+</defs>
+</svg>
