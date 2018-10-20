@@ -96,7 +96,21 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 						<ul class="dropdown-menu" style="min-width: 340px !important;">
 							<li class="hidden-xs">
 								<div style="padding: 3px 20px;">
+									<?php if(isset($_SESSION['user_admin']) && $_SESSION['user_admin']): ?>
+									<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+										<div class="form-group" style="margin-bottom: 0;">
+											<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 90%;">
+												<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
+												<?php while($row = mysqli_fetch_assoc($result)): ?>
+												<option value="<?php echo $row['nombre']; ?>"<?php echo ($row['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+												<?php endwhile; ?>
+												<?php mysqli_free_result($result); ?>
+											</select>
+										</div>
+									</form>
+									<?php else: ?>
 									<span style="font-weight: bold;"><?php echo $pr; ?></span><br>
+									<?php endif; ?>
 									<small class="text-muted">
 										Último acceso:
 										<?php

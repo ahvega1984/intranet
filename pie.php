@@ -1,84 +1,65 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
-    <footer class="hidden-print">
-			<div class="container-fluid">
-				<hr>
-				<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
+  <footer class="hidden-print">
+		<div class="container-fluid">
+			<hr>
+			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
 
-				<ul class="pull-right list-inline">
-					<li>Versión <?php echo INTRANET_VERSION; ?></li>
-					<li><a href="//<?php echo $config['dominio']; ?>/intranet/aviso-legal/">Aviso legal</a></li>
-					<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
-					<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
-				</ul>
-			</div>
-
-      </div>
-
-			<br>
-		</footer>
-
-    <?php if(isset($_SESSION['user_admin'])): ?>
-    <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: -10px; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%;">
-    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 90%; text-transform: uppercase;"><span class="fas fa-user-plus fa-fw"></span> Cambiar perfil</a>
-    	<div id="debug" class="row" style="display: none;">
-    			<form method="post" class="col-sm-4" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="height: 50px;">
-							<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 90%;">
-								<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
-								<?php while($row = mysqli_fetch_assoc($result)): ?>
-								<option value="<?php echo $row['nombre']; ?>"<?php echo ($row['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['nombre']; ?></option>
-								<?php endwhile; ?>
-								<?php mysqli_free_result($result); ?>
-							</select>
-    			</form>
-    		</div>
-    	</div>
+			<ul class="pull-right list-inline">
+				<li>Versión <?php echo INTRANET_VERSION; ?></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/aviso-legal/">Aviso legal</a></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
+				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
+			</ul>
+		</div>
 
     </div>
-    <?php endif; ?>
 
-    <!-- MODAL SESIÓN-->
-	<div class="modal fade" id="session_expired" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-			  <div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h4 class="modal-title">Inactividad de la cuenta</h4>
-			  </div>
-			  <div class="modal-body">
-			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de
-					<strong>3 minutos</strong>. Si está rellenando algún formulario, guarde inmediatamente los
-					 cambios antes de que finalice el tiempo. Esta acción detendrá el cierre de sesión y podrá continuar.</p>
-			  </div>
-			  <div class="modal-footer">
-			    <button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
-			  </div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	<!-- FIN MODAL SESIÓN -->
+		<br>
+	</footer>
 
-    <!-- BOOTSTRAP JS CORE -->
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-2.1.1.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap.min.js"></script>
+  <!-- MODAL SESIÓN-->
+  <div class="modal fade" id="session_expired" tabindex="-1" role="dialog">
+  	<div class="modal-dialog">
+  		<div class="modal-content">
+  		  <div class="modal-header">
+  		    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		    <h4 class="modal-title">Inactividad de la cuenta</h4>
+  		  </div>
+  		  <div class="modal-body">
+  		    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de
+  				<strong>3 minutos</strong>. Si está rellenando algún formulario, guarde inmediatamente los
+  				 cambios antes de que finalice el tiempo. Esta acción detendrá el cierre de sesión y podrá continuar.</p>
+  		  </div>
+  		  <div class="modal-footer">
+  		    <button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+  		  </div>
+  		</div><!-- /.modal-content -->
+  	</div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <!-- FIN MODAL SESIÓN -->
 
-    <!-- PLUGINS JS -->
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/validator/validator.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/summernote.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/lang/summernote-es-ES.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/plugin/summernote-cleaner.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment-es.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
-    <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
-    <?php endif; ?>
-    <?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/colorpicker/js/bootstrap-colorpicker.min.js"></script>
-    <?php endif; ?>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/ajax_alumnos.js"></script>
+  <!-- BOOTSTRAP JS CORE -->
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-2.1.1.min.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap.min.js"></script>
+
+  <!-- PLUGINS JS -->
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/validator/validator.min.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/summernote.min.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/lang/summernote-es-ES.min.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/plugin/summernote-cleaner.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment-es.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
+  <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
+  <?php endif; ?>
+  <?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+  <?php endif; ?>
+  <script src="//<?php echo $config['dominio'];?>/intranet/js/ajax_alumnos.js"></script>
 
 
 	<script>
@@ -136,7 +117,6 @@
     var session_hours = 0;
     var session_minutes = 0;
     var session_seconds = 0;
-    $("#sessionTimer").removeClass('hidden');
 
     // Contamos el tiempo de sesión
     setInterval(function(){
