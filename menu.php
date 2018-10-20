@@ -91,7 +91,7 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 				<ul class="nav navbar-nav">
 					<!-- MENÚ DE USUARIO -->
 					<li class="dropdown" id="bs-tour-usermenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<span class="far fa-user-circle fa-fw fa-lg"></span> <small><?php echo $pr; ?></small> <b class="caret"></b> <span id="sessionTimer" class="label label-default hidden" style="margin-left: 10px;"></span></a>
+						<span class="far fa-user-circle fa-fw fa-lg"></span> <small><?php echo $pr; ?></small> <b class="caret"></b> <span id="sesionMenuTiempo" class="label label-default hidden" style="margin-left: 10px;"></span></a>
 
 						<ul class="dropdown-menu" style="min-width: 340px !important;">
 							<li class="hidden-xs">
