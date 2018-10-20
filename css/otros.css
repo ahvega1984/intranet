@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'JuntaAndalucia';
-  src: url('../fonts/JuntaAndalucia.eot?61968121');
-  src: url('../fonts/JuntaAndalucia.eot?61968121#iefix') format('embedded-opentype'),
-       url('../fonts/JuntaAndalucia.woff2?61968121') format('woff2'),
-       url('../fonts/JuntaAndalucia.woff?61968121') format('woff'),
-       url('../fonts/JuntaAndalucia.ttf?61968121') format('truetype'),
-       url('../fonts/JuntaAndalucia.svg?61968121#fontello') format('svg');
+  font-family: 'juntaandalucia';
+  src: url('../fonts/juntaandalucia.eot?61968121');
+  src: url('../fonts/juntaandalucia.eot?61968121#iefix') format('embedded-opentype'),
+       url('../fonts/juntaandalucia.woff2?61968121') format('woff2'),
+       url('../fonts/juntaandalucia.woff?61968121') format('woff'),
+       url('../fonts/juntaandalucia.ttf?61968121') format('truetype'),
+       url('../fonts/juntaandalucia.svg?61968121#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -13,7 +13,7 @@
 .icon-junta:before { content: '\e800'; }
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "JuntaAndalucia";
+  font-family: "juntaandalucia";
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block;

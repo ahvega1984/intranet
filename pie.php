@@ -130,32 +130,35 @@
 	</script>
 
 	<script>
-	$(document).ready(function() {
+	function tiempoSesion() {
 		var session_time = <?php echo ini_get("session.cookie_lifetime"); ?>;
-    var session_time_alert = 180; // Tiempo para mostrar alerta: 180 segundos (3 minutos)
+    var session_time_alert = <?php echo ini_get("session.cookie_lifetime"); ?> - 180; // Tiempo para mostrar alerta: 180 segundos (3 minutos)
     var session_hours = 0;
     var session_minutes = 0;
     var session_seconds = 0;
+    $("#sessionTimer").removeClass('hidden');
 
-    var sessionCountdown = setInterval(function(){
+    // Contamos el tiempo de sesión
+    setInterval(function(){
       session_time--;
 
       session_hours = Math.floor(session_time / 3600);
       session_minutes = Math.floor(session_time / 60);
       session_seconds = session_time - session_minutes * 60;
 
-      if (session_time == session_time_alert) {
-        $("#session_expired").modal('show');
-      }
-
-      if (session_time <= session_time_alert) {
-        $("#sessionTimer").removeClass('hidden');
-        $("#sessionTimer").html(((session_hours < 10) ? '0' : '') + session_hours + ':' + ((session_minutes < 10) ? '0' : '') + session_minutes + ':' + ((session_seconds < 10) ? '0' : '') + session_seconds);
-      }
-
-      if (session_time <= 0) {
-        document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/logout.php';
-      }
+      $("#sessionTimer").html(((session_hours < 10) ? '0' : '') + session_hours + ':' + ((session_minutes < 10) ? '0' : '') + session_minutes + ':' + ((session_seconds < 10) ? '0' : '') + session_seconds);
     }, 1000);
-	});
+
+    // Mostrar alerta
+    setTimeout(function(){
+        $("#session_expired").modal('show');
+        $("#sessionTimer").removeClass('hidden');
+    }, (session_time_alert * 1000));
+
+    // Tiempo agotado
+    setTimeout(function(){
+        document.location.href = 'http://<?php echo $config['dominio']; ?>/intranet/logout.php';
+    }, (<?php echo ini_get("session.cookie_lifetime"); ?> * 1000));
+	};
+  tiempoSesion();
 	</script>
