@@ -130,7 +130,7 @@
       $("#sesionMenuTiempo").html(((horas < 10) ? '0' : '') + horas + ':' + ((minutos < 10) ? '0' : '') + minutos + ':'  + ((segundos < 10) ? '0' : '') + segundos);
       $("#sesionAvisoTiempo").html((minutos < 1) ? segundos + ' segundos' : minutos + ' minutos');
 
-      if (mostrarAviso == 0 && (dias == 0 && horas == 0 && minutos == 5)) {
+      if (mostrarAviso == 0 && (dias == 0 && horas == 0 && minutos < 5)) {
         mostrarAviso = 1;
         $("#sesionAviso").modal('show');
         $("#sesionMenuTiempo").removeClass('hidden');
