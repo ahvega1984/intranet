@@ -612,10 +612,11 @@ include("../../../menu.php");
 
 			<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 			<?php if (isset($idprofesor) && ! empty($idprofesor)): ?>
-			<form action="exportar.php" method="POST">
+			<form action="exportar.php" method="POST" style="display: inline-block;">
 				<input type="hidden" name="idempleado" value="<?php echo $idprofesor; ?>">
 				<button type="submit" class="btn btn-info" name="exportar">Exportar horario individual <span class="badge">BETA</span></button>
 			</form>
+			<a class="btn btn-info" href="exportar.php">Exportar horarios <span class="badge">BETA</span></a>
 			<?php else: ?>
 			<div class="alert alert-info">
 				<strong>Aviso:</strong> No se ha encontrado el código de empleado en la base de datos.
