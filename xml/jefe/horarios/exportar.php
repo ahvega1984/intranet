@@ -43,24 +43,33 @@ while ($row = mysqli_fetch_array($result)) {
 	$result_unidad = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."'");
 	$row_unidad = mysqli_fetch_array($result_unidad);
 
-	$result_curso_por_asignatura = mysqli_query($db_con, "SELECT `idcurso` FROM `materias_seneca` WHERE `idmateria` = '".$row["c_asig"]."'  LIMIT 1");
-	if (mysqli_num_rows($result_curso_por_asignatura)) {
-		$row_curso_por_asignatura = mysqli_fetch_array($result_curso_por_asignatura);
-		$id_curso = $row_curso_por_asignatura['idcurso'];
-		$codigo_asignatura = $row['c_asig'];
-	}
-
-
-	$result_unidad_por_curso = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."' AND `idcurso` = '".$id_curso."'");
-	$row_unidad_por_curso = mysqli_fetch_array($result_unidad_por_curso);
-	if ($row_unidad['idunidad'] != $row_unidad_por_curso['idunidad']) {
-		$id_unidad = $row_unidad_por_curso['idunidad'];
+	// Comprobamos si la actividad requiere unidad y no es de tipo Docencia
+	$result_actividad_seneca = mysqli_query($db_con, "SELECT `idactividad` FROM `actividades_seneca` WHERE `idactividad` = $id_actividad AND `requnidadactividad` = 'S' AND `nomactividad` NOT LIKE 'Docencia%' LIMIT 1");
+	if (mysqli_num_rows($result_actividad_seneca)) {
+		$result_unidad_curso = mysqli_query($db_con, "SELECT `idunidad`, `idcurso` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."' LIMIT 1");
+		if (mysqli_num_rows($result_unidad_curso)) {
+			$row_unidad_curso = mysqli_fetch_array($result_unidad_curso);
+			$id_curso = $row_unidad_curso['idcurso'];
+			$id_unidad = $row_unidad_curso['idunidad'];
+		}
 	}
 	else {
-		$id_unidad = $row_unidad['idunidad'];
-	}
+		$result_curso_por_asignatura = mysqli_query($db_con, "SELECT `idcurso` FROM `materias_seneca` WHERE `idmateria` = '".$row["c_asig"]."'  LIMIT 1");
+		if (mysqli_num_rows($result_curso_por_asignatura)) {
+			$row_curso_por_asignatura = mysqli_fetch_array($result_curso_por_asignatura);
+			$id_curso = $row_curso_por_asignatura['idcurso'];
+			$codigo_asignatura = $row['c_asig'];
+		}
 
-	$result_materias = mysqli_query($db_con, "SELECT `idcurso` FROM `materias_seneca` WHERE `idmateria` = '".$row["c_asig"]."'  LIMIT 1");
+		$result_unidad_por_curso = mysqli_query($db_con, "SELECT `idunidad` FROM `unidades` WHERE `nomunidad` = '".$row["a_grupo"]."' AND `idcurso` = '".$id_curso."'");
+		$row_unidad_por_curso = mysqli_fetch_array($result_unidad_por_curso);
+		if ($row_unidad['idunidad'] != $row_unidad_por_curso['idunidad']) {
+			$id_unidad = $row_unidad_por_curso['idunidad'];
+		}
+		else {
+			$id_unidad = $row_unidad['idunidad'];
+		}
+	}
 
 	$result_dependencia = mysqli_query($db_con, "SELECT `iddependencia` FROM `dependencias` WHERE `nomdependencia` = '".$row["a_aula"]."'");
 	if (mysqli_num_rows($result_dependencia)) {
