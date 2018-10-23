@@ -431,9 +431,9 @@ include("../../../menu.php");
 					  		<?php endif; ?>
 						  	<optgroup label="Actividades">
 						  		<?php if ($unidad): ?>
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT `idactividad`, `nomactividad` FROM `actividades_seneca` WHERE `idactividad`='2' OR `idactividad`='21' OR `idactividad`='136' OR `nomactividad` LIKE 'Tutoría%' OR `idactividad` = '351' OR `idactividad` = '356' OR `idactividad` = '386' OR `idactividad` = '861' ORDER BY `nomactividad` ASC"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT `idactividad`, `nomactividad` FROM `actividades_seneca` WHERE `requnidadactividad` = 'S' AND `nomactividad` NOT LIKE 'Docencia%' ORDER BY `nomactividad` ASC"); ?>
 							  	<?php else: ?>
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT `idactividad`, `nomactividad` FROM `actividades_seneca` WHERE `nomactividad` NOT LIKE 'Docencia%' AND `nomactividad` NOT LIKE 'Tutoría%' AND `nomactividad` NOT LIKE 'Tutor de Ciclo Formativo%' AND `idactividad` <> '21' AND `idactividad` <> '136' ORDER BY `nomactividad` ASC"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT `idactividad`, `nomactividad` FROM `actividades_seneca` WHERE `requnidadactividad` = 'N' AND `nomactividad` NOT LIKE 'Docencia%' ORDER BY `nomactividad` ASC"); ?>
 							  	<?php endif; ?>
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
