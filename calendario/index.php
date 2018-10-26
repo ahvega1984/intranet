@@ -683,7 +683,8 @@ include("../menu.php"); ?>
 
 			$('.datetimepicker3').datetimepicker({
 				language: 'es',
-				pickTime: false
+				pickTime: false,
+				useCurrent: false
 			})
 
 			$('.datetimepicker4').datetimepicker({
@@ -692,25 +693,29 @@ include("../menu.php"); ?>
 				pickDate: false
 			})
 
-			// MODAL CONFIRMACION PARA ELIMINAR
-            $(".delete-calendar").on("click", function(e) {
-            	bootbox.setDefaults({
-            	  locale: "es",
-            	  show: true,
-            	  backdrop: true,
-            	  closeButton: true,
-            	  animate: true,
-            	  title: "Confirmación para eliminar",
-            	});
+			$('.datetimepicker1').on("dp.change", function (e) {
+				$('.datetimepicker3').data("DateTimePicker").setMinDate(e.date);
+			});
 
-                e.preventDefault();
-                var _this = this;
-                bootbox.confirm("Esta acción eliminará permanentemente los eventos del calendario ¿Seguro que desea continuar?", function(result) {
-                    if (result) {
-                        $(_this).parent().submit();
-                    }
-                });
-            });
+			// MODAL CONFIRMACION PARA ELIMINAR
+      $(".delete-calendar").on("click", function(e) {
+      	bootbox.setDefaults({
+      	  locale: "es",
+      	  show: true,
+      	  backdrop: true,
+      	  closeButton: true,
+      	  animate: true,
+      	  title: "Confirmación para eliminar",
+      	});
+
+          e.preventDefault();
+          var _this = this;
+          bootbox.confirm("Esta acción eliminará permanentemente los eventos del calendario ¿Seguro que desea continuar?", function(result) {
+              if (result) {
+                  $(_this).parent().submit();
+              }
+          });
+      });
 
 			// Control de errores en fechas y horas
 			$("#bCrear").click(function(){
@@ -734,13 +739,14 @@ include("../menu.php"); ?>
 				var horaInicio = $("#cmp_hora_ini").val();
 				var horaFin = $("#cmp_hora_fin").val();
 
-				if (fechaFinSQL < fechaInicioSQL) {
-					bootbox.alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+").");
-					$(".datetimepicker1").addClass("has-error");
-					$(".datetimepicker3").addClass("has-error");
-					return false;
+				if (!$("#cmp_fecha_diacomp").is(":checked")) {
+					if (fechaFinSQL < fechaInicioSQL) {
+						bootbox.alert("La fecha de finalización de la actividad (" +fechaFin+") es anterior a su comienzo ("+fechaInicio+").");
+						$(".datetimepicker1").addClass("has-error");
+						$(".datetimepicker3").addClass("has-error");
+						return false;
+					}
 				}
-
 
 				if((fechaInicioSQL == fechaFinSQL) && (horaFin <= horaInicio)){
 					bootbox.alert("La hora de finalización de la actividad (" +horaFin+") es anterior o igual a su comienzo ("+horaInicio+") en el mismo día.");
