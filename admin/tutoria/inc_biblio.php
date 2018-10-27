@@ -1,10 +1,10 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 <!-- Biblioteca -->
-<?php if($config['mod_biblioteca']): ?>
+<?php if(isset($config['mod_biblioteca']) && $config['mod_biblioteca']): ?>
 <h3>Devolución de Libros</h3>
 
-<?php $grupo = $_SESSION['mod_tutoria']['unidad']; 
+<?php $grupo = $_SESSION['mod_tutoria']['unidad'];
 	  $fecha_act = date('Y-m-d');
 ?>
 <table class="table table-hover">
@@ -24,7 +24,7 @@
 		<td><span data-bs='tooltip' title='<?php echo $list[3];?>'><a><?php echo $list[1].', '.$list[2];   ?></a></span></td>
 		<td nowrap style="text-align: center" class="text-danger"><?php echo strftime('%e %b',strtotime($list[4])); ?></td>
 	</tr>
-	<?	} ?>
+<?php	} ?>
 	</tbody>
 </table>
 <p><small class="text-muted">En rojo la fecha en la que debería haberse devuelto el ejemplar.</small></p>

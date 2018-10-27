@@ -232,7 +232,6 @@ while($hora2 = mysqli_fetch_row($hora0)) {
 	if ($found_key === false) array_push($array_unidades, $hora2);
 }
 
-
 foreach ($array_unidades as $hora2) {
 	$c_a="";
 	$c_b="";
@@ -290,7 +289,8 @@ foreach ($array_unidades as $hora2) {
 			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
-			if ($asignat=="2" or $asignat=="21" or $asignat=="386") {
+
+			if ($asignat == "2" || $asignat == "21" || $asignat == "386" || $asignat == "820") {
 				if ($asignat=="386") {
 					$res.="combasi like '%$codigo_pmar2:%' OR combasi like '%$codigo_pmar3:%' ";
 					$cod_asig = "asignatura like '$codigo_pmar2' OR asignatura like '$codigo_pmar3'";

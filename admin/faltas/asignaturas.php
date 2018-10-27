@@ -18,7 +18,7 @@ include("../../faltas/menu.php");
 
 if (isset($profe)) {}else{$profe= $_SESSION['profi'];}
 if (isset($materia)) {
-	
+
 $tr = explode(" -> ",$materia);
 $cod_asig = $tr[0];
 $asignatura = $tr[1];
@@ -59,10 +59,10 @@ if ($result) {
 			}
 
 
-			echo "</td></tr>\n"; 
+			echo "</td></tr>\n";
         } while($row = mysqli_fetch_array($result));
         echo "</tbody></table></center>";
-        } 
+        }
         else
         {
 			echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
@@ -88,6 +88,6 @@ Debes seleccionar una asugnatura con su Grupo y Nivel. Vuelve atrás e inténtal
 </div>
 
 	<?php include("../../pie.php"); ?>
-	
+
 </body>
 </html>

@@ -9,10 +9,10 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
 // COMPROBAMOS SI ES EL TUTOR, SI NO, ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
-	
+
 	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
 	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
-	
+
 }
 else {
 
@@ -26,54 +26,54 @@ else {
 			header('Location:'.'tutores.php');
 		}
 	}
-	
+
 }
 
-$PLUGIN_DATATABLES = 1; 
+$PLUGIN_DATATABLES = 1;
 include("../../menu.php");
 include("menu.php");
 ?>
 
 	<div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Resumen de la unidad</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
-		
-		
+
+
 		<!-- SCAFFOLDING -->
 		<div class="row">
-			
+
 			<div class="col-sm-12">
-				
+
 				<?php include("inc_pendientes.php"); ?>
-				
+
 			</div>
-			
+
 		</div>
-		
-		
+
+
 		<div class="row">
-		
+
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-4">
-				
+
 				<?php include("inc_asistencias.php"); ?>
 				<hr>
 				<h3>Actividades extraescolares</h3>
 				<?php include("inc_actividades.php"); ?>
 				<hr>
-				
-				
+
+
 			</div><!-- /.col-sm-4 -->
-			
-			
-			
+
+
+
 			<!-- COLUMNA CENTRAL -->
 			<div class="col-sm-4">
-				
+
 				<?php include("inc_convivencia.php"); ?>
 				<hr>
 				<?php include("inc_biblio.php"); ?>
@@ -81,31 +81,31 @@ include("menu.php");
 				<?php include("inc_informes_tareas.php"); ?>
 				<hr>
 				<?php include("inc_informes_accesos.php"); ?>
-				
+
 			</div><!-- /.col-sm-4 -->
-			
-			
-			
+
+
+
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-4">
-				
+
 				<?php if($_SESSION['pagina_centro'] == 1){ include("inc_mensajes.php"); ?>
 				<hr>
-				<?php } ?>				
-				
+				<?php } ?>
+
 				<?php include("inc_informes_tutoria.php"); ?>
 				<hr>
-				
+
 				<?php include("inc_intervenciones.php"); ?>
 				<hr>
-				
+
 			</div><!-- /.col-sm-4 -->
-			
-		
+
+
 		</div><!-- /.row -->
-		
+
 	</div><!-- /.container -->
-  
+
 <?php include("../../pie.php"); ?>
 		<script>
 	$(document).ready(function() {
@@ -113,11 +113,11 @@ include("menu.php");
 	  		"paging":   true,
 	      "ordering": true,
 	      "info":     false,
-	      
+
 	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-	  		
+
 	  		"order": [[ 1, "desc" ]],
-	  		
+
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
 	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",

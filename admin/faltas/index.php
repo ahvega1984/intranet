@@ -46,7 +46,7 @@ elseif ($submit5)
 else
 {
 	require('../../bootstrap.php');
-	
+
 	include("../../menu.php");
 	include("../../faltas/menu.php");
 	?>
@@ -66,10 +66,10 @@ else
 
 <fieldset>
 
-<legend>Faltas de un alumno</legend> 
-<p class="help-block">( Faltas de asistencia justificadas y no justificadas de un alumno en un rango de fechas. )</p> 
+<legend>Faltas de un alumno</legend>
+<p class="help-block">( Faltas de asistencia justificadas y no justificadas de un alumno en un rango de fechas. )</p>
 <div class="form-group col-md-3">
-<label for="grupo" class="control-label"> Grupo </label> 
+<label for="grupo" class="control-label"> Grupo </label>
 <SELECT id="grupo"
 	name="unidad1" onChange="submit()" class="form-control">
 	<OPTION><?php echo $unidad1;?></OPTION>
@@ -78,7 +78,7 @@ else
 </div>
 
 <div class="form-group col-md-9">
-<label for="al" class="control-label"> Alumno </label> 
+<label for="al" class="control-label"> Alumno </label>
 <select id="al"	name='nombre' class="form-control" required>
 	<?php
 	printf ("<OPTION></OPTION>");
@@ -129,7 +129,7 @@ else
 
 <div class="form-group col-md-4">
 <input name=submit2 type=submit id="submit2"
-	value='Lista detallada de Faltas' class="btn btn-primary"> 
+	value='Lista detallada de Faltas' class="btn btn-primary">
 </div>
 
 </fieldset>
@@ -143,13 +143,13 @@ else
 <div class="well well-large">
 
 <legend>Faltas de un grupo</legend>
-<p class="help-block">( Faltas justificadas o no justificadas de un grupo en un mes con posibilidad de elegir un número mínimo de faltas. )</p> 
+<p class="help-block">( Faltas justificadas o no justificadas de un grupo en un mes con posibilidad de elegir un número mínimo de faltas. )</p>
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 
 <fieldset>
 
 <div class="form-group col-md-6">
-<label class="control-label" for="unidad"> Grupo </label> 
+<label class="control-label" for="unidad"> Grupo </label>
 <SELECT
 	id="unidad" name="unidad" onChange="submit()" class="form-control">
 	<OPTION><?php echo $_POST['unidad'];?></OPTION>
@@ -157,10 +157,10 @@ else
 </SELECT>
 </div>
 
-<?php 
+<?php
 $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'); ?>
 <div class="form-group col-md-6">
-<label class="control-label" for="mes"> Mes </label> 
+<label class="control-label" for="mes"> Mes </label>
 <SELECT name='mes' id='mes'
 	class="form-control">
 	<OPTION></OPTION>
@@ -169,11 +169,11 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 		echo '<option value="'.$i.'">'.$meses[$i].'</option>';
 	}
 	?>
-</SELECT> 
+</SELECT>
 </div>
 
 <div class="form-group col-md-6">
-<label class="control-label" for="falta">Falta:</label> 
+<label class="control-label" for="falta">Falta:</label>
 <SELECT id='falta'  name='FALTA' class="form-control">
 	<OPTION>F</OPTION>
 	<OPTION>J</OPTION>
@@ -181,7 +181,7 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 </div>
 
 <div class="form-group col-md-6">
-<label class="control-label" for='numero2'> N&uacute;mero m&iacute;nimo de Faltas</label> 
+<label class="control-label" for='numero2'> N&uacute;mero m&iacute;nimo de Faltas</label>
 <INPUT id='numero2' name="numero2" type="text" class="form-control" maxlength="3" alt="Mes" value="1">
 </div>
 
@@ -201,13 +201,13 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 <div class="well well-large">
 
 <legend>Faltas de un Grupo en una fecha</legend>
-<p class="help-block">( Faltas justificadas o no justificadas de todos los alumnos de un Grupo en un día concreto del Curso.)</p> 
+<p class="help-block">( Faltas justificadas o no justificadas de todos los alumnos de un Grupo en un día concreto del Curso.)</p>
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 
 <fieldset>
 
 <div class="form-group col-md-6">
-<label class="control-label" for="grupo"> Grupo </label> 
+<label class="control-label" for="grupo"> Grupo </label>
 <SELECT
 	id="grupo" name="grupo" class="form-control" required>
 	<option></option>
@@ -242,13 +242,13 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 <div class="well well-large">
 
 <legend>Faltas por asignatura</legend>
-<p class="help-block">( Alumnos con faltas de asistencia no justificadas en una asignatura propia de un determinado profesor. )</p> 
+<p class="help-block">( Alumnos con faltas de asistencia no justificadas en una asignatura propia de un determinado profesor. )</p>
 <form action='index.php' method='post' name='f1' class='form' role='form'>
 
 <fieldset>
 
 <div class="form-group col-md-12">
-<label class="control-label" for="profe"> Profesor </label> 
+<label class="control-label" for="profe"> Profesor </label>
 <SELECT
 	id="profe" name="profe" onChange="submit()" class="form-control" required>
 <?php
@@ -273,25 +273,19 @@ if (isset($_POST['profe'])) {
 </div>
 
 <div class="form-group col-md-12">
-<label class="control-label" for="materia"> Asignatura </label> 
+<label class="control-label" for="materia"> Asignatura </label>
 <SELECT name='materia' id='materia'
 	class="form-control" required>
 	<OPTION></OPTION>
 <?php
 	$asig0 = mysqli_query($db_con, "SELECT distinct materia, grupo, nivel FROM profesores WHERE profesor = '$profe' order by grupo, nivel, materia asc");
-
-	if ($asig = mysqli_fetch_array($asig0))
-	{
+	while ($asig = mysqli_fetch_array($asig0)) {
 		$asig_query = mysqli_query($db_con,"select distinct codigo from asignaturas where nombre = '$asig[0]' and curso like '$asig[2]' and abrev not like '%\_%'");
 		$asig_qr = mysqli_fetch_array($asig_query);
-		do {
-			$opcion = printf ("<OPTION value = '$asig_qr[0] -> $asig[0] -> $asig[1] -> $asig[2]'>$asig[0] -> $asig[1] -> $asig[2]</OPTION>");
-			echo "$opcion";
-
-		} while($asig = mysqli_fetch_array($asig0));
+		echo "<OPTION value = '$asig_qr[0] -> $asig[0] -> $asig[1] -> $asig[2]'>$asig[0] -> $asig[1] -> $asig[2]</OPTION>";
 	}
 ?>
-</SELECT> 
+</SELECT>
 </div>
 
 <div class="form-group col-md-4">
@@ -317,11 +311,11 @@ if (isset($_POST['profe'])) {
 
 <p class="help-block">( Alumnos que
 tienen un número mínimo de faltas entre el rango de fechas
-seleccionadas. )</p> 
+seleccionadas. )</p>
 
 <div class="row">
 <div class="form-group col-md-6">
-<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
+<label class="control-label" for='numero'> Número mínimo de Faltas</label>
 <INPUT
 	name="numero" type="text" id="numero" class="form-control"
 	maxlength="3" value="1">
@@ -374,7 +368,7 @@ seleccionadas. )</p>
 
 <legend> Histórico de Partes de Aula digitalizados</legend>
 
-<p class="help-block">( Listado de archivos digitalizados de los partes de faltas semanales de los distintos grupos a lo largo del curso escolar. )</p> 
+<p class="help-block">( Listado de archivos digitalizados de los partes de faltas semanales de los distintos grupos a lo largo del curso escolar. )</p>
 
 <br>
 
@@ -399,24 +393,24 @@ seleccionadas. )</p>
 </div>
 	<?php include("../../pie.php");?>
 
-<script>  
-$(function ()  
-{ 
+<script>
+$(function ()
+{
 	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
-	
+
 	$('#datetimepicker2').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
-	
+
 	$('#datetimepicker3').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
-	
+
 	$('#datetimepicker4').datetimepicker({
 		language: 'es',
 		pickTime: false
@@ -426,7 +420,7 @@ $(function ()
 		language: 'es',
 		pickTime: false
 	});
-});  
+});
 </script>
 </body>
 </html>
