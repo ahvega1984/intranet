@@ -88,14 +88,17 @@ foreach($_POST as $clave => $valor)
 
 		// Enviamos un SMS a los padres si el alumno ha faltado a primera hora
 		if (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) {
-			if ($valor == 'F') {
-				$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
-				$sms_row = mysqli_fetch_array($sms_alumno);
-				$sms_apellidos = trim($sms_row[0]);
-				$sms_nombre_alum = trim($sms_row[1]);
-				$sms_unidad = trim($sms_row[2]);
-				$sms_tfno = trim($sms_row[5]);
-				$sms_tfno_u = trim($sms_row[6]);
+			$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA, alma.DNITUTOR FROM alma WHERE alma.claveal = '$claveal'" );
+			$sms_row = mysqli_fetch_array($sms_alumno);
+			$sms_apellidos = trim($sms_row[0]);
+			$sms_nombre_alum = trim($sms_row[1]);
+			$sms_unidad = trim($sms_row[2]);
+			$sms_tfno = trim($sms_row[5]);
+			$sms_tfno_u = trim($sms_row[6]);
+			$sms_tutor1 = trim($sms_row[7]);
+
+			if ($hora == '1' && $valor == 'F' && ! empty($sms_tutor1)) {
+
 				$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
 
 				if (substr($sms_tfno, 0, 1) == "6" || substr($sms_tfno, 0, 1 ) == "7") {
