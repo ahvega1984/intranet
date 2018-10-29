@@ -228,16 +228,9 @@ include("cuaderno/menu_cuaderno.php");
 						$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
 						//echo $hay0."<br>";
 						$hay1 = mysqli_query($db_con, $hay0);
-						$hay = mysqli_fetch_row($hay1);
 						$todos = "";
-						if(mysqli_num_rows($hay1) == "1"){
-							$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
-							$t_al = explode(",",$seleccionados);
-							$todos = " and (claveal = '300'";
-							foreach($t_al as $cadauno){
-								$todos .=" or claveal = '$cadauno'";
-							}
-							$todos .= ")";
+						if(mysqli_num_rows($hay1) > 0){
+							$todos .= " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
 						}
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
@@ -496,22 +489,17 @@ include("cuaderno/menu_cuaderno.php");
 						echo '<input name=asignatura type=hidden value="';
 						echo $asignatura;
 						echo '" />';
+
+
 						if (empty($seleccionar)) {
 							if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
 							mysqli_select_db($db_con, $db);
 							$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
 							//echo $hay0."<br>";
 							$hay1 = mysqli_query($db_con, $hay0);
-							$hay = mysqli_fetch_row($hay1);
 							$todos = "";
-							if(mysqli_num_rows($hay1) == "1"){
-								$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
-								$t_al = explode(",",$seleccionados);
-								$todos = " and (claveal = '9999999'";
-								foreach($t_al as $cadauno){
-									$todos .=" or claveal = '$cadauno'";
-								}
-								$todos .= ")";
+							if(mysqli_num_rows($hay1) > 0){
+								$todos .= " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
 							}
 						}
 
