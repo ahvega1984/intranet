@@ -96,7 +96,7 @@ include("../../menu.php");
                     <p>Desmarca aquellos alumnos a los que no impartes materia. Esto evitará que aparezca las notificaciones de Informes de tareas o tutoría, o aparezca en tus listados de grupos y faltas de asistencia.</p>
                 </div>
 
-                <?php $result = mysqli_query($db_con, "SELECT DISTINCT p.nivel, p.materia, p.grupo, m.codigo FROM profesores AS p, materias AS m WHERE p.profesor = '".$pr."' AND p.materia = m.nombre AND p.grupo = m.grupo AND p.nivel = m.curso AND m.abrev NOT LIKE '%\_%'"); ?>
+                <?php $result = mysqli_query($db_con, "SELECT DISTINCT p.nivel, p.materia, p.grupo, m.codigo FROM profesores AS p, asignaturas AS m WHERE p.profesor = '".$pr."' AND p.materia = m.nombre AND p.nivel = m.curso AND m.abrev NOT LIKE '%\_%'"); ?>
                 <?php if (mysqli_num_rows($result)): ?>
                 <form action="" method="post">
                     <div class="panel-group" id="materias" role="tablist" aria-multiselectable="true">
