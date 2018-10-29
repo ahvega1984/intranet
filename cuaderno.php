@@ -230,7 +230,7 @@ include("cuaderno/menu_cuaderno.php");
 						$hay1 = mysqli_query($db_con, $hay0);
 						$todos = "";
 						if(mysqli_num_rows($hay1) > 0){
-							$todos .= " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
+							$todos = " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
 						}
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
@@ -499,7 +499,7 @@ include("cuaderno/menu_cuaderno.php");
 							$hay1 = mysqli_query($db_con, $hay0);
 							$todos = "";
 							if(mysqli_num_rows($hay1) > 0){
-								$todos .= " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
+								$todos = " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
 							}
 						}
 
