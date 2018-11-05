@@ -230,8 +230,15 @@ include("cuaderno/menu_cuaderno.php");
 						$hay1 = mysqli_query($db_con, $hay0);
 						$todos = "";
 						if(mysqli_num_rows($hay1) > 0){
-							$todos = " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
-						}
+							$t_al = mysqli_fetch_array($hay1);
+							$todos = " and (";
+								$todos_al = explode(",", $t_al[0]);
+									foreach ($todos_al as $val) {
+										$todos .= " claveal like '$val' or";
+									}
+								$todos = substr($todos, 0, -2);	
+							    					}
+							$todos .= " )";
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
 					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
@@ -262,7 +269,7 @@ include("cuaderno/menu_cuaderno.php");
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
 					$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
-					//echo $resul;
+					// echo $resul;
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
 					{
@@ -499,8 +506,15 @@ include("cuaderno/menu_cuaderno.php");
 							$hay1 = mysqli_query($db_con, $hay0);
 							$todos = "";
 							if(mysqli_num_rows($hay1) > 0){
-								$todos = " and claveal in (select distinct claveal from grupos where unidad = '$curso_orig' and (asignatura = '$asignatura' $extra_asig) and profesor = '$pr') ";
-							}
+								$t_al = mysqli_fetch_array($hay1);
+								$todos = " and (";
+									$todos_al = explode(",", $t_al[0]);
+										foreach ($todos_al as $val) {
+											$todos .= " claveal like '$val' or";
+										}
+									$todos = substr($todos, 0, -2);	
+								    					}
+								$todos .= " )";
 						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
