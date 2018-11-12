@@ -241,9 +241,11 @@ include("cuaderno/menu_cuaderno.php");
 							$todos .= " )";
 					}
 					// Alumnos para presentar que tengan esa asignatura en combasi
-					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
+					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and ";
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
+
+							$resul.=" (";
 
 							$cod_asig_bach="";
 							// Bachillerato con dos códigos distintos
@@ -268,7 +270,7 @@ include("cuaderno/menu_cuaderno.php");
 					else{
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
-					$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
+					$resul.=" ". $todos ." order by alma.apellidos, alma.nombre ASC";
 					// echo $resul;
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
@@ -518,9 +520,10 @@ include("cuaderno/menu_cuaderno.php");
 						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
-						$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
+						$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and ";
 						//Alumnos de 2º de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
+							$resul.=" (";
 							$cod_asig_bach2="";
 							// Bachillerato con dos códigos distintos
 							$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where prof = '$pr' and dia = '$dia' and hora = '$hora' and c_asig not like '$asignatura'");
@@ -544,7 +547,7 @@ include("cuaderno/menu_cuaderno.php");
 							$fal_e =" FALTAS.codasi='$asignatura' ";
 						}
 						$fal_e="($fal_e)";
-						$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
+						$resul.=" ". $todos ." order by alma.apellidos, alma.nombre ASC";
 						//echo $resul;
 						$result = mysqli_query($db_con, $resul);
 						while($row = mysqli_fetch_array($result))
