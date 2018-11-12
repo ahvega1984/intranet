@@ -283,7 +283,7 @@ $menu = array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
 				'modulo'  => $config['mod_matriculacion'],
-				'meses'	 => array(6, 7, 8),
+				'cargos'	 => array(7),
 			),
 			array(
 					'href'   => 'admin/noticias/permanentes.php',
@@ -671,7 +671,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 					'target' => '_blank',
 				),
 				array(
-					'href'   => 'https://iesmonterroso.org/plan-de-centro/',
+					'href'   => 'https://iesmonterroso.org/plan-de-centro//',
 					'titulo' => 'Plan de centro',
 					'target' => '_blank',
 				),
