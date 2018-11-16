@@ -157,10 +157,13 @@ include("menu.php");
 			<div class="col-sm-5">
 
 				<div id="botones_grupos">
-					<a href="javascript:seleccionar_todo()"	class="btn btn-sm btn-info">Todos</a>&nbsp;
+					<a href="javascript:seleccionar_todo()"	class="btn btn-sm btn-info">Todos los Profesores</a>&nbsp;
 					<a href="javascript:seleccionar_tutor()" class="btn btn-sm btn-info">Tutores</a>&nbsp;
-					<a href="javascript:seleccionar_jd()" class="btn btn-sm btn-info">Jefes Deptos.</a>&nbsp;
-					<a href="javascript:seleccionar_ca()" class="btn btn-sm btn-info">C. de Areas</a>&nbsp;
+					<a href="javascript:seleccionar_jd()" class="btn btn-sm btn-info">Jefes de Depto.</a>&nbsp;<hr>
+					<a href="javascript:seleccionar_ca()" class="btn btn-sm btn-info">Coordinadores de Area</a>&nbsp;
+					<?php if ($config['mod_bilingue']==1) { ?>
+					<a href="javascript:seleccionar_bil()" class="btn btn-sm btn-info">Bilingüismo</a>
+					<?php } ?>
 					<a href="javascript:seleccionar_ed()" class="btn btn-sm btn-info">Dirección</a>
 				</div>
 
@@ -277,6 +280,18 @@ function seleccionar_ca(){
 		if(document.cargos.elements[i].type == "hidden"){
 		valorCasilla = document.cargos.elements[i].value;
 		valorReal = valorCasilla.indexOf("9");
+		if(valorReal >= "0"){
+			document.cargos.elements[i-1].checked=1;
+}
+}
+}
+}
+function seleccionar_bil(){
+	deseleccionar_todo()
+	for (i=0;i<document.cargos.elements.length;i++){
+		if(document.cargos.elements[i].type == "hidden"){
+		valorCasilla = document.cargos.elements[i].value;
+		valorReal = valorCasilla.indexOf("a");
 		if(valorReal >= "0"){
 			document.cargos.elements[i-1].checked=1;
 }
