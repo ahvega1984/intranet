@@ -90,7 +90,7 @@ $curso_tutor=$query2[0];
 		<?php endif; ?>
 		<?php if($config['centro_provincia']=="Málaga"): ?>
 		<li class="divider"></li>
-		<li><a href="http://lnx.educacionenmalaga.es/orientamalaga/plan-provincial-2/" target="_blank">Plan Provincial contra el Absentismo Escolar</a></li>
+		<li><a href="https://www.educacionenmalaga.es/orientamalaga/plan-provincial-2/" target="_blank">Plan Provincial contra el Absentismo Escolar</a></li>
 		<?php endif; ?>
 	</ul>
 	</li>
