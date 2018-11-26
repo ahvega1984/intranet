@@ -237,13 +237,14 @@ include("cuaderno/menu_cuaderno.php");
 										$todos .= " claveal like '$val' or";
 									}
 								$todos = substr($todos, 0, -2);	
-							    					}
-							$todos .= " )";
-					}
+								$todos .= ")";
+							}
+						}
 					// Alumnos para presentar que tengan esa asignatura en combasi
-					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
+					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and ";
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
+
 
 							$cod_asig_bach="";
 							// Bachillerato con dos códigos distintos
@@ -252,7 +253,7 @@ include("cuaderno/menu_cuaderno.php");
 							if (mysqli_num_rows($asig_bach)>0) {							
 								$as_bach=mysqli_fetch_array($asig_bach);
 								$cod_asig_bach = $as_bach[0];							
-								$resul.=" combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach:%'";
+								$resul.=" (combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach:%')";
 								$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$cod_asig_bach'";
 							}
 							else{								
@@ -268,7 +269,7 @@ include("cuaderno/menu_cuaderno.php");
 					else{
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
-					$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
+					$resul.=" ". $todos ." order by alma.apellidos, alma.nombre ASC";
 					// echo $resul;
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
@@ -513,12 +514,13 @@ include("cuaderno/menu_cuaderno.php");
 											$todos .= " claveal like '$val' or";
 										}
 									$todos = substr($todos, 0, -2);	
+									$todos .= " )";
 								    					}
-								$todos .= " )";
+								
 						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
-						$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and (";
+						$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and ";
 						//Alumnos de 2º de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
 							$cod_asig_bach2="";
@@ -527,7 +529,7 @@ include("cuaderno/menu_cuaderno.php");
 							if (mysqli_num_rows($asig_bach)>0) {							
 								$as_bach=mysqli_fetch_array($asig_bach);
 								$cod_asig_bach2 = $as_bach[0];							
-								$resul.=" combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach2:%'";
+								$resul.=" (combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach2:%')";
 								$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$cod_asig_bach2'";
 							}
 							else{								
@@ -544,8 +546,8 @@ include("cuaderno/menu_cuaderno.php");
 							$fal_e =" FALTAS.codasi='$asignatura' ";
 						}
 						$fal_e="($fal_e)";
-						$resul.=") ". $todos ." order by alma.apellidos, alma.nombre ASC";
-						//echo $resul;
+						$resul.=" ". $todos ." order by alma.apellidos, alma.nombre ASC";
+						//echo $resul."<br>";
 						$result = mysqli_query($db_con, $resul);
 						while($row = mysqli_fetch_array($result))
 						{
@@ -622,6 +624,7 @@ include("cuaderno/menu_cuaderno.php");
 					<?php if ($config['mod_asistencia']) { ?>
 					<td style='vertical-align: middle; height: 74px !important;'><?php 
 					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
+					//echo "select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'";
 
 					$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='J'");
 					$f_faltaT = mysqli_num_rows($faltaT_F);

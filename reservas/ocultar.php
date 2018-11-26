@@ -119,7 +119,7 @@ quedarán ocultas en la selección de aulas del sistema de reservas.</p>
 <table class="table table-striped">
 <?php
 echo "<thead><th colspan=3>Aulas en el Horario</th><th></th></thead>";
-$aulas = mysqli_query($db_con,"select distinct a_aula, n_aula from horw where c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') and a_aula not like '' order by a_aula");
+$aulas = mysqli_query($db_con,"select distinct a_aula, n_aula from horw where a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' order by a_aula");
 while ($aula = mysqli_fetch_array($aulas)) {
 	$check="";
 	$abrev0 = $aula[0];

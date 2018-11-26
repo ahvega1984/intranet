@@ -28,15 +28,20 @@ else{
 }
 
 $fecha_act = date('Y-m-d');	
-$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion, id from morosos $extra_orden") or die ("error query lista");
+$lista=mysqli_query($db_con, "select curso, apellidos, nombre, ejemplar, devolucion, id, amonestacion, sms from morosos $extra_orden") or die ("error query lista");
+
 while($datatmp = mysqli_fetch_array($lista)) {
+  $amonestacion = "";
+  $sms = "";
   if(strstr($datatmp[0],"Monter")==TRUE){$datatmp[0]="Prof.";}
+  if($datatmp[6] == "SI"){$amonestacion=" (Amonest.)";}
+  if($datatmp[7] == "SI"){$sms=" (SMS)";}
 	$data[] = array(
 				'id'=>$datatmp[5],
 				'curso'=>utf8_decode($datatmp[0]),
 				'nombre'=>utf8_decode($datatmp[1]).', '.utf8_decode($datatmp[2]),
 				'ejemplar'=>utf8_decode($datatmp[3]),
-				'devol'=>utf8_decode($datatmp[4])
+				'devol'=>utf8_decode($datatmp[4]).$amonestacion.$sms
 				);
 											}
 $titles = array(

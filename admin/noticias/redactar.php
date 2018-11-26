@@ -18,7 +18,7 @@ if (isset($_POST['enviar'])) {
 	// VARIABLES DEL FORMULARIO
 	$titulo = $_POST['titulo'];
 	$contenido = addslashes($_POST['contenido']);
-	$caracteres_contenido = strlen(strip_tags($_POST['contenido']));
+	$caracteres_contenido = strlen($_POST['contenido']);
 	$autor = $_POST['autor'];
 	$fechapub = $_POST['fechapub'];
 	$categoria = $_POST['categoria'];

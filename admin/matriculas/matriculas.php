@@ -1441,7 +1441,7 @@ exit();
 	value="<?php echo (isset($repetidor)) ? $repetidor : ''; ?>">
 
 <?php
-if (strstr($_SESSION['cargo'],"1")==TRUE) {
+if (strstr($_SESSION['cargo'],"1")==TRUE OR strstr($_SESSION['cargo'],"7")==TRUE) {
 ?>
 <button type="submit" class="btn btn-primary" name="enviar">Guardar
 cambios</button>
