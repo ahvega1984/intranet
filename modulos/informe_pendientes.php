@@ -3,7 +3,7 @@ echo "<div class='alert alert-info fade in' role='alert'><p class='lead'><i clas
 
 // Alumnos pendientes con asignaturas sin continuidad para los Jefes de Departamento
 
-$query = mysqli_query($db_con,"SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' ORDER BY F_ENTREV asc");
+$query = mysqli_query($db_con,"SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal, alma.unidad FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(infotut_alumno.F_ENTREV) >= '$hoy' ORDER BY infotut_alumno.F_ENTREV asc");
 while($row = mysqli_fetch_array($query)){
 	$query2 = mysqli_query($db_con,"select distinct claveal, nombre, abrev from pendientes, asignaturas where pendientes.codigo = asignaturas.codigo and claveal = '$row[4]' and abrev like '%\_%' and nombre not in (select materia from profesores where grupo = '$row[5]')");
 	if (mysqli_num_rows($query2)>0) {
@@ -21,7 +21,7 @@ while($row = mysqli_fetch_array($query)){
 					$fechac = explode("-",$row[3]);
 
 					echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
-					<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row[2] $row[1]</a> -- $row[5]  
+					<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row[2] $row[1]</a> -- $row[5]
 					<span class='pull-right'>
 					<a href='./admin/infotutoria/infocompleto.php?id=$row[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fas fa-search fa-fw fa-lg'></span></a>
 					<a href='./admin/infotutoria/informar.php?id=$row[0]&materia=$row2[1]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fas fa-pencil-alt fa-fw fa-lg'></span></a>
@@ -62,10 +62,10 @@ while($row = mysqli_fetch_array($query)){
 					</div>
 					</div>
 					<?
-				}						
-			}				
-		}			
-	}		
+				}
+			}
+		}
+	}
 }
 
 
@@ -73,7 +73,7 @@ if ($n_i==1) {
 	echo "<br>";
 }
 
-?>	
+?>
 
 <script language="javascript">
     $('#myModal2').modal()

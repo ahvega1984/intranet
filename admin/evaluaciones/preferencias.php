@@ -15,18 +15,17 @@ function limpiar_string($string)
 if (isset($_POST['btnGuardar'])) {
 
 	$prefActaEso	= limpiar_string($_POST['prefActaEso']);
-    $prefActaBach	= limpiar_string($_POST['prefActaBach']);
-    $prefActaFP	    = limpiar_string($_POST['prefActaFP']);
+  $prefActaBach	= limpiar_string($_POST['prefActaBach']);
+  $prefActaFP	  = limpiar_string($_POST['prefActaFP']);
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
-	if($file = fopen('config.php', 'w+'))
-	{
+	if($file = fopen('config.php', 'w+')) {
 		fwrite($file, "<?php \r\n");
 
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE SESIONES DE EVALUACIÓN\r\n");
-		fwrite($file, "\$config['evaluaciones']['acta_eso']\t= \"$prefActaEso\";\r\n");
-        fwrite($file, "\$config['evaluaciones']['acta_bach']\t= \"$prefActaBach\";\r\n");
-        fwrite($file, "\$config['evaluaciones']['acta_fp']\t= \"$prefActaFP\";\r\n");
+		fwrite($file, "\$config['evaluaciones']['acta_eso']\t= '$prefActaEso';\r\n");
+    fwrite($file, "\$config['evaluaciones']['acta_bach']\t= '$prefActaBach';\r\n");
+    fwrite($file, "\$config['evaluaciones']['acta_fp']\t= '$prefActaFP';\r\n");
 
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
 
@@ -79,19 +78,19 @@ include("menu.php");
 
 						<div class="form-group">
 							<label for="prefActaEso" class="control-label">Modelo de acta para evaluaciones de ESO</label>
-                                <textarea class="form-control" id="prefActaEso" name="prefActaEso" rows="20"><?php echo (isset($config['evaluaciones']['acta_eso'])) ? $config['evaluaciones']['acta_eso'] : $texto_acta_eso; ?></textarea>
-                        </div>
+              <textarea class="form-control" id="prefActaEso" name="prefActaEso" rows="20"><?php echo (isset($config['evaluaciones']['acta_eso'])) ? $config['evaluaciones']['acta_eso'] : $texto_acta_eso; ?></textarea>
+            </div>
 
-                        <div class="form-group">
+            <div class="form-group">
 							<label for="prefActaEso" class="control-label">Modelo de acta para evaluaciones de Bachillerato</label>
-                                <textarea class="form-control" id="prefActaEso" name="prefActaEso" rows="20"><?php echo (isset($config['evaluaciones']['acta_bach'])) ? $config['evaluaciones']['acta_bach'] : $texto_acta_bach; ?></textarea>
-                        </div>
+              <textarea class="form-control" id="prefActaEso" name="prefActaBach" rows="20"><?php echo (isset($config['evaluaciones']['acta_bach'])) ? $config['evaluaciones']['acta_bach'] : $texto_acta_bach; ?></textarea>
+            </div>
 
-                        <div class="form-group">
+            <div class="form-group">
 							<label for="prefActaEso" class="control-label">Modelo de acta para evaluaciones de Formación Profesional</label>
-                                <textarea class="form-control" id="prefActaEso" name="prefActaEso" rows="20"><?php echo (isset($config['evaluaciones']['acta_fp'])) ? $config['evaluaciones']['acta_fp'] : $texto_acta_fp; ?></textarea>
+              <textarea class="form-control" id="prefActaEso" name="prefActaFP" rows="20"><?php echo (isset($config['evaluaciones']['acta_fp'])) ? $config['evaluaciones']['acta_fp'] : $texto_acta_fp; ?></textarea>
 						</div>
-                    </fieldset>
+          </fieldset>
 
 				</div>
 

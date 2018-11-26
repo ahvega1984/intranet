@@ -78,8 +78,11 @@
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'correo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'] .'/intranet/admin/mensajes/';?>correo.php">Redactar correo</a></li>
 
 		<?php if (file_exists(INTRANET_DIRECTORY .'/sms/config.php')) { include_once(INTRANET_DIRECTORY . '/sms/config.php');}?>
-		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && ((stristr($_SESSION['cargo'],'1') == TRUE) or (stristr($_SESSION['cargo'],'6') == TRUE) or (stristr($_SESSION['cargo'],'7') == TRUE) or (stristr($_SESSION['cargo'],'8') == TRUE)  or (stristr($_SESSION['cargo'],'a') == TRUE) or in_array($_SESSION['ide'],$permiso_sms))): ?>
-		<li><a href="//<?php echo $config['dominio'] .'/intranet/sms/';?>index.php">SMS</a></li>
+		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && acl_permiso($_SESSION['cargo'], array('1','2','8'))): ?>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'sms/alumnado')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'];?>/intranet/sms/alumnado.php">SMS</a></li>
+		<?php endif; ?>
+		<?php if((isset($config['mod_sms']) && $config['mod_sms']) && acl_permiso($_SESSION['cargo'], array('4'))): ?>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'sms/profesorado')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio'];?>/intranet/sms/profesorado.php">SMS</a></li>
 		<?php endif; ?>
 	</ul>
 

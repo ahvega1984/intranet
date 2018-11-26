@@ -143,7 +143,7 @@ for ($i=0;$i<$num_a;$i++){
 		// FIN SMS
 
 		// Envío de Email
-		if (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres'])) {
+		if (($grave == "grave" || $grave == "muy grave") && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
 		 $cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
 		 $cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");
 		 if(mysqli_num_rows($cor_alma)>0){

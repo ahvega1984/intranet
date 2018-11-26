@@ -256,6 +256,9 @@ if (isset($_POST['instalar']))
 			mysqli_multi_query($db_con, $sql) or die (mysqli_error($db_con));
 			while (mysqli_next_result($db_con));
 
+			// APLICAMOS ACTUALIZACIONES EN LA BASE DE DATOS
+			include('../actualizar.php');
+
 			// AÑADIENDO USUARIO ADMINISTRADOR
 			mysqli_query($db_con, "INSERT INTO `c_profes` (`id`, `pass`, `PROFESOR`, `dni`, `idea`, `correo`, `estado`) VALUES
 			(1, '$pass_sha1', 'Administrador', '$pass_admin', 'admin', NULL, 0)") or die ("No se ha podido añadir el usuario Administrador a la tabla 'c_profes'. Error: ".mysqli_error($db_con));

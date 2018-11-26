@@ -22,7 +22,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 
 	if($c_asig){
 		$hoy = date('Y-m-d');
-		$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, motivo FROM infotut_alumno WHERE date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$curso' and apellidos like 'Informe general%' ORDER BY F_ENTREV asc";
+		$query = "SELECT id, apellidos, nombre, F_ENTREV, claveal, motivo FROM infotut_alumno WHERE date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$curso' and apellidos like 'Informe general%' ORDER BY F_ENTREV asc";
 		//echo $query."<br>";
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";
@@ -45,7 +45,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 				$fechac = explode("-",$row1[3]);
 
 				echo "<p>$fechac[2]-$fechac[1]-$fechac[0].
-	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[5]</a> -- $curso $row[6]
+	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[1]</a> -- $curso $row[6]
 	<span class='pull-right'>
 	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Ver informe'><span class='fas fa-search fa-fw fa-lg'></span></a>
 	<a href='./admin/infotutoria/informar_general.php?id=$row1[0]' class='alert-link' data-bs='tooltip' title='Rellenar'><span class='fas fa-pencil-alt fa-fw fa-lg'></span></a>
@@ -63,10 +63,10 @@ while($rowcurs = mysqli_fetch_array($resultcurs33))
 </div>
 <div class="modal-body">
 	<?php
-$alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
+$alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'") or die (mysqli_error($db_con));
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
-$datos=mysqli_query($db_con, "SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$row1[0]'");
+$datos=mysqli_query($db_con, "SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$row1[0]'") or die (mysqli_error($db_con));
 if(mysqli_num_rows($datos) > 0)
 {
 	while($informe = mysqli_fetch_array($datos))

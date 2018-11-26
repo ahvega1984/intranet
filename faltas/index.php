@@ -114,7 +114,7 @@ if($mensaje){
 	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '820' and idactividad not like '25') ORDER BY a_grupo ASC");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where requnidadactividad = 'N' AND idactividad <> 25) ORDER BY a_grupo ASC");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
@@ -290,7 +290,7 @@ foreach ($array_unidades as $hora2) {
 		}
 		else{
 
-			if ($asignat == "2" || $asignat == "21" || $asignat == "386" || $asignat == "820") {
+			if ($asignat == "2" || $asignat == "21" || $asignat == "386" || $asignat == "820" || $asignat == "861") {
 				if ($asignat=="386") {
 					$res.="combasi like '%$codigo_pmar2:%' OR combasi like '%$codigo_pmar3:%' ";
 					$cod_asig = "asignatura like '$codigo_pmar2' OR asignatura like '$codigo_pmar3'";

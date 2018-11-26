@@ -4,7 +4,7 @@ require('../bootstrap.php');
 include("config.php");
 
 if (in_array($_SESSION['ide'],$permiso_sms)){
-	
+
 	$cargo_anterior = $_SESSION['cargo'];
 	$_SESSION['cargo'] = 'a';
 
@@ -46,7 +46,7 @@ function contar(form,name) {
     document.forms[form]['result'].value = t-n;
   }
 }
-</script> 
+</script>
 <div class="container">
 
 <div class="page-header">
@@ -58,11 +58,11 @@ if(strlen($unidad)>1){
 		$t1 = mysqli_fetch_row($t0);
 ?>
 <h4 class="text-info">Tutor/a: <?php echo nomprofesor($t1[0]); ?></h4>
-<?		
+<?
 	}
 ?>
 <h4 class="text-info">Grupo: <?php echo $unidad; ?></h4>
-<?	 		
+<?
 	 	}
 ?>
 </div>
@@ -71,7 +71,7 @@ if(strlen($unidad)>1){
 
 <?php
  if ($config['mod_sms']) {
-// variables(); 
+// variables();
 // Procesado de los datos del Formulario
 if($submit0 == "Enviar SMS")
 {
@@ -92,7 +92,7 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el tex
 		  exit();
 }
   	if(strlen($text) > "2")
-	{ 
+	{
 	if($nombre)
 	{
 	foreach($nombre as $tel)
@@ -100,9 +100,9 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el tex
 	$trozos = explode(" --> ",$tel);
 	$claveal = trim($trozos[0]);
 	$tel0 = mysqli_query($db_con, "select telefono, telefonourgencia, apellidos, alma.nombre, alma.unidad, alma.matriculas, tutor, idea from alma, FTUTORES, departamentos where FTUTORES.unidad = alma.unidad and FTUTORES.tutor = departamentos.nombre and claveal = '$claveal'");
-	
+
 	$tel1 = mysqli_fetch_array($tel0);
-	$tfno = $tel1[0];	
+	$tfno = $tel1[0];
 	$tfno_u = $tel1[1];
 	$apellidos = $tel1[2];
 	$nombre = $tel1[3];
@@ -114,9 +114,9 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el tex
 	if (stristr($todos_tutores,"$tutor_idea|$unidad;")==FALSE) {
 		$todos_tutores.="$tutor_idea|$unidad;";
 	}
-	
+
 	if(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7"){$mobil=$tfno;}elseif((substr($tfno_u,0,1)=="6" OR substr($tfno_u,0,1)=="7") and !(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7")){$mobil=$tfno_u;}else{$mobil="";}
-	
+
 	//if(substr($tfno,0,1)=="6"){$mobil=$tfno;}elseif(substr($tfno_u,0,1)=="6" and !(substr($tfno,0,1)=="6")){$mobil=$tfno_u;}else{$mobil="";}
 	if (strlen($mobil)>2) {
 		$mobile.=$mobil.",";
@@ -150,13 +150,13 @@ $extid = $n_sms[0]+1;
 	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 	$sms = new Trendoo_SMS();
 	$sms->sms_type = SMSTYPE_GOLD_PLUS;
-	
+
 	$exp_moviles = explode(',', $mobile);
-	
+
 	foreach ($exp_moviles as $num_movil) {
-		
+
 		$num_movil = trim($num_movil);
-		
+
 		if(strlen($num_movil) == 9) {
 			$sms->add_recipient('+34'.$num_movil);
 		}
@@ -168,32 +168,32 @@ $extid = $n_sms[0]+1;
 			<br>";
 		}
 	}
-	
+
 	$sms->message = $text;
 	$sms->sender = $config['mod_sms_id'];
 	$sms->set_immediate();
 	if ($sms->validate()) $sms->send();
-	
+
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
 	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
 	El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acción tutorial ha sido también registrada.
 	          </div></div>';
-	
+
 }
 
 // Mensaje al Tutor
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
 	$trozos_tutores = explode(";",$todos_tutores);
-	
+
 	foreach ($trozos_tutores as $val_tutor){
 		$tr_tutor = explode("|",$val_tutor);
 		$tut = $tr_tutor[0];
 		$unidad_tut = $tr_tutor[1];
 		$alumnos_sms="";
 		$alumnos_nombre="";
-		
+
 			$trozos_alumnos = explode(";",$alumno_mens);
 			foreach ($trozos_alumnos as $val_alumno){
 				$tr_al = explode("|",$val_alumno);
@@ -202,14 +202,14 @@ if (stristr($_SESSION['cargo'],'1') == TRUE) {
 				$al_nom  = mysqli_query($db_con, "select nombre, apellidos from alma where claveal='$al_sms'");
 				$al_nombre = mysqli_fetch_array($al_nom);
 				$al_nombre_sms = "$al_nombre[0] $al_nombre[1]";
-				
+
 				if ($unidad_tut == $unidad_al) {
 					$alumnos_sms.= "$al_sms; ";
 					$alumnos_nombre.= "$al_nombre_sms; ";
 				}
 			}
 if (!empty($tut)) {
-				
+
 $query0="insert into mens_texto (asunto, texto, origen, destino) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre." con el siguiente texto:<< ".$observaciones.">>','".$observaciones."','".$profe."', '$alumnos_sms')";
 //echo "$query0<br>";
 mysqli_query($db_con, $query0);
@@ -218,25 +218,25 @@ $id1 = mysqli_fetch_array($id0);
 $id = $id1[0];
 $query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$tut."')";
 //echo "$query1<br>";
-mysqli_query($db_con, $query1);	
+mysqli_query($db_con, $query1);
 echo "<br>";
 		}
 	}
 }
-	
+
 }
 else
 {
 	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE) or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE){
-	 	
+
 		?>
-		
+
 <div class="col-md-4 col-md-offset-2">
 
         <?php
 	}
 	else{
-	echo '<div class="col-md-4 col-md-offset-2">';	
+	echo '<div class="col-md-4 col-md-offset-2">';
 	}
 ?>
 <div class="well well-large" align="left">
@@ -252,7 +252,7 @@ else
         </select>
         </div>
         <?php }?>
-      
+
           	<div class="form-group">
           	<label>Causa</label>
 			<select name="causa" class="form-control">
@@ -274,7 +274,7 @@ else
             <option>Faltas de Asistencia</option>
             <option>Problemas de convivencia</option>
             <option>Otras</option>
-<?php } ?>        
+<?php } ?>
 	</select>
     </div>
 <?php
@@ -288,13 +288,13 @@ $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
-      	
+
 
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>
 
-  <?	  
+  <?
   if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE) or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
-	    {	
+	    {
 		?>
 </div>
 </div>
@@ -306,21 +306,21 @@ $extid = $n_sms[0]+1;
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
   $alumno = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal, unidad FROM alma $alumno_sel order by APELLIDOS asc");
-  
-       while($falumno = mysqli_fetch_array($alumno)) 
+
+       while($falumno = mysqli_fetch_array($alumno))
 	   {
 	echo "<OPTION value='$falumno[2] --> $falumno[0], $falumno[1]'>$falumno[0], $falumno[1] ($falumno[3])</OPTION>";
 		}
 	echo  '</select></div>';
-		} 	
-		
-		
-		
+		}
+
+
+
 ?>
   </form>
 <?php
 }
- } 
+ }
  else {
 	 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -328,15 +328,15 @@ $extid = $n_sms[0]+1;
 El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
           </div></div>';
  }
- 
+
  if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)  or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
-	    {	
+	    {
 echo '</div>
 </div></div>';
 }
 
 if (in_array($_SESSION['ide'],$permiso_sms)){
-	
+
 	$_SESSION['cargo'] = $cargo_anterior;
 
 }

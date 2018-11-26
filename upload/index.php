@@ -798,7 +798,7 @@ function is_path_safe(&$path, &$filename) {
 //   CREACIÓN / ELIMINACIÓN DE DIRECTORIOS EN FUNCIÓN DE LA CONFIGURACIÓN
 //----------------------------------------------------------------------------
 
-if($index=='publico') {
+if ($index == 'publico') {
 	// Biblioteca
 	if(isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) {
 
@@ -809,27 +809,8 @@ if($index=='publico') {
 		delete_dir($config['mod_documentos_dir'].'/Biblioteca');
 	}
 
-	// Recursos educativos
-	if(isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) {
-
-		if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
-		$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
-		while ($row = mysqli_fetch_array($result)) {
-
-			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']))) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']), 0777);
-
-			// Se puede eliminar esta linea en futuras actualizaciones...
-			if(file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) rename($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], $config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']));
-		}
-		mysqli_free_result($result);
-
-	}
-	else {
-		delete_dir($config['mod_documentos_dir'].'/Recursos educativos');
-	}
-
 	// Departamentos
-	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
+	if (isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
 
 		if(!file_exists($config['mod_documentos_dir'].'/Departamentos')) mkdir($config['mod_documentos_dir'].'/Departamentos', 0777);
 		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Auxiliar de Conversaci_n' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
@@ -848,7 +829,7 @@ if($index=='publico') {
 
 }
 
-if($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
+if ($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
 
 
 //----------------------------------------------------------------------------

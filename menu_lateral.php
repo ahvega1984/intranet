@@ -505,18 +505,12 @@ $menu_trabajo =  array(
 						'titulo' => 'Correo electrónico',
 					),
 					array(
-						'href'   => 'sms/index.php',
+						'href'   => 'sms/alumnado.php',
 						'titulo' => 'Mensajes SMS',
-						'cargos'  => array('1', '8'),
+						'cargos'  => array('1', '2', '8'),
 						'modulo' => $config['mod_sms'],
-					),
-					array(
-						'href'   => 'sms/index.php?unidad='.$_SESSION['mod_tutoria']['unidad'].'',
-						'titulo' => 'Mensajes SMS',
-						'cargos'  => array('2'),
-						'modulo' => $config['mod_sms'],
-					),
-				),
+					)
+				)
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',

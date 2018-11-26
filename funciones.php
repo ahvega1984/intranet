@@ -594,10 +594,11 @@ function sistemaPuntos($claveal) {
   // COMPROBAMOS SI EL ALUMNO HA SIDO EXPULSADO DEL CENTRO
   // En ese caso, cuando el alumno se reincorpora al centro, recupera los puntos de inicio.
   $sql_where = "";
-  $result_expulsion = mysqli_query($db_con, "SELECT `fin` FROM `Fechoria` WHERE `claveal` = '".$claveal."' AND `expulsion` > 0 ORDER BY `id` DESC LIMIT 1");
+  $result_expulsion = mysqli_query($db_con, "SELECT `fin`, `fin_aula` FROM `Fechoria` WHERE `claveal` = '".$claveal."' AND (`expulsion` > 0 || `aula_conv` > 0) ORDER BY `id` DESC LIMIT 1");
   if (mysqli_num_rows($result_expulsion)) {
     $row_expulsion = mysqli_fetch_array($result_expulsion);
-    $sql_where = " AND `FECHA` > '".$row_expulsion['fin']."' ";
+    if ($row_expulsion['fin'] != '0000-00-00') $sql_where = " AND `FECHA` > '".$row_expulsion['fin']."' ";
+    if ($row_expulsion['fin_aula'] != '0000-00-00') $sql_where = " AND `FECHA` > '".$row_expulsion['fin_aula']."' ";
   }
 
   // CONSULTAMOS PROBLEMAS REGISTRADOS DURANTE EL CURSO O TRAS ÚLTIMA EXPULSIÓN
@@ -631,8 +632,8 @@ function sistemaPuntos($claveal) {
       $result_aulaconv_asistencia = mysqli_query($db_con, "SELECT `hora`, `trabajo` FROM `convivencia` WHERE `claveal` = '".$claveal."' AND `fecha` BETWEEN '".$row_aulaconv['inicio_aula']."' AND '".$row_aulaconv['fin_aula']."'");
 			if (mysqli_num_rows($result_aulaconv_asistencia)) {
 				while ($row_aulaconv_asistencia = mysqli_fetch_array($result_aulaconv_asistencia)) {
-	        if ((strstr($row_aulaconv['horas'], $row_aulaconv_asistencia['hora']) == true) && $row_aulaconv_asistencia['trabajo'] == 1) $puntos_convivencia = $conf_puntos_recupera_convivencia;
-	        else $puntos_convivencia = 0;
+          if ((strstr($row_aulaconv['horas'], $row_aulaconv_asistencia['hora']) == true) && $row_aulaconv_asistencia['trabajo'] == 1) $puntos_convivencia = $conf_puntos_recupera_convivencia;
+          else $puntos_convivencia = 0;
 	      }
 			}
 

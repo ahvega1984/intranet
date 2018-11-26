@@ -125,12 +125,13 @@ if (isset($_POST['submit'])) {
 					$L_DIACOM = $tag_ldiacom->item(0)->nodeValue;
 
 					// Obtenemos el tramo horario
-					$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' LIMIT 1");
-					$row = mysqli_fetch_assoc($result);
-
+					$hora_tramo = 0;
+					if (! empty($X_TRAMO)) {
+						$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' LIMIT 1");
+						$row = mysqli_fetch_assoc($result);
 						$hora_tramo = $row['hora'];
-
-					mysqli_free_result($result);
+						mysqli_free_result($result);
+					}
 
 					if ($C_TIPFAL == 'I') {
 						$tipo_falta = 'F';
@@ -139,7 +140,7 @@ if (isset($_POST['submit'])) {
 						$tipo_falta = $C_TIPFAL;
 					}
 
-					if ($L_DIACOM == 'S') {
+					if ($hora_tramo == 0 || $L_DIACOM == 'S') {
 						$inicio = 1;
 						$fin = 7;
 					}
@@ -182,7 +183,6 @@ if (isset($_POST['submit'])) {
 
 						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')") or die (mysqli_error($db_con));
 					}
-
 					unset($nprofesor);
 					unset($codasig);
 
@@ -204,7 +204,7 @@ if (isset($_POST['submit'])) {
 }
 else {
 	?>
-	<?php $result = mysqli_query($db_con, "SELECT * FROM FALTAS"); ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM FALTAS LIMIT 10"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">Ya existe información en la base de datos. Este proceso sobreescribirá la información de la Intranet. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.</div>
 	<?php endif; ?>

@@ -521,7 +521,7 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0' OR $count033 > '0' OR $cou
 		if($count033 > '0'){include("modulos/informes_generales.php");}
 	}
 	if (isset($count0333)) {
-		if($count0333 > '0'){include("modulos/informe_pendientes.php");}
+		if($count0333 > '0') {include("modulos/informes_pendientes.php");}
 	}
 	if (isset($count04)) {
 		if($count04 > '0'){include("modulos/absentismo.php");}
