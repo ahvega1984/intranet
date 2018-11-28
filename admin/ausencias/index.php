@@ -169,7 +169,7 @@ include("menu.php");
 						    else
 							    echo "<option></option>";
 
-						    $profe = mysqli_query($db_con, "SELECT distinct profesor FROM profesores order by profesor asc");
+						    $profe = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' ORDER BY nombre ASC");
 						    while($filaprofe = mysqli_fetch_array($profe))
 							    echo "<option>$filaprofe[0]</option>";
 
