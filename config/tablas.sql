@@ -391,6 +391,8 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `DEPARTAMENTO` varchar(80) DEFAULT NULL,
   `CARGO` varchar(10) DEFAULT NULL,
   `idea` varchar(12) NOT NULL DEFAULT '',
+  `fechatoma` DATE NOT NULL,
+  `fechacese` DATE NULL,
   PRIMARY KEY (`idea`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
