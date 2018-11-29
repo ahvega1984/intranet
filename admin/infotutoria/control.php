@@ -65,7 +65,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_temp` (
   KEY `profesor` (`profesor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 
-$query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where apellidos not like 'Informe general%' order by F_ENTREV desc";
+$query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where apellidos not like 'Informe general%' and date(F_ENTREV) < now() order by F_ENTREV desc";
 $result = mysqli_query($db_con, $query);
 if($detalles == '1')
 { 
@@ -84,7 +84,7 @@ while($cadena = mysqli_fetch_array($comp))
 //echo $todas."<br>";
 if($detalles == '1')
 { 
-echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]</p>";
+echo "<p>$row[6] --> <a href='infocompleto.php?id=$row[0]' target='_blank'>$row[4] $row[5]</a> --> $row[2]</p>";
 } 
 ?>
 <ul  class='unstyled'>

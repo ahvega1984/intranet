@@ -58,8 +58,8 @@ $luis1 = mysqli_query($db_con, "select distinct grupo from profesores where prof
 while ($luis = mysqli_fetch_array($luis1)) {
   $unidad = $luis[0];
 
-$query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' and apellidos not like 'Informe general%' order by F_ENTREV desc";
-//echo $query;
+$query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' and apellidos not like 'Informe general%' and date(F_ENTREV) < now() order by F_ENTREV desc";
+// echo $query;
 $result = mysqli_query($db_con, $query);
 
 while($row = mysqli_fetch_array($result))
@@ -113,7 +113,7 @@ if($detalles == '1')
 {  
   echo "<h4 align='left'>Grupo: $luis[0]</h4><br />";
 
-echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]</p>";
+echo "<p>$row[6] --> <a href='infocompleto.php?id=$row[0]' target='_blank'>$row[4] $row[5]</a> --> $row[2]</p>";
 ?>
 <ul  class='unstyled'>
 <?php
