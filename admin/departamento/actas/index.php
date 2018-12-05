@@ -229,7 +229,8 @@ if (isset($_POST['guardar'])) {
 	$exp_input_fecha_reunion = explode('-', $input_fecha_reunion);
 	$fecha_reunion_sql = $exp_input_fecha_reunion[2].'-'.$exp_input_fecha_reunion[1].'-'.$exp_input_fecha_reunion[0];
 	$input_num_acta = mysqli_real_escape_string($db_con, $_POST['num_acta']);
-	$input_texto_acta = mysqli_real_escape_string($db_con, $_POST['texto_acta']);
+	$_input_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_POST['texto_acta']);
+	$input_texto_acta = mysqli_real_escape_string($db_con, $_input_texto_acta);
 	$fecha_hoy = date('Y-m-d H:i:s');
 
 	$result = mysqli_query($db_con, "INSERT INTO r_departamento (contenido, jefedep, timestamp, DEPARTAMENTO, fecha, impreso, numero) VALUES ('$input_texto_acta', '$input_jefe_departamento', '$fecha_hoy', '$departamento', '$fecha_reunion_sql', 0, $input_num_acta)");
@@ -249,7 +250,8 @@ if (isset($_GET['edit_id'])) {
 	$exp_fecha_reunion = explode('-', $fecha_reunion_sql);
 	$fecha_reunion = $exp_fecha_reunion[2].'-'.$exp_fecha_reunion[1].'-'.$exp_fecha_reunion[0];
 	$numero_acta = $row['numero'];
-	$texto_acta = $row['contenido'];
+	$_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $row['contenido']);
+	$texto_acta = $_texto_acta;
 }
 
 // ACTUALIZAMOS EL ACTA
@@ -261,7 +263,8 @@ if (isset($_POST['actualizar'])) {
 	$exp_fecha_reunion = explode('-', $fecha_reunion);
 	$fecha_reunion_sql = $exp_fecha_reunion[2].'-'.$exp_fecha_reunion[1].'-'.$exp_fecha_reunion[0];
 	$numero_acta = mysqli_real_escape_string($db_con, $_POST['num_acta']);
-	$texto_acta = $_POST['texto_acta'];
+	$_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_POST['texto_acta']);
+	$texto_acta = mysqli_real_escape_string($db_con, $_texto_acta);
 	$fecha_hoy = date('Y-m-d H:i:s');
 
 	$result = mysqli_query($db_con, "UPDATE r_departamento SET contenido = '$texto_acta', fecha = '$fecha_reunion_sql', numero = $numero_acta WHERE id = $id_acta");
@@ -555,21 +558,7 @@ $html_textarea = "<p>".$titulo."</p>
 				['table', ['table']],
 				['media', ['link', 'picture', 'video']],
 				['code', ['codeview']]
-			],
-			cleaner: {
-          action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
-          newline: '<br>', // Summernote's default is to use '<p><br></p>'
-          notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
-          icon: '<i class="note-icon">[Your Button]</i>',
-          keepHtml: false, // Remove all Html formats
-          keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
-          keepClasses: false, // Remove Classes
-          badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
-          badAttributes: ['style', 'start'], // Remove attributes from remaining tags
-          limitChars: false, // 0/false|# 0/false disables option
-          limitDisplay: 'both', // text|html|both
-          limitStop: false // true/false
-    	}
+			]
 		});
 
 

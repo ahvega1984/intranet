@@ -174,7 +174,8 @@ if (isset($_POST['submit'])) {
 	$fecha = $_POST['fecha'];
 	$exp_fecha = explode('-', $fecha);
 	$fecha_sql = $exp_fecha[2].'-'.$exp_fecha[1].'-'.$exp_fecha[0];
-	$texto_acta = trim($_POST['texto_acta']);
+	$_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_POST['texto_acta']);
+	$texto_acta = trim($_texto_acta);
 	$asistencia = $_POST['asistencia'];
 
 	if (!empty($evaluacion) && !empty($curso) && !empty($fecha) && !empty($texto_acta) && !empty($asistencia)) {
@@ -226,7 +227,8 @@ if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
 
 		$curso = $row['unidad'];
 		$evaluacion = $row['evaluacion'];
-		$texto_acta = $row['texto_acta'];
+		$_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $row['texto_acta']);
+		$texto_acta = $_texto_acta;
 		$asistencia = unserialize($row['asistentes']);
 
 		// COMPROBAMOS SI ES UN PMAR
@@ -492,21 +494,7 @@ include("menu.php");
 			['table', ['table']],
 			['media', ['link', 'picture', 'video']],
 			['code', ['codeview']]
-		],
-		cleaner: {
-				action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
-				newline: '<br>', // Summernote's default is to use '<p><br></p>'
-				notStyle: 'position:absolute;top:0;left:0;right:0', // Position of Notification
-				icon: '<i class="note-icon">[Your Button]</i>',
-				keepHtml: false, // Remove all Html formats
-				keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'], // If keepHtml is true, remove all tags except these
-				keepClasses: false, // Remove Classes
-				badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'], // Remove full tags with contents
-				badAttributes: ['style', 'start'], // Remove attributes from remaining tags
-				limitChars: false, // 0/false|# 0/false disables option
-				limitDisplay: 'both', // text|html|both
-				limitStop: false // true/false
-		}
+		]
  	});
 
  	// DATETIMEPICKER

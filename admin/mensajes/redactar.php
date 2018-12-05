@@ -58,10 +58,13 @@ else
 $asunto="";
 }
 if (isset($_POST['texto'])) {
-	$texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'UTF-8');
+	$_texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'UTF-8');
+	$texto = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_texto);
+
 }
 elseif (isset($_GET['texto'])) {
-	$texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'UTF-8');
+	$_texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'UTF-8');
+	$texto = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_texto);
 }
 if (isset($_POST['origen'])) {
 	$origen = $_POST['origen'];
@@ -80,26 +83,9 @@ if($verifica){
  mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 
-if (isset($_GET['id'])) {
 
-	if (isset($_POST['submit1'])) {
-		$result = mysqli_query($db_con, "UPDATE mens_texto SET asunto='$asunto', texto='$texto' WHERE id=".$_GET['id']." LIMIT 1");
+include("profesores.php");
 
-		if(!$result) {
-			$msg_error = "No se ha podido editar el mensaje. Error: ".mysqli_error($db_con);
-			$_SESSION['msg_block'] == 0;
-		}
-		else {
-			unset($_SESSION['msg_block']);
-			header('Location:'.'index.php?inbox=recibidos&action=send');
-			exit;
-		}
-	}
-
-}
-else {
-	include("profesores.php");
-}
 
 include('../../menu.php');
 include('menu.php');
