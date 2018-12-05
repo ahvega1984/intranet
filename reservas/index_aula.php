@@ -30,7 +30,7 @@ include("menu.php");
 <form method="post" action="reservar/index_aulas.php">
 <fieldset><legend>Selecciona Aula o Dependencia</legend>
 
-<div class="form-group"><?php 
+<div class="form-group"><?php
 $ocul = mysqli_query($db_con,"select * from ocultas");
 if(mysqli_num_rows($ocul)>0){
 	$extra_ocultas1 = "and a_aula not in (select distinct aula from ocultas)";
@@ -40,30 +40,30 @@ if(mysqli_num_rows($ocul)>0){
 <select class="form-control" name="servicio_aula" onchange="submit()">
 	<option value=""></option>
 <?php
-$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' $extra_ocultas1 ORDER BY n_aula ASC";
-$result = mysqli_query($db_con,$aula_res); 
-?> 
+$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'GU' AND a_aula NOT LIKE 'GUCON' AND a_aula NOT LIKE '' $extra_ocultas1 ORDER BY n_aula ASC";
+$result = mysqli_query($db_con,$aula_res);
+?>
 <?php if(mysqli_num_rows($result)>0): ?>
   <optgroup label="Aulas del Horario">
 	<?php while ($row = mysqli_fetch_array($result)):?>
 	<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
 	<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
 	<?php endwhile; ?>
-	</optgroup>	
+	</optgroup>
 	<?php endif; ?>
 <?php
 $aula_res2 = "SELECT DISTINCT abrev, nombre FROM nuevas WHERE abrev NOT LIKE '' $extra_ocultas2 ORDER BY abrev ASC";
-$result2 = mysqli_query($db_con,$aula_res2); ?> 
+$result2 = mysqli_query($db_con,$aula_res2); ?>
 <?php if(mysqli_num_rows($result2)): ?>
   <optgroup label="Aulas fuera del Horario">
 	<?php while ($row2 = mysqli_fetch_array($result2)):?>
 	<?php $value2 = $row2['abrev'].' ==> '.$row2['nombre']; ?>
 	<option value="<?php echo $value2; ?>"><?php echo $row2['nombre']; ?></option>
 	<?php endwhile; ?>
-	</optgroup>	
+	</optgroup>
 	<?php endif;?>
-		
-</select> 
+
+</select>
 </div>
 
 </fieldset>
@@ -147,18 +147,18 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 	$ci = 0;
 	$primero = 0;
 
-	while ($au_grupo = mysqli_fetch_array($reg)){	
-					
+	while ($au_grupo = mysqli_fetch_array($reg)){
+
 		$servicio=$au_grupo[0];
 		$lugar = $au_grupo[1];
 
 		if (strstr($aula_reservas,$servicio)==TRUE) {
-		
+
 		$oc = mysqli_query($db_con,"select * from ocultas where aula = '$servicio'");
 		//echo "select * from ocultas where aula = '$servicio'";
-			
+
 		if (mysqli_num_rows($oc)<1) {
-				
+
 		if (stristr($servicio,"medio")==FALSE and stristr($servicio,"TIC_")==FALSE and stristr($servicio,"usuario")==FALSE and stristr($servicio,"profesores")==FALSE and stristr($servicio,"hor")==FALSE) {
 
 			if ($ci % 3 == 0 || $ci == 0){
