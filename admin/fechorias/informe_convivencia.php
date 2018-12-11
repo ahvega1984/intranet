@@ -732,7 +732,7 @@ include("../../menu.php");
                 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
                 {
                 ?>
-                    <div class="tab-pane fade in" id="tab4">
+                <div class="tab-pane fade in" id="tab4">
 
                         <br /><h3>Información por Profesor</h3>
                         <br />
@@ -839,6 +839,7 @@ include("../../menu.php");
                 <?php
                 }
                 ?>
+                </div>
                 <div class="tab-pane fade in" id="tab5">
                        	<br /><h3>Informe por Tipo de problema</h3><br />
                         	<div class="tabbable" style="margin-bottom: 18px;">
@@ -936,8 +937,6 @@ include("../../menu.php");
                             </div>
                         </div>
                 </div>
-
-            </div>
         </div>
   </div>
 </div>

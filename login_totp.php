@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ($_POST['totp_verificado'] && $_POST['totp_code']) {
 	ini_set("session.use_cookies", 1);
 	ini_set("session.use_only_cookies", 1);
@@ -7,7 +7,7 @@ if ($_POST['totp_verificado'] && $_POST['totp_code']) {
 	}
 	ini_set("session.cookie_httponly", 1);
 	session_set_cookie_params(3600); // Duración de la sesión: 3600 segundos (1 hora)
-	ini_set("session.gc_maxlifetime", 3600); 
+	ini_set("session.gc_maxlifetime", 3600);
 	session_name("is");
 	session_start();
 
@@ -106,7 +106,7 @@ else {
 
 	<footer class="hidden-print">
 		<div class="container-fluid">
-			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
+			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, IES Monterroso</p>
 
 			<ul class="pull-right list-inline">
 				<li>Versión <?php echo INTRANET_VERSION; ?></li>
@@ -144,7 +144,7 @@ $(document).ready(function () {
 	var totp_code = '';
 
 	$("#totp-code-1").focus();
-	
+
 	$("#totp-code-1").keyup(function () {
 		var value = $(this).val();
 		if (value.length > 0) {

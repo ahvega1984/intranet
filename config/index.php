@@ -984,7 +984,7 @@ if (isset($_POST['instalar']))
 
 	<footer class="hidden-print">
 		<div class="container-fluid">
-			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, I.E.S. Monterroso</p>
+			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, IES Monterroso</p>
 
 			<ul class="pull-right list-inline">
 				<li>Versión <?php echo INTRANET_VERSION; ?></li>
