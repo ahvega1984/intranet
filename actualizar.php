@@ -537,7 +537,6 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Id jornada en tramos horarios', NOW())");
 }
 
-
 /*
 	@descripcion: Añadido columna idactividad en horw
 	@fecha: 25 de septiembre de 2018
@@ -565,4 +564,40 @@ if (! mysqli_num_rows($actua)) {
 	}
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Columna idactividad en tabla horw', NOW())");
+}
+
+/*
+	@descripcion: Tipos de recursos para reservar por defecto
+	@fecha: 16 de diciembre de 2018
+*/
+
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tipos de recursos para reservar'");
+if (! mysqli_num_rows($actua)) {
+	$result_update = mysqli_query($db_con, "SELECT `tipo` FROM `reservas_tipos` WHERE `id` = 1");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "INSERT INTO `reservas_tipos` (`id`, `tipo`, `observaciones`) VALUES (1, 'TIC', '')");
+	}
+	else {
+		$row_update = mysqli_fetch_array($result_update);
+		$tipo_reserva = $row_update['tipo'];
+		if ($tipo_reserva != "TIC") {
+			mysqli_query($db_con, "UPDATE `reservas_tipos` SET `tipo` = 'TIC' WHERE `id` = 1");
+			mysqli_query($db_con, "DELETE FROM `reservas_elementos` WHERE `id_tipo` = 1");
+		}
+	}
+
+	$result_update = mysqli_query($db_con, "SELECT `tipo` FROM `reservas_tipos` WHERE `id` = 2");
+	if (! mysqli_num_rows($result_update)) {
+		mysqli_query($db_con, "INSERT INTO `reservas_tipos` (`id`, `tipo`, `observaciones`) VALUES (2, 'Medios Audiovisuales', '')");
+	}
+	else {
+		$row_update = mysqli_fetch_array($result_update);
+		$tipo_reserva = $row_update['tipo'];
+		if ($tipo_reserva != "Medios Audiovisuales") {
+			mysqli_query($db_con, "UPDATE `reservas_tipos` SET `tipo` = 'Medios Audiovisuales' WHERE `id` = 2");
+			mysqli_query($db_con, "DELETE FROM `reservas_elementos` WHERE `id_tipo` = 2");
+		}
+	}
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tipos de recursos para reservar', NOW())");
 }

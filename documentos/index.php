@@ -1597,9 +1597,9 @@ if (headers_sent()) {
     		</div>
     	</div>
 
-      <li<?php echo (! isset($_GET['index']) || strstr($_SERVER['REQUEST_URI'], "index=publico") == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/filethingie/index.php?index=publico">Documentos públicos</a></li>
-      <li<?php echo (strstr($_SERVER['REQUEST_URI'], "index=interno") == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/filethingie/index.php?index=interno">Documentos internos</a></li>
-      <li<?php echo (strstr($_SERVER['REQUEST_URI'], "index=privado") == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/filethingie/index.php?index=privado">Documentos personales</a></li>
+      <li<?php echo (! isset($_GET['index']) || strstr($_SERVER['REQUEST_URI'], "index=publico") == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/documentos/index.php?index=publico">Documentos públicos</a></li>
+      <li<?php echo (strstr($_SERVER['REQUEST_URI'], "index=interno") == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/documentos/index.php?index=interno">Documentos internos</a></li>
+      <li<?php echo (strstr($_SERVER['REQUEST_URI'], "index=privado") == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/documentos/index.php?index=privado">Documentos personales</a></li>
     </ul>
 
     <?php

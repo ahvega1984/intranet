@@ -829,6 +829,7 @@ if ($index == 'publico') {
 
 }
 
+if ($index=='interno' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
 if ($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
 
 

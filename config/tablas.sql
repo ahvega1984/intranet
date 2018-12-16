@@ -1679,6 +1679,14 @@ CREATE TABLE IF NOT EXISTS `reservas_tipos` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
+--
+-- Volcado de datos para la tabla `reservas_tipos`
+--
+
+INSERT INTO `reservas_tipos` (`id`, `tipo`, `observaciones`) VALUES
+(1, 'TIC', ''),
+(2, 'Medios Audiovisuales', '');
+
 -- --------------------------------------------------------
 
 --
