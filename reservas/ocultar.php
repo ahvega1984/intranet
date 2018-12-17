@@ -193,8 +193,10 @@ reservas.</p>
 <div class="form-group"><label>Nombre del Aula</label> <input
 	class="form-control" type="text" name="nombre_nueva"
 	value="<?php echo $nombre_nueva;?>"></div>
-<div class="form-group"><label>Observaciones</label> <textarea
+<?php if (is_numeric($id)) { ?>
+	<div class="form-group"><label>Observaciones</label> <textarea
 	class="form-control" name="texto"><?php echo $texto;?></textarea></div>
+<?php } ?>
 <?php
 if ($id) {
 	?> <input type="hidden" name="id" value="<?php echo $id;?>"> <input
