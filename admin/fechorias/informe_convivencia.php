@@ -198,18 +198,7 @@ include("../../menu.php");
                                 ?>
 
                                 <?php
-                                 //mysqli_query($db_con, "truncate table absentismo");
-                                for($z=1;$z<13;$z++)
-                                {
-                                    // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;
-                                    $SQLTEMP = "create table absentismo$z SELECT claveal, falta, (count(*)) AS numero, unidad FROM FALTAS where falta = 'F' and MONTH(fecha) = '$z' group by claveal";
-                                    $resultTEMP= mysqli_query($db_con, $SQLTEMP);
-                                    mysqli_query($db_con, "insert into absentismo select * from absentismo$z where numero > '25'");
-
-                                    $SQLDEL = "DROP table if exists absentismo$z";
-                                    mysqli_query($db_con, $SQLDEL);
-                                }
-                                $faltas = "select distinct claveal from absentismo";
+                                $faltas = "select distinct claveal from absentismo where claveal in (select claveal from alma)";
                                 $faltas0 = mysqli_query($db_con, $faltas);
                                 $num_faltas = mysqli_num_rows($faltas0);
                                 ?>

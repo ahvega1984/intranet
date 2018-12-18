@@ -5,10 +5,8 @@ require('inc_variables.php');
 if (file_exists('config.php')) {
 	include('config.php');
 }
-
 // Cambio de estado rápido y eliminado
-if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento') {
-
+if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento' || $pr == $_GET['autor']) {
     if (isset($_GET['id']) && intval($_GET['id']) && isset($_GET['estado']) && intval($_GET['estado'])) {
         $result = mysqli_query($db_con, "UPDATE `incidencias_tic` SET `estado` = '".$_GET['estado']."' WHERE `id` = '".$_GET['id']."' LIMIT 1");
         if (! $result) {
@@ -158,7 +156,7 @@ include("menu.php");
                             <td nowrap>
                                 <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento' || ($pr == $incidencia['solicitante'] && $incidencia['estado'] == 1)): ?>
                                 <a href="incidencia.php?id=<?php echo $incidencia['id']; ?>" class="btn btn-sm btn-default"><span class="far fa-edit fa-lg fa-fw"></span></a>
-                                <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar" class="btn btn-sm btn-danger" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
+                                <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar&autor=<?php echo $incidencia['solicitante']; ?>" class="btn btn-sm btn-danger" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
                                 <?php endif; ?>
                             </td>
                         </tr>

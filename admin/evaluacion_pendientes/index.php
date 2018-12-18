@@ -28,18 +28,8 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
 
 $depto = $_SESSION ['dpt'];
 $profe_dep = $_SESSION ['profi'];
-if(stristr($_SESSION['cargo'],'1') == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE){
+
 $query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by grupo";
-}
-/*elseif (stristr ( $_SESSION ['cargo'], '4' ) == TRUE)
-{
-$query_Recordset1 = "select distinct codigo from 
-profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos where departamento = '$depto') and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes order by codigo)";
-}*/
-else{
-$query_Recordset1 = "select distinct codigo from 
-profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos where departamento = '$depto') and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes where grupo in (select distinct grupo from profesores where profesor = '$profe_dep') order by grupo)";	
-}
 
 $Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
 $row_Recordset1 = mysqli_fetch_array($Recordset1);

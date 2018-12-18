@@ -205,7 +205,7 @@
 		        				<?php else: ?>
 		        				<option value="Múltiples Departamentos">Múltiples Departamentos</option>
 		        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
-		        				<option value="Relaciones de Género">Relaciones de Género</option>
+		        				<option value="Relaciones de Género">Coordinación de Programa educativo</option>
 		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Educador' AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `departamento` ASC"); ?>
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
