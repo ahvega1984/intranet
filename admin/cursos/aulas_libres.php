@@ -73,7 +73,7 @@ $year = date('Y');
 								$mes0 = $tr_fecha[1];
 								$dia0 = $tr_fecha[2];
 								?>
-								<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' AND a_aula NOT LIKE 'ACO%' AND a_aula NOT LIKE 'DI%' ORDER BY n_aula ASC"); ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' AND a_aula NOT LIKE 'ACO%' AND a_aula NOT LIKE 'DI%' and a_aula not in (select distinct aula from ocultas) ORDER BY n_aula ASC"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<?php $grupo = mysqli_query($db_con, "SELECT a_grupo FROM horw where a_aula = '$row[0]' AND dia='$dia' AND hora='$i' AND c_asig NOT LIKE '25' ORDER BY a_grupo ASC"); ?>
 
