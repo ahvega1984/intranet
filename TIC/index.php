@@ -6,7 +6,7 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 // Cambio de estado rápido y eliminado
-if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento' || $pr == $_GET['autor']) {
+if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento') {
     if (isset($_GET['id']) && intval($_GET['id']) && isset($_GET['estado']) && intval($_GET['estado'])) {
         $result = mysqli_query($db_con, "UPDATE `incidencias_tic` SET `estado` = '".$_GET['estado']."' WHERE `id` = '".$_GET['id']."' LIMIT 1");
         if (! $result) {
@@ -31,6 +31,35 @@ if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordi
         }
     }
 
+}
+else {
+	// Eliminado de incidencias para profesores
+	if (isset($_GET['id']) && intval($_GET['id']) && isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
+			$result = mysqli_query($db_con, "SELECT `estado`, `solicitante` FROM `incidencias_tic` WHERE `id` = '".$_GET['id']."' LIMIT 1");
+			$row = mysqli_fetch_array($result);
+			
+			if ($row['solicitante'] == $pr) {
+				if ($row['estado'] == 1) {
+					$result = mysqli_query($db_con, "DELETE FROM `incidencias_tic` WHERE `id` = '".$_GET['id']."' LIMIT 1");
+					if (! $result) {
+							$msg_error = true;
+							$msg_error_text = "Ha ocurrido un error al eliminar la incidencia. Error: ".mysqli_error($db_con);
+					}
+					else {
+							header("Location:"."index.php");
+							exit();
+					}
+				}
+				else {
+					$msg_error = true;
+					$msg_error_text = "No puede eliminar una incidencia en curso o cerrada.";
+				}
+			}
+			else {
+				$msg_error = true;
+				$msg_error_text = "No tiene privilegios para eliminar la incidencia.";
+			}
+	}
 }
 
 // Obtenemos las incidencias registradas
@@ -156,7 +185,7 @@ include("menu.php");
                             <td nowrap>
                                 <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento' || ($pr == $incidencia['solicitante'] && $incidencia['estado'] == 1)): ?>
                                 <a href="incidencia.php?id=<?php echo $incidencia['id']; ?>" class="btn btn-sm btn-default"><span class="far fa-edit fa-lg fa-fw"></span></a>
-                                <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar&autor=<?php echo $incidencia['solicitante']; ?>" class="btn btn-sm btn-danger" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
+                                <a href="?id=<?php echo $incidencia['id']; ?>&accion=eliminar" class="btn btn-sm btn-danger" data-bb="confirm-delete"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
                                 <?php endif; ?>
                             </td>
                         </tr>
