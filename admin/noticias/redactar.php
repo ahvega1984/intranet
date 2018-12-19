@@ -176,7 +176,7 @@ include ("menu.php");
 							<div class="form-group" id="datetimepicker1">
 								<label for="fechapub">Fecha de publicación</label>
 								<div class="input-group">
-									<input type="text" class="form-control" id="fechapub" name="fechapub" value="<?php echo (isset($fechapub) && $fecha_pub) ? $fechapub : date('Y-m-d H:i:s'); ?>" data-date-format="YYYY-MM-DD HH:mm:ss">
+									<input type="text" class="form-control" id="fechapub" name="fechapub" value="<?php echo (isset($fechapub) && $fechapub) ? $fechapub : date('Y-m-d H:i:s'); ?>" data-date-format="YYYY-MM-DD HH:mm:ss">
 									<span class="input-group-addon"><span class="far fa-calendar"></span></span>
 								</div>
 							</div>
