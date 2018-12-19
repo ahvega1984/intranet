@@ -135,7 +135,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin, unidades FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND '$mes' BETWEEN MONTH(fechaini) AND MONTH(fechafin) ORDER BY horaini ASC, horafin ASC");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin, unidades, confirmado FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND '$mes' BETWEEN MONTH(fechaini) AND MONTH(fechafin) ORDER BY horaini ASC, horafin ASC");
 
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 
@@ -157,7 +157,12 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 								$hora_evento = $horaini.' - '.$horafin;
 							}
 
-							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
+							if ($calendario['id'] == 2) {
+								echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.(($eventos['confirmado'] == 0) ? '<p><span class="label label-warning">No autorizado</span></p>' : '').''.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
+							}
+							else {
+								echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
+							}
 						}
 
 						unset($horaini);

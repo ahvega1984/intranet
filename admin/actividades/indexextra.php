@@ -1,11 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE))
-{
-	//header('Location:'.'http://'.$config['dominio'].'/intranet/logout.php');
-	//exit;
-}
+acl_acceso($_SESSION['cargo'], array('1','4','5'));
 
 $PLUGIN_DATATABLES = 1;
 
@@ -14,7 +10,7 @@ include("menu.php");
 ?>
 <div class='container'>
 <div class="page-header">
-<h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
+<h2>Actividades Complementarias y Extraescolares <small>Administración</small></h2>
 </div>
 
 <div class="row">
@@ -129,7 +125,7 @@ if($detalles == '1')
 			<th>Fecha</th>
 			<th>Actividad</th>
 			<th>Unidades</th>
-			<th>Mes</th>
+			<th>Profesores</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -150,27 +146,27 @@ if($detalles == '1')
 		if($mes1 ==  "10") $mes2 = "Octubre";
 		if($mes1 ==  "11") $mes2 = "Noviembre";
 		if($mes1 ==  "12") $mes2 = "Diciembre";
-		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin), fechaini, confirmado from calendario where month(fechaini) = '$mes1' and date(fechaini) > '".$config['curso_inicio']."' and categoria='2' order by fechaini";
+		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin) as hora, fechaini, confirmado from calendario where month(fechaini) = '$mes1' and date(fechaini) > '".$config['curso_inicio']."' and categoria='2' order by fechaini";
 		$datos1 = mysqli_query($db_con, $datos0);
 		while($datos = mysqli_fetch_array($datos1))
 		{
-			$profes_actividad=	$datos[5];
-			$fecha0 = explode("-",$datos[7]);
+			$profes_actividad=	$datos['profesores'];
+			$fecha0 = explode("-",$datos['fechaini']);
 			$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
 			if (substr($fecha0[1],0,1)=="0") {$mes=str_replace("0","",$fecha0[1]);}else{$mes=$fecha0[1];}
-			$cal_act = '//'.$config['dominio'].'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos[0];
+			$cal_act = '//'.$config['dominio'].'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos['1'];
 
-			$autoriz = $datos[8];
-			$datos[2]= str_replace("\\","",$datos[2]);
+			$autoriz = $datos['confirmado'];
+			$datos['nombre']= str_replace("\\","",$datos['nombre']);
 			?>
 		<tr>
-			<td nowrap="nowrap"><?php echo $datos[7];?></td>
-			<td><?php echo $datos[2];?></td>
-			<td style="width:200px"><?php echo $datos[1];?></td>
-			<td><?php echo $mes2;?></td>
+			<td nowrap><?php echo $datos['fechaini'];?><br><small><span class="label label-default"><?php echo $mes2; ?></span></small></td>
+			<td class="col-md-5"><?php echo $datos['nombre'];?></td>
+			<td><?php echo $datos['unidades'];?></td>
+			<td><?php echo $datos['profesores'];?></td>
 			<td nowrap>
 			<?php
-			$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = '".$datos[0]."' LIMIT 1");
+			$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = '".$datos['id']."' LIMIT 1");
 
 				if (mysqli_num_rows($result_actividad)):
 				echo '<a href="extraescolares.php?id='.$datos[0].'&ver_lista=1">

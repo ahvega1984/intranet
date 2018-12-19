@@ -30,7 +30,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 		        		<div class="form-group">
 		        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-		        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.stripslashes($eventos1['nombre']).'" maxlength="120" autofocus required>
+		        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.htmlspecialchars($eventos1['nombre']).'" maxlength="120" autofocus required>
 		        		</div>
 
 
@@ -94,12 +94,12 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 		        		<div class="form-group">
 		        			<label for="cmp_descripcion">Descripción</label>
-		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.stripslashes($eventos1['descripcion']).'</textarea>
+		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.htmlspecialchars($eventos1['descripcion']).'</textarea>
 		        		</div>
 
 		        		<div class="form-group">
 		        			<label for="cmp_lugar">Lugar</label>
-		        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.stripslashes($eventos1['lugar']).'">
+		        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.htmlspecialchars($eventos1['lugar']).'">
 		        		</div>
 
 		        		<div class="form-group">
@@ -240,7 +240,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 			        		<div class="form-group">
 			        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-			        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.stripslashes($eventos1['nombre']).'" maxlength="120" autofocus required>
+			        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.htmlspecialchars($eventos1['nombre']).'" maxlength="120" autofocus required>
 			        		</div>
 
 
@@ -304,12 +304,12 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 			        		<div class="form-group">
 			        			<label for="cmp_descripcion">Descripción</label>
-			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.stripslashes($eventos1['descripcion']).'</textarea>
+			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.htmlspecialchars($eventos1['descripcion']).'</textarea>
 			        		</div>
 
 			        		<div class="form-group">
 			        			<label for="cmp_lugar">Lugar</label>
-			        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.stripslashes($eventos1['lugar']).'">
+			        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.htmlspecialchars($eventos1['lugar']).'">
 			        		</div>
 
 			        		<div class="form-group">
@@ -413,7 +413,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 			        	<div class="form-group">
 		        			<label for="cmp_descripcion">Observaciones (Precio de la Actividad, Recomendaciones para la misma, etc.)</label>
-		        			<textarea type="text" class="form-control" id="cmp_observaciones" name="cmp_observaciones" rows="3">'.stripslashes($eventos1['observaciones']).'</textarea>
+		        			<textarea type="text" class="form-control" id="cmp_observaciones" name="cmp_observaciones" rows="3">'.htmlspecialchars($eventos1['observaciones']).'</textarea>
 		        		</div>
 			        			</div><!-- /.col-sm-6 -->
 
