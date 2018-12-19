@@ -141,7 +141,7 @@ include ("menu.php");
 
 								<div class="form-group">
 									<label for="titulo">Título</label>
-									<input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título de la noticia" value="<?php echo (isset($titulo) && $titulo) ? $titulo : ''; ?>" maxlength="120" autofocus>
+									<input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título de la noticia" value="<?php echo (isset($titulo) && $titulo) ? htmlspecialchars($titulo) : ''; ?>" maxlength="120" autofocus>
 								</div>
 
 								<div class="form-group">
