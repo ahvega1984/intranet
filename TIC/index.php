@@ -37,8 +37,8 @@ else {
 	if (isset($_GET['id']) && intval($_GET['id']) && isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
 			$result = mysqli_query($db_con, "SELECT `estado`, `solicitante` FROM `incidencias_tic` WHERE `id` = '".$_GET['id']."' LIMIT 1");
 			$row = mysqli_fetch_array($result);
-			
-			if ($row['solicitante'] == $pr) {
+
+			if ($row['solicitante'] == $idea) {
 				if ($row['estado'] == 1) {
 					$result = mysqli_query($db_con, "DELETE FROM `incidencias_tic` WHERE `id` = '".$_GET['id']."' LIMIT 1");
 					if (! $result) {
