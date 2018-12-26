@@ -826,7 +826,7 @@ function ft_make_body() {
       }
       $str .= "</select><input type=\"hidden\" name=\"dir\" value=\"".$_REQUEST['dir']."\" /></div></form><div class=\"clearfix\"></div></div>";
 
-			$str .= "<table class=\"table table-bordered table-striped table-hover\" id='filelist'>";
+			$str .= "<table class=\"table table-bordered table-hover\" id='filelist'>";
       $str .= "<thead>";
       $str .= "<tr><th>Nombre</th><th class=\"hidden-xs col-sm-2\">Tamaño</th><th class=\"hidden-xs col-sm-3\">Última modificación</th><th></th></tr>";
       $str .= "</thead>";
@@ -892,12 +892,15 @@ function ft_make_body() {
               'image/bmp' => 'fas fa-file-image text-primary',
               'image/png' => 'fas fa-file-image text-primary',
               'image/tiff' => 'fas fa-file-image text-primary',
+							'image/svg+xml' => 'fas fa-file-image text-primary',
+							'image/vnd.adobe.photoshop' => 'fas fa-file-image text-primary',
               'audio/mid' => 'fas fa-file-audio text-primary',
               'audio/x-wav' => 'fas fa-file-audio text-primary',
               'audio/msvideo' => 'fas fa-file-audio text-primary',
               'video/x-mpeg' => 'fas fa-file-video text-primary',
               'video/quicktime' => 'fas fa-file-video text-primary',
             );
+
 					  $link = "<a href=\"".ft_get_dir()."/".rawurlencode($c['name'])."\" title=\"" .t('Show !file', array('!file' => $c['name'])). "\"><i class=\"{$mimetypes[$c['mimetype']]} fa-lg fa-fw\"></i> {$c['shortname']}</a>";
 					  if (HIDEFILEPATHS == TRUE) {
 					    $link = ft_make_link('<i class="'.$mimetypes[$c['mimetype']].' fa-lg fa-fw"></i> '.$c['shortname'], 'method=getfile&amp;dir='.rawurlencode($_REQUEST['dir']).'&amp;file='.$c['name'], t('Show !file', array('!file' => $c['name'])));
@@ -928,11 +931,9 @@ function ft_make_body() {
 						$str .= '
 						<td class="details text-center">
 							<span class="'.$class.'">
-								<div class="dropdown">
-								  <button type="button" class="btn btn-default btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    <i class="fas fa-ellipsis-h fa-fw"></i>
-								  </button>
-								</div>
+							  <button type="button" class="btn btn-default btn-xs">
+							    <i class="fas fa-ellipsis-h fa-fw"></i>
+							  </button>
 							</span>
 							<span class="hide" style="display: none;"></span>
 						</td>';
@@ -1632,10 +1633,6 @@ if (headers_sent()) {
 
   <script type="text/javascript" charset="utf-8">
 	$(document).ready(function(){
-		// Set focus on login username.
-		if (document.getElementById("ft_user")) {
-			document.getElementById("ft_user").focus();
-		}
 		// Set global object.
 		var ft = {fileactions:{}};
 		// Prep upload section.
@@ -1651,16 +1648,19 @@ if (headers_sent()) {
 		  move_link: "<?php echo t('Move');?>",
 		  del_link: "<?php echo t('Delete');?>",
 		  duplicate_link: "<?php echo t('Duplicate');?>",
+			share_link: "<?php echo t('Share');?>",
 		  rename: "<?php echo t('Rename to:');?>",
       move: "<?php echo t('Move to folder:');?>",
       del: "<?php echo t('Do you really want to delete file?');?>",
       del_warning: "<?php echo t('You can only delete empty folders.');?>",
       del_button: "<?php echo t('Yes, delete it');?>",
       duplicate: "<?php echo t('Duplicate to file:');?>",
+			share: "<?php echo t('Share to:');?>",
 		  directory: "<?php if (!empty($_REQUEST['dir'])) {echo $_REQUEST['dir'];}?>",
 		  ok: "<?php echo t('Ok');?>",
 		  formpost: "<?php echo ft_get_self();?><?php echo (isset($_GET['index'])) ? '?index='.$_GET['index'] : ''; ?>",
-		  advancedactions: "<?php if (ADVANCEDACTIONS === TRUE) {echo 'true';} else {echo 'false';}?>"
+		  advancedactions: "<?php if (ADVANCEDACTIONS === TRUE) {echo 'true';} else {echo 'false';}?>",
+			user_idea: "<?php echo $idea; ?>"
 		});
 
 		// Sort select box.

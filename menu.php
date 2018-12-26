@@ -144,8 +144,8 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 						<li class="hidden-xs"><a href="//<?php echo $config['dominio']; ?>/intranet/index.php" data-bs="tooltip" title="Inicio" data-placement="bottom" data-container="body"><i class="fas fa-home fa-fw fa-lg"></i></a></li>
 						<li class="visible-xs"><a href="//<?php echo $config['dominio']; ?>/intranet/index.php" data-bs="tooltip" title="Inicio" data-placement="bottom" data-container="body"><i class="fas fa-home fa-fw fa-lg"></i> Inicio</a></li>
 						<?php if (isset($config['mod_documentos']) && $config['mod_documentos']): ?>
-						<li class="hidden-xs"><a href="//<?php echo $config['dominio']; ?>/intranet/upload/" data-bs="tooltip" title="Documentos" data-placement="bottom" data-container="body"><i class="far fa-folder-open fa-fw fa-lg"></i></a></li>
-						<li class="visible-xs"><a href="//<?php echo $config['dominio']; ?>/intranet/upload/" data-bs="tooltip" title="Documentos" data-placement="bottom" data-container="body"><i class="far fa-folder-open fa-fw fa-lg"></i> Documentos</a></li>
+						<li class="hidden-xs"><a href="//<?php echo $config['dominio']; ?>/intranet/documentos/" data-bs="tooltip" title="Documentos" data-placement="bottom" data-container="body"><i class="far fa-folder-open fa-fw fa-lg"></i></a></li>
+						<li class="visible-xs"><a href="//<?php echo $config['dominio']; ?>/intranet/documentos/" data-bs="tooltip" title="Documentos" data-placement="bottom" data-container="body"><i class="far fa-folder-open fa-fw fa-lg"></i> Documentos</a></li>
 						<?php endif; ?>
 
 						<!-- TAREAS -->

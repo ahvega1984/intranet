@@ -15,19 +15,29 @@ function ft_settings_external_load() {
     switch ($_GET['index']) {
       default :
       case 'publico':
-        $ft["settings"]["DIR"]               = rtrim($config['mod_documentos_dir'], '/');
+        $ft["settings"]["DIR"] = rtrim($config['mod_documentos_dir'], '/');
         break;
       case 'interno':
-        $ft["settings"]["DIR"]               = "../varios/internos";
+        if (! file_exists("../varios/internos")) mkdir("../varios/internos", 0777);
+        if (! file_exists("../varios/internos/Proteccion de Datos")) mkdir("../varios/internos/Proteccion de Datos", 0777);
+        if (! file_exists("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos")) mkdir("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos", 0777);
+        if (! file_exists("../varios/internos/Proteccion de Datos/Control horario y seguimiento del personal")) mkdir("../varios/internos/Proteccion de Datos/Control horario y seguimiento del personal", 0777);
+        if (! file_exists("../varios/internos/Proteccion de Datos/Videovigilancia")) mkdir("../varios/internos/Proteccion de Datos/Videovigilancia", 0777);
+
+        if (! file_exists("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos/Autorizacion para la publicacion de imagenes de los alumnos.odt")) {
+          include('autorizacionImagenes.php');
+        }
+
+        $ft["settings"]["DIR"] = "../varios/internos";
         break;
       case 'privado':
         if (! file_exists("../varios/".$_SESSION['ide'])) mkdir("../varios/".$_SESSION['ide'], 0777);
-        $ft["settings"]["DIR"]               = "../varios/".$_SESSION['ide'];
+        $ft["settings"]["DIR"] = "../varios/".$_SESSION['ide'];
         break;
     }
   }
   else {
-    $ft["settings"]["DIR"]               = "../../documentos/uploads"; // Your default directory. Do NOT include a trailing slash!
+    $ft["settings"]["DIR"] = "../../documentos/uploads"; // Your default directory. Do NOT include a trailing slash!
   }
 
   $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
@@ -84,7 +94,7 @@ function ft_settings_external_load() {
   $ft["settings"]["SHOWDATES"]         = 'd/m/Y \a \l\a\s h:i'; // Set to a date format to display last modified date (e.g. 'Y-m-d'). See http://dk2.php.net/manual/en/function.date.php
   $ft["settings"]["FILEBLACKLIST"]     = ""; // Specific files that will not be shown.
   $ft["settings"]["FOLDERBLACKLIST"]   = ""; // Specifies folders that will not be shown. No starting or trailing slashes!
-  $ft["settings"]["FILETYPEBLACKLIST"] = "php phtml php3 php4 php5 php6 php7 htm html js css bin run sh rb exe deb rpm"; // File types that are not allowed for upload.
+  $ft["settings"]["FILETYPEBLACKLIST"] = "php php5 php6 php7 phtml htm html js css bin run sh rb exe deb rpm"; // File types that are not allowed for upload.
   $ft["settings"]["FILETYPEWHITELIST"] = ""; // Add file types here to *only* allow those types to be uploaded.
   $ft["settings"]["LIMIT"]             = 0; // Restrict total dir file usage to this amount of bytes. Set to "0" for no limit.
   $ft["settings"]["REQUEST_URI"]       = FALSE; // Installation path. You only need to set this if $_SERVER['REQUEST_URI'] is not being set by your server.
