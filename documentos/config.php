@@ -37,7 +37,7 @@ function ft_settings_external_load() {
     }
   }
   else {
-    $ft["settings"]["DIR"] = "../../documentos/uploads"; // Your default directory. Do NOT include a trailing slash!
+    $ft["settings"]["DIR"] = rtrim($config['mod_documentos_dir'], '/'); // Your default directory. Do NOT include a trailing slash!
   }
 
   $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
@@ -92,7 +92,7 @@ function ft_settings_external_load() {
   $ft["settings"]["DIRPERMISSION"]     = 0777; // Permission for newly created folders.
   $ft["settings"]["HIDEFILEPATHS"]     = TRUE; // Set to TRUE to pass downloads through File Thingie.
   $ft["settings"]["SHOWDATES"]         = 'd/m/Y \a \l\a\s h:i'; // Set to a date format to display last modified date (e.g. 'Y-m-d'). See http://dk2.php.net/manual/en/function.date.php
-  $ft["settings"]["FILEBLACKLIST"]     = ""; // Specific files that will not be shown.
+  $ft["settings"]["FILEBLACKLIST"]     = ".DS_Store ._.DS_Store"; // Specific files that will not be shown.
   $ft["settings"]["FOLDERBLACKLIST"]   = ""; // Specifies folders that will not be shown. No starting or trailing slashes!
   $ft["settings"]["FILETYPEBLACKLIST"] = "php php5 php6 php7 phtml htm html js css bin run sh rb exe deb rpm"; // File types that are not allowed for upload.
   $ft["settings"]["FILETYPEWHITELIST"] = ""; // Add file types here to *only* allow those types to be uploaded.
@@ -108,7 +108,7 @@ function ft_settings_external_load() {
     $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
-  // Permisos de todos los profesores la carpeta de su departamento
+  // Permisos de todos los profesores para la carpeta de su departamento
   elseif (! acl_permiso($_SESSION['cargo'], array('1')) && ($depto_profesor == $dir || $depto_profesor_sin_tildes == $dir)) {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
@@ -116,7 +116,7 @@ function ft_settings_external_load() {
     $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
-  // Permisos de todos los profesores la carpeta interna
+  // Permisos de todos los profesores para la carpeta interna
   elseif (! acl_permiso($_SESSION['cargo'], array('1')) && $ft["settings"]["DIR"] == "../varios/internos") {
   // Permisos en el resto de carpetas públicas
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
