@@ -14,13 +14,15 @@ if (isset($_POST['btnGuardar'])) {
 
 	$prefNotificacionPadres	= limpiar_string($_POST['prefNotificacionPadres']);
 	$prefMostrarDescripcion	= limpiar_string($_POST['prefMostrarDescripcion']);
-	$prefPuntosMaximo	= ($_POST['prefPuntosMaximo']);
-	$prefPuntosTotal	= ($_POST['prefPuntosTotal']);
-	$prefPuntosRestaLeves	= ($_POST['prefPuntosRestaLeves']);
-	$prefPuntosRestaGraves	= ($_POST['prefPuntosRestaGraves']);
-	$prefPuntosRestaMGraves	= ($_POST['prefPuntosRestaMGraves']);
-	$prefPuntosRecuperaConvivencia	= ($_POST['prefPuntosRecuperaConvivencia']);
-	$prefPuntosRecuperaSemana	= ($_POST['prefPuntosRecuperaSemana']);
+	$prefCompromisoConvivencia	= $_POST['prefCompromisoConvivencia'];
+	$prefPuntosHabilitado	= $_POST['prefPuntosHabilitado'];
+	$prefPuntosMaximo	= $_POST['prefPuntosMaximo'];
+	$prefPuntosTotal	= $_POST['prefPuntosTotal'];
+	$prefPuntosRestaLeves	= $_POST['prefPuntosRestaLeves'];
+	$prefPuntosRestaGraves	= $_POST['prefPuntosRestaGraves'];
+	$prefPuntosRestaMGraves	= $_POST['prefPuntosRestaMGraves'];
+	$prefPuntosRecuperaConvivencia	= $_POST['prefPuntosRecuperaConvivencia'];
+	$prefPuntosRecuperaSemana	= $_POST['prefPuntosRecuperaSemana'];
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen('config.php', 'w+'))
@@ -30,7 +32,9 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE PROBLEMAS DE CONVIVENCIA\r\n");
 		fwrite($file, "\$config['convivencia']['notificaciones_padres']\t= $prefNotificacionPadres;\r\n");
 		fwrite($file, "\$config['convivencia']['mostrar_descripcion']\t= $prefMostrarDescripcion;\r\n");
+		fwrite($file, "\$config['convivencia']['compromiso_convivencia']\t= $prefCompromisoConvivencia;\r\n");
 		fwrite($file, "\r\n// CONFIGURACIÓN SISTEMA POR PUNTOS\r\n");
+		fwrite($file, "\$config['convivencia']['puntos']['habilitado']\t= $prefPuntosHabilitado;\r\n");
 		fwrite($file, "\$config['convivencia']['puntos']['maximo']\t= $prefPuntosMaximo;\r\n");
 		fwrite($file, "\$config['convivencia']['puntos']['total']\t= $prefPuntosTotal;\r\n");
 		fwrite($file, "\$config['convivencia']['puntos']['resta_leves']\t= $prefPuntosRestaLeves;\r\n");
@@ -108,10 +112,33 @@ include("menu.php");
 							</div>
 						</div>
 
+						<div class="form-group">
+							<label for="prefCompromisoConvivencia" class="col-sm-4 control-label">Compromiso de convivencia</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefCompromisoConvivencia" name="prefCompromisoConvivencia">
+									<option value="0" <?php echo (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+									<option value="1" <?php echo (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+								</select>
+							</div>
+							<div class="col-sm-5">
+								<p class="help-block">Esta opción permite a jefatura de estudios marcar aquellos alumnos que tienen un compromiso de buena conducta. El profesorado verá al pasar el listado de faltas la etiqueta <span class="label label-info">CC</span> en los alumnos con compromiso de convivencia.</p>
+							</div>
+						</div>
+
 					</fieldset>
 
 					<fieldset>
 						<legend>Sistema por puntos</legend>
+
+						<div class="form-group">
+							<label for="prefPuntosHabilitado" class="col-sm-4 control-label">Usar sistema por puntos</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefPuntosHabilitado" name="prefPuntosHabilitado">
+									<option value="0" <?php echo (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+									<option value="1" <?php echo (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+								</select>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label for="prefPuntosMaximo" class="col-sm-4 control-label">Puntos máximos que puede acumular</label>

@@ -1,6 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('../fechorias/config.php')) {
+	include('../fechorias/config.php');
+}
+
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if(isset($_GET['unidad'])){$unidad = $_GET['unidad'];}else{$unidad = $_POST['unidad'];}
@@ -161,15 +165,10 @@ if (!$claveal) {
 						  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'UTF-8'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Repetidor/a</dt>
 						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
-							
-						  	<?php 
-								if ($_SERVER['SERVER_NAME'] !== 'iesmonterroso.org') { 
-								echo "<dt>Puntos</dt>
-						  		<dd>";
-								echo sistemaPuntos($row['claveal']); 
-								echo "</dd>";
-								} 							
-							?>
+							<?php if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']): ?>
+							<dt>Puntos</dt>
+							<dd><?php echo sistemaPuntos($row['claveal']); ?></dd>
+							<?php endif; ?>
 						</dl>
 
 					</div><!-- /.col-sm-6 -->

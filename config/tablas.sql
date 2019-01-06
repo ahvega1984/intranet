@@ -254,6 +254,19 @@ CREATE TABLE IF NOT EXISTS `cargos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `compromiso_convivencia`
+--
+
+DROP TABLE IF EXISTS `compromiso_convivencia`;
+CREATE TABLE `compromiso_convivencia` (
+  `nie` VARCHAR(12) NOT NULL,
+  `fecha` DATETIME NOT NULL,
+  PRIMARY KEY (`nie`)
+) ENGINE = MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `control`
 --
 

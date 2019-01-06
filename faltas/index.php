@@ -367,6 +367,9 @@ foreach ($array_unidades as $hora2) {
 			$row_bil = mysqli_fetch_array($result_bil);
 			$esBilingue = ($row_bil['bilinguismo'] == 'Si') ? 1 : 0;
 
+			$result_cc = mysqli_query($db_con, "SELECT `fecha` FROM `compromiso_convivencia` WHERE `nie` = '".$row['CLAVEAL']."' LIMIT 1");
+			$esCompromisoConvivencia = (mysqli_num_rows($result_cc) > 0) ? 1 : 0;
+
 			if ($hay_al=="1" or $hay_grupo<1) {
 				if ($row[5] != "") {
 					?>
@@ -401,6 +404,7 @@ foreach ($array_unidades as $hora2) {
 				";
 					if ($row[4] == "2" or $row[4] == "3") {echo " <span class=\"label label-default\" data-bs=\"tooltip\" title=\"Repetidor\">(R)</span>";}
 					if ($esBilingue) echo ' <span class="label label-warning" data-bs="tooltip" title="Bilingüe">(B)</span>';
+					if ($esCompromisoConvivencia) echo ' <span class="label label-info" data-bs="tooltip" title="Compromiso de convivencia">(CC)</span>';
 				}
 				echo "<span class='pull-right' style='margin-right:5px'>";
 

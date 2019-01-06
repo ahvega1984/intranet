@@ -5,10 +5,18 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-$idea = $_SESSION ['ide'];
-if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activ1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activ2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" ';}
+if (acl_permiso($_SESSION['cargo'], array('1'))) {
+	if (isset($_POST['cc']) && $_POST['cc'] || isset($_POST['nie'])) {
+		$nie = $_POST['nie'];
+		$result = mysqli_query($db_con, "SELECT `fecha` FROM `compromiso_convivencia` WHERE `nie` = '$nie' LIMIT 1");
+		if (! mysqli_num_rows($result)) {
+			mysqli_query($db_con, "INSERT INTO `compromiso_convivencia` (`nie`, `fecha`) VALUES ('$nie', NOW())");
+		}
+		else {
+			mysqli_query($db_con, "DELETE FROM `compromiso_convivencia` WHERE `nie` = '$nie' LIMIT 1");
+		}
+	}
+}
 
 $PLUGIN_DATATABLES = 1;
 
@@ -60,6 +68,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 						Problema ha sido <strong>Revisado</strong> por Jefatura de Estudios.</p>
 
 						<hr>
+						<?php if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']): ?>
 						<h5>Sistema de puntos</h5>
 						<p>Este sistema se basa en una serie de puntos iniciales que se van perdiendo (o ganando) según la conducta del alumno.
 							Aquí es importante contar con una actuación concreta y conocida por todos cuando se pierdan todos los puntos
@@ -85,6 +94,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 						<p>Cuando el alumno es expulsado al aula de convivencia, tiene la posibilidad de
 							<strong>recuperar <?php echo (isset($config['convivencia']['puntos']['recupera_convivencia'])) ? $config['convivencia']['puntos']['recupera_convivencia'] : '2'; ?> puntos</strong>
 							si asiste y realiza las tareas.</p>
+						<?php endif; ?>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
@@ -104,7 +114,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
     </div>';
 
     echo "<div id='t_larga' style='display:none' >";
-  if (isset($_POST['confirma'])) {
+  if (isset($_POST['confirma']) && $_POST['confirma'] == 1) {
   	foreach ($_POST as $clave => $valor){
   		if (strlen($valor) > '0' and $clave !== 'confirma') {
   		$actualiza = "update Fechoria set confirmado = '1' where id = '$clave'";
@@ -149,15 +159,22 @@ if ($config['mod_convivencia']==1) {
 		<th>INFORMA</th>
 		<th>GRAV.</th>
 		<th>NUM.</th>
-		<th>CAD.</th>
-		<th>PUNTOS</th>
+		<th>CAD.</th>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+			echo "<th>PUNTOS</th>";
+		}
+		if (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia']) {
+			echo "<th><span data-bs=\"tooltip\" title=\"Compromiso de convivencia\">CC</span></th>";
+		}
+		echo "
 		<th></th>
 		<th></th>
 		<th></th>
 		</tr></thead><tbody>";
-   while($row = mysqli_fetch_array($result))
-        {
-        $marca = '';
+		$num_row = 0;
+   while($row = mysqli_fetch_array($result)) {
+		$num_row++;
+    $marca = '';
 		$apellidos = $row[0];
 		$nombre = $row[1];
 		$unidad = $row[2];
@@ -219,8 +236,41 @@ if ($config['mod_convivencia']==1) {
 		<td>".nomprofesor($informa)."</td>
 		<td $bgcolor>$grave</td>
 		<td><center>$rownumero</center></td>
-		<td>$caducada</td>
-		<td>".sistemaPuntos($claveal)."</td>
+		<td>$caducada</td>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+			echo "<td>".sistemaPuntos($claveal)."</td>";
+		}
+
+		if (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia']) {
+			$result_compromiso = mysqli_query($db_con, "SELECT `fecha` FROM `compromiso_convivencia` WHERE `nie` = '$claveal' LIMIT 1");
+			$checkbox_compromiso = "";
+			if (mysqli_num_rows($result_compromiso)) {
+				$checkbox_compromiso = "checked";
+			}
+
+			if (acl_permiso($_SESSION['cargo'], array('1'))) {
+				echo "
+				<td>
+					<form action=\"\" name=\"compromiso_convivencia\" method=\"post\">
+						<label for=\"cc_".$num_row."\">
+							<input type=\"checkbox\" id=\"cc_".$num_row."\" name=\"cc\" value=\"1\" onchange=\"submit()\" $checkbox_compromiso>
+						</label>
+						<input type=\"hidden\" name=\"nie\" value=\"".$claveal."\">
+					</form>
+				</td>";
+			}
+			else {
+				echo "<td>";
+				if ($checkbox_compromiso != "") {
+					echo "<span class=\"label label-info\" data-bs=\"tooltip\" title=\"Compromiso de convivencia\">(CC)</span>";
+				}
+				else {
+					echo "";
+				}
+				echo "</td>";
+			}
+		}
+		echo "
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>";
 
 		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fas fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>

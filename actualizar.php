@@ -601,3 +601,15 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tipos de recursos para reservar', NOW())");
 }
+
+/*
+	@descripcion: Crea tabla compromiso_convivencia
+	@fecha: 6 de enero de 2019
+*/
+
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Crea tabla compromiso_convivencia'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "DROP TABLE IF EXISTS `compromiso_convivencia`;");
+	mysqli_query($db_con, "CREATE TABLE `compromiso_convivencia` (`nie` VARCHAR(12) NOT NULL, `fecha` DATETIME NOT NULL, PRIMARY KEY (`nie`)) ENGINE = MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Crea tabla compromiso_convivencia', NOW())");
+}

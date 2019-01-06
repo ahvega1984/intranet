@@ -36,8 +36,11 @@ include ("menu.php");
 		<th>Graves</th>
 		<th nowrap>Muy Graves</th>
 		<th>Expulsion</th>
-		<th>Convivencia</th>
-    <th>Puntos</th>
+		<th>Convivencia</th>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+    	echo "<th>Puntos</th>";
+		}
+		echo "
 		</thead><tbody>";
 		mysqli_query($db_con, "create table Fechoria_ult_exp SELECT DISTINCT claveal, Max(fecha) as Ultima FROM Fechoria where date(inicio)>'0000-00-00' GROUP BY claveal" );
 		mysqli_query($db_con, "create table Fechoria_post_exp SELECT Fechoria.* FROM Fechoria LEFT JOIN Fechoria_ult_exp ON Fechoria_ult_exp.claveal=Fechoria.claveal WHERE date(Fechoria.fecha)>date(Fechoria_ult_exp.Ultima) OR Fechoria_ult_exp.Ultima IS NULL" );
@@ -88,8 +91,11 @@ include ("menu.php");
 		<td $bgcolor>$grave</td>
 		<td $bgcolor>$m_grave</td>
 		<td $bgcolor>$expulsion</td>
-		<td $bgcolor>$conv</td>
-    <td $bgcolor>".sistemaPuntos($claveal)."</td>
+		<td $bgcolor>$conv</td>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+    	echo "<td $bgcolor>".sistemaPuntos($claveal)."</td>";
+		}
+		echo "
 		</tr>";
 		}
 		}

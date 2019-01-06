@@ -36,8 +36,11 @@ include ("menu.php");
 		<th>Graves</th>
 		<th nowrap>Muy Graves</th>
 		<th>Expulsion</th>
-		<th>Convivencia</th>
-    <th>Puntos</th>
+		<th>Convivencia</th>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+    	echo "<th>Puntos</th>";
+		}
+		echo "
 		</tr></thead><tbody>";
 
 		$t1 = mysqli_query($db_con,"SELECT fecha FROM festivos WHERE nombre like '%navidad%' limit 1");
@@ -139,7 +142,9 @@ include ("menu.php");
 		echo "<td>$m_grave</td>";
 		echo "<td>$expulsion</td>";
 		echo "<td>$conv</td>";
-    echo "<td>".sistemaPuntos($claveal)."</td>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+    	echo "<td>".sistemaPuntos($claveal)."</td>";
+		}
 		echo "</tr>";
 		}
 		}
