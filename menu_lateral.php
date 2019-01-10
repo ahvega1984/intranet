@@ -207,6 +207,10 @@ $menu = array(
 						'titulo' => 'Listas de los Grupos'
 					),
 					array(
+						'href'   => 'admin/mesas/sel_grupo_mesas.php',
+						'titulo' => 'Asignación de mesas'
+					),
+					array(
 						'href'   => 'admin/pendientes/index.php',
 						'titulo' => 'Listas de Pendientes'
 					),
