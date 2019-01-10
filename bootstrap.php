@@ -9,7 +9,7 @@ if (version_compare(phpversion(), '7.3', '>')) die ("<h1>Versión de PHP incompa
 // CONFIGURACIÓN DE LA SESIÓN
 ini_set("session.use_cookies", 1);
 ini_set("session.use_only_cookies", 1);
-if ($_SERVER["HTTPS"] == "on") {
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")  {
 	ini_set("session.cookie_secure", 1);
 }
 ini_set("session.cookie_httponly", 1);
@@ -47,11 +47,9 @@ if (file_exists(CONFIG_FILE)) {
 }
 else {
 
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$server_name.'/intranet/config/index.php');
-	        exit();
-	    }
+	if (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
+	  header('Location:'.'https://'.$server_name.'/intranet/config/index.php');
+	  exit();
 	}
 	else {
 		header('Location:'.'http://'.$server_name.'/intranet/config/index.php');
