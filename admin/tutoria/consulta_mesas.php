@@ -9,10 +9,10 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
 // COMPROBAMOS SI ES EL TUTOR, SI NO, ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
-	
+
 	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
 	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
-	
+
 }
 else {
 
@@ -26,7 +26,7 @@ else {
 			header('Location:'.'tutores.php');
 		}
 	}
-	
+
 }
 
 
@@ -56,34 +56,33 @@ function al_con_nie($db_con, $var_nie, $var_grupo) {
 	$result = mysqli_query($db_con, "SELECT CONCAT(nombre, ', ', apellidos) AS alumno FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
 	$row = mysqli_fetch_array($result);
 	mysqli_free_result($result);
-	
+
 	if ($row['alumno'] != ", ") {
 		return($row['alumno'].', '.$row['nombre']);
 	}
 	else {
 		return('');
 	}
-	
-}
 
+}
 
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
 	$result = mysqli_query($db_con, "UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
-	
+
 	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
-	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";	
+	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";
 }
 
 
-// OBTENEMOS LOS PUESTOS, SI NO, EXISTE LOS CREAMOS
+// OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
 $result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' LIMIT 1");
 
 if (! mysqli_num_rows($result)) {
-	mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
-	
-	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
-	else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";	
+	$result_insert = mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
+
+	if(! $result_insert) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
+	else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";
 }
 else {
 	$row = mysqli_fetch_array($result);
@@ -95,7 +94,7 @@ $matriz_puestos = explode(';', $cadena_puestos);
 
 foreach ($matriz_puestos as $value) {
 	$los_puestos = explode('|', $value);
-	
+
 	if ($los_puestos[0] == 'allItems') {
 		$sin_puesto[] = $los_puestos[1];
 	}
@@ -108,22 +107,22 @@ foreach ($matriz_puestos as $value) {
 include("../../menu.php");
 include("menu.php");
 ?>
-	
+
 	<style class="text/css">
-	
+
 	table tr td {
 		vertical-align: top;
 	}
-	
+
 	table tr td.active {
 		background-color: #333;
 	}
-	
+
 	#allItems {
 		width: 100%;
 		border: 1px solid #ecf0f1;
 	}
-	
+
 	#allItems p {
 		background-color: #2c3e50;
 		color: #fff;
@@ -131,7 +130,7 @@ include("menu.php");
 		padding: 4px 15px;
 		margin-bottom: 4px;
 	}
-	
+
 	#allItems ul li {
 		background-color: #efefef;
 		padding: 5px 15px;
@@ -139,18 +138,18 @@ include("menu.php");
 		font-size: 0.9em;
 		cursor: move;
 	}
-	
+
 	#dhtmlgoodies_mainContainer table tr td div {
 		border: 1px solid #ecf0f1;
 		margin: 0 5px 10px 5px;
 	}
-	
+
 	#dhtmlgoodies_mainContainer table tr td div {
 		<?php if ($estructura_clase == '242') echo 'width: 95px;'; ?>
 		<?php if ($estructura_clase == '232') echo 'width: 110px;'; ?>
 		<?php if ($estructura_clase == '222') echo 'width: 130px;'; ?>
 	}
-	
+
 	#dhtmlgoodies_mainContainer table tr td div p {
 		background-color: #2c3e50;
 		color: #fff;
@@ -158,24 +157,24 @@ include("menu.php");
 		padding: 4px 2px;
 		margin-bottom: 4px;
 	}
-	
+
 	#dhtmlgoodies_mainContainer table tr td div ul {
 		margin: 0 4px 4px 4px;
 		min-height: 50px;
 		background-color: #efefef;
 	}
-	
+
 	#dhtmlgoodies_mainContainer table tr td div ul li {
 		height: 100%;
 		cursor: move;
 	}
-	
-	
+
+
 	#dhtmlgoodies_dragDropContainer .mouseover ul {
 		background-color:#E2EBED;
 		border: 1px solid #3FB618;
 	}
-	
+
 	#dragContent {
 		position: absolute;
 		margin-top: -280px;
@@ -186,42 +185,42 @@ include("menu.php");
 		z-index: 2000;
 		cursor: move;
 	}
-	
+
 	.text-sm {
 		font-size: 0.8em;
 	}
-	
+
 	</style>
 
 	<div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Asignación de mesas en el aula</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
-		
-		
+
+
 		<!-- MENSAJES -->
 		<?php if(isset($msg_success) && $msg_success): ?>
 		<div class="alert alert-success" role="alert">
 			<?php echo $msg_success; ?>
 		</div>
 		<?php endif; ?>
-		
+
 		<?php if(isset($msg_error) && $msg_error): ?>
 		<div class="alert alert-danger" role="alert">
 			<?php echo $msg_error; ?>
 		</div>
 		<?php endif; ?>
-		
-		
+
+
 		<!-- SCAFFOLDING -->
 		<div id="dhtmlgoodies_dragDropContainer" class="row">
-			
+
 			<!-- COLUMNA IZQUIERDA -->
 			<div id="dhtmlgoodies_listOfItems" class="col-sm-3 hidden-print">
-				
+
 				<div id="allItems">
 					<p>Alumnos/as</p>
 					<ul class="list-unstyled">
@@ -235,15 +234,15 @@ include("menu.php");
 					  <?php endwhile; ?>
 					</ul>
 				</div>
-				
+
 				<ul id="dragContent" class="list-unstyled"></ul>
-				
+
 			</div><!-- /.col-sm-3 -->
-			
-			
+
+
 			<!-- COLUMNA DERECHA -->
 			<div id="dhtmlgoodies_mainContainer" class="col-sm-9">
-				
+
 				<div class="table-responsive">
 					<table>
 						<?php for ($i = 1; $i < 7; $i++): ?>
@@ -253,8 +252,8 @@ include("menu.php");
 								<div><p class="text-center">Mesa <?php echo $mesas; ?></p>
 									<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
 										<?php if (isset($con_puesto[$mesas])): ?>
-											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($db_con, $con_puesto[$mesas], $_SESSION['mod_tutoria']['unidad']); ?></li>		 
-										<?php endif; ?>  
+											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($db_con, $con_puesto[$mesas], $_SESSION['mod_tutoria']['unidad']); ?></li>
+										<?php endif; ?>
 									</ul>
 								</div>
 							</td>
@@ -278,17 +277,17 @@ include("menu.php");
 						</tr>
 					</table>
 				</div>
-			
+
 			</div><!-- /.col-sm-9 -->
-		
+
 		</div><!-- /.row -->
-		
+
 		<br>
-		
+
 		<div class="row">
-			
+
 			<div class="col-sm-12">
-				
+
 				<div class="hidden-print">
 					<form id="myForm" name="myForm" method="post" action="" onsubmit="saveDragDropNodes()">
 						<input type="hidden" name="listOfItems" value="">
@@ -296,11 +295,11 @@ include("menu.php");
 						<a href="#" class="btn btn-default" onclick="javascript:print();">Imprimir</a>
 					</form>
 				</div>
-				
+
 			</div><!-- /col-sm-12 -->
-			
+
 		</div><!-- /.row -->
-	
+
 	</div><!-- /.container -->
 
 
@@ -309,47 +308,46 @@ include("menu.php");
 	<script type="text/javascript">
 	/************************************************************************************************************
 	(C) www.dhtmlgoodies.com, November 2005
-	
+
 	Update log:
-	
+
 	December 20th, 2005 : Version 1.1: Added support for rectangle indicating where object will be dropped
 	January 11th, 2006: Support for cloning, i.e. "copy & paste" items instead of "cut & paste"
 	January 18th, 2006: Allowing multiple instances to be dragged to same box(applies to "cloning mode")
-	
+
 	This is a script from www.dhtmlgoodies.com. You will find this and a lot of other scripts at our website.
-	
+
 		Terms of use:
 	You are free to use this script as long as the copyright message is kept intact. However, you may not
 	redistribute, sell or repost it without our permission.
-	
+
 	Thank you!
-	
+
 	www.dhtmlgoodies.com
 	Alf Magne Kalleland
-	
+
 	************************************************************************************************************/
-	
+
 	/* VARIABLES YOU COULD MODIFY */
-	/*if ($estructura_clase=='232') {*/
-		var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-		/*}
-	if ($estructura_clase=='222') {
-	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];}	*/
-	// Array indicating how many items  there is rooom for in the right column ULs 
-	
-	
+	<?php if ($estructura_clase=='242'): ?>
+	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+	<?php elseif ($estructura_clase=='232'): ?>
+	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+	<?php elseif ($estructura_clase=='222'): ?>
+	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+	<?php endif; ?>
+	// Array indicating how many items  there is rooom for in the right column ULs
+
 	var verticalSpaceBetweenListItems = 3;	// Pixels space between one <li> and next
-											// Same value or higher as margin bottom in CSS for #dhtmlgoodies_dragDropContainer ul li,#dragContent li
-	
-	
+																					// Same value or higher as margin bottom in CSS for #dhtmlgoodies_dragDropContainer ul li,#dragContent li
+
 	var indicateDestionationByUseOfArrow = false;	// Display arrow to indicate where object will be dropped(false = use rectangle)
-	
+
 	var cloneSourceItems = false;	// Items picked from main container will be cloned(i.e. "copy" instead of "cut").
 	var cloneAllowDuplicates = false;	// Allow multiple instances of an item inside a small box(example: drag Student 1 to team A twice
-	
+
 	/* END VARIABLES YOU COULD MODIFY */
-	
+
 	var dragDropTopContainer = false;
 	var dragTimer = -1;
 	var dragContentObj = false;
@@ -360,18 +358,18 @@ include("menu.php");
 	var dragDropIndicator = false;	// Reference to small arrow indicating where items will be dropped
 	var ulPositionArray = new Array();
 	var mouseoverObj = false;	// Reference to highlighted DIV
-	
+
 	var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
 	var navigatorVersion = navigator.appVersion.replace(/.*?MSIE (\d\.\d).*/g,'$1')/1;
-	
+
 	var arrow_offsetX = -5;	// Offset X - position of small arrow
 	var arrow_offsetY = 0;	// Offset Y - position of small arrow
-	
+
 	if(!MSIE || navigatorVersion > 6){
 		arrow_offsetX = -6;	// Firefox - offset X small arrow
 		arrow_offsetY = -13; // Firefox - offset Y small arrow
 	}
-	
+
 	var indicateDestinationBox = false;
 	function getTopPos(inputObj)
 	{
@@ -381,7 +379,7 @@ include("menu.php");
 	  }
 	  return returnValue;
 	}
-	
+
 	function getLeftPos(inputObj)
 	{
 	  var returnValue = inputObj.offsetLeft;
@@ -390,7 +388,7 @@ include("menu.php");
 	  }
 	  return returnValue;
 	}
-	
+
 	function cancelEvent()
 	{
 		return false;
@@ -400,7 +398,7 @@ include("menu.php");
 		if(document.all)e = event;
 		var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 		var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
-	
+
 		dragTimer = 0;
 		dragContentObj.style.left = e.clientX + sl + 'px';
 		dragContentObj.style.top = e.clientY + st + 'px';
@@ -414,7 +412,7 @@ include("menu.php");
 		timerDrag();
 		return false;
 	}
-	
+
 	function timerDrag()
 	{
 		if(dragTimer>=0 && dragTimer<10){
@@ -423,7 +421,7 @@ include("menu.php");
 			return;
 		}
 		if(dragTimer==10){
-	
+
 			if(cloneSourceItems && contentToBeDragged.parentNode.id=='allItems'){
 				newItem = contentToBeDragged.cloneNode(true);
 				newItem.onmousedown = contentToBeDragged.onmousedown;
@@ -433,7 +431,7 @@ include("menu.php");
 			dragContentObj.appendChild(contentToBeDragged);
 		}
 	}
-	
+
 	function moveDragContent(e)
 	{
 		if(dragTimer<10){
@@ -449,11 +447,11 @@ include("menu.php");
 		if(document.all)e = event;
 		var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 		var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
-	
-	
+
+
 		dragContentObj.style.left = e.clientX + sl + 'px';
 		dragContentObj.style.top = e.clientY + st + 'px';
-	
+
 		if(mouseoverObj)mouseoverObj.className='';
 		destinationObj = false;
 		dragDropIndicator.style.display='none';
@@ -462,23 +460,23 @@ include("menu.php");
 		var y = e.clientY + st;
 		var width = dragContentObj.offsetWidth;
 		var height = dragContentObj.offsetHeight;
-	
+
 		var tmpOffsetX = arrow_offsetX;
 		var tmpOffsetY = arrow_offsetY;
-	
+
 		for(var no=0;no<ulPositionArray.length;no++){
 			var ul_leftPos = ulPositionArray[no]['left'];
 			var ul_topPos = ulPositionArray[no]['top'];
 			var ul_height = ulPositionArray[no]['height'];
 			var ul_width = ulPositionArray[no]['width'];
-	
+
 			if((x+width) > ul_leftPos && x<(ul_leftPos + ul_width) && (y+height)> ul_topPos && y<(ul_topPos + ul_height)){
 				var noExisting = ulPositionArray[no]['obj'].getElementsByTagName('LI').length;
 				if(indicateDestinationBox && indicateDestinationBox.parentNode==ulPositionArray[no]['obj'])noExisting--;
 				if(noExisting<boxSizeArray[no-1] || no==0){
 					dragDropIndicator.style.left = ul_leftPos + tmpOffsetX + 'px';
 					var subLi = ulPositionArray[no]['obj'].getElementsByTagName('LI');
-	
+
 					var clonedItemAllreadyAdded = false;
 					if(cloneSourceItems && !cloneAllowDuplicates){
 						for(var liIndex=0;liIndex<subLi.length;liIndex++){
@@ -486,7 +484,7 @@ include("menu.php");
 						}
 						if(clonedItemAllreadyAdded)continue;
 					}
-	
+
 					for(var liIndex=0;liIndex<subLi.length;liIndex++){
 						var tmpTop = getTopPos(subLi[liIndex]);
 						if(!indicateDestionationByUseOfArrow){
@@ -505,13 +503,13 @@ include("menu.php");
 							}
 						}
 					}
-	
+
 					if(!indicateDestionationByUseOfArrow){
 						if(indicateDestinationBox.style.display=='none'){
 							indicateDestinationBox.style.display='block';
 							ulPositionArray[no]['obj'].appendChild(indicateDestinationBox);
 						}
-	
+
 					}else{
 						if(subLi.length>0 && dragDropIndicator.style.display=='none'){
 							dragDropIndicator.style.top = getTopPos(subLi[subLi.length-1]) + subLi[subLi.length-1].offsetHeight + tmpOffsetY + 'px';
@@ -522,7 +520,7 @@ include("menu.php");
 							dragDropIndicator.style.display='block';
 						}
 					}
-	
+
 					if(!destinationObj)destinationObj = ulPositionArray[no]['obj'];
 					mouseoverObj = ulPositionArray[no]['obj'].parentNode;
 					mouseoverObj.className='mouseover';
@@ -531,7 +529,7 @@ include("menu.php");
 			}
 		}
 	}
-	
+
 	/* End dragging
 	Put <LI> into a destination or back to where it came from.
 	*/
@@ -544,12 +542,12 @@ include("menu.php");
 		}
 		dragTimer = -1;
 		if(document.all)e = event;
-	
-	
+
+
 		if(cloneSourceItems && (!destinationObj || (destinationObj && (destinationObj.id=='allItems' || destinationObj.parentNode.id=='allItems')))){
 			contentToBeDragged.parentNode.removeChild(contentToBeDragged);
 		}else{
-	
+
 			if(destinationObj){
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);
@@ -577,12 +575,12 @@ include("menu.php");
 		if(indicateDestinationBox){
 			indicateDestinationBox.style.display='none';
 			document.body.appendChild(indicateDestinationBox);
-	
+
 		}
 		mouseoverObj = false;
-	
+
 	}
-	
+
 	/*
 	Preparing data to be saved
 	*/
@@ -597,12 +595,12 @@ include("menu.php");
 				saveString = saveString + uls[no].id + '|' + lis[no2].id;
 			}
 		}
-	document.forms['myForm'].listOfItems.value = saveString; 
+	document.forms['myForm'].listOfItems.value = saveString;
 		document.getElementById('saveContent').innerHTML = '<h1>Ready to save these nodes:</h1> ' + saveString.replace(/;/g,';<br>') + '<p>Format: ID of ul |(pipe) ID of li;(semicolon)</p><p>You can put these values into a hidden form fields, post it to the server and explode the submitted value there</p>';
-		
-	
+
+
 	}
-	
+
 	function initDragDropScript()
 	{
 		dragContentObj = document.getElementById('dragContent');
@@ -619,20 +617,20 @@ include("menu.php");
 				listItems[no].style.cursor='hand';
 			}
 		}
-	
+
 		var mainContainer = document.getElementById('dhtmlgoodies_mainContainer');
 		var uls = mainContainer.getElementsByTagName('UL');
 		itemHeight = itemHeight + verticalSpaceBetweenListItems;
 		for(var no=0;no<uls.length;no++){
 			uls[no].style.height = itemHeight * boxSizeArray[no]  + 'px';
 		}
-	
+
 		var leftContainer = document.getElementById('dhtmlgoodies_listOfItems');
 		var itemBox = leftContainer.getElementsByTagName('UL')[0];
-	
+
 		document.documentElement.onmousemove = moveDragContent;	// Mouse move event - moving draggable div
 		document.documentElement.onmouseup = dragDropEnd;	// Mouse move event - moving draggable div
-	
+
 		var ulArray = dragDropTopContainer.getElementsByTagName('UL');
 		for(var no=0;no<ulArray.length;no++){
 			ulPositionArray[no] = new Array();
@@ -642,17 +640,17 @@ include("menu.php");
 			ulPositionArray[no]['height'] = ulArray[no].clientHeight;
 			ulPositionArray[no]['obj'] = ulArray[no];
 		}
-	
+
 		if(!indicateDestionationByUseOfArrow){
 			indicateDestinationBox = document.createElement('LI');
 			indicateDestinationBox.id = 'indicateDestination';
 			indicateDestinationBox.style.display='none';
 			document.body.appendChild(indicateDestinationBox);
-	
-	
+
+
 		}
 	}
-	
+
 	window.onload = initDragDropScript;
 	</script>
 
