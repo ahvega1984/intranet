@@ -68,12 +68,11 @@ function al_con_nie($db_con, $var_nie, $var_grupo) {
 
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
-	$result = mysqli_query($db_con, "UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
+	$result_update = mysqli_query($db_con, "UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 
-	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
+	if(! $result_update) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";
 }
-
 
 // OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
 $result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' LIMIT 1");
@@ -226,10 +225,8 @@ include("menu.php");
 					<ul class="list-unstyled">
 						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-						<?php if (!in_array($row['claveal'],$con_puesto)): ?>
-					  <li id="<?php echo $row['claveal']; ?>">
-					    <?php echo $row['apellidos'].', '.$row['nombre']; ?>
-					  </li>
+						<?php if (! in_array($row['claveal'], $con_puesto)): ?>
+					  <li id="<?php echo $row['claveal']; ?>"><?php echo $row['apellidos'].', '.$row['nombre']; ?></li>
 					  <?php endif; ?>
 					  <?php endwhile; ?>
 					</ul>
@@ -595,6 +592,7 @@ include("menu.php");
 				saveString = saveString + uls[no].id + '|' + lis[no2].id;
 			}
 		}
+		saveString = saveString + ";";
 	document.forms['myForm'].listOfItems.value = saveString;
 		document.getElementById('saveContent').innerHTML = '<h1>Ready to save these nodes:</h1> ' + saveString.replace(/;/g,';<br>') + '<p>Format: ID of ul |(pipe) ID of li;(semicolon)</p><p>You can put these values into a hidden form fields, post it to the server and explode the submitted value there</p>';
 
