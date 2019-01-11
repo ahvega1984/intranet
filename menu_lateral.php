@@ -457,6 +457,10 @@ $menu_trabajo =  array(
 						'titulo' => 'Nueva incidencia',
 					),
 					array(
+						'href'   => 'admin/mesas/sel_grupo_mesas_tic.php',
+						'titulo' => 'Asignación de mesas en aulas TIC'
+					),
+					array(
 						'href'   => 'TIC/inventario.php',
 						'titulo' => 'Inventario TIC',
 					),
