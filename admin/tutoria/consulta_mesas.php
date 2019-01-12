@@ -51,17 +51,17 @@ if ($estructura_clase == '242') { $mesas_col = 9; $mesas = 48; $col_profesor = 9
 if ($estructura_clase == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8; }
 if ($estructura_clase == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
 
+function obtenerAlumno($var_nie, $var_grupo) {
+	global $db_con;
 
-function al_con_nie($db_con, $var_nie, $var_grupo) {
-	$result = mysqli_query($db_con, "SELECT CONCAT(nombre, ', ', apellidos) AS alumno FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
-	$row = mysqli_fetch_array($result);
-	mysqli_free_result($result);
-
-	if ($row['alumno'] != ", ") {
-		return($row['alumno'].', '.$row['nombre']);
+	$result = mysqli_query($db_con, "SELECT `apellidos`, `nombre` FROM `alma` WHERE `unidad` = '".$var_grupo."' AND `claveal` = '".$var_nie."' ORDER BY `apellidos` ASC, `nombre` ASC LIMIT 1");
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
+		mysqli_free_result($result);
+		return $row['apellidos'].', '.$row['nombre'];
 	}
 	else {
-		return('');
+		return '';
 	}
 
 }
@@ -249,7 +249,7 @@ include("menu.php");
 								<div><p class="text-center">Mesa <?php echo $mesas; ?></p>
 									<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
 										<?php if (isset($con_puesto[$mesas])): ?>
-											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($db_con, $con_puesto[$mesas], $_SESSION['mod_tutoria']['unidad']); ?></li>
+											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo obtenerAlumno($con_puesto[$mesas], $_SESSION['mod_tutoria']['unidad']); ?></li>
 										<?php endif; ?>
 									</ul>
 								</div>
