@@ -231,7 +231,7 @@ if ($mes_sig == 13) {
 echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
 echo "<th><h4><a
 href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_ant."&month=".
-$mes_ant."\"><span class=\"fas fa-arrow-circle-left fa-fw 
+$mes_ant."\"><span class=\"fas fa-arrow-circle-left fa-fw
 fa-lg\"></span></a></h4></th>";
 echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
 echo "<th><h4><a
@@ -395,7 +395,8 @@ a_grupo not like 'G%'";
 			echo "<label>".$i."ª hora</label>";
 		if (strlen($grupo_aula)>0) {
 			if ($esTIC) {
-				echo "<p class=\"help-block text-info\">Asignada por horario</p>";
+				echo "<select name=\"day_event$i\" class='form-control' disabled>";
+				echo "<option value=\"".$grupo_aula."\" selected>Asignada por Horario: $grupo_aula</option>";
 			}
 			else {
 				echo "<select name=\"day_event$i\" class='form-control'>";
