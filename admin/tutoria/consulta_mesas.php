@@ -1,59 +1,48 @@
-<?php
+﻿<?php
 require('../../bootstrap.php');
-
 if (file_exists('config.php')) {
 	include('config.php');
 }
-
 acl_acceso($_SESSION['cargo'], array(1, 2, 8));
-
 // COMPROBAMOS SI ES EL TUTOR, SI NO, ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
-
 	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
 	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
-
 }
 else {
-
 	if(isset($_POST['tutor'])) {
 		$exp_tutor = explode('==>', $_POST['tutor']);
 		$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
 		$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+		$_SESSION['mesas']['estructura'] = '';
 	}
 	else{
 		if (!isset($_SESSION['mod_tutoria'])) {
 			header('Location:'.'tutores.php');
 		}
 	}
-
 }
-
-
 // TABLA DE PUESTOS
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
   `unidad` varchar(10) COLLATE utf8_general_ci NOT NULL,
   `puestos` text COLLATE utf8_general_ci,
+  `estructura` varchar(10) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`unidad`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-
-
 // ESTRUCTURA DE LA CLASE, SE AJUSTA AL NUMERO DE ALUMNOS
 $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC");
 $n_alumnos = mysqli_num_rows($result);
 mysqli_free_result($result);
-
-if ($n_alumnos <= 36) $estructura_clase = '222';
-elseif ($n_alumnos > 36 && $n_alumnos <= 42) $estructura_clase = '232';
-elseif ($n_alumnos > 42) $estructura_clase = '242';
-
-if ($estructura_clase == '242') { $mesas_col = 9; $mesas = 48; $col_profesor = 9; }
-if ($estructura_clase == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8; }
-if ($estructura_clase == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
-
+if(isset($_POST['estructura'])){
+		$_SESSION['mesas']['estructura'] = $_POST['estructura'];
+}
+if ($_SESSION['mesas']['estructura']==''){
+if ($n_alumnos <= 36) $_SESSION['mesas']['estructura'] = '222';
+elseif ($n_alumnos > 36 && $n_alumnos <= 42) $_SESSION['mesas']['estructura'] = '232';
+elseif ($n_alumnos > 42) $_SESSION['mesas']['estructura'] = '242';
+}
 function obtenerAlumno($var_nie, $var_grupo) {
 	global $db_con;
-
 	$result = mysqli_query($db_con, "SELECT `apellidos`, `nombre` FROM `alma` WHERE `unidad` = '".$var_grupo."' AND `claveal` = '".$var_nie."' ORDER BY `apellidos` ASC, `nombre` ASC LIMIT 1");
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
@@ -61,67 +50,60 @@ function obtenerAlumno($var_nie, $var_grupo) {
 		return $row['apellidos'].', '.$row['nombre'];
 	}
 	else {
-		return '';
+		return '';;
 	}
-
 }
-
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
-	$result_update = mysqli_query($db_con, "UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
-
+	$result_update = mysqli_query($db_con, "UPDATE puestos_alumnos SET estructura='".$_SESSION['mesas']['estructura']."',puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 	if(! $result_update) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";
 }
-
 // OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
 $result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' LIMIT 1");
-
 if (! mysqli_num_rows($result)) {
-	$result_insert = mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
-
+	$estructura_reg = '';
+	$result_insert = mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos, estructura) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '','".$_SESSION['mesas']['estructura']."')");
 	if(! $result_insert) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
-	else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";
+	//else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";
 }
 else {
 	$row = mysqli_fetch_array($result);
 	$cadena_puestos = $row[1];
+	$estructura_reg= $row[2];
 	mysqli_free_result($result);
 }
-
+if (!isset($_POST['estructura']) && $estructura_reg <> ''){
+	$_SESSION['mesas']['estructura'] = $estructura_reg;
+}
 $matriz_puestos = explode(';', $cadena_puestos);
-
 foreach ($matriz_puestos as $value) {
 	$los_puestos = explode('|', $value);
-
 	if ($los_puestos[0] == 'allItems') {
 		$sin_puesto[] = $los_puestos[1];
 	}
 	else {
 		$con_puesto[$los_puestos[0]] = $los_puestos[1];
 	}
-
 }
-
 include("../../menu.php");
 include("menu.php");
+if ($_SESSION['mesas']['estructura'] == '242') { $mesas_col = 9; $mesas = 48; $col_profesor = 9; }
+if ($_SESSION['mesas']['estructura'] == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8; }
+if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
 ?>
 
 	<style class="text/css">
-
 	table tr td {
 		vertical-align: top;
 	}
-
 	table tr td.active {
 		background-color: #333;
 	}
-
 	#allItems {
 		width: 100%;
 		border: 1px solid #ecf0f1;
 	}
-
 	#allItems p {
 		background-color: #2c3e50;
 		color: #fff;
@@ -129,26 +111,23 @@ include("menu.php");
 		padding: 4px 15px;
 		margin-bottom: 4px;
 	}
-
 	#allItems ul li {
 		background-color: #efefef;
 		padding: 5px 15px;
 		margin: 5px;
-		font-size: 0.9em;
+		font-size: 0.8em;
 		cursor: move;
 	}
-
 	#dhtmlgoodies_mainContainer table tr td div {
 		border: 1px solid #ecf0f1;
 		margin: 0 5px 10px 5px;
 	}
-
 	#dhtmlgoodies_mainContainer table tr td div {
-		<?php if ($estructura_clase == '242') echo 'width: 95px;'; ?>
-		<?php if ($estructura_clase == '232') echo 'width: 110px;'; ?>
-		<?php if ($estructura_clase == '222') echo 'width: 130px;'; ?>
+		<?php if ($_SESSION['mesas']['estructura'] == '242') echo 'width: 98px;'; ?>
+		<?php if ($_SESSION['mesas']['estructura'] == '232') echo 'width: 113px;'; ?>
+		<?php if ($_SESSION['mesas']['estructura'] == '222') echo 'width: 133px;'; ?>
+		
 	}
-
 	#dhtmlgoodies_mainContainer table tr td div p {
 		background-color: #2c3e50;
 		color: #fff;
@@ -156,24 +135,19 @@ include("menu.php");
 		padding: 4px 2px;
 		margin-bottom: 4px;
 	}
-
 	#dhtmlgoodies_mainContainer table tr td div ul {
 		margin: 0 4px 4px 4px;
 		min-height: 50px;
 		background-color: #efefef;
 	}
-
 	#dhtmlgoodies_mainContainer table tr td div ul li {
 		height: 100%;
 		cursor: move;
 	}
-
-
 	#dhtmlgoodies_dragDropContainer .mouseover ul {
 		background-color:#E2EBED;
 		border: 1px solid #3FB618;
 	}
-
 	#dragContent {
 		position: absolute;
 		margin-top: -280px;
@@ -184,11 +158,9 @@ include("menu.php");
 		z-index: 2000;
 		cursor: move;
 	}
-
 	.text-sm {
 		font-size: 0.8em;
 	}
-
 	</style>
 
 	<div class="container">
@@ -219,7 +191,11 @@ include("menu.php");
 
 			<!-- COLUMNA IZQUIERDA -->
 			<div id="dhtmlgoodies_listOfItems" class="col-sm-3 hidden-print">
-
+				<table><tr><th>Distribución:&nbsp;</th><th> <form action="" method="post">
+					<input type="radio" name="estructura" value='222' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '222') ? 'checked' : ''; ?> > 222 </input>
+					<input type="radio" name="estructura" value='232' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '232') ? 'checked' : ''; ?> > 232 </input>
+					<input type="radio" name="estructura" value='242' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '242') ? 'checked' : ''; ?> > 242 </input>
+				</form></th></tr></table>
 				<div id="allItems">
 					<p>Alumnos/as</p>
 					<ul class="list-unstyled">
@@ -238,7 +214,7 @@ include("menu.php");
 
 
 			<!-- COLUMNA DERECHA -->
-			<div id="dhtmlgoodies_mainContainer" class="col-sm-9">
+			<div id="dhtmlgoodies_mainContainer" class="text/css">
 
 				<div class="table-responsive">
 					<table>
@@ -264,6 +240,7 @@ include("menu.php");
 						<tr>
 							<td colspan="<?php echo $col_profesor; ?>">
 								<br><p id="dragDropIndicator" class="text-info hidden-print">Arrastre un alumno/a a la mesa correspondiente</p>
+								<p id="dragDropIndicator" class="text-info hidden-print">Haga zoom con Ctrl+ o Ctrl- si no se ven todas las mesas</p>
 							</td>
 							<td class="text-center">
 								<div>
@@ -275,7 +252,7 @@ include("menu.php");
 					</table>
 				</div>
 
-			</div><!-- /.col-sm-9 -->
+			</div><!-- /.text/css -->
 
 		</div><!-- /.row -->
 
@@ -290,6 +267,7 @@ include("menu.php");
 						<input type="hidden" name="listOfItems" value="">
 						<button type="submit" class="btn btn-primary" name="saveButton">Guardar cambios</button>
 						<a href="#" class="btn btn-default" onclick="javascript:print();">Imprimir</a>
+						<a class="btn btn-default" href="index.php">Volver</a>
 					</form>
 				</div>
 
@@ -305,46 +283,33 @@ include("menu.php");
 	<script type="text/javascript">
 	/************************************************************************************************************
 	(C) www.dhtmlgoodies.com, November 2005
-
 	Update log:
-
 	December 20th, 2005 : Version 1.1: Added support for rectangle indicating where object will be dropped
 	January 11th, 2006: Support for cloning, i.e. "copy & paste" items instead of "cut & paste"
 	January 18th, 2006: Allowing multiple instances to be dragged to same box(applies to "cloning mode")
-
 	This is a script from www.dhtmlgoodies.com. You will find this and a lot of other scripts at our website.
-
 		Terms of use:
 	You are free to use this script as long as the copyright message is kept intact. However, you may not
 	redistribute, sell or repost it without our permission.
-
 	Thank you!
-
 	www.dhtmlgoodies.com
 	Alf Magne Kalleland
-
 	************************************************************************************************************/
-
 	/* VARIABLES YOU COULD MODIFY */
-	<?php if ($estructura_clase=='242'): ?>
+	<?php if ($_SESSION['mesas']['estructura']=='242'): ?>
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-	<?php elseif ($estructura_clase=='232'): ?>
+	<?php elseif ($_SESSION['mesas']['estructura']=='232'): ?>
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-	<?php elseif ($estructura_clase=='222'): ?>
+	<?php elseif ($_SESSION['mesas']['estructura']=='222'): ?>
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 	<?php endif; ?>
 	// Array indicating how many items  there is rooom for in the right column ULs
-
 	var verticalSpaceBetweenListItems = 3;	// Pixels space between one <li> and next
 																					// Same value or higher as margin bottom in CSS for #dhtmlgoodies_dragDropContainer ul li,#dragContent li
-
 	var indicateDestionationByUseOfArrow = false;	// Display arrow to indicate where object will be dropped(false = use rectangle)
-
 	var cloneSourceItems = false;	// Items picked from main container will be cloned(i.e. "copy" instead of "cut").
 	var cloneAllowDuplicates = false;	// Allow multiple instances of an item inside a small box(example: drag Student 1 to team A twice
-
 	/* END VARIABLES YOU COULD MODIFY */
-
 	var dragDropTopContainer = false;
 	var dragTimer = -1;
 	var dragContentObj = false;
@@ -355,18 +320,14 @@ include("menu.php");
 	var dragDropIndicator = false;	// Reference to small arrow indicating where items will be dropped
 	var ulPositionArray = new Array();
 	var mouseoverObj = false;	// Reference to highlighted DIV
-
 	var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
 	var navigatorVersion = navigator.appVersion.replace(/.*?MSIE (\d\.\d).*/g,'$1')/1;
-
 	var arrow_offsetX = -5;	// Offset X - position of small arrow
 	var arrow_offsetY = 0;	// Offset Y - position of small arrow
-
 	if(!MSIE || navigatorVersion > 6){
 		arrow_offsetX = -6;	// Firefox - offset X small arrow
 		arrow_offsetY = -13; // Firefox - offset Y small arrow
 	}
-
 	var indicateDestinationBox = false;
 	function getTopPos(inputObj)
 	{
@@ -376,7 +337,6 @@ include("menu.php");
 	  }
 	  return returnValue;
 	}
-
 	function getLeftPos(inputObj)
 	{
 	  var returnValue = inputObj.offsetLeft;
@@ -385,7 +345,6 @@ include("menu.php");
 	  }
 	  return returnValue;
 	}
-
 	function cancelEvent()
 	{
 		return false;
@@ -395,7 +354,6 @@ include("menu.php");
 		if(document.all)e = event;
 		var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 		var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
-
 		dragTimer = 0;
 		dragContentObj.style.left = e.clientX + sl + 'px';
 		dragContentObj.style.top = e.clientY + st + 'px';
@@ -409,7 +367,6 @@ include("menu.php");
 		timerDrag();
 		return false;
 	}
-
 	function timerDrag()
 	{
 		if(dragTimer>=0 && dragTimer<10){
@@ -418,7 +375,6 @@ include("menu.php");
 			return;
 		}
 		if(dragTimer==10){
-
 			if(cloneSourceItems && contentToBeDragged.parentNode.id=='allItems'){
 				newItem = contentToBeDragged.cloneNode(true);
 				newItem.onmousedown = contentToBeDragged.onmousedown;
@@ -428,7 +384,6 @@ include("menu.php");
 			dragContentObj.appendChild(contentToBeDragged);
 		}
 	}
-
 	function moveDragContent(e)
 	{
 		if(dragTimer<10){
@@ -444,11 +399,8 @@ include("menu.php");
 		if(document.all)e = event;
 		var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 		var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
-
-
 		dragContentObj.style.left = e.clientX + sl + 'px';
 		dragContentObj.style.top = e.clientY + st + 'px';
-
 		if(mouseoverObj)mouseoverObj.className='';
 		destinationObj = false;
 		dragDropIndicator.style.display='none';
@@ -457,23 +409,19 @@ include("menu.php");
 		var y = e.clientY + st;
 		var width = dragContentObj.offsetWidth;
 		var height = dragContentObj.offsetHeight;
-
 		var tmpOffsetX = arrow_offsetX;
 		var tmpOffsetY = arrow_offsetY;
-
 		for(var no=0;no<ulPositionArray.length;no++){
 			var ul_leftPos = ulPositionArray[no]['left'];
 			var ul_topPos = ulPositionArray[no]['top'];
 			var ul_height = ulPositionArray[no]['height'];
 			var ul_width = ulPositionArray[no]['width'];
-
 			if((x+width) > ul_leftPos && x<(ul_leftPos + ul_width) && (y+height)> ul_topPos && y<(ul_topPos + ul_height)){
 				var noExisting = ulPositionArray[no]['obj'].getElementsByTagName('LI').length;
 				if(indicateDestinationBox && indicateDestinationBox.parentNode==ulPositionArray[no]['obj'])noExisting--;
 				if(noExisting<boxSizeArray[no-1] || no==0){
 					dragDropIndicator.style.left = ul_leftPos + tmpOffsetX + 'px';
 					var subLi = ulPositionArray[no]['obj'].getElementsByTagName('LI');
-
 					var clonedItemAllreadyAdded = false;
 					if(cloneSourceItems && !cloneAllowDuplicates){
 						for(var liIndex=0;liIndex<subLi.length;liIndex++){
@@ -481,7 +429,6 @@ include("menu.php");
 						}
 						if(clonedItemAllreadyAdded)continue;
 					}
-
 					for(var liIndex=0;liIndex<subLi.length;liIndex++){
 						var tmpTop = getTopPos(subLi[liIndex]);
 						if(!indicateDestionationByUseOfArrow){
@@ -500,13 +447,11 @@ include("menu.php");
 							}
 						}
 					}
-
 					if(!indicateDestionationByUseOfArrow){
 						if(indicateDestinationBox.style.display=='none'){
 							indicateDestinationBox.style.display='block';
 							ulPositionArray[no]['obj'].appendChild(indicateDestinationBox);
 						}
-
 					}else{
 						if(subLi.length>0 && dragDropIndicator.style.display=='none'){
 							dragDropIndicator.style.top = getTopPos(subLi[subLi.length-1]) + subLi[subLi.length-1].offsetHeight + tmpOffsetY + 'px';
@@ -517,7 +462,6 @@ include("menu.php");
 							dragDropIndicator.style.display='block';
 						}
 					}
-
 					if(!destinationObj)destinationObj = ulPositionArray[no]['obj'];
 					mouseoverObj = ulPositionArray[no]['obj'].parentNode;
 					mouseoverObj.className='mouseover';
@@ -526,7 +470,6 @@ include("menu.php");
 			}
 		}
 	}
-
 	/* End dragging
 	Put <LI> into a destination or back to where it came from.
 	*/
@@ -539,12 +482,9 @@ include("menu.php");
 		}
 		dragTimer = -1;
 		if(document.all)e = event;
-
-
 		if(cloneSourceItems && (!destinationObj || (destinationObj && (destinationObj.id=='allItems' || destinationObj.parentNode.id=='allItems')))){
 			contentToBeDragged.parentNode.removeChild(contentToBeDragged);
 		}else{
-
 			if(destinationObj){
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);
@@ -572,12 +512,9 @@ include("menu.php");
 		if(indicateDestinationBox){
 			indicateDestinationBox.style.display='none';
 			document.body.appendChild(indicateDestinationBox);
-
 		}
 		mouseoverObj = false;
-
 	}
-
 	/*
 	Preparing data to be saved
 	*/
@@ -595,10 +532,7 @@ include("menu.php");
 		saveString = saveString + ";";
 	document.forms['myForm'].listOfItems.value = saveString;
 		document.getElementById('saveContent').innerHTML = '<h1>Ready to save these nodes:</h1> ' + saveString.replace(/;/g,';<br>') + '<p>Format: ID of ul |(pipe) ID of li;(semicolon)</p><p>You can put these values into a hidden form fields, post it to the server and explode the submitted value there</p>';
-
-
 	}
-
 	function initDragDropScript()
 	{
 		dragContentObj = document.getElementById('dragContent');
@@ -615,20 +549,16 @@ include("menu.php");
 				listItems[no].style.cursor='hand';
 			}
 		}
-
 		var mainContainer = document.getElementById('dhtmlgoodies_mainContainer');
 		var uls = mainContainer.getElementsByTagName('UL');
 		itemHeight = itemHeight + verticalSpaceBetweenListItems;
 		for(var no=0;no<uls.length;no++){
 			uls[no].style.height = itemHeight * boxSizeArray[no]  + 'px';
 		}
-
 		var leftContainer = document.getElementById('dhtmlgoodies_listOfItems');
 		var itemBox = leftContainer.getElementsByTagName('UL')[0];
-
 		document.documentElement.onmousemove = moveDragContent;	// Mouse move event - moving draggable div
 		document.documentElement.onmouseup = dragDropEnd;	// Mouse move event - moving draggable div
-
 		var ulArray = dragDropTopContainer.getElementsByTagName('UL');
 		for(var no=0;no<ulArray.length;no++){
 			ulPositionArray[no] = new Array();
@@ -638,17 +568,13 @@ include("menu.php");
 			ulPositionArray[no]['height'] = ulArray[no].clientHeight;
 			ulPositionArray[no]['obj'] = ulArray[no];
 		}
-
 		if(!indicateDestionationByUseOfArrow){
 			indicateDestinationBox = document.createElement('LI');
 			indicateDestinationBox.id = 'indicateDestination';
 			indicateDestinationBox.style.display='none';
 			document.body.appendChild(indicateDestinationBox);
-
-
 		}
 	}
-
 	window.onload = initDragDropScript;
 	</script>
 
