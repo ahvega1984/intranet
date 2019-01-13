@@ -213,7 +213,7 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 			</div><!-- /.col-sm-3 -->
 
 
-			<!-- COLUMNA DERECHA -->
+			<!-- COLUMNA DERECHA - Usamos txt/css en vez de col-sm-9 para mejorar la impresión-->
 			<div id="dhtmlgoodies_mainContainer" class="text/css">
 
 				<div class="table-responsive">
