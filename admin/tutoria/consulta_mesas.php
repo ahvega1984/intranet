@@ -167,7 +167,7 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Asignación de mesas en el aula</small></h2>
+			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Asignación de mesas en aula habitual</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
 
