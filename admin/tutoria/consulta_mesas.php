@@ -191,7 +191,7 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 
 			<!-- COLUMNA IZQUIERDA -->
 			<div id="dhtmlgoodies_listOfItems" class="col-sm-3 hidden-print">
-				<table><tr><th>Distribución:&nbsp;</th><th> <form action="" method="post">
+				<table><tr><th>Tipo:&nbsp;</th><th> <form action="" method="post">
 					<input type="radio" name="estructura" value='222' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '222') ? 'checked' : ''; ?> > 222 </input>
 					<input type="radio" name="estructura" value='232' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '232') ? 'checked' : ''; ?> > 232 </input>
 					<input type="radio" name="estructura" value='242' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '242') ? 'checked' : ''; ?> > 242 </input>
