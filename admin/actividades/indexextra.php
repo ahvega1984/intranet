@@ -154,7 +154,7 @@ if($detalles == '1')
 			$fecha0 = explode("-",$datos['fechaini']);
 			$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
 			if (substr($fecha0[1],0,1)=="0") {$mes=str_replace("0","",$fecha0[1]);}else{$mes=$fecha0[1];}
-			$cal_act = '//'.$config['dominio'].'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos['1'];
+			$cal_act = '//'.$config['dominio'].'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos['0'];
 
 			$autoriz = $datos['confirmado'];
 			$datos['nombre']= str_replace("\\","",$datos['nombre']);
