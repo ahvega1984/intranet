@@ -207,6 +207,10 @@ $menu = array(
 						'titulo' => 'Listas de los Grupos'
 					),
 					array(
+						'href'   => 'admin/mesas/sel_grupo_mesas.php',
+						'titulo' => 'Asignación de mesas'
+					),
+					array(
 						'href'   => 'admin/pendientes/index.php',
 						'titulo' => 'Listas de Pendientes'
 					),
@@ -451,6 +455,10 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'TIC/incidencia.php',
 						'titulo' => 'Nueva incidencia',
+					),
+					array(
+						'href'   => 'admin/mesas/sel_grupo_mesas_tic.php',
+						'titulo' => 'Asignación de mesas en aulas TIC'
 					),
 					array(
 						'href'   => 'TIC/inventario.php',
