@@ -150,14 +150,11 @@ if ($existenNotas) {
 				if ($alumno['matriculas'] > 1) $unidades['repiten_alumnos']++;
 				
 				// Comprobamos si promociona
-				if ($suspensos < 3) $unidades['promocionan']++;
+				if ($suspensos < 3 and ((stristr($curso, 'E.S.O.') == TRUE and stristr($curso, '4º de E.S.O.') == FALSE) OR (stristr($curso, '1') == TRUE AND stristr($curso, 'E.S.O.') == FALSE))) $unidades['promocionan']++;
 				
 				// Comprobamos si titula
-				if (stristr($curso, '4º de E.S.O.') == true) {
-					if ($suspensos == 0) $unidades['titulan']++;
-				}
-				else if (stristr($curso, '2º de Bachillerato') == true) {
-					if ($suspensos == 0) $unidades['titulan']++;
+				if (stristr($curso, '4º de E.S.O.') == TRUE OR (stristr($curso, '2') == TRUE AND stristr($curso, 'E.S.O.') == FALSE)) {
+					if ($suspensos == 0) {$unidades['titulan']++; $unidades['promocionan']++;}
 				}
 				else {
 					if ($suspensos < 3) $unidades['titulan']++;
@@ -310,7 +307,17 @@ if ($existenNotas) {
 							<th width="4.14%" class="text-center">7</th>
 							<th width="4.14%" class="text-center">8 </th>
 							<th width="4.14%" class="text-center">9+</th>
+
+
+							<?php ?>
+
+							<?php ?>
+
+							<?php if (stristr($evaluacion['nomcurso'], '4º de E.S.O.') == TRUE OR (stristr($evaluacion['nomcurso'], '2') == TRUE AND stristr($evaluacion['nomcurso'], 'E.S.O.') == FALSE)) { ?>
+							<th width="7.15%" class="text-center">Tit.</th>
+							<?php } else { ?>
 							<th width="7.15%" class="text-center">Promo. / Tit.</th>
+							<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
