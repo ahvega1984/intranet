@@ -288,7 +288,7 @@ if (isset($_POST['instalar']))
 	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 	<meta name="robots" content="noindex, nofollow">
 
-	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
+	<title>Intranet - Instalación de la Intranet</title>
 
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -398,12 +398,12 @@ if (isset($_POST['instalar']))
 
 				    		<dl class="dl-horizontal">
 				    		  <dt>Upload max filesize</dt>
-				    		  <dd><?php echo (substr(ini_get('upload_max_filesize'),0,-1) < '16') ? '<span class="text-danger">Valor actual: '.ini_get('upload_max_filesize').'B. Aumente el tamaño máximo de archivos a 16 MB o superior.</span>' : '<span class="text-success">'.ini_get('upload_max_filesize').'B</span>'; ?></dd>
+				    		  <dd><?php echo (substr(ini_get('upload_max_filesize'),0,-1) < '32') ? '<span class="text-danger">Valor actual: '.ini_get('upload_max_filesize').'. Aumente el tamaño máximo de archivos a 32M o superior.</span>' : '<span class="text-success">'.ini_get('upload_max_filesize').'</span>'; ?></dd>
 				    		</dl>
 
 				    		<dl class="dl-horizontal">
 				    		  <dt>Memory limit</dt>
-				    		  <dd><?php echo (substr(ini_get('memory_limit'),0,-1) < '32') ? '<span class="text-danger">Valor actual: '.ini_get('memory_limit').'B. Aumente el tamaño de memoria a 32 MB o superior.</span>' : '<span class="text-success">'.ini_get('memory_limit').'B</span>'; ?></dd>
+				    		  <dd><?php echo (ini_get('memory_limit') != '-1' && substr(ini_get('memory_limit'),0,-1) < '256') ? '<span class="text-danger">Valor actual: '.ini_get('memory_limit').'. Aumente el tamaño de memoria a 256M o superior.</span>' : '<span class="text-success">'.((ini_get('memory_limit') == '-1') ? 'Ilimitado' : ini_get('memory_limit')).'</span>'; ?></dd>
 				    		</dl>
 
 				    		<dl class="dl-horizontal">
