@@ -129,7 +129,8 @@ if ($existenNotas) {
 					if ($idcalificacion != '') { 
 						$result_calificacion = mysqli_query($db_con, "SELECT abreviatura FROM calificaciones WHERE codigo = '".$idcalificacion."'");
 						$row_calificacion = mysqli_fetch_array($result_calificacion);
-						if (! intval($row_calificacion['abreviatura']) || $row_calificacion['abreviatura'] < 5) $suspensos++;
+						if (! intval($row_calificacion['abreviatura']) || $row_calificacion['abreviatura'] < 5) 
+                            				$suspensos++;
 					}
 				}
 				
@@ -240,154 +241,139 @@ if ($existenNotas) {
 				$flag = 0;
 				$num_unidades = 1;
 				$nomcurso = "";
-				?>
-				<?php foreach ($resultados_evaluaciones as $evaluacion): ?>
 				
-				<?php if ($nomcurso != $evaluacion['nomcurso']): ?>
-				<?php if ($flag == 1): ?>
-				</tbody>
-					<tfoot>
-						<tr>
-							<th>Totales</th>
-							<th><?php echo $total_alumnos; ?></th>
-							<th class="text-center"><?php echo $repiten_alumnos; ?></th>
-							<th class="text-center"><?php echo $cero_suspensos; ?></th>
-							<th class="text-center"><?php echo $uno_suspensos; ?></th>
-							<th class="text-center"><?php echo $dos_suspensos; ?></th>
-							<th class="text-center"><?php echo $tres_suspensos; ?></th>
-							<th class="text-center"><?php echo $cuatro_suspensos; ?></th>
-							<th class="text-center"><?php echo $cinco_suspensos; ?></th>
-							<th class="text-center"><?php echo $seis_suspensos; ?></th>
-							<th class="text-center"><?php echo $siete_suspensos; ?></th>
-							<th class="text-center"><?php echo $ocho_suspensos; ?></th>
-							<th class="text-center"><?php echo $nueve_o_mas_suspensos; ?></th>
-							<th><span class="<?php echo round($promocionan/($num_unidades-1)) > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($promocionan/($num_unidades-1)); ?> %</span> / <?php echo $titulan; ?></th>
-						</tr>
-					</tfoot>
-				</table>
+                foreach ($resultados_evaluaciones as $evaluacion):
 				
-				<hr>
+				    if ($nomcurso != $evaluacion['nomcurso']):
+				        if ($flag == 1): ?>
+                            </tbody>
+					        <tfoot>
+						          <tr>
+							     <th>Totales</th>
+							     <th><?php echo $total_alumnos; ?></th>
+							     <th class="text-center"><?php echo $alumnos_repiten; ?></th>
+							     <th class="text-center"><?php echo $cero_suspensos; ?></th>
+							     <th class="text-center"><?php echo $uno_suspensos; ?></th>
+							     <th class="text-center"><?php echo $dos_suspensos; ?></th>
+							     <th class="text-center"><?php echo $tres_suspensos; ?></th>
+							     <th class="text-center"><?php echo $cuatro_suspensos; ?></th>
+							     <th class="text-center"><?php echo $cinco_suspensos; ?></th>
+							     <th class="text-center"><?php echo $seis_suspensos; ?></th>
+							     <th class="text-center"><?php echo $siete_suspensos; ?></th>
+							     <th class="text-center"><?php echo $ocho_suspensos; ?></th>
+							     <th class="text-center"><?php echo $nueve_o_mas_suspensos; ?></th>
+							     <th><span class="<?php echo round($titulan/($total_alumnos)) >= 0.50 ? 'text-success' : 'text-danger'; ?>"><?php echo round(100*$titulan/($total_alumnos)); ?> %</span> / <?php echo $titulan; ?></th>
+						      </tr>
+					        </tfoot>
+                            </table>
+				            <?php 
+                        endif; 
+				        $flag = 1;
+				        $num_unidades = 1;
+				        $total_alumnos = 0;
+				        $alumnos_repiten = 0;
+				        $cero_suspensos = 0;
+				        $uno_suspensos = 0;
+				        $dos_suspensos = 0;
+				        $tres_suspensos = 0;
+				        $cuatro_suspensos = 0;
+				        $cinco_suspensos = 0;
+				        $seis_suspensos = 0;
+				        $siete_suspensos = 0;
+				        $ocho_suspensos = 0;
+				        $nueve_o_mas_suspensos = 0;
+				        $promocionan = 0;
+				        $titulan = 0;
+				        ?>
 				
-				<?php endif; ?>
-				<?php 
-				$flag = 1;
-				$num_unidades = 1;
+				        <h4 class="text-info"><?php echo $evaluacion['nomcurso']; ?></h4>
 				
-				$total_alumnos = 0;
-				$repiten_alumnos = 0;
-				$cero_suspensos = 0;
-				$uno_suspensos = 0;
-				$dos_suspensos = 0;
-				$tres_suspensos = 0;
-				$cuatro_suspensos = 0;
-				$cinco_suspensos = 0;
-				$seis_suspensos = 0;
-				$siete_suspensos = 0;
-				$ocho_suspensos = 0;
-				$nueve_o_mas_suspensos = 0;
-				$promocionan = 0;
-				$titulan = 0;
-				?>
-				
-				<h4 class="text-info"><?php echo $evaluacion['nomcurso']; ?></h4>
-				
-				<table class="table table-bordered table-hover" style="font-size: 11px;">
-					<thead>
-						<tr>
-							<th width="9.15%">Unidad</th>
-							<th width="6.15%">Alumnos</th>
-							<th width="6.15%" class="text-center">Repetidores</th>
-							<th width="4.14%" class="text-center">0</th>
-							<th width="4.14%" class="text-center">1</th>
-							<th width="4.14%" class="text-center">2</th>
-							<th width="4.14%" class="text-center">3</th>
-							<th width="4.14%" class="text-center">4</th>
-							<th width="4.14%" class="text-center">5</th>
-							<th width="4.14%" class="text-center">6</th>
-							<th width="4.14%" class="text-center">7</th>
-							<th width="4.14%" class="text-center">8 </th>
-							<th width="4.14%" class="text-center">9+</th>
-
-
-							<?php ?>
-
-							<?php ?>
-
-							<?php if (stristr($evaluacion['nomcurso'], '4º de E.S.O.') == TRUE OR (stristr($evaluacion['nomcurso'], '2') == TRUE AND stristr($evaluacion['nomcurso'], 'E.S.O.') == FALSE)) { ?>
+				        <table class="table table-bordered table-hover" style="font-size: 11px;">
+					       <thead>
+						      <tr>
+                                <th width="9.15%">Unidad</th>
+                                <th width="6.15%">Alumnos</th>
+                                <th width="6.15%" class="text-center">Repetidores</th>
+                                <th width="4.14%" class="text-center">0</th>
+                                <th width="4.14%" class="text-center">1</th>
+                                <th width="4.14%" class="text-center">2</th>
+                                <th width="4.14%" class="text-center">3</th>
+                                <th width="4.14%" class="text-center">4</th>
+                                <th width="4.14%" class="text-center">5</th>
+                                <th width="4.14%" class="text-center">6</th>
+                                <th width="4.14%" class="text-center">7</th>
+                                <th width="4.14%" class="text-center">8 </th>
+                                <th width="4.14%" class="text-center">9+</th>
+                                <?php if (stristr($evaluacion['nomcurso'], '4º de E.S.O.') == TRUE OR (stristr($evaluacion['nomcurso'], '2') == TRUE AND stristr($evaluacion['nomcurso'], 'E.S.O.') == FALSE)) { ?>
 							<th width="7.15%" class="text-center">Tit.</th>
 							<?php } else { ?>
 							<th width="7.15%" class="text-center">Promo. / Tit.</th>
 							<?php } ?>
-						</tr>
-					</thead>
-					<tbody>
-				<?php endif; ?>
-						<tr>
-							<th><?php echo $evaluacion['nomunidad']; ?></th>
-							<td><?php echo $evaluacion['total_alumnos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['repiten_alumnos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['cero_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['uno_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['dos_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['tres_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['cuatro_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['cinco_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['seis_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['siete_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['ocho_suspensos']; ?></td>
-							<td class="text-center"><?php echo $evaluacion['nueve_o_mas_suspensos']; ?></td>
-							<td><span class="<?php echo $evaluacion['promocionan'] > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($evaluacion['promocionan']); ?> %</span> / <?php echo $evaluacion['titulan']; ?></td>
-						</tr>
+						      </tr>
+					       </thead>
+					       <tbody>
+				            <?php 
+                    endif; ?>
+					           <tr>
+                                    <th><?php echo $evaluacion['nomunidad']; ?></th>
+                                    <td><?php echo $evaluacion['total_alumnos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['repiten_alumnos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['cero_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['uno_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['dos_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['tres_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['cuatro_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['cinco_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['seis_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['siete_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['ocho_suspensos']; ?></td>
+                                    <td class="text-center"><?php echo $evaluacion['nueve_o_mas_suspensos']; ?></td>
+                                    <td><span class="<?php echo $evaluacion['promocionan'] >= 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($evaluacion['promocionan']); ?> %</span> / <?php echo $evaluacion['titulan']; ?></td>
+					       </tr>
 				
-				<?php 
-				$total_alumnos += $evaluacion['total_alumnos'];
-				$alumnos_repiten += $evaluacion['repiten_alumnos'];
-				$cero_suspensos += $evaluacion['cero_suspensos'];
-				$uno_suspensos += $evaluacion['uno_suspensos'];
-				$dos_suspensos += $evaluacion['dos_suspensos'];
-				$tres_suspensos += $evaluacion['tres_suspensos'];
-				$cuatro_suspensos += $evaluacion['cuatro_suspensos'];
-				$cinco_suspensos += $evaluacion['cinco_suspensos'];
-				$seis_suspensos += $evaluacion['seis_suspensos'];
-				$siete_suspensos += $evaluacion['siete_suspensos'];
-				$ocho_suspensos += $evaluacion['ocho_suspensos'];
-				$nueve_o_mas_suspensos += $evaluacion['nueve_o_mas_suspensos'];
-				$promocionan += $evaluacion['promocionan'];
-				$titulan += $evaluacion['titulan'];
-				
-				$num_unidades++;
-				$nomcurso = $evaluacion['nomcurso']; 
-				?>
-				<?php endforeach; ?>
-				
+                    <?php 
+                    $total_alumnos += $evaluacion['total_alumnos'];
+                    $alumnos_repiten += $evaluacion['repiten_alumnos'];
+                    $cero_suspensos += $evaluacion['cero_suspensos'];
+                    $uno_suspensos += $evaluacion['uno_suspensos'];
+                    $dos_suspensos += $evaluacion['dos_suspensos'];
+                    $tres_suspensos += $evaluacion['tres_suspensos'];
+                    $cuatro_suspensos += $evaluacion['cuatro_suspensos'];
+                    $cinco_suspensos += $evaluacion['cinco_suspensos'];
+                    $seis_suspensos += $evaluacion['seis_suspensos'];
+                    $siete_suspensos += $evaluacion['siete_suspensos'];
+                    $ocho_suspensos += $evaluacion['ocho_suspensos'];
+                    $nueve_o_mas_suspensos += $evaluacion['nueve_o_mas_suspensos'];
+                    $promocionan += $evaluacion['promocionan'];
+                    $titulan += $evaluacion['titulan'];
+
+                    $num_unidades++; 
+                    $nomcurso = $evaluacion['nomcurso']; 
+                                                
+				endforeach; 
+                ?>
 				</tbody>
-					<tfoot>
-						<tr>
-							<th>Totales</th>
-							<th><?php echo $total_alumnos; ?></th>
-							<th class="text-center"><?php echo $repiten_alumnos; ?></th>
-							<th class="text-center"><?php echo $cero_suspensos; ?></th>
-							<th class="text-center"><?php echo $uno_suspensos; ?></th>
-							<th class="text-center"><?php echo $dos_suspensos; ?></th>
-							<th class="text-center"><?php echo $tres_suspensos; ?></th>
-							<th class="text-center"><?php echo $cuatro_suspensos; ?></th>
-							<th class="text-center"><?php echo $cinco_suspensos; ?></th>
-							<th class="text-center"><?php echo $seis_suspensos; ?></th>
-							<th class="text-center"><?php echo $siete_suspensos; ?></th>
-							<th class="text-center"><?php echo $ocho_suspensos; ?></th>
-							<th class="text-center"><?php echo $nueve_o_mas_suspensos; ?></th>
-							<th><span class="<?php echo round($promocionan/($num_unidades-1)) > 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($promocionan/($num_unidades-1)); ?> %</span> / <?php echo $titulan; ?></th>
-						</tr>
-					</tfoot>
+					       <tfoot>
+						      <tr>
+							     <th>Totales</th>
+							     <th><?php echo $total_alumnos; ?></th>
+							     <th class="text-center"><?php echo $alumnos_repiten; ?></th>
+							     <th class="text-center"><?php echo $cero_suspensos; ?></th>
+							     <th class="text-center"><?php echo $uno_suspensos; ?></th>
+							     <th class="text-center"><?php echo $dos_suspensos; ?></th>
+							     <th class="text-center"><?php echo $tres_suspensos; ?></th>
+							     <th class="text-center"><?php echo $cuatro_suspensos; ?></th>
+							     <th class="text-center"><?php echo $cinco_suspensos; ?></th>
+							     <th class="text-center"><?php echo $seis_suspensos; ?></th>
+							     <th class="text-center"><?php echo $siete_suspensos; ?></th>
+							     <th class="text-center"><?php echo $ocho_suspensos; ?></th>
+							     <th class="text-center"><?php echo $nueve_o_mas_suspensos; ?></th>
+							     <th><span class="<?php echo round(100*$titulan/($total_alumnos)) >= 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round(100*$titulan/($total_alumnos)); ?> %</span> / <?php echo $titulan; ?></th>
+						      </tr>
+					       </tfoot>
 				</table>
-				<?php endif; ?>
+				<?php 
+                endif; ?>
 			</div>
-			
-		</div>
-		
-	</div>
 
-	<?php include("../../../pie.php"); ?> 
-
-</body>
-</html>
+<?php include("../../../pie.php"); ?>
