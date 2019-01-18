@@ -33,10 +33,15 @@ Debes rellenar todos los datos, y parece que te has olvidado del Alumno o del Tu
 </div></div><hr>';
 exit;
 }
-#Vamos a rellenar los datos del alumno objeto del informe en la base de datos infotut
 
 // 
+$hoy = date('Y-m-d');
 $fecha = cambia_fecha($fecha);
+$nuevafecha = strtotime ( '+2 day' , strtotime ( $hoy ) ) ;
+$fecha_informe = strtotime ( $fecha ) ;
+
+if ($fecha_informe >= $nuevafecha OR stristr($_SESSION['cargo'],'1') == TRUE) {
+
 if ($_POST['alumno']=="Informe de Grupo") {
 	$claveal = rand(1,100000);
 	$apellidos = "Informe general del Grupo";
@@ -58,7 +63,7 @@ else{
 	$unidad = $dalumno[3];
 }
 
-$hoy = date('Y\-m\-d');
+
 if (stristr($apellidos, "Informe general")==TRUE) {
 	$duplicado = mysqli_query($db_con, "select claveal from infotut_alumno where (apellidos like 'Informe general%' and unidad = '$unidad') and f_entrev = '$fecha'");
 }
@@ -71,7 +76,7 @@ if(mysqli_num_rows($duplicado)>0)
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>';
-			echo "Ya hay un <b>Informe Tutorial</b> activado para <b> $nombre $apellidos </b>para el día
+	echo "Ya hay un <b>Informe Tutorial</b> activado para <b> $nombre $apellidos </b>para el día
 <b>";
 echo formatea_fecha($fecha);
 echo "</b>, y no queremos duplicarlo, verdad?";
@@ -96,10 +101,23 @@ else{
 }
  
 echo formatea_fecha($fecha);
-echo "</b> se ha activado.";
-echo '</div>
-</div>';
+?>
+</b> se ha activado.
+</div>
+</div>
+<?php
 exit;
+}
+else{
+?>
+<div align="center"><div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>Atención:</legend>
+Los Informes de Tutoría deben activarse con al menos 2 días de antelación a la visita de los padres del alumno para conceder tiempo al equipo educativo del mismo a redactarlo.<br>Si consideras que no es posible hacerlo por la urgencia de la situación, pasa por Jefatura de estudios.<br /><br />
+<input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-primary">
+</div></div><hr>
+<?php
+}
 ?>
 </div>
 </div>
