@@ -291,39 +291,38 @@ include("menu.php");
 					<input type="hidden" name="actividad" value="<?php echo $profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$codasig.'==>'.$actividad; ?>">
 				</form>
 
-
-					<table>
-						<?php for ($i = 1; $i < 7; $i++): ?>
-						<tr>
-							<?php for ($j = 1; $j < $mesas_col; $j++): ?>
-							<td>
-								<div><p class="text-center">Mesa <?php echo etiqueta($mesas); ?></p>
-									<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
-										<?php if (isset($con_puesto[$mesas])): ?>
-												<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo obtenerAlumno($con_puesto[$mesas], $grupo); ?></li>
-										<?php endif; ?>
-									</ul>
-								</div>
-							</td>
-							<?php if ($j == 2 || $j == 4 || $j == 6): ?>
-							<td class="text-center active">|</td>
-							<?php endif; ?>
-							<?php $mesas--; ?>
-							<?php endfor; ?>
-						</tr>
+				<table>
+					<?php for ($i = 1; $i < 7; $i++): ?>
+					<tr>
+						<?php for ($j = 1; $j < $mesas_col; $j++): ?>
+						<td>
+							<div><p class="text-center">Mesa <?php echo etiqueta($mesas); ?></p>
+								<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
+									<?php if (isset($con_puesto[$mesas])): ?>
+											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo obtenerAlumno($con_puesto[$mesas], $grupo); ?></li>
+									<?php endif; ?>
+								</ul>
+							</div>
+						</td>
+						<?php if ($j == 2 || $j == 4 || $j == 6): ?>
+						<td class="text-center active">|</td>
+						<?php endif; ?>
+						<?php $mesas--; ?>
 						<?php endfor; ?>
-						<tr>
-							<td colspan="<?php echo $col_profesor; ?>">
-								<br><p id="dragDropIndicator" class="text-info hidden-print">Arrastre cada alumno/a a la mesa correspondiente</p>
-								</td>
-							<td colspan="2" class="text-center">
-								<div style="width: 96%;">
-									<p>Profesor/a</p>
-									<br><br><br>
-								</div>
+					</tr>
+					<?php endfor; ?>
+					<tr>
+						<td colspan="<?php echo $col_profesor; ?>">
+							<br><p id="dragDropIndicator" class="text-info hidden-print">Arrastre cada alumno/a a la mesa correspondiente</p>
 							</td>
-						</tr>
-					</table>
+						<td colspan="2" class="text-center">
+							<div style="width: 96%;">
+								<p>Profesor/a</p>
+								<br><br><br>
+							</div>
+						</td>
+					</tr>
+				</table>
 
 			</div><!-- /.col-sm-9 -->
 
