@@ -1574,6 +1574,37 @@ CREATE TABLE IF NOT EXISTS `profesores_seneca` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `puestos_alumnos`
+--
+
+DROP TABLE IF EXISTS `puestos_alumnos`;
+CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
+  `unidad` varchar(10) COLLATE utf8_general_ci NOT NULL,
+  `puestos` text COLLATE utf8_general_ci,
+  `estructura` varchar(10) COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`unidad`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `puestos_alumnos_tic`
+--
+
+DROP TABLE IF EXISTS `puestos_alumnos_tic`;
+CREATE TABLE IF NOT EXISTS `puestos_alumnos_tic` (
+  `profesor` varchar(50) NOT NULL,
+  `grupo` varchar(64) NOT NULL,
+  `asignatura` varchar(30) NOT NULL,
+  `aula` varchar(32) NOT NULL,
+  `puestos` text COLLATE utf8_general_ci,
+  `monopuesto` tinyint(1) UNSIGNED NOT NULL,
+  PRIMARY KEY (`profesor`,`grupo`,`asignatura`,`aula`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `reg_intranet`
 --
 

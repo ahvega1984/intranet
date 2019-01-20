@@ -14,7 +14,7 @@ else {
 		$exp_tutor = explode('==>', $_POST['tutor']);
 		$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
 		$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
-		$_SESSION['mesas']['estructura'] = '';
+		$mesas_estructura = '';
 	}
 	else{
 		if (!isset($_SESSION['mod_tutoria'])) {
@@ -22,24 +22,18 @@ else {
 		}
 	}
 }
-// TABLA DE PUESTOS
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
-  `unidad` varchar(10) COLLATE utf8_general_ci NOT NULL,
-  `puestos` text COLLATE utf8_general_ci,
-  `estructura` varchar(10) COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`unidad`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
+
 // ESTRUCTURA DE LA CLASE, SE AJUSTA AL NUMERO DE ALUMNOS
 $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC");
 $n_alumnos = mysqli_num_rows($result);
 mysqli_free_result($result);
 if(isset($_POST['estructura'])){
-		$_SESSION['mesas']['estructura'] = $_POST['estructura'];
+		$mesas_estructura = $_POST['estructura'];
 }
-if ($_SESSION['mesas']['estructura']==''){
-if ($n_alumnos <= 36) $_SESSION['mesas']['estructura'] = '222';
-elseif ($n_alumnos > 36 && $n_alumnos <= 42) $_SESSION['mesas']['estructura'] = '232';
-elseif ($n_alumnos > 42) $_SESSION['mesas']['estructura'] = '242';
+if ($mesas_estructura==''){
+if ($n_alumnos <= 36) $mesas_estructura = '222';
+elseif ($n_alumnos > 36 && $n_alumnos <= 42) $mesas_estructura = '232';
+elseif ($n_alumnos > 42) $mesas_estructura = '242';
 }
 function obtenerAlumno($var_nie, $var_grupo) {
 	global $db_con;
@@ -55,7 +49,7 @@ function obtenerAlumno($var_nie, $var_grupo) {
 }
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
-	$result_update = mysqli_query($db_con, "UPDATE puestos_alumnos SET estructura='".$_SESSION['mesas']['estructura']."',puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
+	$result_update = mysqli_query($db_con, "UPDATE puestos_alumnos SET estructura='".$mesas_estructura."',puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 	if(! $result_update) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";
 }
@@ -63,9 +57,9 @@ if (isset($_POST['listOfItems'])){
 $result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' LIMIT 1");
 if (! mysqli_num_rows($result)) {
 	$estructura_reg = '';
-	$result_insert = mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos, estructura) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '','".$_SESSION['mesas']['estructura']."')");
+	$result_insert = mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos, estructura) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '','".$mesas_estructura."')");
 	if(! $result_insert) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
-	//else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";
+	else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";
 }
 else {
 	$row = mysqli_fetch_array($result);
@@ -74,7 +68,7 @@ else {
 	mysqli_free_result($result);
 }
 if (!isset($_POST['estructura']) && $estructura_reg <> ''){
-	$_SESSION['mesas']['estructura'] = $estructura_reg;
+	$mesas_estructura = $estructura_reg;
 }
 $matriz_puestos = explode(';', $cadena_puestos);
 foreach ($matriz_puestos as $value) {
@@ -88,9 +82,9 @@ foreach ($matriz_puestos as $value) {
 }
 include("../../menu.php");
 include("menu.php");
-if ($_SESSION['mesas']['estructura'] == '242') { $mesas_col = 9; $mesas = 48; $col_profesor = 9; }
-if ($_SESSION['mesas']['estructura'] == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8; }
-if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
+if ($mesas_estructura == '242') { $mesas_col = 9; $mesas = 48; $col_profesor = 9; }
+if ($mesas_estructura == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8; }
+if ($mesas_estructura == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
 ?>
 
 	<style class="text/css">
@@ -123,10 +117,10 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 		margin: 0 5px 10px 5px;
 	}
 	#dhtmlgoodies_mainContainer table tr td div {
-		<?php if ($_SESSION['mesas']['estructura'] == '242') echo 'width: 98px;'; ?>
-		<?php if ($_SESSION['mesas']['estructura'] == '232') echo 'width: 113px;'; ?>
-		<?php if ($_SESSION['mesas']['estructura'] == '222') echo 'width: 133px;'; ?>
-		
+		<?php if ($mesas_estructura == '242') echo 'width: 98px;'; ?>
+		<?php if ($mesas_estructura == '232') echo 'width: 113px;'; ?>
+		<?php if ($mesas_estructura == '222') echo 'width: 133px;'; ?>
+
 	}
 	#dhtmlgoodies_mainContainer table tr td div p {
 		background-color: #2c3e50;
@@ -192,9 +186,9 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 			<!-- COLUMNA IZQUIERDA -->
 			<div id="dhtmlgoodies_listOfItems" class="col-sm-3 hidden-print">
 				<table><tr><th>Tipo:&nbsp;</th><th> <form action="" method="post">
-					<input type="radio" name="estructura" value='222' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '222') ? 'checked' : ''; ?> > 222 </input>
-					<input type="radio" name="estructura" value='232' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '232') ? 'checked' : ''; ?> > 232 </input>
-					<input type="radio" name="estructura" value='242' onchange="submit()" <?php echo ($_SESSION['mesas']['estructura'] == '242') ? 'checked' : ''; ?> > 242 </input>
+					<input type="radio" name="estructura" value='222' onchange="submit()" <?php echo ($mesas_estructura == '222') ? 'checked' : ''; ?> > 222 </input>
+					<input type="radio" name="estructura" value='232' onchange="submit()" <?php echo ($mesas_estructura == '232') ? 'checked' : ''; ?> > 232 </input>
+					<input type="radio" name="estructura" value='242' onchange="submit()" <?php echo ($mesas_estructura == '242') ? 'checked' : ''; ?> > 242 </input>
 				</form></th></tr></table>
 				<div id="allItems">
 					<p>Alumnos/as</p>
@@ -296,11 +290,11 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 	Alf Magne Kalleland
 	************************************************************************************************************/
 	/* VARIABLES YOU COULD MODIFY */
-	<?php if ($_SESSION['mesas']['estructura']=='242'): ?>
+	<?php if ($mesas_estructura=='242'): ?>
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-	<?php elseif ($_SESSION['mesas']['estructura']=='232'): ?>
+	<?php elseif ($mesas_estructura=='232'): ?>
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-	<?php elseif ($_SESSION['mesas']['estructura']=='222'): ?>
+	<?php elseif ($mesas_estructura=='222'): ?>
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 	<?php endif; ?>
 	// Array indicating how many items  there is rooom for in the right column ULs
@@ -538,7 +532,7 @@ if ($_SESSION['mesas']['estructura'] == '222') { $mesas_col = 7; $mesas = 36; $c
 		dragContentObj = document.getElementById('dragContent');
 		dragDropIndicator = document.getElementById('dragDropIndicator');
 		dragDropTopContainer = document.getElementById('dhtmlgoodies_dragDropContainer');
-		document.documentElement.onselectstart = cancelEvent;;
+		document.documentElement.onselectstart = cancelEvent;
 		var listItems = dragDropTopContainer.getElementsByTagName('LI');	// Get array containing all <LI>
 		var itemHeight = false;
 		for(var no=0;no<listItems.length;no++){
