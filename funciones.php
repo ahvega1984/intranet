@@ -597,8 +597,8 @@ function sistemaPuntos($claveal) {
   $result_expulsion = mysqli_query($db_con, "SELECT `fin`, `fin_aula` FROM `Fechoria` WHERE `claveal` = '".$claveal."' AND (`expulsion` > 0 || `aula_conv` > 0) ORDER BY `id` DESC LIMIT 1");
   if (mysqli_num_rows($result_expulsion)) {
     $row_expulsion = mysqli_fetch_array($result_expulsion);
-    if ($row_expulsion['fin'] != '0000-00-00') $sql_where = " AND `FECHA` > '".$row_expulsion['fin']."' ";
-    if ($row_expulsion['fin_aula'] != '0000-00-00') $sql_where = " AND `FECHA` > '".$row_expulsion['fin_aula']."' ";
+    if ($row_expulsion['fin'] != '0000-00-00' && $row_expulsion['fin'] != '') $sql_where = " AND `FECHA` > '".$row_expulsion['fin']."' ";
+    if ($row_expulsion['fin_aula'] != '0000-00-00' && $row_expulsion['fin_aula'] != '') $sql_where = " AND `FECHA` > '".$row_expulsion['fin_aula']."' ";
   }
 
   // CONSULTAMOS PROBLEMAS REGISTRADOS DURANTE EL CURSO O TRAS ÚLTIMA EXPULSIÓN

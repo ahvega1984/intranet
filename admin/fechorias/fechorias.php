@@ -196,8 +196,11 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		<th>INFORMA</th>
 		<th>GRAV.</th>
 		<th width='48'>NUM.</th>
-		<th width='48'>CAD.</th>
-		<th></th>
+		<th width='48'>CAD.</th>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+			echo "<th>PUNTOS</th>";
+		}
+		echo "<th></th>
 		<th></th>
 		<th></th>
 		</tr></thead><tbody>";
@@ -266,8 +269,11 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		<td>".nomprofesor($informa)."</td>
 		<td nowrap $bgcolor>$grave</td>
 		<td nowrap><center>$rownumero</center></td>
-		<td nowrap>$caducada</td>
-		<td nowrap>$comentarios1</td>
+		<td nowrap>$caducada</td>";
+		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
+			echo "<td>".sistemaPuntos($claveal)."</td>";
+		}
+		echo "<td nowrap>$comentarios1</td>
 		<td  nowrap>";
 
 if(mb_strtolower($_SESSION['profi'])==mb_strtolower($row[6]) or stristr($_SESSION['cargo'],'1') == TRUE or (stristr($_SESSION['cargo'],'c') == TRUE and stristr($asunto,"Biblioteca")==TRUE)){
