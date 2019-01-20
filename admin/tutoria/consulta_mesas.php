@@ -93,13 +93,16 @@ include("menu.php");
 	table tr td {
 		vertical-align: top;
 	}
+
 	table tr td.active {
 		background-color: #333;
 	}
+
 	#allItems {
 		width: 100%;
 		border: 1px solid #ecf0f1;
 	}
+
 	#allItems p {
 		background-color: #2c3e50;
 		color: #fff;
@@ -107,6 +110,7 @@ include("menu.php");
 		padding: 4px 15px;
 		margin-bottom: 4px;
 	}
+
 	#allItems ul li {
 		background-color: #efefef;
 		padding: 5px 15px;
@@ -114,16 +118,19 @@ include("menu.php");
 		font-size: 0.8em;
 		cursor: move;
 	}
+
 	#dhtmlgoodies_mainContainer table tr td div {
 		border: 1px solid #ecf0f1;
 		margin: 0 5px 10px 5px;
 	}
+
 	#dhtmlgoodies_mainContainer table tr td div {
 		<?php if ($mesas_estructura == '242') echo 'width: 98px;'; ?>
 		<?php if ($mesas_estructura == '232') echo 'width: 113px;'; ?>
 		<?php if ($mesas_estructura == '222') echo 'width: 133px;'; ?>
 
 	}
+
 	#dhtmlgoodies_mainContainer table tr td div p {
 		background-color: #2c3e50;
 		color: #fff;
@@ -131,19 +138,24 @@ include("menu.php");
 		padding: 4px 2px;
 		margin-bottom: 4px;
 	}
+
 	#dhtmlgoodies_mainContainer table tr td div ul {
 		margin: 0 4px 4px 4px;
 		min-height: 50px;
 		background-color: #efefef;
 	}
+
 	#dhtmlgoodies_mainContainer table tr td div ul li {
 		height: 100%;
 		cursor: move;
 	}
+
+
 	#dhtmlgoodies_dragDropContainer .mouseover ul {
 		background-color:#E2EBED;
 		border: 1px solid #3FB618;
 	}
+
 	#dragContent {
 		position: absolute;
 		margin-top: -280px;
@@ -154,8 +166,31 @@ include("menu.php");
 		z-index: 2000;
 		cursor: move;
 	}
+
 	.text-sm {
-		font-size: 0.8em;
+		font-size: 0.7em;
+	}
+
+	.col-sm-9 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	@media print {
+		html, body {
+			padding: 0;
+		}
+
+		.page-header {
+			margin: 5px 0;
+		}
+
+		.page-header h2 {
+			font-size: 120%;
+		}
+		.page-header h4 {
+			font-size: 100%;
+		}
 	}
 	</style>
 	<div class="container">
