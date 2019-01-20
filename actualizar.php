@@ -613,3 +613,34 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "CREATE TABLE `compromiso_convivencia` (`nie` VARCHAR(12) NOT NULL, `fecha` DATETIME NOT NULL, PRIMARY KEY (`nie`)) ENGINE = MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Crea tabla compromiso_convivencia', NOW())");
 }
+
+/*
+	@descripcion: Crea tabla puestos_alumnos_tic
+	@fecha: 20 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Crea tabla puestos_alumnos_tic'");
+if (! mysqli_num_rows($actua)) {
+	// TABLA DE PUESTOS TIC
+	mysqli_query($db_con, "DROP TABLE IF EXISTS `puestos_alumnos_tic`");
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `puestos_alumnos_tic` (
+	  `profesor` varchar(50) NOT NULL,
+		`grupo` varchar(64) NOT NULL,
+		`asignatura` varchar(30) NOT NULL,
+		`aula` varchar(32) NOT NULL,
+	  `puestos` text COLLATE utf8_general_ci,
+	  `monopuesto` tinyint(1) UNSIGNED NOT NULL,
+	  PRIMARY KEY (`profesor`,`grupo`,`asignatura`,`aula`)
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Crea tabla puestos_alumnos_tic', NOW())");
+}
+
+/*
+	@descripcion: Modicación estructura tabla puestos_alumnos
+	@fecha: 20 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modicación estructura tabla puestos_alumnos'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `puestos_alumnos` ADD `estructura` VARCHAR(10) NOT NULL AFTER `puestos`;");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modicación estructura tabla puestos_alumnos', NOW())");
+}

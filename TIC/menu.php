@@ -55,6 +55,7 @@
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Incidencias TIC</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'incidencia.php')==TRUE) ? ' class="active"' : ''; ?>><a href="incidencia.php">Nueva incidencia</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'inventario.php')==TRUE) ? ' class="active"' : ''; ?>><a href="inventario.php">Inventario TIC</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'mesas_tic')==TRUE) ? ' class="active"' : ''; ?>><a href="mesas_tic_seleccion.php">Asignación de mesas</a></li>
 			<li	class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_')==TRUE) ? ' active' : ''; ?>">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Perfiles <span class="caret"></span> </a>
 				<ul class="dropdown-menu" role="menu">

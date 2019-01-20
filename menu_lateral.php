@@ -58,16 +58,16 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Control de Tutorías',
+				'titulo' => 'Control de tutorías',
 			),
 			array(
 				'href'   => 'admin/guardias/index_admin.php',
-				'titulo' => 'Gestión de Guardias',
+				'titulo' => 'Gestión de guardias',
 				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Gestión de Ausencias',
+				'titulo' => 'Gestión de ausencias',
 			),
 			array(
 				'href'   => 'admin/matriculas/index.php',
@@ -109,7 +109,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/actividades/indexextra.php',
-				'titulo' => 'Actividades Extraescolares'
+				'titulo' => 'Actividades extraescolares'
 			),
 			array(
 				'href'   => 'admin/matriculas/index.php',
@@ -119,7 +119,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/matriculas/consulta_transito.php',
-				'titulo' => 'Informes de Tránsito',
+				'titulo' => 'Informes de tránsito',
 				'modulo'  => $config['mod_matriculacion'],
 			)
 		)
@@ -136,7 +136,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
-				'titulo' => 'Datos del Grupo',
+				'titulo' => 'Datos del grupo',
 			),
 			array(
 				'href'   => 'admin/tutoria/intervencion.php',
@@ -144,7 +144,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/libros-texto/programa-gratuidad/index.php',
-				'titulo' => 'Programa de Gratuidad',
+				'titulo' => 'Programa de gratuidad',
 				'meses'	 => array(6, 7, 8, 9)
 			)
 		)
@@ -158,20 +158,20 @@ $menu = array(
 		'items'   => array (
 			array(
 				'href'   => 'http://'.$config['mod_biblioteca_web'],
-				'titulo' => 'Página de la Biblioteca',
+				'titulo' => 'Página de la biblioteca',
 				'target' => '_blank'
 			),
 			array(
 				'href'   => 'admin/cursos/hor_aulas.php?aula=Biblioteca',
-				'titulo' => 'Horario de la Biblioteca'
+				'titulo' => 'Horario de la biblioteca'
 			),
 			array(
 				'href'   => 'admin/biblioteca/consulta.php',
-				'titulo' => 'Gestión de los Préstamos'
+				'titulo' => 'Gestión de los préstamos'
 			),
 			array(
 				'href'   => 'admin/biblioteca/index.php',
-				'titulo' => 'Consultar fondos de la Biblioteca'
+				'titulo' => 'Consultar fondos de la biblioteca'
 			),
 			array(
 				'href'   => 'admin/biblioteca/index_biblio.php',
@@ -192,27 +192,27 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Alumnos y Grupos',
+				'titulo' => 'Alumnos y grupos',
 				'items' => array(
 					array(
 						'href'   => 'admin/informes/cinforme.php',
-						'titulo' => 'Informe de un Alumno'
+						'titulo' => 'Informe de un alumno'
 					),
 					array(
 						'href'   => 'admin/datos/cdatos.php',
-						'titulo' => 'Datos de Alumnos y Grupos'
+						'titulo' => 'Datos de alumnos y grupos'
 					),
 					array(
 						'href'   => 'admin/cursos/ccursos.php',
-						'titulo' => 'Listas de los Grupos'
+						'titulo' => 'Listas de los grupos'
 					),
 					array(
-						'href'   => 'admin/mesas/sel_grupo_mesas.php',
+						'href'   => 'admin/cursos/mesas_consulta.php',
 						'titulo' => 'Asignación de mesas'
 					),
 					array(
 						'href'   => 'admin/pendientes/index.php',
-						'titulo' => 'Listas de Pendientes'
+						'titulo' => 'Listas de pendientes'
 					),
 					array(
 						'href'   => 'admin/cursos/seleccion_alumnos.php',
@@ -220,7 +220,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'admin/cursos/cexporta.php',
-						'titulo' => 'Exportar Datos de Alumnos'
+						'titulo' => 'Exportar datos de alumnos'
 					)
 				)
 			),
@@ -241,30 +241,30 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Datos y Estadísticas',
+				'titulo' => 'Datos y estadísticas',
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
 						'href'   => 'admin/informes/evaluaciones/index.php',
-						'titulo' => 'Informe sobre las Evaluaciones'
+						'titulo' => 'Informe sobre las evaluaciones'
 					),
 					array(
 						'href'   => 'admin/fechorias/informe_convivencia.php',
-						'titulo' => 'Informe sobre Convivencia'
+						'titulo' => 'Informe sobre convivencia'
 					),
 					array(
 						'href'   => 'admin/faltas/informe_profesores.php',
-						'titulo' => 'Informe sobre Faltas de Asistencia',
+						'titulo' => 'Informe sobre faltas de asistencia',
 						'modulo' => $config['mod_asistencia'],
 					),
 					array(
 						'href'   => 'admin/guardias/informe_guardias.php',
-						'titulo' => 'Informe sobre Guardias',
+						'titulo' => 'Informe sobre guardias',
 						'modulo' => $config['mod_horarios'],
 					),
 					array(
 						'href'   => 'admin/ausencias/ausencias_profes.php',
-						'titulo' => 'Informe sobre Ausencias de Profesores',
+						'titulo' => 'Informe sobre ausencias de profesores',
 					)
 				)
 			),
@@ -274,7 +274,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/biblioteca/index.php',
-				'titulo' => 'Fondos de la Biblioteca',
+				'titulo' => 'Fondos de la biblioteca',
 				'modulo'  => $config['mod_biblioteca'],
 				'ncargos' => array('6', '7'),
 			),
@@ -435,11 +435,11 @@ $menu_trabajo =  array(
 				'items' => array(
 					array(
 						'href'   => 'admin/tareas/index.php',
-						'titulo' => 'Informes de Tareas',
+						'titulo' => 'Informes de tareas',
 					),
 					array(
 						'href'   => 'admin/infotutoria/index.php',
-						'titulo' => 'Informes de Tutoria',
+						'titulo' => 'Informes de tutoria',
 					)
 				)
 			),
@@ -457,12 +457,13 @@ $menu_trabajo =  array(
 						'titulo' => 'Nueva incidencia',
 					),
 					array(
-						'href'   => 'admin/mesas/sel_grupo_mesas_tic.php',
-						'titulo' => 'Asignación de mesas en aulas TIC'
-					),
-					array(
 						'href'   => 'TIC/inventario.php',
 						'titulo' => 'Inventario TIC',
+					),
+					array(
+						'href'   => 'TIC/mesas_tic_seleccion.php',
+						'titulo' => 'Asignación de mesas TIC',
+						'ncargo' => array('6', '7', '8')
 					),
 					array(
 						'href'   => 'TIC/perfiles_alumnos.php',
@@ -492,7 +493,7 @@ $menu_trabajo =  array(
 					),
 					array(
 						'href'   => 'reservas/index.php?recurso=Medios%20Audiovisuales',
-						'titulo' => 'Medios Audiovisuales',
+						'titulo' => 'Medios audiovisuales',
 					),
 					array(
 						'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
@@ -537,7 +538,7 @@ $menu_departamento = array(
 		'items'   => array(
 			array(
 				'href'   => 'admin/departamento/actas/index.php',
-				'titulo' => 'Actas del Departamento'
+				'titulo' => 'Actas del departamento'
 			),
 			array(
 				'href'   => 'admin/libros-texto/index.php',
@@ -562,7 +563,7 @@ $menu_departamento = array(
 			),
 			array(
 				'href'   => 'admin/evaluacion_pendientes/index.php',
-				'titulo' => 'Evaluación de Pendientes',
+				'titulo' => 'Evaluación de pendientes',
 			),
 		)
 	)
@@ -725,7 +726,7 @@ else {
 					'target' => '_blank',
 				),
 				array(
-					'href'   => 'https://www.mecd.gob.es/portada-mecd/',
+					'href'   => 'http://www.mecd.gob.es/',
 					'titulo' => 'Ministerio de Educación',
 					'target' => '_blank',
 				),
