@@ -1,15 +1,14 @@
 <?php
 require('../bootstrap.php');
-
 if (isset($_POST['actividad'])){
-	$exp_act = explode('==>', $_POST['actividad']);
+	$exp_act = explode('&&>', $_POST['actividad']);
 	$mesas_profesor = trim($exp_act[0]);
 	$mesas_grupo = trim($exp_act[1]);
 	$mesas_asignatura = trim($exp_act[2]);
 	$mesas_aula = trim($exp_act[3]);
 	$mesas_codasig = trim($exp_act[4]);
 	$mesas_monopuesto = (isset($_POST['monopuesto']) && $_POST['monopuesto'] == 1) ? 1 : 0;
-}
+	}
 // Reasigno por comodidad
 $profesor = $mesas_profesor;
 $grupo = $mesas_grupo;
@@ -21,13 +20,18 @@ $codasig =	$mesas_codasig;
 $mesas_col = 9; $mesas = 48; $col_profesor = 9;
 
 //FUNCIONES VARIAS
-function obtenerAlumno($var_nie, $var_grupo) {
+function obtenerAlumno($var_nie, $grupo) {
 	global $db_con;
-	$result = mysqli_query($db_con, "SELECT `apellidos`, `nombre` FROM `alma` WHERE `unidad` = '".$var_grupo."' AND `claveal` = '".$var_nie."' ORDER BY `apellidos` ASC, `nombre` ASC LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT `apellidos`, `nombre`, `unidad` FROM `alma` WHERE `claveal` = '".$var_nie."' ORDER BY `apellidos` ASC, `nombre` ASC LIMIT 1");
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
 		mysqli_free_result($result);
-		return $row['apellidos'].', '.$row['nombre'];
+		if (mb_strstr($grupo,'+')){
+			return $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')';
+		}
+		else{
+			return $row['apellidos'].', '.$row['nombre'];
+		}
 	}
 	else {
 		return '';
@@ -36,7 +40,6 @@ function obtenerAlumno($var_nie, $var_grupo) {
 
 function etiqueta($num_mesa) {
 	global $mesas_monopuesto;
-
 	if ($mesas_monopuesto==1) {
 		return($num_mesa);
 	}
@@ -70,7 +73,7 @@ else {
 }
 if (! isset($_POST['monopuesto']) && $monopuesto_reg != ''){
 	$mesas_monopuesto = $monopuesto_reg;
-}
+	}
 
 $matriz_puestos = explode(';', $cadena_puestos);
 
@@ -288,7 +291,7 @@ include("menu.php");
 						<input type="radio" name="monopuesto" value="0" onchange="submit()" <?php echo ($mesas_monopuesto == '0') ? 'checked' : ''; ?> > Bipuesto
 					</label>
 
-					<input type="hidden" name="actividad" value="<?php echo $profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$codasig.'==>'.$actividad; ?>">
+					<input type="hidden" name="actividad" value="<?php echo $profesor.'&&>'.$grupo.'&&>'.$asig.'&&>'.$aula.'&&>'.$codasig.'&&>'.$actividad; ?>">
 				</form>
 
 				<table>
@@ -337,7 +340,7 @@ include("menu.php");
 				<div class="hidden-print">
 					<form id="myForm" name="myForm" method="post" action="" onsubmit="saveDragDropNodes()">
 						<input type="hidden" name="listOfItems" value="">
-						<input type="hidden" name="actividad" value="<?php echo $profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$codasig.'==>'.$actividad; ?>">
+						<input type="hidden" name="actividad" value="<?php echo $profesor.'&&>'.$grupo.'&&>'.$asig.'&&>'.$aula.'&&>'.$codasig.'&&>'.$actividad; ?>">
 						<button type="submit" class="btn btn-primary" name="saveButton">Guardar cambios</button>
 						<a href="#" class="btn btn-default" onclick="javascript:print();">Imprimir</a>
 						<a class="btn btn-default" href="mesas_tic_seleccion.php">Volver</a>
@@ -699,6 +702,6 @@ include("menu.php");
 
 	window.onload = initDragDropScript;
 	</script>
-
-</body>
-</html>
+	</body>
+	</html>
+	
