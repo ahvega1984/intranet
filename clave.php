@@ -21,7 +21,8 @@ if (isset($_POST['submit'])) {
 	$codigo2 = $_POST['codigo2'];
 	$codigo3 = $_POST['codigo3'];
 	$correo  = $_POST['correo'];
-	$movil  = isset($_POST['movil']) && ! empty($_POST['movil']) ? $_POST['movil'] : '';
+	$movil  = (isset($_POST['movil']) && ! empty($_POST['movil'])) ? $_POST['movil'] : '';
+	$mostrar_nombre = (isset($_POST['mostrar_nombre']) && $_POST['mostrar_nombre'] == 1) ? 1 : 0;
 
 	$codigo2_has_error = 0;
 	$codigo3_has_error = 0;
@@ -61,7 +62,7 @@ if (isset($_POST['submit'])) {
 					// Obtenemos el hash de la contraseña
 					$hash = sha1($codigo2);
 
-					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo', telefono='$movil' WHERE profesor='".$_SESSION['profi']."'");
+					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo', telefono='$movil', rgpd_mostrar_nombre = '$mostrar_nombre' WHERE profesor='".$_SESSION['profi']."'");
 
 					// Comprobamos si se ha relizado la consulta a la base de datos
 					if(!$result) {
@@ -85,7 +86,7 @@ if (isset($_POST['submit'])) {
 	}
 }
 
-$result = mysqli_query($db_con, "SELECT idea, correo, telefono FROM c_profes WHERE idea='".$_SESSION['ide']."' LIMIT 1");
+$result = mysqli_query($db_con, "SELECT idea, correo, telefono, rgpd_mostrar_nombre FROM c_profes WHERE idea='".$_SESSION['ide']."' LIMIT 1");
 $row = mysqli_fetch_assoc($result);
 
 include("menu.php");
@@ -142,17 +143,24 @@ include("menu.php");
 						    </div>
 						  </div>
 
-						   <div id="form-group-movil" class="form-group">
+						  <div id="form-group-movil" class="form-group">
 						    <label for="movil" class="col-sm-4 control-label">Teléfono móvil</label>
 						    <div class="col-sm-8">
 						      <input type="text" class="form-control" id="movil" name="movil" placeholder="Número de móvil" value="<?php echo $row['telefono'];?>" maxlength="9">
 						    </div>
 						  </div>
 
+							<div class="checkbox">
+						    <label for="mostrar_nombre">
+						      <input type="checkbox" id="mostrar_nombre" name="mostrar_nombre" value="1" <?php echo ($row['rgpd_mostrar_nombre'] == 1) ? 'checked' : ''; ?>> Acepto que la Dirección publique mi nombre y apellidos en la página Web del Centro.
+								</label>
+						  </div>
+
+							<br>
 
 							<div class="form-group">
 							  <div class="col-sm-8 col-sm-offset-4">
-							    <button type="submit" class="btn btn-primary" name="submit">Cambiar la contraseña</button>
+							    <button type="submit" class="btn btn-primary" name="submit">Guardar cambios</button>
 							  </div>
 							</div>
 						</fieldset>

@@ -644,3 +644,13 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `puestos_alumnos` ADD `estructura` VARCHAR(10) NOT NULL AFTER `puestos`;");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modicación estructura tabla puestos_alumnos', NOW())");
 }
+
+/*
+	@descripcion: Modicación estructura tabla c_profes
+	@fecha: 20 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modicación estructura tabla c_profes'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `rgpd_mostrar_nombre` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1' AFTER `totp_secret`;
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modicación estructura tabla c_profes', NOW())");
+}
