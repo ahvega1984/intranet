@@ -253,7 +253,8 @@ include("menu.php");
 					<ul class="list-unstyled">
 						<?php $result = mysqli_query($db_con, "SELECT combasi, apellidos, nombre, claveal, unidad FROM alma ORDER BY unidad, apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-						<?php if (!in_array($row['claveal'],$con_puesto) && (mb_strstr($row['combasi'],':'.$codasig) || mb_strstr($row['combasi'],$codasig.':')) && mb_strstr($grupo,$row['unidad'])): ?>
+						<?php $cod_combasi = explode(':', $row['combasi']);?>
+						<?php if (!in_array($row['claveal'],$con_puesto) && in_array($codasig, $cod_combasi) && mb_strstr($grupo,$row['unidad'])): ?>
 					  <li id="<?php echo $row['claveal']; ?>">
 					  <?php if (mb_strstr($grupo,'+')): ?>
 					        <?php echo $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')'; ?>
