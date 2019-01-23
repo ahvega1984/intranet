@@ -1,7 +1,7 @@
 <?php
 require('../bootstrap.php');
 if (isset($_POST['actividad'])){
-	  $exp_act = explode('&&>', $_POST['actividad']);
+	  $exp_act = explode('==>', $_POST['actividad']);
 	  $mesas_profesor = trim($exp_act[0]);
 	  $mesas_grupo = trim($exp_act[1]);
 	  $mesas_asignatura = trim($exp_act[2]);
@@ -253,8 +253,8 @@ include("menu.php");
 					<ul class="list-unstyled">
 						<?php $result = mysqli_query($db_con, "SELECT combasi, apellidos, nombre, claveal, unidad FROM alma ORDER BY unidad, apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-						<?php $cod_combasi = explode(':', $row['combasi']);?>
-						<?php if (!in_array($row['claveal'],$con_puesto) && in_array($codasig, $cod_combasi) && mb_strstr($grupo,$row['unidad'])): ?>
+						 <?php $cod_combasi = explode(':', $row['combasi']);?>
+						<?php if (!in_array($row['claveal'],$con_puesto) && (in_array($codasig, $cod_combasi) || $codasig=='2') && mb_strstr($grupo,$row['unidad'])): ?>
 					  <li id="<?php echo $row['claveal']; ?>">
 					  <?php if (mb_strstr($grupo,'+')): ?>
 					        <?php echo $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')'; ?>
@@ -285,7 +285,7 @@ include("menu.php");
 						<input type="radio" name="monopuesto" value="0" onchange="submit()" <?php echo ($_SESSION['mesas_monopuesto'] == '0') ? 'checked' : ''; ?> > Bipuesto
 					</label>
 
-					<input type="hidden" name="actividad" value="<?php echo $profesor.'&&>'.$grupo.'&&>'.$asig.'&&>'.$aula.'&&>'.$codasig.'&&>'.$actividad; ?>">
+					<input type="hidden" name="actividad" value="<?php echo $profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$codasig.'==>'.$actividad; ?>">
 				</form>
 
 				<table>
@@ -328,7 +328,7 @@ include("menu.php");
 				<div class="hidden-print">
 					<form id="myForm" name="myForm" method="post" action="" onsubmit="saveDragDropNodes()">
 						<input type="hidden" name="listOfItems" value="">
-						<input type="hidden" name="actividad" value="<?php echo $profesor.'&&>'.$grupo.'&&>'.$asig.'&&>'.$aula.'&&>'.$codasig.'&&>'.$actividad; ?>">
+						<input type="hidden" name="actividad" value="<?php echo $profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$codasig.'==>'.$actividad; ?>">
 						<button type="submit" class="btn btn-primary" name="saveButton">Guardar cambios</button>
 						<a href="#" class="btn btn-default" onclick="javascript:print();">Imprimir</a>
 						<a class="btn btn-default" href="mesas_tic_seleccion.php">Volver</a>

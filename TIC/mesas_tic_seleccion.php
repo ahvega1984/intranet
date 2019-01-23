@@ -67,22 +67,22 @@ include("menu.php");
 						    <?php if(mysqli_num_rows($result)): ?>
 						    <select class="form-control" id="actividad" name="actividad" onchange="submit()">
 						    	<option></option>
-								<?php $dia=0; $hora=0;$cont=0;$grupo='';$k=0;$cadena=array(z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z);$cadena2=array(z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z,z);?>
+								<?php $dia=0; $hora=0;$cont=0;$grupo='';$k=0;$cadena=array();$cadena2=array();?>
 						    	<?php while($row = mysqli_fetch_array($result)):?>
 								<?php if(($row['dia']==$dia) && ($row['hora']==$hora)): ?>
 								<?php		$grupo=$grupo.'+'.$row['a_grupo'];$cont=$cont+1; ?>
 								<?php else: ?>
 								<?php 		if($cont>0):?>
-								<?php				$k=$k+1;$cadena[$k]=$profesor.'&&>'.$grupo.'&&>'.$asig.'&&>'.$aula.'&&>'.$casig.'&&>'.$id; $cadena2[$k]=$grupo.' ('.$asig.')';?>
+								<?php				$k=$k+1;$cadena[$k]=$profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$casig.'==>'.$id; $cadena2[$k]=$grupo.' ('.$asig.')';?>
 								<?php 		endif; ?>
 								<?php		$id=$row['id'];$dia=$row['dia']; $hora=$row['hora']; $grupo=$row['a_grupo']; $asig=$row['asig']; $aula=$row['a_aula']; $casig=$row['c_asig']; $cont=1; ?>
 								<?php endif; ?>		  
 							   	<?php endwhile; ?>
-								<?php $cadena[$k+1]=$profesor.'&&>'.$grupo.'&&>'.$asig.'&&>'.$aula.'&&>'.$casig.'&&>'.$id; $cadena2[$k+1]=$grupo.' ('.$asig.')';?>
+								<?php $cadena[$k+1]=$profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$casig.'==>'.$id; $cadena2[$k+1]=$grupo.' ('.$asig.')';?>
 								<?php sort($cadena);?>
-								<?php sort($cadena2);?>
 								<?php for($i = 0; $i <= $k; $i++){ ?>
-												<option value="<?php echo $cadena[$i]; ?>"<?php echo (isset($actividad) && $cadena[$i] == $actividad) ? 'selected' : ''; ?>><?php echo $cadena2[$i]; ?></option>
+										<?php $cadena2 = explode('==>', $cadena[$i]);?>
+										<option value="<?php echo $cadena[$i]; ?>"<?php echo (isset($actividad) && $cadena[$i] == $actividad) ? 'selected' : ''; ?>><?php echo $cadena2[1].' ('.$cadena2[2].')'; ?></option>
 								<?php }?>
 							</select>
 						    <?php else: ?>
