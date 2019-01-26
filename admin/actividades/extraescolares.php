@@ -8,13 +8,16 @@ elseif(isset($_POST['submit2'])){
 
 require('../../bootstrap.php');
 
+if (file_exists("config.php")) {
+  include("config.php");
+}
+
 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE)
 {
 	$jefes=1;
 }
-?>
-  <?php
+
 include("../../menu.php");
 include("menu.php");
   ?>

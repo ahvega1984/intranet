@@ -11,6 +11,10 @@ else{
 	$config['calendario']['prefActividades']=1;
 }
 
+if (file_exists("../admin/actividades/config.php")) {
+  include("../admin/actividades/config.php");
+}
+
 // CALENDARIO
 $dia_actual = date('d');
 

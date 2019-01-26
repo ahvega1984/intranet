@@ -128,7 +128,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 								endif;
 
 
-								if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')):
+								if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])):
 								echo '<optgroup label="Otros calendarios">';
 								$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
 								while ($row = mysqli_fetch_assoc($result)):
@@ -223,7 +223,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		$exp_fechafin_evento = explode('-', $eventos1['fechafin']);
 		$fechafin_evento = $exp_fechafin_evento[2].'/'.$exp_fechafin_evento[1].'/'.$exp_fechafin_evento[0];
 
-		if (stristr($_SESSION['cargo'],'1') || ($calendario1['id'] == 2 && (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')))) {
+		if (stristr($_SESSION['cargo'],'1') || ($calendario1['id'] == 2 && (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])))) {
 			echo '<form id="formEditarEvento" method="post" action="post/editarEvento.php?mes='.$mes.'&anio='.$anio.'" data-toggle="validator">
 				<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
 				  <div class="modal-dialog modal-lg">
@@ -338,7 +338,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			endif;
 
 
-			if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')):
+			if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')  || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])):
 			echo '<optgroup label="Otros calendarios">';
 			$result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where");
 			while ($row = mysqli_fetch_assoc($result)):
@@ -352,7 +352,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			echo '</select>
 			        		</div>';
 
-			if ($eventos1['categoria'] == 2 && (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f'))):
+			if ($eventos1['categoria'] == 2 && (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores']))):
 			echo '<div id="opciones_actividades" class="row">
 
 			        			<div class="col-sm-6">

@@ -1,8 +1,12 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists("config.php")) {
+  include("config.php");
+}
+
 include("../../menu.php");
-include("menu.php");  
+include("menu.php");
   ?>
 <div class="container">
 <div class="row">
@@ -34,17 +38,17 @@ if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (i
 $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);
 
-  
+
   $fecha1 = explode("-",$fecha);
   $dia = $fecha[0];
   $mes = $fecha[1];
   $ano = $fecha[2];
-  
+
  // Borramos registros anteriores
  mysqli_query($db_con,"delete from actividadalumno where cod_actividad='$id'");
 
   foreach($_POST as $key => $value)
-  { 
+  {
 //  echo "$key --> $value<br>";
 if(is_numeric(trim($key))){
 mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
@@ -53,6 +57,6 @@ mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) value
 echo '
 <br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			Los alumnos seleecionados han sido regsitrados en la Actividad Extraescolar o Complementaria.          
+			Los alumnos seleecionados han sido regsitrados en la Actividad Extraescolar o Complementaria.
 			</div></div>';
 ?>

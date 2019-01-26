@@ -233,9 +233,8 @@ function acl_acceso($cargo_usuario, $cargo_requerido) {
 	$tienePermiso = acl_permiso($cargo_usuario, $cargo_requerido);
 
 	if (! $tienePermiso) {
-		$db_con = $GLOBALS['db_con'];
+		global $db_con, $config, $pr, $carg, $dpto, $idea, $n_curso;
 
-		include(INTRANET_DIRECTORY . '/config.php');
 		include(INTRANET_DIRECTORY . '/menu.php');
 		echo "\t\t<div class=\"container\" style=\"margin-top: 80px; margin-bottom: 120px;\">\n";
 		echo "\t\t\t<div class=\"row\">\n";

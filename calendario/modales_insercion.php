@@ -149,7 +149,7 @@
         				</optgroup>
         				<?php endif; ?>
 
-        				<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
+        				<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -187,7 +187,7 @@
         			<?php endif; ?>
         		</div>
 
-        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f')): ?>
+        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])): ?>
         		<div id="opciones_actividades" class="row">
 
         			<div class="col-sm-6">
