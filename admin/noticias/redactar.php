@@ -15,12 +15,9 @@ if (isset($_GET['id'])) $id = $_GET['id'];
 // ENVIO DEL FORMULARIO
 if (isset($_POST['enviar'])) {
 
-
-
 	// VARIABLES DEL FORMULARIO
 	$titulo = $_POST['titulo'];
-	$_contenido = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_POST['contenido']);
-	$contenido = addslashes($_contenido);
+	$contenido = addslashes($_POST['contenido']);
 	$caracteres_contenido = strlen($contenido);
 	$autor = $_POST['autor'];
 	$fechapub = $_POST['fechapub'];
