@@ -17,8 +17,18 @@ if (isset($_POST['enviar'])) {
 
 	// VARIABLES DEL FORMULARIO
 	$titulo = $_POST['titulo'];
-	$contenido = addslashes($_POST['contenido']);
-	$caracteres_contenido = strlen($contenido);
+	$contenido = preg_replace('/&quot;/i', '', $_POST['contenido']);
+	$contenido = preg_replace('/<h(.) style=".*?"/i', '<h$1', $contenido);
+	$contenido = preg_replace('/font-family:.*?;/i', '', $contenido);
+	$contenido = preg_replace('/font-size: medium;/i', '', $contenido);
+	$contenido = preg_replace('/margin:.*?;/i', '', $contenido);
+	$contenido = preg_replace('/padding:.*?;/i', '', $contenido);
+	$contenido = preg_replace('/class="MsoNormal"/i', '', $contenido);
+	$contenido = preg_replace('/<o:p>.*?<\/o:p>/i', '', $contenido);
+	$contenido = preg_replace('/   /i', '', $contenido);
+	$contenido = preg_replace('/<p style="\s*">/i', '<p>', $contenido);
+	$contenido = addslashes($contenido);
+	$caracteres_contenido = strlen(trim(strip_tags($contenido)));
 	$autor = $_POST['autor'];
 	$fechapub = $_POST['fechapub'];
 	$categoria = $_POST['categoria'];
@@ -127,7 +137,7 @@ include ("menu.php");
 			<form method="post" action="">
 
 				<!-- COLUMNA IZQUIERDA -->
-				<div class="col-sm-8">
+				<div class="col-sm-9">
 
 					<div class="well">
 
@@ -153,19 +163,19 @@ include ("menu.php");
 
 					</div>
 
-				</div><!-- /.col-sm-8 -->
+				</div><!-- /.col-sm-9 -->
 
 
 				<!-- COLUMNA DERECHA -->
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 
 					<div class="well">
 
 						<fieldset>
-							<legend>Opciones de publicación</legend>
+							<legend>Opciones</legend>
 
 
-							<div class="form-group">
+							<div class="form-group hidden">
 								<label for="autor">Autor</label>
 								<input type="text" class="form-control" id="autor" name="autor" value="<?php echo (isset($autor) && $autor) ? $autor : $_SESSION['profi']; ?>" readonly>
 							</div>
@@ -194,16 +204,14 @@ include ("menu.php");
 							<div class="form-group">
 								<label for="ndias">Noticia destacada (en días)</label>
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-5">
 										<input type="number" class="form-control" id="ndias" name="ndias" value="<?php echo (isset($ndias) && $ndias) ? $ndias : '0'; ?>" min="0" max="31" maxlength="2">
 									</div>
 								</div>
 							</div>
 
 
-							<?php
-							if ($config['noticias']['web_centro']==1) {
-							?>
+
 							<label>Publicar en...</label>
 
 							<div class="form-group">
@@ -214,6 +222,7 @@ include ("menu.php");
 								</div>
 							</div>
 
+							<?php if (isset($config['noticias']['web_centro']) && $config['noticias']['web_centro']): ?>
 							<div class="form-group">
 								<div class="checkbox">
 									<label>
@@ -221,18 +230,15 @@ include ("menu.php");
 									</label>
 								</div>
 							</div>
-								<div class="form-group">
+							<?php endif; ?>
+
+							<div class="form-group">
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" name="permanente" value="3" <?php echo (isset($permanente) && $permanente) ? 'checked' : ''; ?>> Cómo se hace...
 									</label>
 								</div>
 							</div>
-
-
-							<?php
-							}
-							?>
 
 							<?php else: ?>
 
@@ -244,7 +250,7 @@ include ("menu.php");
 
 					</div>
 
-				</div><!-- /.col-sm-4 -->
+				</div><!-- /.col-sm-3 -->
 
 			</form>
 
@@ -264,7 +270,8 @@ include ("menu.php");
 			lang: 'es-ES',
 			toolbar: [
 				// [groupName, [list of button]]
-				['style', ['bold', 'italic', 'underline', 'clear']],
+				['style', ['style']],
+				['format', ['bold', 'italic', 'underline', 'clear']],
 				['font', ['strikethrough', 'superscript', 'subscript']],
 				['fontsize', ['fontsize']],
 				['color', ['color']],
