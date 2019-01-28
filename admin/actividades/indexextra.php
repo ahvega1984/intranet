@@ -1,9 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-if (file_exists("config.php")) {
-  include("config.php");
-}
+// acl_acceso($_SESSION['cargo'], array('1','4','5'));
 
 $PLUGIN_DATATABLES = 1;
 
@@ -45,8 +43,17 @@ if($detalles == '1')
 	$datos0 = "select * from calendario where id = '$id'";
 	$datos1 = mysqli_query($db_con, $datos0);
 	$datos = mysqli_fetch_array($datos1);
+	$fecha00 = explode("-",$datos[4]);
 	$fecha0 = explode("-",$datos[6]);
-	$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
+	$fecha_ini = "$fecha00[2]-$fecha00[1]-$fecha00[0]";
+	$fecha_fin = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
+
+	if ($fecha_ini !== $fecha_fin) {
+		$fecha = $fecha_ini." || ".$fecha_fin;
+	}
+	else{
+		$fecha = $fecha_ini;
+	}
 	$registro = $datos[13];
 	?>
 <div>
@@ -177,7 +184,9 @@ if($detalles == '1')
 				endif;
 			?>
 			 <?php
-				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or ($_SESSION['dpt'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
+			 			// echo mb_strtoupper($datos['profesores'])." -- ".mb_strtoupper($_SESSION['profi']);
+
+				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or (strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
 					?> <a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span
 				class="far fa-user fa-fw fa-lg" data-bs="tooltip"
 				title="Seleccionar alumnos que realizan la Actividad"></span></a> <?php } ?>
