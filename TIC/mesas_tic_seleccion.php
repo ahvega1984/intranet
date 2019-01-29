@@ -63,17 +63,31 @@ include("menu.php");
 
 							<div class="form-group">
 						    <label for="actividad">Unidad (Asignatura)</label>
-						    <?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo, a_asig, asig, c_asig, a_aula FROM horw WHERE prof='".$profesor."' AND a_grupo <> '' AND a_aula <> '' ORDER BY dia, hora, a_grupo"); ?>
-						    <?php if (mysqli_num_rows($result)): ?>
-						    <select class="form-control" id="actividad" name="actividad">
-						    	<option value=""></option>
-									<?php while ($row = mysqli_fetch_array($result)): ?>
-									<option value="<?php echo $profesor.'==>'.$row['a_grupo'].'==>'.$row['a_asig'].'==>'.$row['a_aula'].'==>'.$row['c_asig']; ?>"><?php echo $row['a_grupo'].' ('.$row['asig'].')'; ?></option>
-									<?php endwhile; ?>
-								</select>
+						    <?php $result = mysqli_query($db_con, "SELECT id, a_asig, asig, a_grupo, c_asig, a_aula, dia, hora FROM horw WHERE a_asig NOT LIKE '' AND a_aula NOT LIKE '' AND prof='".$profesor."' GROUP BY a_grupo, a_asig ORDER BY dia, hora, a_grupo"); ?>
+						    <?php if(mysqli_num_rows($result)): ?>
+						    <select class="form-control" id="actividad" name="actividad" onchange="submit()">
+						    	<option></option>
+								<?php $dia=0; $hora=0;$cont=0;$grupo='';$k=0;$cadena=array();$cadena2=array();?>
+						    	<?php while($row = mysqli_fetch_array($result)):?>
+								<?php if(($row['dia']==$dia) && ($row['hora']==$hora)): ?>
+								<?php		$grupo=$grupo.'+'.$row['a_grupo'];$cont=$cont+1; ?>
+								<?php else: ?>
+								<?php 		if($cont>0):?>
+								<?php				$k=$k+1;$cadena[$k]=$profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$casig.'==>'.$id; $cadena2[$k]=$grupo.' ('.$asig.')';?>
+								<?php 		endif; ?>
+								<?php		$id=$row['id'];$dia=$row['dia']; $hora=$row['hora']; $grupo=$row['a_grupo']; $asig=$row['asig']; $aula=$row['a_aula']; $casig=$row['c_asig']; $cont=1; ?>
+								<?php endif; ?>		  
+							   	<?php endwhile; ?>
+								<?php $cadena[$k+1]=$profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$casig.'==>'.$id; $cadena2[$k+1]=$grupo.' ('.$asig.')';?>
+								<?php sort($cadena);?>
+								<?php for($i = 0; $i <= $k; $i++){ ?>
+										<?php $cadena2 = explode('==>', $cadena[$i]);?>
+										<option value="<?php echo $cadena[$i]; ?>"<?php echo (isset($actividad) && $cadena[$i] == $actividad) ? 'selected' : ''; ?>><?php echo $cadena2[1].' ('.$cadena2[2].')'; ?></option>
+								<?php }?>
+							</select>
 						    <?php else: ?>
 						    <select class="form-control" id="actividad" name="actividad" disabled>
-						    	<option value=""></option>
+						    	<option value=""></option> 
 						    </select>
 						    <?php endif; ?>
 						    <?php mysqli_free_result($result); ?>

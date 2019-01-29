@@ -1,15 +1,16 @@
 <?php
 require('../bootstrap.php');
-
 if (isset($_POST['actividad'])){
-	$exp_act = explode('==>', $_POST['actividad']);
-	$mesas_profesor = trim($exp_act[0]);
-	$mesas_grupo = trim($exp_act[1]);
-	$mesas_asignatura = trim($exp_act[2]);
-	$mesas_aula = trim($exp_act[3]);
-	$mesas_codasig = trim($exp_act[4]);
-	$mesas_monopuesto = (isset($_POST['monopuesto']) && $_POST['monopuesto'] == 1) ? 1 : 0;
-}
+	  $exp_act = explode('==>', $_POST['actividad']);
+	  $mesas_profesor = trim($exp_act[0]);
+	  $mesas_grupo = trim($exp_act[1]);
+	  $mesas_asignatura = trim($exp_act[2]);
+	  $mesas_aula = trim($exp_act[3]);
+	  $mesas_codasig = trim($exp_act[4]);
+	  if(isset($_POST['monopuesto'])){
+		  $_SESSION['mesas_monopuesto'] = $_POST['monopuesto'];
+		  }
+	}
 // Reasigno por comodidad
 $profesor = $mesas_profesor;
 $grupo = $mesas_grupo;
@@ -21,71 +22,67 @@ $codasig =	$mesas_codasig;
 $mesas_col = 9; $mesas = 48; $col_profesor = 9;
 
 //FUNCIONES VARIAS
-function obtenerAlumno($var_nie, $var_grupo) {
+function obtenerAlumno($var_nie, $grupo) {
 	global $db_con;
-	$result = mysqli_query($db_con, "SELECT `apellidos`, `nombre` FROM `alma` WHERE `unidad` = '".$var_grupo."' AND `claveal` = '".$var_nie."' ORDER BY `apellidos` ASC, `nombre` ASC LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT `apellidos`, `nombre`, `unidad` FROM `alma` WHERE `claveal` = '".$var_nie."' ORDER BY `apellidos` ASC, `nombre` ASC LIMIT 1");
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
 		mysqli_free_result($result);
-		return $row['apellidos'].', '.$row['nombre'];
+		if (mb_strstr($grupo,'+')){
+			return $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')';
+			}
+			else{
+				return $row['apellidos'].', '.$row['nombre'];
+				}
 	}
 	else {
 		return '';
-	}
+		}
 }
 
 function etiqueta($num_mesa) {
-	global $mesas_monopuesto;
-
-	if ($mesas_monopuesto==1) {
+	if ($_SESSION['mesas_monopuesto']==1) {
 		return($num_mesa);
-	}
-	else {
-		$et_mesa = round($num_mesa/2);
-		return($et_mesa);
-	}
-}
-
+		}
+		else {
+			$et_mesa = round($num_mesa/2);
+			return($et_mesa);
+		}
+		}
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
-	$result_update = mysqli_query($db_con, "UPDATE `puestos_alumnos_tic` SET `monopuesto` = '".$mesas_monopuesto."', `puestos` = '".$_POST['listOfItems']."' WHERE `profesor` = '$mesas_profesor' AND `grupo` = '$mesas_grupo' AND `asignatura` = '$mesas_codasig' AND `aula` = '$mesas_aula'");
-
+	$result_update = mysqli_query($db_con, "UPDATE `puestos_alumnos_tic` SET `monopuesto` = '".$_SESSION['mesas_monopuesto']."', `puestos` = '".$_POST['listOfItems']."' WHERE `profesor` = '$mesas_profesor' AND `grupo` = '$mesas_grupo' AND `asignatura` = '$mesas_codasig' AND `aula` = '$mesas_aula'");
 	if(!$result_update) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";
-}
-
-// OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
+	}
+	
+	// OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
 $result = mysqli_query($db_con, "SELECT `profesor`,`grupo`,`asignatura`,`aula`, `puestos`, `monopuesto` FROM `puestos_alumnos_tic` WHERE `profesor` = '$mesas_profesor' AND `grupo` = '$mesas_grupo' AND `asignatura` = '$mesas_codasig' AND `aula` = '$mesas_aula' LIMIT 1");
 $monopuesto_reg = '';
 if (! mysqli_num_rows($result)) {
 	$result_insert = mysqli_query($db_con, "INSERT INTO `puestos_alumnos_tic` (`profesor`,`grupo`,`asignatura`,`aula`, `puestos`, `monopuesto`) VALUES ('".$mesas_profesor."', '".$mesas_grupo."', '".$mesas_codasig."', '".$mesas_aula."', '', '0')");
-	$mesas_monopuesto ='0';
+	$_SESSION['mesas_monopuesto'] ='0';
 	if (! $result_insert) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
-}
-else {
-	$row = mysqli_fetch_array($result);
-	$cadena_puestos = $row['puestos'];
-	$monopuesto_reg= $row['monopuesto'];
-	mysqli_free_result($result);
-}
-if (! isset($_POST['monopuesto']) && $monopuesto_reg != ''){
-	$mesas_monopuesto = $monopuesto_reg;
-}
-
-$matriz_puestos = explode(';', $cadena_puestos);
-
-foreach ($matriz_puestos as $value) {
-	$los_puestos = explode('|', $value);
-
-	if ($los_puestos[0] == 'allItems') {
-		$sin_puesto[] = $los_puestos[1];
 	}
 	else {
-		$con_puesto[$los_puestos[0]] = $los_puestos[1];
-	}
-
+		$row = mysqli_fetch_array($result);
+		$cadena_puestos = $row['puestos'];
+		$monopuesto_reg= $row['monopuesto'];
+		mysqli_free_result($result);
+		}
+		if (! isset($_POST['monopuesto']) && $monopuesto_reg != ''){
+			$_SESSION['mesas_monopuesto'] = $monopuesto_reg;
+			}
+$matriz_puestos = explode(';', $cadena_puestos);
+foreach ($matriz_puestos as $value) {
+	$los_puestos = explode('|', $value);
+	if ($los_puestos[0] == 'allItems') {
+		$sin_puesto[] = $los_puestos[1];
+		}
+		else {
+			$con_puesto[$los_puestos[0]] = $los_puestos[1];
+			}
 }
-
 include("../menu.php");
 include("menu.php");
 ?>
@@ -191,9 +188,8 @@ include("menu.php");
 		}
 	}
 	</style>
-
 	<div class="container">
-
+	
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<!-- Button trigger modal -->
@@ -257,7 +253,8 @@ include("menu.php");
 					<ul class="list-unstyled">
 						<?php $result = mysqli_query($db_con, "SELECT combasi, apellidos, nombre, claveal, unidad FROM alma ORDER BY unidad, apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-						<?php if (!in_array($row['claveal'],$con_puesto) && mb_strstr($row['combasi'],$codasig) && mb_strstr($grupo,$row['unidad'])): ?>
+						 <?php $cod_combasi = explode(':', $row['combasi']);?>
+						<?php if (!in_array($row['claveal'],$con_puesto) && (in_array($codasig, $cod_combasi) || $codasig=='2') && mb_strstr($grupo,$row['unidad'])): ?>
 					  <li id="<?php echo $row['claveal']; ?>">
 					  <?php if (mb_strstr($grupo,'+')): ?>
 					        <?php echo $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')'; ?>
@@ -282,10 +279,10 @@ include("menu.php");
 					<h5 style="font-weight: bold; display: inline-block; margin-right: 10px;">Tipo de disposición: </h5>
 
 					<label class="radio-inline">
-						<input type="radio" name="monopuesto" value="1" onchange="submit()" <?php echo ($mesas_monopuesto == '1') ? 'checked' : ''; ?>> Monopuesto
+						<input type="radio" name="monopuesto" value="1" onchange="submit()" <?php echo ($_SESSION['mesas_monopuesto'] == '1') ? 'checked' : ''; ?>> Monopuesto
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="monopuesto" value="0" onchange="submit()" <?php echo ($mesas_monopuesto == '0') ? 'checked' : ''; ?> > Bipuesto
+						<input type="radio" name="monopuesto" value="0" onchange="submit()" <?php echo ($_SESSION['mesas_monopuesto'] == '0') ? 'checked' : ''; ?> > Bipuesto
 					</label>
 
 					<input type="hidden" name="actividad" value="<?php echo $profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$codasig.'==>'.$actividad; ?>">
@@ -323,17 +320,11 @@ include("menu.php");
 						</td>
 					</tr>
 				</table>
-
 			</div><!-- /.col-sm-9 -->
-
 		</div><!-- /.row -->
-
 		<br>
-
 		<div class="row">
-
 			<div class="col-sm-12">
-
 				<div class="hidden-print">
 					<form id="myForm" name="myForm" method="post" action="" onsubmit="saveDragDropNodes()">
 						<input type="hidden" name="listOfItems" value="">
@@ -343,15 +334,10 @@ include("menu.php");
 						<a class="btn btn-default" href="mesas_tic_seleccion.php">Volver</a>
 					</form>
 				</div>
-
 			</div><!-- /col-sm-12 -->
-
 		</div><!-- /.row -->
-
 	</div><!-- /.container -->
-
-
-<?php include("../pie.php"); ?>
+	<?php include("../pie.php"); ?>
 
 	<script type="text/javascript">
 	/************************************************************************************************************
@@ -377,17 +363,13 @@ include("menu.php");
 	************************************************************************************************************/
 
 	/* VARIABLES YOU COULD MODIFY */
-
+	
 	var boxSizeArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 	// Array indicating how many items  there is rooom for in the right column ULs
-
-
 	var verticalSpaceBetweenListItems = 3;	// Pixels space between one <li> and next
 											// Same value or higher as margin bottom in CSS for #dhtmlgoodies_dragDropContainer ul li,#dragContent li
-
-
 	var indicateDestionationByUseOfArrow = false;	// Display arrow to indicate where object will be dropped(false = use rectangle)
-
+	
 	var cloneSourceItems = false;	// Items picked from main container will be cloned(i.e. "copy" instead of "cut").
 	var cloneAllowDuplicates = false;	// Allow multiple instances of an item inside a small box(example: drag Student 1 to team A twice
 
@@ -588,11 +570,10 @@ include("menu.php");
 		dragTimer = -1;
 		if(document.all)e = event;
 
-
 		if(cloneSourceItems && (!destinationObj || (destinationObj && (destinationObj.id=='allItems' || destinationObj.parentNode.id=='allItems')))){
 			contentToBeDragged.parentNode.removeChild(contentToBeDragged);
-		}else{
-
+		}
+		else{
 			if(destinationObj){
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);
@@ -641,10 +622,8 @@ include("menu.php");
 			}
 		}
 		saveString = saveString + ";";
-	document.forms['myForm'].listOfItems.value = saveString;
+		document.forms['myForm'].listOfItems.value = saveString;
 		document.getElementById('saveContent').innerHTML = '<h1>Ready to save these nodes:</h1> ' + saveString.replace(/;/g,';<br>') + '<p>Format: ID of ul |(pipe) ID of li;(semicolon)</p><p>You can put these values into a hidden form fields, post it to the server and explode the submitted value there</p>';
-
-
 	}
 
 	function initDragDropScript()
@@ -652,7 +631,7 @@ include("menu.php");
 		dragContentObj = document.getElementById('dragContent');
 		dragDropIndicator = document.getElementById('dragDropIndicator');
 		dragDropTopContainer = document.getElementById('dhtmlgoodies_dragDropContainer');
-		document.documentElement.onselectstart = cancelEvent;;
+		document.documentElement.onselectstart = cancelEvent;
 		var listItems = dragDropTopContainer.getElementsByTagName('LI');	// Get array containing all <LI>
 		var itemHeight = false;
 		for(var no=0;no<listItems.length;no++){
@@ -692,13 +671,10 @@ include("menu.php");
 			indicateDestinationBox.id = 'indicateDestination';
 			indicateDestinationBox.style.display='none';
 			document.body.appendChild(indicateDestinationBox);
-
-
 		}
 	}
-
 	window.onload = initDragDropScript;
 	</script>
-
 </body>
 </html>
+	
