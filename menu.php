@@ -251,9 +251,9 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 						</li>
 
 						<!-- CONSEJERIA DE EDUCACION -->
-						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades"><i class="fas fa-rss fa-rotate-270 fa-fw fa-lg"></i> Consejería de Educación</a></li>
+						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades"><i class="fas fa-rss fa-rotate-270 fa-fw fa-lg"></i> Consejería de Educación y Deporte</a></li>
 						<li id="bs-tour-consejeria" class="dropdown hidden-xs">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Consejería de Educación" data-placement="bottom" data-container="body">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Consejería de Educación y Deporte" data-placement="bottom" data-container="body">
 								<i class="icon-junta fa-fw fa-lg"></i> <b class="caret"></b>
 							</a>
 

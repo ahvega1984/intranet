@@ -690,7 +690,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 				),
 				array(
 					'href'   => 'http://www.mecd.gob.es/portada-mecd/',
-					'titulo' => 'Ministerio de Educación',
+					'titulo' => 'Ministerio de Educación y FP',
 					'target' => '_blank',
 				),
 				array(
@@ -727,12 +727,12 @@ else {
 				),
 				array(
 					'href'   => 'http://www.mecd.gob.es/',
-					'titulo' => 'Ministerio de Educación',
+					'titulo' => 'Ministerio de Educación y FP',
 					'target' => '_blank',
 				),
 				array(
 					'href'   => 'http://www.juntadeandalucia.es/educacion/portals/web/ced',
-					'titulo' => 'Consejería de Educación',
+					'titulo' => 'Consejería de Educación y Deporte',
 					'target' => '_blank',
 				),
 				array(
