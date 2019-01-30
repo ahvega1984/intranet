@@ -44,7 +44,7 @@
       color: rgb(48,119,67);
       text-decoration: none !important;
     }
-    
+
     a:hover {
       color: rgb(48,119,67);
       text-decoration: underline;
@@ -57,7 +57,7 @@
     .pull-right {
       text-align: right;
     }
-    
+
     .header-title {
       font-size: 14px;
       font-weight: 600;
@@ -188,11 +188,11 @@
      .button-width {
       width: 228px;
     }
-    
+
     .screen-hidden {
       display: none !important;
     }
-    
+
     .mobile-paddding {
     	padding-right: 10px; padding-left: 10px;
     }
@@ -304,20 +304,20 @@
         display: block !important;
         padding-bottom: 20px !important;
       }
-      
+
       .mobile-hidden {
         display: none !important;
       }
-      
+
       .screen-hidden {
         display: block !important;
       }
-      
+
       .mobile-padding {
       	padding-right: 0px !important;
       	padding-left: 0px !important;
       }
-      
+
       .header-title {
       	font-size: 20px !important;
       }
@@ -328,37 +328,8 @@
 <body bgcolor="#fff">
 <table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
   <tr>
-    <td align="center" valign="top" width="100%">
-      <center>
-        <table cellspacing="0" cellpadding="0" width="100%">
-          <tr>
-            <td width="100%" height="80" valign="top" style="text-align: center; vertical-align:middle;">
-              <center>
-                <table cellpadding="0" cellspacing="0" width="800" class="w320">
-                  <tr>
-                    <td class="pull-left mobile-header-padding-left header-title" style="vertical-align: middle; color: rgb(48,119,67); text-align: left; text-transform: uppercase;">
-                      <img class="mobile-hidden" src="http://{{dominio}}/intranet/img/encabezado.png" alt="Junta de Andalucía">
-                      <div class="screen-hidden">{{centro_denominacion}}</div>
-                    </td>
-                    <td class="pull-right mobile-header-padding-right mobile-hidden header-title" style="vertical-align: middle; color: rgb(48,119,67); text-align: left; text-transform: uppercase;">
-                      Consejer&iacute;a de Educaci&oacute;n<br>{{centro_denominacion}}
-                    </td>
-                  </tr>
-                </table>
-              </center>
-              <!--[if gte mso 9]>
-              </v:textbox>
-            </v:rect>
-            <![endif]-->
-            </td>
-          </tr>
-        </table>
-      </center>
-    </td>
-  </tr>
-  <tr>
     <td align="center" valign="top" width="100%" class="content-padding">
-        <table cellspacing="0" cellpadding="0" width="800" class="w320">
+        <table cellspacing="0" cellpadding="0" width="98%" class="w320">
           <tr>
             <td class="header-lg mobile-padding">
               {{titulo}}
@@ -374,16 +345,17 @@
   </tr>
   <tr>
     <td align="center" valign="top" width="100%" style="height: 100px;">
-        <table cellspacing="0" cellpadding="0" width="800" class="w320">
+        <table cellspacing="0" cellpadding="0" width="98%" class="w320">
           <tr>
-          	<td class="pull-left mobile-header-padding-left mobile-hidden" style="vertical-align: middle;">
-          		<img src="http://{{dominio}}/intranet/img/pie.jpg" height="147" alt="">
-          	</td>
-            <td class="pull-right mobile-header-padding-right" style="font-size: 11px; padding: 25px 0 5px 0; color: rgb(48,119,67); text-align: left; vertical-align: bottom;">
+            <td class="mobile-header-padding-right" style="padding: 25px 0 5px 0; color: rgb(48,119,67); text-align: left; vertical-align: bottom;">
+              <strong>{{autor}}</strong><br />
+              <p style="font-size: 11px;">
               <strong>{{centro_denominacion}} (Centro c&oacute;digo: {{centro_codigo}})</strong><br />
+              <strong>Consejer&iacute;a de Educaci&oacute;n y Deporte - Junta de Andaluc&iacute;a</strong><br />
               {{centro_direccion}}, {{centro_codpostal}} {{centro_localidad}}, {{centro_provincia}}<br />
               Tel&eacute;fono: {{centro_telefono}}, Fax: {{centro_fax}}<br />
               Correo-e: {{centro_email}}
+              <p>
             </td>
           </tr>
         </table>

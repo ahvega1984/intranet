@@ -55,7 +55,7 @@ if (isset($_POST['totp-estado'])) {
 			$mail->From = 'no-reply@'.$config['dominio'];
 			$mail->FromName = utf8_decode($config['centro_denominacion']);
 			$mail->IsHTML(true);
-			
+
 			$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
 			$message = str_replace('{{dominio}}', $config['dominio'], $message);
 			$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
@@ -68,11 +68,12 @@ if (isset($_POST['totp-estado'])) {
 			$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 			$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 			$message = str_replace('{{titulo}}', 'Autenticación en dos pasos desactivado', $message);
-			$message = str_replace('{{contenido}}', '<p>Se ha desactivado la autenticación en dos pasos con tu usuario IdEA '.$_SESSION['ide'].' para iniciar sesión en la Intranet.</p><p>A partir de este momento, únicamente necesitarás la contraseña para iniciar sesión.</p><p>Atentamente:<br>La Dirección del Centro</p>', $message);
-			
+			$message = str_replace('{{contenido}}', '<p>Se ha desactivado la autenticación en dos pasos con tu usuario IdEA '.$_SESSION['ide'].' para iniciar sesión en la Intranet.</p><p>A partir de este momento, únicamente necesitarás la contraseña para iniciar sesión.</p>', $message);
+			$message = str_replace('{{autor}}', 'Dirección del Centro', $message);
+
 			$mail->msgHTML(utf8_decode($message));
 			$mail->Subject = utf8_decode('Autenticación en dos pasos desactivado');
-			$mail->AltBody = utf8_decode("Se ha desactivado la autenticación en dos pasos con tu usuario IdEA ".$_SESSION['ide']." para iniciar sesión en la Intranet. \n\nA partir de este momento, únicamente necesitarás la contraseña para iniciar sesión. \n\nAtentamente: \nLa Dirección del Centro</p>");
+			$mail->AltBody = utf8_decode("Se ha desactivado la autenticación en dos pasos con tu usuario IdEA ".$_SESSION['ide']." para iniciar sesión en la Intranet. \n\nA partir de este momento, únicamente necesitarás la contraseña para iniciar sesión.");
 
 			$mail->AddAddress($row['correo'], $_SESSION['profi']);
 			$mail->Send();
@@ -92,7 +93,7 @@ if (isset($_POST['totp_verificado'])) {
 			$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
 			$mail->Port = $config['email_smtp']['port'];
 			$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
-			
+
 			$mail->Username = $config['email_smtp']['username'];
 			$mail->Password = $config['email_smtp']['password'];
 
@@ -103,7 +104,7 @@ if (isset($_POST['totp_verificado'])) {
 			$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
 		}
 		$mail->IsHTML(true);
-		
+
 		$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
 		$message = str_replace('{{dominio}}', $config['dominio'], $message);
 		$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
@@ -116,41 +117,42 @@ if (isset($_POST['totp_verificado'])) {
 		$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 		$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 		$message = str_replace('{{titulo}}', 'Autenticación en dos pasos activado', $message);
-		$message = str_replace('{{contenido}}', '<p>Se ha activado la autenticación en dos pasos con tu usuario IdEA '.$_SESSION['ide'].' para iniciar sesión en la Intranet.</p><p>En el caso de que olvides la contraseña o tengas problemas con el código temporal, ponte en contacto con un miembro del Equipo Directivo para restablecer el acceso a tu cuenta.</p><p>Atentamente:<br>La Dirección del Centro</p>', $message);
-		
+		$message = str_replace('{{contenido}}', '<p>Se ha activado la autenticación en dos pasos con tu usuario IdEA '.$_SESSION['ide'].' para iniciar sesión en la Intranet.</p><p>En el caso de que olvides la contraseña o tengas problemas con el código temporal, ponte en contacto con un miembro del Equipo Directivo para restablecer el acceso a tu cuenta.</p>', $message);
+		$message = str_replace('{{autor}}', 'Dirección del Centro', $message);
+
 		$mail->msgHTML(utf8_decode($message));
 		$mail->Subject = utf8_decode('Autenticación en dos pasos activado');
-		$mail->AltBody = utf8_decode("Se ha activado la autenticación en dos pasos con tu usuario IdEA ".$_SESSION['ide']." para iniciar sesión en la Intranet. \n\nEn el caso de que olvides la contraseña o tengas problemas con el código temporal, ponte en contacto con un miembro del Equipo Directivo para restablecer el acceso a tu cuenta. \n\nAtentamente: \nLa Dirección del Centro</p>");
+		$mail->AltBody = utf8_decode("Se ha activado la autenticación en dos pasos con tu usuario IdEA ".$_SESSION['ide']." para iniciar sesión en la Intranet. \n\nEn el caso de que olvides la contraseña o tengas problemas con el código temporal, ponte en contacto con un miembro del Equipo Directivo para restablecer el acceso a tu cuenta.</p>");
 
 		$mail->AddAddress($row['correo'], $_SESSION['profi']);
 		$mail->Send();
 	}
-	
+
 }
 
 include("menu.php");
 ?>
 
 	<div class="container">
-		
+
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Autenticación en dos pasos</h2>
 		</div>
-		
+
 		<!-- MENSAJES -->
 		<?php if(isset($msg_error)): ?>
 		<div class="alert alert-danger" role="alert">
 			<?php echo $msg_error; ?>
 		</div>
 		<?php endif; ?>
-		
+
 		<div class="row">
-			
+
 			<div class="col-sm-offset-3 col-sm-6">
-				
+
 				<div class="well">
-					
+
 					<form id="totp-servicio" method="post" action="">
 						<fieldset>
 
@@ -202,7 +204,7 @@ include("menu.php");
 					<hr>
 
 					<form id="totp-configuracion" method="post" action="">
-						<fieldset>		
+						<fieldset>
 
 							<p>Sigue las siguientes instrucciones para configurar la autenticación en dos pasos en tu dispositivo:</p>
 							<ol>
@@ -235,11 +237,11 @@ include("menu.php");
 								<p id="totp-validacion" class="text-center">&nbsp;</p>
 								<input type="hidden" name="totp_verificado" value="1">
 							</div>
-						
+
 						</fieldset>
 					</form>
 
-					<?php else: ?>	
+					<?php else: ?>
 
 					<p>Agrega un nivel adicional de seguridad para evitar que otras personas inicien sesión en tu cuenta. Inicia sesión con un código de tu teléfono y una contraseña</p>
 
@@ -249,17 +251,17 @@ include("menu.php");
 					<?php endif; ?>
 
 					<?php endif; ?>
-					
+
 				</div><!-- /.well -->
-				
+
 			</div><!-- /.col-sm-6 -->
-			
+
 		</div><!-- /.row -->
 
 		<?php if (! isset($_SESSION['totp_configuracion']) || ! $_SESSION['totp_configuracion']): ?>
 		<br><br><br>
-		<?php endif; ?>	
-		
+		<?php endif; ?>
+
 	</div><!-- /.container -->
 
 <?php include("pie.php"); ?>
@@ -287,7 +289,7 @@ $(document).ready(function () {
 	var totp_code = '';
 
 	$("#totp-code-1").focus();
-	
+
 	$("#totp-code-1").keyup(function () {
 			var value = $(this).val();
 			if (value.length > 0) {
@@ -352,9 +354,9 @@ $(document).ready(function () {
 	});
 
 	$(document).on("click", "button[data-bb]", function(e) {
-		
+
 		var type = $(this).data("bb");
-		
+
 		if (type == 'totp-desactivar') {
 			bootbox.setDefaults({
 				locale: "es",
@@ -364,7 +366,7 @@ $(document).ready(function () {
 				animate: true,
 				title: "Desactivar autenticación en dos pasos",
 			});
-			
+
 			bootbox.confirm("¿Está seguro que desea desactivar la autenticación en dos pasos?", function(result) {
 					if (! result) {
 						e.preventDefault();

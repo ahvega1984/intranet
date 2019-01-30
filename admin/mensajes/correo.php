@@ -50,11 +50,12 @@ if (isset($_POST['enviar'])) {
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 	$message = str_replace('{{titulo}}', 'Nuevo mensaje: '.$titulo, $message);
-	$message = str_replace('{{contenido}}', $contenido.'<br><br><br><strong>'.$nombre_prof.'</strong><br>Departamento de '.$dpto.'<br><br>', $message);
+	$message = str_replace('{{contenido}}', $contenido, $message);
+	$message = str_replace('{{autor}}', $nombre_prof, $message);
 
 	$mail->msgHTML(utf8_decode($message));
 	$mail->Subject = utf8_decode('Nuevo mensaje: '.$titulo);
-	$mail->AltBody = $titulo.' '.$contenido;
+	$mail->AltBody = utf8_decode($titulo.' '.$contenido);
 
 	foreach($_POST as $var => $valor) {
 		$dni=$var;

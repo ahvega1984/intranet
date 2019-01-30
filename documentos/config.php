@@ -66,21 +66,18 @@ function ft_settings_external_load() {
     if (! file_exists($config['mod_documentos_dir'].'/Departamentos')) {
       mkdir($config['mod_documentos_dir'].'Departamentos', 0777);
     }
+    else {
+      $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Auxiliar de Conversación' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'PROFESOR ADICIONAL'  AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `departamento` ASC");
+      while ($row = mysqli_fetch_array($result)) {
 
-    $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` NOT LIKE 'Admin' AND `departamento` NOT LIKE 'Auxiliar de Conversaci_n' AND `departamento` NOT LIKE 'Administraci_n' AND `departamento` NOT LIKE 'Conserjer_a'  AND `departamento` <> 'PROFESOR ADICIONAL' ORDER BY `departamento` ASC");
-    while ($row = mysqli_fetch_array($result)) {
+        if (file_exists($config['mod_documentos_dir'].'Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']))) {
+          rename($config['mod_documentos_dir'].'Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']), $config['mod_documentos_dir'].'Departamentos/'.$row['departamento']);
+        }
 
-      if (file_exists($config['mod_documentos_dir'].'Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']))) {
-        rename($config['mod_documentos_dir'].'Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']), $config['mod_documentos_dir'].'Departamentos/'.$row['departamento']);
       }
-
-      /*
-      if ( file_exists($config['mod_documentos_dir'].'Departamentos/'.$row['departamento'])) {
-        rmdir($config['mod_documentos_dir'].'Departamentos/'.$row['departamento']);
-      }
-      */
+      mysqli_free_result($result);
     }
-    mysqli_free_result($result);
+
   }
   else {
     rmdir($config['mod_documentos_dir'].'/Departamentos');

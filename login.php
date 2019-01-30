@@ -191,11 +191,12 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 					$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 					$message = str_replace('{{titulo}}', 'Tu usuario IdEA se ha usado para iniciar sesión en la Intranet', $message);
-					$message = str_replace('{{contenido}}', '<p>Tu usuario IdEA '.$_SESSION['ide'].' se ha usado para iniciar sesión en la Intranet desde un navegador web.</p><br><p>Fecha y hora: '.$fecha_conexion.'</p><br><p>Si la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje.</p><p>Si no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña.</p><p>Atentamente:<br>La Dirección del Centro</p>', $message);
+					$message = str_replace('{{contenido}}', '<p>Tu usuario IdEA '.$_SESSION['ide'].' se ha usado para iniciar sesión en la Intranet desde un navegador web.</p><br><p>Fecha y hora: '.$fecha_conexion.'</p><br><p>Si la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje.</p><p>Si no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña.</p>', $message);
+					$message = str_replace('{{autor}}', 'Dirección del Centro', $message);
 
 					$mail->msgHTML(utf8_decode($message));
 					$mail->Subject = utf8_decode('Tu usuario IdEA se ha usado para iniciar sesión en la Intranet');
-					$mail->AltBody = utf8_decode("Tu usuario IdEA ".$_SESSION['ide']." se ha usado para iniciar sesión en la Intranet desde un navegador web. \n\n\nFecha y hora: ".$fecha_conexion." \n\n\nSi la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje. \n\nSi no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña. \n\nAtentamente: \nLa Dirección del Centro</p>");
+					$mail->AltBody = utf8_decode("Tu usuario IdEA ".$_SESSION['ide']." se ha usado para iniciar sesión en la Intranet desde un navegador web. \n\n\nFecha y hora: ".$fecha_conexion." \n\n\nSi la información mencionada más arriba te resulta familiar, puedes ignorar este mensaje. \n\nSi no has iniciado sesión recientemente en la Intranet y crees que alguien podría haber accedido a tu cuenta, te recomendamos que restablezcas tu contraseña.</p>");
 
 					$mail->AddAddress($correo, $profe);
 					$mail->Send();
@@ -236,6 +237,15 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			if ($_SESSION['intentos'] > 4) {
 				mysqli_query($db_con, "UPDATE c_profes SET estado=1 WHERE idea='".$_POST['idea']."' LIMIT 1");
 
+				if (stristr($profe, ', ') == true) {
+					$exp_profe = explode(', ', $profe);
+					$nombre_profe = trim($exp_profe[1]);
+				}
+				else {
+					$nombre_profe = $profe;
+				}
+
+
 				$mail = new PHPMailer();
 				if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
 					$mail->isSMTP();
@@ -267,12 +277,13 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 				$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
 				$message = str_replace('{{titulo}}', 'Cuenta temporalmente bloqueada', $message);
-				$message = str_replace('{{contenido}}', 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.', $message);
+				$message = str_replace('{{contenido}}', 'Estimado '.$nombre_profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI con letra mayúscula como contraseña. Para mantener tu seguridad utilice una contraseña segura.', $message);
+				$message = str_replace('{{autor}}', 'Dirección del Centro', $message);
 
 				$mail->msgHTML(utf8_decode($message));
-				$mail->Subject = utf8_decode($config['centro_denominacion'].' - Cuenta temporalmente bloqueada');
+				$mail->Subject = utf8_decode('Cuenta temporalmente bloqueada');
 
-				$mail->AltBody = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+				$mail->AltBody = 'Estimado '.$nombre_profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI con letra mayúscula como contraseña. Para mantener tu seguridad utilice una contraseña segura.';
 
 				$mail->AddAddress($correo, $profe);
 				$mail->Send();

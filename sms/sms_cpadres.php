@@ -35,16 +35,16 @@ if ($config['mod_sms']) {
 		mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
 
 		mysqli_query($db_con,"delete FROM faltastemp2 where numero < '".$_POST['numero']."'");
-		
+
 		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero >= '".$_POST['numero']."'";
 		//echo $SQL0;
 		$result0 = mysqli_query($db_con, $SQL0);
-		
+
 		while ($row0 = mysqli_fetch_array($result0)){
-			$claveal = $row0[0];			
+			$claveal = $row0[0];
 			$clave_carta .= $claveal.",";
 			$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad
-	from alma where alma.claveal like '$claveal' and (alma.telefono not in (select telefono from hermanos) 
+	from alma where alma.claveal like '$claveal' and (alma.telefono not in (select telefono from hermanos)
 	or alma.telefonourgencia not in (select telefonourgencia from hermanos))";
 			//echo "$SQL3<br>";
 			$result3 = mysqli_query($db_con, $SQL3);
@@ -55,10 +55,10 @@ if ($config['mod_sms']) {
 			$nombre = $rowsql3[4];
 			$unidad = $rowsql3[5];
 			$nombre_alumno = "$nombre $apellidos";
-			
-// Envío de Email						
+
+// Envío de Email
 			$cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
-			$cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");			
+			$cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");
 			if(mysqli_num_rows($cor_alma)>0){
 				$correo1=mysqli_fetch_array($cor_alma);
 				$correo = $correo1[0];
@@ -69,7 +69,7 @@ if ($config['mod_sms']) {
 			}
 
 			if (strlen($correo)>0) {
-			
+
 	$mail = new PHPMailer();
 	if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
 		$mail->isSMTP();
@@ -77,7 +77,7 @@ if ($config['mod_sms']) {
 		$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
 		$mail->Port = $config['email_smtp']['port'];
 		$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
-		
+
 		$mail->Username = $config['email_smtp']['username'];
 		$mail->Password = $config['email_smtp']['password'];
 
@@ -88,7 +88,7 @@ if ($config['mod_sms']) {
 		$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
 	}
 	$mail->IsHTML(true);
-	
+
 	$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
 	$message = str_replace('{{dominio}}', $config['dominio'], $message);
 	$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
@@ -100,15 +100,16 @@ if ($config['mod_sms']) {
 	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 	$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
-	$message = str_replace('{{titulo}}', 'Comunicación de Faltas de Asistencia', $message);
-	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
-	
+	$message = str_replace('{{titulo}}', 'Comunicación de faltas de asistencia', $message);
+	$message = str_replace('{{contenido}}', 'Le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del Alumnado de nuestra web https://'.$config['dominio'].', o bien contactando con Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo.', $message);
+	$message = str_replace('{{autor}}', 'Jefatura de estudios', $message);
+
 	$mail->msgHTML(utf8_decode($message));
-	$mail->Subject = utf8_decode($config['centro_denominacion'].' - Comunicación de Faltas de Asistencia');
-	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
+	$mail->Subject = utf8_decode('Comunicación de faltas de asistencia');
+	$mail->AltBody = 'Le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos '.$_POST['numero'].' horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del Alumnado de nuestra web https://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo.';
 
 	$mail->AddAddress($correo, $nombre_alumno);
-	$mail->Send();				
+	$mail->Send();
 			}
 
 // Fin envío de correo.
@@ -124,7 +125,7 @@ if ($config['mod_sms']) {
 	$niv = $tr_curso[0];
 
 	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos ".$_POST['numero']." horas injustificadas al centro. Mas info en http://".$config['dominio'];
-	
+
         // Registramos intervención de tutoría
         $causa = "Faltas de Asistencia";
         $observaciones = "Comunicación de Faltas de Asistencia a la familia del Alumno.";
@@ -132,11 +133,11 @@ if ($config['mod_sms']) {
         $tuto = "Jefatura de Estudios";
         $fecha2 = date('Y-m-d');
         mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
-	
+
 	// ENVIO DE SMS
         mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 
-	
+
 	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
         $sms = new Trendoo_SMS();
         $sms->sms_type = SMSTYPE_GOLD_PLUS;
@@ -146,10 +147,10 @@ if ($config['mod_sms']) {
         $sms->set_immediate();
 
 
-	if ($sms->validate()){ 
-            
+	if ($sms->validate()){
+
             $sms->send();
-			
+
             $mobile2 .= $mobil2.",";
             }
     	}
@@ -180,7 +181,7 @@ if ($hermanos) {
 // Enviamos los datos
 if(isset($curso))
 {
-	
+
 if(strlen($mobile2) > 0){
 	echo '<div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -191,7 +192,7 @@ else{
 	echo '<div class="alert alert-danger alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No se ha enviado ningún SMS a los alumnos de '. $curso.'. O bien ningún alumno tiene más de '.$_POST['numero'].' faltas o bien no están registrados los teléfonos móviles de los mismos (en cuyo caso aparecerá un mensaje más abajo indicando los alumnos sin móvil).
-          </div><br />';	
+          </div><br />';
 }
 if(strlen($sin2) > '0'){
 	echo '<div class="alert alert-warning alert-block fade in">
@@ -252,7 +253,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 </div>
 
 <div class="form-group">
-<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
+<label class="control-label" for='numero'> Número mínimo de Faltas</label>
 <INPUT name="numero" type="text" id="numero" class="form-control" maxlength="3" value="1" required />
 </div>
 
@@ -291,19 +292,19 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la
 }
 ?>
 <?php include("../pie.php");?>
-<script>  
-$(function ()  
-{ 
+<script>
+$(function ()
+{
 	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
-	
+
 	$('#datetimepicker2').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
-});  
+});
 </script>
 </body>
 </html>

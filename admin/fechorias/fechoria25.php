@@ -187,12 +187,13 @@ for ($i=0;$i<$num_a;$i++){
 		 	 $message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 		 	 $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 		 	 $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
-		 	 $message = str_replace('{{titulo}}', 'Comunicación de Problemas de Convivencia', $message);
-		 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
+		 	 $message = str_replace('{{titulo}}', 'Comunicación de problemas de convivencia', $message);
+		 	 $message = str_replace('{{contenido}}', 'Le comunicamos que, con fecha '.$fecha.', su hijo/a ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página de Alumnado de nuestra web https://'.$config['dominio'].', o bien contactando con Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responda a esta dirección de correo.', $message);
+			 $message = str_replace('{{autor}}', 'Jefatura de estudios', $message);
 
 		 	 $mail->msgHTML(utf8_decode($message));
-		 	 $mail->Subject = utf8_decode($config['centro_denominacion'].' - Comunicación de Problemas de Convivencia');
-		 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
+		 	 $mail->Subject = utf8_decode('Comunicación de problemas de convivencia');
+		 	 $mail->AltBody = utf8_decode('Le comunicamos que, con fecha '.$fecha.', su hijo/a ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página de Alumando de nuestra web https://'.$config['dominio'].', o bien contactando con Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo.');
 
 		 	 $mail->AddAddress($correo, $nombre_alumno);
 		 	 if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {

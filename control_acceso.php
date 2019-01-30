@@ -273,12 +273,11 @@ if ($config['mod_notificaciones']) {
 		$texto="";
 
 		$text_0 = "Te recordamos que";
-		$text_1 = " hace mas de 4 dias que no compruebas el estado de tus tareas en la Intranet y es necesario que lo hagas con regularidad;";
-		$text_2 = " tienes mas de 25 mensajes pendientes de lectura;";
-		$text_3 = " tienes que presentar hoy Informes de Tareas;";
-		$text_4 = " tienes que presentar hoy Informes de Tutoría.";
-		$text_5 = " hoy es la fecha límite para presentar los Informes de Absentismo de tus Alumnos.";
-		$text_6 = " ".$config['centro_denominacion'];
+		$text_1 = " hace más de 4 días que no compruebas el estado de tus tareas en la Intranet y es necesario que lo hagas con regularidad;";
+		$text_2 = " tienes más de 25 mensajes pendientes de lectura;";
+		$text_3 = " tienes que presentar hoy informes de tareas;";
+		$text_4 = " tienes que presentar hoy informes de tutoría.";
+		$text_5 = " hoy es la fecha límite para presentar los informes de absentismo de tus alumnos.";
 
 		$texto = $text_0;
 
@@ -286,9 +285,7 @@ if ($config['mod_notificaciones']) {
 		if (strstr($clase,"2")==TRUE) { $texto.= $text_2; }
 		if (strstr($clase,"3")==TRUE) { $texto.= $text_3; }
 		if (strstr($clase,"4")==TRUE) { $texto.= $text_4; }
-		if (strstr($clase,"5")==TRUE) { $texto.= $text_4; }
-
-		$texto.= $text_6;
+		if (strstr($clase,"5")==TRUE) { $texto.= $text_5; }
 
 		$texto_ies = "; ".substr($config['centro_denominacion'],0,4);
 		$nombre_ies = ". ".substr($config['centro_denominacion'],0,4);
@@ -331,16 +328,9 @@ if ($config['mod_notificaciones']) {
 				}
 				$mail1=mysqli_fetch_row($mail0);
 				$direccion = $mail1[0];
-				$cor_profes = $mail1[1];
-				$tr_profes = explode(", ", $cor_profes);
-				$nombre_profe = $tr_profes[1]." ".$tr_profes[0];
-
-				$tema = utf8_decode("Comunicación de Tareas pendientes en el Centro");
-				$profe_envia = utf8_decode("Dirección del ".$config['centro_denominacion']);
-				$mail_from = $config['centro_email'];
-
-				$titulo = stripslashes(mysqli_real_escape_string($db_con, $tema));
-				$contenido = stripslashes(mysqli_real_escape_string($db_con, $texto));
+				$nombre = $mail1[1];
+				$exp_nombre = explode(", ", $nombre);
+				$nombre_profe = trim($exp_nombre[1])." ".trim($exp_nombre[0]);
 
 				require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 				$mail = new PHPMailer();
@@ -350,17 +340,15 @@ if ($config['mod_notificaciones']) {
 					$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
 					$mail->Port = $config['email_smtp']['port'];
 					$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
-
 					$mail->Username = $config['email_smtp']['username'];
 					$mail->Password = $config['email_smtp']['password'];
 
-					$mail->setFrom($config['email_smtp']['username'], $config['centro_denominacion']);
+					$mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
 				}
 				else {
 					$mail->Host = "localhost";
-					$mail->setFrom('no-reply@'.$config['dominio'], $config['centro_denominacion']);
+					$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
 				}
-				$mail->AddReplyTo($mail_from, $profe_envia);
 				$mail->IsHTML(true);
 
 				$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
@@ -374,13 +362,14 @@ if ($config['mod_notificaciones']) {
 				$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
 				$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
 				$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
-				$message = str_replace('{{titulo}}', 'Nuevo mensaje de la '.$profe_envia.' para '.$nombre_profe, $message);
-				$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
+				$message = str_replace('{{titulo}}', 'Comunicación de tareas pendientes en el Centro', $message);
+				$message = str_replace('{{contenido}}', $texto, $message);
+				$message = str_replace('{{autor}}', 'Dirección del Centro', $message);
 
-				$mail->msgHTML($message);
-				$mail->Subject = $config['centro_denominacion'].' - Mensaje de la '.$profe_envia;
-				$mail->AltBody = $titulo.' '.$contenido;
-				$mail->AddAddress($direccion, $cor_profes);
+				$mail->msgHTML(utf8_decode($message));
+				$mail->Subject = utf8_decode('Comunicación de tareas pendientes en el Centro');
+				$mail->AltBody = utf8_decode($texto);
+				$mail->AddAddress($direccion, utf8_decode($nombre_profe));
 				$mail->Send();
 
 				}
