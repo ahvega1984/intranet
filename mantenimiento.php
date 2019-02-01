@@ -1,8 +1,4 @@
-<?php
-require("bootstrap.php");
-
-$_SESSION['autentificado'] = 0;
-?>
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,6 +35,10 @@ $_SESSION['autentificado'] = 0;
   .header {
     border-bottom: 1px solid #e5e5e5;
   }
+
+	h1 {
+		font-size: 52px !important;
+	}
   /* Make the masthead heading the same height as the navigation */
   .header h3 {
     padding-bottom: 19px;
@@ -109,32 +109,16 @@ $_SESSION['autentificado'] = 0;
       <div class="jumbotron">
         <h1>Intranet</h1>
 
-        <br>
+				<br>
 
-        <p class="lead">Esta página se encuentra cerrada temporalmente por tareas de mantenimiento. El acceso se reanudará pronto.</p>
+				<h2>Página en mantenimiento</h2>
+        <p>Esta página se encuentra cerrada temporalmente para llevar a cabo tareas de mantenimiento. Intente de nuevo más tarde.</p>
 
-        <br>
+				<br>
+				<br>
 
-        <p><a class="btn btn-lg btn-success" href="//<?php echo $config['dominio']; ?>" role="button">Ir a la página del centro</a></p>
+        <a class="btn btn-lg btn-success" href="//<?php echo $config['dominio']; ?>" role="button">Ir a la página del Centro</a>
       </div>
-
-      <footer class="hidden-print">
-      	<div class="container-fluid" role="footer">
-      		<hr>
-
-      		<p class="text-center">
-      			<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
-      			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
-      		</p>
-      		<p class="text-center">
-      			<small>
-      				<a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
-      				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-      				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-      			</small>
-      		</p>
-      	</div>
-      </footer>
 
     </div> <!-- /container -->
 

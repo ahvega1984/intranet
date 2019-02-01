@@ -83,15 +83,12 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	}
 	else {
 
-		if ((stristr($_SESSION['cargo'],'1') != TRUE) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
-			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
-				header('Location:'.'https://'.$config['dominio'].'/intranet/mantenimiento.php');
-				exit();
-			}
-			else {
-				header('Location:'.'http://'.$config['dominio'].'/intranet/mantenimiento.php');
-				exit();
-			}
+		if (! acl_permiso($_SESSION['cargo'], array('1')) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
+			include(INTRANET_DIRECTORY.'/mantenimiento.php');
+			$_SESSION['autentificado'] = 0;
+			session_unset();
+			session_destroy();
+			exit();
 		}
 
 	}
