@@ -18,15 +18,17 @@ if (isset($_POST['enviar'])) {
 	// VARIABLES DEL FORMULARIO
 	$titulo = $_POST['titulo'];
 	$contenido = preg_replace('/&quot;/i', '', $_POST['contenido']);
-	$contenido = preg_replace('/<h(.) style=".*?"/i', '<h$1', $contenido);
+	$contenido = preg_replace('/<h([1-6]) style=".*?"/i', '<h$1', $contenido);
 	$contenido = preg_replace('/font-family:.*?;/i', '', $contenido);
 	$contenido = preg_replace('/font-size: medium;/i', '', $contenido);
 	$contenido = preg_replace('/margin:.*?;/i', '', $contenido);
 	$contenido = preg_replace('/padding:.*?;/i', '', $contenido);
 	$contenido = preg_replace('/class="MsoNormal"/i', '', $contenido);
 	$contenido = preg_replace('/<o:p>.*?<\/o:p>/i', '', $contenido);
-	$contenido = preg_replace('/   /i', '', $contenido);
 	$contenido = preg_replace('/<p style="\s*">/i', '<p>', $contenido);
+	$contenido = preg_replace('/<img style="(.*?)float: left;(.*?)"/i', '<img style="$1float: left;$2 margin: 0 15px 15px 0;"', $contenido);
+	$contenido = preg_replace('/<img style="(.*?)float: right;(.*?)"/i', '<img style="$1float: right;$2 margin: 0 0 15px 15px;"', $contenido);
+	$contenido = preg_replace('/<iframe (.*?)><\/iframe>/i', '<div class="embed-responsive embed-responsive-16by9"><iframe $1></iframe></div>', $contenido);
 	$contenido = addslashes($contenido);
 	$caracteres_contenido = strlen(trim(strip_tags($contenido)));
 	$autor = $_POST['autor'];

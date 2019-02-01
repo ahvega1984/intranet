@@ -46,7 +46,7 @@ include("menu.php");
    <label> Grupo</label>
 <SELECT name="unidad" class="form-control">
       <OPTION><?php echo $unidad;?></OPTION>
-      <?php unidad($db_con);?>
+      <?php unidad();?>
     </SELECT>
         </div>   
   

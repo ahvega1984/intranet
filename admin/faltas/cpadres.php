@@ -33,7 +33,7 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
            <select  name="unidad" class="form-control" onChange="submit()">
             <option><?php echo $unidad;?></option>
             <?php
-unidad($db_con);
+unidad();
 ?>
 </select>
             </div>

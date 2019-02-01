@@ -402,11 +402,12 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
     <?php } ?>
    <div>
    <div class="well">
+
     <h4>Impresión de partes</h4><br>
-    <?php
-if(stristr($_SESSION['cargo'],'1') == TRUE)
-{
-	?>
+
+    <?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+
+		<?php if ($expulsion > 0 && ! empty($inicio) && ! empty($fin)): ?>
     <h6>EXPULSI&Oacute;N DEL CENTRO</h6>
     <form id="form2" name="form2" method="post" action="imprimir/expulsioncentro.php">
       <input name="id" type="hidden" value="<?php echo $id;?>" />
@@ -414,42 +415,47 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
       <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <?php if($inicio){echo "value=$inicio";}?> />
       <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <?php if($fin){echo "value=$fin";}?> />
 
-        <input type="submit" name="imprimir" value="Expulsi&oacute;n del Centro" class="btn btn-danger"/>
-
+      <input type="submit" name="imprimir" value="Expulsi&oacute;n del Centro" class="btn btn-danger"/>
     </form>
+		<?php endif; ?>
 
-     <?php if ($config['mod_convivencia']==1) { ?>
+    <?php if ($config['mod_convivencia']==1): ?>
+		<?php if ($expulsion > 0 && ! empty($horas) && ! empty($inicio_aula) && ! empty($fin_aula)): ?>
     <h6>EXPULSI&Oacute;N AL AULA DE CONVIVENCIA</h6>
+    <form id="form3" name="form3" method="post" action="imprimir/convivencia.php">
+      <input name="id" type="hidden" value="<?php echo $id;?>" />
+      <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
+      <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <?php if($inicio_aula){echo "value=$inicio_aula";}?> />
+      <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <?php if($fin_aula){echo "value=$fin_aula";}?> />
+      <input name="horas" type="hidden" value="<?php echo $horas;?>" />
+      <input type="submit" name="imprimir5" value="Aula de Convivencia"  class="btn btn-danger" />
+    </form>
+		<?php endif; ?>
+		<?php endif; ?>
 
-      <form id="form3" name="form3" method="post" action="imprimir/convivencia.php">
-        <input name="id" type="hidden" value="<?php echo $id;?>" />
-        <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
-        <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <?php if($inicio_aula){echo "value=$inicio_aula";}?> />
-        <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <?php if($fin_aula){echo "value=$fin_aula";}?> />
-        <input name="horas" type="hidden" value="<?php echo $horas;?>" />
-        <input type="submit" name="imprimir5" value="Aula de Convivencia"  class="btn btn-danger" />
-      </form>
-      <?php } ?>
-        <?php
-}
-   ?>
-    <h6>EXPULSI&Oacute;N
-      DEL AULA </h6>
+		<?php endif; ?>
+
+		<?php $result_tutor = mysqli_query($db_con, "SELECT `tutor` FROM `FTUTORES` WHERE `unidad` = '$unidad' LIMIT 1"); ?>
+		<?php if (mysqli_num_rows($result_tutor)): ?>
+    <h6>EXPULSI&Oacute;N DEL AULA </h6>
     <form id="form3" name="form3" method="post" action="imprimir/expulsionaula.php">
-
         <input name="id" type="hidden" value="<?php echo $id;?>" />
         <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
         <input type="submit" name="imprimir2" value="Parte de Expulsi&oacute;n del Aula" class="btn btn-danger" />
-
     </form>
+
     <h6>AMONESTACI&Oacute;N ESCRITA </h6>
     <form id="form3" name="form3" method="post" action="imprimir/amonestescrita.php">
-
         <input name="id" type="hidden" value="<?php echo $id;?>" />
         <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
         <input type="submit" name="imprimir3" value="Amonestaci&oacute;n escrita " class="btn btn-danger" />
-
     </form>
+		<?php else: ?>
+		<div class="alert alert-warning">
+			No hay tutor/a asignado a la unidad <?php $unidad;?>.
+		</div>
+		<?php endif; ?>
+
     </div>
   </div>
 </div>

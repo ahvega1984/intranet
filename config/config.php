@@ -12,13 +12,13 @@ $provincias = array('Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaé
 
 function forzar_ssl() {
 	$ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/intranet/config/ssl.json' : 'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/ssl.json';
-	
+
 	$context = array(
 	  'http' => array(
 	  	'header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
 	  )
 	);
-	
+
 	$file = @json_decode(@file_get_contents($ssl, false, stream_context_create($context)));
 	return sprintf("%s", $file ? reset($file)->ssl : 0);
 }
@@ -31,12 +31,12 @@ function limpiar_string($string)
 // PROCESAMOS EL FORMULARIO
 if (isset($_POST['config']))
 {
-	
+
 	// LIMPIAMOS CARACTERES
 	$dominio_centro	= limpiar_string($_POST['dominio_centro']);
 	$forzar_ssl = (isset($_POST['forzar_ssl'])) ? 1 : 0;
 	$mantenimiento = (isset($_POST['mantenimiento'])) ? 1 : 0;
-	
+
 	$nombre_centro		= limpiar_string($_POST['nombre_centro']);
 	$codigo_centro		= limpiar_string($_POST['codigo_centro']);
 	$email_centro		= limpiar_string($_POST['email_centro']);
@@ -46,11 +46,11 @@ if (isset($_POST['config']))
 	$provincia_centro	= limpiar_string($_POST['provincia_centro']);
 	$telefono_centro	= limpiar_string($_POST['telefono_centro']);
 	$fax_centro			= limpiar_string($_POST['fax_centro']);
-	
+
 	$direccion_director			= limpiar_string($_POST['direccion_director']);
 	$direccion_jefe_estudios	= limpiar_string($_POST['direccion_jefe_estudios']);
 	$direccion_secretaria		= limpiar_string($_POST['direccion_secretaria']);
-	
+
 	$db_host	= limpiar_string($_POST['db_host']);
 	$db_name	= limpiar_string($_POST['db_name']);
 	$db_user	= limpiar_string($_POST['db_user']);
@@ -61,51 +61,51 @@ if (isset($_POST['config']))
 	$email_smtp_port		= intval($_POST['email_smtp_port']);
 	$email_smtp_username	= limpiar_string($_POST['email_smtp_username']);
 	$email_smtp_password	= limpiar_string($_POST['email_smtp_password']);
-	
+
 	$curso_escolar	= limpiar_string($_POST['curso_escolar']);
 	$fecha_inicio	= limpiar_string($_POST['fecha_inicio']);
 	$fecha_final	= limpiar_string($_POST['fecha_final']);
-	
+
 	$modulo_biblioteca = (isset($_POST['mod_biblioteca'])) ? 1 : 0;
 	$modulo_biblioteca_web	= limpiar_string($_POST['mod_biblioteca_web']);
-	
+
 	$modulo_bilingue = (isset($_POST['mod_bilingue'])) ? 1 : 0;
-	
+
 	$modulo_centrotic = (isset($_POST['mod_centrotic'])) ? 1 : 0;
-	
+
 	$modulo_documentos = (isset($_POST['mod_documentos'])) ? 1 : 0;
 	$modulo_documentos_dir	= limpiar_string($_POST['mod_documentos_dir']);
 	$mod_documentos_biblioteca = (isset($_POST['mod_documentos_biblioteca'])) ? 1 : 0;
 	$mod_documentos_recursos = (isset($_POST['mod_documentos_recursos'])) ? 1 : 0;
 	$mod_documentos_departamentos = (isset($_POST['mod_documentos_departamentos'])) ? 1 : 0;
-	
+
 	$modulo_sms = (isset($_POST['mod_sms'])) ? 1 : 0;
 	$modulo_sms_id		= limpiar_string($_POST['mod_sms_id']);
 	$modulo_sms_user	= limpiar_string($_POST['mod_sms_user']);
 	$modulo_sms_pass	= limpiar_string($_POST['mod_sms_pass']);
-	
+
 	$modulo_notificaciones = (isset($_POST['mod_notificaciones'])) ? 1 : 0;
-	
+
 	$modulo_asistencia = (isset($_POST['mod_asistencia'])) ? 1 : 0;
-	
+
 	$modulo_horarios = (isset($_POST['mod_horarios'])) ? 1 : 0;
-	
+
 	$modulo_convivencia = (isset($_POST['mod_convivencia'])) ? 1 : 0;
 
 	$modulo_matriculacion = (isset($_POST['mod_matriculacion'])) ? 1 : 0;
 	$modulo_transporte_escolar = (isset($_POST['mod_transporte_escolar'])) ? 1 : 0;
-	
-	
+
+
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen(CONFIG_FILE, 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
-		
+
 		fwrite($file, "\r\n// CONFIGURACIÓN INTRANET\r\n");
 		fwrite($file, "\$config['dominio']\t\t\t= '$dominio_centro';\r\n");
 		fwrite($file, "\$config['forzar_ssl']\t\t= $forzar_ssl;\r\n");
 		fwrite($file, "\$config['mantenimiento']\t= $mantenimiento;\r\n");
-		
+
 		fwrite($file, "\r\n// INFORMACIÓN DEL CENTRO\r\n");
 		fwrite($file, "\$config['centro_denominacion']\t= '$nombre_centro';\r\n");
 		fwrite($file, "\$config['centro_codigo']\t\t= '$codigo_centro';\r\n");
@@ -116,18 +116,18 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['centro_provincia']\t\t= '$provincia_centro';\r\n");
 		fwrite($file, "\$config['centro_telefono']\t\t= '$telefono_centro';\r\n");
 		fwrite($file, "\$config['centro_fax']\t\t\t= '$fax_centro';\r\n");
-		
+
 		fwrite($file, "\r\n// EQUIPO DIRECTIVO\r\n");
 		fwrite($file, "\$config['directivo_direccion']\t= '$direccion_director';\r\n");
 		fwrite($file, "\$config['directivo_jefatura']\t= '$direccion_jefe_estudios';\r\n");
 		fwrite($file, "\$config['directivo_secretaria']\t= '$direccion_secretaria';\r\n");
-		
+
 		fwrite($file, "\r\n// BASE DE DATOS\r\n");
 		fwrite($file, "\$config['db_host']\t= '$db_host';\r\n");
 		fwrite($file, "\$config['db_name']\t= '$db_name';\r\n");
 		fwrite($file, "\$config['db_user']\t= '$db_user';\r\n");
 		fwrite($file, "\$config['db_pass']\t= '$db_pass';\r\n");
-		
+
 		fwrite($file, "\r\n// CURSO ESCOLAR\r\n");
 		fwrite($file, "\$config['curso_actual']\t= '$curso_escolar';\r\n");
 		fwrite($file, "\$config['curso_inicio']\t= '$fecha_inicio';\r\n");
@@ -141,54 +141,54 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['email_smtp']['smtp_secure']\t= 'tls';\r\n");
 		fwrite($file, "\$config['email_smtp']['username']\t\t= '$email_smtp_username';\r\n");
 		fwrite($file, "\$config['email_smtp']['password']\t\t= '$email_smtp_password';\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: BIBLIOTECA\r\n");
 		fwrite($file, "\$config['mod_biblioteca']\t\t= $modulo_biblioteca;\r\n");
-		fwrite($file, "\$config['mod_biblioteca_web']\t= '$modulo_biblioteca_web';\r\n");
-		
+		fwrite($file, "\$config['mod_biblioteca_web']\t= 'http://$modulo_biblioteca_web';\r\n");
+
 		fwrite($file, "\r\n// MÓDULO: BILINGÜE\r\n");
 		fwrite($file, "\$config['mod_bilingue']\t\t\t= $modulo_bilingue;\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: CENTRO TIC\r\n");
 		fwrite($file, "\$config['mod_centrotic']\t\t= $modulo_centrotic;\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: DOCUMENTOS\r\n");
 		fwrite($file, "\$config['mod_documentos']\t\t= $modulo_documentos;\r\n");
 		fwrite($file, "\$config['mod_documentos_dir']\t= '$modulo_documentos_dir';\r\n");
 		fwrite($file, "\$config['mod_documentos_biblioteca']\t= '$mod_documentos_biblioteca';\r\n");
 		fwrite($file, "\$config['mod_documentos_recursos']\t= '$mod_documentos_recursos';\r\n");
 		fwrite($file, "\$config['mod_documentos_departamentos']\t= '$mod_documentos_departamentos';\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: SMS\r\n");
 		fwrite($file, "\$config['mod_sms']\t\t\t\t= $modulo_sms;\r\n");
 		fwrite($file, "\$config['mod_sms_id']\t\t\t= '$modulo_sms_id';\r\n");
 		fwrite($file, "\$config['mod_sms_user']\t\t\t= '$modulo_sms_user';\r\n");
 		fwrite($file, "\$config['mod_sms_pass']\t\t\t= '$modulo_sms_pass';\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: NOTIFICACIONES\r\n");
 		fwrite($file, "\$config['mod_notificaciones']\t= $modulo_notificaciones;\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
 		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: HORARIOS\r\n");
 		fwrite($file, "\$config['mod_horarios']\t\t\t= $modulo_horarios;\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: AULA DE CONVIVENCIA\r\n");
 		fwrite($file, "\$config['mod_convivencia']\t\t\t= $modulo_convivencia;\r\n");
-		
+
 		fwrite($file, "\r\n// MÓDULO: MATRICULACIÓN\r\n");
 		fwrite($file, "\$config['mod_matriculacion']\t\t= $modulo_matriculacion;\r\n");
 		fwrite($file, "\$config['mod_transporte_escolar']\t= $modulo_transporte_escolar;\r\n");
-		
+
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
-		
+
 		$config_nuevo = 1;
 		fclose($file);
-		
+
 		include('../config.php');
 	}
-	
+
 	// FORZAR USO DE HTTPS
 	if($forzar_ssl)
 	{
@@ -202,56 +202,56 @@ if (isset($_POST['config']))
 		}
 		fclose($fp);
 	}
-	
+
 }
 
 include('../menu.php');
 ?>
-	
+
 	<div class="container">
-		
+
 		<div class="page-header">
 			<h2><?php echo $page_header; ?></h2>
 		</div>
-		
+
 		<?php if($config_nuevo): ?>
 		<div class="alert alert-success">
 			Los cambios han sido guardados correctamente.
 		</div>
 		<?php endif; ?>
-		
-		
+
+
 		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off">
-			
+
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">Configuración general</a></li>
 				<li><a href="#modulos" aria-controls="modulos" role="tab" data-toggle="tab">Módulos</a></li>
 			</ul>
-			
+
 			<br>
-			
+
 			<div id="tabs-configuracion" class="tab-content">
-			
+
 				<!-- CONFIGURACIÓN GENERAL -->
 				<div role="tabpanel" class="tab-pane active" id="configuracion">
 					<div class="row">
-					
+
 						<div class="col-sm-6">
-							
+
 							<div class="well">
-							
+
 								<h3><span class="far fa-university fa-fw"></span> Información de su centro educativo</h3>
 								<br>
-								
+
 								<input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
-								
+
 								<?php if(forzar_ssl()): ?>
 								<input type="hidden" name="forzar_ssl" value="1">
 								<?php endif; ?>
-								
+
 								<?php $tam_label = 4; ?>
 								<?php $tam_control = 7; ?>
-								
+
 								<div class="form-group">
 								  <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -259,7 +259,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -267,7 +267,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -275,7 +275,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -283,7 +283,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -291,7 +291,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -299,7 +299,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -312,7 +312,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -320,7 +320,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="fax_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Fax</label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -328,7 +328,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="direccion_director" class="col-sm-<?php echo $tam_label; ?> control-label">Director/a <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -336,7 +336,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="direccion_jefe_estudios" class="col-sm-<?php echo $tam_label; ?> control-label">Jefe/a de Estudios <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -344,7 +344,7 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 								<div class="form-group">
 								  <label for="direccion_secretaria" class="col-sm-<?php echo $tam_label; ?> control-label">Secretario/a <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
@@ -352,11 +352,11 @@ include('../menu.php');
 								    <div class="help-block with-errors"></div>
 								  </div>
 								</div>
-								
+
 							</div>
 
 							<div class="well">
-								
+
 								<h3><span class="far fa-sign-in fa-fw"></span> Opciones de acceso</h3>
 								<br>
 
@@ -366,29 +366,29 @@ include('../menu.php');
 										<strong>Forzar acceso a la Intranet mediante HTTPS</strong>
 									</label>
 								</div>
-								
+
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" name="mantenimiento" value="1" <?php echo (isset($config['mantenimiento']) && $config['mantenimiento']) ? 'checked' : ''; ?>>
 										<strong>Modo mantenimiento.</strong> Solo equipo directivo tiene acceso a la Intranet.
 									</label>
 								</div>
-							
+
 							</div>
-							
+
 						</div><!-- /.col-sm-6 -->
-						
-						
+
+
 						<div class="col-sm-6">
-							
+
 							<div class="well">
-							
+
 								<h3><span class="far fa-database fa-fw"></span> Base de datos</h3>
 								<br>
-								
+
 								<?php $tam_label = 4; ?>
 								<?php $tam_control = 7; ?>
-								
+
 								<div class="form-group">
 									<label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -396,7 +396,7 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -404,7 +404,7 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -412,7 +412,7 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -420,17 +420,17 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 							</div>
-							
+
 							<div class="well">
-								
+
 								<h3><span class="far fa-graduation-cap fa-fw"></span> Curso escolar</h3>
 								<br>
-								  
+
 								  <?php $tam_label = 4; ?>
 								  <?php $tam_control = 7; ?>
-								  
+
 								  <div class="form-group">
 								    <label for="curso_escolar" class="col-sm-<?php echo $tam_label; ?> control-label">Curso escolar <span class="text-danger">*</span></label>
 								    <div class="col-sm-<?php echo $tam_control; ?>">
@@ -438,7 +438,7 @@ include('../menu.php');
 								      <div class="help-block with-errors"></div>
 								    </div>
 								  </div>
-								  
+
 								  <div class="form-group">
 								    <label for="fecha_inicio" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha de inicio <span class="text-danger">*</span></label>
 								    <div class="col-sm-<?php echo $tam_control; ?>">
@@ -446,7 +446,7 @@ include('../menu.php');
 								      <div class="help-block with-errors"></div>
 								    </div>
 								  </div>
-								  
+
 								  <div class="form-group">
 								    <label for="fecha_final" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha final <span class="text-danger">*</span></label>
 								    <div class="col-sm-<?php echo $tam_control; ?>">
@@ -454,14 +454,14 @@ include('../menu.php');
 								      <div class="help-block with-errors"></div>
 								    </div>
 								  </div>
-								
+
 							</div>
-							
+
 							<div class="well">
 
 								<h3><span class="far fa-envelope fa-fw"></span> Configuración SMTP</h3>
 								<br>
-								
+
 								<?php $tam_label = 4; ?>
 								<?php $tam_control = 7; ?>
 
@@ -472,7 +472,7 @@ include('../menu.php');
 										<p class="help-block">Si no se configura un servidor SMTP se utilizará el servicio sendmail.</p>
 									</label>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="email_smtp_hostname" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor <span class="text-danger required-field">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -480,7 +480,7 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="email_smtp_port" class="col-sm-<?php echo $tam_label; ?> control-label">Puerto <span class="text-danger required-field">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -488,7 +488,7 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="email_smtp_username" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario <span class="text-danger required-field">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -496,7 +496,7 @@ include('../menu.php');
 									  <div class="help-block with-errors"></div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label for="email_smtp_password" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger required-field">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
@@ -506,20 +506,20 @@ include('../menu.php');
 								</div>
 
 							</div>
-							
+
 						</div><!-- /.col-sm-6 -->
-						
+
 					</div><!-- /.row -->
-					
+
 				</div><!-- /.tab-pane -->
-				
+
 				<!-- CONFIGURACIÓN MÓDULOS -->
 				<div role="tabpanel" class="tab-pane" id="modulos">
-					
+
 					<div class="well">
 						<h3><span class="far fa-cubes fa-fw"></span> Configuración de módulos</h3>
 						<br>
-					    
+
 						<div class="row">
 							<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: -3px;">
 								<ul class="nav nav-pills nav-stacked" role="tablist">
@@ -535,12 +535,12 @@ include('../menu.php');
 									<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="tab-content col-sm-7" style="border-left: 3px solid #dce4ec; padding-left: 45px;">
-								
+
 								<!-- MÓDULO: BIBLIOTECA -->
 							    <div role="tabpanel" class="tab-pane active" id="mod_biblioteca">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -550,23 +550,23 @@ include('../menu.php');
 					    			    	</label>
 								    	</div>
 								    </div>
-							    	
+
 							    	<br>
-							    	
+
 							    	<div class="form-group">
 							    		<label for="mod_biblioteca_web">Página web de la Biblioteca</label>
 							    		<div class="input-group">
 						    		      <div class="input-group-addon">http://</div>
-						    		      <input type="text" class="form-control" id="mod_biblioteca_web" name="mod_biblioteca_web" value="<?php echo $config['mod_biblioteca_web']; ?>">
+						    		      <input type="text" class="form-control" id="mod_biblioteca_web" name="mod_biblioteca_web" value="<?php echo str_replace('http://', '',$config['mod_biblioteca_web']); ?>">
 						    		    </div>
 							    	</div>
-							    	
+
 							    </div>
-							    
-							    
+
+
 							    <!-- MÓDULO: CENTRO BILINGÜE -->
 							    <div role="tabpanel" class="tab-pane" id="mod_bilingue">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -576,13 +576,13 @@ include('../menu.php');
 					    			    	</label>
 								    	</div>
 								    </div>
-							    	
+
 							    </div>
-							    
-							    
+
+
 							    <!-- MÓDULO: CENTRO TIC -->
 							    <div role="tabpanel" class="tab-pane" id="mod_centrotic">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -592,13 +592,13 @@ include('../menu.php');
 					    			    	</label>
 								    	</div>
 								    </div>
-							    	
+
 							    </div>
-							    
-							    
-							    <!-- MÓDULO: DOCUMENTOS --> 
+
+
+							    <!-- MÓDULO: DOCUMENTOS -->
 							    <div role="tabpanel" class="tab-pane" id="mod_documentos" <?php echo (isset($config['mod_documentos']) && $config['mod_documentos']) ? 'checked' : ''; ?>>
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -608,12 +608,12 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-							    				    			    	
+
 							    	<div class="form-group">
 							    		<label for="mod_documentos_dir">Directorio público</label>
 							    	    <input type="text" class="form-control" id="mod_documentos_dir" name="mod_documentos_dir" value="<?php echo $config['mod_documentos_dir']; ?>">
 							    	</div>
-							    	
+
 							    	<div class="checkbox">
 							    		<label>
 							    			<input type="checkbox" name="mod_documentos_biblioteca" value="1" <?php echo (isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) ? 'checked' : ''; ?>>
@@ -621,7 +621,7 @@ include('../menu.php');
 							    			<p class="help-block">Creará una carpeta donde el personal de Biblioteca puede subir documentos de interés para la comunidad educativa.</p>
 							    		</label>
 							    	</div>
-							    	
+
 							    	<div class="checkbox">
 							    		<label>
 							    			<input type="checkbox" name="mod_documentos_recursos" value="1" <?php echo (isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) ? 'checked' : ''; ?>>
@@ -629,7 +629,7 @@ include('../menu.php');
 							    			<p class="help-block">Creará una carpeta <strong>Recursos</strong>, con el nombre de cada Grupo de Alumnos en el que los miembros de un Equipo Educativo pueden subir archivos visibles para Padres y Alumnos en <u>Acceso para Alumnos</u> de la <em>Página del Centro</em>.</p>
 							    		</label>
 							    	</div>
-							    	
+
 							    	<div class="checkbox">
 							    		<label>
 							    			<input type="checkbox" name="mod_documentos_departamentos" value="1" <?php echo (isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) ? 'checked' : ''; ?>>
@@ -637,13 +637,13 @@ include('../menu.php');
 							    			<p class="help-block">Creará una carpeta para los Departamentos del Centro donde estos pueden colocar documentos importantes y públicos (Programaciones, etc.) visibles desde la <em>Página del Centro</em>.</p>
 							    		</label>
 							    	</div>
-							    	
+
 							    </div>
-							    
-							    
+
+
 							    <!-- MÓDULO: ENVÍO DE SMS -->
 							    <div role="tabpanel" class="tab-pane" id="mod_sms">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -653,28 +653,28 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-							    	
+
 							    	<div class="form-group">
 							    		<label for="mod_sms_id">Nombre de identificación (<abbr title="Transmission Path Originating Address">TPOA</abbr>)</label>
 							    	    <input type="text" class="form-control" id="mod_sms_id" name="mod_sms_id" value="<?php echo $config['mod_sms_id']; ?>" maxlength="11">
 							    	    <p class="help-block">11 caracteres como máximo.</p>
 							    	</div>
-							    	
+
 							    	<div class="form-group">
 							    		<label for="mod_sms_user">Usuario</label>
 							    	    <input type="text" class="form-control" id="mod_sms_user" name="mod_sms_user" value="<?php echo $config['mod_sms_user']; ?>">
 							    	</div>
-							    	
+
 							    	<div class="form-group">
 							    		<label for="mod_sms_pass">Contraseña</label>
 							    	    <input type="text" class="form-control" id="mod_sms_pass" name="mod_sms_pass" value="<?php echo $config['mod_sms_pass']; ?>">
 							    	</div>
-							    	
+
 							    </div>
-							    
+
 							    <!-- MÓDULO: NOTIFICACIONES -->
 							    <div role="tabpanel" class="tab-pane" id="mod_notificaciones">
-							    	
+
 							    	<div class="form-group">
 							        	<div class="checkbox">
 							        		<label>
@@ -684,13 +684,13 @@ include('../menu.php');
 							        		</label>
 							        	</div>
 							        </div>
-							    	
+
 							    </div>
-							    
-							    
+
+
 							    <!-- MÓDULO: FALTAS DE ASISTENCIA -->
 							    <div role="tabpanel" class="tab-pane" id="mod_asistencia">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -700,15 +700,15 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-							    	
+
 							    	<div class="alert alert-warning">Este módulo depende del módulo de Horarios. Si decide utilizarlo se activará el módulo de Horarios automáticamente.</div>
-							    	
+
 							    </div>
-							    
-							    
+
+
 							    <!-- MÓDULO: HORARIOS -->
 							    <div role="tabpanel" class="tab-pane" id="mod_horarios">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -718,13 +718,13 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-							    	
+
 							    </div>
 
 
 							    <!-- MÓDULO: AULA DE CONVIVENCIA -->
 							    <div role="tabpanel" class="tab-pane" id="mod_convivencia">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -734,13 +734,13 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-							    	
+
 							    </div>
-							    
-							    
+
+
 							    <!-- MÓDULO: MATRICULACIÓN -->
 							    <div role="tabpanel" class="tab-pane" id="mod_matriculacion">
-							    	
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -750,7 +750,7 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-								    
+
 							    	<div class="form-group">
 								    	<div class="checkbox">
 								    		<label>
@@ -760,36 +760,36 @@ include('../menu.php');
 								    		</label>
 								    	</div>
 								    </div>
-							    	
+
 							    </div>
 							  </div>
 						</div>
-						
+
 					</div>
-					
+
 				</div><!-- /.tab-pane -->
-				
-				
+
+
 				<div class="row">
-					
+
 					<div class="col-sm-12">
-					
+
 						<button type="submit" class="btn btn-primary" name="config">Guardar cambios</button>
 						<a href="../xml/index.php" class="btn btn-default">Volver</a>
-						
+
 					</div>
-					
+
 				</div>
-				
+
 			</div><!-- /.tab-content -->
-			
+
 		</form>
-		
+
 	</div><!-- /.container -->
-	
-	
+
+
 	<?php include('../pie.php'); ?>
-	
+
 	<script src="../js/validator/validator.min.js"></script>
 	<script>
 	$(document).ready(function()

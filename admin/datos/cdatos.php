@@ -74,7 +74,7 @@ include("../informes/menu_alumno.php");
 						
 						<div class="form-group">
 					    <select class="form-control" name="unidad[]" multiple size="6">
-					    	 <?php unidad($db_con); ?>
+					    	 <?php unidad(); ?>
 					    </select>
 					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples grupos.</p>
 					  </div>

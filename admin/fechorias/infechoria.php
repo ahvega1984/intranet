@@ -12,12 +12,12 @@ include("menu.php");
 
 	<div class="page-header">
 		<h2 style="display: inline;">Problemas de convivencia <small>Registro de un Problema de Convivencia</small></h2>
-		
+
 		<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 			<span class="fas fa-question fa-lg"></span>
 		</a>
-	
+
 		<!-- Modal -->
 		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -27,54 +27,54 @@ include("menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El registro de un Problema de Convivencia comienza con la selección de la 
-						<em><strong>fecha</strong></em> en que sucedió. <br>Continúa con la selección de la 
-						<em><strong>Unidad o Grupo de alumnos</strong></em> dentro del cual se encuentra el 
-						autor del problema. El Grupo no es un campo obligatorio, simplemente facilita la 
+						<p>El registro de un Problema de Convivencia comienza con la selección de la
+						<em><strong>fecha</strong></em> en que sucedió. <br>Continúa con la selección de la
+						<em><strong>Unidad o Grupo de alumnos</strong></em> dentro del cual se encuentra el
+						autor del problema. El Grupo no es un campo obligatorio, simplemente facilita la
 						búsqueda al reducir la lista de alumnos.</p>
-						<p>El campo <em><strong>Alumno/a</strong></em> presenta al principio la lista de todos 
-						los alumnos del Centro ordenada alfabéticamente. Si elegimos un Grupo aparecerán los 
-						alumnos de ese Grupo. Tanto en la lista total como en la lista de un Grupo podemos 
-						seleccionar uno o varios alumnos. Como se señala en el texto de ayuda del formulario, 
-						se pueden seleccionar múltiples alumnos mediante el uso de la tecla <kbd>CTRL</kbd> + 
-						click sobre los distintos elementos; si queremos seleccionar a todo el Grupo, hacemos 
-						click sobre el primero de la lista y, manteniendo presionada la tecla Mayúsculas 
+						<p>El campo <em><strong>Alumno/a</strong></em> presenta al principio la lista de todos
+						los alumnos del Centro ordenada alfabéticamente. Si elegimos un Grupo aparecerán los
+						alumnos de ese Grupo. Tanto en la lista total como en la lista de un Grupo podemos
+						seleccionar uno o varios alumnos. Como se señala en el texto de ayuda del formulario,
+						se pueden seleccionar múltiples alumnos mediante el uso de la tecla <kbd>CTRL</kbd> +
+						click sobre los distintos elementos; si queremos seleccionar a todo el Grupo, hacemos
+						click sobre el primero de la lista y, manteniendo presionada la tecla Mayúsculas
 						(<kbd>SHIFT</kbd>), seleccionamos el último de la lista.</p>
-						<p>El segundo bloque de campos del formulario comienza con la elección de la 
-						<em><strong>Gravedad</strong></em> del Problema que vamos a registrar. La Gravedad 
-						puede ser: Leve, Grave y Muy Grave. Cada categoría va asociada a un conjunto de 
-						<em><strong>Conductas Negativas</strong></em> que aparecen en el ROF (Reglamento de 
-						Organización y Funcionamiento) del Centro y que puede ser editado por parte de los 
-						Administradores de la Intranet (Administración de la Intranet --> A principio de 
-						Curso --> Modificar ROF). Al cargar una de las categorías, el desplegable muestra las 
-						Conductas Negativas propias de esa categoría. Seleccionamos una Conducta y aparecerán 
-						al mismo tiempo la <em><strong>Medida Adoptada</strong></em> administrativamente (si 
-						procede según el ROF) y las <em><strong>Medidas Complementarias</strong></em> que deben 
-						tomarse (según el ROF). Si el alumno ha sido <em><strong>expulsado del Aula</strong></em>, 
+						<p>El segundo bloque de campos del formulario comienza con la elección de la
+						<em><strong>Gravedad</strong></em> del Problema que vamos a registrar. La Gravedad
+						puede ser: Leve, Grave y Muy Grave. Cada categoría va asociada a un conjunto de
+						<em><strong>Conductas Negativas</strong></em> que aparecen en el ROF (Reglamento de
+						Organización y Funcionamiento) del Centro y que puede ser editado por parte de los
+						Administradores de la Intranet (Administración de la Intranet --> A principio de
+						Curso --> Modificar ROF). Al cargar una de las categorías, el desplegable muestra las
+						Conductas Negativas propias de esa categoría. Seleccionamos una Conducta y aparecerán
+						al mismo tiempo la <em><strong>Medida Adoptada</strong></em> administrativamente (si
+						procede según el ROF) y las <em><strong>Medidas Complementarias</strong></em> que deben
+						tomarse (según el ROF). Si el alumno ha sido <em><strong>expulsado del Aula</strong></em>,
 						debe marcarse la opción correspondiente.</p>
-						<p>En el campo <em><strong>Observaciones</strong></em> describimos el acontecimiento que 
-						hemos tipificado. La descripción debe ser precisa y completa, de tal modo que tanto el 
-						Tutor como el Jefe de Estudios como los propios Padres del alumno puedan hacerse una 
+						<p>En el campo <em><strong>Observaciones</strong></em> describimos el acontecimiento que
+						hemos tipificado. La descripción debe ser precisa y completa, de tal modo que tanto el
+						Tutor como el Jefe de Estudios como los propios Padres del alumno puedan hacerse una
 						idea ajustada de lo sucedido.</p>
-						<p>El <em><strong>Profesor</strong></em> que informa del Problema coincide con el Profesor 
-						que ha abierto la sesión de la Intranet, excepto en el caso de los miembros del Equipo 
+						<p>El <em><strong>Profesor</strong></em> que informa del Problema coincide con el Profesor
+						que ha abierto la sesión de la Intranet, excepto en el caso de los miembros del Equipo
 						Directivo que pueden elegir entre la lista de todos los Profesores.</p>
-						<p>El botón <em><strong>Registrar</strong></em> envía los datos del formulario y completa 
+						<p>El botón <em><strong>Registrar</strong></em> envía los datos del formulario y completa
 						el proceso de registro.</p>
-						<p>Hay que tener en cuenta algunos detalles que suceden al registrar un Problema 
+						<p>Hay que tener en cuenta algunos detalles que suceden al registrar un Problema
 						de Convivencia:</p>
 						<ul>
-							<li>El Tutor recibe un mensaje en la Página principal cuando se 
-							registra un Problema Grave o Muy Grave de alguno de sus alumnos. El mensaje ofrece 
-							datos sobre el problema e indica el procedimiento a seguir. El Jefe de Estudios 
+							<li>El Tutor recibe un mensaje en la Página principal cuando se
+							registra un Problema Grave o Muy Grave de alguno de sus alumnos. El mensaje ofrece
+							datos sobre el problema e indica el procedimiento a seguir. El Jefe de Estudios
 							también ve los Problemas que se van registrando en el momento de producirse.</li>
-							<li>Si el problema es Leve, el sistema registra un nuevo problema 
-							Grave por reiteración: cada 5 problemas Leves se crea un Problema Grave de forma 
+							<li>Si el problema es Leve, el sistema registra un nuevo problema
+							Grave por reiteración: cada 5 problemas Leves se crea un Problema Grave de forma
 							automática. El Tutor y Jefe de Estudios reciben una notificación.</li>
-							<li>Los Problemas de Convivencia caducan según el tiempo 
-							especificado en el ROF. Los valores por defecto de la aplicación son los siguientes: 
+							<li>Los Problemas de Convivencia caducan según el tiempo
+							especificado en el ROF. Los valores por defecto de la aplicación son los siguientes:
 							30 días para los Leves y Graves; 60 días para los Muy Graves.</li>
-							<li>Se puede editar el Problema registrado en los dos días 
+							<li>Se puede editar el Problema registrado en los dos días
 							siguientes a la fecha en la que sucedió. Posteriormente, la edición queda bloqueada.</li>
 						</ul>
 					</div>
@@ -84,7 +84,7 @@ include("menu.php");
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 
 <div class="row"><?php
@@ -135,7 +135,7 @@ if ($_GET['seleccionado']=="1") {
 }
 if ($_GET['id'] or $_POST['id']) {
 	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
-	
+
 	if ($row = mysqli_fetch_array($result))
 	{
 
@@ -203,7 +203,7 @@ if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TR
 
 	<option><?php echo $unidad;?></option>
 
-	<?php unidad($db_con);?>
+	<?php unidad();?>
 </select></div>
 <label for="nombre">Alumno/a</label> <?php
 if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
@@ -216,7 +216,7 @@ if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
 
 	while($falumno = mysqli_fetch_array($alumnos))
 	{
-			
+
 		if ($nombre==$falumno[2]){
 			$sel = " selected ";
 		}
@@ -248,7 +248,7 @@ else{
 		$sel="";
 		if (is_array($nombre)) {
 			foreach($nombre as $n_alumno){
-					
+
 				if ($n_alumno==$falumno[2]){
 					$sel = " selected ";
 				}
@@ -278,14 +278,12 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 <div class="form-group"><label for="grave"> Gravedad</label> <select
 	class="form-control" id="grave" name="grave" onchange="submit()" required>
 	<option><?php echo $grave;?></option>
-	<?php
-	tipo($db_con);
-	?>
+	<?php tipo(); ?>
 </select></div>
 
 <div class="form-group"><label for="asunto">Conducta negativa</label> <select
 	class="form-control" id="asunto" name="asunto" onchange="submit()" required>
-	<option><?php 
+	<option><?php
 
 	$sql0 = mysqli_query($db_con, "select tipo from listafechorias where fechoria = '$asunto'");
 	$sql1 = mysqli_fetch_array($sql0);
@@ -295,9 +293,7 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 	}
 	else
 	{ echo $asunto;}  ?></option>
-	<?php
-	fechoria($db_con, $grave);
-	?>
+	<?php fechoria($grave); ?>
 </select></div>
 
 <div class="form-group"><label class="medida">Medida Adoptada</label> <?php
@@ -322,7 +318,7 @@ while($tipo2 = mysqli_fetch_array($tipo1))
 
 <div class="form-group"><label for="medidas">Medidas complementarias que
 deben tomarse</label> <textarea class="form-control" id="medidas"
-	name="medidas" rows="7" disabled><?php if($medidas){ echo $medidad; }else{  medida2($db_con, $asunto);} ?></textarea>
+	name="medidas" rows="7" disabled><?php if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
 </div>
 
 <?php
@@ -393,7 +389,7 @@ else{
 
 <hr />
 <?php
-if(stristr($_SESSION['cargo'],'1') == TRUE and isset($id) and $grave=="muy grave"){	
+if(stristr($_SESSION['cargo'],'1') == TRUE and isset($id) and $grave=="muy grave"){
 	echo '<input type="hidden" name="id" value="'.$id.'">';
 	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
 	echo '<input type="hidden" name="confirmado" value="1">';
@@ -417,26 +413,26 @@ else{
 </div>
 
 	<?php include("../../pie.php"); ?>
-	
-<script>  
-	$(function ()  
-	{ 
+
+<script>
+	$(function ()
+	{
 		$('#muy_grave').modal('show')
 	});
 
-	$(function ()  
-	{ 
+	$(function ()
+	{
 		$('#muy_grave_dir').modal('show')
 	});
 
-	$(function ()  
-	{ 
+	$(function ()
+	{
 		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})
-	});  
+	});
 	</script>
-	
+
 </body>
 </html>

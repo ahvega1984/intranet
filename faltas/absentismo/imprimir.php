@@ -10,19 +10,12 @@ $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);
 include("../../pdf/fpdf.php");
 define('FPDF_FONTPATH','../../pdf/font/');
-// Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
-# creamos la clase extendida de fpdf.php 
+# creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
 	function Header() {
+		global $config;
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',12);
@@ -31,20 +24,22 @@ class GranPDF extends FPDF {
 		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
-		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Cell(80,5,$config['centro_denominacion'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
+		global $config;
+		
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 }
@@ -60,7 +55,7 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 			$MiPDF->SetMargins(25,20,20);
 			# ajustamos al 100% la visualizacion
 			$MiPDF->SetDisplayMode('fullpage');
-			
+
                      if($mes=='09'){$n_mes='Septiembre';}
                     if($mes=='10'){$n_mes='Octubra';}
                     if($mes=='11'){$n_mes='Noviembre';}
@@ -75,7 +70,7 @@ $alumnos0 = "select numero, alma.unidad, apellidos, nombre, jefatura, orientacio
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 while($alumno = mysqli_fetch_array($alumnos1))
 {
-	$fecha=date('Y-m-d');	
+	$fecha=date('Y-m-d');
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
 
@@ -99,47 +94,47 @@ $cuerpo3="Informe de la Jefatura de Estudios";
 $cuerpo33="$alumno[4]";
 if (strlen($alumno[5])>0) {
 $cuerpo4="Informe del Departamento de Orientación";
-$cuerpo44="$alumno[5]";	
+$cuerpo44="$alumno[5]";
 }
 if (strlen($alumno[6])>0) {
 $cuerpo5="Informe del Tutor del Curso";
-$cuerpo55="$alumno[6]";	
+$cuerpo55="$alumno[6]";
 }
 if (strlen($alumno[13])>0) {
 $cuerpo6="Informe de los Servicios Sociales";
-$cuerpo66="$alumno[13]";	
+$cuerpo66="$alumno[13]";
 }
 #### Cabecera con dirección
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->SetTextColor(0,0,0);
-	
+
 	#Cuerpo.
 	$MiPDF->Ln(25);
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,20,$cuerpo0,0,'C',0);
 	$MiPDF->SetFont('NewsGotT');
-	
+
 	$MiPDF->Multicell(0,4,$datos10,0,'L',0);
 	$MiPDF->Ln(5);
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo1,0,'J',0);
 	$MiPDF->Ln(5);
-	
+
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo3,0,'L',0);
 	$MiPDF->Ln(1);
-		
+
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo33,0,'J',0);
 	$MiPDF->Ln(5);
 if (strlen($alumno[5])>0) {
 		$MiPDF->SetFont('NewsGotT','B',12);
-	$MiPDF->Multicell(0,4,$cuerpo4,0,'L',0);	
+	$MiPDF->Multicell(0,4,$cuerpo4,0,'L',0);
 	$MiPDF->Ln(1);
 		$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo44,0,'J',0);
 	$MiPDF->Ln(5);
-}		
+}
 if (strlen($alumno[6])>0) {
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo5,0,'L',0);
@@ -163,6 +158,6 @@ if (strlen($alumno[13])>0) {
 	//$MiPDF->ImageDestroy($foto);
 	}
 
-$MiPDF->Output();	
+$MiPDF->Output();
 
 ?>

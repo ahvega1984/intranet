@@ -37,7 +37,7 @@ $menu = array(
 		'menu_id' => 'direccion',
 		'nombre'  => 'Dirección del centro',
 		'cargos'  => array('1'),
-		'items'   => array (
+		'items'   => array(
 			array(
 				'href'   => 'xml/index.php',
 				'titulo' => 'Administración de la Intranet',
@@ -82,7 +82,7 @@ $menu = array(
 		'menu_id' => 'extraescolares',
 		'nombre'  => 'Extraescolares',
 		'cargos'  => array('5'),
-		'items'   => array (
+		'items'   => array(
 			array(
 				'href'   => 'admin/actividades/indexextra.php',
 				'titulo' => 'Administrar actividades'
@@ -98,7 +98,7 @@ $menu = array(
 		'menu_id' => 'orientacion',
 		'nombre'  => 'Orientación',
 		'cargos'  => array('8'),
-		'items'   => array (
+		'items'   => array(
 			array(
 				'href'   => 'admin/orientacion/index.php',
 				'titulo' => 'Intervenciones'
@@ -129,7 +129,7 @@ $menu = array(
 		'menu_id' => 'tutoria',
 		'nombre'  => 'Tutoría de '.$_SESSION['mod_tutoria']['unidad'],
 		'cargos'  => array('2'),
-		'items'   => array (
+		'items'   => array(
 			array(
 				'href'   => 'admin/tutoria/index.php',
 				'titulo' => 'Resumen global',
@@ -155,9 +155,9 @@ $menu = array(
 		'nombre'  => 'Biblioteca',
 		'modulo'  => $config['mod_biblioteca'],
 		'cargos'  => array('c'),
-		'items'   => array (
+		'items'   => array(
 			array(
-				'href'   => 'http://'.$config['mod_biblioteca_web'],
+				'href'   => $config['mod_biblioteca_web'],
 				'titulo' => 'Página de la biblioteca',
 				'target' => '_blank'
 			),
@@ -184,7 +184,7 @@ $menu = array(
 	array(
 		'menu_id' => 'consultas',
 		'nombre'  => 'Consultas',
-		'items'   => array (
+		'items'   => array(
 			array(
 				'href'   => 'admin/cursos/chorarios.php',
 				'titulo' => 'Horarios de profesores/grupos',
@@ -301,7 +301,7 @@ $menu_trabajo =  array(
 	array(
 		'menu_id' => 'trabajo',
 		'nombre'  => 'Trabajo',
-		'items'   => array (
+		'items'   => array(
 			array(
 				'href'   => 'admin/actividades/indexextra.php',
 				'titulo' => 'Actividades extraescolares',
@@ -572,7 +572,7 @@ $menu_departamento = array(
 $menu_actas = array(
 	'menu_id' => 'actas',
 	'titulo'  => 'Actas',
-	'items'   => array (
+	'items'   => array(
 		array(
 			'href'   => 'admin/evaluaciones/actas.php',
 			'titulo' => 'Actas de evaluación'
@@ -657,7 +657,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 		array(
 			'menu_id' => 'paginas_interes',
 			'nombre'  => 'Páginas de interés',
-			'items'   => array (
+			'items'   => array(
 				array(
 					'href'   => 'varios/Planos_Centro.pdf',
 					'titulo' => 'Planos del Centro',
@@ -709,7 +709,7 @@ else {
 		array(
 			'menu_id' => 'paginas_interes',
 			'nombre'  => 'Páginas de interés',
-			'items'   => array (
+			'items'   => array(
 				array(
 					'href'   => '//'.$config['dominio'],
 					'titulo' => 'Página del '.$config['centro_denominacion'],

@@ -5,21 +5,12 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../pdf/fpdf.php");
 define('FPDF_FONTPATH','../../pdf/font/');
-# creamos la clase extendida de fpdf.php
-
-// Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
 # creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
 	function Header() {
+		global $config;
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',12);
@@ -28,20 +19,22 @@ class GranPDF extends FPDF {
 		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',12);
 		$this->Cell(75);
-		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Cell(80,5,$config['centro_denominacion'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
+		global $config;
+		
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 }
@@ -144,7 +137,7 @@ if (!($mal=='1')){
 		if ($regasig2[1]=='B') {$est=' en buen estado';}
 		if ($regasig2[1]=='R') {$est=' en un estado pasable';}
 		if ($regasig2[1]=='S') {$est=' prestado para septiembre';$nota=1;}
-		$MiPDF->Multicell(0,4,'- '.$regasig2[0].$est,0,'I',0);		
+		$MiPDF->Multicell(0,4,'- '.$regasig2[0].$est,0,'I',0);
 	}
 	mysqli_query($db_con, "update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");
 	$MiPDF->SetX(20);
@@ -201,6 +194,5 @@ if (!($mal=='1')){
 }
 
 $MiPDF->Output();
-	
-?>
 
+?>

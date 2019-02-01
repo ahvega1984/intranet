@@ -3,8 +3,18 @@ require('../../../bootstrap.php');
 
 if (isset($_GET['curso_escolar'])) $curso_escolar = $_GET['curso_escolar'];
 
-if (isset($_GET['evaluacion'])) $evaluacion_seleccionada = $_GET['evaluacion'];
-else $evaluacion_seleccionada = 'evi';
+if (isset($_GET['evaluacion'])) 
+    $evaluacion_seleccionada = $_GET['evaluacion'];
+    //else $evaluacion_seleccionada = '1ev';
+else { 
+    switch (trimestreActual()) { //seleccionamos por defecto la evaluación anterior que ya está finalizada
+        case 1: $evaluacion_seleccionada = 'evi'; break;
+        case 2: $evaluacion_seleccionada = '1ev'; break;
+        case 3: $evaluacion_seleccionada = '2ev'; break;
+        case 4: $evaluacion_seleccionada = 'ord'; break;
+    }
+}
+//echo 'EVALUACION seleccionada: '.$evaluacion_seleccionada;
 
 if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 	if (isset($curso_escolar) && ($curso_escolar != $config['curso_actual'])) {
@@ -29,7 +39,7 @@ if (isset($_GET['recalcular']) && $_GET['recalcular']) {
 }
 
 // Inicializamos variables
-$evaluaciones = array('evi' => 'notas0', '1ev' => 'notas1', '2ev' => 'notas2', 'ord' => 'notas3', 'ext' => 'notas4');
+$evaluaciones = array('evi' => 'notas0', '1ev' => 'notas1', '1_2ev' => 'notas1_2', '2ev' => 'notas2', 'ord' => 'notas3', 'ext' => 'notas4');
 $evaluacionSinNotas = 1;
 $resultados_evaluaciones = array();
 
@@ -200,17 +210,26 @@ include("menu.php");
 				<?php endif; ?>
 				
 				<ul class="nav nav-pills">
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=evi') == true || stristr($_SERVER['REQUEST_URI'], '?evaluacion=') == false) ? ' class="active"' : ''; ?>><a href="?evaluacion=evi<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Inicial</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=1ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=1ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">1ª Evaluación</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=2ev') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=2ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">2ª Evaluación</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=ord') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ord<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Ordinaria</a></li>
-				  <li<?php echo (stristr($_SERVER['REQUEST_URI'], '?evaluacion=ext') == true) ? ' class="active"' : ''; ?>><a href="?evaluacion=ext<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Extraordinaria</a></li>
+				    <li<?php echo ($evaluacion_seleccionada == 'evi') ? ' class="active"' : ''; ?>>
+                        <a href="?evaluacion=evi<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Inicial</a>
+                    </li>
+				    <li<?php echo ($evaluacion_seleccionada == '1ev') ? ' class="active"' : ''; ?>>
+                        <a href="?evaluacion=1ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">1ª Evaluación</a>
+                    </li>
+				    <li<?php echo ($evaluacion_seleccionada == '2ev') ? ' class="active"' : ''; ?>>
+                        <a href="?evaluacion=2ev<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">2ª Evaluación</a>
+                    </li>
+				    <li<?php echo ($evaluacion_seleccionada == 'ord') ? ' class="active"' : ''; ?>>
+                        <a href="?evaluacion=ord<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Ordinaria</a></li>
+				    <li<?php echo ($evaluacion_seleccionada == 'ext') ? ' class="active"' : ''; ?>>
+                        <a href="?evaluacion=ext<?php echo (isset($curso_escolar)) ? '&curso_escolar='.$curso_escolar : ''; ?>">Evaluación Extraordinaria</a>
+                    </li>
 				</ul>
 			</div>
 			
 			<div class="col-sm-2 hidden-print">
 				<?php if (! $evaluacionSinNotas): ?>
-				<a href="asignaturas.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="fas fa-sync-alt fa-fw"></span> Recalcular</a>
+				<a href="asignaturas.php?evaluacion=<?php echo $evaluacion_seleccionada; ?>&amp;recalcular=1" class="btn btn-sm btn-warning pull-right"><span class="far fa-refresh fa-fw"></span> Recalcular</a>
 				<?php endif; ?>
 			</div>
 		</div>

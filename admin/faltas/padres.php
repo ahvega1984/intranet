@@ -13,19 +13,13 @@ $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);
 include("../../pdf/fpdf.php");
 define('FPDF_FONTPATH','../../pdf/font/');
-// Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
-# creamos la clase extendida de fpdf.php 
+
+# creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
 	function Header() {
+		global $config;
+
 		$this->Image ( '../../img/encabezado.jpg',15,15,50,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
@@ -33,22 +27,24 @@ class GranPDF extends FPDF {
 		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(90);
-		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Cell(80,4,$config['centro_denominacion'],0,1);
 		$this->Ln(8);
 	}
 	function Footer() {
+		global $config;
+		
 		$this->Image ( '../../img/pie.jpg', 10, 245, 25, '', 'jpg' );
 		$this->SetY(265);
 		$this->SetFont('ErasMDBT','',10);
 		$this->SetTextColor(156,156,156);
 		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'],0,1);
+		$this->Cell(80,4,$config['centro_direccion'],0,1);
 		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(80,4,$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(70);
-		$this->Cell(80,4,'Tlf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(80,4,'Tlf: '.$config['centro_telefono'].'   Fax: '.$config['centro_fax'],0,1);
 		$this->Cell(70);
-		$this->Cell(80,4,'Correo: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Cell(80,4,'Correo: '.$config['centro_email'],0,1);
 		$this->Ln(8);
 	}
 }
@@ -96,7 +92,7 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
   mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
 
     $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE falta = 'F' and numero >= '$numero'";
-   
+
   $result0 = mysqli_query($db_con, $SQL0);
   if(mysqli_num_rows($result0)>"0"){
 while  ($row0 = mysqli_fetch_array($result0)):
@@ -133,22 +129,22 @@ $SQL3 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$clave
 endwhile;
 $justi4 = $nojustidias;
 	}
-	
+
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
-$cuerpo1="											
+$cuerpo1="
 Muy Señor/Sra. mío/a:
 Nos dirigimos a usted para enviarle un informe completo sobre las faltas de asistencia al Centro de su hijo/a, $rowF[2] $rowF[1], perteneciente al Grupo $rowF[3].";
 	if($justi1=="Su hijo no ha justificado ninguno de los días en los que no ha asistido al Centro")
 	{
 $cuerpo2="$justi1
 $justi3
-";	
+";
 	}
 	else
 	{
 $cuerpo2="$justi3
-";	
+";
 	}
 	$cuerpo3 = "Ante las reiteradas faltas de asistencia a clase de su hijo/a pongo en su conocimiento que esta situación atenta contra los derechos del niño/a a una escolarización obligatoria y continuada.
 Por tanto está incumpliendo las obligaciones recogidas en los artículos 154 y 269, 1 y 2 del Código Civil por el que los padres o tutores legales están obligados a cumplir los deberes legales de asistencia inherentes a la patria potestad, tutela, guarda o acogimiento familiar y en su caso sería de aplización lo dispuesto en el artículo 226 del Código Penal.
@@ -165,7 +161,7 @@ Atentamente le saluda la Dirección del Centro.
 	$MiPDF->Text(120,43,$localidad);
 	$MiPDF->Text(120,47,$provincia);
 	$MiPDF->Text(120,58,$fecha);
-	
+
 	#Cuerpo.
 	$MiPDF->Ln(35);
 	$MiPDF->SetFont('Times','',10);

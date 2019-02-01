@@ -12,7 +12,7 @@ if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['cl
 
 $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'";
 mysqli_query($db_con, $actualizar );
-$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
+$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa,
   Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, tutor, Fechoria.id from Fechoria, alma, listafechorias, FTUTORES where FTUTORES.unidad = alma.unidad and  Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC" ) or die (mysqli_error($db_con));
 
 if ($row = mysqli_fetch_array ( $result )) {
@@ -43,19 +43,11 @@ $hoy = strftime("%d.%m.%Y", strtotime($fecha));
 
 require("../../../pdf/fpdf.php");
 
-// Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
-
-# creamos la clase extendida de fpdf.php 
+# creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
 	function Header() {
+		global $config;
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
@@ -64,20 +56,22 @@ class GranPDF extends FPDF {
 		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
-		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Cell(80,5,$config['centro_denominacion'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
+		global $config;
+		
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 }
@@ -116,7 +110,7 @@ En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fe
 for($i = 0; $i < 1; $i ++) {
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage ();
-	
+
 	// INFORMACION DE LA CARTA
 	$MiPDF->SetY(45);
 	$MiPDF->SetFont ( 'NewsGotT', '', 12 );
@@ -128,12 +122,12 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Cell(75, 5, $codpostal.' '.mb_strtoupper($provincia, 'UTF-8'), 0, 1, 'L', 0 );
 	$MiPDF->Cell(0, 12, 'Asunto: '.$titulo, 0, 1, 'L', 0 );
 	$MiPDF->Ln(10);
-	
+
 	// CUERPO DE LA CARTA
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
 	$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
 	$MiPDF->Ln(5);
-	
+
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell( 0, 5, $cuerpo, 0, 'L', 0 );
 	$MiPDF->Ln(10);
@@ -146,26 +140,26 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0 );
-	
-	
+
+
 	// RECIBI
 	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
-	
+
 	$MiPDF->Ln(8);
 
 	$MiPDF->Line(20, $MiPDF->GetY(), 190, $MiPDF->GetY());
 	$MiPDF->Ln(3);
-	
+
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
 	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
 	$MiPDF->Ln(3);
-	
+
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
 	$MiPDF->Ln(15);
 	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
 	$MiPDF->Cell (55, 15, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
-	
+
 }
 
 $MiPDF->Output();

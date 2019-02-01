@@ -1,7 +1,5 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-$GLOBALS['db_con'] = $db_con;
-
 function getRealIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP']))
         return $_SERVER['HTTP_CLIENT_IP'];
@@ -285,8 +283,9 @@ function media_ponderada($n){
 	else {return $n;}
 }
 
-function tipo($db_con)
-{
+function tipo() {
+  global $db_con;
+
 	$tipo = "select distinct tipo from listafechorias";
 	$tipo1 = mysqli_query($db_con, $tipo);
 	while($tipo2 = mysqli_fetch_array($tipo1))
@@ -295,8 +294,9 @@ function tipo($db_con)
 	}
 }
 
-function medida2($db_con, $tipofechoria)
-{
+function medida2($tipofechoria) {
+  global $db_con;
+
 	$tipo = "select distinct medidas2 from listafechorias where fechoria = '$tipofechoria'";
 	$tipo1 = mysqli_query($db_con, $tipo);
 	while($tipo2 = mysqli_fetch_array($tipo1))
@@ -306,8 +306,9 @@ function medida2($db_con, $tipofechoria)
 	}
 }
 
-function fechoria($db_con, $clase)
-{
+function fechoria($clase) {
+  global $db_con;
+
 	$tipofechoria0 = "select fechoria from listafechorias where tipo = '$clase' order by fechoria";
 	$tipofechoria1 = mysqli_query($db_con, $tipofechoria0);
 	while($tipofechoria2 = mysqli_fetch_array($tipofechoria1))
@@ -316,9 +317,9 @@ function fechoria($db_con, $clase)
 	}
 }
 
-function unidad($db_con)
+function unidad()
 {
-	// include("opt/e-smith/config.php");
+	global $db_con;
 
 	$tipo = "select distinct unidad from alma, unidades where nomunidad=unidad order by unidad ASC";
 	$tipo1 = mysqli_query($db_con, $tipo);
@@ -659,4 +660,77 @@ function sistemaPuntos($claveal) {
   else return ($total_puntos - $total);
 }
 
-unset($GLOBALS['db_con']);
+function url_exists($url = NULL) {
+
+    if (empty($url)) {
+      return false;
+    }
+
+    $options['http'] = array(
+        'method' => "HEAD",
+        'ignore_errors' => 1,
+        'max_redirects' => 0
+    );
+    $body = @file_get_contents($url, NULL, stream_context_create($options));
+
+    // Ver http://php.net/manual/es/reserved.variables.httpresponseheader.php
+    if (isset($http_response_header)) {
+        sscanf($http_response_header[0], 'HTTP/%*d.%*d %d', $httpcode);
+
+        // Aceptar solo respuesta 200 (Ok), 301 (redirección permanente) o 302 (redirección temporal)
+        $accepted_response = array(200, 301, 302);
+        if (in_array($httpcode, $accepted_response)) {
+          return true;
+        } else {
+          return false;
+        }
+     } else {
+       return false;
+     }
+}
+
+function getHora() {
+    global $db_con;
+
+    $horaphp = date("H:i:s", time());
+	$hora = "select hora from tramos where hour('".$horaphp."') * 60 + minute('".$horaphp."') between horini and horfin";
+	$consulta = mysqli_query($db_con, $hora);
+	$resultado = mysqli_fetch_array($consulta);
+
+    return $resultado[0];
+}
+
+function checkInRange($fecha_inicio, $fecha_fin, $fecha) {
+
+    $fecha_i = strtotime($fecha_inicio);
+    $fecha_f = strtotime($fecha_fin);
+    $fecha_n = strtotime($fecha);
+
+    return ($fecha_n >= $fecha_i) && ($fecha_n <= $fecha_f);
+}
+
+function trimestreActual() {
+    global $db_con, $config;
+
+    $inicio_curso = $config['curso_inicio'];
+    $fin_curso = $config['curso_fin'];
+
+    $consulta = mysqli_fetch_assoc(mysqli_query($db_con, "select min(fecha) as minNav, max(fecha) as maxNav from festivos where nombre like '%Navidad%'"));
+    $minNavidad = $consulta['minNav'];
+    $maxNavidad = $consulta['maxNav'];
+
+    $consulta = mysqli_fetch_assoc(mysqli_query($db_con, "select min(fecha) as minSanta, max(fecha) as maxSanta from festivos where nombre like '%Santa%'"));
+    $minSanta = $consulta['minSanta'];
+    $maxSanta = $consulta['maxSanta'];
+
+    $hoy = date('Y-m-d');
+
+    if (checkInRange($inicio_curso, $minNavidad, $hoy))
+        return 1;
+    else if (checkInRange($maxNavidad, $minSanta, $hoy))
+        return 2;
+    else if (checkInRange($maxSanta, $fin_curso, $hoy))
+        return 3;
+    else
+        return 4;
+}

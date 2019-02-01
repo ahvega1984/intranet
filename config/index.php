@@ -74,6 +74,20 @@ function limpiar_string($string)
 	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
 }
 
+$enlace_biblioweb = 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$config['centro_codigo'].'/biblioweb/';
+$enlace_biblioweb2 = 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$config['centro_codigo'].'/biblioweb2/';
+if (! isset($enlace_biblioteca)) {
+	if (url_exists($enlace_biblioweb2)) {
+		$enlace_biblioteca = $enlace_biblioweb2;
+	}
+	elseif (url_exists($enlace_biblioweb)) {
+		$enlace_biblioteca = $enlace_biblioweb;
+	}
+	else {
+		$enlace_biblioteca = 'iesmonterroso.org/dbiblioteca/';
+	}
+}
+
 
 // PROCESAMOS EL FORMULARIO
 if (isset($_POST['instalar']))
@@ -173,7 +187,7 @@ if (isset($_POST['instalar']))
 
 		fwrite($file, "\r\n// MÓDULO: BIBLIOTECA\r\n");
 		fwrite($file, "\$config['mod_biblioteca']\t\t= $modulo_biblioteca;\r\n");
-		fwrite($file, "\$config['mod_biblioteca_web']\t= '$modulo_biblioteca_web';\r\n");
+		fwrite($file, "\$config['mod_biblioteca_web']\t= 'http://$modulo_biblioteca_web';\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: BILINGÜE\r\n");
 		fwrite($file, "\$config['mod_bilingue']\t\t\t= $modulo_bilingue;\r\n");
@@ -707,7 +721,7 @@ if (isset($_POST['instalar']))
 				    			    		<label for="mod_biblioteca_web">Página web de la Biblioteca</label>
 				    			    		<div class="input-group">
 			    			    		      <div class="input-group-addon">http://</div>
-			    			    		      <input type="text" class="form-control" id="mod_biblioteca_web" name="mod_biblioteca_web" placeholder="iesmonterroso.org/biblioteca/">
+			    			    		      <input type="text" class="form-control" id="mod_biblioteca_web" name="mod_biblioteca_web" placeholder="<?php echo $enlace_biblioteca; ?>">
 			    			    		    </div>
 				    			    	</div>
 

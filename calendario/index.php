@@ -162,7 +162,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 							}
 
 							if ($calendario['id'] == 2) {
-								echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.(($eventos['confirmado'] == 0) ? '<p><span class="label label-warning">No autorizado</span></p>' : '').''.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
+								echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.(($eventos['confirmado'] == 0) ? '<p><span class="label label-warning">No autorizado</span></p>' : '').''.stripslashes($eventos['nombre']).'<br>'.((! empty($eventos['unidades'])) ? $eventos['unidades'] : '<div class="label label-warning">No se ha seleccionado unidades</div>').'</a>';
 							}
 							else {
 								echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$hora_evento.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';

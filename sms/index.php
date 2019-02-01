@@ -248,7 +248,7 @@ else
 		<select  name="unidad" class="form-control" onChange="submit()">
           <option><?php echo $unidad;?></option>
           <?php if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-          <?php unidad($db_con); ?>
+          <?php unidad(); ?>
         </select>
         </div>
         <?php }?>

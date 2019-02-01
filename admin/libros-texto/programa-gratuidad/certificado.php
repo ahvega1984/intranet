@@ -4,18 +4,10 @@ require("../../../pdf/mc_table.php");
 
 acl_acceso($_SESSION['cargo'], array(1));
 
-// Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
-
 class GranPDF extends PDF_MC_Table {
 	function Header() {
+		global $config;
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
@@ -24,20 +16,22 @@ class GranPDF extends PDF_MC_Table {
 		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
-		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Cell(80,5,$config['centro_denominacion'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
+		global $config;
+		
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 }
@@ -80,14 +74,14 @@ elseif (isset($_GET['curso'])) {
 }
 else {
     $result_alumno = mysqli_query($db_con, "SELECT `claveal`, `apellidos`, `nombre`, `unidad`, `curso`, `padre`, `sexo`, `domicilio`, `codpostal`, `provinciaresidencia` FROM `alma` WHERE `curso` LIKE '%E.S.O.' ORDER BY `curso` ASC, `unidad` ASC, `apellidos` ASC, `nombre` ASC");
-    
+
     $esReposicion = 0;
 }
 
 while ($alumno = mysqli_fetch_array($result_alumno)) {
 
     // Variables necesarias para el funcionamiento
-    
+
     $esComunicadoReposicion = 0;
     $fecha_entrega = '';
     $fecha_entrega_aux = '';
@@ -115,7 +109,7 @@ while ($alumno = mysqli_fetch_array($result_alumno)) {
     // OBTENEMOS LOS DATOS DEL ESTADO DE LOS LIBROS
     $estado_libros = array();
     $result_estado_libros = mysqli_query($db_con, "SELECT `claveal`, `materia`, `estado`, `devuelto`, `fecha` FROM `libros_texto_alumnos` WHERE `claveal` = '".$alumno['claveal']."'");
-    
+
     if (mysqli_num_rows($result_estado_libros)) {
 
         $MiPDF->Addpage();
@@ -128,7 +122,7 @@ while ($alumno = mysqli_fetch_array($result_alumno)) {
             // Recorremos el array de libros de texto para relacionar datos
             foreach ($libros as $libro) {
                 if ($libro['materia'] == $row_materia['nombre']) {
-                    
+
                     $estado_libro = array(
                         'isbn'      => $libro['isbn'],
                         'ean'       => $libro['ean'],
@@ -160,7 +154,7 @@ while ($alumno = mysqli_fetch_array($result_alumno)) {
                                 $fecha_entrega .= $fecha_entrega_libro.'; ';
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -196,7 +190,7 @@ while ($alumno = mysqli_fetch_array($result_alumno)) {
 
             $fecha_hoy = strftime('%e de %B de %Y', strtotime(date('Y-m-d')));
             $cuerpo = 'Estimada familia:
-            
+
 La Dirección del centro, que preside la Comisión del Consejo Escolar para la gestión y supervisión del Programa de Gratuidad de Libros de Texto, le comunica la siguiente incidencia en referencia al uso y conservación de los libros de texto de los que dispone su '.(($alumno['sexo'] == 'H') ? 'hijo' : 'hija').' '.$alumno['nombre'].' '.$alumno['apellidos'].' en el curso '.$alumno['curso'].' para el seguimiento de las actividades lectivas:';
 
             $MiPDF->Multicell( 0, 5, $cuerpo, 0, 'L', 0 );
@@ -207,7 +201,7 @@ La Dirección del centro, que preside la Comisión del Consejo Escolar para la g
             $MiPDF->SetFont('NewsGotT', 'B', 10);
             $MiPDF->SetTextColor(255, 255, 255);
             $MiPDF->SetFillColor(61, 61, 61);
-            $MiPDF->Row(array('Libros afectados', 'Importe', 'Incidencia detectada'), 0, 5);	
+            $MiPDF->Row(array('Libros afectados', 'Importe', 'Incidencia detectada'), 0, 5);
 
             $MiPDF->SetTextColor(0, 0, 0);
             $MiPDF->SetFont('NewsGotT', '', 10);
@@ -283,12 +277,12 @@ CERTIFICO: que el '.(($alumno['sexo'] == 'H') ? 'alumno' : 'alumna').' '.$alumno
             $MiPDF->SetFont('NewsGotT', 'B', 11);
             $MiPDF->SetTextColor(255, 255, 255);
             $MiPDF->SetFillColor(61, 61, 61);
-            $MiPDF->Row(array('Libros de texto', 'Estado'), 0, 5);	
+            $MiPDF->Row(array('Libros de texto', 'Estado'), 0, 5);
 
             $MiPDF->SetTextColor(0, 0, 0);
             $MiPDF->SetFont('NewsGotT', '', 10);
 
-            
+
             foreach ($estado_libros as $estado_libro) {
                 switch ($estado_libro['estado']) {
                     case 'B' : $texto_estado = 'Buen estado'; break;
@@ -326,9 +320,9 @@ CERTIFICO: que el '.(($alumno['sexo'] == 'H') ? 'alumno' : 'alumna').' '.$alumno
             $MiPDF->Cell(55, 5, 'Fdo. '.$config['directivo_direccion'], 0, 1, 'C', 0);
         }
 
-        
+
     }
-    
+
 }
 
 $MiPDF->Output();

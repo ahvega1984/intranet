@@ -38,7 +38,7 @@ include("../../menu.php");
 <label for="grupo" class="control-label"> Grupo </label>     
 <SELECT  name="unidad" onChange="submit()" class="form-control" id="unidad">
             <option><?php echo $unidad;?></option>
-            <?php unidad($db_con);?>
+            <?php unidad();?>
           </SELECT>
 </label>
 <label for="dia1" class="control-label">

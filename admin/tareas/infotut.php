@@ -42,7 +42,7 @@ else
 <label>Grupo: </label>
 <SELECT name="unidad" onChange="submit()" class="form-control">
 	<option><?php echo $unidad;?></option>
-	<?php unidad($db_con);?>
+	<?php unidad();?>
 </SELECT> 
 </FORM>
 </div>

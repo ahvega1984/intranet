@@ -8,6 +8,16 @@ $PLUGIN_DATATABLES = 1;
 include("../../menu.php");
 include("menu.php");
 ?>
+
+<style type="text/css">
+@media print {
+	html, body {
+		padding: 0;
+		margin: 0;
+	}
+}
+</style>
+
 <div class='container'>
 <div class="page-header">
 <h2>Actividades Complementarias y Extraescolares <small>Administración</small></h2>
@@ -29,7 +39,7 @@ if ($_GET['eliminar']=="1") {
 
 if($confirmado == '1')
 {
-	mysqli_query($db_con, "UPDATE  calendario SET  confirmado =  '1' WHERE id = '$id'");
+	mysqli_query($db_con, "UPDATE calendario SET confirmado =  '1' WHERE id = '$id'");
 	echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -127,7 +137,7 @@ if($detalles == '1')
 }
 ?>
 
-<div class="hidden-print">
+
 <table class="table table-striped table-hover datatable">
 	<thead>
 		<tr>
@@ -135,7 +145,7 @@ if($detalles == '1')
 			<th>Actividad</th>
 			<th>Unidades</th>
 			<th>Profesores</th>
-			<th></th>
+			<th class="hidden-print"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -155,7 +165,7 @@ if($detalles == '1')
 		if($mes1 ==  "10") $mes2 = "Octubre";
 		if($mes1 ==  "11") $mes2 = "Noviembre";
 		if($mes1 ==  "12") $mes2 = "Diciembre";
-		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin) as hora, fechaini, confirmado from calendario where month(fechaini) = '$mes1' and date(fechaini) > '".$config['curso_inicio']."' and categoria='2' order by fechaini";
+		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin) as hora, fechaini, confirmado, profesorreg from calendario where month(fechaini) = '$mes1' and date(fechaini) > '".$config['curso_inicio']."' and categoria='2' order by fechaini";
 		$datos1 = mysqli_query($db_con, $datos0);
 		while($datos = mysqli_fetch_array($datos1))
 		{
@@ -170,10 +180,10 @@ if($detalles == '1')
 			?>
 		<tr>
 			<td nowrap><?php echo $datos['fechaini'];?><br><small><span class="label label-default"><?php echo $mes2; ?></span></small></td>
-			<td class="col-md-5"><?php echo $datos['nombre'];?></td>
-			<td><?php echo $datos['unidades'];?></td>
+			<td class="col-md-5"><?php echo $datos['nombre'];?><br><small class="text-muted">Responsable: <strong><?php echo obtener_nombre_profesor_por_idea($datos['profesorreg']); ?></strong></small></td>
+			<td><?php echo (! empty($datos['unidades'])) ? $datos['unidades'] : '<strong class="text-danger">No se ha seleccionado unidades</strong>';?></td>
 			<td><?php echo $datos['profesores'];?></td>
-			<td nowrap>
+			<td class="hidden-print" nowrap>
 			<?php
 			$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = '".$datos['id']."' LIMIT 1");
 
@@ -183,13 +193,11 @@ if($detalles == '1')
 					</a>';
 				endif;
 			?>
-			 <?php
-			 			// echo mb_strtoupper($datos['profesores'])." -- ".mb_strtoupper($_SESSION['profi']);
-
-				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or (strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
-					?> <a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span
-				class="far fa-user fa-fw fa-lg" data-bs="tooltip"
-				title="Seleccionar alumnos que realizan la Actividad"></span></a> <?php } ?>
+			<?php if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or (strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){ ?>
+			<?php if (! empty($datos['unidades'])): ?>
+			<a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span class="far fa-user fa-fw fa-lg" data-bs="tooltip" title="Seleccionar alumnos que realizan la Actividad"></span></a>
+			<?php endif; ?>
+			<?php } ?>
 			<a href="indexextra.php?id=<?php echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
 				class="fas fa-search fa-fw fa-lg"></span></a>
@@ -218,7 +226,6 @@ if($detalles == '1')
 	?>
 	</tbody>
 </table>
-</div>
 </div>
 </div>
 </div>

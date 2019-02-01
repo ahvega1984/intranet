@@ -73,7 +73,7 @@ else
 <SELECT id="grupo"
 	name="unidad1" onChange="submit()" class="form-control">
 	<OPTION><?php echo $unidad1;?></OPTION>
-	<?php unidad($db_con);?>
+	<?php unidad();?>
 </SELECT>
 </div>
 
@@ -153,7 +153,7 @@ else
 <SELECT
 	id="unidad" name="unidad" onChange="submit()" class="form-control">
 	<OPTION><?php echo $_POST['unidad'];?></OPTION>
-	<?php unidad($db_con);?>
+	<?php unidad();?>
 </SELECT>
 </div>
 
@@ -211,7 +211,7 @@ $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'M
 <SELECT
 	id="grupo" name="grupo" class="form-control" required>
 	<option></option>
-	<?php unidad($db_con);?>
+	<?php unidad();?>
 </SELECT>
 </div>
 

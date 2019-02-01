@@ -4,12 +4,12 @@ require("../../../pdf/mc_table.php");
 
 function obtener_calificacion_texto($nota) {
     switch ($nota) {
-        case 10: 
-        case 9: 
+        case 10:
+        case 9:
             $calificacion = 'SB';
             break;
-        case 8: 
-        case 7: 
+        case 8:
+        case 7:
             $calificacion = 'NT';
             break;
         case 6:
@@ -28,18 +28,10 @@ function obtener_calificacion_texto($nota) {
 
 acl_acceso($_SESSION['cargo'], array(1));
 
-// Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
-
 class GranPDF extends PDF_MC_Table {
 	function Header() {
+    global $config;
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
@@ -48,23 +40,25 @@ class GranPDF extends PDF_MC_Table {
 		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
-		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Cell(80,5,$config['centro_denominacion'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
+    global $config;
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
 		$this->Cell(75);
-		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
 		$this->SetTextColor(255, 255, 255);
     }
-    
+
     function Rotate($angle, $x=-1, $y=-1)
     {
         if($x==-1)
@@ -133,7 +127,7 @@ if (isset($_POST['curso']) && ! empty($_POST['curso'])) {
     if (! in_array($curso, array_column($niveles, 'nombre'))) {
         $curso = "Todos los cursos";
     }
-} 
+}
 else {
     $curso = "Todos los cursos";
 }
@@ -218,7 +212,7 @@ $convocatorias = array();
 $result = mysqli_query($db_con, "SELECT COUNT(`notas0`) AS notas0, COUNT(`notas1`) AS notas1, COUNT(`notas2`) AS notas2, COUNT(`notas3`) AS notas3, COUNT(`notas4`) AS notas4 FROM notas");
 $row = mysqli_fetch_array($result);
 for ($i = 0; $i < 5; $i++) {
-    
+
     if ($row['notas'.$i] > 0) {
         $convocatoria = array(
             'abrev'       => key($array_convocatorias),
@@ -228,7 +222,7 @@ for ($i = 0; $i < 5; $i++) {
         array_push($convocatorias, $convocatoria);
     }
     next($array_convocatorias);
-    
+
 }
 mysqli_free_result($result);
 unset($convocatoria);
@@ -244,35 +238,35 @@ if (isset($_POST['evaluacion']) && ! empty($_POST['evaluacion'])) {
                 'nombre'    => 'Evaluación Inicial'
             );
             break;
-        
+
         case '1ª Evaluación':
             $convocatoria = array(
                 'abrev'     => '1EV',
                 'nombre'    => '1ª Evaluación'
             );
             break;
-        
+
         case '2ª Evaluación':
             $convocatoria = array(
                 'abrev'     => '2EV',
                 'nombre'    => '2ª Evaluación'
             );
             break;
-        
+
         case 'Evaluación Ordinaria':
             $convocatoria = array(
                 'abrev'     => 'ORD',
                 'nombre'    => 'Evaluación Ordinaria'
             );
             break;
-        
+
         case 'Evaluación Extraordinaria':
             $convocatoria = array(
                 'abrev'     => 'ORD',
                 'nombre'    => 'Evaluación Extraordinaria'
             );
             break;
-        
+
     }
 }
 else {
@@ -351,7 +345,7 @@ foreach ($alumnos as $alumno) {
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('1EV'));
     }
-    
+
     $notas_2ev = mysqli_query($db_con, "SELECT `notas2` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_2ev = mysqli_fetch_array($notas_2ev);
     $notas_2ev = explode(';', rtrim($row_notas_2ev['notas2'], ';'));
@@ -399,7 +393,7 @@ foreach ($alumnos as $alumno) {
 
         foreach ($notas_evi as $nota) {
             $exp_nota = explode(':', $nota);
-            
+
             if ($exp_nota[0] == $idasignatura) {
                 $result_calificaciones = mysqli_query($db_con, "SELECT `abreviatura` FROM `calificaciones` WHERE `codigo` = '".$exp_nota[1]."' LIMIT 1");
                 $row_calificacion = mysqli_fetch_array($result_calificaciones);
@@ -430,7 +424,7 @@ foreach ($alumnos as $alumno) {
                     }
                     $tieneCalificacion = 1;
                 }
-            } 
+            }
         }
 
         foreach ($notas_2ev as $nota) {
@@ -494,7 +488,7 @@ foreach ($alumnos as $alumno) {
         else {
             $tabla_calificaciones = array($asignatura);
         }
-        
+
         if (count($notas_evi) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion0));
         if (count($notas_1ev) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion1));
         if (count($notas_2ev) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion2));
@@ -510,7 +504,7 @@ foreach ($alumnos as $alumno) {
         unset($calificacion2);
         unset($calificacion3);
         unset($calificacion4);
-        
+
     }
 
     if ($convocatoria['nombre'] != "Evaluación Extraordinaria") {
@@ -523,7 +517,7 @@ foreach ($alumnos as $alumno) {
                 break;
 
             case '1ª Evaluación':
-                
+
                 // Obtenemos inicio festivo Navidad
                 $result_festivo = mysqli_query($db_con, "SELECT `fecha` FROM `festivos` WHERE `nombre` LIKE '%Navidad' ORDER BY `fecha` ASC LIMIT 1");
                 $row_festivo = mysqli_fetch_array($result_festivo);
@@ -531,9 +525,9 @@ foreach ($alumnos as $alumno) {
                 $fecha_inicio_faltas = substr($config['curso_actual'], 0, 4).'-10-01';
                 $fecha_fin_faltas = $row_festivo['fecha'];
                 break;
-            
+
             case '2ª Evaluación':
-                
+
                 // Obtenemos fin festivo Navidad
                 $result_festivo = mysqli_query($db_con, "SELECT `fecha` FROM `festivos` WHERE `nombre` LIKE '%Navidad' ORDER BY `fecha` DESC LIMIT 1");
                 $row_festivo = mysqli_fetch_array($result_festivo);
@@ -611,7 +605,7 @@ foreach ($alumnos as $alumno) {
     // OBTENEMOS LA HORA DE TUTORÍA DE ATENCIÓN A PADRES
     $horario_tutoria = "";
     $result_horario_tutoria = mysqli_query($db_con, "SELECT `horw`.`dia`, `tramos`.`hora_inicio`, `tramos`.`hora_fin` FROM `horw` JOIN `tramos` ON `horw`.`hora` = `tramos`.`hora` WHERE `horw`.`c_asig` = '117' AND `horw`.`prof` = '".$row_tutor['tutor']."' LIMIT 1");
-    
+
     if (mysqli_num_rows($result_horario_tutoria)) {
         $row_horario_tutoria = mysqli_fetch_array($result_horario_tutoria);
         switch ($row_horario_tutoria['dia']) {
@@ -630,13 +624,13 @@ foreach ($alumnos as $alumno) {
             case 5:
                 $dia = 'Viernes';
                 break;
-            
+
             default:
                 $dia = '';
                 break;
         }
         $horario_tutoria = $dia.', '.substr($row_horario_tutoria['hora_inicio'], 0, 5).' h - '.substr($row_horario_tutoria['hora_fin'], 0, 5).' h.';
-    } 
+    }
 
     //FIRMAS
     $MiPDF->Cell(90, 5, 'Sello del Centro', 0, 0, 'L', 0);
