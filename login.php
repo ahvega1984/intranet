@@ -3,7 +3,7 @@ require('bootstrap.php');
 require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 
 // Comienzo de sesión
-$_SESSION['autentificado'] = 0;
+$_SESSION['intranet_auth'] = 0;
 
 if (! isset($_SESSION['intentos'])) $_SESSION['intentos'] = 0;
 
@@ -157,7 +157,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			if ($dni == $clave0 || (strlen($codigo) < '12'))
 			{
 
-				$_SESSION['autentificado'] = 1;
+				$_SESSION['intranet_auth'] = 1;
 				$_SESSION['cambiar_clave'] = 1;
 				header("location:clave.php?tour=1");
 				exit();
@@ -166,7 +166,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				// Comprobamos si el usuario tiene habilitada la autenticación en dos pasos.
 				// Si el dispositivo es de confianza saltamos el proceso de autenticación en dos pasos.
 				if ($totp_activado && $dispositivo_confianza && $red_confianza) {
-					$_SESSION['autentificado'] = 1;
+					$_SESSION['intranet_auth'] = 1;
 					header("location:index.php");
 					exit();
 				}
@@ -224,7 +224,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					exit();
 				}
 				else {
-					$_SESSION['autentificado'] = 1;
+					$_SESSION['intranet_auth'] = 1;
 					header("location:index.php");
 					exit();
 				}

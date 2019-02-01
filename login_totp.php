@@ -18,7 +18,7 @@ if ($_POST['totp_verificado'] && $_POST['totp_code']) {
 	if ($checkResult) {
 		unset($_SESSION['totp_secreto']);
 		unset($_SESSION['totp_codigo_movil']);
-		$_SESSION['autentificado'] = 1;
+		$_SESSION['intranet_auth'] = 1;
 		header("location:index.php");
 		exit();
 	}

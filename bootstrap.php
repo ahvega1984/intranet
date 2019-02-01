@@ -3,8 +3,9 @@ if (ini_get('default_charset') != "UTF-8" && ini_get('default_charset') != "UTF-
 	ini_set("default_charset", "UTF-8");
 }
 
-if (version_compare(phpversion(), '5.6', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.6, 7.0, 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
-if (version_compare(phpversion(), '7.3', '>')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.6, 7.0, 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
+// COMPROBAMOS LA VERSIÓN DE PHP DEL SERVIDOR
+if (version_compare(phpversion(), '5.6', '<')) die ("<h1>Versión de PHP incompatible</h1><br><p>Necesita PHP 5.6, 7.0, 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
+if (version_compare(phpversion(), '7.3', '>')) die ("<h1>Versión de PHP incompatible</h1><br><p>Necesita PHP 5.6, 7.0, 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
 
 // CONFIGURACIÓN DE LA SESIÓN
 ini_set("session.use_cookies", 1);
@@ -68,7 +69,7 @@ mysqli_query($db_con,"SET NAMES 'utf8'");
 if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
 
 	// COMPROBAMOS LA SESION
-	if ($_SESSION['autentificado'] != 1) {
+	if ($_SESSION['intranet_auth'] != 1) {
 		$_SESSION = array();
 		session_destroy();
 
@@ -85,7 +86,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 
 		if (! acl_permiso($_SESSION['cargo'], array('1')) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
 			include(INTRANET_DIRECTORY.'/mantenimiento.php');
-			$_SESSION['autentificado'] = 0;
+			$_SESSION['intranet_auth'] = 0;
 			session_unset();
 			session_destroy();
 			exit();
