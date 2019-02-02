@@ -101,6 +101,55 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/jquery-2.1.1.min.js"></script>
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap.min.js"></script>
 
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<div class="container">
+
+			<div class="page-header">
+				<h2 class="text-center">Actualización de la Intranet</h2>
+			</div>
+
+			<div class="row">
+
+				<div class="col-sm-offset-3 col-sm-6">
+
+					<div class="well">
+
+						<div class="text-center">
+							<br><br>
+							<p id="icon"><i class="fas fa-sync-alt fa-spin fa-5x fa-fw"></i></p>
+							<br>
+							<p id="status" class="lead text-muted"></p>
+							<br><br>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div><!-- /#wrap -->
+
+	<footer class="hidden-print">
+		<div class="container-fluid">
+			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, IES Monterroso</p>
+
+			<ul class="pull-right list-inline">
+				<li>Versión <?php echo INTRANET_VERSION; ?></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/aviso-legal/">Aviso legal</a></li>
+				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
+				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
+			</ul>
+		</div>
+	</footer>
+
 	<script>
 	<?php
 	if(version_compare($ultima_version, INTRANET_VERSION, '>')) {
@@ -203,54 +252,6 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 	}
 	?>
 	</script>
-</head>
-
-<body>
-
-	<div id="wrapper">
-
-		<div class="container">
-
-			<div class="page-header">
-				<h2 class="text-center">Actualización de la Intranet</h2>
-			</div>
-
-			<div class="row">
-
-				<div class="col-sm-offset-3 col-sm-6">
-
-					<div class="well">
-
-						<div class="text-center">
-							<br><br>
-							<p id="icon"><i class="fas fa-sync-alt fa-spin fa-5x fa-fw"></i></p>
-							<br>
-							<p id="status" class="lead text-muted"></p>
-							<br><br>
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div><!-- /#wrap -->
-
-	<footer class="hidden-print">
-		<div class="container-fluid">
-			<p class="pull-left text-muted">&copy; <?php echo date('Y'); ?>, IES Monterroso</p>
-
-			<ul class="pull-right list-inline">
-				<li>Versión <?php echo INTRANET_VERSION; ?></li>
-				<li><a href="//<?php echo $config['dominio']; ?>/intranet/aviso-legal/">Aviso legal</a></li>
-				<li><a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia</a></li>
-				<li><a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a></li>
-			</ul>
-		</div>
-	</footer>
 
 </body>
 </html>
