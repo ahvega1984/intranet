@@ -689,7 +689,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 					'target' => '_blank',
 				),
 				array(
-					'href'   => 'http://www.mecd.gob.es/portada-mecd/',
+					'href'   => 'https://www.educacionyfp.gob.es/',
 					'titulo' => 'Ministerio de Educación y FP',
 					'target' => '_blank',
 				),
@@ -726,7 +726,7 @@ else {
 					'target' => '_blank',
 				),
 				array(
-					'href'   => 'http://www.mecd.gob.es/',
+					'href'   => 'https://www.educacionyfp.gob.es/',
 					'titulo' => 'Ministerio de Educación y FP',
 					'target' => '_blank',
 				),
