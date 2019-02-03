@@ -44,7 +44,7 @@ else {
 	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/animate.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css" rel="stylesheet">
 </head>
