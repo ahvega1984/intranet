@@ -602,15 +602,15 @@ function sistemaPuntos($claveal) {
   }
 
   // CONSULTAMOS PROBLEMAS REGISTRADOS DURANTE EL CURSO O TRAS ÚLTIMA EXPULSIÓN
-	$sql_exec_leves = "SELECT COUNT(*) AS leves FROM `Fechoria` WHERE claveal = '".$claveal."' $sql_where AND grave = 'leve'";
+	$sql_exec_leves = "SELECT COUNT(*) AS leves FROM `Fechoria` WHERE claveal = '".$claveal."' $sql_where AND grave = 'leve'  AND DATEDIFF(NOW(), fecha) < 30";
 	$result_leves = mysqli_query($db_con, $sql_exec_leves);
 	$row_leves = mysqli_fetch_array($result_leves);
 
-	$sql_exec_graves = "SELECT COUNT(*) AS graves FROM `Fechoria` WHERE claveal = '".$claveal."' $sql_where AND grave = 'grave'";
+	$sql_exec_graves = "SELECT COUNT(*) AS graves FROM `Fechoria` WHERE claveal = '".$claveal."' $sql_where AND grave = 'grave'  AND DATEDIFF(NOW(), fecha) < 30";
 	$result_graves = mysqli_query($db_con, $sql_exec_graves);
 	$row_graves = mysqli_fetch_array($result_graves);
 
-	$sql_exec_mgraves = "SELECT COUNT(*) AS mgraves FROM `Fechoria` WHERE claveal = '".$claveal."' $sql_where AND grave = 'muy grave'";
+	$sql_exec_mgraves = "SELECT COUNT(*) AS mgraves FROM `Fechoria` WHERE claveal = '".$claveal."' $sql_where AND grave = 'muy grave' AND DATEDIFF(NOW(), fecha) < 60 ";
 	$result_mgraves = mysqli_query($db_con, $sql_exec_mgraves);
 	$row_mgraves = mysqli_fetch_array($result_mgraves);
 
@@ -624,12 +624,12 @@ function sistemaPuntos($claveal) {
 
     // COMPROBAMOS SI EL ALUMNO HA SIDO EXPULSADO AL AULA DE CONVIVENCIA
     // En ese caso, si el alumno ha asistido y ha realizado las tareas recupera puntos.
-    $result_aulaconv = mysqli_query($db_con, "SELECT `inicio_aula`, `fin_aula`, `horas` FROM `Fechoria` WHERE `claveal` = '".$claveal."' AND `aula_conv` > 0 ORDER BY `id` DESC LIMIT 1");
+    $result_aulaconv = mysqli_query($db_con, "SELECT `inicio_aula`, `fin_aula`, `horas` FROM `Fechoria` WHERE `claveal` = '".$claveal."' $sql_where AND `aula_conv` > 0 ORDER BY `id` DESC LIMIT 1");
     if (mysqli_num_rows($result_aulaconv)) {
       $puntos_convivencia = 0;
 
       $row_aulaconv = mysqli_fetch_array($result_aulaconv);
-      $result_aulaconv_asistencia = mysqli_query($db_con, "SELECT `hora`, `trabajo` FROM `convivencia` WHERE `claveal` = '".$claveal."' AND `fecha` BETWEEN '".$row_aulaconv['inicio_aula']."' AND '".$row_aulaconv['fin_aula']."'");
+      $result_aulaconv_asistencia = mysqli_query($db_con, "SELECT `hora`, `trabajo` FROM `convivencia` WHERE `claveal` = '".$claveal."' $sql_where AND `fecha` BETWEEN '".$row_aulaconv['inicio_aula']."' AND '".$row_aulaconv['fin_aula']."'");
 			if (mysqli_num_rows($result_aulaconv_asistencia)) {
 				while ($row_aulaconv_asistencia = mysqli_fetch_array($result_aulaconv_asistencia)) {
           if ((strstr($row_aulaconv['horas'], $row_aulaconv_asistencia['hora']) == true) && $row_aulaconv_asistencia['trabajo'] == 1) $puntos_convivencia = $conf_puntos_recupera_convivencia;

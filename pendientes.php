@@ -76,7 +76,7 @@ while ($c_prof = mysqli_fetch_array($cur_prof)) {
 	$unidad = $c_prof[0];
 	$profe_profe = $c_prof[1];
 
-$cal1 = "select * from calendario where categoria='2' and unidades like '%$unidad;%' and date(fechaini) = '$hoy'";
+$cal1 = "select * from calendario where categoria='2' and unidades like '%$unidad;%' and date(fechaini) BETWEEN '$hoy' AND '".date('Y-m-j', strtotime('+2 day', strtotime($hoy)))."'";
 $cal2 = mysqli_query($db_con, $cal1);
 if(mysqli_num_rows($cal2) > 0)
 {
@@ -84,7 +84,7 @@ if(mysqli_num_rows($cal2) > 0)
 <div id="alert_cal" class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p class="lead"><span class="far fa-calendar fa-fw"></span> Actividades en el Calendario</p>
-	<p>En el Calendario del Centro aparecen actividades extraescolares asociadas a tus grupos para hoy. </p>
+	<p>En el Calendario del Centro aparecen actividades extraescolares asociadas a tus grupos: </p>
 	<br>
 	<ul>';
 	while($cal = mysqli_fetch_array($cal2))
@@ -93,7 +93,7 @@ if(mysqli_num_rows($cal2) > 0)
 		$id = $cal['id'];
 		?>
 <li><?php echo $unidad.": ";?>
-	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a>
+	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a> para <?php echo (($cal['fechaini'] == $hoy) ? 'hoy' : 'el día '.strftime('%e de %B', strtotime($cal['fechaini']))); ?>.
 <br>
 </li>
 		<?php
