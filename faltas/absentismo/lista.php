@@ -89,7 +89,7 @@ else
 $claveal = $row0[0];
 // No justificadas
   $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
-  FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD  
+  FALTAS.falta, faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD, alma.fecha  
   from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal  
   and faltastemp2.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
   and FALTAS.falta = 'F' GROUP BY alma.apellidos";
@@ -101,6 +101,15 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Bucle de Consulta.
   while($rowF = mysqli_fetch_array($resultF))
         {
+
+
+        $nacim = cambia_fecha($rowF[10]);
+        $nacimien = date("Y-m-d",strtotime($nacim."+ 16 year"));
+        $edad = strtotime($nacimien);
+        $fecha_hoy = strtotime("now");
+
+        if ($edad > $fecha_hoy) {
+
         	$sel="";
         	$registrado = mysqli_query($db_con, "select claveal from absentismo where claveal='$claveal' and mes='$n_mes'");
         	if (mysqli_num_rows($registrado)>0) {
@@ -120,7 +129,8 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
   $result2 = mysqli_query($db_con, $SQL2);
   $rowsql = mysqli_num_rows($result2);
   echo "<td style='vertical-align:middle'>$rowsql</td></tr>";
-	}         
+	}   
+  }      
 	} 
 	echo '</table';      
 // Eliminar Tabla temporal
