@@ -420,7 +420,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		<?php endif; ?>
 
     <?php if ($config['mod_convivencia']==1): ?>
-		<?php if ($expulsion > 0 && ! empty($horas) && ! empty($inicio_aula) && ! empty($fin_aula)): ?>
+		<?php if ($convivencia > 0 && ! empty($horas) && ! empty($inicio_aula) && ! empty($fin_aula)): ?>
     <h6>EXPULSI&Oacute;N AL AULA DE CONVIVENCIA</h6>
     <form id="form3" name="form3" method="post" action="imprimir/convivencia.php">
       <input name="id" type="hidden" value="<?php echo $id;?>" />
