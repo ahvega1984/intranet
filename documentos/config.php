@@ -113,9 +113,16 @@ function ft_settings_external_load() {
     $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
+  // Permisos de todos los profesores para la carpeta Biblioteca
+  elseif (acl_permiso($_SESSION['cargo'], array('c')) && ('/Biblioteca' == $dir)) {
+    $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
+    $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
+    $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
+    $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
+    $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
+  }
   // Permisos de todos los profesores para la carpeta interna
   elseif (! acl_permiso($_SESSION['cargo'], array('1')) && $ft["settings"]["DIR"] == "../varios/internos") {
-  // Permisos en el resto de carpetas públicas
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
@@ -124,7 +131,6 @@ function ft_settings_external_load() {
   }
   // Permisos de todos los profesores en sus respectivas carpetas personales
   elseif (! acl_permiso($_SESSION['cargo'], array('1')) && $ft["settings"]["DIR"] == "../varios/".$_SESSION['ide']) {
-  // Permisos en el resto de carpetas públicas
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
