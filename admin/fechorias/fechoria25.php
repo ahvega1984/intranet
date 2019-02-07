@@ -230,9 +230,9 @@ for ($i=0;$i<$num_a;$i++){
           </div></div><br />';
 	}
 	else{
-		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . mysqli_real_escape_string($db_con, $asunto) . "','" . mysqli_real_escape_string($db_con, $notas) . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
 		 // echo $query."<br>";
-		 $inserta = mysqli_query($db_con, $query );
+		 $inserta = mysqli_query($db_con, $query ) or die (mysqli_error($db_con));
 		 if ($inserta) {
 		 	$z++;
 		 	}
