@@ -124,8 +124,8 @@ foreach ($directorio as $archivo) {
         	
         	// COMIENZO FALTAS DE ASISTENCIA
         	$docXML .= "\t\t\t\t\t\t\t<FALTAS_ASISTENCIA>\n";
-        	
-        	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA, FALTAS.FALTA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND (FALTAS.FALTA='F' OR FALTAS.FALTA='J') AND alma.CLAVEAl1='$X_MATRICULA'");
+          	
+        	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA, FALTAS.FALTA FROM FALTAS WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND (FALTAS.FALTA='F' OR FALTAS.FALTA='J') AND FALTAS.CLAVEAl='$C_NUMESCOLAR'");
         	if (!$result) echo mysqli_error($db_con);
         	
         	while($faltas = mysqli_fetch_array($result)) {
