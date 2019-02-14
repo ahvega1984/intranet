@@ -47,12 +47,12 @@ class Table {
 	}
 
 	/**
-	 * Create the number of columns specified. If the DOMDocument representing the styles is passed as the 
-	 * second argument, a ColumnStyle is created for each column, and can be retrieved by 
+	 * Create the number of columns specified. If the DOMDocument representing the styles is passed as the
+	 * second argument, a ColumnStyle is created for each column, and can be retrieved by
 	 * the method {@link #getColumnStyle getColumnStyle()}
-	 * 
+	 *
 	 * @param integer $nbCols The number of columns
-	 * @param DOMDocument $styleDoc 
+	 * @param DOMDocument $styleDoc
 	 */
 	public function createColumns($nbCols, $createStyles = true) {
 		$letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -75,8 +75,8 @@ class Table {
 
 	/**
 	 * Creates a header for each column using the elments of the array passed.
-	 * 
-	 * @param array $headers 
+	 *
+	 * @param array $headers
 	 */
 	public function addHeader($headers) {
 		$letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -98,13 +98,13 @@ class Table {
 	}
 
 	/**
-	 * Add rows to the table. 
-	 * 
+	 * Add rows to the table.
+	 *
 	 * @param array $rows A two dimension array, representing the rows, and the cells inside each row
 	 * @param DOMDocument $styleDoc The DOMDocument representing the styles
 	 */
 	public function addRows($rows, $createStyles = true) {
-		$letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 
+		$letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 						 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 		$rowsElement = $this->contentDocument->createElement('table:table-rows');
 		$i = 0;
@@ -141,7 +141,7 @@ class Table {
 	 * Affect a RowStyle to the row at the position $rowIndex
 	 *
 	 * @param integer $rowIndex
-	 * @param RowStyle $rowStyle 
+	 * @param RowStyle $rowStyle
 	 */
 	public function setRowStyle($rowIndex, $rowStyle) {
 		$this->rows[$rowIndex]->setAttribute('table:style-name', $rowStyle->getStyleName());
@@ -151,7 +151,7 @@ class Table {
 	 * Affect a CellStyle to the cell at the position ($colIndex, $rowIndex)
 	 * @param integer $colIndex
 	 * @param integer $rowIndex
-	 * @param CellStyle $cellStyle 
+	 * @param CellStyle $cellStyle
 	 */
 	public function setCellStyle($colIndex, $rowIndex, $cellStyle) {
 		$this->cells[$rowIndex][$colIndex]->setAttribute('table:style-name', $cellStyle->getStyleName());
@@ -159,9 +159,9 @@ class Table {
 
 	/**
 	 * Return the ColumnStyle of the given index
-	 * 
+	 *
 	 * @param integer $index
-	 * @return ColumnStyle 
+	 * @return ColumnStyle
 	 */
 	public function getColumnStyle($index) {
 		return $this->columnsStyles[$index];
@@ -169,10 +169,10 @@ class Table {
 
 	/**
 	 * Return the CellStyle of the given position
-	 * 
+	 *
 	 * @param integer $col
 	 * @param integer $row
-	 * @return CellStyle 
+	 * @return CellStyle
 	 */
 	public function getCellStyle($col, $row) {
 		return $this->cellsStyles[$row][$col];
@@ -184,7 +184,7 @@ class Table {
 		}
 		$this->tableElement->setAttribute('table:style-name', $tableStyle->getStyleName());
 	}
-  
+
   function getTableName() {
     return $this->tableName;
   }

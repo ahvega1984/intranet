@@ -164,7 +164,7 @@ class PageStyle {
 		if (!isNumeric($rightMargin) && !isLengthValue($rightMargin)) {
 			throw new StyleException('Invalid right-margin value');
 		}
-		
+
 		$this->pageLayoutProperties->setAttribute('fo:margin-left', $leftMargin);
 		$this->pageLayoutProperties->setAttribute('fo:margin-right', $rightMargin);
 	}
@@ -836,8 +836,7 @@ class PageStyle {
 	 * @param integer $position Specifies where to position a background image in a paragraph.
 	 * Valid values are StyleConstants::(LEFT|RIGHT|CENTER|TOP|BOTTOM)
 	 */
-	function setHeadFootBackgroundImage($element, $image, $repeat = StyleConstants::REPEAT,
-								$position = StyleConstants::CENTER) {
+	function setHeadFootBackgroundImage($element, $image, $repeat = StyleConstants::REPEAT, $position = StyleConstants::CENTER) {
 		$file = fopen($image, 'r');
 		if (!$file) {
 			throw new StyleException('Cannot open image');
@@ -882,10 +881,10 @@ class PageStyle {
 	}
 
 	function setHeaderBackgroundImage($image, $repeat = StyleConstants::REPEAT, $position = StyleConstants::CENTER) {
-		$this->setHeadFootBackgroundColor('header', $image, $repeat, $position);
+		$this->setHeadFootBackgroundImage('header', $image, $repeat, $position);
 	}
 	function setFooterBackgroundImage($image, $repeat = StyleConstants::REPEAT, $position = StyleConstants::CENTER) {
-		$this->setHeadFootBackgroundColor('footer', $image, $repeat, $position);
+		$this->setHeadFootBackgroundImage('footer', $image, $repeat, $position);
 	}
 
 	function setHeadFootContent($element, $content, $paragraphStyles = null) {

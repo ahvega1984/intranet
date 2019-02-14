@@ -155,6 +155,30 @@ class ODT {
 		$fontFaceDecl->appendChild($ff);
 
 		$ff = $this->styles->createElement('style:font-face');
+		$ff->setAttribute('style:name', 'Eras Bk BT');
+		$ff->setAttribute('svg:font-family', 'Eras Bk BT');
+		$ff->setAttribute('style:font-pitch', 'variable');
+		$fontFaceDecl->appendChild($ff);
+
+		$ff = $this->styles->createElement('style:font-face');
+		$ff->setAttribute('style:name', 'Eras Md BT');
+		$ff->setAttribute('svg:font-family', 'Eras Md BT');
+		$ff->setAttribute('style:font-pitch', 'variable');
+		$fontFaceDecl->appendChild($ff);
+
+		$ff = $this->styles->createElement('style:font-face');
+		$ff->setAttribute('style:name', 'NewsGotT');
+		$ff->setAttribute('svg:font-family', 'NewsGotT');
+		$ff->setAttribute('style:font-pitch', 'variable');
+		$fontFaceDecl->appendChild($ff);
+
+		$ff = $this->styles->createElement('style:font-face');
+		$ff->setAttribute('style:name', 'NewsGotTDem');
+		$ff->setAttribute('svg:font-family', 'NewsGotTDem');
+		$ff->setAttribute('style:font-pitch', 'variable');
+		$fontFaceDecl->appendChild($ff);
+
+		$ff = $this->styles->createElement('style:font-face');
 		$ff->setAttribute('style:name', 'Courier');
 		$ff->setAttribute('svg:font-family', 'Courier');
 		$ff->setAttribute('style:font-family-generic', 'modern');
