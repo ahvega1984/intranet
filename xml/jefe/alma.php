@@ -16,10 +16,6 @@ include("../../menu.php");
 		<h2>Administración <small> Actualización de alumnos</small></h2>
 	</div>
 
-	<div id="status-loading" class="text-center">
-		<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
-	</div>
-
 	<div id="wrap" class="row" style="display: none;">
 
 		<div class="col-sm-8 col-sm-offset-2">
@@ -32,12 +28,66 @@ include("../../menu.php");
 					mysqli_query($db_con, "DROP TABLE alma_seg") ;
 					mysqli_query($db_con, "create table alma_seg select * from alma");
 
+					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma2.
+
+					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
+			            <button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h5>ATENCIÓN:</h5>
+			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+			</div></div><br />
+			<div align="center">
+			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			</div>');
+					while (!feof($fp))
+					{
+						$num_linea++;
+						$linea=fgets($fp);
+						$tr=explode("|",$linea);
+						if ($num_linea == 7) {
+							$num_col = count($tr);
+							break;
+						}
+					}
+
+					$n_col_tabla=0;
+					$contar_c = mysqli_query($db_con,"show columns from alma");
+					while($contar_col = mysqli_fetch_array($contar_c)){
+						$n_col_tabla++;
+					}
+
+					if ($n_col_tabla!=$num_col) {
+
+						// Detenemos la operación porque Séneca ha modificado la estructura de RegAlum.txt
+		
+						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
+			            <button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h5>ATENCIÓN:</h5>
+						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas.
+						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicación o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
+						</div></div><br />
+						<div align="center">
+						  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+						</div>';
+						?>
+									</div><!-- /.well -->
+
+							</div><!-- /.col-sm-8 -->
+
+						</div><!-- /.row -->
+
+					</div><!-- /.container -->
+
+					<?php include("../../pie.php");	?>
+					<?php
+					exit();
+					}
+
 					// Creamos Base de datos y enlazamos con ella.
 					$base0 = "DROP TABLE `alma`";
 					mysqli_query($db_con, $base0);
 
 					// Creación de la tabla alma
-					$alumnos = "CREATE TABLE  `alma` (
+					$alumnos = "CREATE TABLE  `alma` (	
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
 			 `CLAVEAL` varchar( 12 ) default NULL ,
@@ -76,6 +126,7 @@ include("../../menu.php");
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL,
+			 `NSEGSOCIAL` varchar( 15 ) default NULL,
 			 PRIMARY KEY (`CLAVEAL`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ";
 
@@ -91,59 +142,7 @@ include("../../menu.php");
 					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
 					$result6 = mysqli_query($db_con, $SQL6);
 
-					// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma2.
-
-					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
-			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
-			</div></div><br />
-			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-			</div>');
-					while (!feof($fp))
-					{
-						$num_linea++;
-						$linea=fgets($fp);
-						$tr=explode("|",$linea);
-						if ($num_linea == 7) {
-							$num_col = count($tr);
-							break;
-						}
-					}
-
-					$n_col_tabla=0;
-					$contar_c = mysqli_query($db_con,"show columns from alma");
-					while($contar_col = mysqli_fetch_array($contar_c)){
-						$n_col_tabla++;
-					}
-
-					if ($n_col_tabla!=$num_col) {
-
-						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
-						mysqli_query($db_con, "insert into alma select * from alma_seg");
-						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
-			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÓN:</h5>
-						No se han podido importar los datos de los alumnos porque Séneca ha modificado la estructura del archivo RegAlum.txt, bien porque ha añadido algún campo bien porque lo ha eliminado. Ahora mismo el archivo tiene '.$num_col.' campos de datos mientras que la tabla tiene '.$n_col_tabla.' columnas.
-						<br>Se mantienen las tablas tal como estaban mientras actualizas la aplicación o lo comunicas a los desarrolladores para que estos puedan arreglar el asunto.
-						</div></div><br />
-						<div align="center">
-						  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-						</div>';
-						?>
-									</div><!-- /.well -->
-
-							</div><!-- /.col-sm-8 -->
-
-						</div><!-- /.row -->
-
-					</div><!-- /.container -->
-
-					<?php include("../../pie.php");	?>
-					<?php
-					exit();
-					}
+					
 
 					//echo $num_linea++; // Si todo va bien, el valor de $num_linea en esta línea es 7
 
@@ -419,13 +418,7 @@ include("../../menu.php");
 
 <?php include("../../pie.php");	?>
 
-<script>
-function espera() {
-	document.getElementById("wrap").style.display = '';
-	document.getElementById("status-loading").style.display = 'none';
-}
-window.onload = espera;
-</script>
+
 
 </body>
 </html>
