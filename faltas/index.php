@@ -442,7 +442,7 @@ foreach ($array_unidades as $hora2) {
 				$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$row[0]' and cod_actividad in (select id from calendario where date(fechaini) <= date('$hoy') and date(fechafin) >= date('$hoy'))");
 				if (mysqli_num_rows($extraescolar) > '0') {
 					while($actividad = mysqli_fetch_array($extraescolar)){
-						$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and  (horaini<= (select hora_inicio from tramos where hora = '$hora_dia') or horaini='00:00:00') and (horafin>= (select hora_fin from tramos where hora = '$hora_dia') or horafin='00:00:00' )");
+						$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and  (hour(horaini)<= (select hora_inicio from tramos where hora = '$hora_dia') or hour(horaini)='00:00:00') and (hour(horafin)>= (select hora_fin from tramos where hora = '$hora_dia') or hour(horafin)='00:00:00' )");
 						if (mysqli_num_rows($tr)>0) {
 							$hay_actividad = 1;
 						}
