@@ -67,11 +67,14 @@ function ft_settings_external_load() {
       mkdir($config['mod_documentos_dir'].'Departamentos', 0777);
     }
     else {
-      $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Auxiliar de Conversación' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'PROFESOR ADICIONAL'  AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `departamento` ASC");
+      $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Auxiliar de Conversación' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Educador'  AND `departamento` <> 'Convenio O.N.C.E. Maestros' AND `departamento` <> 'PROFESOR ADICIONAL'  AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' ORDER BY `departamento` ASC");
       while ($row = mysqli_fetch_array($result)) {
 
         if (file_exists($config['mod_documentos_dir'].'Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']))) {
           rename($config['mod_documentos_dir'].'Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']), $config['mod_documentos_dir'].'Departamentos/'.$row['departamento']);
+        }
+        else {
+          mkdir($config['mod_documentos_dir'].'Departamentos/'.$row['departamento'], 0777);
         }
 
       }
