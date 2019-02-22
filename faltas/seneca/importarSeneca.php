@@ -46,6 +46,7 @@ if (isset($_POST['submit'])) {
 
 	$directorio = scandir("./origen/");
 	sort($directorio);
+	$flagEliminaFaltas = 0;
 	foreach ($directorio as $archivo) {
 
 		if (!is_dir($archivo) and stristr($archivo,".xml")==TRUE)
@@ -83,14 +84,19 @@ if (isset($_POST['submit'])) {
 		        </div>';
 			}
 
-			// Copia la tabla y elimina los datos para evitar duplicaciones
-			mysqli_query($db_con, "drop TABLE FALTAS_seg");
-			mysqli_query($db_con, "CREATE TABLE FALTAS_seg SELECT * FROM FALTAS");
+			// Realizamos una copia de la tabla FALTAS y eliminamos las faltas del rango de fechas importado
+			if (! $flagEliminaFaltas) {
+				// Copia la tabla y elimina los datos para evitar duplicaciones
+				mysqli_query($db_con, "drop TABLE FALTAS_seg");
+				mysqli_query($db_con, "CREATE TABLE FALTAS_seg SELECT * FROM FALTAS");
 
-			$fecha_desde=cambia_fecha($fecha_desde);
-			$fecha_hasta=cambia_fecha($fecha_hasta);
+				$fecha_desde=cambia_fecha($fecha_desde);
+				$fecha_hasta=cambia_fecha($fecha_hasta);
 
-			mysqli_query($db_con, "DELETE FROM FALTAS WHERE FECHA BETWEEN '$fecha_desde' AND '$fecha_hasta' and unidad = '$T_NOMBRE'");
+				mysqli_query($db_con, "DELETE FROM FALTAS WHERE FECHA BETWEEN '$fecha_desde' AND '$fecha_hasta'");
+				$flagEliminaFaltas = 1;
+			}
+
 
 			if ($draw_html == 0) {
 				echo '<div class="well">';
@@ -151,7 +157,9 @@ if (isset($_POST['submit'])) {
 
 					for ($i = $inicio; $i < $fin; $i++) {
 						// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
-						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
+						$fecha_mysql = fecha_mysql($F_FALASI);
+						$ndia = strftime("%u", strtotime($fecha_mysql));
+						$result = mysqli_query($db_con, "SELECT c_prof, c_asig FROM horw WHERE dia = '$ndia' AND hora = '$i' AND a_grupo like '$T_NOMBRE%'");
 
 						$codasig="";
 						$nprofesor="";
@@ -181,7 +189,7 @@ if (isset($_POST['submit'])) {
 							$codasig = $cod_orig;
 						}
 
-						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')") or die (mysqli_error($db_con));
+						$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '$fecha_mysql', '$ndia', '$i', '$nprofesor', '$codasig', '$tipo_falta')") or die (mysqli_error($db_con));
 					}
 					unset($nprofesor);
 					unset($codasig);
