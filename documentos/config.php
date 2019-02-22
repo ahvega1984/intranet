@@ -42,7 +42,7 @@ function ft_settings_external_load() {
 
   $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
   $caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
-  $dir = isset($_GET['dir']) ? $_GET['dir'] : $ft["settings"]["DIR"];
+  $dir = isset($_REQUEST['dir']) ? $_REQUEST['dir'] : $ft["settings"]["DIR"];
   $depto_profesor = '/Departamentos/'.$_SESSION['dpt'];
   $depto_profesor_sin_tildes = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $depto_profesor);
 
@@ -95,18 +95,23 @@ function ft_settings_external_load() {
   $ft["settings"]["FILETYPEWHITELIST"] = ""; // Add file types here to *only* allow those types to be uploaded.
   $ft["settings"]["LIMIT"]             = 0; // Restrict total dir file usage to this amount of bytes. Set to "0" for no limit.
   $ft["settings"]["REQUEST_URI"]       = FALSE; // Installation path. You only need to set this if $_SERVER['REQUEST_URI'] is not being set by your server.
-  $ft["settings"]["HTTPS"]             = TRUE; // Change to TRUE to enable HTTPS support.
+  if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")  {
+    $ft["settings"]["HTTPS"]             = TRUE; // Change to TRUE to enable HTTPS support.
+  }
+  else {
+    $ft["settings"]["HTTPS"]             = FALSE; // Change to TRUE to enable HTTPS support.
+  }
 
   // Permisos Equipo Directivo
   if (acl_permiso($_SESSION['cargo'], array('1'))) {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
-    $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
+    $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
   // Permisos de todos los profesores para la carpeta de su departamento
-  elseif (! acl_permiso($_SESSION['cargo'], array('1')) && ($depto_profesor == $dir || $depto_profesor_sin_tildes == $dir)) {
+  elseif (! acl_permiso($_SESSION['cargo'], array('1')) && (strpos("-".$dir, $depto_profesor) == true || strpos("-".$dir, $depto_profesor_sin_tildes) == true)) {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
@@ -118,7 +123,7 @@ function ft_settings_external_load() {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
-    $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
+    $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
   // Permisos de todos los profesores para la carpeta interna
@@ -126,7 +131,7 @@ function ft_settings_external_load() {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
-    $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
+    $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
   // Permisos de todos los profesores en sus respectivas carpetas personales
@@ -134,7 +139,7 @@ function ft_settings_external_load() {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
     $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
-    $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
+    $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
   else {
