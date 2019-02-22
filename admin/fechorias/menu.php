@@ -1,4 +1,4 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 $activo1="";
 $activo2="";
@@ -15,11 +15,11 @@ if (strstr($_SERVER['REQUEST_URI'],'convivencia.php')==TRUE){ $activo5 = ' class
 if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="active" ';}
 ?>
 <div class="container">
-	
+
 	<?php if (acl_permiso($carg, array('1'))): ?>
 	<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fas fa-cog fa-lg"></span></a>
 	<?php endif; ?>
-	
+
 	<ul class="nav nav-tabs">
 		<li <?php echo $activo1;?>><a
 			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/cfechorias.php">
@@ -33,7 +33,11 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 		<li <?php echo $activo4;?>><a
 			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/expulsados.php">
 		Alumnos expulsados</a></li>
-	
+
+		<?php if (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia']): ?>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'compromisos.php') == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/compromisos.php">Compromisos de convivencia</a></li>
+		<?php endif; ?>
+
 		<li
 			class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE) ? ' active' : ''; ?>">
 		<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Ranking <span
@@ -55,16 +59,11 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 		<?php
 		}
 		?>
-		<?php
-		if(stristr($_SESSION['cargo'],'1') == TRUE and $config['mod_convivencia']==1){
-			?>
-		<li <?php echo $activo5;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula
-		de Convivencia</a></li>
-		<?php
-		}
-		?>
-	
+		<?php if(stristr($_SESSION['cargo'],'1') == TRUE and $config['mod_convivencia']==1){ ?>
+		<li <?php echo $activo5;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
+		<?php } ?>
+
+
+
 	</ul>
 </div>
-

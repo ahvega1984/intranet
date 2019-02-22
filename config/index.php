@@ -130,7 +130,6 @@ if (isset($_POST['instalar']))
 	(isset($_POST['mod_documentos'])) ? $modulo_documentos = 1 : $modulo_documentos = 0;
 	$modulo_documentos_dir	= limpiar_string($_POST['mod_documentos_dir']);
 	(isset($_POST['mod_documentos_biblioteca'])) ? $mod_documentos_biblioteca = 1 : $mod_documentos_biblioteca = 0;
-	(isset($_POST['mod_documentos_recursos'])) ? $mod_documentos_recursos = 1 : $mod_documentos_recursos = 0;
 	(isset($_POST['mod_documentos_departamentos'])) ? $mod_documentos_departamentos = 1 : $mod_documentos_departamentos = 0;
 
 	(isset($_POST['mod_sms'])) ? $modulo_sms = 1 : $modulo_sms = 0;
@@ -783,14 +782,6 @@ if (isset($_POST['instalar']))
 				    			    			<input type="checkbox" name="mod_documentos_biblioteca" value="1">
 				    			    			<strong>Biblioteca</strong>
 				    			    			<p class="help-block">Si hemos activado el módulo de <strong>Biblioteca</strong>, crea una carpeta donde el personal de la Biblioteca puede subir y compartir documentos de interés.</p>
-				    			    		</label>
-				    			    	</div>
-
-				    			    	<div class="checkbox">
-				    			    		<label>
-				    			    			<input type="checkbox" name="mod_documentos_recursos" value="1">
-				    			    			<strong>Recursos educativos</strong>
-				    			    			<p class="help-block">Creará una carpeta <strong>Recursos</strong>, con el nombre de cada Grupo de Alumnos en el que los miembros de un Equipo Educativo pueden subir archivos visibles para Padres y Alumnos en <u>Acceso para Alumnos</u> de la <em>Página del Centro</em>.</p>
 				    			    		</label>
 				    			    	</div>
 

@@ -1583,8 +1583,8 @@ if (headers_sent()) {
     					instalación de la Intranet, y son visibles desde la página pública del Centro. Ofrecen un directorio donde el Equipo
     					directivo y demás profesores colocan aquellos archivos que consideran relevantes para la Comunidad
     					educativa (Programaciones, Plan del Centro, etc.). <br>
-    					Dependiendo de las opciones elegidas en la instalación, podemos encontrar tres categorías: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del
-    					cual encontraremos directorios de los distintos Departamentos del Centro y que pueden ser utilizados por los miembros de los mismos; y <strong><em>Recursos</em></strong>, con un directorio para cada grupo del Centro en el que los Equipos educativos pueden colocar materiales diversos para sus alumnos.</p>
+    					Dependiendo de las opciones elegidas en la instalación, podemos encontrar dos categorías: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; y <strong><em>Departamentos</em></strong>, dentro del
+    					cual encontraremos directorios de los distintos Departamentos del Centro y que pueden ser utilizados por los miembros de los mismos.</p>
     					<p>Los <strong><em>Documentos Internos</em></strong> no son visibles desde la página pública del Centro. Ofrecen un directorio donde el Equipo
     					directivo y demás profesores colocan aquellos archivos que consideran relevantes para el Claustro del Centro.<br>
     					<p>Los <strong><em>Documentos Personales</em></strong> son propios de cada

@@ -5,19 +5,6 @@ if (file_exists('config.php')) {
 	include('config.php');
 }
 
-if (acl_permiso($_SESSION['cargo'], array('1'))) {
-	if (isset($_POST['cc']) && $_POST['cc'] || isset($_POST['nie'])) {
-		$nie = $_POST['nie'];
-		$result = mysqli_query($db_con, "SELECT `fecha` FROM `compromiso_convivencia` WHERE `nie` = '$nie' LIMIT 1");
-		if (! mysqli_num_rows($result)) {
-			mysqli_query($db_con, "INSERT INTO `compromiso_convivencia` (`nie`, `fecha`) VALUES ('$nie', NOW())");
-		}
-		else {
-			mysqli_query($db_con, "DELETE FROM `compromiso_convivencia` WHERE `nie` = '$nie' LIMIT 1");
-		}
-	}
-}
-
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
@@ -163,9 +150,6 @@ if ($config['mod_convivencia']==1) {
 		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
 			echo "<th>PUNTOS</th>";
 		}
-		if (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia']) {
-			echo "<th><span data-bs=\"tooltip\" title=\"Compromiso de convivencia\">CC</span></th>";
-		}
 		echo "
 		<th></th>
 		<th></th>
@@ -239,36 +223,6 @@ if ($config['mod_convivencia']==1) {
 		<td>$caducada</td>";
 		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
 			echo "<td>".sistemaPuntos($claveal)."</td>";
-		}
-
-		if (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia']) {
-			$result_compromiso = mysqli_query($db_con, "SELECT `fecha` FROM `compromiso_convivencia` WHERE `nie` = '$claveal' LIMIT 1");
-			$checkbox_compromiso = "";
-			if (mysqli_num_rows($result_compromiso)) {
-				$checkbox_compromiso = "checked";
-			}
-
-			if (acl_permiso($_SESSION['cargo'], array('1'))) {
-				echo "
-				<td>
-					<form action=\"\" name=\"compromiso_convivencia\" method=\"post\">
-						<label for=\"cc_".$num_row."\">
-							<input type=\"checkbox\" id=\"cc_".$num_row."\" name=\"cc\" value=\"1\" onchange=\"submit()\" $checkbox_compromiso>
-						</label>
-						<input type=\"hidden\" name=\"nie\" value=\"".$claveal."\">
-					</form>
-				</td>";
-			}
-			else {
-				echo "<td>";
-				if ($checkbox_compromiso != "") {
-					echo "<span class=\"label label-info\" data-bs=\"tooltip\" title=\"Compromiso de convivencia\">(CC)</span>";
-				}
-				else {
-					echo "";
-				}
-				echo "</td>";
-			}
 		}
 		echo "
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>";
