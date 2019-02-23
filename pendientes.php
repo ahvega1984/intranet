@@ -600,10 +600,17 @@ if(stristr($carg,'2') == TRUE)
 <small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "UTF-8"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?>
-			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
-	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
-	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
+<div class="modal-body">
+	<p style="word-wrap: break-word;"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?></p>
+
+	<?php if (! empty($archivo)): ?>
+	<div>
+		<strong>Archivo adjunto:</strong><br>
+		<a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?file=<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
+	</div>
+	<?php endif; ?>
+
+</div>
 
 <div class="modal-footer"><a href="#" target="_top" data-dismiss="modal"
 	class="btn btn-default">Cerrar</a> <?php

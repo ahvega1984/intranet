@@ -92,7 +92,7 @@ function ft_settings_external_load() {
   $ft["settings"]["DIRPERMISSION"]     = 0777; // Permission for newly created folders.
   $ft["settings"]["HIDEFILEPATHS"]     = TRUE; // Set to TRUE to pass downloads through File Thingie.
   $ft["settings"]["SHOWDATES"]         = 'd/m/Y \a \l\a\s H:i'; // Set to a date format to display last modified date (e.g. 'Y-m-d'). See http://dk2.php.net/manual/en/function.date.php
-  $ft["settings"]["FILEBLACKLIST"]     = ".DS_Store ._.DS_Store"; // Specific files that will not be shown.
+  $ft["settings"]["FILEBLACKLIST"]     = ".DS_Store ._.DS_Store .htaccess"; // Specific files that will not be shown.
   $ft["settings"]["FOLDERBLACKLIST"]   = ""; // Specifies folders that will not be shown. No starting or trailing slashes!
   $ft["settings"]["FILETYPEBLACKLIST"] = "php php5 php6 php7 phtml htm html js css bin run sh rb deb rpm"; // File types that are not allowed for upload.
   $ft["settings"]["FILETYPEWHITELIST"] = ""; // Add file types here to *only* allow those types to be uploaded.
