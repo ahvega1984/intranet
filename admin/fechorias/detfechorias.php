@@ -84,7 +84,7 @@ echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             $mensaje.'
           </div></div>';
 }
-$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, Fechoria.claveal from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, Fechoria.claveal, Fechoria.adjunto from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
   if ($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
@@ -105,6 +105,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		$inicio_aula = $row[16];
 		$fin_aula = $row[17];
 		$horas = $row[18];
+		$adjunto = $row[20];
 
     if (!$claveal) {
       $claveal = $row[19];
@@ -164,6 +165,12 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
             <th>OBSERVACIONES</th>
             <td colspan="4"><?php echo $notas; ?></td>
           </tr>
+					<?php if (isset($adjunto) && ! empty($adjunto)): ?>
+					<tr>
+						<th>ADJUNTO</th>
+						<td colspan="4"><a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?mod=convivencia&file=<?php echo $adjunto; ?>" target="_blank"><?php echo $adjunto; ?></a></td>
+					</tr>
+					<?php endif; ?>
           <tr>
             <th>ASUNTO</th>
             <td colspan="4"><?php echo $asunto; ?></td>

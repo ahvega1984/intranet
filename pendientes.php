@@ -606,7 +606,7 @@ if(stristr($carg,'2') == TRUE)
 	<?php if (! empty($archivo)): ?>
 	<div>
 		<strong>Archivo adjunto:</strong><br>
-		<a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?file=<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
+		<a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?mod=mensajes&file=<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
 	</div>
 	<?php endif; ?>
 

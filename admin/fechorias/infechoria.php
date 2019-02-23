@@ -134,7 +134,7 @@ if ($_GET['seleccionado']=="1") {
 	$nombre_al=$ng_al[1].", ".$ng_al[2];
 }
 if ($_GET['id'] or $_POST['id']) {
-	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula, Fechoria.adjunto from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
 	if ($row = mysqli_fetch_array($result))
 	{
@@ -160,6 +160,7 @@ if ($_GET['id'] or $_POST['id']) {
 		$inicio_aula = $row[16];
 		$fin_aula = $row[17];
 		$horas = $row[18];
+		$adjunto = $row[20];
 	}
 }
 ?>
@@ -185,7 +186,7 @@ if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TR
  <?php
 }
 ?>
-<form method="post" action="infechoria.php" name="Cursos">
+<form method="post" action="" name="Cursos" enctype="multipart/form-data">
 <fieldset>
 
 <div class="col-sm-6">
@@ -205,7 +206,7 @@ if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TR
 
 	<?php unidad();?>
 </select></div>
-<label for="nombre">Alumno/a</label> <?php
+<label for="nombre">Alumno/a</label> <?php echo $nombre;
 if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
 {
 
@@ -337,6 +338,22 @@ sido <u>expulsado</u> del aula </label></div>
 	class="form-control" id="notas" name="notas" rows="7"
 	placeholder="Describe aquí los detalles del incidente..." required><?php echo $notas; ?></textarea>
 </div>
+
+<div class="form-group">
+	<label for="adjunto">Adjuntar archivo en formato imagen o PDF <span class="text-muted">(opcional)</span>:</label>
+	<?php if (isset($id) && $id && isset($adjunto) && ! empty($adjunto)): ?>
+	<ul class="list-group">
+		<li class="list-group-item" style="word-wrap: break-word;">
+			<a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?mod=convivencia&file=<?php echo $adjunto; ?>" target="_blank"><?php echo $adjunto; ?></a>
+		</li>
+	</ul>
+	<?php endif; ?>
+
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo php_directive_value_to_bytes('upload_max_filesize'); ?>">
+	<input type="file" id="adjunto" name="adjunto" accept="image/*,application/pdf">
+	<p class="help-block"><small>Tamaño máximo: <?php echo ini_get('upload_max_filesize'); ?>b.</small></p>
+</div>
+<br>
 
 <?php
 if ($id) {

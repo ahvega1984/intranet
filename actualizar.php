@@ -654,3 +654,23 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `rgpd_mostrar_nombre` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1' AFTER `totp_secret`");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modicación estructura tabla c_profes', NOW())");
 }
+
+/*
+	@descripcion: Modificación estructura tabla Fechorias
+	@fecha: 23 de febrero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación estructura tabla Fechorias'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `Fechoria` ADD `adjunto` VARCHAR(500) NULL DEFAULT NULL");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla Fechorias', NOW())");
+}
+
+/*
+	@descripcion: Modificación estructura tabla mensajes
+	@fecha: 23 de febrero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación estructura tabla mensajes'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `mensajes` CHANGE `archivo` `archivo` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla mensajes', NOW())");
+}

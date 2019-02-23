@@ -6,6 +6,85 @@ if (strlen($id)>0 and $grave == "muy grave" and stristr($_SESSION['cargo'],'1') 
 		$confirma_db = '1';
 	}
 }
+
+// Control de errores en archivo adjunto
+if (! isset($id) || $id && ! empty($_FILES['adjunto']['tmp_name'])) {
+	$_adjuntoError = 0;
+	$_nombreAdjunto = NULL;
+	$_adjunto = $_FILES['adjunto'];
+	$_maxfilesize = php_directive_value_to_bytes('upload_max_filesize');
+
+	if (strpos("image", $_adjunto['type']) !== 0 && $_adjunto['type'] != "application/pdf") {
+		echo '
+			<div align="center">
+				<div class="alert alert-danger alert-block fade in">
+	      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	        El archivo adjunto debe tener formato de imagen o PDF.
+	      </div>
+			</div>';
+	}
+	elseif ($_adjunto['size'] > $_maxfilesize) {
+		echo '
+			<div align="center">
+				<div class="alert alert-danger alert-block fade in">
+	      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	        El archivo adjunto debe tener un tamaño inferior a '.(ini_get('upload_max_filesize')).'b.
+	      </div>
+			</div>';
+	}
+	elseif ($_adjunto['error'] != 0) {
+		echo '
+			<div align="center">
+				<div class="alert alert-danger alert-block fade in">
+	      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	        El archivo adjunto no ha podido ser subido al servidor.
+	      </div>
+			</div>';
+	}
+	else {
+		$dir_subida = "./adjuntos/"; // Añadir / al final
+
+		if (file_exists($dir_subida)) {
+			$hash_file = hash_file('md5', $_adjunto['tmp_name']);
+			$dir_archivo = $dir_subida . $hash_file . '_' . basename($_adjunto['name']);
+
+			if (! move_uploaded_file($_adjunto['tmp_name'], $dir_archivo)) {
+				echo '
+					<div align="center">
+						<div class="alert alert-danger alert-block fade in">
+			      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+			        Ha ocurrido un error al adjuntar el archivo.
+			      </div>
+					</div>';
+			}
+			else {
+				$_nombreAdjunto = "'".ltrim($dir_archivo, $dir_subida)."'";
+			}
+		}
+		else {
+			echo '
+				<div align="center">
+					<div class="alert alert-danger alert-block fade in">
+		      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		        El archivo adjunto no ha podido ser subido al servidor.
+		      </div>
+				</div>';
+		}
+	}
+}
+else {
+
+	$result_adjunto = mysqli_query($db_con, "SELECT `adjunto` FROM `Fechoria` WHERE `id` = $id LIMIT 1");
+	$row_adjunto = mysqli_fetch_array($result_adjunto);
+
+	if (! empty($row_adjunto['adjunto'])) {
+		$_nombreAdjunto = $row_adjunto['adjunto'];
+	}
+	else {
+		$_nombreAdjunto = NULL;
+	}
+}
+
 // Control de errores
 if (! $notas or ! $grave or ! $_POST['nombre'] or ! $asunto or ! $fecha or ! $informa or $fecha=='0000-00-00') {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -216,23 +295,23 @@ for ($i=0;$i<$num_a;$i++){
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 
 	if ($_POST['submit2'] and !($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db != 1 and isset($id))) {
-		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa' where id = '$id'");
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto=$_nombreAdjunto where id = '$id'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
 	elseif ($grave == "muy grave" and $_POST['submit1']=="Actualizar datos") {
-		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', confirmado='1' where id = '$id'");
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto=$_nombreAdjunto, confirmado='1' where id = '$id'");
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
 	else{
-		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado) values ('" . $claveal . "','" . $fecha2 . "','" . mysqli_real_escape_string($db_con, $asunto) . "','" . mysqli_real_escape_string($db_con, $notas) . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "')";
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado,adjunto) values ('" . $claveal . "','" . $fecha2 . "','" . mysqli_real_escape_string($db_con, $asunto) . "','" . mysqli_real_escape_string($db_con, $notas) . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "', ".$_nombreAdjunto.")";
 		 // echo $query."<br>";
-		 $inserta = mysqli_query($db_con, $query ) or die (mysqli_error($db_con));
+		 $inserta = mysqli_query($db_con, $query) or die (mysqli_error($db_con));
 		 if ($inserta) {
 		 	$z++;
 		 	}
@@ -240,10 +319,12 @@ for ($i=0;$i<$num_a;$i++){
 	}
 }
 
-unset ($unidad);
-unset($nombre);
-unset ($id);
-unset ($claveal);
+if (! isset($id) && ! $id) {
+	unset ($unidad);
+	unset($nombre);
+	unset ($id);
+	unset ($claveal);
+}
 if ($z>0 and !($_POST['confirmado']=="1" and $confirma_db != 1)) {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

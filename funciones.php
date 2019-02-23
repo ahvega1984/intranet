@@ -734,3 +734,29 @@ function trimestreActual() {
     else
         return 4;
 }
+
+function php_directive_value_to_bytes($directive) {
+    $value = ini_get($directive);
+
+    // Value must be a string.
+    if (!is_string($value)) {
+        return false;
+    }
+
+    preg_match('/^(?<value>\d+)(?<option>[K|M|G]*)$/i', $value, $matches);
+
+    $value = (int) $matches['value'];
+    $option = strtoupper($matches['option']);
+
+    if ($option) {
+        if ($option === 'K') {
+            $value *= 1024;
+        } elseif ($option === 'M') {
+            $value *= 1024 * 1024;
+        } elseif ($option === 'G') {
+            $value *= 1024 * 1024 * 1024;
+        }
+    }
+
+    return $value;
+}
