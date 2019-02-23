@@ -600,8 +600,8 @@ if(stristr($carg,'2') == TRUE)
 <small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "UTF-8"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body">
-	<p style="word-wrap: break-word;"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?></p>
+<div class="modal-body" style="word-wrap: break-word;">
+	<?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?>
 
 	<?php if (! empty($archivo)): ?>
 	<div>
@@ -688,7 +688,7 @@ if(mysqli_num_rows($men2) > 0)
 <small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "UTF-8"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?></div>
+<div class="modal-body" style="word-wrap: break-word;"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'UTF-8')); ?></div>
 
 <div class="modal-footer"><a href="#" target="_top" data-dismiss="modal"
 	class="btn btn-default">Cerrar</a> <?php

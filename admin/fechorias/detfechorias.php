@@ -168,7 +168,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 					<?php if (isset($adjunto) && ! empty($adjunto)): ?>
 					<tr>
 						<th>ADJUNTO</th>
-						<td colspan="4"><a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?mod=convivencia&file=<?php echo $adjunto; ?>" target="_blank"><?php echo $adjunto; ?></a></td>
+						<td colspan="4" style="word-wrap: break-word;"><a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?mod=convivencia&file=<?php echo $adjunto; ?>" target="_blank"><?php echo $adjunto; ?></a></td>
 					</tr>
 					<?php endif; ?>
           <tr>
