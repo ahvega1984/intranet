@@ -26,8 +26,8 @@ if (isset($_POST['enviar'])) {
 	$contenido = preg_replace('/class="MsoNormal"/i', '', $contenido);
 	$contenido = preg_replace('/<o:p>.*?<\/o:p>/i', '', $contenido);
 	$contenido = preg_replace('/<p style="\s*">/i', '<p>', $contenido);
-	$contenido = preg_replace('/<img style="(.*?)float: left;(.*?)"/i', '<img style="$1float: left;$2 margin: 0 15px 15px 0;"', $contenido);
-	$contenido = preg_replace('/<img style="(.*?)float: right;(.*?)"/i', '<img style="$1float: right;$2 margin: 0 0 15px 15px;"', $contenido);
+	$contenido = preg_replace('/<img style="(.*?)float: left;(.*?)"/i', '<img style="$1float: left; margin: 0 15px 15px 0; $2"', $contenido);
+	$contenido = preg_replace('/<img style="(.*?)float: right;(.*?)"/i', '<img style="$1float: right; margin: 0 0 15px 15px; $2"', $contenido);
 	$contenido = preg_replace('/(<div class="embed-responsive embed-responsive-16by9">)?<iframe (.*?)><\/iframe>(<\/div>)?/i', '<div class="embed-responsive embed-responsive-16by9"><iframe $1></iframe></div>', $contenido);
 	$contenido = addslashes($contenido);
 	$caracteres_contenido = strlen(trim(strip_tags($contenido)));
