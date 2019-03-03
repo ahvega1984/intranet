@@ -108,8 +108,8 @@ if (isset($_POST['enviar'])) {
 
 				$exp_alumno = explode(' --> ', $alumno);
 				$exp_nombre = explode(', ', $exp_alumno[0]);
-				$apellidos = trim($exp_nombre[0]);
-				$nombre = trim($exp_nombre[1]);
+				$apellidos = mysqli_real_escape_string($db_con, trim($exp_nombre[0]));
+				$nombre = mysqli_real_escape_string($db_con, trim($exp_nombre[1]));
 				$claveal = trim($exp_alumno[1]);
 
 				$result = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES
