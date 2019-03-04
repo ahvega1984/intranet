@@ -8,9 +8,9 @@ if (strlen($id)>0 and $grave == "muy grave" and stristr($_SESSION['cargo'],'1') 
 }
 
 // Control de errores en archivo adjunto
-if (! isset($id) || $id && ! empty($_FILES['adjunto']['tmp_name'])) {
+if (! isset($id) && ! empty($_FILES['adjunto']['tmp_name'])) {
 	$_adjuntoError = 0;
-	$_nombreAdjunto = NULL;
+	$_nombreAdjunto = "";
 	$_adjunto = $_FILES['adjunto'];
 	$_maxfilesize = php_directive_value_to_bytes('upload_max_filesize');
 
@@ -58,7 +58,7 @@ if (! isset($id) || $id && ! empty($_FILES['adjunto']['tmp_name'])) {
 					</div>';
 			}
 			else {
-				$_nombreAdjunto = "'".ltrim($dir_archivo, $dir_subida)."'";
+				$_nombreAdjunto = ltrim($dir_archivo, $dir_subida);
 			}
 		}
 		else {
@@ -81,7 +81,7 @@ else {
 		$_nombreAdjunto = $row_adjunto['adjunto'];
 	}
 	else {
-		$_nombreAdjunto = NULL;
+		$_nombreAdjunto = "";
 	}
 }
 
@@ -309,8 +309,8 @@ for ($i=0;$i<$num_a;$i++){
           </div></div><br />';
 	}
 	else{
-		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado,adjunto) values ('" . $claveal . "','" . $fecha2 . "','" . mysqli_real_escape_string($db_con, $asunto) . "','" . mysqli_real_escape_string($db_con, $notas) . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "', ".$_nombreAdjunto.")";
-		 // echo $query."<br>";
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado,adjunto) values ('" . $claveal . "','" . $fecha2 . "','" . mysqli_real_escape_string($db_con, $asunto) . "','" . mysqli_real_escape_string($db_con, $notas) . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "', '".$_nombreAdjunto."')";
+		  //echo $query."<br>";
 		 $inserta = mysqli_query($db_con, $query) or die (mysqli_error($db_con));
 		 if ($inserta) {
 		 	$z++;
