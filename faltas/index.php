@@ -526,10 +526,10 @@ $f_justiT = mysqli_num_rows($faltaT_J);
 <div class="label label-danger" data-bs='tooltip'
 	title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
 <?php
-if ($f_faltaT>0) {echo "<br>";}
+if ($f_faltaT>0 OR $f_justiT>0) {echo "<br>";}
 ?>
 <div class="label label-success" data-bs='tooltip'
-	title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
+	title='Faltas Justificadas'><?php echo $f_justiT;?></div>
 </td>
 </tr>
 
