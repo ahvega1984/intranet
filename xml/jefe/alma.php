@@ -16,7 +16,7 @@ include("../../menu.php");
 		<h2>Administración <small> Actualización de alumnos</small></h2>
 	</div>
 
-	<div id="wrap" class="row" style="display: none;">
+	<div id="wrap" class="row">
 
 		<div class="col-sm-8 col-sm-offset-2">
 
@@ -58,7 +58,7 @@ include("../../menu.php");
 					if ($n_col_tabla!=$num_col) {
 
 						// Detenemos la operación porque Séneca ha modificado la estructura de RegAlum.txt
-		
+
 						echo '<br><div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h5>ATENCIÓN:</h5>
@@ -87,7 +87,7 @@ include("../../menu.php");
 					mysqli_query($db_con, $base0);
 
 					// Creación de la tabla alma
-					$alumnos = "CREATE TABLE  `alma` (	
+					$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
 			 `CLAVEAL` varchar( 12 ) default NULL ,
@@ -142,7 +142,7 @@ include("../../menu.php");
 					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
 					$result6 = mysqli_query($db_con, $SQL6);
 
-					
+
 
 					//echo $num_linea++; // Si todo va bien, el valor de $num_linea en esta línea es 7
 

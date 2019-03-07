@@ -24,16 +24,15 @@ $sqldatos = "select distinct prof from horw where dia='$i' order by prof";
 $lista= mysqli_query($db_con, $sqldatos );
 
 while($datatmp = mysqli_fetch_array($lista)) {
-	for ($z=1; $z < 7; $z++) { 
+	for ($z=1; $z < 7; $z++) {
 		${c.$z}="";
 		$asig = mysqli_query($db_con,"select distinct a_asig, a_aula from horw where prof='$datatmp[0]' and dia='$i' and hora='$z'");
 		while($dato_asig = mysqli_fetch_array($asig)){
-			${c.$z}=$dato_asig[0].'
-'.$dato_asig[1];
+			${c.$z}=$dato_asig[0].' '.((strlen($dato_asig[1]) < 5) ? $dato_asig[1] : '');
 		}
 	}
-	
-	$c7 = ' 	
+
+	$c7 = '
 	';
 	$profes = explode(', ',$datatmp[0]);
 	$profe = utf8_decode($profes[0].'
@@ -80,4 +79,3 @@ $pdf->ezNewPage();
 }
 
 $pdf->ezStream();
-?>
