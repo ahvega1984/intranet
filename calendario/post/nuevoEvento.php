@@ -51,6 +51,7 @@ foreach ($unidad_asignatura_evento as $grupo_cal) {
 	$gr_cal = $tr_gr[0];
 
 // Comprobamos si hay exámenes o actividades para ese grupo el mismo día
+
 	$chk_exam = mysqli_query($db_con,"select * from calendario where categoria > '2' and fechaini <= '$fecha_extra_ini' and fechafin >= '$fecha_extra_fin' and unidades like '%$gr_cal%'");
 		if (mysqli_num_rows($chk_exam)>0 and $config['calendario']['prefExamenes'] == 0 and strstr($_SESSION['cargo'], "1")==FALSE and $_SESSION['user_admin']!==1) {
 			header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
@@ -107,6 +108,15 @@ $string_asignatura = "";
 
 // Es una actividad extraescolar
 if ($calendario_evento == 2) {
+
+	// Sólo se registran actividades con un minimo de 7 días de antelación.
+	$fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
+	$fecha_actividad = strtotime($fechaini_evento);
+	  
+	if (is_integer($fecha_actividad - $fecha_actual) <= '604800' and strstr($_SESSION['cargo'], "1")==FALSE and $_SESSION['user_admin']!==1) {
+		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
+		exit();
+	 }
 	
 	$string_departamento = $departamento_evento;
 	

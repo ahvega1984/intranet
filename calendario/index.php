@@ -463,6 +463,11 @@ include("../menu.php"); ?>
 					<strong>ATENCIÓN: <br></strong> La fecha de Inicio de la actividad no puede ser posterior a la fecha de Finalización de la misma. Corrige las fechas e inténtalo de nuevo.
 				</div>
 
+			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==13): ?>
+				<div class="alert alert-danger alert-block hidden-print">
+					<strong>Error: <br></strong> No es posible registrar una actividad extraescolar con menos de 7 días de antelación. Si consideras que a pesar de todo es indispensable, ponte en contacto con algún miembro del Equipo directivo para poder hacerlo.
+				</div>
+
 				<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==1 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
 					<strong>Error: <br></strong> Estás intentando registrar una actividad para un Grupo que ya tiene planificada otra en el mismo día, y eso no está permitido. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.
