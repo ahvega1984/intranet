@@ -674,3 +674,14 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `mensajes` CHANGE `archivo` `archivo` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla mensajes', NOW())");
 }
+
+
+/*
+	@descripcion: Modificación estructura tabla alma
+	@fecha: 10 de marzo de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación estructura tabla alma'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `alma` ADD `NSEGSOCIAL` VARCHAR(15) NULL AFTER `FECHAMATRICULA`");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla alma', NOW())");
+}
