@@ -63,7 +63,9 @@ if ($handle = opendir($dir)) {
       $n_curso1 = $n_curso;
       $hoy = date('d/m/Y')." 08:00:00";
       $ano_curso=substr($config['curso_inicio'],0,4);
-      $xml="<SERVICIO>
+      $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+      
+      <SERVICIO>
       \t<DATOS_GENERALES>
       \t\t<MODULO>FALTAS DE ASISTENCIA</MODULO>
       \t\t<TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO>
