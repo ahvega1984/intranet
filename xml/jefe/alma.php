@@ -55,7 +55,7 @@ include("../../menu.php");
 						$n_col_tabla++;
 					}
 
-					if ($n_col_tabla!=$num_col) {
+					if (($n_col_tabla - 1) != $num_col) {
 
 						// Detenemos la operación porque Séneca ha modificado la estructura de RegAlum.txt
 

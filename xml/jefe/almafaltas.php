@@ -81,6 +81,7 @@ include '../../menu.php';
 			 `NACIONALIDAD` varchar( 32 ) default NULL,
 			 `SEXO` varchar( 1 ) default NULL ,
 			 `FECHAMATRICULA` varchar( 255 ) default NULL,
+			 `NSEGSOCIAL` varchar( 15 ) default NULL,
 			 PRIMARY KEY (`CLAVEAL`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
 
@@ -125,7 +126,7 @@ include '../../menu.php';
 						$n_col_tabla++;
 					}
 
-					if ($n_col_tabla!=$num_col) {
+					if (($n_col_tabla - 1) != $num_col) {
 
 						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
