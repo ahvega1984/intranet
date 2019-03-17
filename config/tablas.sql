@@ -359,6 +359,7 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
   `totp_secret` CHAR(16) NULL,
+  `rgpd_mostrar_nombre` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
