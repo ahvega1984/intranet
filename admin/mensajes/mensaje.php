@@ -12,10 +12,19 @@ else {
 	$id = intval($_GET['id']);
 }
 
+// Obtenemos la información del mensaje
 $result = mysqli_query($db_con, "SELECT mens_texto.asunto, mens_texto.ahora, mens_texto.texto, mens_texto.origen FROM mens_texto JOIN mens_profes ON mens_texto.id = mens_profes.id_texto WHERE mens_texto.id = '$id' LIMIT 1") or die (mysqli_error($db_con));
 $mensaje = mysqli_fetch_array($result);
 
-if(mysqli_num_rows($result)<1) {
+// Obtenemos los destinatarios del mensaje
+$destinatarios = array();
+$result_destinatarios = mysqli_query($db_con, "SELECT profesor FROM mens_profes WHERE id_texto = '$id'");
+while ($row_destinatarios = mysqli_fetch_array($result_destinatarios)) {
+	array_push($destinatarios, $row_destinatarios['profesor']);
+}
+
+// Comprobamos si existe el mensaje y si es el autor o destinatario
+if (mysqli_num_rows($result) < 1 || ($idea != $mensaje['origen'] && ! in_array($idea, $destinatarios))) {
 	header('Location:'.'index.php');
 	exit();
 }
@@ -39,7 +48,7 @@ else {
 		$enlace = '//'.$config['dominio'].'/intranet/admin/mensajes/redactar.php?profes=1&origen='.$mensaje['origen'].'&asunto=RE:%20'.$titulo;
 		$tarea = htmlspecialchars_decode($mensaje['texto']).'<p><br></p><p>Enviado por: '.$nom_profesor.'</p><p><a id="enlace_respuesta" href="'.$enlace.'"></a>';
 		$fechareg = date('Y-m-d H:i:s');
-		mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");	
+		mysqli_query($db_con, "INSERT tareas (idea, titulo, tarea, estado, fechareg, prioridad) VALUES ('".$idea."', '".$titulo."', '".$tarea."', 0, '".$fechareg."', 0)");
 	}
 }
 
@@ -51,29 +60,29 @@ include("menu.php");
 ?>
 
 	<div class="container">
-	  
+
 	  <!-- TITULO DE LA PAGINA -->
 	  <div class="page-header">
 	    <h2>Mensajes <small>Leer un mensaje</small></h2>
 	  </div>
-		
+
 	  <!-- SCAFFOLDING -->
 	  <div class="row">
-	  	
+
 	  	<!-- COLUMNA CENTRAL -->
 	    <div class="col-sm-12">
 
 	    	<h3><?php echo $mensaje['asunto']; ?></h3>
 	    	<h5 class="text-muted">Enviado por <?php echo nomprofesor($nom_profesor); ?> el <?php echo fecha_actual2($mensaje['ahora']); ?>
 	    	</h5>
-	    	
+
 	    	<br>
-	    	
+
 	      <?php echo stripslashes(html_entity_decode($mensaje['texto'], ENT_QUOTES, 'UTF-8')); ?>
-	      
+
 				<br>
 				<br>
-	      
+
 	      <div class="hidden-print">
 	      	<a href="index.php" class="btn btn-default">Volver</a>
 	      	<a href="redactar.php?profes=1&amp;origen=<?php echo $mensaje['origen']; ?>&amp;asunto=RE: <?php echo $mensaje['asunto']; ?>" class="btn btn-primary">Responder</a>
@@ -84,28 +93,28 @@ include("menu.php");
 	      	<?php $id !== $idprof ? $buzon='recibidos' : $buzon='enviados'; ?>
 					<a href="index.php?inbox=<?php echo $buzon; ?>&amp;delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
 	      </div>
-	      
+
 	    </div><!-- /.col-sm-12 -->
-	    
+
 	  </div><!-- /.row -->
-	  
+
 	  <br>
-	  
+
 	  <div class="row hidden-print">
-	  
+
 	  	<div class="col-sm-12">
-	  	
+
 			  <div class="well">
 			    <fieldset>
 			      <legend>Destinatarios</legend>
-			    
+
 			    <?php
 			    $result = mysqli_query($db_con, "SELECT recibidoprofe, profesor from mens_profes where id_texto = '$id'");
 			    $destinatarios = '';
-			    while($destinatario = mysqli_fetch_array($result)) {			      	
+			    while($destinatario = mysqli_fetch_array($result)) {
 				// Profesor
-			    	$query = mysqli_query($db_con,"select nombre from departamentos where idea = '$destinatario[1]'");	
-			      	if (mysqli_num_rows($query)>0) {			      	
+			    	$query = mysqli_query($db_con,"select nombre from departamentos where idea = '$destinatario[1]'");
+			      	if (mysqli_num_rows($query)>0) {
 					$row = mysqli_fetch_array($query);
 					$nom_profesor = $row[0];
 			      if ($destinatario[0] == '1') {
@@ -115,9 +124,9 @@ include("menu.php");
 			      	$destinatarios .= '<span class="text-danger">'.nomprofesor($nom_profesor).'</span> | ';
 			      }
 			      }
-			   // Alumno   
+			   // Alumno
 			      else{
-			    	$query2 = mysqli_query($db_con,"select nombre, apellidos from alma where claveal = '$destinatario[1]'");			      
+			    	$query2 = mysqli_query($db_con,"select nombre, apellidos from alma where claveal = '$destinatario[1]'");
 			      	$row2 = mysqli_fetch_array($query2);
 					$nom_alumno = $row2[0]." ".$row2[1];
 			      if ($destinatario[0] == '1') {
@@ -131,13 +140,13 @@ include("menu.php");
 			    echo trim($destinatarios, ' | ');
 			    ?>
 			    </fieldset>
-			    
+
 			  </div><!-- /.well -->
-	  	
+
 	  	</div><!-- /.col-sm-12 -->
-	  
+
 	  </div><!-- /.row -->
-	  
+
 	</div><!-- /.container -->
 
 <?php include('../../pie.php'); ?>
