@@ -6,10 +6,6 @@ $GLOBALS['db_con'] = $db_con;
 if (file_exists('config.php')) {
 	include('config.php');
 }
-else{
-	$config['calendario']['prefExamenes']=0;
-	$config['calendario']['prefActividades']=1;
-}
 
 if (file_exists("../admin/actividades/config.php")) {
   include("../admin/actividades/config.php");
