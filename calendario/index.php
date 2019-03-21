@@ -6,10 +6,6 @@ $GLOBALS['db_con'] = $db_con;
 if (file_exists('config.php')) {
 	include('config.php');
 }
-else{
-	$config['calendario']['prefExamenes']=0;
-	$config['calendario']['prefActividades']=1;
-}
 
 if (file_exists("../admin/actividades/config.php")) {
   include("../admin/actividades/config.php");
@@ -470,19 +466,22 @@ include("../menu.php"); ?>
 
 				<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==1 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<strong>Error: <br></strong> Estás intentando registrar una actividad para un Grupo que ya tiene planificada otra en el mismo día, y eso no está permitido. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.
+					<strong>Error: <br></strong> Estás intentando registrar una actividad para un grupo que ya tiene otra registrada en ese mismo día. Comprueba el calendario del grupo afectado y procura buscar otra fecha si te resulta posible. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.
 				</div>
 
-			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==11 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
+			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==10 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
+			<div class="alert alert-danger alert-block hidden-print">
+				<p><strong>Error: <br></strong> Estás intentando crear una actividad para un grupo <?php echo "(<strong>".$_GET['gr_cal']."</a></strong>)"; ?> que tiene registrado un examen en ese mismo día. Comprueba el calendario del grupo afectado y procura buscar otra fecha si te resulta posible. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.</p><br>
+				<a class="btn btn-info btn-sm" role="button" href="index_unidades.php?mes=<?php echo $_GET['mes']; ?>&anio=<?php echo $_GET['anio']; ?>&unidad=<?php echo $_GET['gr_cal']; ?>" target="_blank">Ver Calendario del Grupo</a>
+			</div>
+			<?php endif; ?>
+
+				<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==11 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<p>Estás intentando crear una actividad para un grupo <?php echo "(<strong>".$_GET['gr_cal']."</a></strong>)"; ?> que ya tiene otra registrada en ese mismo día. <em><strong>Comprueba el calendario del grupo afectado y procura buscar otra fecha si te resulta posible. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.
-					</p><br>
+					<p><strong>Error: <br></strong> Estás intentando crear una actividad para un grupo <?php echo "(<strong>".$_GET['gr_cal']."</a></strong>)"; ?> que ya tiene otra registrada en ese mismo día. Comprueba el calendario del grupo afectado y procura buscar otra fecha si te resulta posible. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.</p><br>
 					<a class="btn btn-info btn-sm" role="button" href="index_unidades.php?mes=<?php echo $_GET['mes']; ?>&anio=<?php echo $_GET['anio']; ?>&unidad=<?php echo $_GET['gr_cal']; ?>" target="_blank">Ver Calendario del Grupo</a>
-
 				</div>
-
 				<?php endif; ?>
-
 
 				<?php if ($_GET['msg'] && $_GET['msg'] != "EventoPendienteConfirmacion"): ?>
 				<div class="alert alert-danger alert-block hidden-print">
