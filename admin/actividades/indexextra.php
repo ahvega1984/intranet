@@ -106,6 +106,10 @@ if($detalles == '1')
 		</td>
 	</tr>
 	<tr>
+		<th>Lugar</th>
+		<td><?php echo $datos[8];?></td>
+	</tr>
+	<tr>
 		<th>Fecha</th>
 		<td><?php echo $fecha;?></td>
 	</tr>
