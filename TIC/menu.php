@@ -70,6 +70,8 @@
 					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2017/02/Manual_Guadalinex_Edu_Next.pdf" target="_blank">Manual de Usuario de Guadalinex Edu Next</a></li>
 					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2017/03/Manual_de-_Usuario_HGR.pdf" target="_blank">Herramienta de Gestión de Recursos (HGR)</a></li>
 					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2015/09/Guia_Rapida_SDI11.pdf" target="_blank">Guía Rápida Solución Digital Integral (SDI)</a></li>
+					<li><a href="https://www.youtube.com/watch?v=v1vtHApO4yA" target="_blank">Video sobre uso de pizarra digital Smartboard Board 800</a></li>
+					<li><a href="https://www.youtube.com/watch?v=1KIx86y2zz8" target="_blank">Video sobre uso de pizarra digital Smartboard Smart MX</a></li>
 					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2017/03/Manual-Gesuser-3.2.pdf" target="_blank">Manual de Gesuser 3.2</a></li>
 					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2013/10/Manual-Administración-BiblioWeb.pdf" target="_blank">Manual de Administración de BiblioWeb</a></li>
 					<li><a href="http://www.juntadeandalucia.es/educacion/cga/portal/wp-content/uploads/2013/12/Sincronización-de-BiblioWeb-con-Windows-72.pdf" target="_blank">Sincronización BiblioWeb con ABIES en Windows 7</a></li>
