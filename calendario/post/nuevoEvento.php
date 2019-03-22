@@ -112,10 +112,10 @@ if ($calendario_evento == 2) {
 	$fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
 	$fecha_actividad = strtotime($fechaini_evento);
 
-	if (is_integer($fecha_actividad - $fecha_actual) <= '604800' and strstr($_SESSION['cargo'], "1")==FALSE and $_SESSION['user_admin']!==1) {
-		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=11');
+	if (is_integer($fecha_actividad - $fecha_actual) <= '604800' && ! acl_permiso($_SESSION['cargo'], array('1','5'))) {
+		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=13');
 		exit();
-	 }
+	}
 
 	$string_departamento = $departamento_evento;
 
