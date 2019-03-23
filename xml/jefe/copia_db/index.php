@@ -48,11 +48,10 @@ function mb_file($bytes) {
 // CREAR COPIA DE SEGURIDAD
 if(isset($_GET['action']) && $_GET['action']=="crear") {
 
-
 	$result = copia_bd($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 
-	if($result) {
-		$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio ".__DIR__." tiene permiso de escritura.";
+	if ($result == NULL) {
+		$msg_error = "No ha sido posible crear la copia de seguridad. Probablemente su proveedor no permite la ejecución de comandos a través del servidor web. Realice una copia de seguridad a través de phpMyAdmin u otro gestor de base de datos.";
 	}
 	else {
 		$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $bd . ".";
@@ -110,13 +109,18 @@ include("../../../menu.php");
 					<?php $directorio = opendir(__DIR__); ?>
 					<?php while (($archivo = readdir($directorio)) !== false): ?>
 					<?php if(!in_array($archivo, array('.','..','index.php','restaurar.php','php.ini'))): ?>
+          <?php
+          $exp_archivo = explode('_', $archivo);
+          $fecha_completa = rtrim($exp_archivo[2], '.sql.gz');
+          $fecha_formateada = preg_replace('/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/i', '$3-$2-$1 $4:$5:$6', $fecha_completa);
+          ?>
 					<tbody>
 						<tr>
 							<td><?php echo $archivo; ?></td>
 							<td><?php echo mb_file(filesize($archivo)); ?></td>
-							<td><?php echo date("d-m-Y H:i:s", filectime($archivo)); ?></td>
+							<td><?php echo $fecha_formateada; ?></td>
 							<td nowrap>
-								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Restaurar"><span class="far fa-undo fa-lg fa-fw"></span></a>
+								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" data-bb="confirm-restore" data-bs="tooltip" title="Restaurar"><span class="far fa-undo fa-lg fa-fw"></span></a>
 								<a href="index.php?action=descargar&archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Descargar"><span class="fas fa-download fa-lg fa-fw"></span></a>
 								<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 							</td>
@@ -138,6 +142,31 @@ include("../../../menu.php");
 </div>
 
 <?php include("../../../pie.php"); ?>
+
+<script>
+$(document).on("click", "a[data-bb]", function(e) {
+    e.preventDefault();
+    var type = $(this).data("bb");
+    var link = $(this).attr("href");
+
+    if (type == 'confirm-restore') {
+      bootbox.setDefaults({
+        locale: "es",
+        show: true,
+        backdrop: true,
+        closeButton: true,
+        animate: true,
+        title: "Confirmación para restaurar la base de datos",
+      });
+
+      bootbox.confirm("Esta acción eliminará el contenido actual de la base de datos y restaurará la copia de seguridad. ¿Seguro que desea continuar?", function(result) {
+          if (result) {
+            document.location.href = link;
+          }
+      });
+    }
+});
+</script>
 
 </body>
 </html>
