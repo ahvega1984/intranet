@@ -1,14 +1,14 @@
 <?php
-  if(isset($_GET['todos']) and $_GET['todos'] == "1") { 
+  if(isset($_GET['todos']) and $_GET['todos'] == "1") {
   $titulo = "Todos los Informes en este año escolar";
-} else { 
+} else {
   $titulo = "Informes que responden a los datos introducidos";
 }
-  if(isset($_GET['ver']) or isset($_POST['ver'])) { 
+  if(isset($_GET['ver']) or isset($_POST['ver'])) {
   $id = $_GET['ver'];
   include("infocompleto.php");
 exit;}
-  if(isset($_GET['meter']) or isset($_POST['meter'])) { 
+  if(isset($_GET['meter']) or isset($_POST['meter'])) {
   $id = $_GET['llenar'];
   include("informar.php");
 exit;
@@ -27,7 +27,7 @@ if ($_SESSION['pagina_centro'] && file_exists('../../../config.php')) {
 	include_once('../../../config.php');
 
 	$verInformesTutoria = (isset($config['alumnado']['ver_informes_tutoria']) && $config['alumnado']['ver_informes_tutoria']) ? 1 : 0;
-}	
+}
 
 
 $profesor = $_SESSION['profi'];
@@ -80,10 +80,10 @@ $extra.="&unidad=$unidad";
 }
 // Consulta
  $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, tutor, F_ENTREV, valido
-  FROM infotut_alumno WHERE 1=1 "; 
-  if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";} 
-  if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";} 
-  if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";} 
+  FROM infotut_alumno WHERE 1=1 ";
+  if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";}
+  if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";}
+  if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";}
   $query .=  " ORDER BY F_ENTREV DESC";
 $result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
 
@@ -105,14 +105,14 @@ if (mysqli_num_rows($result) > 0)
         else {
             echo '<span class="img-thumbnail far fa-user fa-fw fa-3x" style="width: 64px !important;"></span>';
 		}
-		echo "&nbsp;&nbsp;";	
+		echo "&nbsp;&nbsp;";
    echo stripslashes($row->NOMBRE).' '.stripslashes($row->APELLIDOS).'</TD>';
   echo " <TD style='vertical-align:middle' nowrap>$row->unidad</TD>
    <TD style='vertical-align:middle' nowrap>$row->F_ENTREV</TD>";
-echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='fas fa-search' title='Ver Informe'></i></a>";	
+echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='fas fa-search' title='Ver Informe'></i></a>";
 
 $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
-$row0 = mysqli_fetch_array ( $result0 );	
+$row0 = mysqli_fetch_array ( $result0 );
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or (nomprofesor($tuti) == nomprofesor($_SESSION['profi']))) {
    			echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='far fa-trash-alt' title='Borrar Informe'></i></a>";
@@ -120,10 +120,10 @@ $tuti = $row0[0];
 
 			if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org' || $verInformesTutoria) {
 				if ($validado) {
-					echo "<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='fas fa-check-square' data-bs='tooltip' title='Informe validado por el Tutor'></i></a>";				
+					echo "<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='fas fa-check-square' data-bs='tooltip' title='Informe validado por el Tutor'></i></a>";
 				}
 				else {
-					echo "<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='far fa-minus-circle' data-bs='tooltip' title='Informe no validado por el Tutor'></i> </a>";					
+					echo "<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='far fa-minus-circle' data-bs='tooltip' title='Informe no validado por el Tutor'></i> </a>";
 				}
 			}
 
@@ -131,8 +131,20 @@ $tuti = $row0[0];
 		else {
 			$result_profe = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='".nomprofesor($_SESSION['profi'])."' and grupo = '".stripslashes($row->unidad)."'");
 			if (mysqli_num_rows($result_profe) && date('Y-m-d') <= $row->F_ENTREV) {
-				echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
-
+        $row_profe = mysqli_fetch_array($result_profe);
+        if ($row_profe['materia'] == 'Refuerzo Pegagógico' || $row_profe['materia'] == 'Pedagogía Terapéutica') {
+          $result_alumnos_pt_o_ref = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '$pr' AND curso = '$row->unidad' LIMIT 1");
+      		if (mysqli_num_rows($result_alumnos_pt_o_ref)) {
+      			$row_alumnos_pt_o_ref = mysqli_fetch_array($result_alumnos_pt_o_ref);
+      			$alumnos_pt_o_ref = explode(',', $row_alumnos_pt_o_ref['alumnos']);
+      		}
+          if (in_array($row->CLAVEAL, $alumnos_pt_o_ref)) {
+            echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
+          }
+        }
+        else {
+          echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
+        }
 			}
 		}
 echo '</div></td></tr>';
@@ -152,14 +164,14 @@ No hay Informes de Tutor&iacute;a disponibles.</div></div><hr>';
 if(mysqli_num_rows($result0) > 50) {
 ?>
 <a href="buscar.php?pag=<?php echo $pag;?>" class="btn btn-primary">Siguientes 50 Informes</a>
-<?php 
+<?php
 }
 ?>
 </div>
 </div>
 
 		</div>
-<?php include("../../pie.php");?>		
+<?php include("../../pie.php");?>
 
 	<script>
 	$(document).ready(function() {
@@ -167,11 +179,11 @@ if(mysqli_num_rows($result0) > 50) {
 			"paging":   true,
 	    "ordering": true,
 	    "info":     false,
-	    
+
 			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-			
+
 			"order": [[ 2, "desc" ]],
-			
+
 			"language": {
 			            "lengthMenu": "_MENU_",
 			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",

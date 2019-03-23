@@ -8,6 +8,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$curso0 = explode("-",$curso);
 	$nivel_i = $curso;
 	$asignatura = trim($rowcurs[1]);
+	$esPT_o_REF = 0;
 	$texto_asig="";
 	$c_asig="";
 
@@ -20,10 +21,11 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 
 	$asigna1 = mysqli_query($db_con, $asigna0);
 	if(mysqli_num_rows($asigna1)>1){
-	while($asigna2 = mysqli_fetch_array($asigna1)){
-		$texto_asig.=" combasi like '%$asigna2[0]:%' or";
-		$c_asig.=" asignatura = '$asigna2[0]' or";
-	}
+		while($asigna2 = mysqli_fetch_array($asigna1)){
+			$texto_asig.=" combasi like '%$asigna2[0]:%' or";
+			$c_asig.=" asignatura = '$asigna2[0]' or";
+			if ($asigna2[0] == '21' || $asigna2[0] == '136') $esPT_o_REF = 1;
+		}
 		$texto_asig=substr($texto_asig,0,-3);
 		$c_asig=substr($c_asig,0,-3);
 	}
@@ -31,11 +33,17 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 		$asigna2 = mysqli_fetch_array($asigna1);
 		$texto_asig=" combasi like '%$asigna2[0]:%'";
 		$c_asig=" asignatura = '$asigna2[0]'";
+		if ($asigna2[0] == '21' || $asigna2[0] == '136') $esPT_o_REF = 1;
 	}
 
 	if($c_asig){
 		$hoy = date('Y-m-d');
-		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and (".$texto_asig.") ORDER BY F_ENTREV asc";
+		if ($esPT_o_REF) {
+			$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' ORDER BY F_ENTREV asc";
+		}
+		else {
+			$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and (".$texto_asig.") ORDER BY F_ENTREV asc";
+		}
 		//echo $query;
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";

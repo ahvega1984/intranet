@@ -251,6 +251,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	$curso = $rowcurso[0];
 	$unidad_t = $curso;
 	$asignatura = $rowcurso[1];
+	$esPT_o_REF = 0;
 
 	// Problema con asignaturas comunes de Bachillerato con distinto código
 	if(strlen($rowcurso[2])>15){
@@ -266,6 +267,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 		$codasi = $asigna2[0];
 		$texto_asig2.=" combasi like '%$asigna2[0]:%' or";
 		$c_asig2.=" asignatura = '$asigna2[0]' or";
+		if ($asigna2[0] == '21' || $asigna2[0] == '136') $esPT_o_REF = 1;
 	}
 	$texto_asig2=substr($texto_asig2,0,-3);
 	$c_asig2=substr($c_asig2,0,-3);
@@ -275,6 +277,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 		$codasi = $asigna2[0];
 		$texto_asig2=" combasi like '%$asigna2[0]:%'";
 		$c_asig2=" asignatura = '$asigna2[0]'";
+		if ($asigna2[0] == '21' || $asigna2[0] == '136') $esPT_o_REF = 1;
 	}
 
 	if($c_asig2){
@@ -284,7 +287,12 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	$nuevafecha = strtotime ( '-2 day' , strtotime ( $hoy ) ) ;
 	$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$nuevafecha' and tareas_alumnos. unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
+	if ($esPT_o_REF) {
+		$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$nuevafecha' and tareas_alumnos. unidad = '$unidad_t' ORDER BY tareas_alumnos.FECHA asc";
+	}
+	else {
+		$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$nuevafecha' and tareas_alumnos. unidad = '$unidad_t' and ($texto_asig2) ORDER BY tareas_alumnos.FECHA asc";
+	}
 	$result = mysqli_query($db_con, $query);
 	if (mysqli_num_rows($result) > 0)
 	{
@@ -351,6 +359,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 
 	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso like '$rowcurso3[2]' and abrev not like '%\_%'";
 	//echo $asigna03."<br>";
+	$esPT_o_REF = 0;
 	$texto_asig3="";
 	$c_asig3="";
 	$asigna13 = mysqli_query($db_con, $asigna03);
@@ -360,6 +369,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 		$codasi1 = $asigna23[0];
 		$texto_asig3.=" combasi like '%$asigna23[0]:%' or";
 		$c_asig3.=" asignatura = '$asigna23[0]' or";
+		if ($codasi1 == '21' || $codasi1 == '136') $esPT_o_REF = 1;
 	}
 	$texto_asig3=substr($texto_asig3,0,-3);
 	$c_asig3=substr($c_asig3,0,-3);
@@ -369,13 +379,19 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 		$codasi1 = $asigna23[0];
 		$texto_asig3=" combasi like '%$asigna23[0]:%'";
 		$c_asig3=" asignatura = '$asigna23[0]'";
+		if ($codasi1 == '21' || $codasi1 == '136') $esPT_o_REF = 1;
 	}
 
 	if($c_asig3){
 
 	$hoy = date('Y-m-d');
 
-	$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
+	if ($esPT_o_REF) {
+		$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' ORDER BY F_ENTREV asc";
+	}
+	else {
+		$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
+	}
 
 	$query33 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno WHERE date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and apellidos like 'Informe general%' ORDER BY F_ENTREV asc";
 	//echo $query3."<br>";

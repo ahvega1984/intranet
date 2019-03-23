@@ -1,15 +1,15 @@
 <?php
-  if(isset($_GET['todos']) and $_GET['todos'] == "1") { 
+  if(isset($_GET['todos']) and $_GET['todos'] == "1") {
   $titulo = "Todos los Informes en este año escolar";
-} else { 
+} else {
   $titulo = "Informes que responden a los datos introducidos";
 }
-  if(isset($_GET['ver']) or isset($_POST['ver'])) { 
+  if(isset($_GET['ver']) or isset($_POST['ver'])) {
   $id = $llenar;
   include("infocompleto.php");
 exit;}
 
-  if(isset($_GET['meter']) or isset($_POST['meter'])) { 
+  if(isset($_GET['meter']) or isset($_POST['meter'])) {
   $id = $llenar;
   include("informar.php");
 exit;
@@ -45,10 +45,10 @@ if (!(empty($unidad))) {
 <div class="col-md-10 col-md-offset-1">
 <?php
 // Consulta
- $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, FECHA FROM tareas_alumnos WHERE 1=1 "; 
-  if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";} 
-  if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";} 
-  if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";} 
+ $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, FECHA FROM tareas_alumnos WHERE 1=1 ";
+  if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";}
+  if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";}
+  if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";}
   $query .=  " ORDER BY FECHA DESC";
 //echo $query;
 $result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
@@ -79,15 +79,15 @@ if (mysqli_num_rows($result) > 0)
 		}
 		else {
 			echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
-		}	
+		}
    echo stripslashes($row->APELLIDOS)." ".stripslashes($row->NOMBRE)."</TD>
    <TD style='vertical-align:middle'>".stripslashes($row->unidad)."</TD>
    <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";
-   
+
    echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-search ' title='Ver Informe'> </i></a>";
-   
+
      $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
-$row0 = mysqli_fetch_array ( $result0 );	
+$row0 = mysqli_fetch_array ( $result0 );
 $tuti = $row0[0];
 	if (stristr($_SESSION ['cargo'],'1') == TRUE || nomprofesor($tuti) == nomprofesor($_SESSION['profi'])) {
 		echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
@@ -96,8 +96,20 @@ $tuti = $row0[0];
 	else {
 		$result_profe = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='".nomprofesor($_SESSION['profi'])."' and grupo = '".stripslashes($row->unidad)."'");
 		if (mysqli_num_rows($result_profe) && date('Y-m-d') <= $row->FECHA) {
-			 echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
-			 
+       $row_profe = mysqli_fetch_array($result_profe);
+       if ($row_profe['materia'] == 'Refuerzo Pegagógico' || $row_profe['materia'] == 'Pedagogía Terapéutica') {
+         $result_alumnos_pt_o_ref = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '$pr' AND curso = '$row->unidad' LIMIT 1");
+         if (mysqli_num_rows($result_alumnos_pt_o_ref)) {
+           $row_alumnos_pt_o_ref = mysqli_fetch_array($result_alumnos_pt_o_ref);
+           $alumnos_pt_o_ref = explode(',', $row_alumnos_pt_o_ref['alumnos']);
+         }
+         if (in_array($row->CLAVEAL, $alumnos_pt_o_ref)) {
+           echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
+         }
+       }
+       else {
+         echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fas fa-pencil-alt' title='Rellenar Informe'> </i> </a>";
+       }
 		}
 	}
 echo  '</div></td></tr>';
@@ -118,18 +130,18 @@ No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 </div>
 		</div>
 		<?php include("../../pie.php");?>
-		
+
 		<script>
 		$(document).ready(function() {
 			var table = $('.datatable').DataTable({
 				"paging":   true,
 		    "ordering": true,
 		    "info":     false,
-		    
+
 				"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-				
+
 				"order": [[ 2, "desc" ]],
-				
+
 				"language": {
 				            "lengthMenu": "_MENU_",
 				            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
@@ -147,6 +159,6 @@ No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 			});
 		});
 		</script>
-		
+
 </body>
 </html>

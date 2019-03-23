@@ -32,7 +32,7 @@ function descambia_color(primero,segundo,tercero,cuarto,quinto,sexto,septimo,oct
 	celda = document.getElementById(octavo);celda.style.backgroundColor="#fff";
 	celda = document.getElementById(noveno);celda.style.backgroundColor="#fff";
 	celda = document.getElementById(decimo);celda.style.backgroundColor="#fff";
-	}	
+	}
 </script>
 <style>
 input[type=number]::-webkit-inner-spin-button {
@@ -103,7 +103,7 @@ if($pr and $dia and $hora)
 	}
 
 	$num_asig0 = mysqli_query($db_con, "SELECT distinct c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY c_asig");
-	while ($num_asig1=mysqli_fetch_array($num_asig0)) {	
+	while ($num_asig1=mysqli_fetch_array($num_asig0)) {
 		$num_codigos++;
 		$codigos.= $num_asig1[0]." ";
 		${asignatura.$num_codigos}=$num_asig1[0];
@@ -116,7 +116,7 @@ if($pr and $dia and $hora)
 	else{
 			$asignatura2=$asignatura1;
 			$extra_asig = "";
-	}	
+	}
 
 	?>
 <div class='container'>
@@ -202,7 +202,7 @@ include("cuaderno/menu_cuaderno.php");
 
 					// Número de Columnas para crear la tabla
 					$num_col =  $cols2;
-					
+
 					// Comprueba si es un PMAR
 					$result_pmar = mysqli_query($db_con, "SELECT abrev FROM materias WHERE codigo = '".$asignatura."' LIMIT 1");
 					$row_abrevpmar = mysqli_fetch_array($result_pmar);
@@ -211,7 +211,7 @@ include("cuaderno/menu_cuaderno.php");
 
 					if ($esPMAR) {
 						// Problemas con PMAR
-						$asig_div="";						
+						$asig_div="";
 						$div = $curso;
 						$nivel_curso2 = substr($div,0,-1);
 						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%$codigo_pmar2%' or combasi LIKE '%$codigo_pmar3%')");
@@ -224,7 +224,6 @@ include("cuaderno/menu_cuaderno.php");
 
 					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
-						mysqli_select_db($db_con, $db);
 						$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
 						//echo $hay0."<br>";
 						$hay1 = mysqli_query($db_con, $hay0);
@@ -236,7 +235,7 @@ include("cuaderno/menu_cuaderno.php");
 									foreach ($todos_al as $val) {
 										$todos .= " claveal like '$val' or";
 									}
-								$todos = substr($todos, 0, -2);	
+								$todos = substr($todos, 0, -2);
 								$todos .= ")";
 							}
 						}
@@ -250,20 +249,20 @@ include("cuaderno/menu_cuaderno.php");
 							// Bachillerato con dos códigos distintos
 
 							$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where prof = '$pr' and dia = '$dia' and hora = '$hora' and c_asig not like '$asignatura'");
-							if (mysqli_num_rows($asig_bach)>0) {							
+							if (mysqli_num_rows($asig_bach)>0) {
 								$as_bach=mysqli_fetch_array($asig_bach);
-								$cod_asig_bach = $as_bach[0];							
+								$cod_asig_bach = $as_bach[0];
 								$resul.=" (combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach:%')";
 								$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$cod_asig_bach'";
 							}
-							else{								
+							else{
 								$resul.=" combasi like '%$asignatura:%'";
 							}
 						}
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
 						}
-					elseif($asignatura=="21" or $asignatura=="2" or $asignatura=="386"){
+					elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="386"){
 							$resul.= " 1=1 ";
 						}
 					else{
@@ -294,7 +293,7 @@ include("cuaderno/menu_cuaderno.php");
 							echo "<tr><td>
 								<div style='width:40px;height:90px;'>
 								<div class='Rotate-corto'></div>
-								</div> 
+								</div>
 								</td></tr>";
 						}
 						?>
@@ -306,7 +305,7 @@ include("cuaderno/menu_cuaderno.php");
 							}
 							else {
 								echo '<span class="img-thumbnail far fa-user fa-fw fa-2x" style="width: 45px !important;"></span>';
-							}											
+							}
 						}
 						echo $foto1;
 						echo "&nbsp;";?>&nbsp; <?php
@@ -330,14 +329,14 @@ include("cuaderno/menu_cuaderno.php");
 				style='width: auto'>
 				<tr>
 				<?php if ($config['mod_asistencia']) { ?>
-					
+
 					<td>
 					<div style='width: 40px; height: 104px;'>
 					<div class='Rotate-90'><span style='font-weight: bold'>Asistencia</span>
 					</div>
 					</div>
 					</td>
-				<?php } ?>	
+				<?php } ?>
 					<?php
 					// Notas de las Evaluaciones de Séneca
 					$ev_sen0 = mysqli_query($db_con,"select notas0 from notas where notas0 != ''");
@@ -348,7 +347,7 @@ include("cuaderno/menu_cuaderno.php");
 					$num_ev1 = mysqli_num_rows($ev_sen1);
 					$num_ev2 = mysqli_num_rows($ev_sen2);
 					$num_ev3 = mysqli_num_rows($ev_sen3);
-					
+
 					if ($num_ev0 > 0) {
 						$n_columnas = 0;
 					}
@@ -356,21 +355,21 @@ include("cuaderno/menu_cuaderno.php");
 						$n_columnas = 1;
 					}
 
-					for ($i=$n_columnas; $i < 4; $i++) { 
+					for ($i=$n_columnas; $i < 4; $i++) {
 									if (${num_ev.$i}>0 and $asignatura!=="2") {
 									if ($i == 0) {
 										echo "<td nowrap>
 									<div style='width:40px;height:104px;'>
 									<div class='Rotate-90'><span style='font-weight:bold'>Eval. Inic. Séneca</span></div>
-									</div> </td>";	
-										}	
+									</div> </td>";
+										}
 									else{
 										echo "<td nowrap>
 									<div style='width:40px;height:104px;'>
 									<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
 									</div> </td>";
 										}
-									
+
 									${extra_sen.$i} = "1";
 									}
 								}
@@ -467,7 +466,7 @@ include("cuaderno/menu_cuaderno.php");
 
 						// Número de Columnas para crear la tabla
 						$num_col =  $cols2;
-						
+
 						if ($esPMAR) {
 							//	Problemas con PMAR
 							$div = $curso;
@@ -513,10 +512,10 @@ include("cuaderno/menu_cuaderno.php");
 										foreach ($todos_al as $val) {
 											$todos .= " claveal like '$val' or";
 										}
-									$todos = substr($todos, 0, -2);	
+									$todos = substr($todos, 0, -2);
 									$todos .= " )";
 								    					}
-								
+
 						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
@@ -526,18 +525,18 @@ include("cuaderno/menu_cuaderno.php");
 							$cod_asig_bach2="";
 							// Bachillerato con dos códigos distintos
 							$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where prof = '$pr' and dia = '$dia' and hora = '$hora' and c_asig not like '$asignatura'");
-							if (mysqli_num_rows($asig_bach)>0) {							
+							if (mysqli_num_rows($asig_bach)>0) {
 								$as_bach=mysqli_fetch_array($asig_bach);
-								$cod_asig_bach2 = $as_bach[0];							
+								$cod_asig_bach2 = $as_bach[0];
 								$resul.=" (combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach2:%')";
 								$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$cod_asig_bach2'";
 							}
-							else{								
+							else{
 								$resul.=" combasi like '%$asignatura:%'";
 								$fal_e =" FALTAS.codasi='$asignatura'";
 							}
 						}
-						elseif($asignatura=="21" or $asignatura=="2"){
+						elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="386"){
 								$resul.= " 1=1 ";
 								$fal_e.= " 1=1 ";
 						}
@@ -556,22 +555,22 @@ include("cuaderno/menu_cuaderno.php");
 								echo "<tr>";
 								$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig)  and oculto = '0' order by orden asc";
 								$col00 = mysqli_query($db_con, $col_col);
-								
-								if ($config['mod_asistencia']) { 
+
+								if ($config['mod_asistencia']) {
 								echo "<td nowrap>
 								<div style='width:40px;height:90px;'>
 								<div class='Rotate-corto'>Asistencia</div>
 								</div> </td>";
 								}
 
-								for ($i=$n_columnas; $i < 4; $i++) { 
+								for ($i=$n_columnas; $i < 4; $i++) {
 									if (${num_ev.$i}>0) {
 										if ($i == 0) {
 										echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
 									<div class='Rotate-corto'>Ev. Inic. Séneca</div>
 									</div> </td>";
-										}	
+										}
 									else{
 										echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
@@ -583,7 +582,7 @@ include("cuaderno/menu_cuaderno.php");
 
 								while($col30 = mysqli_fetch_array($col00)){
 									$tipo_col = $col30[2];
-									
+
 									if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
 
 									$nombre_col="";
@@ -594,12 +593,12 @@ include("cuaderno/menu_cuaderno.php");
 									else {
 										$col_vert = $nombre_col;
 									}
-									
+
 									echo "<td nowrap>
 <div style='width:40px;height:90px;'>
 <div class='Rotate-corto'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </td>";
-								
+
 								}
 								if($seleccionar == 1){
 									echo "<td nowrap class='warning'>
@@ -622,7 +621,7 @@ include("cuaderno/menu_cuaderno.php");
 								echo "<tr>";
 								?>
 					<?php if ($config['mod_asistencia']) { ?>
-					<td style='vertical-align: middle; height: 74px !important;'><?php 
+					<td style='vertical-align: middle; height: 74px !important;'><?php
 					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
 					//echo "select falta from FALTAS where profesor = (select distinct c_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'";
 
@@ -638,7 +637,7 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?php } ?>
 					<?php
-						for ($i=0; $i < 4; $i++) { 
+						for ($i=0; $i < 4; $i++) {
 									if (${num_ev.$i}>0 and $asignatura!=="2") {
 									?>
 					<td style="background-color:#444;color:#fff;vertical-align: middle; text-align: center; height: 74px !important;">
@@ -647,7 +646,7 @@ include("cuaderno/menu_cuaderno.php");
 					${dato_seneca.$i} = mysqli_fetch_array(${seneca.$i});
 					$tr_n = explode(";", ${dato_seneca.$i}[0]);
 					foreach ($tr_n as $value) {
-						
+
 							$tr_d = explode(":", $value);
 							if ($tr_d[0]==$asignatura or $tr_d[0]==$asignatura2) {
 								$califica = "select abreviatura from calificaciones where codigo = '" . $tr_d[1] . "'";
@@ -655,8 +654,8 @@ include("cuaderno/menu_cuaderno.php");
 								$rown = mysqli_fetch_array($calificacion);
 								echo $rown[0];
 							}
-						}	
-					?>	
+						}
+					?>
 					</td>
 					<?php
 								}
@@ -669,11 +668,11 @@ include("cuaderno/menu_cuaderno.php");
 						$id = $colus10[0];
 						$t_dato = $colus10[1];
 						$color_dato = $colus10[2];
-				
+
 						$tr_pond= explode(":",$colus10[3]);
 						$id_pond_col=str_replace(" ","",$tr_pond[1]);
 						$pond_extra="";
-						
+
 						$dato0 = mysqli_query($db_con, "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
 						$dato1 = mysqli_fetch_array($dato0);
 
@@ -752,7 +751,7 @@ include("cuaderno/menu_cuaderno.php");
 					echo '" />';
 
 					?>
-			
+
 			</table>
 			</div>
 			</td>
@@ -782,7 +781,7 @@ e.preventDefault()
 })
 $('form').on('blur', 'input[type=number]', function (e) {
 $(this).off('mousewheel.disableScroll')
-})	
+})
 </script>
 
 <script type="text/javascript">

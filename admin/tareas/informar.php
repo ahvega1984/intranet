@@ -21,10 +21,10 @@ include("menu.php");
 </div>
 <br>
 
-<div class="col-md-6 col-md-offset-3">	
+<div class="col-md-6 col-md-offset-3">
 
 <div class="well well-large" >
-<form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>">         
+<form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>">
 <?php
 
 echo "<input type='hidden'  name='ident' value='$id'>";
@@ -40,7 +40,7 @@ echo '<br /><div align="center"><div class="alert alert-warning alert-block fade
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo.<br /><br /
 ><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
-	exit();	
+	exit();
 }
 $claveal=trim($dalumno[0]);
 echo "<table align=center class='table table-striped'>";
@@ -48,7 +48,7 @@ echo "<thead><tr  class='active'><th>Alumno/a </th>
  <th>Grupo</th><th nowrap>Expulsión</th><th>Duración</th><tr></thead><tbody>
 <TR><td>$dalumno[1], $dalumno[2]</td>
 <td>$dalumno[3]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
-	   
+
 	if ($foto = obtener_foto_alumno($claveal)) {
 		echo '<img class="img-thumbnail" src="../../xml/fotos/'.$foto.'" style="width: 85px !important;" alt="">';
 	}
@@ -67,7 +67,7 @@ $asignatur = str_replace("&","",$asignatur);
 $asi=mysqli_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 $asig0 = explode(":",$asi1);
-foreach($asig0 as $asignatura){			
+foreach($asig0 as $asignatura){
 $abrev = mysqli_query($db_con, "select distinct nombre from asignaturas where codigo = '$asignatura'  and abrev not like '%\_%' limit 1");
 				while($abrev0 = mysqli_fetch_row($abrev)){
 				$nombre10 = $abrev0[0];
@@ -92,7 +92,7 @@ echo"<OPTION></OPTION>";
 while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
 $cod = $coinciden0[1];
-if (strstr($asi1,$cod)==TRUE) {
+if (strstr($asi1,$cod)==TRUE || $cod == '26' || $cod == '136') {
 				if($n_asig == $asignatur){
 				$materia = $n_asig;
 				echo "<OPTION selected='selected'>$n_asig </OPTION>";
@@ -116,6 +116,6 @@ echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='inf
 </div>
 </div>
 </div>
-<?php include("../../pie.php");?>		
+<?php include("../../pie.php");?>
 </body>
 </html>

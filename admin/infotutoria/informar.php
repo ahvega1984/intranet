@@ -22,8 +22,8 @@ include("menu.php");
 </div>
 <br>
 
-<div class="col-md-6 col-md-offset-3">	
-        
+<div class="col-md-6 col-md-offset-3">
+
 <?php
 $asignatura = $_POST['asignatura'];
 $alumno=mysqli_query($db_con, "SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso, infotut_alumno.motivo FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
@@ -36,11 +36,11 @@ if (empty($dalumno[0])) {
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo
 <br><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
 		</div></div>';
-	exit;	
+	exit;
 }
 ?>
 <div class="well well-large">
- <form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>"> 
+ <form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>">
 <?php
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$pr'>";
@@ -52,7 +52,7 @@ if (empty($dalumno[0])) {
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo.<br /><br /
 ><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
-	exit();	
+	exit();
 }
 
 echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
@@ -90,7 +90,7 @@ $asi=mysqli_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 $coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$pr'");
 if(mysqli_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
-$coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
+$coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");
 }
 echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required onChange='submit()'>";
 echo"<OPTION>$asignatura</OPTION>";
@@ -103,7 +103,7 @@ if (isset($_GET['materia'])) {
 while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
 $cod = $coinciden0[1];
-if (strstr($asi1,$cod)==TRUE) {
+if (strstr($asi1,$cod)==TRUE || $cod == '26' || $cod == '136') {
 				if($n_asig == $asignatur){
 					if (isset($asignatura)) {
 						$materia = $asignatura;
@@ -137,6 +137,6 @@ echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='inf
 </div>
 </div>
 
-<?php include("../../pie.php");?>		
+<?php include("../../pie.php");?>
 </body>
 </html>
