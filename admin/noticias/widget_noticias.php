@@ -6,7 +6,7 @@
 <hr>
 
 <!-- NOTICIAS DESTACADAS -->
-<?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria from noticias where pagina like '%1%' and fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC"); ?>
+<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, categoria from noticias where pagina like '%1%' and fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC"); ?>
 <?php $noticias_destacadas = mysqli_num_rows($result); ?>
 <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
 <article class="well">
@@ -19,11 +19,11 @@
 <?php echo ($noticias_destacadas) ? '<hr>' : ''; ?>
 
 <!-- ÚLTIMAS NOTICIAS -->
-<?php $result = mysqli_query($db_con, "SELECT id, titulo, contenido, fechapub, categoria FROM noticias WHERE fechapub <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' AND id NOT IN (SELECT id FROM noticias WHERE pagina LIKE '%1%' AND fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC) ORDER BY fechapub DESC LIMIT 8"); ?>
+<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, categoria FROM noticias WHERE fechapub <= '".date('Y-m-d H:i:s')."' AND pagina LIKE '%1%' AND id NOT IN (SELECT id FROM noticias WHERE pagina LIKE '%1%' AND fechafin >= '".date('Y-m-d H:i:s')."' ORDER BY fechapub DESC) ORDER BY fechapub DESC LIMIT 8"); ?>
 <?php if (mysqli_num_rows($result)): ?>
-	
+
 <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
-		
+
 <?php $exp_profesor = explode(',', $row['autor']); ?>
 <?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 
@@ -33,10 +33,10 @@
 </article>
 
 <hr>
-		
+
 <?php endwhile; ?>
 <?php mysqli_free_result($result); ?>
-	
+
 <?php else: ?>
 
 	<div class="text-center">
