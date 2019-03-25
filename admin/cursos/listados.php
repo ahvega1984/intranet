@@ -19,7 +19,7 @@ class GranPDF extends PDF_MC_Table {
 	}
 	function Footer() {
 		global $config;
-		
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
@@ -133,7 +133,7 @@ foreach ($unidades as $unidad) {
 			$MiPDF->SetFont('NewsGotT', 'B', 11);
 			$MiPDF->Cell(32, 5, 'Curso académico: ', 0, 0, 'L', 0);
 			$MiPDF->SetFont('NewsGotT', '', 11);
-			$MiPDF->Cell(36, 5, $GLOBALS['CURSO_ACTUAL'], 0, 1, 'L', 0 );
+			$MiPDF->Cell(36, 5, $config['curso_actual'], 0, 1, 'L', 0 );
 
 			// Obtenemos el tutor/a de la unidad
 			$result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
@@ -248,7 +248,7 @@ foreach ($unidades as $unidad) {
 		$MiPDF->SetFont('NewsGotT', 'B', 11);
 		$MiPDF->Cell(32, 5, 'Curso académico: ', 0, 0, 'L', 0);
 		$MiPDF->SetFont('NewsGotT', '', 11);
-		$MiPDF->Cell(36, 5, $GLOBALS['CURSO_ACTUAL'], 0, 1, 'L', 0 );
+		$MiPDF->Cell(36, 5, $config['curso_actual'], 0, 1, 'L', 0 );
 
 		// Obtenemos el tutor/a de la unidad
 		$result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
