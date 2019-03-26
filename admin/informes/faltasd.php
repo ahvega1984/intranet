@@ -4,14 +4,14 @@
 
 <?php
 function tipo_falta($falta) {
-	
+
 	switch ($falta) {
 		case 'J' : $tipo = 'Justificada'; break;
 		case 'F' : $tipo = 'Injustificada'; break;
 		case 'I' : $tipo = 'Injustificada'; break;
 		case 'R' : $tipo = 'Retraso'; break;
 	}
-	
+
 	return $tipo;
 }
 ?>
@@ -36,22 +36,45 @@ function tipo_falta($falta) {
 			<tr>
 				<th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
-				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'"); ?>
-				<?php $row_falta = mysqli_fetch_array($result_falta); ?>
-				
-				<?php $result_asig = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre FROM asignaturas WHERE asignaturas.codigo = '".$row_falta['codasi']."' and abrev not like '%\_%'"); ?>
-				<?php $row_asig = mysqli_fetch_array($result_asig); ?>
-				
+				<?php
+				$faltas_tramo = array();
+				$result_falta = mysqli_query($db_con, "SELECT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'");
+				while ($row_falta = mysqli_fetch_array($result_falta)) {
+
+					$abrev_asignatura = "";
+					$nombre_asignatura = "";
+					$result_asig = mysqli_query($db_con, "SELECT DISTINCT abrev, nombre FROM asignaturas WHERE codigo = '".$row_falta['codasi']."' AND abrev NOT LIKE '%\_%' LIMIT 1");
+					if (mysqli_num_rows($result_asig)) {
+						$row_asig = mysqli_fetch_array($result_asig);
+						$abrev_asignatura = $row_asig['abrev'];
+						$nombre_asignatura = $row_asig['nombre'];
+					}
+
+					$falta_tramo = array(
+						'tipo' => $row_falta['falta'],
+						'asignatura' => $nombre_asignatura,
+						'abreviatura' => $abrev_asignatura,
+					);
+
+					array_push($faltas_tramo, $falta_tramo);
+				}
+				unset($falta_tramo);
+				?>
+
 				<td>
-					<abbr data-bs="tooltip" title="<?php echo $row_asig['nombre']; ?>">
-						<span class="label label-default"><?php echo $row_asig['abrev']; ?></span>
-					</abbr>
-					
-					<abbr data-bs="tooltip" title="<?php echo tipo_falta($row_falta['falta']); ?>">
-					<?php echo ($row_falta['falta'] == "I" || $row_falta['falta'] == "F") ? '<span class="label label-danger">'.$row_falta['falta'].'</label>' : ''; ?>
-					<?php echo ($row_falta['falta'] == "R") ? '<span class="label label-warning">'.$row_falta['falta'].'</label>' : ''; ?>
-					<?php echo ($row_falta['falta'] == "J") ? '<span class="label label-success">'.$row_falta['falta'].'</label>' : ''; ?>
-					</abbr>
+					<?php foreach ($faltas_tramo as $falta_tramo): ?>
+					<p style="margin-bottom: 0;">
+						<abbr data-bs="tooltip" title="<?php echo $falta_tramo['asignatura']; ?>">
+							<span class="label label-default"><?php echo $falta_tramo['abreviatura']; ?></span>
+						</abbr>
+
+						<abbr data-bs="tooltip" title="<?php echo tipo_falta($falta_tramo['tipo']); ?>">
+						<?php echo ($falta_tramo['tipo'] == "I" || $falta_tramo['tipo'] == "F") ? '<span class="label label-danger">'.$falta_tramo['tipo'].'</label>' : ''; ?>
+						<?php echo ($falta_tramo['tipo'] == "R") ? '<span class="label label-warning">'.$falta_tramo['tipo'].'</label>' : ''; ?>
+						<?php echo ($falta_tramo['tipo'] == "J") ? '<span class="label label-success">'.$falta_tramo['tipo'].'</label>' : ''; ?>
+						</abbr>
+					</p>
+					<?php endforeach; ?>
 				</td>
 				<?php endfor; ?>
 			</tr>
