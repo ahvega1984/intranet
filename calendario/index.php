@@ -471,9 +471,8 @@ include("../menu.php"); ?>
 
 			<?php elseif ($_GET['msg_cal'] and $_GET['msg_cal']==11 and strstr($_SESSION['cargo'], "1")==FALSE): ?>
 				<div class="alert alert-danger alert-block hidden-print">
-					<p><strong>Error:</strong> Estás intentando crear una actividad para un grupo <?php echo "(<strong>".$_GET['gr_cal']."</a></strong>)"; ?> que ya tiene otra registrada en ese mismo día. Comprueba el calendario del grupo afectado y procura buscar otra fecha si te resulta posible. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.</p><br>
+					<p><strong>Error:</strong> Estás intentando crear una actividad para un grupo <?php echo "(<strong>".$_GET['gr_cal']."</strong>)"; ?> que ya tiene otra registrada en ese mismo día. Comprueba el calendario del grupo afectado y procura buscar otra fecha si te resulta posible. Si no obstante crees que tu actividad no supondría problema alguno para el grupo, contacta con cualquier miembro del Equipo Directivo para registrarla.</p><br>
 					<a class="btn btn-info btn-sm" role="button" href="index_unidades.php?mes=<?php echo $_GET['mes']; ?>&anio=<?php echo $_GET['anio']; ?>&unidad=<?php echo $_GET['gr_cal']; ?>" target="_blank">Ver Calendario del Grupo</a>
-
 				</div>
 
 				<?php endif; ?>
