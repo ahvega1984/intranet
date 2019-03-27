@@ -153,11 +153,14 @@ include("../../menu.php");
                         $nc_alumnos_seleccionados = array();
                         $result_alumnos_seleccionados = mysqli_query($db_con, "SELECT alumnos FROM grupos WHERE profesor = '".$pr."' AND asignatura = '".$row['codigo']."'");
                         if (mysqli_num_rows($result_alumnos_seleccionados)) {
-                          $row_alumnos_seleccionados = mysqli_fetch_array($result_alumnos_seleccionados);
-                          $alumnos_seleccionados = $row_alumnos_seleccionados['alumnos'];
-                          $alumnos_seleccionados = rtrim($alumnos_seleccionados, ',');
-                          $nc_alumnos_seleccionados =  explode(',', $alumnos_seleccionados);
-                          $total_alumnos_seleccionados = count($nc_alumnos_seleccionados);
+                          while ($row_alumnos_seleccionados = mysqli_fetch_array($result_alumnos_seleccionados)) {
+                            $alumnos_seleccionados = $row_alumnos_seleccionados['alumnos'];
+                            $alumnos_seleccionados = rtrim($alumnos_seleccionados, ',');
+                            $nc_alumnos_seleccionados_unidad = explode(',', $alumnos_seleccionados);
+                            $total_alumnos_seleccionados = count($nc_alumnos_seleccionados);
+
+                            array_push($nc_alumnos_seleccionados, $nc_alumnos_seleccionados_unidad);
+                          }
                         }
                         else {
                           $total_alumnos_seleccionados = 0;
@@ -178,10 +181,17 @@ include("../../menu.php");
                                     <?php while ($row_alumno = mysqli_fetch_array($result_alumnos)): ?>
                                     <?php
                                     $nombre_checkbox = 'checkbox;'.$row['codigo'].';'.$row_alumno['unidad'].';'.$row_alumno['claveal'];
-                                    if (mysqli_num_rows($result_alumnos_seleccionados) > 0 && in_array($row_alumno['claveal'], $nc_alumnos_seleccionados)) {
-                                        $checkbox_checked = "checked";
+                                    if (mysqli_num_rows($result_alumnos_seleccionados) > 0) {
+                                      $checkbox_checked = "";
+                                      foreach ($nc_alumnos_seleccionados as $nc_alumno_seleccionado) {
+                                        for ($j=0; $j < count($nc_alumno_seleccionado); $j++) {
+                                          if ($nc_alumno_seleccionado[$j] == $row_alumno['claveal']) {
+                                            $checkbox_checked = "checked";
+                                          }
+                                        }
+                                      }
                                     } else {
-                                        $checkbox_checked = "";
+                                      $checkbox_checked = "";
                                     }
                                     ?>
                                     <div class="checkbox">

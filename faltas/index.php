@@ -215,7 +215,8 @@ elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_gua
 	$hora0 = mysqli_query($db_con, $hora1);
 }
 else{
-	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like '' ORDER BY a_grupo ASC";
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like '' ORDER BY a_grupo ASC";
+	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
 		?>
@@ -273,7 +274,7 @@ foreach ($array_unidades as $hora2) {
 		$asignat="";
 		$cod_asig_bach="";
 		// Cursos con dos códigos distintos de una misma asignatura o Bachillerato.
-		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw_faltas where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'");
+		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'");
 		$asig_bch = mysqli_fetch_array($n_bach);
 		$asignat = $asig_bch[0];
 
@@ -289,8 +290,7 @@ foreach ($array_unidades as $hora2) {
 			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
-
-			if ($asignat == "2" || $asignat == "21" || $asignat == "386" || $asignat == "820" || $asignat == "861") {
+			if ($asignat == "2" || $asignat == "21" || $asignat == "136" || $asignat == "386" || $asignat == "820" || $asignat == "861") {
 				if ($asignat=="386") {
 					$res.="combasi like '%$codigo_pmar2:%' OR combasi like '%$codigo_pmar3:%' ";
 					$cod_asig = "asignatura like '$codigo_pmar2' OR asignatura like '$codigo_pmar3'";
@@ -344,7 +344,7 @@ foreach ($array_unidades as $hora2) {
 
 			$nc_grupo = $row[0];
 
-			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw_faltas where c_prof = $c_prof) and curso = '$curso' and ($cod_asig)");
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor like (select distinct prof from horw where c_prof = $c_prof) and curso = '$curso' and ($cod_asig)");
 			$hay_grupo = mysqli_num_rows($sel);
 			if ($hay_grupo>0) {
 				$alumnos_separado_comas = "";
