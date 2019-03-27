@@ -521,7 +521,7 @@ CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
   `evaluacion` tinyint(1) NOT NULL,
   `claveal` varchar(12) NOT NULL,
   `codigo` int(6) NOT NULL,
-  `materia` varchar(8) NOT NULL,
+  `materia` varchar(12) NOT NULL,
   `nota` tinyint(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;

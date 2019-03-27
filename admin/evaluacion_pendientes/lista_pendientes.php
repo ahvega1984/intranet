@@ -38,9 +38,13 @@ if(isset($_POST['enviar'])){
 			$eval=$datos[0];
 			$clave_eval=$datos[1];
 			$asig_eval=$datos[2];
-			$abrev_eval=$datos[3];
+			
 			$nota_eval=$valor;
 			if(is_numeric($nota_eval)){}else{$nota_eval="";}
+
+			$cod_asig = mysqli_query($db_con,"select abrev from asignaturas where codigo='$asig_eval' AND abrev LIKE  '%\_%'");
+			$cod_asignatura = mysqli_fetch_array($cod_asig);
+			$abrev_eval=$cod_asignatura[0];
 			
 			$check2=mysqli_query($db_con,"select id from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval' and materia='$abrev_eval'");
 			if (mysqli_num_rows($check2)==1) {
@@ -51,8 +55,7 @@ if(isset($_POST['enviar'])){
 			}
 			else{
 				if($nota_eval!==""){
-				mysqli_query($db_con,"insert into evalua_pendientes 
-				VALUES ('','$eval','$clave_eval','$asig_eval','$abrev_eval','$nota_eval')");
+				mysqli_query($db_con,"insert into evalua_pendientes VALUES ('','$eval','$clave_eval','$asig_eval','$abrev_eval','$nota_eval')");
 				}
 			}
 		}
