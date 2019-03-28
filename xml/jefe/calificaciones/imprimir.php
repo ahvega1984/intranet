@@ -645,9 +645,9 @@ foreach ($alumnos as $alumno) {
     // Comienzo sello
     $MiPDF->SetFont('NewsGotT', '', 6);
     $MiPDF->SetTextColor(0, 122, 51);
-    $MiPDF->SetY($MiPDF->GetY()+16);
+    $MiPDF->SetY($MiPDF->GetY()+15.5);
     $MiPDF->Cell(22.5, 2, '', 0, 0, 'C');
-    $MiPDF->Cell(30, 2.5, $config['centro_denominacion'], 0, 0, 'C');
+    $MiPDF->Cell(30, 2.5, mb_strtoupper($config['centro_denominacion']), 0, 0, 'C');
     $MiPDF->Ln();
     $MiPDF->Cell(22.5, 2, '', 0, 0, 'C');
     $MiPDF->SetFont('NewsGotT', '', 5);
