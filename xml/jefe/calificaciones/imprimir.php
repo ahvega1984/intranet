@@ -34,13 +34,14 @@ class GranPDF extends PDF_MC_Table {
 
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
+    $this->Image( '../../../img/logo-fse.jpg',85,13,23,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
-		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
+		$this->Cell(85);
+		$this->Cell(70,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
-		$this->Cell(75);
-		$this->Cell(80,5,$config['centro_denominacion'],0,1);
+		$this->Cell(85);
+		$this->Cell(70,5,$config['centro_denominacion'],0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
@@ -331,16 +332,18 @@ foreach ($alumnos as $alumno) {
     $notas_evi = mysqli_query($db_con, "SELECT `notas0` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_evi = mysqli_fetch_array($notas_evi);
     $notas_evi = explode(';', rtrim($row_notas_evi['notas0'], ';'));
-    if (count($notas_evi) > 1) {
+    $mostrar_evi = 0;
+    if (! empty($row_notas_evi['notas0']) && count($notas_evi) > 0) {
         $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('EVI'));
+        $mostrar_evi = 1;
     }
 
     $notas_1ev = mysqli_query($db_con, "SELECT `notas1` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_1ev = mysqli_fetch_array($notas_1ev);
     $notas_1ev = explode(';', rtrim($row_notas_1ev['notas1'], ';'));
-    if (count($notas_1ev) > 1 && ($evaluacion == '1ª Evaluación' || $evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
+    if (! empty($row_notas_1ev['notas1']) && count($notas_1ev) > 0 && ($evaluacion == '1ª Evaluación' || $evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('1EV'));
@@ -349,7 +352,7 @@ foreach ($alumnos as $alumno) {
     $notas_2ev = mysqli_query($db_con, "SELECT `notas2` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_2ev = mysqli_fetch_array($notas_2ev);
     $notas_2ev = explode(';', rtrim($row_notas_2ev['notas2'], ';'));
-    if (count($notas_2ev) > 1 && ($evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
+    if (! empty($row_notas_2ev['notas2']) && count($notas_2ev) > 0 && ($evaluacion == '2ª Evaluación' || $evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('2EV'));
@@ -358,7 +361,7 @@ foreach ($alumnos as $alumno) {
     $notas_ord = mysqli_query($db_con, "SELECT `notas3` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_ord = mysqli_fetch_array($notas_ord);
     $notas_ord = explode(';', rtrim($row_notas_ord['notas3'], ';'));
-    if (count($notas_ord) > 1 && ($evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
+    if (! empty($row_notas_ord['notas3']) && count($notas_ord) > 0 && ($evaluacion == 'Evaluación Ordinaria' || $evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('ORD'));
@@ -367,7 +370,7 @@ foreach ($alumnos as $alumno) {
     $notas_ext = mysqli_query($db_con, "SELECT `notas4` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_ext = mysqli_fetch_array($notas_ext);
     $notas_ext = explode(';', rtrim($row_notas_ext['notas4'], ';'));
-    if (count($notas_ext) > 1 && ($evaluacion == 'Evaluación Extraordinaria')) {
+    if (! empty($row_notas_ext['notas4']) && count($notas_ext) > 0 && ($evaluacion == 'Evaluación Extraordinaria')) {
         $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('EXT'));
@@ -489,11 +492,12 @@ foreach ($alumnos as $alumno) {
             $tabla_calificaciones = array($asignatura);
         }
 
-        if (count($notas_evi) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion0));
-        if (count($notas_1ev) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion1));
-        if (count($notas_2ev) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion2));
-        if (count($notas_ord) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion3));
-        if (count($notas_ext) > 1) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion4));
+
+        if (! empty($row_notas_evi['notas0']) && count($notas_evi) > 0 && ($evaluacion == "Evaluación Inicial" || $evaluacion == "1ª Evaluación" || $evaluacion == "2ª Evaluación" || $evaluacion == "Evaluación Ordinaria" || $evaluacion == "Evaluación Extraordinaria")) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion0));
+        if (! empty($row_notas_1ev['notas1']) && count($notas_1ev) > 0 && ($evaluacion == "1ª Evaluación" || $evaluacion == "2ª Evaluación" || $evaluacion == "Evaluación Ordinaria" || $evaluacion == "Evaluación Extraordinaria")) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion1));
+        if (! empty($row_notas_2ev['notas2']) && count($notas_2ev) > 0 && ($evaluacion == "2ª Evaluación" || $evaluacion == "Evaluación Ordinaria" || $evaluacion == "Evaluación Extraordinaria")) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion2));
+        if (! empty($row_notas_ord['notas3']) && count($notas_ord) > 0 && ($evaluacion == "Evaluación Ordinaria" || $evaluacion == "Evaluación Extraordinaria")) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion3));
+        if (! empty($row_notas_ext['notas4']) && count($notas_ext) > 0 && ($evaluacion == "Evaluación Extraordinaria")) $tabla_calificaciones = array_merge($tabla_calificaciones, array($calificacion4));
 
         if ($tieneCalificacion) {
             $MiPDF->Row($tabla_calificaciones, 1, 4.5);
@@ -632,11 +636,30 @@ foreach ($alumnos as $alumno) {
         $horario_tutoria = $dia.', '.substr($row_horario_tutoria['hora_inicio'], 0, 5).' h - '.substr($row_horario_tutoria['hora_fin'], 0, 5).' h.';
     }
 
-    //FIRMAS
+    //FIRMAS Y SELLO
+    // Imagen sello. Se coloca aquí para que quede por detrás del texto
+    $MiPDF->Image('../../../img/sello.jpg', 45, $MiPDF->GetY()-5, 35, '', 'jpg');
+
+    $MiPDF->SetFont('NewsGotT', '', 10);
     $MiPDF->Cell(90, 5, 'Sello del Centro', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Les saluda cordialmente,', 0, 1, 'L', 0);
-    $MiPDF->Cell(55, 15, '', 0, 0, 'C', 0);
-    $MiPDF->Cell(55, 15, '', 0, 1, 'C', 0);
+
+    // Comienzo sello
+    $MiPDF->SetFont('NewsGotT', '', 6);
+    $MiPDF->SetTextColor(0, 122, 51);
+    $MiPDF->SetY($MiPDF->GetY()+16);
+    $MiPDF->Cell(22.5, 2, '', 0, 0, 'C');
+    $MiPDF->Cell(30, 2.5, $config['centro_denominacion'], 0, 0, 'C');
+    $MiPDF->Ln();
+    $MiPDF->Cell(22.5, 2, '', 0, 0, 'C');
+    $MiPDF->SetFont('NewsGotT', '', 5);
+    $MiPDF->Cell(30, 2.5, mb_strtoupper($config['centro_localidad']), 0, 1, 'C');
+    $MiPDF->SetTextColor(0,0,0);
+    // Fin sello
+
+    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->Cell(55, 5, '', 0, 0, 'C', 0);
+    $MiPDF->Cell(55, 5, '', 0, 1, 'C', 0);
     $MiPDF->SetFont('NewsGotT', '', 10);
     $MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Tutor/a: '.$tutor, 0, 1, 'L', 0);
