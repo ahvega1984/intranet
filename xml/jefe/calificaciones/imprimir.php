@@ -332,12 +332,10 @@ foreach ($alumnos as $alumno) {
     $notas_evi = mysqli_query($db_con, "SELECT `notas0` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
     $row_notas_evi = mysqli_fetch_array($notas_evi);
     $notas_evi = explode(';', rtrim($row_notas_evi['notas0'], ';'));
-    $mostrar_evi = 0;
     if (! empty($row_notas_evi['notas0']) && count($notas_evi) > 0) {
         $tabla_alineacion = array_merge($tabla_alineacion, array('C'));
         $tabla_anchos = array_merge($tabla_anchos, array(13));
         $tabla_encabezado = array_merge($tabla_encabezado, array('EVI'));
-        $mostrar_evi = 1;
     }
 
     $notas_1ev = mysqli_query($db_con, "SELECT `notas1` FROM `notas` WHERE `claveal` = '".$alumno['claveal1']."'");
@@ -579,7 +577,7 @@ foreach ($alumnos as $alumno) {
         $total_injustificadas = $row_faltas_injustificadas['total_injustificadas'];
 
         $total_retrasos = 0;
-        $result_faltas_retrasos = mysqli_query($db_con, "SELECT COUNT(`fecha`) AS 'total_retrasos' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `fecha` BETWEEN '".$fecha_inicio_faltas."' AND '".$fecha_fin_faltas."' AND `falta` = 'F'");
+        $result_faltas_retrasos = mysqli_query($db_con, "SELECT COUNT(`fecha`) AS 'total_retrasos' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `fecha` BETWEEN '".$fecha_inicio_faltas."' AND '".$fecha_fin_faltas."' AND `falta` = 'R'");
         $row_faltas_retrasos = mysqli_fetch_array($result_faltas_retrasos);
         $total_retrasos = $row_faltas_retrasos['total_retrasos'];
 
