@@ -483,7 +483,9 @@ foreach ($alumnos as $alumno) {
         }
 
         if ($alumno['curso'] != $curso_asignatura) {
-            $curso_asignatura = str_replace('(Humanidades y Ciencias Sociales (Lomce))', '(Humanid. y CC.SS.)', $curso_asignatura);
+            $curso_asignatura = str_replace('1º de Bachillerato (Ciencias)', '1º de Bachillerato', $curso_asignatura);
+            $curso_asignatura = str_replace('1º de Bachillerato (Humanidades y Ciencias Sociales', '1º de Bachillerato', $curso_asignatura);
+            $curso_asignatura = str_replace('1º de Bachillerato (Humanidades y Ciencias Sociales (Lomce))', '1º de Bachillerato', $curso_asignatura);
             $tabla_calificaciones = array($asignatura.' ('.$curso_asignatura.')');
         }
         else {
