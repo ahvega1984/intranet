@@ -134,7 +134,7 @@ if ($_GET['seleccionado']=="1") {
 	$nombre_al=$ng_al[1].", ".$ng_al[2];
 }
 if ($_GET['id'] or $_POST['id']) {
-	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula, Fechoria.adjunto from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula, Fechoria.adjunto, Fechoria.confirmado from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
 	if ($row = mysqli_fetch_array($result))
 	{
@@ -161,11 +161,12 @@ if ($_GET['id'] or $_POST['id']) {
 		$fin_aula = $row[17];
 		$horas = $row[18];
 		$adjunto = $row[20];
+		$confirmado = $row[21];
 	}
 }
 ?>
 <?php
-if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TRUE) {
+if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TRUE and $confirmado <> 1) {
 ?>
 <div id="muy_grave_dir" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
