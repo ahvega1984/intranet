@@ -1,456 +1,335 @@
-<?php
-require('../../bootstrap.php');
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-if (file_exists('config.php')) {
-	include('config.php');
-}
-
-include("../../menu.php");
-include("menu.php");
-?>
-<div class="container">
-
-	<div class="page-header">
-		<h2 style="display: inline;">Problemas de convivencia <small>Registro de un Problema de Convivencia</small></h2>
-
-		<!-- Button trigger modal -->
-		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-			<span class="fas fa-question fa-lg"></span>
-		</a>
-
-		<!-- Modal -->
-		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
-					</div>
-					<div class="modal-body">
-						<p>El registro de un Problema de Convivencia comienza con la selección de la
-						<em><strong>fecha</strong></em> en que sucedió. <br>Continúa con la selección de la
-						<em><strong>Unidad o Grupo de alumnos</strong></em> dentro del cual se encuentra el
-						autor del problema. El Grupo no es un campo obligatorio, simplemente facilita la
-						búsqueda al reducir la lista de alumnos.</p>
-						<p>El campo <em><strong>Alumno/a</strong></em> presenta al principio la lista de todos
-						los alumnos del Centro ordenada alfabéticamente. Si elegimos un Grupo aparecerán los
-						alumnos de ese Grupo. Tanto en la lista total como en la lista de un Grupo podemos
-						seleccionar uno o varios alumnos. Como se señala en el texto de ayuda del formulario,
-						se pueden seleccionar múltiples alumnos mediante el uso de la tecla <kbd>CTRL</kbd> +
-						click sobre los distintos elementos; si queremos seleccionar a todo el Grupo, hacemos
-						click sobre el primero de la lista y, manteniendo presionada la tecla Mayúsculas
-						(<kbd>SHIFT</kbd>), seleccionamos el último de la lista.</p>
-						<p>El segundo bloque de campos del formulario comienza con la elección de la
-						<em><strong>Gravedad</strong></em> del Problema que vamos a registrar. La Gravedad
-						puede ser: Leve, Grave y Muy Grave. Cada categoría va asociada a un conjunto de
-						<em><strong>Conductas Negativas</strong></em> que aparecen en el ROF (Reglamento de
-						Organización y Funcionamiento) del Centro y que puede ser editado por parte de los
-						Administradores de la Intranet (Administración de la Intranet --> A principio de
-						Curso --> Modificar ROF). Al cargar una de las categorías, el desplegable muestra las
-						Conductas Negativas propias de esa categoría. Seleccionamos una Conducta y aparecerán
-						al mismo tiempo la <em><strong>Medida Adoptada</strong></em> administrativamente (si
-						procede según el ROF) y las <em><strong>Medidas Complementarias</strong></em> que deben
-						tomarse (según el ROF). Si el alumno ha sido <em><strong>expulsado del Aula</strong></em>,
-						debe marcarse la opción correspondiente.</p>
-						<p>En el campo <em><strong>Observaciones</strong></em> describimos el acontecimiento que
-						hemos tipificado. La descripción debe ser precisa y completa, de tal modo que tanto el
-						Tutor como el Jefe de Estudios como los propios Padres del alumno puedan hacerse una
-						idea ajustada de lo sucedido.</p>
-						<p>El <em><strong>Profesor</strong></em> que informa del Problema coincide con el Profesor
-						que ha abierto la sesión de la Intranet, excepto en el caso de los miembros del Equipo
-						Directivo que pueden elegir entre la lista de todos los Profesores.</p>
-						<p>El botón <em><strong>Registrar</strong></em> envía los datos del formulario y completa
-						el proceso de registro.</p>
-						<p>Hay que tener en cuenta algunos detalles que suceden al registrar un Problema
-						de Convivencia:</p>
-						<ul>
-							<li>El Tutor recibe un mensaje en la Página principal cuando se
-							registra un Problema Grave o Muy Grave de alguno de sus alumnos. El mensaje ofrece
-							datos sobre el problema e indica el procedimiento a seguir. El Jefe de Estudios
-							también ve los Problemas que se van registrando en el momento de producirse.</li>
-							<li>Si el problema es Leve, el sistema registra un nuevo problema
-							Grave por reiteración: cada 5 problemas Leves se crea un Problema Grave de forma
-							automática. El Tutor y Jefe de Estudios reciben una notificación.</li>
-							<li>Los Problemas de Convivencia caducan según el tiempo
-							especificado en el ROF. Los valores por defecto de la aplicación son los siguientes:
-							30 días para los Leves y Graves; 60 días para los Muy Graves.</li>
-							<li>Se puede editar el Problema registrado en los dos días
-							siguientes a la fecha en la que sucedió. Posteriormente, la edición queda bloqueada.</li>
-						</ul>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
-<div class="row"><?php
-//variables();
-if ( $_POST['unidad']) {$unidad = $_POST['unidad'];}
-if (isset($_GET['id'])) { $id = $_GET['id'];}elseif (isset($_POST['id'])) { $id = $_POST['id'];}
-if (isset($_GET['nombre'])) { $nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) { $nombre = $_POST['nombre'];}
-if (isset($_GET['claveal'])) { $claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) { $claveal = $_POST['claveal'];}
-
-$notas = $_POST['notas']; $grave = $_POST['grave']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula']; $confirmado = $_POST['confirmado'];
-if ($expulsionaula == ''){ $expulsionaula = 0;}
-if ($_POST['grave']=="muy grave" and ($_POST['asunto']=="" or isset($id)) and $_POST['submit1']=="" and $_POST['submit2']=="" and stristr($_SESSION['cargo'],'1') == FALSE) {
-?>
-<div id="muy_grave" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-danger">Mensaje de Jefatura de Estudios:</h4>
-      </div>
-      <div class="modal-body">
-        <p>Has seleccionado un tipo de problema <b>Muy grave</b>, y este tipo de problema debe ser confirmado por la Jefatura de Estudios. <br> Una vez hayas terminado de registrar el problema, ponte en contacto cuanto antes con el <b>Jefe de Estudios</b> para confirmar los detalles y completar el proceso.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
- <?php
-}
-?>
-
-<?php
-if (isset($_POST['submit1']) or isset($_POST['submit2']))
-{
-	include("fechoria25.php");
-}
-
-// Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
-if ($_GET['seleccionado']=="1") {
-	$claveal=$_GET['nombre'];
-	//$nombrel=$claveal;
-	$ng_al0=mysqli_query($db_con, "select unidad, apellidos, nombre from alma where claveal = '$claveal'");
-	$ng_al=mysqli_fetch_array($ng_al0);
-	$unidad=$ng_al[0];
-	$nombre_al=$ng_al[1].", ".$ng_al[2];
-}
-if ($_GET['id'] or $_POST['id']) {
-	$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula, Fechoria.adjunto, Fechoria.confirmado from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
-
-	if ($row = mysqli_fetch_array($result))
-	{
-
-		$nombre_al = "$row[0], $row[1]";
-		$unidad = $row[2];
-		$fecha = $row[4];
-		$notas = $row[5];
-
-		$informa = $row[7];
-		if ($asunto or $grave) {}else{
-			$grave = $row[8];
-			$asunto = $row[6];
-		}
-		$expulsionaula = $row[19];
-		$medida = $row[9];
-		$medidas2 = $row[10];
-		$expulsion = $row[11];
-		$tutoria = $row[12];
-		$inicio = $row[13];
-		$fin = $row[14];
-		$convivencia = $row[15];
-		$inicio_aula = $row[16];
-		$fin_aula = $row[17];
-		$horas = $row[18];
-		$adjunto = $row[20];
-		$confirmado = $row[21];
+if (strlen($id)>0 and $grave == "muy grave" and stristr($_SESSION['cargo'],'1') == TRUE) {
+	$confirm = mysqli_query($db_con,"select confirmado from Fechoria where confirmado = '1' and id = '$id'");
+	if (mysqli_num_rows($confirm)>0) {
+		$confirma_db = '1';
 	}
 }
-?>
-<?php
-if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TRUE and $confirmado <> 1) {
-?>
-<div id="muy_grave_dir" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-danger">ATENCIÓN JEFATURA DE ESTUDIOS:</h4>
-      </div>
-      <div class="modal-body">
-        <p>Los miembros del Equipo Directivo deben pulsar en el botón de '<b>Actualizar datos</b>' para completar el proceso de registro de un problema de conducta calificado de '<b>Muy grave</b>'. Al pulsar sobre el botón se enviarán un SMS o email a los padres y finalizará el proceso.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
- <?php
-}
-?>
-<form method="post" action="" name="Cursos" enctype="multipart/form-data">
-<fieldset>
 
-<div class="col-sm-6">
+// Control de errores en archivo adjunto
+if (! isset($id) && ! empty($_FILES['adjunto']['tmp_name'])) {
+	$_adjuntoError = 0;
+	$_nombreAdjunto = "";
+	$_adjunto = $_FILES['adjunto'];
+	$_maxfilesize = php_directive_value_to_bytes('upload_max_filesize');
 
-<div class="well">
-<div class="form-group" id="datetimepicker1"><label for="fecha">Fecha</label>
-<div class="input-group"><input name="fecha" type="text"
-	class="form-control" data-date-format="DD-MM-YYYY" id="fecha"
-	value="<?php if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>"
-	required> <span class="input-group-addon"><i class="far fa-calendar"></i></span>
-</div>
-</div>
-<div class="form-group"><label for="unidad">Unidad</label> <select
-	class="form-control" id="unidad" name="unidad" onchange="submit()">
-
-	<option><?php echo $unidad;?></option>
-
-	<?php unidad();?>
-</select></div>
-<label for="nombre">Alumno/a</label> <?php echo $nombre;
-if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
-{
-
-	//echo "<OPTION value='$claveal' selected>$nombre_al</OPTION>";
-
-	echo '<select class="form-control" id="nombre" name="nombre" required>';
-	$alumnos = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma WHERE unidad = '$unidad' order by APELLIDOS, NOMBRE asc");
-
-	while($falumno = mysqli_fetch_array($alumnos))
-	{
-
-		if ($nombre==$falumno[2]){
-			$sel = " selected ";
-		}
-		else{
-			$sel="";
-		}
-
-		echo "<OPTION value='$falumno[2]'  $sel>$falumno[0], $falumno[1]</OPTION>";
-
+	if (strpos("image", $_adjunto['type']) !== 0 && $_adjunto['type'] != "application/pdf") {
+		echo '
+			<div align="center">
+				<div class="alert alert-danger alert-block fade in">
+	      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	        El archivo adjunto debe tener formato de imagen o PDF.
+	      </div>
+			</div>';
 	}
-	?>
-	</select>
-	<?php
+	elseif ($_adjunto['size'] > $_maxfilesize) {
+		echo '
+			<div align="center">
+				<div class="alert alert-danger alert-block fade in">
+	      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	        El archivo adjunto debe tener un tamaño inferior a '.(ini_get('upload_max_filesize')).'b.
+	      </div>
+			</div>';
+	}
+	elseif ($_adjunto['error'] != 0) {
+		echo '
+			<div align="center">
+				<div class="alert alert-danger alert-block fade in">
+	      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	        El archivo adjunto no ha podido ser subido al servidor.
+	      </div>
+			</div>';
+	}
+	else {
+		$dir_subida = "./adjuntos/"; // Añadir / al final
+
+		if (file_exists($dir_subida)) {
+			$hash_file = hash_file('md5', $_adjunto['tmp_name']);
+			$dir_archivo = $dir_subida . $hash_file . '_' . basename($_adjunto['name']);
+
+			if (! move_uploaded_file($_adjunto['tmp_name'], $dir_archivo)) {
+				echo '
+					<div align="center">
+						<div class="alert alert-danger alert-block fade in">
+			      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+			        Ha ocurrido un error al adjuntar el archivo.
+			      </div>
+					</div>';
+			}
+			else {
+				$_nombreAdjunto = ltrim($dir_archivo, $dir_subida);
+			}
+		}
+		else {
+			echo '
+				<div align="center">
+					<div class="alert alert-danger alert-block fade in">
+		      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		        El archivo adjunto no ha podido ser subido al servidor.
+		      </div>
+				</div>';
+		}
+	}
+}
+else {
+
+	$result_adjunto = mysqli_query($db_con, "SELECT `adjunto` FROM `Fechoria` WHERE `id` = $id LIMIT 1");
+	$row_adjunto = mysqli_fetch_array($result_adjunto);
+
+	if (! empty($row_adjunto['adjunto'])) {
+		$_nombreAdjunto = $row_adjunto['adjunto'];
+	}
+	else {
+		$_nombreAdjunto = "";
+	}
+}
+
+// Control de errores
+if (! $notas or ! $grave or ! $_POST['nombre'] or ! $asunto or ! $fecha or ! $informa or $fecha=='0000-00-00') {
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCI&Oacute;N:</legend>
+            No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>.<br> Vuelve atr&aacute;s, rellena los campos vac&iacute;os e int&eacute;ntalo de nuevo.
+          </div></div>';
+}
+elseif (strlen ($notas) < '10' ) {
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCI&Oacute;N:</legend>
+            La descripci&oacute;n de lo sucedido es demasiado breve. Es necesario que proporciones m&aacute;s detalles de lo ocurrido para que Jefatura de Estudios y Tutor puedan hacerse una idea precisa del suceso.<br />Vuelve atr&aacute;s e int&eacute;ntalo de nuevo.
+          </div></div>';
+}
+elseif (isset($_POST['nombre'])) {
+
+if (is_array($nombre)) {
+	$num_a = count($_POST['nombre']);
 }
 else{
+	$num_a=1;
+}
 
-	?> <select class="form-control" id="nombre" name="nombre[]"
-	multiple='multiple' style='height: 450px;' required>
-	<?php
-	if ($unidad) {
-		$uni = " WHERE unidad like '$unidad%'";
+// Actualizar datos
+if ($_POST['submit2']) {
+}
+else{
+	$dia0 = explode ( "-", $fecha );
+	$fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
+}
+
+$z=0;
+for ($i=0;$i<$num_a;$i++){
+	if ($num_a==1 and !is_array($nombre)) {
+		$claveal = $nombre;
 	}
 	else{
-		$uni="";
+	$claveal = $nombre[$i];
 	}
-	$alumnos = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $uni order by APELLIDOS asc");
-	while($falumno = mysqli_fetch_array($alumnos))
-	{
-		$sel="";
-		if (is_array($nombre)) {
-			foreach($nombre as $n_alumno){
 
-				if ($n_alumno==$falumno[2]){
-					$sel = " selected ";
+	$sms_enviado="";
+	if ($confirmado=="") {
+		$confirmado="0";
+	}
+	$notas = trim($notas);
+	$ya_esta = mysqli_query($db_con, "select claveal, fecha, grave, asunto, notas, informa, confirmado from Fechoria where claveal = '$claveal' and fecha = '$fecha3' and grave = '$grave' and asunto = '$asunto' and informa = '$informa' and notas = '$notas' and confirmado='$confirmado'");
+
+	if (mysqli_num_rows($ya_esta)>0) {
+		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <legend>Atenci&oacute;n:</legend>
+            Ya hay un problema de convivencia registrado que contiene los mismos datos que est&aacute;s enviando, y no queremos repetirlos... .
+          </div></div><br />';
+	}
+	else{
+
+		$alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE alma.claveal = '$claveal'" );
+		$rowa = mysqli_fetch_array ( $alumno );
+		$apellidos = trim ( $rowa [0] );
+		$nombre_alum = trim ( $rowa [1] );
+		$unidad = trim ( $rowa [2] );
+		$tfno = trim ( $rowa [5] );
+		$tfno_u = trim ( $rowa [6] );
+		$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$config['dominio'];
+
+		// SMS
+
+		$ya_sms = mysqli_query($db_con, "select * from sms where profesor = '".$_SESSION['profi']."' and date(fecha)='$fecha3' and mensaje like '%falta contra las normas%' and (telefono = '$tfno' or telefono = '$tfno_u')");
+		if (mysqli_num_rows($ya_sms)>0) {
+			$sms_ya = 1;
+			}
+		else{
+			$sms_ya = 0;
+			}
+
+		if ($config['mod_sms'] && $sms_ya == 0 && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
+
+			$hora_f = date ( "G" );
+			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
+				$sms_n = mysqli_query($db_con, "select max(id) from sms" );
+				$n_sms = mysqli_fetch_array ( $sms_n );
+				$extid = $n_sms [0] + 1;
+
+				if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7") {
+					$mobile = $tfno;
+				} else {
+					$mobile = $tfno_u;
+				}
+
+				if(strlen($mobile) == 9) {
+
+					// ENVIO DE SMS
+					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+					$sms = new Trendoo_SMS();
+					$sms->sms_type = SMSTYPE_GOLD_PLUS;
+					$sms->add_recipient('+34'.$mobile);
+					$sms->message = $message;
+					$sms->sender = $config['mod_sms_id'];
+					$sms->set_immediate();
+
+					if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {
+					}
+					else{
+						if ($sms->validate()){
+							$sms_enviado=1;
+						// Envío de SMS
+							$sms->send();
+							if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {
+								}
+							else{
+						// Registro de SMS
+						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
+
+						// Registro de Tutoría
+						$fecha2 = date ( 'Y-m-d' );
+						$observaciones = $message;
+						$accion = "Env&iacute;o de SMS";
+						$causa = "Problemas de convivencia";
+						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+							}
+						}
+					}
+				}
+				else {
+					echo "
+					<div class=\"alert alert-error\">
+						<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+					</div>
+					<br>";
 				}
 			}
 		}
 
-		echo "<OPTION value='$falumno[2]'  $sel>$falumno[0], $falumno[1]</OPTION>";
+		// FIN SMS
 
+		// Envío de Email
+		if (($grave == "grave" || $grave == "muy grave") && (! isset($config['convivencia']['notificaciones_padres']) || (isset($config['convivencia']['notificaciones_padres']) && $config['convivencia']['notificaciones_padres']))) {
+		 $cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
+		 $cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");
+		 if(mysqli_num_rows($cor_alma)>0){
+		 	$correo1=mysqli_fetch_array($cor_alma);
+		 	$correo = $correo1[0];
+		 }
+		 elseif(mysqli_num_rows($cor_control)>0){
+		 	$correo2=mysqli_fetch_array($cor_control);
+		 	$correo = $correo2[0];
+		 }
+		 if (strlen($correo)>0 and $sms_enviado != 1) {
+
+		 	 require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
+		 	 $mail = new PHPMailer();
+		 	 if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
+				$mail->isSMTP();
+				$mail->Host = $config['email_smtp']['hostname'];
+				$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
+				$mail->Port = $config['email_smtp']['port'];
+				$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
+
+				$mail->Username = $config['email_smtp']['username'];
+				$mail->Password = $config['email_smtp']['password'];
+
+				$mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
+			 }
+			 else {
+				$mail->Host = "localhost";
+				$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
+			 }
+		 	 $mail->IsHTML(true);
+
+		 	 $message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+		 	 $message = str_replace('{{dominio}}', $config['dominio'], $message);
+		 	 $message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+		 	 $message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+		 	 $message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+		 	 $message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+		 	 $message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+		 	 $message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+		 	 $message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+		 	 $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+		 	 $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
+		 	 $message = str_replace('{{titulo}}', 'Comunicación de problemas de convivencia', $message);
+		 	 $message = str_replace('{{contenido}}', 'Le comunicamos que, con fecha '.$fecha.', su hijo/a ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página de Alumnado de nuestra web https://'.$config['dominio'].', o bien contactando con Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responda a esta dirección de correo.', $message);
+			 $message = str_replace('{{autor}}', 'Jefatura de estudios', $message);
+
+		 	 $mail->msgHTML(utf8_decode($message));
+		 	 $mail->Subject = utf8_decode('Comunicación de problemas de convivencia');
+		 	 $mail->AltBody = utf8_decode('Le comunicamos que, con fecha '.$fecha.', su hijo/a ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página de Alumando de nuestra web https://'.$config['dominio'].', o bien contactando con Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo.');
+
+		 	 $mail->AddAddress($correo, $nombre_alumno);
+		 	 if (($grave == "muy grave" and $_POST['confirmado']!="1") or $confirma_db=='1') {
+				}
+				else{
+					$mail->Send();
+					// Registro de Tutoría
+					$fecha2 = date ( 'Y-m-d' );
+					$observaciones = $message;
+					$accion = "Env&iacute;o de SMS";
+					$causa = "Problemas de convivencia";
+					mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+				}
+
+		 	}
+		 	// Fin Correo
+		 }
+
+	$dia = explode ( "-", $fecha );
+	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
+
+	if ($_POST['submit2'] and !($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db != 1 and isset($id))) {
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto='$_nombreAdjunto' where id = '$id'");
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Los datos se han actualizado correctamente.
+          </div></div><br />';
 	}
-?>
-</select>
-<p class="help-block">Puedes seleccionar varios alumnos manteniendo
-presionada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón
-sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Problema a todos los alumnos del Grupo, marca con el ratón el primer alumno y, mientras mantienes pulsada la tecla <kbd>Mayúsculas (Shift)</kbd>, marca el último de los alumnos para seleccionarlos a todos.</p>
-<?php
-}
-?>
-
-
-</div>
-</div>
-<div class="col-sm-6">
-<div class="well">
-
-
-
-<div class="form-group"><label for="grave"> Gravedad</label> <select
-	class="form-control" id="grave" name="grave" onchange="submit()" required>
-	<option><?php echo $grave;?></option>
-	<?php tipo(); ?>
-</select></div>
-
-<div class="form-group"><label for="asunto">Conducta negativa</label> <select
-	class="form-control" id="asunto" name="asunto" onchange="submit()" required>
-	<option><?php
-
-	$sql0 = mysqli_query($db_con, "select tipo from listafechorias where fechoria = '$asunto'");
-	$sql1 = mysqli_fetch_array($sql0);
-	if($sql1[0] !== $grave)
-	{
-		echo "<OPTION></OPTION>";
-	}
-	else
-	{ echo $asunto;}  ?></option>
-	<?php fechoria($grave); ?>
-</select></div>
-
-<div class="form-group"><label class="medida">Medida Adoptada</label> <?php
-
-$tipo = "select distinct medidas from listafechorias where fechoria = '$asunto'";
-$tipo1 = mysqli_query($db_con, $tipo);
-while($tipo2 = mysqli_fetch_array($tipo1))
-{
-	if($tipo2[0] == "Amonestación escrita")
-	{
-		$medidaescr = $tipo2[0];
-		echo '<input type="hidden" id="medida" name="medida" value="'.$tipo2[0].'">';
-	}
-	else
-	{
-		echo '<input  type="hidden"id="medida" name="medida" value="'.$tipo2[0].'">';
-	}
-}
-
-?> <input type="text" value="<?php echo $medidaescr;?>" readonly
-	class="form-control" /></div>
-
-<div class="form-group"><label for="medidas">Medidas complementarias que
-deben tomarse</label> <textarea class="form-control" id="medidas"
-	name="medidas" rows="7" disabled><?php if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
-</div>
-
-<?php
-if($grave == 'grave' or $grave == 'muy grave'){
-	?>
-<div class="checkbox"><label> <input type="checkbox" id="expulsionaula"
-	name="expulsionaula" value="1"
-	<?php  if ($expulsionaula == "1") { echo " checked ";}?>> El alumno ha
-sido <u>expulsado</u> del aula </label></div>
-
-	<?php
-}
-?>
-
-<div class="form-group"><label for="notas">Descripción:</label> <textarea
-	class="form-control" id="notas" name="notas" rows="7"
-	placeholder="Describe aquí los detalles del incidente..." required><?php echo $notas; ?></textarea>
-</div>
-
-<div class="form-group">
-	<label for="adjunto">Adjuntar archivo en formato imagen o PDF <span class="text-muted">(opcional)</span>:</label>
-	<?php if (isset($id) && $id && isset($adjunto) && ! empty($adjunto)): ?>
-	<ul class="list-group">
-		<li class="list-group-item" style="word-wrap: break-word;">
-			<a href="//<?php echo $config['dominio']; ?>/intranet/lib/obtenerAdjunto.php?mod=convivencia&file=<?php echo $adjunto; ?>" target="_blank"><?php echo $adjunto; ?></a>
-		</li>
-	</ul>
-	<?php endif; ?>
-
-	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo php_directive_value_to_bytes('upload_max_filesize'); ?>">
-	<input type="file" id="adjunto" name="adjunto" accept="image/*,application/pdf">
-	<p class="help-block"><small>Tamaño máximo: <?php echo ini_get('upload_max_filesize'); ?>b.</small></p>
-</div>
-<br>
-
-<?php
-if ($id) {
-	?>
-
-<div class="form-group"><label for="informa">Profesor</label> <select
-	class="form-control" id="informa" name="informa">
-	<?php
-	if ($id) {
-		echo "<OPTION>".$informa."</OPTION>";
-	}
-
-	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
-	while($filaprofe = mysqli_fetch_array($profe)) {
-		echo"<OPTION>$filaprofe[0]</OPTION>";
-	}
-	?>
-</select></div>
-	<?php
-}
-else{
-	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'b') == TRUE){
-		?>
-<div class="form-group"><label class="informa">Profesor</label> <select
-	class="form-control" id="informa" name="informa">
-	<?php
-	if ($id) {
-		echo '<OPTION value="'.$informa.'">'.nomprofesor($informa).'</OPTION>';
+	elseif ($grave == "muy grave" and $_POST['submit1']=="Actualizar datos") {
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto='$_nombreAdjunto', confirmado='1' where id = '$id'");
+		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Los datos se han actualizado correctamente.
+          </div></div><br />';
 	}
 	else{
-		echo '<OPTION value="'.$_SESSION['profi'].'">'.nomprofesor($_SESSION['profi']).'</OPTION>';
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,confirmado,adjunto) values ('" . $claveal . "','" . $fecha2 . "','" . mysqli_real_escape_string($db_con, $asunto) . "','" . mysqli_real_escape_string($db_con, $notas) . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $confirmado . "', '".$_nombreAdjunto."')";
+		  //echo $query."<br>";
+		 $inserta = mysqli_query($db_con, $query) or die (mysqli_error($db_con));
+		 if ($inserta) {
+		 	$z++;
+		 	}
+		}
 	}
-	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
-	while($filaprofe = mysqli_fetch_array($profe)) {
-		echo '<OPTION value="'.$filaprofe[0].'">'.nomprofesor($filaprofe[0]).'</OPTION>';
-	}
-	?>
-</select></div>
-	<?php
-	}
-	else{
-		?> <input type="hidden" id="informa" name="informa"
-	value="<?php echo $_SESSION['profi'];?>"> <?php
-	}
-
 }
 
-?></div>
-
-
-<hr />
-<?php
-if(stristr($_SESSION['cargo'],'1') == TRUE and isset($id) and $grave=="muy grave"){
-	echo '<input type="hidden" name="id" value="'.$id.'">';
-	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
-	echo '<input type="hidden" name="confirmado" value="1">';
-	echo '<input name = "submit1" type="submit" value="Actualizar datos" class="btn btn-warning btn-lg">';
+if (! isset($id) && ! $id) {
+	unset ($unidad);
+	unset($nombre);
+	unset ($id);
+	unset ($claveal);
 }
-elseif (isset($id)) {
-	echo '<input type="hidden" name="id" value="'.$id.'">';
-	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
-	echo '<input name = "submit2" type="submit" value="Actualizar datos" class="btn btn-warning btn-lg">';
-}
-else{
-	if(stristr($_SESSION['cargo'],'1') == TRUE and $grave=="muy grave"){
-	echo '<input type="hidden" name="confirmado" value="1">';
+if ($z>0 and !($_POST['confirmado']=="1" and $confirma_db != 1)) {
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Se han registrado correctamente los Problemas de Convivencia de '.$z.' alumnos.
+          </div></div><br />';
 	}
-	echo '<input name=submit1 type=submit value="Registrar" class="btn btn-primary btn-lg">';
 }
-?></div>
-</fieldset>
-</form>
-</div>
-</div>
-
-	<?php include("../../pie.php"); ?>
-
-<script>
-	$(function ()
-	{
-		$('#muy_grave').modal('show')
-	});
-
-	$(function ()
-	{
-		$('#muy_grave_dir').modal('show')
-	});
-
-	$(function ()
-	{
-		$('#datetimepicker1').datetimepicker({
-			language: 'es',
-			pickTime: false
-		})
-	});
-	</script>
-
-</body>
-</html>
+?>
