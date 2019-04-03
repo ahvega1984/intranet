@@ -465,9 +465,11 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 
 			endif;
 
-			echo '<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary">Modificar</button>
-				        <button type="submit" class="btn btn-danger" formaction="post/eliminarEvento.php?mes='.$mes.'&anio='.$anio.'">Eliminar</button>
+						echo '<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>';
+						if ($eventos1['confirmado']<>1 or stristr($_SESSION['cargo'],'1') == TRUE) {
+			        	echo '<button type="submit" class="btn btn-primary">Modificar</button>';
+			        		}	
+				        echo '<button type="submit" class="btn btn-danger" formaction="post/eliminarEvento.php?mes='.$mes.'&anio='.$anio.'">Eliminar</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->

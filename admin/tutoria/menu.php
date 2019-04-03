@@ -86,7 +86,6 @@ $curso_tutor=$query2[0];
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
 		<?php if($_SERVER['SERVER_NAME']=="iesmonterroso.org"): ?>
 		<li class="divider"></li>
-		<li><a href="http://www.iesmonterroso.net/moodle/course/view.php?id=33"	target="_blank">Moodle de Orientación</a></li>
 		<?php endif; ?>
 		<?php if($config['centro_provincia']=="Málaga"): ?>
 		<li class="divider"></li>
@@ -120,10 +119,6 @@ $curso_tutor=$query2[0];
 		<li><a href="../matriculas/consulta_transito.php">Informes de Tránsito</a></li>
 		<li class="divider"></li>
 		<?php endif; ?>
-		
-		<li><a href="../tutoria/informe_notas_grupo.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Estadísticas de Evaluación del Grupo</a></li>
-		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?php echo $curso_tutor;?>">Estadísticas de Evaluación del Nivel</a></li>
-		<li class="divider"></li>
 		<li><a href="informe_memoria.php">Memoria de tutoría</a></li>
 	</ul>
 	</li>
