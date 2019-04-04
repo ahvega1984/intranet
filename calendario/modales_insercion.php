@@ -128,7 +128,7 @@
         			<label for="cmp_lugar">Lugar</label>
         			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar">
         		</div>
-
+						
         		<div class="form-group">
         			<label for="cmp_calendario">Calendario</label>
         			<select class="form-control" id="cmp_calendario" name="cmp_calendario" required>
@@ -143,20 +143,38 @@
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
+
         					<option value="<?php echo $row['id']; ?>" <?php echo (isset($_GET['calendario']) && ($_GET['calendario'] == 'Extraescolares' && $row['id'] == 2)) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+
         					<?php endwhile; ?>
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
         				<?php endif; ?>
 
-        				<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])): ?>
-        				<optgroup label="Otros calendarios">
+        				<?php 
+			        		$tercer_trimestre = mysqli_fetch_row(mysqli_query($db_con,"select fecha from festivos where nombre like '%Semana Santa%'"));
+			        		$sem_santa = $tercer_trimestre[0];
+			        		$hoy = date('Y-m-d'); 
+			        		$fecha_actual = strtotime(date("Y-m-d",time()));
+							$semana_santa = strtotime(date($sem_santa,time()));
+		        		?>
+
+		        		<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])): ?>
+	        				
+	        				<?php if ($config['calendario']['prefUltimoTrimestre']==0 and $fecha_actual > $semana_santa): ?>
+	        				<?php else: ?>
+
+	       					<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-        					<option value="<?php echo $row['id']; ?>" <?php echo (isset($_GET['calendario']) && ($_GET['calendario'] == 'Extraescolares' && $row['id'] == 2)) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+
+       						<option value="<?php echo $row['id']; ?>" <?php echo (isset($_GET['calendario']) && ($_GET['calendario'] == 'Extraescolares' && $row['id'] == 2)) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>	        	
+
         					<?php endwhile; ?>
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
+
+        				<?php endif; ?>
         				<?php endif; ?>
 
         			</select>
@@ -188,6 +206,7 @@
         		</div>
 
         		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'d') || stristr($_SESSION['cargo'],'f') || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])): ?>
+
         		<div id="opciones_actividades" class="row">
 
         			<div class="col-sm-6">
