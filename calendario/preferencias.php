@@ -12,6 +12,7 @@ if (isset($_POST['btnGuardar'])) {
 	
 	$prefExamenes	= limpiar_string($_POST['prefExamenes']);
 	$prefActividades	= limpiar_string($_POST['prefActividades']);
+	$prefUltimoTrimestre	= limpiar_string($_POST['prefUltimoTrimestre']);
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen('config.php', 'w+'))
@@ -21,6 +22,9 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE CALENDARIO\r\n");
 		fwrite($file, "\$config['calendario']['prefExamenes']\t= $prefExamenes;\r\n");
 		fwrite($file, "\$config['calendario']['prefActividades']\t= $prefActividades;\r\n");
+		fwrite($file, "\$config['calendario']['prefUltimoTrimestre']\t= $prefUltimoTrimestre;\r\n");
+
+
 		
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
 		
@@ -87,6 +91,16 @@ include("menu.php");
 								<select class="form-control" id="prefActividades" name="prefActividades">
 									<option value="1" <?php echo (isset($config['calendario']['prefActividades']) && $config['calendario']['prefActividades'] == 1) ? 'selected' : ''; ?>>Permitir</option>
 									<option value="0" <?php echo (isset($config['calendario']['prefActividades']) && $config['calendario']['prefActividades'] == 0) ? 'selected' : ''; ?>>Prohibir</option>									
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="prefUltimoTrimestre" class="col-sm-8 control-label">Permitir el registro de Actividades Complementarias/Extraescolares durante el tercer trimestre</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefUltimoTrimestre" name="prefUltimoTrimestre">
+									<option value="1" <?php echo (isset($config['calendario']['prefUltimoTrimestre']) && $config['calendario']['prefUltimoTrimestre'] == 1) ? 'selected' : ''; ?>>Permitir</option>
+									<option value="0" <?php echo (isset($config['calendario']['prefUltimoTrimestre']) && $config['calendario']['prefUltimoTrimestre'] == 0) ? 'selected' : ''; ?>>Prohibir</option>									
 								</select>
 							</div>
 						</div>

@@ -103,7 +103,7 @@ include ("menu.php");
 
 		$expulsio1 = mysqli_query($db_con, "select grave from Fechoria where expulsion > '0' and claveal = '$claveal' and date(fecha) < '$navidad'");
 		$expulsion1 = mysqli_num_rows($expulsio1);
-		$expulsio2 = mysqli_query($db_con, "select grave from Fechoria where expulsion > '0' and claveal = '$claveal' and date(fecha) < '$sata' and date(fecha) > '$navidad'");
+		$expulsio2 = mysqli_query($db_con, "select grave from Fechoria where expulsion > '0' and claveal = '$claveal' and date(fecha) < '$santa' and date(fecha) > '$navidad'");
 		$expulsion2 = mysqli_num_rows($expulsio2);
 		$expulsio3 = mysqli_query($db_con, "select grave from Fechoria where expulsion > '0' and claveal = '$claveal' and date(fecha) > '$santa'");
 		$expulsion3 = mysqli_num_rows($expulsio3);

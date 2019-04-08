@@ -38,7 +38,7 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 $MiPDF->SetMargins(25, 20, 20);
 $MiPDF->SetDisplayMode('fullpage');
 
-$titulo = "Informe de tareas por expulsión";
+$titulo = "Informe de tareas por ausencia del alumno";
 $cuerpo = "";
 
 
@@ -63,7 +63,7 @@ $MiPDF->SetFont('NewsGotT', '', 12);
 $MiPDF->Cell(80, 5, $row['apellidos'].', '.$row['nombre'], 0, 0, 'L', 0 );
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-$MiPDF->Cell(40, 5, 'Fecha de expulsión: ', 0, 0, 'L', 0);
+$MiPDF->Cell(40, 5, 'Fecha de la ausencia: ', 0, 0, 'L', 0);
 $MiPDF->SetFont('NewsGotT', '', 12);
 $MiPDF->Cell(55, 5, strftime('%e de %B de %Y',strtotime($row['fecha'])), 0, 0, 'L', 0 );
 

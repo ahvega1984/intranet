@@ -93,7 +93,7 @@ if (! $notas or ! $grave or ! $_POST['nombre'] or ! $asunto or ! $fecha or ! $in
             No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>.<br> Vuelve atr&aacute;s, rellena los campos vac&iacute;os e int&eacute;ntalo de nuevo.
           </div></div>';
 }
-elseif (strlen ($notas) < '10' ) {
+elseif (strlen ($notas) < '50' ) {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
