@@ -115,9 +115,9 @@ if(mysqli_num_rows($cal2) > 0)
 
 }
 }
-}
-		echo "</ul>";
-	echo "</div>";
+echo "</ul>";
+echo "</div>";
+}	
 }
 ?>
 
