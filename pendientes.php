@@ -70,16 +70,20 @@ if (mysqli_num_rows($cal_personal)>0) {
 	}
 
 if ($dia_semana > 0 and $dia_semana < 6) {
-	// Actividades extraescolares
-$cur_prof = mysqli_query($db_con,"select distinct a_grupo, prof from horw_faltas where prof = '".$_SESSION['profi']."' and dia = '$dia_semana'");
-while ($c_prof = mysqli_fetch_array($cur_prof)) {
-	$unidad = $c_prof[0];
-	$profe_profe = $c_prof[1];
 
-$cal1 = "select * from calendario where categoria='2' and unidades like '%$unidad;%' and date(fechaini) BETWEEN '$hoy' AND '".date('Y-m-j', strtotime('+2 day', strtotime($hoy)))."'";
-$cal2 = mysqli_query($db_con, $cal1);
-if(mysqli_num_rows($cal2) > 0)
-{
+// Actividades extraescolares
+
+$$cuenta_act=0;
+$c_unidad = mysqli_query($db_con,"select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
+while($c_unidades = mysqli_fetch_array($c_unidad)):
+$n_activ = mysqli_query($db_con,"select * from calendario where categoria='2' and unidades like '%$c_unidades[0];%' and date(fechaini) BETWEEN '$hoy' AND '".date('Y-m-j', strtotime('+1 day', strtotime($hoy)))."'");
+	if ($n_activ > 0) {
+		$cuenta_act++;
+	}
+endwhile;
+
+if ($cuenta_act > 0) {
+
 	echo '
 <div id="alert_cal" class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -87,23 +91,34 @@ if(mysqli_num_rows($cal2) > 0)
 	<p>En el Calendario del Centro aparecen actividades extraescolares asociadas a tus grupos: </p>
 	<br>
 	<ul>';
+
+$cur_prof = mysqli_query($db_con,"select distinct a_grupo, prof from horw_faltas where prof = '".$_SESSION['profi']."' and dia = '$dia_semana'");
+while ($c_prof = mysqli_fetch_array($cur_prof)) {
+	$unidad = $c_prof[0];
+	$profe_profe = $c_prof[1];
+
+$cal1 = "select * from calendario where categoria='2' and unidades like '%$unidad;%' and date(fechaini) BETWEEN '$hoy' AND '".date('Y-m-j', strtotime('+1 day', strtotime($hoy)))."'";
+$cal2 = mysqli_query($db_con, $cal1);
+if(mysqli_num_rows($cal2) > 0)
+{
+
 	while($cal = mysqli_fetch_array($cal2))
 	{
 		$actividad = $cal['nombre'];
 		$id = $cal['id'];
 		?>
-<li><?php echo $unidad.": ";?>
+<li  style="padding-bottom:12px;"><?php echo $unidad.": ";?>
 	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a> para <?php echo (($cal['fechaini'] == $hoy) ? 'hoy' : 'el día '.strftime('%e de %B', strtotime($cal['fechaini']))); ?>.
-<br>
 </li>
 		<?php
 	}
+
+}
+}
+}
 		echo "</ul>";
 	echo "</div>";
 }
-}
-}
-
 ?>
 
 <?php
