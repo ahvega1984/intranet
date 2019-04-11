@@ -73,14 +73,15 @@ if ($dia_semana > 0 and $dia_semana < 6) {
 
 // Actividades extraescolares
 
-$$cuenta_act=0;
-$c_unidad = mysqli_query($db_con,"select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
-while($c_unidades = mysqli_fetch_array($c_unidad)):
+$cuenta_act="";
+$c_unidad = mysqli_query($db_con,"select distinct a_grupo from horw_faltas where prof = '".$_SESSION['profi']."' and dia = '$dia_semana'");
+while($c_unidades = mysqli_fetch_array($c_unidad)){
 $n_activ = mysqli_query($db_con,"select * from calendario where categoria='2' and unidades like '%$c_unidades[0];%' and date(fechaini) BETWEEN '$hoy' AND '".date('Y-m-j', strtotime('+1 day', strtotime($hoy)))."'");
-	if ($n_activ > 0) {
+
+	if (mysqli_num_rows($n_activ) > 0) {
 		$cuenta_act++;
 	}
-endwhile;
+}
 
 if ($cuenta_act > 0) {
 
@@ -115,10 +116,11 @@ if(mysqli_num_rows($cal2) > 0)
 
 }
 }
-echo "</ul>";
-echo "</div>";
-}	
+		echo "</ul>";
+	echo "</div>";
 }
+}
+
 ?>
 
 <?php
