@@ -682,7 +682,7 @@ if (! mysqli_num_rows($actua)) {
 */
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación estructura tabla alma'");
 if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "ALTER TABLE `alma` ADD `NSEGSOCIAL` VARCHAR(15) NULL AFTER `FECHAMATRICULA`");
+	mysqli_query($db_con, "ALTER TABLE `alma` ADD `NSEGSOCIAL` INT(12) NULL AFTER `FECHAMATRICULA`");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla alma', NOW())");
 }
 
@@ -696,4 +696,17 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla evalua_pendientes', NOW())");
 }
 
+
+/*
+	@descripcion: Modificación estructura tabla matriculas.
+	@fecha: 8 de abril de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación estructura tabla matriculas'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE  `matriculas` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_backup` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach:backup` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla matriculas', NOW())");
+}
 

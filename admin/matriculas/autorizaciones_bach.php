@@ -46,7 +46,7 @@ $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
 $autoriza_religion="
-D./Dª $papa, como padre, madre o tutor legal del alumno/a $row[3] $row[2] del curso ".$n_curso."º de ESO del ".$config['centro_denominacion'].", en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
+D./Dª $papa, como padre, madre o tutor legal del alumno/a $row[3] $row[2] del curso ".$n_curso."º de Bachillerato del ".$config['centro_denominacion'].", en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
 
 SOLICITA:
 Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente esta decisión, la enseñanza de Religión:
@@ -72,4 +72,34 @@ if (substr($religion, 0, 1)=="R") {
 	$MiPDF->Ln ( 5 );
 
 }
+
+// Salida de Bachillerato
+
+$titulo_salida = "AUTORIZACIÓN EN LA ENSEÑANZA POSTOBLIGATORIA PARA PODER SALIR DEL CENTRO ";
+
+$autoriza_salida="
+D./Dª $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."º de Bachillerato del ".$config['centro_denominacion']." 
+
+AUTORIZA al centro educativo a que el profesor de guardia, ante la ausencia de un profesor, le permita al alumno la salida del centro en la parte final del tramo lectivo.
+
+";
+$firma_salida = "En ".$config['centro_localidad'].", a $hoy
+
+
+Firmado. D./Dª";
+
+// Religion
+	if (substr($religion, 0, 1)!=="R") {
+	$MiPDF->Cell(168,4,"----------------------------------------------------------------------------------------------------------------------------------------",0,0,'C');
+	}
+	$MiPDF->Ln ( 10 );
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->Cell(168,5,$titulo_salida,0,0,'C');
+	$MiPDF->SetFont ( 'Times', '', 10  );	
+	$MiPDF->Ln ( 8 );
+	$MiPDF->Multicell ( 0, 6, $autoriza_salida, 0, 'L', 0 );
+	$MiPDF->Ln ( 2 );
+	$MiPDF->Multicell ( 0, 6, $firma_salida, 0, 'C', 0 );
+	$MiPDF->Ln ( 5 );
+
 	?>

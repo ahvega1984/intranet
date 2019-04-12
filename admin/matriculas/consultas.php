@@ -353,7 +353,7 @@ if (!($orden)) {
 	{
 		$sql.=", optativa$i";
 	}
-	$sql.=" from matriculas where ". $extra ." order by apellidos, nombre, curso, ". $orden ." grupo_actual";
+	$sql.=" from matriculas where ". $extra ." order by ". $orden ." apellidos, nombre, curso, grupo_actual";
 	// echo $sql;
 	$cons = mysqli_query($db_con, $sql);
 	if(mysqli_num_rows($cons) < 1){

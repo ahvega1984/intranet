@@ -396,7 +396,7 @@ if (!($orden)) {
 			$sql.=", opt_aut2$i";
 		}
 	}
-	$sql.=", repite, foto, enfermedad, bilinguismo, divorcio from matriculas_bach where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
+	$sql.=", repite, foto, enfermedad, bilinguismo, divorcio from matriculas_bach where ". $extra ." order by ". $orden ." curso,  grupo_actual, apellidos, nombre ";
 	// echo $sql;
 	$cons = mysqli_query($db_con, $sql);
 

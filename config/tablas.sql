@@ -1073,6 +1073,7 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
   `divorcio` varchar(64) DEFAULT NULL,
   `matematicas3` char(1) NOT NULL,
   `ciencias4` char(1) NOT NULL,
+  `nsegsocial` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -1153,6 +1154,7 @@ CREATE TABLE IF NOT EXISTS `matriculas_backup` (
   `divorcio` varchar(64) DEFAULT NULL,
   `matematicas3` char(1) NOT NULL,
   `ciencias4` char(1) NOT NULL,
+  `nsegsocial` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -1227,6 +1229,7 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `opt_aut25` int(1) NOT NULL,
   `opt_aut26` int(1) NOT NULL,
   `opt_aut27` int(11) UNSIGNED NOT NULL,
+  `nsegsocial` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -1301,6 +1304,7 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach_backup` (
   `opt_aut25` int(1) NOT NULL,
   `opt_aut26` int(1) NOT NULL,
   `opt_aut27` int(11) UNSIGNED NOT NULL,
+  `nsegsocial` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
