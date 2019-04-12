@@ -162,10 +162,10 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 		//echo "$tuti == ".$_SESSION['profi']."<br>";
 		if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']))) {
 			if ($validado==1) {
-				echo "<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='fas fa-check-squarefa-fw fa-lg' data-bs='tooltip' title='Informe validado por el Tutor' > </i></a>";
+				echo "<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='fas fa-check-square fa-fw fa-lg' data-bs='tooltip' title='Informe validado por el Tutor' > </i></a>";
 			}
 			else{
-				echo "<a href='index.php?id=$row[0]&validar=0' class='text-danger'><i class='far fa-minus-circle fa-fw fa-lg' data-bs='tooltip' title='Informe no validado por el Tutor' > </i> </a> 	";
+				echo "<a href='index.php?id=$row[0]&validar=0' class='text-danger'><i class='fas fa-minus-circle fa-fw fa-lg' data-bs='tooltip' title='Informe no validado por el Tutor' > </i> </a> 	";
 			}
 		}
 		echo "</td>
