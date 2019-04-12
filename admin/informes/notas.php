@@ -7,10 +7,14 @@ $notas1 = "select notas1, notas2, notas3, notas4, unidad, notas0 from alma, nota
 $result1 = mysqli_query($db_con, $notas1);
 $row1 = mysqli_fetch_array($result1);
 $asignatura_1 = substr($row1[0], 0, strlen($row1[0])-1);
+$asignatura_2 = substr($row1[1], 0, strlen($row1[1])-1);
 $inicial = substr($row1[5], 0, strlen($row1[5])-1);
 
 if (strlen($asignatura_1) > 0) {
 	$trozos = explode(";", $asignatura_1);
+}
+elseif (strlen($asignatura_1) < 1 and strlen($asignatura_2) > 0) {
+	$trozos = explode(";", $asignatura_2);
 }
 elseif(strlen($inicial) > 0) {
 	$trozos = explode(";", $inicial);
@@ -28,7 +32,6 @@ if (strlen($inicial) > 0) {
 		<thead><tr><th>Asignatura / Materia</th><?php echo $titulo_extra; ?><th data-bs="tooltip" title="1ª Evaluación">1Ev.</th><th data-bs="tooltip" title="2ª Evaluación">2Ev.</th><th data-bs="tooltip" title="Evaluación ordinaria">Ord.</th><th data-bs="tooltip" title="Evaluación extraordinaria">Ext.</th></tr></thead>
 
 <?php 
-
 $num = count($trozos);
  for ($i=0;$i<$num; $i++)
   {
