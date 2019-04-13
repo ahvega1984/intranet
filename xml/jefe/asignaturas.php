@@ -113,6 +113,7 @@
 								}
 							}
 						}
+					unlink('../exporta/'.$file);
 					closedir($handle);
 				}
 				else{

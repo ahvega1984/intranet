@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
 header('Location:'.'http://'.$config['dominio'].'/intranet/logout.php');
-exit;	
+exit;
 }
 ?>
 <?php
@@ -31,20 +31,20 @@ if ($directorio=="../exporta0") {
 
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir($directorio)) {
-   while (false !== ($file = readdir($handle))) {   	
+   while (false !== ($file = readdir($handle))) {
       if ($file != "." && $file != ".." && $file != "index.php") {
-       	
+
 $doc = new DOMDocument('1.0', 'utf-8');
 
 $doc->load( $directorio.'/'.$file );
 
 $claves = $doc->getElementsByTagName( "ALUMNO" );
- 
+
 /*Al ser $materias una lista de nodos
 lo puedo recorrer y obtener todo
 su contenido*/
 foreach( $claves as $clave )
-{	
+{
 $clave2 = $clave->getElementsByTagName( "X_MATRICULA" );
 $clave3 = $clave2->item(0)->nodeValue;
 
@@ -67,7 +67,7 @@ if ($directorio=="../exporta1") {
   }
   else{
     $cod = "update notas set notas1 = '";
-  }  
+  }
 }
 if ($directorio=="../exporta2") {
   if ($vacio == 1) {
@@ -75,7 +75,7 @@ if ($directorio=="../exporta2") {
   }
   else{
     $cod = "update notas set notas2 = '";
-  }  
+  }
 }
 if ($directorio=="../exportaO") {
 
@@ -84,7 +84,7 @@ if ($directorio=="../exportaO") {
   }
   else{
     $cod = "update notas set notas3 = '";
-  }  
+  }
 }
 if ($directorio=="../exportaE") {
   if ($vacio == 1) {
@@ -92,10 +92,10 @@ if ($directorio=="../exportaE") {
   }
   else{
     $cod = "update notas set notas4 = '";
-  }  
+  }
 }
 foreach( $materias as $materia )
-{		
+{
 $codigos = $materia->getElementsByTagName( "X_MATERIAOMG" );
 $codigo = $codigos->item(0)->nodeValue;
 $notas = $materia->getElementsByTagName( "X_CALIFICA" );
@@ -113,10 +113,11 @@ $cod.="' where claveal = '$clave3'";
 
 mysqli_query($db_con, $cod);
 //echo $cod."<br>";
-}   	       
+}
 }
 }
    closedir($handle);
+   unlink($directorio.'/'.$file);
 
    if ($directorio=="../exporta0") {
   mysqli_query($db_con, "insert into notas (claveal) select claveal1 from alma where claveal1 not in (select claveal from notas)");
@@ -126,7 +127,7 @@ mysqli_query($db_con, $cod);
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las Notas de Evaluación se han importado correctamente en la base de datos.
 </div></div>';
-}  
+}
 else
 {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">

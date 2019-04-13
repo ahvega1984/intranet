@@ -63,12 +63,12 @@ $docXML .= "\t<CURSOS>\n";
 $directorio = scandir("./origen/");
 sort($directorio);
 foreach ($directorio as $archivo) {
-	
+
     if (!is_dir($archivo) and stristr($archivo,".xml")==TRUE)
-    {               
+    {
         $doc = new DOMDocument('1.0', 'UTF-8');
         $doc->load( './origen/'.$archivo );
-        
+
         // Obtenemos los datos del curso
         $tag_xofertamatrig	= $doc->getElementsByTagName("X_OFERTAMATRIG");
         $tag_dofertamatrig	= $doc->getElementsByTagName("D_OFERTAMATRIG");
@@ -78,8 +78,8 @@ foreach ($directorio as $archivo) {
         $D_OFERTAMATRIG		= $tag_dofertamatrig->item(0)->nodeValue;
         $X_UNIDAD			= $tag_xunidad->item(0)->nodeValue;
         $T_NOMBRE			= $tag_tnombre->item(0)->nodeValue;
-        
-        
+
+
         // COMIENZO/FIN DE UNIDADES Y CURSOS DEL CENTRO
         if ($flag_curso != $X_OFERTAMATRIG) {
         	if ($flag_fincurso) {
@@ -90,44 +90,44 @@ foreach ($directorio as $archivo) {
         	$docXML .= "\t\t\t<X_OFERTAMATRIG>$X_OFERTAMATRIG</X_OFERTAMATRIG>\n";
         	$docXML .= "\t\t\t<D_OFERTAMATRIG>$D_OFERTAMATRIG</D_OFERTAMATRIG>\n";
         	$docXML .= "\t\t\t<UNIDADES>\n";
-        	
+
         	$flag_fincurso = 1;
         }
         $flag_curso = $X_OFERTAMATRIG;
-        
-        
+
+
         // COMIENZO DE UNIDAD
         $docXML .= "\t\t\t\t<UNIDAD>\n";
         $docXML .= "\t\t\t\t\t<X_UNIDAD>$X_UNIDAD</X_UNIDAD>\n";
         $docXML .= "\t\t\t\t\t<T_NOMBRE>$T_NOMBRE</T_NOMBRE>\n";
-        
-        
+
+
         // ALUMNOS DE LA UNIDAD
         $docXML .= "\t\t\t\t\t<ALUMNOS>\n";
-        
+
         $tag_alumno = $doc->getElementsByTagName("ALUMNO");
         foreach( $tag_alumno as $alumno ) {
         	$tag_xmatricula = $alumno->getElementsByTagName("X_MATRICULA");
         	$tag_cnumescolar = $alumno->getElementsByTagName("C_NUMESCOLAR");
-        	$X_MATRICULA = $tag_xmatricula->item(0)->nodeValue;	
+        	$X_MATRICULA = $tag_xmatricula->item(0)->nodeValue;
         	$C_NUMESCOLAR = $tag_cnumescolar->item(0)->nodeValue;
-        	
+
         	// COMIENZO ALUMNO
         	$docXML .= "\t\t\t\t\t\t<ALUMNO>\n";
         	$docXML .= "\t\t\t\t\t\t\t<X_MATRICULA>$X_MATRICULA</X_MATRICULA>\n";
-        	
+
         	if ($MODO_DEPURACION) {
         		$alumnos[$cont_alum] = $X_MATRICULA;
         		$cont_alum++;
         	}
-        		
-        	
+
+
         	// COMIENZO FALTAS DE ASISTENCIA
         	$docXML .= "\t\t\t\t\t\t\t<FALTAS_ASISTENCIA>\n";
-          	
+
         	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA, FALTAS.FALTA FROM FALTAS WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND (FALTAS.FALTA='F' OR FALTAS.FALTA='J') AND FALTAS.CLAVEAl='$C_NUMESCOLAR'");
         	if (!$result) echo mysqli_error($db_con);
-        	
+
         	while($faltas = mysqli_fetch_array($result)) {
 	        	if ($faltas[2]=="F") {
 	        		$faltas_tipo = "I";
@@ -140,12 +140,12 @@ foreach ($directorio as $archivo) {
 	        	}
 	        	// Obtenemos la fecha de la falta en formato Séneca
 	        	$F_FALASI = fecha_seneca($faltas[0]);
-	        	
+
 	        	// Obtenemos el código de tramo
 	        	// if ($faltas[1] > 3) $faltas[1]++; // No es lo más óptimo, pero soluciona el problema... :/
 	        	$result_tramos = mysqli_query($db_con, "SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
 	        	$tramos = mysqli_fetch_array($result_tramos);
-	        	
+
 	        	$docXML .= "\t\t\t\t\t\t\t\t<FALTA_ASISTENCIA>\n";
 	        	$docXML .= "\t\t\t\t\t\t\t\t\t<F_FALASI>$F_FALASI</F_FALASI>\n";
 	        	$docXML .= "\t\t\t\t\t\t\t\t\t<X_TRAMO>$tramos[0]</X_TRAMO>\n";
@@ -153,23 +153,23 @@ foreach ($directorio as $archivo) {
 	        	$docXML .= "\t\t\t\t\t\t\t\t\t<L_DIACOM>N</L_DIACOM>\n";
 	        	$docXML .= "\t\t\t\t\t\t\t\t</FALTA_ASISTENCIA>\n";
         	}
-        	
+
         	if ($MODO_DEPURACION) {
         		$dias[$cont_falt] = $F_FALASI;
         		$cont_falt++;
         	}
 
-        	
+
         	// FIN FALTAS DE ASISTENCIA
         	$docXML .= "\t\t\t\t\t\t\t</FALTAS_ASISTENCIA>\n";
-        	
+
         	// FIN ALUMNO
         	$docXML .= "\t\t\t\t\t\t</ALUMNO>\n";
         }
-		
+
 		// FIN DE ALUMNOS DE LA UNIDAD
         $docXML .= "\t\t\t\t\t</ALUMNOS>\n";
-        
+
         // FIN DE UNIDAD
         $docXML .= "\t\t\t\t</UNIDAD>\n";
     }
@@ -197,49 +197,50 @@ if ($MODO_DEPURACION) {
 		$result = mysqli_query($db_con, "SELECT CONCAT(APELLIDOS,', ',NOMBRE) AS alumnos, unidad FROM alma WHERE claveal1='$alumnos[$i]'");
 		$filas = mysqli_num_rows($result);
 		$alumno = mysqli_fetch_array($result);
-		
+
 		if (!$filas>1) echo "<span style='color:red'>$alumnos[$i]  -->  $alumno[1] - $alumno[0]</span><br>";
-		
+
 		$i++;
 	}
 	$reg = $i;
 	if ($reg != $todos[0]) echo "Faltan alumnos";
 	else echo "CORRECTO!";
-	
+
 	echo "<h2>COMPROBACION DIAS</h2>";
 	$i=0;
 	while ($dias[$i] != FALSE) {
 		$dia = fecha_mysql($dias[$i]);
 		$diasem = strftime('%w', strtotime("$dia"));
-		
+
 		$result = mysqli_query($db_con, "SELECT * FROM festivos WHERE fecha='$dia'");
 		$filas = mysqli_num_rows($result);
-		
+
 		$error=0;
 		if ($diasem == 0 || $diasem == 6 || $filas>1) {
 			echo "<span style='color:red'>$dias[$i]  -->  $diasem (Es día festivo o fin de semana: (6) Sábado, (0) Domingo)</span><br>";
 			$error=1;
 		}
-		
+
 		$i++;
 	}
 	if (!$error) echo "CORRECTO!";
-	
+
 	echo "<h2>COMPROBACION TRAMOS</h2>";
 	$tramos = mysqli_fetch_array(mysqli_query($db_con, "SELECT COUNT(*) FROM tramos"));
 	$result = mysqli_query($db_con, "SELECT * FROM tramos");
-	
+
 	while($tramo = mysqli_fetch_array($result)) {
 		echo "ID: $tramo[1] --> HORA: $tramo[0] (la hora debe ser un valor numerico)<br>";
 	}
-	
+
 	if (!$tramos>1) echo "No hay tramos horarios";
 	else echo "CORRECTO!";
-	
+
 }
 else {
 	header("Content-disposition: attachment; filename=$archivo");
 	header("Content-type: application/octet-stream");
 	readfile($directorio.$archivo);
+	unlink($directorio.$archivo);
 }
 ?>

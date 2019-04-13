@@ -64,7 +64,7 @@ if ($handle = opendir($dir)) {
       $hoy = date('d/m/Y')." 08:00:00";
       $ano_curso=substr($config['curso_inicio'],0,4);
       $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-      
+
       <SERVICIO>
       \t<DATOS_GENERALES>
       \t\t<MODULO>FALTAS DE ASISTENCIA</MODULO>
@@ -115,6 +115,7 @@ if ($handle = opendir($dir)) {
       if (file_exists("exportado/".$file)) unlink("exportado/".$file);
       $fp1=fopen("exportado/".$file,"w");
       fwrite($fp1,$xml);
+      unlink('./origen/'.$file);
     }
   }
 }
