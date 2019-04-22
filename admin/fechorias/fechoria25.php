@@ -295,14 +295,14 @@ for ($i=0;$i<$num_a;$i++){
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 
 	if ($_POST['submit2'] and !($grave == "muy grave"  and $_POST['confirmado']=="1" and $confirma_db != 1 and isset($id))) {
-		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto=$_nombreAdjunto where id = '$id'");
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto='$_nombreAdjunto' where id = '$id'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	}
 	elseif ($grave == "muy grave" and $_POST['submit1']=="Actualizar datos") {
-		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto=$_nombreAdjunto, confirmado='1' where id = '$id'");
+		mysqli_query($db_con, "update Fechoria set claveal='$nombre', fecha='$fecha', asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa', adjunto='$_nombreAdjunto', confirmado='1' where id = '$id'");
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
