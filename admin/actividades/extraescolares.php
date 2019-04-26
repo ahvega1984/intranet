@@ -89,15 +89,15 @@ $horario2 = $datos[7];
 
 if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
-<input name="fecha" type="hidden" id="A" value="<?php echo $fecha;?>">
-<input name="horario" type="hidden" id="A" value="<?php echo $horario;?>">
-<input name="fechafin" type="hidden" id="A" value="<?php echo $fecha2;?>">
-<input name="horariofin" type="hidden" id="A" value="<?php echo $horario2;?>">
-<input name="profesor" type="hidden" id="A" value="<?php echo $profesor;?>">
-<input name="actividad" type="hidden" id="A" value="<?php echo $actividad;?>">
-<input name="descripcion" type="hidden" id="A" value="<?php echo $descripcion;?>">
-<input name="observaciones" type="hidden" id="A" value="<?php echo $observaciones;?>">
-<input name="id" type="hidden" id="A" value="<?php echo $id;?>">
+<input name="fecha" type="hidden" value="<?php echo $fecha;?>">
+<input name="horario" type="hidden" value="<?php echo $horario;?>">
+<input name="fechafin" type="hidden" value="<?php echo $fecha2;?>">
+<input name="horariofin" type="hidden" value="<?php echo $horario2;?>">
+<input name="profesor" type="hidden" value="<?php echo $profesor;?>">
+<input name="actividad" type="hidden" value="<?php echo htmlspecialchars($actividad);?>">
+<input name="descripcion" type="hidden" value="<?php echo $descripcion;?>">
+<input name="observaciones" type="hidden" value="<?php echo $observaciones;?>">
+<input name="id" type="hidden" value="<?php echo $id;?>">
 <?php }
 $nc = 0;
 while($alumno = mysqli_fetch_array($alumnos1)){
@@ -125,7 +125,7 @@ elseif($_GET['ver_lista']!=="1"){
 ?>
 <tr>
 <td>
-<input name="<?php echo $nc.$claveal;?>" type="checkbox" id="A" value="<?php echo $claveal;?>" <?php echo $extra_al;?>>
+<input name="<?php echo $nc.$claveal;?>" type="checkbox" value="<?php echo $claveal;?>" <?php echo $extra_al;?>>
 </td>
 <td>
 <?php
