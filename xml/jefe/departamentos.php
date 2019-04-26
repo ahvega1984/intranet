@@ -77,6 +77,10 @@ include("../../menu.php");
 							$fechacese = $fechacese_exp[2].'-'.$fechacese_exp[1].'-'.$fechacese_exp[0];
 						}
 
+						if ($fechacese == "--") {
+							$fechacese = "0000-00-00";
+						}
+
 						$datos1 = "INSERT INTO `departamento_temp` (`nombre`, `dni`, `departamento`, `idea`, `fechatoma`, `fechacese`) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\",\"". $fechatoma . "\",\"". $fechacese . "\")";
 						mysqli_query($db_con, $datos1);
 					}
@@ -87,7 +91,7 @@ include("../../menu.php");
 				$borrarpuesto = "delete from departamento_temp where DEPARTAMENTO LIKE '%Puesto%'";
 				mysqli_query($db_con, $borrarpuesto);
 				// Eliminar duplicados e insertar nuevos
-				$elimina = "SELECT DISTINCT nombre, dni, departamento, idea FROM departamento_temp where dni NOT IN (SELECT DISTINCT dni FROM departamentos WHERE idea <> 'admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento')";
+				$elimina = "SELECT DISTINCT nombre, dni, departamento, idea, fechatoma, fechacese FROM departamento_temp where dni NOT IN (SELECT DISTINCT dni FROM departamentos WHERE idea <> 'admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento')";
 				$elimina1 = mysqli_query($db_con, $elimina);
 				 if(mysqli_num_rows($elimina1) > 0)
 				{
@@ -98,7 +102,7 @@ include("../../menu.php");
 				while($elimina2 = mysqli_fetch_array($elimina1))
 				{
 				echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li>";
-				  $SQL6 = "insert into departamentos (nombre, dni, departamento, idea) VALUES (\"". $elimina2[0] . "\",\"". $elimina2[1] . "\",\"". $elimina2[2] . "\",\"". $elimina2[3] . "\")";
+				  $SQL6 = "insert into departamentos (nombre, dni, departamento, idea, fechatoma, fechacese) VALUES (\"". $elimina2[0] . "\",\"". $elimina2[1] . "\",\"". $elimina2[2] . "\",\"". $elimina2[3] . "\",\"". $elimina2[4] . "\",\"". $elimina2[5] . "\")";
 				  $result6 = mysqli_query($db_con, $SQL6);
 				}
 				echo "<br />";
