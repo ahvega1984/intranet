@@ -65,15 +65,18 @@ if ($config['mod_notificaciones']) {
 
 			// Mensaje a Profesores que llevan más de 5 días sin entrar en la intranet
 
-			$result = mysqli_query($db_con, "SELECT DISTINCT profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('".date('Y-m-d')."', MAX(fecha)) AS numdias FROM reg_intranet WHERE profesor IN (SELECT idea FROM departamentos where departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias > 4 ORDER BY `numdias` DESC");
+			$result = mysqli_query($db_con, "SELECT DISTINCT profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('".date('Y-m-d')."', MAX(fecha)) AS numdias FROM reg_intranet WHERE profesor IN (SELECT idea FROM departamentos where departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') and idea not in (select distinct profesor from acceso where profesor='$profe_ultima' and fecha='$fecha' and clase='1') GROUP BY profesor HAVING numdias > 5 ORDER BY `numdias` DESC");
 
 			while ($row = mysqli_fetch_array($result)) {
 				$profe_ultima = $row['profesor'];
 				$ultima = $row['ultima'];
 				$dias = $row['numdias'];
 				if ($dias > 4) {
+					$repite = mysqli_query($db_con,"select distinct profesor from acceso where profesor='$profe_ultima' and fecha='$hoy' and clase='1' and observaciones='$ultima'");
+					if (!mysqli_num_rows($repite)>0) {
 					$num++;
 					mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$profe_ultima', '$hoy', '1', '$ultima')");
+					}
 				}
 			}
 		}
