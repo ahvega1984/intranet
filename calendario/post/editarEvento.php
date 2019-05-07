@@ -167,7 +167,7 @@ if (! mysqli_num_rows($result)) {
 else {
 	// Mantenemos al autor original de la actividad si ya ha sido registrada.
 	if (!empty($result_actividad['profesorreg'])) {
-		echo $result_actividad['profesorreg'];
+		$result_actividad['profesorreg'];
 		$profesorreg_evento = mysqli_real_escape_string($db_con, $result_actividad['profesorreg']);
 	}
 	else{
