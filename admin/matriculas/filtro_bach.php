@@ -336,6 +336,7 @@ else{
 </div>
 </div>
 
+<?php if($curso=="2BACH"){ ?>
 <div class="col-sm-4">
 <div class="form-group">
 <label>Optativa 2Bach. 2h</label><select class="form-control"  name="opt_2h">
@@ -354,7 +355,7 @@ else{
 		</select>
 </div>
 </div>
-
+<?php } ?>
 
 <div class="col-sm-4">
 <div class="form-group">

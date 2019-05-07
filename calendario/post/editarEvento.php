@@ -157,13 +157,22 @@ elseif ($calendario_evento != 2 && $calendario_evento != 1) {
 
 
 // Comprobamos si existe el evento
-$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE id=$id_evento LIMIT 1");
+$result = mysqli_query($db_con, "SELECT * FROM calendario WHERE id=$id_evento LIMIT 1");
+$result_actividad = mysqli_fetch_array($result);
 
 if (! mysqli_num_rows($result)) {
 	header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoNoExiste');
 	exit();
 }
 else {
+	// Mantenemos al autor original de la actividad si ya ha sido registrada.
+	if (!empty($result_actividad['profesorreg'])) {
+		$profesorreg_evento = mysqli_real_escape_string($db_con, $result_actividad['profesorreg']);
+	}
+	else{
+		$profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
+	}
+	
 	$editar = mysqli_query($db_con, "UPDATE calendario SET categoria='$calendario_evento', nombre='$nombre_evento', descripcion='$descripcion_evento', fechaini='$fechaini_evento_sql', horaini='$horaini_evento', fechafin='$fechafin_evento_sql', horafin='$horafin_evento', lugar='$lugar_evento', departamento='$string_departamento', profesores='$string_profesores', unidades='$string_unidad', asignaturas='$string_asignatura', profesorreg='$profesorreg_evento', observaciones='$observaciones_evento' WHERE id=$id_evento") or die (mysqli_error($db_con));
 	if (! $editar) {
 		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoEdicion');

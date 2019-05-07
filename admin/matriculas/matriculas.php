@@ -127,6 +127,10 @@ array(
 												'nombre' => 'Bahía Dorada',
 ),
 array(
+												'id'     => 'Bermudas Beach',
+												'nombre' => 'Bermudas Beach',
+),
+array(
 												'id'     => 'Don Pedro',
 												'nombre' => 'Don Pedro',
 ),
