@@ -105,7 +105,13 @@ if (!$claveal) {
 				<?php endif; ?>
 
 			</div><!-- /.col-sm-2 -->
-
+			
+			<?php
+			$fecha_nacimiento = new DateTime(cambia_fecha($row['fecha']));
+			$hoy = new DateTime();
+			$anos = $hoy->diff($fecha_nacimiento);
+			$edad = $anos->y;
+			?>
 
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-10">
@@ -120,7 +126,7 @@ if (!$claveal) {
 						  <dt>Fecha de nacimiento</dt>
 						  <dd><?php echo ($row['fecha'] != "") ? $row['fecha']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Edad</dt>
-						  <dd><?php echo ($row['edad'] != "") ? $row['edad'].' años': '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($row['edad'] != "") ? $edad.' años': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Domicilio</dt>
 						  <dd><?php echo ($row['domicilio'] != "") ? $row['domicilio']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Nacionalidad</dt>
