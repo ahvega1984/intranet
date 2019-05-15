@@ -289,7 +289,7 @@ if (isset($_POST['instalar']))
 	<title>Intranet - Instalación de la Intranet</title>
 
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	<link href="../vendor/fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet">
 	<link href="../css/animate.css" rel="stylesheet">
 	<link href="../css/otros.css" rel="stylesheet">
 
