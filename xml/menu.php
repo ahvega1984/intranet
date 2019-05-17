@@ -59,6 +59,7 @@
 	<?php if($_SESSION['pagina_centro']==1): ?>	
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
 	<?php endif; ?>
+	<li><a href="../admin/libros-texto/programa-gratuidad/index.php" target="_blank">Libros de texto gratuitos</a></li>
 	<!-- CALIFICACIONES -->
 	<li class="nav-header">Notas de evaluación</li>
 	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>
