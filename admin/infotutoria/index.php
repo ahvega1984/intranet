@@ -279,7 +279,7 @@ while($row = mysqli_fetch_array($query)){
 }
 ?>
 </table>
-<?
+<?php
  if (strstr($_SESSION['cargo'],"4")==TRUE and $n_pend < 1) {
 	 echo "<div class='alert alert-info' align='center'><p><i class='fas fa-check-square'> </i> No hay Informes de Tutoría activos para alumnos con materias pendientes de tu Departamento. </p></div><br>";
  }
