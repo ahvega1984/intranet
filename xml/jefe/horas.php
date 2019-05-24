@@ -61,7 +61,7 @@ while ($row_jornada = mysqli_fetch_array($result_jornadas)) {
 		$ancho_columnas = array();
 		$titulos = array();
 		array_push($titulos, "\nProfesor/a");
-		array_push($ancho_columnas, 45);
+		array_push($ancho_columnas, 47);
 		array_push($titulos, "Firma\nEntrada");
 		array_push($ancho_columnas, 27);
 		foreach ($horas_jornada as $hora_jornada) {
@@ -126,7 +126,7 @@ while ($row_jornada = mysqli_fetch_array($result_jornadas)) {
 				$asignatura_tramo = rtrim($asignatura_tramo);
 				$aula_tramo = rtrim($aula_tramo);
 
-				array_push($horario_profesor, $asignatura_tramo."\n".$aula_tramo);
+				array_push($horario_profesor, $asignatura_tramo.((! empty($aula_tramo)) ? "\n".$aula_tramo : ""));
 			}
 
 			$profesor = array(
@@ -138,15 +138,8 @@ while ($row_jornada = mysqli_fetch_array($result_jornadas)) {
 		}
 		unset($profesor);
 
-		/*
-		echo '<pre>';
-		print_r($profesores);
-		echo '</pre>';
-		exit;
-		*/
-
 		$i = 0;
-		$cabecera = 14;
+		$cabecera = 15;
 		foreach ($profesores as $profesor) {
 
 			$flag_mostrar = 0;
@@ -167,10 +160,21 @@ while ($row_jornada = mysqli_fetch_array($result_jornadas)) {
 						array_push($datos, "\n\n"); // Hueco firma
 						$flag_firma++;
 					}
-					array_push($datos, $tramo."\n");
+					if (stristr($tramo, "\n") == true) {
+						array_push($datos, $tramo);
+					}
+					else {
+						array_push($datos, $tramo."\n\n");
+					}
+
 				}
 				else {
-					array_push($datos, $tramo."\n");
+					if (stristr($tramo, "\n") == true) {
+						array_push($datos, $tramo);
+					}
+					else {
+						array_push($datos, $tramo."\n\n");
+					}
 				}
 				$i_firma++;
 			}
@@ -178,6 +182,19 @@ while ($row_jornada = mysqli_fetch_array($result_jornadas)) {
 
 			if ($flag_mostrar) {
 				$i++;
+
+				if ($i == $cabecera) {
+					$MiPDF->SetFont('NewsGotT', 'B', 10);
+					$MiPDF->SetTextColor(255, 255, 255);
+					$MiPDF->SetFillColor(61, 61, 61);
+
+					$MiPDF->Row($titulos, 0, 5);
+					$MiPDF->SetTextColor(0, 0, 0);
+					$MiPDF->SetFillColor(255, 255, 255);
+					$MiPDF->SetFont('NewsGotT', '', 10);
+					$cabecera += 15;
+				}
+
 				if ($i % 2 == 0) {
 					$MiPDF->SetFillColor(225, 225, 225);
 				}
@@ -186,19 +203,6 @@ while ($row_jornada = mysqli_fetch_array($result_jornadas)) {
 				}
 
 				$MiPDF->Row($datos, 0, 6);
-			}
-
-			if ($i == $cabecera) {
-				$MiPDF->SetFont('NewsGotT', 'B', 10);
-				$MiPDF->SetWidths($ancho_columnas);
-				$MiPDF->SetTextColor(255, 255, 255);
-				$MiPDF->SetFillColor(61, 61, 61);
-
-				$MiPDF->Row($titulos, 0, 5);
-				$MiPDF->SetTextColor(0, 0, 0);
-				$MiPDF->SetFillColor(255, 255, 255);
-				$MiPDF->SetFont('NewsGotT', '', 10);
-				$cabecera += 15;
 			}
 
 		}
