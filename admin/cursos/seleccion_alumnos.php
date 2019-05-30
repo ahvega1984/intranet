@@ -2,10 +2,10 @@
 require('../../bootstrap.php');
 
 // Redireccionamos al profesorado de PT o refuerzo a otra página
+$es_pt_o_ref = 0;
 $result_pt_o_ref = mysqli_query($db_con, "SELECT id FROM horw WHERE (c_asig = '21' OR c_asig = '136') AND prof = '$pr' LIMIT 1");
 if (mysqli_num_rows($result_pt_o_ref)) {
-  header('Location:'.'seleccion_alumnos_pt_refuerzo.php');
-  exit;
+  $es_pt_o_ref = 1;
 }
 
 if (isset($_POST['guardar_cambios'])) {
@@ -86,6 +86,14 @@ if (isset($_POST['restablecer_seleccion'])) {
 
 include("../../menu.php");
 ?>
+    <?php if (isset($es_pt_o_ref) && $es_pt_o_ref): ?>
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="seleccion_alumnos.php">Por materias</a></li>
+        <li><a href="seleccion_alumnos_pt_refuerzo.php">Refuerzo Pedagógico o Pedagogía Terapéutica</a></li>
+      </ul>
+    </div>
+    <?php endif; ?>
 
     <div class="container">
 
