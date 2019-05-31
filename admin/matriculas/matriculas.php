@@ -6,7 +6,7 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 7));
 if (file_exists('config.php')) {
 	include('config.php');
 }
-
+variables();
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
 if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}
@@ -324,7 +324,7 @@ if(isset($_POST['enviar'])){
 				if (strlen($ruta_este) > 0 or strlen($ruta_oeste) > 0) {$transporte = '1';}
 				if(!($itinerario=='1') and !($itinerario=='3')){$optativas4="";}
 				if (empty($foto)) { $foto = "0";}
-				$insert = "update matriculas set apellidos='$apellidos', nombre='$nombre', nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio='$domicilio', localidad='$localidad', dni='$dni', padre='$padre', dnitutor='$dnitutor', madre='$madre', dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', correo='$correo', religion='$religion', colegio='$colegio', correo='$correo', optativa1='$optativa1', optativa2='$optativa2', optativa3='$optativa3', optativa4='$optativa4', otrocolegio='$otrocolegio', letra_grupo='$letra_grupo', idioma='$idioma',  religion = '$religion', act1='$act1', observaciones='$observaciones', exencion='$exencion', bilinguismo='$bilinguismo', observaciones = '$observaciones', optativa21='$optativa21', optativa22='$optativa22', optativa23='$optativa23', optativa24='$optativa24', act21='$act21', act22='$act22', act23='$act23', act24='$act24', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', optativas4 = '$optativas4', itinerario = '$itinerario', optativa5='$optativa5', optativa6='$optativa6', optativa7='$optativa7', diversificacion='$diversificacion', optativa25='$optativa25', optativa26='$optativa26', optativa27='$optativa27', enfermedad = '$enfermedad', otraenfermedad = '$otraenfermedad', foto='$foto', divorcio='$divorcio', matematicas3 = '$matematicas3', ciencias4 = '$ciencias4', nsegsocial='$segsocial' where id = '$ya[0]'";
+				$insert = "update matriculas set apellidos='$apellidos', nombre='$nombre', nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio='$domicilio', localidad='$localidad', dni='$dni', padre='$padre', dnitutor='$dnitutor', madre='$madre', dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', correo='$correo', religion='$religion', colegio='$colegio', correo='$correo', optativa1='$optativa1', optativa2='$optativa2', optativa3='$optativa3', optativa4='$optativa4', otrocolegio='$otrocolegio', letra_grupo='$letra_grupo', idioma='$idioma',  religion = '$religion', act1='$act1', observaciones='$observaciones', exencion='$exencion', bilinguismo='$bilinguismo', observaciones = '$observaciones', optativa21='$optativa21', optativa22='$optativa22', optativa23='$optativa23', optativa24='$optativa24', act21='$act21', act22='$act22', act23='$act23', act24='$act24', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', optativas4 = '$optativas4', itinerario = '$itinerario', optativa5='$optativa5', optativa6='$optativa6', optativa7='$optativa7', diversificacion='$diversificacion', optativa25='$optativa25', optativa26='$optativa26', optativa27='$optativa27', enfermedad = '$enfermedad', otraenfermedad = '$otraenfermedad', foto='$foto', divorcio='$divorcio', matematicas3 = '$matematicas3', ciencias4 = '$ciencias4', nsegsocial='$segsocial', correo_alumno = '$correo_alumno', analgesicos = '$analgesicos' where id = '$ya[0]'";
 				//echo $insert."<br>";
 				mysqli_query($db_con, $insert);
 			}
@@ -332,7 +332,7 @@ if(isset($_POST['enviar'])){
 
 				if (strlen($ruta) > 0) {$transporte = '1';}
 				if (empty($foto)) { $foto = "0";}
-				$insert = "insert into matriculas (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma, religion, optativa1, optativa2, optativa3, optativa4, act1, observaciones, curso, exencion, bilinguismo, fecha, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, enfermedad, otraenfermedad, foto, divorcio, matematicas3, ciencias4, nsegsocial) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma', '$religion', '$optativa1', '$optativa2', '$optativa3', '$optativa4', '$act1', '$observaciones', '$curso', '$exencion', '$bilinguismo', now(), '$optativa21', '$optativa22', '$optativa23', '$optativa24', '$act21', '$act22', '$act23', '$act24', '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$optativas4', '$itinerario', '$optativa5', '$optativa6', '$optativa7', '$diversificacion', '$optativa25', '$optativa26', '$optativa27', '$enfermedad', '$otraenfermedad', '$foto', '$divorcio', '$matematicas3', '$ciencias4', '$segsocial')";
+				$insert = "insert into matriculas (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma, religion, optativa1, optativa2, optativa3, optativa4, act1, observaciones, curso, exencion, bilinguismo, fecha, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, enfermedad, otraenfermedad, foto, divorcio, matematicas3, ciencias4, nsegsocial, correo_alumno, analgesicos) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma', '$religion', '$optativa1', '$optativa2', '$optativa3', '$optativa4', '$act1', '$observaciones', '$curso', '$exencion', '$bilinguismo', now(), '$optativa21', '$optativa22', '$optativa23', '$optativa24', '$act21', '$act22', '$act23', '$act24', '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$optativas4', '$itinerario', '$optativa5', '$optativa6', '$optativa7', '$diversificacion', '$optativa25', '$optativa26', '$optativa27', '$enfermedad', '$otraenfermedad', '$foto', '$divorcio', '$matematicas3', '$ciencias4', '$segsocial', '$correo_alumno', '$analgesicos')";
 				mysqli_query($db_con, $insert);
 			}
 			// echo $insert;
@@ -483,14 +483,13 @@ exit();
 
 
 	// Comprobamos si el alumno se ha registrado ya
-	$ya = mysqli_query($db_con, "select apellidos, id, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, optativa1, optativa2, optativa3, optativa4, correo, exencion, bilinguismo, otrocolegio, letra_grupo, religion, observaciones, act1, act2, act3, act4, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, otrocolegio, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, curso, foto, enfermedad, otraenfermedad, divorcio, matematicas3, ciencias4, nsegsocial from matriculas where ". $conditio ."");
-
+	$ya = mysqli_query($db_con, "select apellidos, id, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, optativa1, optativa2, optativa3, optativa4, correo, exencion, bilinguismo, otrocolegio, letra_grupo, religion, observaciones, act1, act2, act3, act4, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, otrocolegio, ruta_oeste, sexo, hermanos, nacionalidad, claveal, optativas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, curso, foto, enfermedad, otraenfermedad, divorcio, matematicas3, ciencias4, nsegsocial, correo_alumno, analgesicos from matriculas where ". $conditio ."");
 	// Ya se ha matriculado
 	if (mysqli_num_rows($ya) > 0) {
 		$datos_ya = mysqli_fetch_array($ya);
 		$naci = explode("-",$datos_ya[5]);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya[0]; $id = $datos_ya[1]; $nombre = $datos_ya[2]; $nacido = $datos_ya[3]; $provincia = $datos_ya[4]; $domicilio = $datos_ya[6]; $localidad = $datos_ya[7]; $dni = $datos_ya[8]; $padre = $datos_ya[9]; $dnitutor = $datos_ya[10]; $madre = $datos_ya[11]; $dnitutor2 = $datos_ya[12]; $telefono1 = $datos_ya[13]; $telefono2 = $datos_ya[14]; $colegio = $datos_ya[15]; $optativa1 = $datos_ya[16]; $optativa2 = $datos_ya[17]; $optativa3 = $datos_ya[18]; $optativa4 = $datos_ya[19]; $correo = $datos_ya[20]; $exencion = $datos_ya[21]; $bilinguismo = $datos_ya[22]; $otrocolegio = $datos_ya[23]; $letra_grupo = $datos_ya[24]; $religion = $datos_ya[25]; $observaciones = $datos_ya[26]; $act1 = $datos_ya[27]; $act2 = $datos_ya[28]; $act3 = $datos_ya[29]; $act4 = $datos_ya[30]; $optativa21 = $datos_ya[31]; $optativa22 = $datos_ya[32]; $optativa23 = $datos_ya[33]; $optativa24 = $datos_ya[34]; $act21 = $datos_ya[35]; $act22 = $datos_ya[36]; $act23 = $datos_ya[37]; $act24 = $datos_ya[38]; $promociona = $datos_ya[39]; $transporte = $datos_ya[40]; $ruta_este = $datos_ya[41]; $otrocolegio = $datos_ya[42]; $ruta_oeste = $datos_ya[43]; $sexo = $datos_ya[44]; $hermanos = $datos_ya[45]; $nacionalidad = $datos_ya[46]; $claveal = $datos_ya[47]; $optativas4 = $datos_ya[48]; $itinerario = $datos_ya[49]; $optativa5 = $datos_ya[50];$optativa6 = $datos_ya[51];$optativa7 = $datos_ya[52]; $diversificacion = $datos_ya[53];$optativa25 = $datos_ya[54];$optativa26 = $datos_ya[55];$optativa27 = $datos_ya[56]; $curso = $datos_ya[57]; $foto = $datos_ya[58]; $enfermedad = $datos_ya[59]; $otraenfermedad = $datos_ya[60]; $divorcio = $datos_ya[61]; $matematicas3 = $datos_ya[62]; $ciencias4 = $datos_ya[63];; $segsocial = $datos_ya[64];
+		$apellidos = $datos_ya[0]; $id = $datos_ya[1]; $nombre = $datos_ya[2]; $nacido = $datos_ya[3]; $provincia = $datos_ya[4]; $domicilio = $datos_ya[6]; $localidad = $datos_ya[7]; $dni = $datos_ya[8]; $padre = $datos_ya[9]; $dnitutor = $datos_ya[10]; $madre = $datos_ya[11]; $dnitutor2 = $datos_ya[12]; $telefono1 = $datos_ya[13]; $telefono2 = $datos_ya[14]; $colegio = $datos_ya[15]; $optativa1 = $datos_ya[16]; $optativa2 = $datos_ya[17]; $optativa3 = $datos_ya[18]; $optativa4 = $datos_ya[19]; $correo = $datos_ya[20]; $exencion = $datos_ya[21]; $bilinguismo = $datos_ya[22]; $otrocolegio = $datos_ya[23]; $letra_grupo = $datos_ya[24]; $religion = $datos_ya[25]; $observaciones = $datos_ya[26]; $act1 = $datos_ya[27]; $act2 = $datos_ya[28]; $act3 = $datos_ya[29]; $act4 = $datos_ya[30]; $optativa21 = $datos_ya[31]; $optativa22 = $datos_ya[32]; $optativa23 = $datos_ya[33]; $optativa24 = $datos_ya[34]; $act21 = $datos_ya[35]; $act22 = $datos_ya[36]; $act23 = $datos_ya[37]; $act24 = $datos_ya[38]; $promociona = $datos_ya[39]; $transporte = $datos_ya[40]; $ruta_este = $datos_ya[41]; $otrocolegio = $datos_ya[42]; $ruta_oeste = $datos_ya[43]; $sexo = $datos_ya[44]; $hermanos = $datos_ya[45]; $nacionalidad = $datos_ya[46]; $claveal = $datos_ya[47]; $optativas4 = $datos_ya[48]; $itinerario = $datos_ya[49]; $optativa5 = $datos_ya[50];$optativa6 = $datos_ya[51];$optativa7 = $datos_ya[52]; $diversificacion = $datos_ya[53];$optativa25 = $datos_ya[54];$optativa26 = $datos_ya[55];$optativa27 = $datos_ya[56]; $curso = $datos_ya[57]; $foto = $datos_ya[58]; $enfermedad = $datos_ya[59]; $otraenfermedad = $datos_ya[60]; $divorcio = $datos_ya[61]; $matematicas3 = $datos_ya[62]; $ciencias4 = $datos_ya[63]; $segsocial = $datos_ya[64]; $correo_alumno = $datos_ya[65]; $analgesicos = $datos_ya[66];
 		$n_curso = substr($curso,0,1);
 		if ($ruta_error == '1') {
 			$ruta_este = "";
@@ -529,7 +528,7 @@ exit();
 			$apellidos = $al_alma[0];  $nombre = $al_alma[1]; $nacido = $al_alma[5]; $provincia = $al_alma[2]; $nacimiento = $al_alma[3]; $domicilio = $al_alma[4]; $localidad = $al_alma[5]; $dni = $al_alma[6]; $padre = $al_alma[7]; $dnitutor = $al_alma[8];
 			if ($madre == "") { if (strlen($al_alma[9]) > 3) {$madre = $al_alma[9];	}else{ $madre = ""; }}
 			if ($dnitutor2 == "") { $dnitutor2 = $al_alma[10];} if ($telefono1 == "") { $telefono1 = $al_alma[11]; } if ($telefono2 == "") { $telefono2 = $al_alma[12];} if ($correo == "") { $correo = $al_alma[13];} $padre = $al_alma[14];
-			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[20],-1); $claveal= $al_alma[19]; $nacido = $al_alma[22];; $segsocial = $al_alma[23];
+			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[20],-1); $claveal= $al_alma[19]; $nacido = $al_alma[22]; $segsocial = $al_alma[23]; 
 			if (substr($curso,0,1) == substr($n_curso_ya,0,1)) {
 				echo '
 <script>
@@ -719,9 +718,13 @@ exit();
 				maxlength="9"></div>
 			</td>
 			<td>
-			<div class="form-group"><label for="correo">Correo electrónico</label>
+			<div class="form-group"><label for="correo">Correo electrónico del tutor</label>
 			<input type="text" class="form-control" id="correo" name="correo"
 				value="<?php echo (isset($correo)) ? $correo : ''; ?>"
+				maxlength="120"></div>
+			<div class="form-group"><label for="correo_alumno">Correo electrónico del alumno</label>
+			<input type="text" class="form-control" id="correo_alumno" name="correo_alumno"
+				value="<?php echo (isset($correo_alumno)) ? $correo_alumno : ''; ?>"
 				maxlength="120"></div>
 			</td>
 			<td rowspan="2">
@@ -1056,7 +1059,9 @@ exit();
 					<tr>
 				<?php for ($i = 1; $i < 4; $i++): ?>
 						<td class="<?php if($i==1 or $i==2){echo "info";}else{echo "warning";}?> text-center" style="width:33%">
-							<div class="radio"><label> <input type="radio" onClick="getElementById('r1').disabled = false;"
+							<div class="radio"><label> <input type="radio" 
+
+								<?php if($i==1){ ?> onClick="getElementById('r1').disabled = false; getElementById('ciencias4').disabled = false; getElementById('ciencias5').disabled = false;" <?php } else{ ?>onClick="getElementById('r1').disabled = true; getElementById('ciencias4').disabled = true; getElementById('ciencias5').disabled = true;" <?php } ?>
 				id="itinerario<?php echo $i; ?>" name="itinerario" required
 							<?php if($itinerario == $i){echo " checked";} ?>
 				value="<?php echo $i; ?>"> <span class="text-uppercase"><strong>Itinerario
@@ -1067,16 +1072,12 @@ exit();
 
 							<div class="text-left" style="width:80%;margin:auto;">
 							<div class="radio">
-							<label> <input type="radio"
-				id="ciencias4" name="ciencias4"
+							<label> <input type="radio"	id="ciencias4" name="ciencias4"
 							<?php if($ciencias4 == 1){echo " checked";} ?> value="1" onClick='document.getElementById("optativa2").disabled=true;'>
 							<strong>Ingenieria y Arquitectura</strong>
 							</label>
-							</div>
 
-							<div class="radio">
-							<label> <input type="radio"
-				id="ciencias4" name="ciencias4"
+							<label> <input type="radio"	id="ciencias5" name="ciencias4"
 							<?php if($ciencias4 == 2){echo " checked";} ?> value="2" onClick='document.getElementById("optativa2").disabled=false;'>
 							<strong>Ciencias de la Salud y de la Tierra</strong>
 							</label>
@@ -1140,10 +1141,11 @@ exit();
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 4º de ESO
 			<p class="help-block">
-			<small>(marca con 1, 2, 3, etc. por orden de preferencia. En caso de que no haya un número suficiente de alumnos, se asignará la siguiente asignatura elegida.).<br>
+			<small>
 				<span class="text-warning">
-					Todos los alumnos cursan 2 optativas, excepto la Opción de <mark><em>Ingeniería y Arquitectura</em></mark> del Itinerario de Ciencias que cursa 1 sola pues todos cursan TIC.
-				</span></small></p></th>
+					Se eligen 2 optativas, excepto los alumnos de la Opción de <mark><em>Ingeniería y Arquitectura</em></mark> que eligen 1 sola pues todos cursan Tecnología.
+				</span>
+			</small></p></th>
 		</tr>
 		<tr>
 			<td style="border-top: 0;" colspan="4" >
@@ -1360,10 +1362,15 @@ exit();
 
 		<!-- ENFERMEDADES -->
 		<tr>
-			<th class="active text-center" colspan="4"><span class="text-uppercase">Información Privada sobre el Alumno</span></th>
+			<th class="active text-center" colspan="4"><span class="text-uppercase">Información personal relevante para el Centro</span></th>
 		</tr>
 		<tr>
 			<td colspan="2" style="border-top: 0;">
+			<div class="form-group">
+			<div class="checkbox"><label> <input type="checkbox"
+				name="analgesicos" value="1" 
+				<?php if($_SESSION['ya_matricula_eso']==0 or $analgesicos == '1'){echo "checked";} ?>> Autorizo al Centro para suministrar analgésicos al alumno si este lo solicita (Paracetamol). </label></div>
+			</div>	
 			<p class="help-block"><small>
 			Señalar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida académica del alumno.</small></p>
 		<div
@@ -1391,7 +1398,7 @@ exit();
 
 			<td colspan="2" style="border-top: 0;">
 			<p class="help-block"><small>
-			Señalar si el alumno procede de padres divorciados y cual es la situación legal de la Guardia y Custodia respecto al mismo.</small></p>
+			En caso de padres divorciados indicar cual es la situación legal de la Guardia y Custodia respecto al alumno.</small></p>
 		<div
 				class="form-group col-sm-10">
 			<label for="divorcio">Alumno con padres divorciados</label>

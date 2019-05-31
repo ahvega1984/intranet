@@ -1074,6 +1074,8 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
   `matematicas3` char(1) NOT NULL,
   `ciencias4` char(1) NOT NULL,
   `nsegsocial` varchar(15) DEFAULT NULL,
+  `correo_alumno` varchar(128) DEFAULT NULL,
+  `analgesicos` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
@@ -1155,6 +1157,9 @@ CREATE TABLE IF NOT EXISTS `matriculas_backup` (
   `matematicas3` char(1) NOT NULL,
   `ciencias4` char(1) NOT NULL,
   `nsegsocial` varchar(15) DEFAULT NULL,
+  `parcial` tinyint(1) NOT NULL,
+  `correo_alumno` varchar(128) DEFAULT NULL,
+  `analgesicos` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 

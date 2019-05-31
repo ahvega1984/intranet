@@ -706,7 +706,29 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE  `matriculas` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
 	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
 	mysqli_query($db_con, "ALTER TABLE  `matriculas_backup` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
-	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach:backup` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach_backup` ADD  `nsegsocial` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación estructura tabla matriculas', NOW())");
+}
+
+/*
+	@descripcion: Modificación estructura tabla matriculas.
+	@fecha: 27 de mayo de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Nuevos datos del alumno en tablas de matriculas'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach` ADD  `parcial` tinyint(1) NOT NULL ");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach_backup` ADD  `parcial` tinyint(1) NOT NULL ");
+
+	mysqli_query($db_con, "ALTER TABLE  `matriculas` ADD  `correo_alumno` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach` ADD  `correo_alumno` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_backup` ADD  `correo_alumno` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULLcorreo_alumno;");	
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach_backup` ADD  `correo_alumno` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;");
+
+	mysqli_query($db_con, "ALTER TABLE  `matriculas` ADD `analgesicos` TINYINT( 1 ) NOT NULL");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach` ADD `analgesicos` TINYINT( 1 ) NOT NULL");
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_backup` ADD `analgesicos` TINYINT( 1 ) NOT NULL");	
+	mysqli_query($db_con, "ALTER TABLE  `matriculas_bach_backup` ADD `analgesicos` TINYINT( 1 ) NOT NULL");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevos datos del alumno en tablas de matriculas', NOW())");
 }
 
