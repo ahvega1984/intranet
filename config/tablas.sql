@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `control_faltas` (
 
 DROP TABLE IF EXISTS `control_matriculas`;
 CREATE TABLE IF NOT EXISTS `control_matriculas` (
-  `id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL,
   `pass` varchar(254) NOT NULL,
   `correo` varchar(128) DEFAULT NULL,
