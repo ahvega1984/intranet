@@ -75,6 +75,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $matematicas3 = $row['matematicas3'];
 	 if ($row['colegio'] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row['otrocolegio']; }else{	 $colegio= "Centro de procedencia:  ".$row['colegio']; }
 	 $correo= "Correo electrónico de padre o madre: ".$row['correo'];
+	 $foto_alumno= $row['foto'];
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
@@ -159,16 +160,20 @@ $titulo_moviles = "SOBRE EL USO DE TELÉFONOS MÓVILES Y OTROS DISPOSITIVOS EN E
 $texto_moviles="
            Estimadas familias:
 
-     Les informamos de que está prohibido el uso de teléfonos móviles y otros dispositivos de grabación/reproducción multimedia por parte del alumnado durante el horario escolar. Dicha medida es consecuencia de salvaguardar la intimidad tanto del alumnado como del profesorado, quienes pudieran ver vulnerados sus derechos de protección por grabaciones y/o difusiones de imágenes capturadas de forma ajena a su voluntad. Por este motivo, recordamos que la utilización de estos aparatos está prohibida en el Centro. En caso de que algún alumno sea sorprendido con cualquier dispositivo electrónico, este le será requisado aplicándose las medidas que en materia de convivencia hay estipuladas en nuestro Reglamento al efecto.
-     El teléfono móvil en el Centro es absolutamente innecesario y constituye un elemento perturbador del clima de estudio y trabajo en el mismo. En aquellos casos en los que el alumnado tenga que comunicarse con la familia (que se entienden como situaciones graves o de urgencia), los teléfonos del Centro están siempre a disposición del alumnado. 
-     Por último anunciar que dado que se ha dejado claro que están prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
+     Les informamos de que está prohibido el uso de teléfonos móviles y otros dispositivos de grabación/reproducción multimedia por parte del alumnado durante el horario escolar. Dicha medida es consecuencia de salvaguardar la intimidad tanto del alumnado como del profesorado, quienes pudieran ver vulnerados sus derechos de protección por grabaciones y/o difusiones de imágenes capturadas de forma ajena a su voluntad. Por este motivo, recordamos que la utilización de estos aparatos está prohibida en el Centro.";
 
-$final_moviles="
-D./Dª. $papa, con DNI número ".$row['dnitutor'].", padre/madre/tutor legal del alumno/ a ".$row['nombre']." ".$row['apellidos']." del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
+$final_moviles="D./Dª. $papa, con DNI número ".$row['dnitutor'].", padre/madre/tutor legal del alumno/ a ".$row['nombre']." ".$row['apellidos']." del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
 ";
-$firma_moviles="
-Firmado,
+$firma_moviles="Firmado,
 
+Padre/madre/tutor legal.";
+
+// Analgésicos
+$titulo_analgesicos = "AUTORIZACIÓN PARA LA ADMINISTRACIÓN DE ANALGÉSICOS";
+
+$final_analgesicos="D./Dª. $papa, con DNI número ".$row['dnitutor'].", padre/madre/tutor legal del alumno/ a ".$row['nombre']." ".$row['apellidos']." del curso $curso, autorizo la administración de Paracetamol si el alumno así lo solicita.
+";
+$firma_analgesicos="Firmado,
 
 Padre/madre/tutor legal.";
 
@@ -318,6 +323,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFillColor(230,230,230);
 	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
 	$MiPDF->Ln ( 5 );
+
 	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
 	$MiPDF->Ln ( 8 );
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
@@ -329,8 +335,21 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Multicell ( 0, 6, $texto_moviles, 0, 'L', 0 );
 	$MiPDF->Ln ( 1 );
 	$MiPDF->Multicell ( 0, 6, $final_moviles, 0, 'L', 0 );
-	$MiPDF->Ln ( 1 );
+	$MiPDF->Ln ( 2 );
 	$MiPDF->Multicell ( 0, 6, $firma_moviles, 0, 'C', 0 );
+
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
+	$MiPDF->Ln ( 8 );
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Multicell ( 0, 4, $titulo_analgesicos, 0, 'C', 0 );
+	$MiPDF->Ln ( 2 );
+	$MiPDF->SetFont ( 'Times', '', 10  );
+	$MiPDF->Multicell ( 0, 6, $final_analgesicos, 0, 'L', 0 );
+	$MiPDF->Ln ( 2 );
+	$MiPDF->Multicell ( 0, 6, $firma_analgesicos, 0, 'C', 0 );
 	
 	include("autorizaciones.php");
 	}

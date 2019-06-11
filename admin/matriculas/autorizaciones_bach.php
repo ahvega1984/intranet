@@ -6,13 +6,21 @@ $hoy = formatea_fecha(date('Y-m-d'));
 
 $titulo4 = "AUTORIZACIÓN  PARA PUBLICACIÓN DE FOTOS Y GRABACIONES";
 $titulo_rgpd = "CONSENTIMIENTO PARA LA PUBLICACIÓN DE IMÁGENES DEL ALUMNO";
+if ($foto_alumno==1) {
+	$autoriza_imagen = "
+	|X| QUIERO
+	|_| NO QUIERO";
+}
+else{
+	$autoriza_imagen = "
+	|_| QUIERO
+	|_| NO QUIERO";
+}
 
 $autoriza_fotos="
 Alumno/a: $datos_ya->nombre $datos_ya->apellidos
 
-De acuerdo con la Ley de Protección de Datos de Carácter Personal y la Ley de Protección de mi derecho al honor, a mi intimidad personal y familiar y a mi propia imagen y como alumno o alumna del centro de enseñanza ".$config['centro_denominacion'].".
-_| QUIERO
-_| NO QUIERO
+De acuerdo con la Ley de Protección de Datos de Carácter Personal y la Ley de Protección de mi derecho al honor, a mi intimidad personal y familiar y a mi propia imagen y como alumno o alumna del centro de enseñanza ".$config['centro_denominacion'].$autoriza_imagen.".
 Que la Secretaría General Técnica de la Consejería de Educación y Deporte de la Junta de Andalucía publique mi imagen en la página web para la promoción y difusión de las actividades culturales, recreativas, deportivas y sociales en las que participa el propio centro Este consentimiento tendrá validez mientras permanezca escolarizado en el centro de enseñanza.
 Tengo derecho a saber, en cualquier momento, qué datos personales míos (incluyendo mi imagen) guarda la Secretaría General Técnica de la Consejería de Educación y Deporte de la Junta de Andalucía y para qué, modificarlos si éstos han cambiado, o borrarlos (en los casos que ello fuera legalmente posible). Para ello, deberé dirigirme por escrito a la Secretaría General Técnica de la Consejería de Educación y Deporte de la Junta de Andalucía, con dirección en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana. 41071, Sevilla.
  ";

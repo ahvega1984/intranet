@@ -151,12 +151,14 @@ while ($curso11 = mysqli_fetch_array($curso20))
 			$todos .=" or claveal = '$cadauno'";
 		}
 		$todos .= ")";
+$html.=$todos."; ";
 	}
 	mysqli_select_db($db_con, $db);
 
-	$nc_a="";
+	//$nc_a="";
 
 	$resul = "select distinctrow alma.CLAVEAL, alma.correo, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi from alma WHERE alma.unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by alma.APELLIDOS, alma.NOMBRE";
+	$html.=$resul.";";
 	$result = mysqli_query($db_con, $resul);
 	$t_alumnos += mysqli_num_rows ($result);
 	while($row = mysqli_fetch_array($result))

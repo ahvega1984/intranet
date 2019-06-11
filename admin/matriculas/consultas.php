@@ -345,7 +345,7 @@ if (!($orden)) {
 
 	include 'procesado.php';
 	
-	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
+	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4, analgesicos ";
 	
 	if ($curso=="1ESO"){$num_opt = $count_1;}elseif ($curso=="2ESO"){$num_opt = $count_2;}elseif ($curso=="3ESO"){$num_opt = $count_3;}else{$num_opt = $count_4;}
 
@@ -463,6 +463,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$divorcio = $consul['divorcio'];
 		$matematicas3 = $consul['matematicas3'];
 		$ciencias4 = $consul['ciencias4'];
+		$analgesicos = $consul['analgesicos'];
 		$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
 		if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
@@ -812,7 +813,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			// Fin de Convivencia.
 			echo "</td>";
 			echo "<td class='hidden-print' nowrap>";
-			if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
+			if($foto <> 1){ echo '<span class="fa fa-camera" style="color: orange;" data-bs="tooltip" title="No permite publicar su foto."></span>&nbsp;';}
+			if($analgesicos <> 1){ echo '<span class="fa fa-tablets" style="color: blue;" data-bs="tooltip" title="No permite analgésicos."></span>&nbsp;';}
 			if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 			if(!empty($divorcio)){
 				if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="fa fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
