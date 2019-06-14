@@ -190,7 +190,7 @@ include("menu.php");
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="solicitante">Solicitante <span class="text-danger">(*)</span></label>
-                                        <?php if ($pr == 'Administrador' || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
+                                        <?php if ($pr == 'Administrador'): ?>
                                         <select class="form-control" id="solicitante" name="solicitante">
                                             <?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
                                             <?php while ($row = mysqli_fetch_array($result)): ?>
