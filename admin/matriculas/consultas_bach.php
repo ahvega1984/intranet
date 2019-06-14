@@ -396,7 +396,7 @@ if (!($orden)) {
 			$sql.=", opt_aut2$i";
 		}
 	}
-	$sql.=", repite, foto, enfermedad, bilinguismo, divorcio from matriculas_bach where ". $extra ." order by ". $orden ." curso,  grupo_actual, apellidos, nombre ";
+	$sql.=", repite, foto, enfermedad, bilinguismo, divorcio, analgesicos, parcial from matriculas_bach where ". $extra ." order by ". $orden ." curso,  grupo_actual, apellidos, nombre ";
 	// echo $sql;
 	$cons = mysqli_query($db_con, $sql);
 
@@ -461,7 +461,7 @@ if (!($orden)) {
 		$respaldo='1';
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $opt_aut21 = $datos_ya->opt_aut21; $opt_aut22 = $datos_ya->opt_aut22; $opt_aut23 = $datos_ya->opt_aut23; $opt_aut24 = $datos_ya->opt_aut24; $opt_aut25 = $datos_ya->opt_aut25; $opt_aut26 = $datos_ya->opt_aut26; $opt_aut27 = $datos_ya->opt_aut27; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2; $foto = $datos_ya->foto; $enf = $datos_ya->enfermedad;  $bilinguismo = $datos_ya->bilinguismo;  $divorcio = $datos_ya->divorcio;
+		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $opt_aut21 = $datos_ya->opt_aut21; $opt_aut22 = $datos_ya->opt_aut22; $opt_aut23 = $datos_ya->opt_aut23; $opt_aut24 = $datos_ya->opt_aut24; $opt_aut25 = $datos_ya->opt_aut25; $opt_aut26 = $datos_ya->opt_aut26; $opt_aut27 = $datos_ya->opt_aut27; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2; $foto = $datos_ya->foto; $enf = $datos_ya->enfermedad;  $bilinguismo = $datos_ya->bilinguismo;  $divorcio = $datos_ya->divorcio; $analgesicos = $datos_ya->analgesicos; $parcial = $datos_ya->parcial;
 		$back = mysqli_query($db_con, "select id from matriculas_bach_backup where id = '$id'");
 
 		if (mysqli_num_rows($back)>0) {
@@ -665,6 +665,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						}		
 				}
 			}
+			if($parcial == 1){ echo '<span class="far fa-times-circle" style="color: blue;" data-bs="tooltip" title="Matrícula parcial."></span>&nbsp;';}
+
 			echo "</td>";
 
 		echo '<td class="hidden-print text-center"><input name="revisado-'. $id .'" type="checkbox" value="1" onClick="submit()"';
@@ -678,7 +680,7 @@ elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fecho
 // Fin de Convivencia.
 echo "</td>";
 
-		echo '<td class="hidden-print" style="text-align:right">';
+		echo '<td class="hidden-print" style="text-align:right" nowrap>';
 		$contr = mysqli_query($db_con, "select matriculas_bach.apellidos, alma.apellidos, matriculas_bach.nombre, alma.nombre, matriculas_bach.domicilio, alma.domicilio, matriculas_bach.dni, alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, alma.dnitutor, matriculas_bach.telefono1, alma.telefono, matriculas_bach.telefono2, alma.telefonourgencia from matriculas_bach, alma where alma.claveal=matriculas_bach.claveal and id = '$id'");
 		$control = mysqli_fetch_array($contr);
 
@@ -705,15 +707,16 @@ echo "</td>";
 		if ($respaldo=='1') {
 			echo $backup."&nbsp;".$rp_cur;
 		}
-		echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-alt' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>&nbsp;";
 
-if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
+if($foto <> 1){ echo '<span class="fa fa-camera" style="color: orange;" data-bs="tooltip" title="No permite publicar su foto."></span>&nbsp;';}
+if($analgesicos <> 1){ echo '<span class="fa fa-tablets" style="color: blue;" data-bs="tooltip" title="No permite analgésicos."></span>&nbsp;';}
 if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
 if(!empty($divorcio)){ 
 	if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="fa fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
 	elseif($divorcio=="Guardia y Custodia de la Madre") {echo '<span class="fa fa-female" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
 	elseif($divorcio=="Guardia y Custodia del Padre") {echo '<span class="fa fa-male" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
 	}
+	echo "<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-alt' data-bs='tooltip' title='Eliminar alumno de la tabla'> </i></a>&nbsp;";
 echo "</td>";
 echo '</tr>';	
 	}

@@ -45,21 +45,20 @@ No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o
 			$datos1 = mysqli_query($db_con, "INSERT INTO morosos (id, curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[3]. "','". utf8_encode($data1[0]). "','". utf8_encode($data1[1]). "','". utf8_encode($data1[2]) . "','". utf8_encode($data1[4]) ."','". $fecha_ed ."', '".$hoy."')");
 		}
 	}
-
 	mysqli_query($db_con, "delete from morosos where apellidos = '' and nombre = '' and ejemplar = ''");
 	mysqli_query($db_con, "delete from morosos_tmp where apellidos = '' and nombre = '' and ejemplar = ''");
 
 	fclose($handle);
 	
-	$del = mysqli_query($db_con, "select curso, apellidos, nombre, ejemplar, devolucion from morosos");
+/*	$del = mysqli_query($db_con, "select curso, apellidos, nombre, ejemplar, devolucion from morosos");
 	while ($delete = mysqli_fetch_array($del)) {
 		$dup = mysqli_query($db_con, "select * from morosos_tmp where curso = '$delete[0]' and apellidos = '$delete[1]' and nombre = '$delete[2]' and ejemplar = '$delete[3]' and devolucion = '$delete[4]'");
 		if (mysqli_num_rows($dup)>0) {}
 		else{
-                    mysqli_query($db_con, "delete from morosos where curso = '$delete[0]' and apellidos = '$delete[1]' and nombre = '$delete[2]' and ejemplar = '$delete[3]' and devolucion = '$delete[4]'");
+             mysqli_query($db_con, "delete from morosos where curso = '$delete[0]' and apellidos = '$delete[1]' and nombre = '$delete[2]' and ejemplar = '$delete[3]' and devolucion = '$delete[4]'");
 		}
 	}
-
+*/
 		
 	$borrar1 = mysqli_query($db_con, "delete from morosos where curso='Informe' or curso like 'Abies%' or apellidos like 'Depósito'");
 	
