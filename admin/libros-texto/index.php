@@ -62,7 +62,7 @@ mysqli_free_result($result);
 unset($materia);
 
 // IMPORTACIÓN DE LIBROS DE TEXTOS DEL PROGRAMA DE GRATUIDAD
-if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true) {
+if (acl_permiso($_SESSION['cargo'], array(1)) && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)) {
     if (isset($_POST['submitImportacion'])) {
         if (isset($_FILES['archivo']) && ! empty($_FILES['archivo']["tmp_name"])) {
 
@@ -252,7 +252,7 @@ include('menu.php');
                 <br>
                 <div class="hidden-print">
                     <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalLibroTexto">Añadir libro de texto</a>
-                    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true): ?>
+                    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)): ?>
                     <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalImportarLibros">Programa de Gratuidad en Libros</a>
                     <?php endif; ?>
                 </div>
@@ -387,7 +387,7 @@ include('menu.php');
     </div>
     <?php endif; ?>
 
-    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true): ?>
+    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)): ?>
     <!-- MODAL IMPORTAR LIBROS PROGRAMA GRATUIDAD EN LIBROS DE TEXTO -->
     <div class="modal fade" id="modalImportarLibros" tabindex="-1" role="dialog" aria-labelledby="importarLibros">
         <div class="modal-dialog" role="document">

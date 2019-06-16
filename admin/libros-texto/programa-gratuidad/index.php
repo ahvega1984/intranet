@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1, 2));
 // OBTENEMOS TODOS LOS NIVELES DEL CENTRO EDUCATIVO
 $niveles = array();
 if (acl_permiso($_SESSION['cargo'], array(1))) {
-    $result = mysqli_query($db_con, "SELECT `idcurso`, `nomcurso` FROM `cursos` WHERE `nomcurso` LIKE '%E.S.O.' ORDER BY `idcurso` ASC");
+    $result = mysqli_query($db_con, "SELECT `idcurso`, `nomcurso` FROM `cursos` WHERE (`nomcurso` LIKE '%E.S.O.' OR `nomcurso` LIKE '%F.P.B.%') ORDER BY `idcurso` ASC");
 }
 else {
     $result = mysqli_query($db_con, "SELECT `cursos`.`idcurso`, `cursos`.`nomcurso` FROM `cursos` JOIN `unidades` ON `cursos`.`idcurso` = `unidades`.`idcurso` WHERE `unidades`.`nomunidad` = '".$_SESSION['mod_tutoria']['unidad']."' LIMIT 1");
