@@ -1,10 +1,5 @@
-
 <?php
 require('../../bootstrap.php');
-
-if (file_exists('config.php')) {
-	include('config.php');
-}
 
 if (file_exists('config.php')) {
 	include('config.php');
@@ -14,10 +9,10 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
 // COMPROBAMOS SI ES EL TUTOR, SI NO, ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
-	
+
 	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
 	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
-	
+
 }
 else {
 
@@ -31,7 +26,7 @@ else {
 			header('Location:'.'tutores.php');
 		}
 	}
-	
+
 }
 
 
@@ -61,18 +56,18 @@ textarea.form-control {
 	h2 {
 		font-size: 22px;
 	}
-	
+
 	h3 {
 		font-size: 16px;
 	}
-	
+
 	h4 {
 		font-size: 18px;
 	}
 	.container {
 		width: 100%;
 	}
-	
+
 	textarea.form-control {
 		display: block;
 		font-size: 10px;
@@ -85,10 +80,10 @@ textarea.form-control {
 </style>
 
 <div class="container">
-	
+
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>	 
+		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
 		<h4 class="text-info">Tutor: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 	</div>
 
@@ -115,17 +110,17 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
   <div class="hidden-print" style="margin-bottom:0px; ">
  <input type="button" class="btn btn-primary pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
 </div>
- 
+
 <br>
 <br />
  <h3>Datos Generales de los Alumnos</h3><br />
- <?php 
+ <?php
  // Curso
  $SQL0 = "select distinct curso from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result0 = mysqli_query($db_con, $SQL0);
  $max00 = mysqli_fetch_row($result0);
  $curso_seneca = $max00[0];
- 
+
 // Alumnos repetidores
  $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and matriculas > '1'";
  $result = mysqli_query($db_con, $SQL);
@@ -135,7 +130,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $SQL = "select * from alma_primera where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result = mysqli_query($db_con, $SQL);
  $num_empiezan = mysqli_num_rows($result);
- 
+
  // Alumnos a final de Curso
  $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result = mysqli_query($db_con, $SQL);
@@ -145,40 +140,40 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result1 = mysqli_query($db_con, $SQL1);
 
- while ($num_promo0 = mysqli_fetch_array($result1))                                                                                                                                                           
-{                                                                                                                                                                                               
-        $n_susp = "";                                                                                                                                                                                        
-        $trozos0 = explode(";",$num_promo0[0]);                                                                                                                                                              
-        foreach ($trozos0 as $val)                                                                                                                                                                           
-        {                                                                                                                                                                                                    
-        $trozos1 = explode(":",$val);                                                                                                                                                                        
-                {                                                                                                                                                                                            
-                if (stristr($curso_seneca,"Bach")==TRUE)                                                                                                                                                                          
-                        {                                                                                                                                                                       
-                        if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439"))          
-                                {                                                                                                                                                                            
-                                    $n_susp++;                                                                                                                                                                       
-                                }                                                                                                                                                                            
-                        }                                                                                                                                                                                                                                                                                                                                                                       
-                else                                                                                                                                                            
-                        {                                                                                                                                                                                    
-                if (($trozos1[1] > "336" and $trozos1[1] < "347" and $trozos1[1] !== "339" and $trozos1[1] !== ""))                                                                                          
-                                {                                                                                                                                                                            
-                                    $n_susp++;                                                                                                                                                                       
-                                }                                                                                                                                                                            
-                        }                                                                                                                                                                                    
-                }                                                                                                                                                                                            
-        }                                                                                                                                                                                                    
- if ($n_susp > "0" and (((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))                                                                                                                                                                       
-        {                                                                                                                                                                                                    
-//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
-                $n_al = $n_al + 1;                                                                                                                                                                           
-        }                                                                                                                                                                                                    
-        elseif($n_susp > "2" and !(((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))                                                                                                                                                          
-        {                                                                                                                                                                                                    
-//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
-                $n_al = $n_al + 1;                                                                                                                                                                           
-        }                                                                                                                                                                                       }    
+ while ($num_promo0 = mysqli_fetch_array($result1))
+{
+        $n_susp = "";
+        $trozos0 = explode(";",$num_promo0[0]);
+        foreach ($trozos0 as $val)
+        {
+        $trozos1 = explode(":",$val);
+                {
+                if (stristr($curso_seneca,"Bach")==TRUE)
+                        {
+                        if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439"))
+                                {
+                                    $n_susp++;
+                                }
+                        }
+                else
+                        {
+                if (($trozos1[1] > "336" and $trozos1[1] < "347" and $trozos1[1] !== "339" and $trozos1[1] !== ""))
+                                {
+                                    $n_susp++;
+                                }
+                        }
+                }
+        }
+ if ($n_susp > "0" and (((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))
+        {
+//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";
+                $n_al = $n_al + 1;
+        }
+        elseif($n_susp > "2" and !(((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))
+        {
+//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";
+                $n_al = $n_al + 1;
+        }                                                                                                                                                                                       }
 
 ?>
 <table class="table table-bordered table-striped">
@@ -192,9 +187,9 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 <tr>
 	<td><?php echo $num_empiezan; ?></td>
     <td><?php echo $num_acaban; ?></td>
-    <td><?php echo $n_al; // echo "<br>".$valor;?></td> 
-    <td><?php echo $num_acaban-$n_al; ?></td> 
-    <td><?php echo $num_repetidores; ?></td> 
+    <td><?php echo $n_al; // echo "<br>".$valor;?></td>
+    <td><?php echo $num_acaban-$n_al; ?></td>
+    <td><?php echo $num_repetidores; ?></td>
     </tr>
 </table>
 <?php
@@ -203,53 +198,53 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $faltas0 = mysqli_query($db_con, $faltas);
  $num_faltas = mysqli_num_rows($faltas0);
   ?>
- <?php 
+ <?php
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_conv = mysqli_num_rows($result);
  ?>
-  <?php    
+  <?php
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'leve' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_leves = mysqli_num_rows($result);
  ?>
-  <?php    
+  <?php
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'grave' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_graves = mysqli_num_rows($result);
  ?>
-   <?php    
+   <?php
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'muy grave' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves = mysqli_num_rows($result);
  ?>
-  <?php    
+  <?php
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion = mysqli_num_rows($result);
  ?>
-  <?php    
+  <?php
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados = mysqli_num_rows($result);
  ?>
-   <?php    
+   <?php
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula = mysqli_num_rows($result);
  ?>
-   <?php    
+   <?php
  $SQL = "select distinct id from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_informes = mysqli_num_rows($result);
  ?>
-   <?php    
+   <?php
  $SQL = "select id from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_acciones = mysqli_num_rows($result);
  ?>
-   <?php  
- $grupo_act = $_SESSION['mod_tutoria']['unidad'];  
+   <?php
+ $grupo_act = $_SESSION['mod_tutoria']['unidad'];
  $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2' and date(fechaini) > '".$config['curso_inicio']."'";
  $result = mysqli_query($db_con, $SQL);
  $num_actividades = mysqli_num_rows($result);
@@ -265,7 +260,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 <tr>
 	<td><?php echo $num_faltas; ?></td>
     <td><?php echo $num_conv; ?></td>
-    <td><?php echo $num_informes; ?></td> 
+    <td><?php echo $num_informes; ?></td>
     <td><?php echo $num_acciones; ?></td>
     <td><?php echo $num_actividades; ?></td>
 </tr>
@@ -285,7 +280,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 <tr>
     <td><?php echo $num_leves; ?></td>
     <td><?php echo $num_graves; ?></td>
-    <td><?php echo $num_muygraves; ?></td>	
+    <td><?php echo $num_muygraves; ?></td>
     <td><?php echo $num_expulsion; ?></td>
     <td><?php echo $num_expulsados; ?></td>
 	<td><?php echo $num_expulsadosaula; ?></td>
@@ -293,7 +288,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 </table>
 
 
-<?php 
+<?php
 // Comprobamos datos de evaluaciones
 $n1 = mysqli_query($db_con, "select * from notas where notas3 not like ''");
 if(mysqli_num_rows($n1)>0){}
@@ -309,7 +304,7 @@ else{
 
 
  <hr><br /><h3>Información de Tutoría por Alumno</h3>
-  <div class="row">     
+  <div class="row">
  <div class="col-sm-6">
  <hr><br /><h3>Alumnos absentistas</h3>
 
@@ -329,14 +324,14 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
  echo '</table>';
  }
  ?>
- </div> 
+ </div>
 
-  <div class="col-sm-6">       
+  <div class="col-sm-6">
  <hr><br /><h3>Faltas sin Justificar</h3>
 
 <?php
  echo "<table class='table table-bordered table-striped'>";
-		
+
 $SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, alma  where FALTAS .claveal = alma .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(FALTAS.fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
 $result = mysqli_query($db_con, $SQL);
 
@@ -352,7 +347,7 @@ $result = mysqli_query($db_con, $SQL);
   ?>
 </div>
 </div>
-  <div class="row">     
+  <div class="row">
  <div class="col-sm-4">
   <hr><br /><h3>Problemas de Convivencia</h3>
 
@@ -377,8 +372,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
                     <hr><br /><h3>Alumnos expulsados</h3>
 
 <?php
-  
- 
+
+
  $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, alma where alma.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(Fechoria.fecha) > '".$config['curso_inicio']."' group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
@@ -413,7 +408,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  ?>
  </div>
  </div>
- 
+
  <hr><br /><h3>Informes de Tutoría por visita de padres</h3>
 
 <?php
@@ -449,13 +444,13 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  echo '</table>';
  }
- 
+
  $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '".$config['curso_inicio']."' order by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
 	 ?>
-	 </div> 
+	 </div>
 	 <div class="col-sm-7">
  <hr><br /><h3>Intervenciones de Tutoría (excluidos SMS)</h3>
 
@@ -469,7 +464,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  echo '</table>';
  }
-  $grupo_act2 = $_SESSION['mod_tutoria']['unidad'];  
+  $grupo_act2 = $_SESSION['mod_tutoria']['unidad'];
   $n_activ = mysqli_query($db_con, "select * from calendario where  unidades like '%$grupo_act2%' and date(fechaini) > '".$config['curso_inicio']."'");
   if(mysqli_num_rows($n_activ) > "0"){
  ?>
@@ -539,6 +534,6 @@ if((strlen($obs2[0]) > 1 || strlen($obs[1])> 1 ))
  <?php include("../../pie.php"); ?>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
  <script>$('.autosize').autosize();</script>
- 
+
 </body>
 </html>
