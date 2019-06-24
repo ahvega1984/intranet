@@ -14,6 +14,19 @@ include("menu.php");
 <div class="page-header">
 <h2>Material del Centro <small> Selección de Departamento</small></h2>
 </div>
+
+<br>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="alert alert-warning">
+			Atención: Este módulo será declarado obsoleto en la próxima versión de la Intranet. Por favor, registre el inventario del material en Séneca.
+		</div>
+	</div>
+</div>
+
+<br>
+
 <div class="row">
 <div class="col-sm-4 col-sm-offset-4"><br />
 <div class="well well-lg" align="center"><br />
