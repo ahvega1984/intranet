@@ -62,7 +62,7 @@ mysqli_free_result($result);
 unset($materia);
 
 // IMPORTACIÓN DE LIBROS DE TEXTOS DEL PROGRAMA DE GRATUIDAD
-if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true) {
+if (acl_permiso($_SESSION['cargo'], array(1)) && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)) {
     if (isset($_POST['submitImportacion'])) {
         if (isset($_FILES['archivo']) && ! empty($_FILES['archivo']["tmp_name"])) {
 
@@ -140,7 +140,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
             }
             else {
                 // Comprobamos si el ISBN o EAN existen.
-                $result_isbn_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE `isbn` = '$isbn' OR (`ean` not like '' and `ean` is not NULL and `ean` = '$ean') LIMIT 1");
+                $result_isbn_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE `isbn` = '$isbn' OR (`ean` NOT LIKE '' AND `ean` IS NOT NULL AND `ean` = '$ean') LIMIT 1");
 
                 if (! mysqli_num_rows($result_isbn_ean)) {
                     $result = mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('$materia', '$isbn', '$ean', '$editorial', '$titulo', '$importe', '$curso', 0)");
@@ -252,7 +252,7 @@ include('menu.php');
                 <br>
                 <div class="hidden-print">
                     <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalLibroTexto">Añadir libro de texto</a>
-                    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true): ?>
+                    <?php if (acl_permiso($_SESSION['cargo'], array(1))  && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)): ?>
                     <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalImportarLibros">Programa de Gratuidad en Libros</a>
                     <?php endif; ?>
                 </div>
@@ -387,7 +387,7 @@ include('menu.php');
     </div>
     <?php endif; ?>
 
-    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && stristr($curso, 'E.S.O.') == true): ?>
+    <?php if (acl_permiso($_SESSION['cargo'], array(1)) && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)): ?>
     <!-- MODAL IMPORTAR LIBROS PROGRAMA GRATUIDAD EN LIBROS DE TEXTO -->
     <div class="modal fade" id="modalImportarLibros" tabindex="-1" role="dialog" aria-labelledby="importarLibros">
         <div class="modal-dialog" role="document">
