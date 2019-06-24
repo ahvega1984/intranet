@@ -140,7 +140,7 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
             }
             else {
                 // Comprobamos si el ISBN o EAN existen.
-                $result_isbn_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE `isbn` = '$isbn' OR (`ean` NOT LIKE '' AND `ean` IS NOT NULL AND `ean` = '$ean') LIMIT 1");
+                $result_isbn_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE (`isbn` = '$isbn' OR (`ean` NOT LIKE '' AND `ean` IS NOT NULL AND `ean` = '$ean')) AND `nivel` = '$curso' LIMIT 1");
 
                 if (! mysqli_num_rows($result_isbn_ean)) {
                     $result = mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('$materia', '$isbn', '$ean', '$editorial', '$titulo', '$importe', '$curso', 0)");

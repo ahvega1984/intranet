@@ -731,3 +731,16 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevos datos del alumno en tablas de matriculas', NOW())");
 }
+
+/*
+	@descripcion: Corrección registro libros de texto.
+	@fecha: 24 de junio de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Corrección registro libros de texto'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "ALTER TABLE `libros_texto` CHANGE `nivel` `nivel` VARCHAR(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';");
+	mysqli_query($db_con, "UPDATE `libros_texto` SET `nivel` = '1º de Bachillerato (Humanidades y Ciencias Sociales (Lomce))' WHERE `nivel` = '1º de Bachillerato (Humanidades y Ciencias Socia'");
+	mysqli_query($db_con, "UPDATE `libros_texto` SET `nivel` = '2º de Bachillerato (Humanidades y Ciencias Sociales (Lomce))' WHERE `nivel` = '2º de Bachillerato (Humanidades y Ciencias Socia'");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Corrección registro libros de texto', NOW())");
+}
