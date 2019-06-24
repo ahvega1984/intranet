@@ -1,4 +1,4 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
@@ -31,7 +31,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo3 = ' class="acti
      <li <?php echo $activo1;?>><a href="introducir.php">Introducir / Listar registros</a></li>
 <?php
 if ($j_s == '') {
-?>    
+?>
      <li <?php echo $activo2;?>> <a href="buscar.php">Buscar / Consultar / Imprimir</a></li>
 <?php
 }
@@ -42,4 +42,12 @@ if ($j_s == '') {
      <?php }?>
     </ul>
         </div>
+        </div>
+
+        <div class="container">
+
+          <div class="alert alert-warning" style="margin: 10px 0;">
+            <strong>Atención:</strong> Este módulo será declarado obsoleto en la próxima versión de la Intranet. Por favor, registre el inventario del material en Séneca.
+          </div>
+
         </div>
