@@ -48,7 +48,7 @@ else {
 
 // OBTENEMOS TODAS LAS MATERIAS QUE SE IMPARTEN EN EL CENTRO EDUCATIVO
 $materias = array();
-$result = mysqli_query($db_con, "SELECT DISTINCT `codigo`, `nombre` FROM `asignaturas` WHERE `curso` = '$curso' AND `abrev` NOT LIKE '%\_%' AND `nombre` <> 'Tutoría con Alumnos' ORDER BY `nombre` ASC");
+$result = mysqli_query($db_con, "SELECT DISTINCT `codigo`, `nombre` FROM `asignaturas` WHERE `curso` = '$curso' AND `abrev` NOT LIKE '%\_%' AND `nombre` NOT LIKE 'Tutoría%' ORDER BY `nombre` ASC");
 while ($row = mysqli_fetch_array($result)) {
 
     $materia = array(
@@ -140,9 +140,10 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
             }
             else {
                 // Comprobamos si el ISBN o EAN existen.
-                $result_isbn_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE (`isbn` = '$isbn' OR (`ean` NOT LIKE '' AND `ean` IS NOT NULL AND `ean` = '$ean')) AND `nivel` = '$curso' LIMIT 1");
+                $result_isbn = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE `nivel` = '$curso' AND `isbn` <> '' AND `isbn` IS NOT NULL AND `isbn` = '$isbn' LIMIT 1");
+                $result_ean = mysqli_query($db_con, "SELECT `isbn`, `ean`, `titulo`, `nivel` FROM `libros_texto` WHERE `nivel` = '$curso' AND `ean` <> '' AND `ean` IS NOT NULL AND `ean` = '$isbn' LIMIT 1");
 
-                if (! mysqli_num_rows($result_isbn_ean)) {
+                if (! mysqli_num_rows($result_isbn) && ! mysqli_num_rows($result_ean)) {
                     $result = mysqli_query($db_con, "INSERT INTO `libros_texto` (`materia`, `isbn`, `ean`, `editorial`, `titulo`, `importe`, `nivel`, `programaGratuidad`) VALUES ('$materia', '$isbn', '$ean', '$editorial', '$titulo', '$importe', '$curso', 0)");
 
                     if (! $result) {
@@ -155,10 +156,15 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
                     }
                 }
                 else {
-                    $row = mysqli_fetch_array($result_isbn_ean);
+                  if (mysqli_num_rows($result_isbn)) {
+                    $row = mysqli_fetch_array($result_isbn);
+                  }
+                  else {
+                    $row = mysqli_fetch_array($result_ean);
+                  }
 
-                    $msg_error = true;
-                    $msg_error_text = 'Este libro ya existe con el título <strong><em>'.$row['titulo'].'</em></strong> para el curso <strong>'.$row['nivel'].'</strong>.';
+                  $msg_error = true;
+                  $msg_error_text = 'Este libro ya existe con el título <strong><em>'.$row['titulo'].'</em></strong> para el curso <strong>'.$row['nivel'].'</strong>.';
                 }
             }
 
