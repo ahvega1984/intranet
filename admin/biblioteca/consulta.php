@@ -63,10 +63,10 @@ function seleccionar_todo(){
 		<td style="text-align: left" nowrap>
 		<?php
 		if ($list[7] == "SI") {
-			echo '<span class="far fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
+			echo '<span class="fa fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}
 		if ($list[5]=='SI') {
-			echo '<span class="far fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestación"></span>';
+			echo '<span class="fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestación"></span>';
 		}
 		?>
 		</td>
