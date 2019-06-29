@@ -61,6 +61,121 @@ while ($row = mysqli_fetch_array($result)) {
 mysqli_free_result($result);
 unset($materia);
 
+// OBTENEMOS EL LISTADO DE EDITORIALES
+$editoriales = array(
+  "Advanced Methods Co. Sociedad de Responsabilidad Limitada de Capital Variable",
+  "Algaida Editores, S.A.",
+  "Almadraba Editorial-Hermes Editora General",
+  "Almuzara,S.L.",
+  "Altamar",
+  "AMCO (Advanced Methods Co)",
+  "Arán Ediciones, S.L.",
+  "Arcobaleno 2000, S.L.",
+  "Artatac Educación",
+  "Aula Digital-Text S.L.",
+  "Aulaelectrica.es",
+  "Burlington Books, S.A.",
+  "Cambridge University Press",
+  "Casals S.A.",
+  "CESVIMAP",
+  "Cultura Clásica, S.L.",
+  "DIFUSION",
+  "Digital @Tre, S.L.",
+  "ECREATUS, S.L.",
+  "Edelvives (Editorial Luis Vives, S.A.)",
+  "Ediciones Akal, S.A.",
+  "Ediciones Alfar, S.A.",
+  "Ediciones Aljibe, S.A.",
+  "Ediciones Bilingües, S.L.",
+  "Ediciones del Genal",
+  "Ediciones del Laberinto, S.L.",
+  "Ediciones del Serbal, S.L.",
+  "Ediciones EO, S.L.U.",
+  "Ediciones La Ñ, S.L.",
+  "Ediciones Maestro",
+  "Ediciones Octaedro, S.L.",
+  "Ediciones Paraninfo, S.A.",
+  "Ediciones Sandoval, S.L.",
+  "Ediciones SM, S.A.",
+  "Ediciones Vicens Vives Primaria",
+  "Ediciones Vicens Vives, S.A.",
+  "Editilde S.L.",
+  "Editora Social y Cultural, S.L.",
+  "Editorial Alegoría",
+  "Editorial Algar",
+  "Editorial CSV",
+  "Editorial Donostiarra, S.A.",
+  "Editorial Ecir, S.A.",
+  "Editorial Edelsa",
+  "Editorial Editex, S.A.",
+  "Editorial E.L.I.",
+  "Editorial Elzevir, S.L.",
+  "Editorial GEU",
+  "Editorial La Calesa, S.A.",
+  "Editorial Langenscheidt.",
+  "Editorial Linaria del Sur Ediciones, S.L.",
+  "Editorial Mad, S.L.",
+  "Editorial Marfil, S.A.",
+  "Editorial Merial, S.L.",
+  "Editorial Murali Bristol SL",
+  "Editorial Nadal-Arcada, S.L.",
+  "Editorial Paidotribo, S.L.",
+  "Editorial Planeta SAU",
+  "Editorial Prodidacta Abril Edicions",
+  "Editorial Síntesis, S.A.",
+  "Editorial Stanley",
+  "Editorial Teide, S.A.",
+  "Editorial Toro Mítico S.L.",
+  "Editorial Vicens Vives S.A.",
+  "Ele Medios, S.L.",
+  "Eleven Digital-Text, S.L.",
+  "ERNST KLETT SPRACHEN GMBH",
+  "ESObook",
+  "Everest, S.A.",
+  "Express Publishing",
+  "Galinova Editorial, S.L.",
+  "Grupo Anaya, S.A.",
+  "Grupo Editorial Bruño, S.L.",
+  "Guadiel -Edebé, S.L.",
+  "Herder Editorial",
+  "Hueber Verlag",
+  "Impresiones Ordás",
+  "José Abel Fernández Fernández",
+  "Kip Ediciones",
+  "Klett- Langenscheidt",
+  "Klett-edebé",
+  "La Galera, S.A.",
+  "Linguaframe, S.L.",
+  "Macmillan, S.A.",
+  "Manualidades Escolares, S.A.",
+  "Mcgraw-Hill Interamericana De España, Sau",
+  "Milton Education (Kuaderno Solutions,S.L.)",
+  "Nueva Carisch España, S.L",
+  "Octaedro Andalucía (Ediciones Mágina, S.L.)",
+  "Oxford University Press España, S.A.",
+  "Pearson Educacion, S.A.",
+  "Penta Editorial (Monte Alto Ediciones, S.L.)",
+  "Pila Teleña, S.L.",
+  "Piles, Editorial de Musica S.A.",
+  "POLYGON EDUCATION,SL",
+  "Proyecto Educa",
+  "Proyecto Sur de Ediciones S.L.",
+  "Real Musical Publicaciones y Ediciones, S.A.",
+  "Saganet Multimedia",
+  "San Pablo Comunicación, S.A.",
+  "Santillana Grazalema, S.L.",
+  "Santillana-Richmond",
+  "SD Editores.",
+  "Secretariado de Publicaciones de la Universidad de Sevilla",
+  "Sgel Libros, S.A.",
+  "Snappet",
+  "Tabarca Llibres, S.L.",
+  "Tekman Books, S.L.",
+  "Texto Editores S.L.",
+  "Videocinco, S.A.",
+  "Wanceulen. Editorial Deportiva, S.L."
+);
+
 // IMPORTACIÓN DE LIBROS DE TEXTOS DEL PROGRAMA DE GRATUIDAD
 if (acl_permiso($_SESSION['cargo'], array(1)) && (stristr($curso, 'E.S.O.') == true || stristr($curso, 'F.P.B.') == true)) {
     if (isset($_POST['submitImportacion'])) {
@@ -347,7 +462,7 @@ include('menu.php');
 
                         <div class="form-group">
                             <label for="materia">Materia <span class="text-danger">(*)</span></label>
-                            <select class="form-control" id="materia" name="materia">
+                            <select class="form-control" id="materia" name="materia" required>
                                 <?php foreach ($materias as $materia): ?>
                                 <option value="<?php echo $materia['nombre']; ?>"><?php echo $materia['nombre']; ?></option>
                                 <?php endforeach; ?>
@@ -360,18 +475,23 @@ include('menu.php');
                         </div>
 
                         <div class="form-group" id="ean-control">
-                            <label for="ean">EAN (European Article Number) <span class="text-danger" id="ean-require">(*)</span></label>
+                            <label for="ean">EAN (European Article Number) <span class="text-danger" id="ean-require">(*)</span> <span class="text-muted">(Comienza por 978)</span></label>
                             <input class="form-control" type="text" name="ean" id="ean" placeholder="EAN de 13 dígitos" value="" maxlength="13">
                         </div>
 
                         <div class="form-group">
                             <label for="titulo">Título <span class="text-danger">(*)</span></label>
-                            <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Título del libro" value="">
+                            <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Título del libro" value="" required>
                         </div>
 
                         <div class="form-group">
                             <label for="editorial">Editorial <span class="text-danger">(*)</span></label>
-                            <input class="form-control" type="text" name="editorial" id="editorial" placeholder="Nombre de la editorial" value="">
+                            <select class="form-control" type="text" name="editorial" id="editorial" required>
+                              <option value="">Seleccione editorial</option>
+                              <?php foreach ($editoriales as $editorial_lista): ?>
+                              <option value="<?php echo $editorial_lista; ?>"><?php echo $editorial_lista; ?></option>
+                              <?php endforeach; ?>
+                          </select>
                         </div>
 
                         <div class="form-group">
