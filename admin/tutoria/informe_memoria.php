@@ -485,7 +485,7 @@ include("inc_actividades.php");
   <div class="col-sm-12">
  <br />
  <?php
-include("inc_notas.php");
+//include("inc_notas.php");
  ?>
 </div>
 </div>

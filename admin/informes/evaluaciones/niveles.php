@@ -116,7 +116,7 @@ if ($existenNotas) {
 			$unidades['titulan'] = 0;
 			
 			// Obtenemos el número de alumnos
-			$result_alumnos_unidad = mysqli_query($db_con, "SELECT alma.claveal1, notas.".$evaluaciones[$evaluacion_seleccionada].", alma.matriculas FROM alma JOIN notas ON alma.claveal1 = notas.claveal WHERE alma.unidad = '".$unidades['nomunidad']."' AND alma.curso = '".$unidades['nomcurso']."'");
+			$result_alumnos_unidad = mysqli_query($db_con, "SELECT alma.claveal1, notas.".$evaluaciones[$evaluacion_seleccionada].", alma.matriculas, alma.estadomatricula FROM alma JOIN notas ON alma.claveal1 = notas.claveal WHERE alma.unidad = '".$unidades['nomunidad']."' AND alma.curso = '".$unidades['nomcurso']."'");
 			$unidades['total_alumnos'] = mysqli_num_rows($result_alumnos_unidad);
 			
 			// Obtenemos las notas de los alumnos
@@ -160,6 +160,14 @@ if ($existenNotas) {
 				
 				// Comprobamos si repite curso o no
 				if ($alumno['matriculas'] > 1) $unidades['repiten_alumnos']++;
+
+				if ($evaluacion_seleccionada=="ord" AND (stristr($curso, 'E.S.O.') == TRUE and stristr($curso, '4º de E.S.O.')==FALSE) and stristr($alumno['estadomatricula'], "Promociona")==TRUE) {
+					$unidades['titulan']++;
+				}
+				elseif($evaluacion_seleccionada=="ord" AND (stristr($curso, '4º de E.S.O.') == TRUE OR (stristr($curso, '2') == TRUE AND stristr($curso, 'E.S.O.') == FALSE)) and stristr($alumno['estadomatricula'], "Obtiene Título")==TRUE) {
+					$unidades['titulan']++; $unidades['promocionan']++;
+				}
+				else{
 				
 				// Comprobamos si promociona
 				if ($suspensos < 3 and ((stristr($curso, 'E.S.O.') == TRUE and stristr($curso, '4º de E.S.O.') == FALSE) OR (stristr($curso, '1') == TRUE AND stristr($curso, 'E.S.O.') == FALSE))) $unidades['promocionan']++;
@@ -170,12 +178,12 @@ if ($existenNotas) {
 				}
 				else {
 					if ($suspensos < 3) $unidades['titulan']++;
+					}
 				}
-				
 			}
-
+			
 			// Cambiamos el número de alumnos que promocionan por el porcentaje
-			$unidades['promocionan'] = ($unidades['promocionan'] * 100) / $unidades['total_alumnos'];
+			$unidades['promocionan'] = ($unidades['titulan'] * 100) / $unidades['total_alumnos'];
 			
 			// Añadimos a la base de datos
 			mysqli_query($db_con, "INSERT INTO `informe_evaluaciones_unidades_".$evaluacion_seleccionada."` (`idcurso`, `idunidad`, `total_alumnos`, `repiten_alumnos`, `cero_suspensos`, `uno_suspensos`, `dos_suspensos`, `tres_suspensos`, `cuatro_suspensos`, `cinco_suspensos`, `seis_suspensos`, `siete_suspensos`, `ocho_suspensos`, `nueve_o_mas_suspensos`, `promocionan`, `titulan`) VALUES ('".$idcurso."', '".$idunidad."', '".$unidades['total_alumnos']."', '".$unidades['repiten_alumnos']."', '".$unidades['cero_suspensos']."', '".$unidades['uno_suspensos']."', '".$unidades['dos_suspensos']."', '".$unidades['tres_suspensos']."', '".$unidades['cuatro_suspensos']."', '".$unidades['cinco_suspensos']."', '".$unidades['seis_suspensos']."', '".$unidades['siete_suspensos']."', '".$unidades['ocho_suspensos']."', '".$unidades['nueve_o_mas_suspensos']."', '".$unidades['promocionan']."', '".$unidades['titulan']."');");

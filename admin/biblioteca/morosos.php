@@ -16,7 +16,9 @@ include("menu.php");
 <?php
 if(isset($_FILES['archivo'])){
 	mysqli_query($db_con,"create table morosos_tmp select * from morosos");
+	mysqli_query($db_con,"create table morosos_seg select * from morosos");
 	mysqli_query($db_con,"truncate table morosos_tmp");
+	mysqli_query($db_con,"truncate table morosos");
 	$archivo = $_FILES['archivo'];
 	
 	ini_set('auto_detect_line_endings',TRUE);
@@ -38,7 +40,7 @@ No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o
 		
 		mysqli_query($db_con, "INSERT INTO morosos_tmp (id, curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[3]. "','". utf8_encode($data1[0]). "','". utf8_encode($data1[1]). "','". utf8_encode($data1[2]) . "','". $data1[4] ."','". $fecha_ed ."', '".$hoy."')");		
 
-		$dup = mysqli_query($db_con, "select * from morosos where curso = '".utf8_encode($data1[0]). "' and apellidos = '". utf8_encode($data1[1]). "' and nombre = '". utf8_encode($data1[2]). "' and ejemplar = '$data1[4]' and devolucion = '$fecha_ed'");
+		$dup = mysqli_query($db_con, "select * from morosos_seg where curso = '".utf8_encode($data1[0]). "' and apellidos = '". utf8_encode($data1[1]). "' and nombre = '". utf8_encode($data1[2]). "' and ejemplar = '$data1[4]' and devolucion = '$fecha_ed'");
 
 		if (mysqli_num_rows($dup)>0) {}
 		else{
