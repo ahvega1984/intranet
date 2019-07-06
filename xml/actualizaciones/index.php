@@ -183,6 +183,7 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 		echo '$("#status").html("Descargando archivo de actualización...");';
 
 		$result = curl_exec($ch);
+		curl_close($ch);
 		fclose($fp);
 
 		// En caso de error, detenemos el proceso de actualización
@@ -229,6 +230,36 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 					echo '$("#status").html("Aplicando actualizaciones de la base de datos");';
 
 					include(INTRANET_DIRECTORY.'/actualizar.php');
+
+					// Enviamos analíticas de uso al IES Monterroso
+					$analitica = array(
+						'centro_denominacion' => $config['centro_denominacion'],
+						'centro_codigo' => $config['centro_codigo'],
+						'centro_direccion' => $config['centro_direccion'],
+						'centro_localidad' => $config['centro_localidad'],
+						'centro_codpostal' => $config['centro_codpostal'],
+						'centro_provincia' => $config['centro_provincia'],
+						'centro_telefono' => $config['centro_telefono'],
+						'centro_email' => $config['centro_email'],
+						'centro_telefono' => $config['centro_telefono'],
+						'dominio' => $config['dominio'],
+						'https' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 1 : 0),
+						'request' => $_SERVER['REQUEST_URI'],
+						'ip' => $_SERVER['SERVER_ADDR'],
+						'osname' => php_uname('s'),
+						'server' => $_SERVER['SERVER_SOFTWARE'],
+						'php_version' => phpversion(),
+						'mysql_version' => mysqli_get_server_info($db_con),
+						'intranet_version' => INTRANET_VERSION
+					);
+
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL,"https://iesmonterroso.org/intranet/analitica/baliza.php");
+					curl_setopt($ch, CURLOPT_POST, TRUE);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $analitica);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_exec($ch);
+					curl_close($ch);
 
 					// Finalizamos la actualización
 

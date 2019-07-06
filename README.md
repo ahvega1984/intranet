@@ -9,13 +9,13 @@ La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pe
 
 ## Requisitos
 
-* Servidor Web: [Apache (versión 2 o superior)](http://httpd.apache.org/) 
-* Versión de PHP: [PHP 5.6.x o superior](http://www.php.net/)
+* Servidor Web: [Apache (versión 2 o superior)](http://httpd.apache.org/)
+* Versión de PHP: [PHP 7.1 o 7.2](http://www.php.net/)
 * Base de datos: [MySQL 5 o superior](http://www.php.net/)
 
 ## Módulos
 
-La Intranet funciona a partir de un conjunto de datos que son importados desde Séneca: profesores, alumnos, asignaturas, etc. La compatibilidad con Séneca es tan alta como lo permite la propia aplicación de la Junta de Andalucía. 
+La Intranet funciona a partir de un conjunto de datos que son importados desde Séneca: profesores, alumnos, asignaturas, etc. La compatibilidad con Séneca es tan alta como lo permite la propia aplicación de la Junta de Andalucía.
 
 Dispone de un sencillo proceso de instalación que permite ajustar los datos esenciales a un centro educativo determinado, y un sistema de importación de datos a partir de Séneca que en pocos minutos la pone a funcionar.
 
@@ -72,5 +72,5 @@ La aplicación registra la actividad de los usuarios según lo establecido en el
 
 ## Autores
 
-* [Miguel Ángel García González](https://github.com/mgarcia39) 
-* [Rubén López Herrera](https://github.com/rubenlh91) 
+* [Miguel Ángel García González](https://github.com/mgarcia39)
+* [Rubén López Herrera](https://github.com/rubenlh91)

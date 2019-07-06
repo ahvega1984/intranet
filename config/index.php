@@ -222,7 +222,7 @@ if (isset($_POST['instalar']))
 			fwrite($file, "RewriteCond %{REQUEST_URI} intranet\r\n");
 			fwrite($file, "RewriteRule ^(.*)$ https://".$dominio_centro."/intranet/$1 [R,L]\r\n");
 		}
-		fclose($fp);
+		fclose($file);
 	}
 
 
@@ -267,6 +267,36 @@ if (isset($_POST['instalar']))
 			(3, 'Administrador', '".date('Y-m-d')."', 'admin', '#3498db', 0)");
 
 			mysqli_close($db_con);
+
+			// Enviamos analíticas de uso al IES Monterroso
+			$analitica = array(
+				'centro_denominacion' => $config['centro_denominacion'],
+				'centro_codigo' => $config['centro_codigo'],
+				'centro_direccion' => $config['centro_direccion'],
+				'centro_localidad' => $config['centro_localidad'],
+				'centro_codpostal' => $config['centro_codpostal'],
+				'centro_provincia' => $config['centro_provincia'],
+				'centro_telefono' => $config['centro_telefono'],
+				'centro_email' => $config['centro_email'],
+				'centro_telefono' => $config['centro_telefono'],
+				'dominio' => $config['dominio'],
+				'https' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 1 : 0),
+				'request' => $_SERVER['REQUEST_URI'],
+				'ip' => $_SERVER['SERVER_ADDR'],
+				'osname' => php_uname('s'),
+				'server' => $_SERVER['SERVER_SOFTWARE'],
+				'php_version' => phpversion(),
+				'mysql_version' => mysqli_get_server_info($db_con),
+				'intranet_version' => INTRANET_VERSION
+			);
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,"https://iesmonterroso.org/intranet/analitica/baliza.php");
+			curl_setopt($ch, CURLOPT_POST, TRUE);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $analitica);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_exec($ch);
+			curl_close($ch);
 
 			$esError = 0;
 		}
