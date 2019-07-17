@@ -760,3 +760,18 @@ function php_directive_value_to_bytes($directive) {
 
     return $value;
 }
+
+function get_compromised_data_email($email) {
+
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	  return "Invalid email format";
+	}
+	else {
+		$context = array(
+			'http' => array('header' => "User-Agent: Intranet ".INTRANET_VERSION."\r\n")
+		);
+
+		$file = @json_decode(@file_get_contents("https://haveibeenpwned.com/api/v2/breachedaccount/".$email, false, stream_context_create($context)));
+		return $file;
+	}
+}

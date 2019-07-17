@@ -6,6 +6,16 @@ if (isset($_POST['submit_tarea']) && isset($_POST['id_tarea'])) {
 	unset($menu_idtarea);
 }
 
+// Brechas de seguridad
+$result_haveibeenpwned_email = mysqli_query($db_con, "SELECT `correo` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+$haveibeenpwned_email_result = mysqli_num_rows($result_haveibeenpwned_email);
+if ($haveibeenpwned_email_result) {
+	$row_haveibeenpwned = mysqli_fetch_array($result_haveibeenpwned_email);
+	$haveibeenpwned_email = $row_haveibeenpwned['correo'];
+	$haveibeenpwned = get_compromised_data_email($haveibeenpwned_email);
+	$haveibeenpwned_total = count($haveibeenpwned);
+}
+
 // FEED RSS
 function obtenerNovedadesConsejeria() {
 	$titulo_feed = '';
@@ -128,11 +138,14 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 								</div>
 							</li>
 							<li class="divider hidden-xs"></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><span class="fas fa-lock fa-fw"></span> Cambiar contraseña, correo y teléfono</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><span class="fas fa-key fa-fw"></span> Autenticación en dos pasos</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><span class="fas fa-camera fa-fw"></span> Cambiar fotografía</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><span class="fas fa-paint-brush fa-fw"></span> Cambiar tema</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><span class="fas fa-user-secret fa-fw"></span> Consultar accesos</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><i class="fas fa-lock fa-fw"></i> Cambiar contraseña, correo y teléfono</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><i class="fas fa-key fa-fw"></i> Autenticación en dos pasos</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><i class="fas fa-camera fa-fw"></i> Cambiar fotografía</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><i class="fas fa-paint-brush fa-fw"></i> Cambiar tema</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><i class="fas fa-user-secret fa-fw"></i> Consultar accesos</a></li>
+							<?php if ($haveibeenpwned_email_result): ?>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/brechas.php"><i class="fas fa-bug fa-fw"></i> Brechas de seguridad <?php echo (($haveibeenpwned_total) ? '<span class="pull-right label label-warning">'.$haveibeenpwned_total.'</span>' : ''); ?></a></li>
+							<?php endif; ?>
 						</ul>
 					</li>
 				</ul>
