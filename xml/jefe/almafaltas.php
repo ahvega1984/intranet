@@ -15,11 +15,7 @@ include '../../menu.php';
 		<h2>Administración <small> Creación de la tabla de alumnos</small></h2>
 	</div>
 
-	<div id="status-loading" class="text-center">
-		<span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando...</span>
-	</div>
-
-	<div id="wrap" class="row" style="display: none;">
+	<div id="wrap" class="row">
 
 		<div class="col-sm-8 col-sm-offset-2">
 
@@ -126,7 +122,7 @@ include '../../menu.php';
 						$n_col_tabla++;
 					}
 
-					if (($n_col_tabla - 1) != $num_col) {
+					if ($n_col_tabla != $num_col) {
 
 						// Restauramos Copia de Seguridad porque Séneca ha modificado la estructura de RegAlum.txt
 						mysqli_query($db_con, "insert into alma select * from alma_seg");
@@ -310,14 +306,6 @@ include '../../menu.php';
 </div><!-- /.container -->
 
 <?php include("../../pie.php");	?>
-
-<script>
-function espera() {
-	document.getElementById("wrap").style.display = '';
-	document.getElementById("status-loading").style.display = 'none';
-}
-window.onload = espera;
-</script>
 
 </body>
 </html>
