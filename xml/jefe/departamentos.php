@@ -153,7 +153,7 @@ include("../../menu.php");
 					echo "<div class='form-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido añadidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
 				while  ($row1= mysqli_fetch_array($result1))
 				 {
-					 if ($row1['fechacese'] >= date('Y-m-d')) $estado = 1;
+					 if (! empty($row1['fechacese']) && $row1['fechacese'] != "0000-00-00" && (strtotime(date('Y-m-d')) >= strtotime($row1['fechacese']))) $estado = 1;
 					 else $estado = 0;
 
 				$SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea, estado) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". sha1($row1[1]) . "\",\"". $row1[2] . "\", \"". $estado ."\")";

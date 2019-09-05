@@ -56,6 +56,17 @@ include("../../menu.php");
 										$pas_departamento	= mysqli_real_escape_string($db_con, trim(utf8_encode($row[2])));
 										$pas_idea			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[5])));
 
+										$pas_tomaposesion_exp = explode('/', trim(utf8_encode($row[3])));
+										$pas_tomaposesion = $pas_tomaposesion_exp[2].'-'.$pas_tomaposesion_exp[1].'-'.$pas_tomaposesion_exp[0];
+										if ($pas_tomaposesion == "--") {
+											$pas_tomaposesion = "0000-00-00";
+										}
+										$pas_ceseposesion_exp = explode('/', trim(utf8_encode($row[4])));
+										$pas_ceseposesion = $pas_ceseposesion_exp[2].'-'.$pas_ceseposesion_exp[1].'-'.$pas_ceseposesion_exp[0];
+										if ($pas_ceseposesion == "--") {
+											$pas_ceseposesion = "0000-00-00";
+										}
+
 										// Sanitizamos el DNI
 										(strlen($pas_dni) < 9) ? $pas_dni_sanitizado = '0'.$pas_dni : $pas_dni_sanitizado = $pas_dni;
 
@@ -84,10 +95,13 @@ include("../../menu.php");
 											$clase = '';
 											if(! $usuarioExiste) {
 												// INCORPORACIÓN EN TABLA DEPARTAMENTOS
-												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Administracion', '7', '".$pas_idea."')");
+												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea, fechatoma, fechacese) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Administracion', '7', '".$pas_idea."', '$pas_tomaposesion', '$pas_ceseposesion')");
 
 												// INCORPORACIÓN EN TABLA C_PROFES
-												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
+												if (! empty($pas_ceseposesion) && $pas_ceseposesion != "0000-00-00" && date("Y-m-d") >= $pas_ceseposesion) $estado = 1;
+												else $estado = 0;
+												
+												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', '$estado')");
 
 												$clase = ' class="success"';
 											}
