@@ -14,6 +14,11 @@ include("../../menu.php");
 		</div>
 		
 		<?php
+		$tr_ini = explode("-",$config['curso_inicio']);
+		$dia_ini = $tr_ini[2];
+		$tr_fin = explode("-",$config['curso_fin']);
+		$dia_fin = $tr_fin[2];
+
 		require('../../lib/calendar.class.php');
 		$cal = new calendar();
 		
@@ -21,8 +26,8 @@ include("../../menu.php");
 		$cal->enableYear();
 		
 		$cal->addEvent('Inicio curso Ed.Inf., Prim. E.E.', $curso, 9, 10, '#');
-		$cal->addEvent('Inicio curso E.S.O. Bach. F.P.', $curso, 9, 15, '#');
-		$cal->addEvent('Fin días lectivos', $curso+1, 6, 23, '#');
+		$cal->addEvent('Inicio curso E.S.O. Bach. F.P.', $curso, 9, $dia_ini, '#');
+		$cal->addEvent('Fin días lectivos', $curso+1, 6, $dia_fin, '#');
 		
 		// DIAS FESTIVOS
 		$result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos");
