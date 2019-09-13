@@ -209,14 +209,13 @@ if (isset($_POST['config']))
 			'intranet_version' => INTRANET_VERSION
 		);
 
-		error_reporting(E_ALL);
-		ini_set('display_errors', true);
-
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,"https://iesmonterroso.org/intranet/analitica/baliza.php");
 		curl_setopt($ch, CURLOPT_POST, TRUE);
+		curl_setopt($ch, CURLOPT_VERBOSE, TRUE);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $analitica);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
 		curl_exec($ch);
 		curl_close($ch);
 	}
@@ -272,7 +271,7 @@ include('../menu.php');
 
 							<div class="well">
 
-								<h3><span class="far fa-university fa-fw"></span> Información de su centro educativo</h3>
+								<h3><span class="fas fa-university fa-fw"></span> Información de su centro educativo</h3>
 								<br>
 
 								<input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
@@ -415,7 +414,7 @@ include('../menu.php');
 
 							<div class="well">
 
-								<h3><span class="far fa-database fa-fw"></span> Base de datos</h3>
+								<h3><span class="fas fa-database fa-fw"></span> Base de datos</h3>
 								<br>
 
 								<?php $tam_label = 4; ?>

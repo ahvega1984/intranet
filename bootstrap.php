@@ -131,6 +131,16 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	if (($_SESSION['ide'] == 'admin') || (stristr($_SESSION['cargo'],'0') == TRUE)) {
 		$_SESSION['user_admin'] = 1;
 	}
+	else {
+		// Variables de sesión del cargo del Profesor
+		// Con esto evitamos que el profesor tenga que cerrar y abrir sesión si se cambia de departamento o permisos.
+		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
+		$cargo1 = mysqli_fetch_array ( $cargo0 );
+		$_SESSION['cargo'] = $cargo1 [0];
+		$carg = $_SESSION['cargo'];
+		$_SESSION['dpt'] = $cargo1[1];
+		$_SESSION['ide'] = $cargo1[2];
+	}
 
 	if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) {
 		$_SESSION['profi'] = $_POST['view_as_user'];
