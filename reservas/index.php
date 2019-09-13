@@ -199,61 +199,69 @@ for ($i = $today; $i <= ($today + 6); $i++) {
    if (mysqli_num_rows($eventExec) == 1) {
         // $this_days_title = stripslashes($row["title"]);
    $event_event1 = stripslashes($row["event1"]);
-	 if (stristr($event_event1, '||') == true) {
-		 $event_event1_profesor = $event_event1[0];
-		 $event_event1_observacion = $event_event1[1];
-	 }
-	 else {
-		 $event_event1_profesor = $event_event1;
-	 }
+	 $event_event1 = stripslashes($row["event1"]);
+   if (stristr($event_event1, '||') == true) {
+     $exp_event_event1 = explode("||", $event_event1);
+     $event_event1_profesor = $exp_event_event1[0];
+     $event_event1_observacion = $exp_event_event1[1];
+   }
+   else {
+     $event_event1_profesor = $event_event1;
+   }
    $event_event2 = stripslashes($row["event2"]);
-	 if (stristr($event_event2, '||') == true) {
-		 $event_event2_profesor = $event_event2[0];
-		 $event_event2_observacion = $event_event2[1];
-	 }
-	 else {
-		 $event_event2_profesor = $event_event2;
-	 }
+   if (stristr($event_event2, '||') == true) {
+     $exp_event_event2 = explode('||', $event_event2);
+     $event_event2_profesor = $exp_event_event2[0];
+     $event_event2_observacion = $exp_event_event2[1];
+   }
+   else {
+     $event_event2_profesor = $event_event2;
+   }
    $event_event3 = stripslashes($row["event3"]);
-	 if (stristr($event_event3, '||') == true) {
-		 $event_event3_profesor = $event_event3[0];
-		 $event_event3_observacion = $event_event3[1];
-	 }
-	 else {
-		 $event_event3_profesor = $event_event3;
-	 }
+   if (stristr($event_event3, '||') == true) {
+     $exp_event_event3 = explode('||', $event_event3);
+     $event_event3_profesor = $exp_event_event3[0];
+     $event_event3_observacion = $exp_event_event3[1];
+   }
+   else {
+     $event_event3_profesor = $event_event3;
+   }
    $event_event4 = stripslashes($row["event4"]);
-	 if (stristr($event_event4, '||') == true) {
-		 $event_event4_profesor = $event_event4[0];
-		 $event_event4_observacion = $event_event4[1];
-	 }
-	 else {
-		 $event_event4_profesor = $event_event4;
-	 }
+   if (stristr($event_event4, '||') == true) {
+     $exp_event_event4 = explode('||', $event_event4);
+     $event_event4_profesor = $exp_event_event4[0];
+     $event_event4_observacion = $exp_event_event4[1];
+   }
+   else {
+     $event_event4_profesor = $event_event4;
+   }
    $event_event5 = stripslashes($row["event5"]);
-	 if (stristr($event_event5, '||') == true) {
-		 $event_event5_profesor = $event_event5[0];
-		 $event_event5_observacion = $event_event5[1];
-	 }
-	 else {
-		 $event_event5_profesor = $event_event5;
-	 }
+   if (stristr($event_event5, '||') == true) {
+     $exp_event_event5 = explode('||', $event_event5);
+     $event_event5_profesor = $exp_event_event5[0];
+     $event_event5_observacion = $exp_event_event5[1];
+   }
+   else {
+     $event_event5_profesor = $event_event5;
+   }
    $event_event6 = stripslashes($row["event6"]);
-	 if (stristr($event_event6, '||') == true) {
-		 $event_event6_profesor = $event_event6[0];
-		 $event_event6_observacion = $event_event6[1];
-	 }
-	 else {
-		 $event_event6_profesor = $event_event6;
-	 }
+   if (stristr($event_event6, '||') == true) {
+     $exp_event_event6 = explode('||', $event_event6);
+     $event_event6_profesor = $exp_event_event6[0];
+     $event_event6_observacion = $exp_event_event6[1];
+   }
+   else {
+     $event_event6_profesor = $event_event6;
+   }
    $event_event7 = stripslashes($row["event7"]);
-	 if (stristr($event_event7, '||') == true) {
-		 $event_event7_profesor = $event_event7[0];
-		 $event_event7_observacion = $event_event7[1];
-	 }
-	 else {
-		 $event_event7_profesor = $event_event7;
-	 }
+   if (stristr($event_event7, '||') == true) {
+     $exp_event_event7 = explode('||', $event_event7);
+     $event_event7_profesor = $exp_event_event7[0];
+     $event_event7_observacion = $exp_event_event7[1];
+   }
+   else {
+     $event_event7_profesor = $event_event7;
+   }
       }
     }
 
@@ -263,26 +271,47 @@ for ($i = $today; $i <= ($today + 6); $i++) {
   //Nombre del día
  if (mysqli_num_rows($eventExec) == 1)
  {
- 	 if ($event_event1 !== "") {
+ 	 if ($event_event1_profesor !== "") {
  	    echo "<p>1ª hora: $event_event1_profesor</p>";
+			if (isset($event_event1_observacion) && ! empty($event_event1_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event1_observacion</small></div>";
+			}
  	}
- 	 	 if ($event_event2 !== "") {
+ 	 	 if ($event_event2_profesor !== "") {
  	    echo "<p>2ª hora: $event_event2_profesor</p>";
+			if (isset($event_event2_observacion) && ! empty($event_event2_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event2_observacion</small></div>";
+			}
  	}
- 	 	 if ($event_event3 !== "") {
+ 	 	 if ($event_event3_profesor !== "") {
  	    echo "<p>3ª hora: $event_event3_profesor</p>";
+			if (isset($event_event3_observacion) && ! empty($event_event3_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event3_observacion</small></div>";
+			}
  	}
- 	 	 if ($event_event4 !== "") {
+ 	 	 if ($event_event4_profesor !== "") {
  	    echo "<p>4ª hora: $event_event4_profesor</p>";
+			if (isset($event_event4_observacion) && ! empty($event_event4_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event4_observacion</small></div>";
+			}
  	}
- 	 	 if ($event_event5 !== "") {
+ 	 	 if ($event_event5_profesor !== "") {
  	    echo "<p>5ª hora: $event_event5_profesor</p>";
+			if (isset($event_event5_observacion) && ! empty($event_event5_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event5_observacion</small></div>";
+			}
  	}
- 	 	 if ($event_event6 !== "") {
+ 	 	 if ($event_event6_profesor !== "") {
  	    echo "<p>6ª hora: $event_event6_profesor</p>";
+			if (isset($event_event6_observacion) && ! empty($event_event6_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event6_observacion</small></div>";
+			}
  	}
- 	 	 if ($event_event7 !== "") {
+ 	 	 if ($event_event7_profesor !== "") {
  	    echo "<p>7ª hora: $event_event7_profesor</p>";
+			if (isset($event_event7_observacion) && ! empty($event_event7_observacion)) {
+				echo "<div style=\"margin-left: 20px;\"><small>$event_event7_observacion</small></div>";
+			}
  	}
  }
 

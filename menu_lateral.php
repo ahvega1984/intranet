@@ -488,16 +488,9 @@ $menu_trabajo =  array(
 				'titulo' => 'Sistema de Reservas',
 				'items' => array(
 					array(
-						'href'   => 'reservas/index.php?recurso=TIC',
-						'titulo' => 'Recursos TIC',
-					),
-					array(
-						'href'   => 'reservas/index.php?recurso=Medios%20Audiovisuales',
-						'titulo' => 'Medios audiovisuales',
-					),
-					array(
 						'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
 						'titulo' => 'Aulas y dependencias',
+						'modulo' => $config['mod_horario']
 					)
 				)
 			),
@@ -529,6 +522,18 @@ $menu_trabajo =  array(
 		)
 	)
 );
+
+// Reservas
+$menu_lateral_reservas_tipos = mysqli_query($db_con, "SELECT `tipo` FROM `reservas_tipos`");
+while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reservas_tipos)) {
+
+	$menu_lateral_reservas_tipo = array(
+		'href'   => 'reservas/index.php?recurso='.urlencode($row_menu_lateral_reservas_tipos['tipo']),
+		'titulo' => $row_menu_lateral_reservas_tipos['tipo']
+	);
+
+	array_push($menu_trabajo[0]['items'][6]['items'], $menu_lateral_reservas_tipo);
+}
 
 $menu_departamento = array(
 	array(
@@ -607,6 +612,14 @@ $menu_actas = array(
 
 if (file_exists('./admin/departamento/actas/config.php')) {
 	include('./admin/departamento/actas/config.php');
+
+	$menu_actas_claustro = array(
+		'href'   => 'admin/departamento/actas/index.php?organo=Claustro del Centro',
+		'titulo' => 'Claustro del Centro',
+		'ncargos'  => array('6','7')
+	);
+
+	array_push($menu_actas['items'], $menu_actas_claustro);
 
 	if (isset($config['actas_depto']['secretario_aca']) && $pr == $config['actas_depto']['secretario_aca']) {
 		$menu_actas_aca = array(
