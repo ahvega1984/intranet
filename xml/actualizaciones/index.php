@@ -250,14 +250,16 @@ if (! isset($_SESSION['user_admin']) || ! $_SESSION['user_admin']) {
 						'server' => $_SERVER['SERVER_SOFTWARE'],
 						'php_version' => phpversion(),
 						'mysql_version' => mysqli_get_server_info($db_con),
-						'intranet_version' => INTRANET_VERSION
+						'intranet_version' => $ultima_version
 					);
 
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL,"https://iesmonterroso.org/intranet/analitica/baliza.php");
 					curl_setopt($ch, CURLOPT_POST, TRUE);
+					curl_setopt($ch, CURLOPT_VERBOSE, TRUE);
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $analitica);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
 					curl_exec($ch);
 					curl_close($ch);
 
