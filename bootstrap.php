@@ -134,7 +134,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	else {
 		// Variables de sesión del cargo del Profesor
 		// Con esto evitamos que el profesor tenga que cerrar y abrir sesión si se cambia de departamento o permisos.
-		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
+		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '".$_SESSION['profi']."'" );
 		$cargo1 = mysqli_fetch_array ( $cargo0 );
 		$_SESSION['cargo'] = $cargo1 [0];
 		$carg = $_SESSION['cargo'];
