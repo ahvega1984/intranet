@@ -50,11 +50,11 @@ if(isset($_GET['action']) && $_GET['action']=="crear") {
 
 	$result = copia_bd($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 
-	if ($result == NULL) {
+	if ($result === NULL) {
 		$msg_error = "No ha sido posible crear la copia de seguridad. Probablemente su proveedor no permite la ejecución de comandos a través del servidor web. Realice una copia de seguridad a través de phpMyAdmin u otro gestor de base de datos.";
 	}
 	else {
-		$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $bd . ".";
+		$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $config['db_name'] . ".";
 	}
 }
 
@@ -106,15 +106,13 @@ include("../../../menu.php");
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
-					<?php $directorio = opendir(__DIR__); ?>
-					<?php while (($archivo = readdir($directorio)) !== false): ?>
-					<?php if(!in_array($archivo, array('.','..','index.php','restaurar.php','php.ini'))): ?>
-          <?php
-          $exp_archivo = explode('_', $archivo);
-          $fecha_completa = rtrim($exp_archivo[2], '.sql.gz');
-          $fecha_formateada = preg_replace('/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/i', '$3-$2-$1 $4:$5:$6', $fecha_completa);
-          ?>
 					<tbody>
+            <?php foreach (array_reverse(glob("*.sql.gz")) as $archivo): ?>
+            <?php
+            $exp_archivo = explode('_', $archivo);
+            $fecha_completa = rtrim($exp_archivo[2], '.sql.gz');
+            $fecha_formateada = preg_replace('/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/i', '$3-$2-$1 $4:$5:$6', $fecha_completa);
+            ?>
 						<tr>
 							<td><?php echo $archivo; ?></td>
 							<td><?php echo mb_file(filesize($archivo)); ?></td>
@@ -125,9 +123,8 @@ include("../../../menu.php");
 								<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 							</td>
 						</tr>
+            <?php endforeach; ?>
 					</tbody>
-					<?php endif; ?>
-					<?php endwhile; ?>
 				</table>
 			</div>
 
