@@ -118,7 +118,20 @@ include("../../menu.php");
                         <?php $i = 0; ?>
                         <?php while ($row = mysqli_fetch_array($result)): ?>
 
-                        <?php $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE alma.unidad = '".$row['grupo']."' AND alma.combasi LIKE '%".$row['codigo']."%' ORDER BY alma.apellidos ASC, alma.nombre ASC"); ?>
+                        <?php 
+                        $asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '".$row['codigo']."' limit 1) and grupo like '".$row['grupo']."' and codigo not like '".$row['codigo']."' and abrev not like '%\_%'");
+                            if (mysqli_num_rows($asig_bach)>0) {
+                                $esBachillerato = 1;
+                                $as_bach=mysqli_fetch_array($asig_bach);
+                                $cod_asig_bach = $as_bach[0];
+                                $aux=" (combasi like '%".$row['codigo'].":%' or combasi like '%$cod_asig_bach:%')";
+                            }
+                            else{
+                                $aux=" combasi like '%".$row['codigo'].":%'";   
+                            }
+
+                        $result_alumnos = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal FROM alma WHERE alma.unidad = '".$row['grupo']."' AND ".$aux." ORDER BY alma.apellidos ASC, alma.nombre ASC");
+                        ?>
                         <?php $total_alumnos_unidad = mysqli_num_rows($result_alumnos); ?>
 
                         <?php

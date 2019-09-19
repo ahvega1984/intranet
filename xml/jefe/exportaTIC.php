@@ -297,6 +297,101 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 	}
 
+
+	// GOOGLE SUITE para alumnos
+	$gsuite_alumnos	= 'alumnos_gsuite.csv';
+
+	if (file_exists($directorio.$gsuite_alumnos)) unlink($directorio.$gsuite_alumnos);
+
+	$array_correos = array();
+
+	if ($_GET['exportar'] == $gsuite_alumnos) {
+		if (!$fp = fopen($directorio.$gsuite_alumnos, 'w+')) {
+			die ("Error: No se puede crear o abrir el archivo ".$directorio.$gsuite_alumnos);
+		}
+		else {
+			// Cabecera del archivo
+			fwrite($fp, "First Name [Required],Last Name [Required],Email Address [Required],Password [Required]\r\n");
+
+			$result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM alma ORDER BY apellidos, nombre ASC") or die (mysqli_query($db_con));
+			while ($row = mysqli_fetch_array($result)) {
+				$nombre = trim($row[1]);
+				$apellidos = trim($row[0]);
+
+				$exp_nombre = explode(' ',$row[1]);
+				$primer_nombre = trim($exp_nombre[0]);
+
+				$exp_apell = explode(' ',$row[0]);
+				$primer_apellido = trim($exp_apell[0]);
+				$segundo_apellido = trim($exp_apell[1]);
+
+				$pass_alumno = "alumno_".$row['claveal'];
+				
+				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
+				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
+
+				if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
+					$correo = $primer_nombre . '.' . $primer_apellido;
+				}
+				else {
+					$correo = $primer_nombre.$primer_apellido;
+				}
+				$correo = str_ireplace('M ª', 'María', $correo);
+				$correo = str_ireplace('Mª', 'María', $correo);
+				$correo = str_ireplace('M.', 'María', $correo);
+				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+				$correo = mb_strtolower($correo, 'UTF-8');
+				$correo = "al_".$correo.'@'.$config['dominio'];
+
+				// Si ya existe la cuenta de correo, añadimos el segundo apellido
+				if (in_array($correo, $array_correos)) {
+
+					if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
+						$correo = $primer_nombre . '.' . $primer_apellido . '.' . $segundo_apellido;
+					}
+					else {
+						$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
+					}
+					$correo = str_ireplace('M ª', 'María', $correo);
+					$correo = str_ireplace('Mª', 'María', $correo);
+					$correo = str_ireplace('M.', 'María', $correo);
+					$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+					$correo = mb_strtolower($correo, 'UTF-8');
+					$correo = "al_".$correo.'@'.$config['dominio'];
+				}
+
+				array_push($array_correos, $correo);
+
+				fwrite($fp, utf8_decode($nombre).",".utf8_decode($apellidos).",".$correo.",".$pass_alumno."\r\n");
+			}
+
+			fclose($fp);
+
+			if (is_file($directorio.$gsuite_alumnos)) {
+				$size = filesize($directorio.$gsuite_alumnos);
+				if (function_exists('mime_content_type')) {
+					$type = mime_content_type($directorio.$gsuite_alumnos);
+				} else if (function_exists('finfo_file')) {
+					$info = finfo_open(FILEINFO_MIME);
+					$type = finfo_file($info, $directorio.$gsuite_alumnos);
+					finfo_close($info);
+				}
+				if ($type == '') {
+					$type = "application/force-download";
+				}
+				// Set Headers
+				header("Content-Type: $type");
+				header("Content-Disposition: attachment; filename=$gsuite_alumnos");
+				header("Content-Transfer-Encoding: binary");
+				header("Content-Length: " . $size);
+				// Download File
+				readfile($directorio.$gsuite_alumnos);
+			}
+				unlink($directorio.$gsuite_alumnos);
+		}
+	}
+
+
 	// OFFICE 365
 	$office365_profesores	= 'profesores_office365.csv';
 
