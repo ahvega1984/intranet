@@ -217,9 +217,26 @@ if ($config['mod_convivencia']==1) {
 		<td>$rowcurso</td>
 		<td nowrap>$fecha</td>
 		<td>$asunto</td>
-		<td>".nomprofesor($informa)."</td>
-		<td $bgcolor>$grave</td>
-		<td><center>$rownumero</center></td>
+		<td>".nomprofesor($informa)."</td>";
+		if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
+			switch ($grave) {
+				case 'leve':
+					$titulo_gravedad = "Otras";
+					break;
+				case 'grave':
+					$titulo_gravedad = "Contrarias";
+					break;
+				case 'muy grave':
+					$titulo_gravedad = "Graves";
+					break;
+			}
+			echo "<td $bgcolor>$titulo_gravedad</td>";
+			unset($titulo_gravedad);
+		}
+		else {
+			echo "<td $bgcolor>$grave</td>";
+		}
+		echo "<td><center>$rownumero</center></td>
 		<td>$caducada</td>";
 		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
 			echo "<td>".sistemaPuntos($claveal)."</td>";

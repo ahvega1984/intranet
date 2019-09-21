@@ -1,6 +1,5 @@
 <?php
 require('../../bootstrap.php');
-error_reporting(E_ALL);
 
 acl_acceso($_SESSION['cargo'], array(1));
 
@@ -11,7 +10,9 @@ function limpiar_string($string)
 
 
 if (isset($_POST['btnGuardar'])) {
+	include('config.php');
 
+	$prefConvivenciaSeneca	= $_POST['prefConvivenciaSeneca'];
 	$prefNotificacionPadres	= limpiar_string($_POST['prefNotificacionPadres']);
 	$prefMostrarDescripcion	= limpiar_string($_POST['prefMostrarDescripcion']);
 	$prefCompromisoConvivencia	= $_POST['prefCompromisoConvivencia'];
@@ -24,12 +25,18 @@ if (isset($_POST['btnGuardar'])) {
 	$prefPuntosRecuperaConvivencia	= $_POST['prefPuntosRecuperaConvivencia'];
 	$prefPuntosRecuperaSemana	= $_POST['prefPuntosRecuperaSemana'];
 
+	$cambioTablaConvivencia = 0;
+	if (isset($config['convivencia']['convivencia_seneca']) && ($config['convivencia']['convivencia_seneca'] != $prefConvivenciaSeneca)) {
+		$cambioTablaConvivencia = 1;
+	}
+
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen('config.php', 'w+'))
 	{
 		fwrite($file, "<?php \r\n");
 
 		fwrite($file, "\r\n// CONFIGURACIÓN MÓDULO DE PROBLEMAS DE CONVIVENCIA\r\n");
+		fwrite($file, "\$config['convivencia']['convivencia_seneca']\t= $prefConvivenciaSeneca;\r\n");
 		fwrite($file, "\$config['convivencia']['notificaciones_padres']\t= $prefNotificacionPadres;\r\n");
 		fwrite($file, "\$config['convivencia']['mostrar_descripcion']\t= $prefMostrarDescripcion;\r\n");
 		fwrite($file, "\$config['convivencia']['compromiso_convivencia']\t= $prefCompromisoConvivencia;\r\n");
@@ -54,8 +61,20 @@ if (isset($_POST['btnGuardar'])) {
 
 if (file_exists('config.php')) {
 	include('config.php');
-}
 
+	if (isset($cambioTablaConvivencia) && $cambioTablaConvivencia == 1) {
+		if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
+			mysqli_query($db_con, "RENAME TABLE `listafechorias` TO `listafechorias_intranet`");
+			mysqli_query($db_con, "RENAME TABLE `listafechorias_seneca` TO `listafechorias`");
+		}
+		else {
+			mysqli_query($db_con, "RENAME TABLE `listafechorias` TO `listafechorias_seneca`");
+			mysqli_query($db_con, "RENAME TABLE `listafechorias_intranet` TO `listafechorias`");
+		}
+	}
+	unset($cambioTablaConvivencia);
+
+}
 
 include("../../menu.php");
 include("menu.php");
@@ -91,6 +110,16 @@ include("menu.php");
 
 					<fieldset>
 						<legend>Preferencias</legend>
+
+						<div class="form-group">
+							<label for="prefConvivenciaSeneca" class="col-sm-4 control-label">Usar Problemas de Convivencia por defecto de Séneca</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefConvivenciaSeneca" name="prefConvivenciaSeneca">
+									<option value="0" <?php echo (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+									<option value="1" <?php echo (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+								</select>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label for="prefNotificacionPadres" class="col-sm-4 control-label">Enviar notificación a padres</label>

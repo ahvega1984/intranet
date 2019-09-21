@@ -32,7 +32,7 @@ class GranPDF extends FPDF {
 	}
 	function Footer() {
 		global $config;
-		
+
 		$this->SetTextColor(0, 122, 61);
 		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
@@ -71,7 +71,13 @@ if ($row = mysqli_fetch_array ( $result )) {
 	$unidad = $row[2];
 	$fecha = $row[3];
 	$notas = $row[4];
-	$grave = $row[7];
+	if (! empty($row[7])) {
+		switch ($row[7]) {
+			case 'leve': $grave = "contraria"; break;
+			case 'grave': $grave = "contraria"; break;
+			case 'muy grave': $grave = "gravemente contraria"; break;
+		}
+	}
 	$expulsion = $row[10];
 	$claveal = $row[12];
 	$tfno = $row[13];
@@ -97,7 +103,7 @@ $cuerpo = "El Director del ".$config['centro_denominacion']." de ".$config['cent
 
 Acuerda:
 
-1.- Tipificar la conducta de este alumno(a) como contraria a las normas de convivencia del Centro, suponiendo falta $grave.
+1.- Tipificar la conducta de este alumno(a) como $grave a las normas de convivencia del Centro.
 2.- Imponer las siguientes correcciones:
     - Amonestación que constará en el expediente individual del alumno/a.
     - Suspensión del derecho de asistencia a clase por un periodo de $expulsion días lectivos, desde el $inicio1 hasta el $fin1, ambos inclusive, sin que ello implique la pérdida de evaluación. Durante esos días, el alumno/a deberá permanecer en su domicilio durante el horario escolar realizando los deberes o trabajos que tenga encomendados. La no realización de las tareas supone el incumplimiento de la corrección por lo que dicha conducta se considerará gravemente perjudicial para la convivencia y, como consecuencia, conllevaría la imposición de una nueva medida correctora.

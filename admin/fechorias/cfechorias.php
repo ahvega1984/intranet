@@ -127,8 +127,13 @@ include("menu.php");
 										<option value="Aula de Convivencia">Aula de convivencia: Profesor</option>
 										<option value="Aula de Convivencia Jefatura">Aula de convivencia: Jefatura</option>
 										<?php } ?>
+										<?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1): ?>
+										<option value="Falta Grave">Conductas contrarias</option>
+										<option value="Falta Muy Grave">Conductas graves</option>
+										<?php else: ?>
 										<option value="Falta Grave">Falta grave</option>
 										<option value="Falta Muy Grave">Falta muy grave</option>
+										<?php endif; ?>
 										<option value="Biblioteca">Biblioteca</option>
 									</select>
 								</div>

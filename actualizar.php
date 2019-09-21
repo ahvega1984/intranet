@@ -754,3 +754,41 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE `reservas` CHANGE `event1` `event1` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, CHANGE `event2` `event2` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '', CHANGE `event3` `event3` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '', CHANGE `event4` `event4` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '', CHANGE `event5` `event5` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '', CHANGE `event6` `event6` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '', CHANGE `event7` `event7` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';");
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Aumento tamaño campo de reservas para observaciones', NOW())");
 }
+
+
+/*
+	@descripcion: Tabla de problemas de convivencia de Séneca
+	@fecha: 15 de septiembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tabla de problemas de convivencia de Séneca'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "CREATE TABLE `listafechorias_seneca` (
+	  `ID` int(4) NOT NULL AUTO_INCREMENT,
+	  `fechoria` varchar(255) DEFAULT NULL,
+	  `medidas` varchar(64) DEFAULT NULL,
+	  `medidas2` longtext,
+	  `tipo` varchar(10) DEFAULT NULL,
+	  PRIMARY KEY (`ID`)
+	) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;");
+
+
+	mysqli_query($db_con, "INSERT INTO `listafechorias_seneca` (`ID`, `fechoria`, `medidas`, `medidas2`, `tipo`) VALUES
+	(1, 'Perturbación del normal desarrollo de las actividades de clase (Contraria)', 'Amonestación escrita', 'Imponer correcciones como: estancia en el Aula de Convivencia varios días; estancia de un familiar en el aula, con el alumno, durante varios días; o expulsión del centro entre 1 y 29 días en función de la gravedad.', 'grave'),
+	(2, 'Falta de colaboración sistemática en la realización de las actividades (Contraria)', 'Amonestación escrita', 'Imponer correcciones como: pérdida de recreo; quedarse algunos minutos al final del periodo lectivo; obligarlo a que venga por la tarde (lunes); expulsarlo de clase (medida extraordinaria que debe ir acompañada con escrito del profesor a los padres). El tutor tratará el caso con la familia y propondrá a Jefatura medidas a adoptar.', 'grave'),
+	(3, 'Impedir o dificultar el estudio a sus compañeros (Contraria)', 'Amonestación escrita', 'Imponer correcciones como: pérdida de recreo; quedarse algunos minutos al final del periodo lectivo; obligarlo a que venga por la tarde (lunes); expulsarlo de clase (medida extraordinaria). El tutor tratará el caso con Jefatura  para adoptar medidas.', 'grave'),
+	(4, 'Faltas injustificadas de puntualidad (Contraria)', 'Amonestación escrita', 'Seguir protocolo: a) Llamada telefónica a la familia b) Escrito a la familia c) Escrito certificado con acuse de recibo a la familia d) Traslado del caso a Asuntos Sociales.', 'grave'),
+	(5, 'Faltas injustificadas de asistencia a clase (Contraria)', 'Amonestación escrita', 'Seguir protocolo: a) Llamada telefónica a la familia b) Escrito a la familia c) Escrito certificado con acuse de recibo a la familia d) Traslado del caso a Asuntos Sociales.', 'grave'),
+	(6, 'Actuaciones incorrectas hacia algún miembro de la comunidad educativa (Contraria)', 'Amonestación escrita', 'Imponer correcciones como: pérdida de recreo; quedarse algunos minutos al final del periodo lectivo; obligarlo a que venga por la tarde (lunes); expulsarlo de clase  (medida extraordinaria que debe ir acompañada con escrito del profesor a los padres). La petición de excusas se considerará un atenuante a valorar. El tutor tratará el caso con la familia y propondrá a Jefatura medidas a adoptar.', 'grave'),
+	(7, 'Daños en instalaciones o docum. del Centro o en pertenencias de un miembro (Contraria)', 'Amonestación escrita', 'El tutor tratará el caso con la familia y el alumno y familia realizará trabajos complementarios para la comunidad y  restaurará los daños o pagará los gastos de reparación o restitución.', 'grave'),
+	(8, 'Vejaciones o humillaciones contra un miembro de la comunidad educativa (Grave)', 'Amonestación escrita', 'Petición publica de disculpas y comunicación con la familia. Si el hecho es grave, iniciar los trámites legales oportunos (Asuntos Sociales, Policía Nacional, etc.) Imponer expulsión del centro entre 1 y 29 dependiendo de la gravedad.', 'muy grave'),
+	(9, 'Actuaciones perjudiciales para la salud y la integridad, o incitación a ellas (Grave)', 'Amonestación escrita', 'Si el hecho es grave, iniciar los trámites legales oportunos (Asuntos Sociales, Policía Nacional, etc.).  Entrega de trabajo relacionado con el hecho y la salud. Imponer sanción de estancia en el Aula de Convivencia o  expulsión del centro entre 1 y 29 dependiendo de la gravedad.', 'muy grave'),
+	(10, 'Amenazas o coacciones a un miembro de la comunidad educativa', 'Amonestación escrita', 'Petición publica de disculpas y comunicación con la familia. Si el hecho es grave, iniciar los trámites legales oportunos (Asuntos Sociales, Policía Nacional, etc.) Imponer correcciones como: estancia en el Aula de Convivencia varios días; o expulsión del centro entre 1 y 29  dependiendo de la gravedad', 'muy grave'),
+	(11, 'Suplantación de la personalidad, y falsificación o sustracción de documentos (Grave)', 'Amonestación escrita', 'Si el hecho es grave, iniciar los trámites legales oportunos (Asuntos Sociales, Policía Nacional, etc.) Imponer expulsión del centro entre 1 y 29 dependiendo de la gravedad.', 'muy grave'),
+	(12, 'Deterioro grave de instalac. o docum. del Centro, o pertenencias de un miembro (Grave)', 'Amonestación escrita', 'Jefatura de Estudios tratará el caso con la familia y el alumno y familia realizará trabajos complementarios para la comunidad y  restaurará los daños o pagará los gastos de reparación o restitución.', 'muy grave'),
+	(13, 'Reiteración en un mismo curso de conductas contrarias a normas de convivencia (Grave)', 'Amonestación escrita', 'Imponer correcciones como: pérdida de recreo; quedarse algunos minutos al final del periodo lectivo; obligarlo a que venga por la tarde (lunes); realizar trabajos para la comunidad; o estancia en el Aula de Convivencia entre 1 y 3 días.', 'muy grave'),
+	(14, 'Impedir el normal desarrollo de las actividades del Centro (Grave)', 'Amonestación escrita', 'Jefatura tratará el caso con la familia. Imponer correcciones como: estancia en el Aula de Convivencia varios días; estancia de un familiar en el aula, con el alumno, durante varios días; o expulsión del centro entre 1 y 29 días en función de la gravedad', 'muy grave'),
+	(15, 'Incumplimiento de las correcciones impuestas (Grave)', 'Amonestación escrita', 'Imponer correcciones como: pérdida de recreo; quedarse algunos minutos al final del periodo lectivo; obligarlo a que venga por la tarde (lunes); realizar trabajos para la comunidad; o estancia en el Aula de Convivencia entre 1 y 3 días.', 'muy grave');");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla de problemas de convivencia de Séneca', NOW())");
+}

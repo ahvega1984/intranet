@@ -176,8 +176,17 @@ if ($grave=="muy grave" and isset($id) and stristr($_SESSION['cargo'],'1') == TR
         <h4 class="modal-title text-danger">ATENCIÓN JEFATURA DE ESTUDIOS:</h4>
       </div>
       <div class="modal-body">
-        <p>Los miembros del Equipo Directivo deben pulsar en el botón de '<b>Actualizar datos</b>' para completar el proceso de registro de un problema de conducta calificado de '<b>Muy grave</b>'. Al pulsar sobre el botón se enviarán un SMS o email a los padres y finalizará el proceso.</p>
-      </div>
+				<?php
+				if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
+					$titulo_gravedad = 'gravemente contraria';
+				}
+				else {
+					$titulo_gravedad = 'muy grave';
+				}
+				?>
+        <p>Los miembros del Equipo Directivo deben pulsar en el botón de '<b>Actualizar datos</b>' para completar el proceso de registro de un problema de conducta calificado de '<b><?php echo $titulo_gravedad; ?></b>'. Al pulsar sobre el botón se enviarán un SMS o email a los padres y finalizará el proceso.</p>
+				<?php if (isset($titulo_gravedad)) unset($titulo_gravedad); ?>
+		</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
@@ -279,24 +288,44 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 
 <div class="form-group"><label for="grave"> Gravedad</label> <select
 	class="form-control" id="grave" name="grave" onchange="submit()" required>
-	<option><?php echo $grave;?></option>
-	<?php tipo(); ?>
-</select></div>
-
-<div class="form-group"><label for="asunto">Conducta negativa</label> <select
-	class="form-control" id="asunto" name="asunto" onchange="submit()" required>
-	<option><?php
-
-	$sql0 = mysqli_query($db_con, "select tipo from listafechorias where fechoria = '$asunto'");
-	$sql1 = mysqli_fetch_array($sql0);
-	if($sql1[0] !== $grave)
+	<?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1): ?>
+	<option></option>
+	<?php
+	$result_gravedad = mysqli_query($db_con, "SELECT DISTINCT `tipo` FROM `listafechorias`");
+	while($row_gravedad = mysqli_fetch_array($result_gravedad))
 	{
-		echo "<OPTION></OPTION>";
+		switch ($row_gravedad[0]) {
+			case 'leve':
+				$titulo_gravedad = "Otras conductas contrarias no incluidas en el Decreto 327/2010 o en el Decreto 328/2010";
+				break;
+			case 'grave':
+				$titulo_gravedad = "Conductas contrarias (Decreto 327/2010 (art.34) o Decreto 328/2010 (art.33))";
+				break;
+			case 'muy grave':
+				$titulo_gravedad = "Conductas graves (Decreto 327/2010 (art.37) o Decreto 328/2010 (art.36))";
+				break;
+		}
+		echo '<option value="'.$row_gravedad[0].'"'.(($row_gravedad[0] == $grave) ? ' selected' : '').'>'.$titulo_gravedad.'</option>';
 	}
-	else
-	{ echo $asunto;}  ?></option>
-	<?php fechoria($grave); ?>
+	?>
+	<?php else: ?>
+	<option><?php echo $grave; ?></option>
+	<?php tipo(); ?>
+	<?php endif; ?>
 </select></div>
+
+<div class="form-group"><label for="asunto">Conducta negativa</label>
+	<select class="form-control" id="asunto" name="asunto" onchange="submit()" required>
+		<option></option>
+		<?php
+		$result_fechorias = mysqli_query($db_con, "SELECT fechoria FROM listafechorias WHERE tipo = '$grave' ORDER BY fechoria ASC");
+		while($row_fechoria = mysqli_fetch_array($result_fechorias))
+		{
+			echo '<option value="'.$row_fechoria[0].'"'.(($row_fechoria[0] == $asunto) ? ' selected' : '').'>'.$row_fechoria[0].'</option>';
+		}
+		?>
+	</select>
+</div>
 
 <div class="form-group"><label class="medida">Medida Adoptada</label> <?php
 

@@ -31,11 +31,18 @@ include ("menu.php");
 		<th width=\"60\"></th>
 		<th>ALUMNO</th>
 		<th>CURSO</th>
-		<th>TOTAL</th>
-		<th>Leves</th>
-		<th>Graves</th>
-		<th nowrap>Muy Graves</th>
-		<th>Expulsion</th>
+		<th>TOTAL</th>";
+		if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
+			echo "<th>Otras conductas</th>
+			<th>Contrarias</th>
+			<th nowrap>Graves</th>";
+		}
+		else {
+			echo "<th>Leves</th>
+			<th>Graves</th>
+			<th nowrap>Muy Graves</th>";
+		}
+		echo "<th>Expulsion</th>
 		<th>Convivencia</th>";
 		if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']) {
     	echo "<th>Puntos</th>";

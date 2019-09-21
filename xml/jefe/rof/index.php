@@ -1,6 +1,10 @@
 <?php
 require('../../../bootstrap.php');
 
+if (file_exists('../../../admin/fechorias/config.php')) {
+	include('../../../admin/fechorias/config.php');
+}
+
 acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
@@ -93,7 +97,24 @@ include("../../../menu.php");
 		    	$tipo = $tipos[0];
 
 		    	echo "<tr class=\"info\">\n";
-		    	echo "  <td colspan=\"4\"><strong>$tipo</strong></td>\n";
+					if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
+						switch ($tipo) {
+							case 'leve':
+								$titulo_gravedad = "Otras conductas contrarias no incluidas en el Decreto 327/2010 o en el Decreto 328/2010";
+								break;
+							case 'grave':
+								$titulo_gravedad = "Conductas contrarias (Decreto 327/2010 (art.34) o Decreto 328/2010 (art.33))";
+								break;
+							case 'muy grave':
+								$titulo_gravedad = "Conductas graves (Decreto 327/2010 (art.37) o Decreto 328/2010 (art.36))";
+								break;
+						}
+		    		echo "  <td colspan=\"4\"><strong>$titulo_gravedad</strong></td>\n";
+						unset($titulo_gravedad);
+					}
+					else {
+						echo "  <td colspan=\"4\"><strong>$tipo</strong></td>\n";
+					}
 		    	echo "</tr>\n";
 
 		    	$result2 = mysqli_query($db_con, "SELECT id, fechoria, medidas, medidas2 FROM listafechorias WHERE tipo='$tipo' ORDER BY id");
