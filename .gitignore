@@ -40,3 +40,4 @@ admin/matriculas/config.php
 *.csv
 
 calendario/config.php
+pruebas.php

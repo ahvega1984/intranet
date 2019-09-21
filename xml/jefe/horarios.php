@@ -299,8 +299,8 @@ while ($cargo = mysqli_fetch_array($carg)) {
 	else{
 		if(strstr($cargos,"2")==TRUE)
 		{
-			mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
-			mysqli_query($db_con,"insert into FTUTORES (unidad, tutor) select distinct prof from horw where c_asig like '117' and prof = '$cargo[0]' and prof not in (select tutor from FTUTORES)");
+			mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, nomprofesor from horw, profesores_seneca where c_prof = idprofesor and c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
+			mysqli_query($db_con,"insert into FTUTORES (unidad, tutor) select distinct a_grupo, nomprofesor from horw, profesores_seneca where c_prof = idprofesor and c_asig like '117' and prof = '$cargo[0]' and prof not in (select tutor from FTUTORES)");
 		}
 	}
 }
