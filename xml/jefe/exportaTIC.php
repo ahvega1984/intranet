@@ -324,40 +324,34 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$exp_apell = explode(' ',$row[0]);
 				$primer_apellido = trim($exp_apell[0]);
 				$segundo_apellido = trim($exp_apell[1]);
+				$iniciales = strtolower(substr($nombre, 0,1).substr($apellidos, 0,1));
 
-				$pass_alumno = "alumno_".$row['claveal'];
+				$nie = trim($row[2]);
+
+				$pass_alumno = $iniciales."_".$row['claveal'];
 				
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
-				if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
-					$correo = $primer_nombre . '.' . $primer_apellido;
-				}
-				else {
-					$correo = $primer_nombre.$primer_apellido;
-				}
+				$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
+				$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $nombre);
+				$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $apellidos);
+
 				$correo = str_ireplace('M ª', 'María', $correo);
 				$correo = str_ireplace('Mª', 'María', $correo);
 				$correo = str_ireplace('M.', 'María', $correo);
 				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
 				$correo = mb_strtolower($correo, 'UTF-8');
-				$correo = "al_".$correo.'@'.$config['dominio'];
+				$correo = "alumno.".$nie.'@'.$config['dominio'];
 
 				// Si ya existe la cuenta de correo, añadimos el segundo apellido
 				if (in_array($correo, $array_correos)) {
-
-					if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
-						$correo = $primer_nombre . '.' . $primer_apellido . '.' . $segundo_apellido;
-					}
-					else {
-						$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
-					}
 					$correo = str_ireplace('M ª', 'María', $correo);
 					$correo = str_ireplace('Mª', 'María', $correo);
 					$correo = str_ireplace('M.', 'María', $correo);
 					$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
 					$correo = mb_strtolower($correo, 'UTF-8');
-					$correo = "al_".$correo.'@'.$config['dominio'];
+					$correo = "alumno.".$nie.'@'.$config['dominio'];
 				}
 
 				array_push($array_correos, $correo);
