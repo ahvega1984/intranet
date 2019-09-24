@@ -74,10 +74,10 @@
 	<li class="nav-header">Centro TIC</li>
 	<li><a href="jefe/exportaTIC.php?exportar=alumnos.txt" target="_blank">Usuarios alumnos (Gesuser)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=alumnos_moodle.txt" target="_blank">Usuarios alumnos (Moodle)</a></li>
+	<li><a href="jefe/exportaTIC.php?exportar=alumnos_gsuite.csv" target="_blank">Usuarios alumnos (G Suite)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores.txt" target="_blank">Usuarios profesores (Gesuser)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_moodle.txt" target="_blank">Usuarios profesores (Moodle)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_gsuite.csv" target="_blank">Usuarios profesores (G Suite)</a></li>
-	<li><a href="jefe/exportaTIC.php?exportar=alumnos_gsuite.csv" target="_blank">Usuarios alumnos (G Suite)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_office365.csv" target="_blank">Usuarios profesores (Office 365)</a></li>
 	<?php endif; ?>
 

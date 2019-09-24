@@ -29,7 +29,7 @@ $asignatura = $exp_unidad[3];
 
 		<div class="alert alert-info hidden-print">
 			<h4>Cambio de contraseña</h4>
-			Es conveniente que el alumno cambie la contraseña que el Centro le ha asignado en las Plataformas Moodle o Helvia por una contraseña personal. Sólo entonces el alumno podrá tener la certeza de que el aceso a la Plataforma es realmente privado.
+			Es conveniente que el alumno cambie la contraseña que el Centro le ha asignado en las Plataformas Moodle, Helvia o G Suite por una contraseña personal. Sólo entonces el alumno podrá tener la certeza de que el aceso a la Plataforma es realmente privado.
 		</div>
 
 		<br>
@@ -38,7 +38,7 @@ $asignatura = $exp_unidad[3];
 		<div class="row">
 
 			<!-- COLUMNA CENTRAL -->
-			<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-sm-10 col-sm-offset-1">
 
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped">
@@ -48,6 +48,7 @@ $asignatura = $exp_unidad[3];
 								<th>Usuario</th>
 								<th>Contraseña Gesuser</th>
 								<th>Contraseña Moodle</th>
+								<th>G-Suite<br>(Usuario / Pass)</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -65,14 +66,25 @@ $asignatura = $exp_unidad[3];
 									$codigo_asignatura = "combasi like '%$asignatura%'";
 								}
 
+							$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
+							$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
+
 							$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
 							$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad = '".$unidad."' AND ".$codigo_asignatura." ORDER BY apellidos ASC, nombre ASC");
-							while ($row = mysqli_fetch_array($result)): ?>
+							while ($row = mysqli_fetch_array($result)): 
+								$iniciales = strtolower(substr($row['nombre'], 0,1).substr($row['apellidos'], 0,1));
+								$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
+								$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $row['nombre']);
+								$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $row['apellidos']);
+								$correo = "al.".$row['claveal'].'@'.$config['dominio'];
+								$pass_gsuite = $iniciales."_".$row['claveal'];
+							?>
 							<tr>
 								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
 								<td><?php echo $row['claveal']; ?></td>
 								<td><?php echo $row['claveal']; ?></td>
 								<td><?php echo substr(sha1($row['claveal']),0,8); ?></td>
+								<td><?php echo $correo."<br><em>".$pass_gsuite."</em>"; ?></td>
 							</tr>
 							<?php endwhile; ?>
 							<?php mysqli_free_result($result); ?>
