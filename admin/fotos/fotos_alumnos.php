@@ -5,7 +5,13 @@ require('../../bootstrap.php');
 
 
 // VARIABLES DEL FORMULARIO
-$curso = $_POST['curso'];
+if (isset($_POST['curso'])) {
+	$curso = $_POST['curso'];
+}
+elseif (isset($_GET['curso'])){
+	$curso = $_GET['curso'];
+}
+
 
 require('../../pdf/mc_table.php');
 

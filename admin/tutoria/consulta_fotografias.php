@@ -28,7 +28,7 @@ else {
 	}
 	
 }
-
+$curso_tutor = $_SESSION['mod_tutoria']['unidad'];
 
 // ENVIO DEL FORMULARIO
 if (isset($_POST['enviar'])) {
@@ -227,7 +227,7 @@ include("menu.php");
 				
 				
 				<div class="hidden-print">
-					<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
+					<a href="../fotos/fotos_alumnos.php?curso=<?php echo $_SESSION['mod_tutoria']['unidad'];?>" class="btn btn-primary">Imprimir</a>
 				</div>
 
 			</div><!-- /.col-sm-12 -->
