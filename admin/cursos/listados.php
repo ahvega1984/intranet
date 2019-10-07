@@ -190,7 +190,7 @@ foreach ($unidades as $unidad) {
 				$aux = '';
 
 				if ($row['matriculas'] > 1) {
-					$aux = ' (Rep.)';
+					$aux .= ' (Rep.)';
 				}
 
 				// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
@@ -200,14 +200,14 @@ foreach ($unidades as $unidad) {
 				$row_datos_matricula_bach = mysqli_fetch_array($result_datos_matricula_bach);
 
 				if ($row_datos_matricula['bilinguismo'] == 'Si') {
-					$aux = ' (Bil.)';
+					$aux .= ' (Bil.)';
 				}
 				if ($row_datos_matricula_bach['bilinguismo'] == 'Si') {
-					$aux = ' (Bil.)';
+					$aux .= ' (Bil.)';
 				}
 
 				if ($row_datos_matricula['exencion'] == 1) {
-					$aux = ' (Exe.)';
+					$aux .= ' (Exe.)';
 				}
 
 				$alumno = $row['apellidos'].', '.$row['nombre'].$aux;
@@ -300,7 +300,7 @@ foreach ($unidades as $unidad) {
 			$aux = '';
 
 			if ($row['matriculas'] > 1) {
-				$aux = ' (Rep.)';
+				$aux .= ' (Rep.)';
 			}
 
 			// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
@@ -310,14 +310,14 @@ foreach ($unidades as $unidad) {
 			$row_datos_matricula_bach = mysqli_fetch_array($result_datos_matricula_bach);
 
 			if ($row_datos_matricula['bilinguismo'] == 'Si') {
-				$aux = ' (Bil.)';
+				$aux .= ' (Bil.)';
 			}
 			if ($row_datos_matricula_bach['bilinguismo'] == 'Si') {
-				$aux = ' (Bil.)';
+				$aux .= ' (Bil.)';
 			}
 
 			if ($row_datos_matricula['exencion'] == 1) {
-				$aux = ' (Exe.)';
+				$aux .= ' (Exe.)';
 			}
 
 			$alumno = $row['apellidos'].', '.$row['nombre'].$aux;
