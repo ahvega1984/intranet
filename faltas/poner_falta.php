@@ -86,7 +86,10 @@ foreach($_POST as $clave => $valor)
 		$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 		$count += mysqli_affected_rows();
 
-		// Enviamos un SMS a los padres si el alumno ha faltado a primera hora
+// Enviamos un SMS a los padres si el alumno se ha retrasado o ha faltado a primera hora
+			$retraso_primera = "";
+			$falta_primera = "";
+
 		if (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) {
 			$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA, alma.DNITUTOR FROM alma WHERE alma.claveal = '$claveal'" );
 			$sms_row = mysqli_fetch_array($sms_alumno);
@@ -97,10 +100,20 @@ foreach($_POST as $clave => $valor)
 			$sms_tfno_u = trim($sms_row[6]);
 			$sms_tutor1 = trim($sms_row[7]);
 
+			if ($hora == '1' && $valor == 'R' && ! empty($sms_tutor1)) {
+				$retraso_primera = 1;
+				$causa = "Retraso en la Asistencia al aula";
+				$sms_message = "Su hijo/a ha entrado con retraso en el aula a primera hora del día $hoy. Para consultar la asistencia de su hijo/a entre en http://".$config['dominio'];
+				}
+				
 			if ($hora == '1' && $valor == 'F' && ! empty($sms_tutor1)) {
-
+				$falta_primera = 1;
+				$causa = "Faltas de Asistencia";
 				$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
+				}
 
+			if ($falta_primera == 1 OR $retraso_primera == 1) {
+				
 				if (substr($sms_tfno, 0, 1) == "6" || substr($sms_tfno, 0, 1 ) == "7") {
 					$mobile = $sms_tfno;
 				}
@@ -130,12 +143,11 @@ foreach($_POST as $clave => $valor)
 						// Registro de Tutoría
 						$observaciones = $message;
 						$accion = "Env&iacute;o de SMS";
-						$causa = "Faltas de Asistencia";
+						
 						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
 					}
 				}
-			}
-
+			}								
 		}
 	}
 }
@@ -199,7 +211,7 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 					// Si el grupo es de Bach y estamos a 6ª hora suponemos que los alumnos tienen autorización para abandonar el centro, y no registramos sustitución.
 					}
 				else{
-					$r_profe = mb_strtoupper($_SESSION['profi'], "UTF-8");
+					$r_profe = $_SESSION['profi'];
 					mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1', '1')");
 					if (mysqli_affected_rows($db_con) > 0) {
 					echo '<div class="alert alert-warning alert-block fade in">

@@ -82,7 +82,7 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	while ($alumno = mysqli_fetch_array($result)) {
 		$nc++;
 		if ($i%2==0) $somb='DF'; else $somb='';
-		$pdf->Row(array($nc,substr($alumno['alumno'],0,35),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
+		$pdf->Row(array($nc,substr($alumno['alumno'],0,36),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
 		
 		$pdf->SetLineWidth(0.6); // Grosor de linea
 		for ($j=0; $j<6; $j++) {
@@ -153,8 +153,8 @@ while ($unidad = mysqli_fetch_array($unidades)) {
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
-	$pdf->Row(array("LUNES",'MARTES','MIÉRCOLES','JUEVES','VIERNES'));
-	$pdf->Row(array("\n\n\n\n",'','','','','',''));
+	$pdf->Row(array('LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array("\n\n\n\n",'','','',''));
 	
 	
 	$pdf->Ln(5);

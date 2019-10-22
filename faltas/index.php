@@ -25,7 +25,7 @@ if (empty($c_prof)) {
 if(empty($hora_dia)){
 	$hora_real = strtotime(date("H:i:s"));
 
-	// Se han importado los datos de la tramos escolar desde SÃ©neca
+	// Se han importado los datos de la tramos escolar desde Séneca
 	$result_jornada = mysqli_query($db_con, "SELECT hora, hora_inicio, hora_fin FROM tramos ORDER BY idjornada ASC, horini ASC");
 		while($jornada = mysqli_fetch_array($result_jornada)){
 				$h_inicio = strtotime($jornada[1]);
@@ -54,14 +54,14 @@ if (isset($fecha_dia)) {
 	//echo "$ndia $hora_dia $fecha_dia $hoy $an-$me-$di";
 }
 else {
-	$ndia = date("w");// nÂº de dÃ­a de la semana (1,2, etc.)
+	$ndia = date("w");// nº de día de la semana (1,2, etc.)
 	$hoy = date("Y-m-d");
 	$hoy_actual = "$diames-$nmes-$nano";
 }
 
 if($ndia == "1"){$nom_dia = "Lunes";}
 if($ndia == "2"){$nom_dia = "Martes";}
-if($ndia == "3"){$nom_dia = "MiÃ©rcoles";}
+if($ndia == "3"){$nom_dia = "Miércoles";}
 if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
 
@@ -189,7 +189,7 @@ if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE)) { ?>
 
 	<?php if (isset($msg_error_no_c_prof) && $idea != 'admin'): ?>
 	<div class="alert alert-danger">
-		<strong>Error:</strong> No se ha encontrado el cÃ³digo de profesor en la base de datos.
+		<strong>Error:</strong> No se ha encontrado el código de profesor en la base de datos.
 	</div>
 	<?php endif; ?>
 
@@ -222,7 +222,7 @@ else{
 		?>
 <h2 class="text-muted text-center"><span class="far fa-clock fa-5x"></span>
 <br>
-Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "Âª";?>)</h2>
+Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "ª";?>)</h2>
 		<?php
 	}
 }
@@ -273,13 +273,12 @@ foreach ($array_unidades as $hora2) {
 
 		$asignat="";
 		$cod_asig_bach="";
-		// Cursos con dos cÃ³digos distintos de una misma asignatura o Bachillerato.
+		// Cursos con dos códigos distintos de una misma asignatura o Bachillerato.
 		$n_bach = mysqli_query($db_con, "select distinct c_asig from horw where c_prof = '$c_prof' and dia = '$ndia' and hora = '$hora_dia'");
 		$asig_bch = mysqli_fetch_array($n_bach);
 		$asignat = $asig_bch[0];
 
 		$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignat' limit 1) and grupo like '$curso' and codigo not like '$asignat' and abrev not like '%\_%'");
-
 
 		if (mysqli_num_rows($asig_bach)>0) {
 			$esBachillerato = 1;
@@ -290,8 +289,9 @@ foreach ($array_unidades as $hora2) {
 			$cod_asig = " asignatura like '$asignat' or asignatura like '$cod_asig_bach'";
 		}
 		else{
-			if ($asignat == "2" || $asignat == "21" || $asignat == "136" || $asignat == "386" || $asignat == "820" || $asignat == "861") {
-				if ($asignat=="386") {
+
+			if ($asignat == "2" || $asignat == "21" || $asignat == "136" || $asignat == "820" || $asignat == "861") {
+				if ($asignat=="861") {
 					$res.="combasi like '%$codigo_pmar2:%' OR combasi like '%$codigo_pmar3:%' ";
 					$cod_asig = "asignatura like '$codigo_pmar2' OR asignatura like '$codigo_pmar3'";
 				}
@@ -308,7 +308,7 @@ foreach ($array_unidades as $hora2) {
 		}
 
 	$res.=") order by alma.apellidos ASC, alma.nombre ASC";
-	// echo $res;
+	 // echo $res;
 	$result = mysqli_query($db_con, $res);
 	if ($result) {
 		$t_grupos = $curs;
@@ -324,8 +324,8 @@ foreach ($array_unidades as $hora2) {
 		if(!($t_grupos=="")){
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
-			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DÃ­a:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "Âª hora";}
+			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 			echo "</small>";
 		}
 		echo "";
@@ -376,7 +376,7 @@ foreach ($array_unidades as $hora2) {
 
 					<tr>
 					<td class="text-center" width="70">
-
+ 
 					<?php
 
 					if ($foto = obtener_foto_alumno($row['CLAVEAL'])) {
@@ -387,12 +387,18 @@ foreach ($array_unidades as $hora2) {
 					}
 					echo '</td>';
 
-					// CÃ³digo para eliminar el curso 2019
+					// Código para eliminar el curso 2019
 					if ($config['mod_matriculacion']==1 and $asignat=='141346') {
 						$extra_tic="";
-						$result_tic = mysqli_query($db_con, "SELECT optativa1 FROM `matriculas` WHERE (`claveal` = '".$row['CLAVEAL']."' or (apellidos='$row[2]' and nombre='$row[3]')) and optativa1 = '3' LIMIT 1");
+						$result_tic = mysqli_query($db_con, "SELECT optativa1, exencion FROM `matriculas` WHERE (`claveal` = '".$row['CLAVEAL']."' or (apellidos='$row[2]' and nombre='$row[3]')) and optativa1 = '3' LIMIT 1");
 						if (mysqli_num_rows($result_tic)>0) {
-							$extra_tic = 'background-color:yellow;';
+							$exe = mysqli_fetch_array($result_tic);
+							if ($exe[1]==1) {
+								//$extra_tic = 'background-color:yellow;';
+							}
+							else {
+								$extra_tic = 'background-color:yellow;';
+							}							
 						}
 					}
 
@@ -403,7 +409,7 @@ foreach ($array_unidades as $hora2) {
 					&nbsp;&nbsp;$row[2], $row[3]
 				";
 					if ($row[4] == "2" or $row[4] == "3") {echo " <span class=\"label label-default\" data-bs=\"tooltip\" title=\"Repetidor\">(R)</span>";}
-					if ($esBilingue) echo ' <span class="label label-warning" data-bs="tooltip" title="BilingÃ¼e">(B)</span>';
+					if ($esBilingue) echo ' <span class="label label-warning" data-bs="tooltip" title="Bilingüe">(B)</span>';
 					if ($esCompromisoConvivencia) echo ' <span class="label label-info" data-bs="tooltip" title="Compromiso de convivencia">(CC)</span>';
 				}
 				echo "<span class='pull-right' style='margin-right:5px'>";
@@ -450,11 +456,11 @@ foreach ($array_unidades as $hora2) {
 				}
 
 				// Expulsado del Centro o Aula de Convivencia en la fecha
-				$hay_expulsiÃ³n="";
+				$hay_expulsión="";
 				$extra_act="";
 				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and ((expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy')))");
 				if (mysqli_num_rows($exp) > '0') {
-							$hay_expulsiÃ³n = 1;
+							$hay_expulsión = 1;
 				}
 
 				$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
@@ -477,7 +483,7 @@ foreach ($array_unidades as $hora2) {
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
 					$extra_act = 'background-color:#ddd;padding:10px;';
 				}
-				elseif ($hay_expulsiÃ³n==1){
+				elseif ($hay_expulsión==1){
 					$chkF = 'id="disable" disabled';
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
@@ -574,7 +580,7 @@ echo '" />';
 echo '<div class="well"
 		<div class="checkbox">
 			<label class="text-danger">
-			   <input type="checkbox" name="reg_guardias" value="1" checked> Registrar la sustituciÃ³n del Profesor ausente
+			   <input type="checkbox" name="reg_guardias" value="1" checked> Registrar la sustitución del Profesor ausente
 			</label>
 		</div>
 	</div><br>';
@@ -603,7 +609,7 @@ if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class
 else {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El mÃ³dulo de Faltas de Asistencia debe ser activado en la ConfiguraciÃ³n general de la Intranet para poder accede a estas pÃ¡ginas, y ahora mismo estÃ¡ desactivado.
+El módulo de Faltas de Asistencia debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
           </div></div>';
 	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 }

@@ -262,7 +262,7 @@ include("cuaderno/menu_cuaderno.php");
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
 						}
-					elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="386"){
+					elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="861"){
 							$resul.= " 1=1 ";
 						}
 					else{
@@ -536,7 +536,7 @@ include("cuaderno/menu_cuaderno.php");
 								$fal_e =" FALTAS.codasi='$asignatura'";
 							}
 						}
-						elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="386"){
+						elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="861"){
 								$resul.= " 1=1 ";
 								$fal_e.= " 1=1 ";
 						}
