@@ -204,7 +204,7 @@ include("cuaderno/menu_cuaderno.php");
 					$num_col =  $cols2;
 
 					// Comprueba si es un PMAR
-					$result_pmar = mysqli_query($db_con, "SELECT abrev FROM materias WHERE codigo = '".$asignatura."' LIMIT 1");
+					$result_pmar = mysqli_query($db_con, "SELECT abrev FROM materias WHERE codigo = '".$asignatura."' and abrev not like '%\_%' LIMIT 1");
 					$row_abrevpmar = mysqli_fetch_array($result_pmar);
 					$abrevpmar = $row_abrevpmar['abrev'];
 					$esPMAR = (stristr($abrevpmar, '**') == true) ? 1 : 0;
@@ -248,8 +248,8 @@ include("cuaderno/menu_cuaderno.php");
 							$cod_asig_bach="";
 							// Bachillerato con dos códigos distintos
 
-							$asig_bach = mysqli_query($db_con,"select distinct c_asig from horw_faltas where prof = '$pr' and dia = '$dia' and hora = '$hora' and c_asig not like '$asignatura'");
-							if (mysqli_num_rows($asig_bach)>0) {
+							$asig_bach = mysqli_query($db_con,"select distinct codigo from materias where nombre like (select distinct nombre from materias where codigo = '$asignatura' limit 1) and grupo like '$curso' and codigo not like '$asignatura' and abrev not like '%\_%'");
+								if (mysqli_num_rows($asig_bach)>0) {
 								$as_bach=mysqli_fetch_array($asig_bach);
 								$cod_asig_bach = $as_bach[0];
 								$resul.=" (combasi like '%$asignatura:%' or combasi like '%$cod_asig_bach:%')";
@@ -260,7 +260,7 @@ include("cuaderno/menu_cuaderno.php");
 							}
 						}
 					elseif(strlen($asig_div)>0){
-							$resul.= $asig_div;
+							$resul.= "(".$asig_div.")";
 						}
 					elseif($asignatura=="21" or $asignatura=="136" or $asignatura=="2" or $asignatura=="861"){
 							$resul.= " 1=1 ";
