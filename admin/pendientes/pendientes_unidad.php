@@ -141,7 +141,7 @@ while ($pendi = mysqli_fetch_array($pend)) {
 	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%143727%' or combasi like '%143733%')");
 	if (mysqli_num_rows($uni)>0) {}
 			else{
-	if ($pendi[4]>1) {
+	if ($pendi[3]>1) {
 			$rep = " (Rep.)";
 		}
 		else{
