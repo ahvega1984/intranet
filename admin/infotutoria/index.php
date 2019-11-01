@@ -136,9 +136,14 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 		$count = $count + 1;
 		echo "<tr><TD>
 		$row[1], $row[2]</td>
-		<TD>$row[3]</td>
-		<TD>$row[4] </td>
-		<td>";
+		<TD>$row[3]</td>";
+		$result_ya_rellenado = mysqli_query($db_con, "SELECT `informe` FROM `infotut_profesor` WHERE `id_alumno` = '".$row[0]."' AND `asignatura` = '".$asignatura."'");
+		if (mysqli_num_rows($result_ya_rellenado)):
+			echo "<TD>$row[4] <span class='label label-success'>Informe ya rellenado</span></td>";
+		else:
+			echo "<TD>$row[4] </td>";
+		endif;
+		echo "<td>";
 		echo "
 		<input type='hidden' name='profesor' value='$profesor'>";
 		if (mysqli_num_rows($si) > 0 and $count < 1) {

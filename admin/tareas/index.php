@@ -124,7 +124,7 @@ $si = mysqli_query($db_con, $hay);
 if (mysqli_num_rows($si) > 0)
 		{
 		echo "<tr><TD> $row[3] $row[2]</td>
-   <TD colspan='1' nowrap style='vertical-align:middle'><span class='label label-success'>Informe ya rellenado</span></td>";
+   <TD colspan='1' nowrap style='vertical-align:middle'>$row[6] <span class='label label-success'>Informe ya rellenado</span></td>";
    echo "<TD>
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fas fa-search' title='Ver Informe'> </i></a>";
    echo "<a href='informar.php?id=$row[0]' class=''><i class='fas fa-pencil-alt fa-fw fa-lg' data-bs='tooltip' title='Redactar Informe'></i></a>";
