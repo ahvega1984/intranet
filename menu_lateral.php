@@ -303,6 +303,12 @@ $menu_trabajo =  array(
 		'nombre'  => 'Trabajo',
 		'items'   => array(
 			array(
+				'href'   => 'xml/index.php',
+				'titulo' => 'Administración de la Intranet',
+				'cargos' => array('0'),
+				'ncargos' => array('1'),
+			),
+			array(
 				'href'   => 'admin/actividades/indexextra.php',
 				'titulo' => 'Actividades extraescolares',
 				'cargos' => array('6', '7'),

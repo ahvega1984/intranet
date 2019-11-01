@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array('0', '1'));
+
 if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['exportar']) && ! empty($_GET['exportar'])) {
 
 	$directorio			= INTRANET_DIRECTORY.'/xml/jefe/TIC/';

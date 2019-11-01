@@ -3,7 +3,7 @@ ini_set("memory_limit","2048M");
 
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array('1', '2'));
+acl_acceso($_SESSION['cargo'], array('0', '1', '2'));
 
 require('../../pdf/fpdf.php');
 ################ Definimos la clase extendida PDF ###########

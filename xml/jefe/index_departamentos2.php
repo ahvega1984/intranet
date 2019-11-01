@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('0', '1'));
 
 $profe = $_SESSION['profi'];
 include("../../menu.php");
@@ -17,7 +17,7 @@ include("../../menu.php");
 	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe información en la base de datos. Este proceso actualizará la información de los departamentos. Es recomendable realizar una <a class="../copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
+		Ya existe información en la base de datos. Este proceso actualizará la información de los departamentos. Realice una <a href="../copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>
 	<?php endif; ?>
 	

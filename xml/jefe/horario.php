@@ -59,7 +59,7 @@ function abrevactividad($db_con, $actividad) {
 	return $abrev;
 }
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('0', '1'));
 
 $HorExpSen = $_FILES['HorExpSen']['tmp_name'];
 
@@ -82,8 +82,7 @@ importaci&oacute;n para S&eacute;neca</small></h2>
 <?php $result = mysqli_query($db_con, "SELECT * FROM horw LIMIT 1"); ?>
 <?php if(mysqli_num_rows($result)): ?>
 <div class="alert alert-warning">Ya existe informaci&oacute;n en la base de
-datos. Este proceso actualizar&aacute; la informaci&oacute;n de los horarios. Es
-recomendable realizar una <a href="copia_db/index.php"
+datos. Este proceso actualizar&aacute; la informaci&oacute;n de los horarios. Realice una <a href="copia_db/index.php"
 	class="alert-link" class="alert-link">copia de seguridad</a> antes de proceder a la
 importaci&oacute;n de los datos.</div>
 <?php endif; ?> <!-- SCAFFOLDING -->
