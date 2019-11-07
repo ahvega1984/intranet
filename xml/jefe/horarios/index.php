@@ -60,7 +60,7 @@ function abrevactividad($db_con, $actividad) {
 }
 
 // SELECCION DE PROFESOR
-if(acl_permiso($_SESSION['cargo'], array('1')))
+if(! acl_permiso($_SESSION['cargo'], array('1')))
 {
 	$profesor = $_SESSION['profi'];
 }
