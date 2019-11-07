@@ -92,14 +92,14 @@ include("../../../menu.php");
 					if($fechoria[3]=="muy grave") $selected2_3="selected";
 
 					if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
-						echo '    <option '.$selected2_1.'>Otras conductas contrarias no incluidas en el Decreto 327/2010 o en el Decreto 328/2010</option>';
-						echo '    <option '.$selected2_2.'>Conductas contrarias (Decreto 327/2010 (art.34) o Decreto 328/2010 (art.33))</option>';
-						echo '    <option '.$selected2_3.'>Conductas graves (Decreto 327/2010 (art.37) o Decreto 328/2010 (art.36))</option>';
+						echo '    <option value="leve" '.$selected2_1.'>Otras conductas contrarias no incluidas en el Decreto 327/2010 o en el Decreto 328/2010</option>';
+						echo '    <option value="grave" '.$selected2_2.'>Conductas contrarias (Decreto 327/2010 (art.34) o Decreto 328/2010 (art.33))</option>';
+						echo '    <option value="muy grave" '.$selected2_3.'>Conductas graves (Decreto 327/2010 (art.37) o Decreto 328/2010 (art.36))</option>';
 					}
 					else {
-						echo '    <option '.$selected2_1.'>leve</option>';
-						echo '    <option '.$selected2_2.'>grave</option>';
-						echo '    <option '.$selected2_3.'>muy grave</option>';
+						echo '    <option value="leve" '.$selected2_1.'>leve</option>';
+						echo '    <option value="grave" '.$selected2_2.'>grave</option>';
+						echo '    <option value="muy grave" '.$selected2_3.'>muy grave</option>';
 					}
 					echo '  </select>';
 					echo '  <br><br>';
