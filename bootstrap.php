@@ -128,7 +128,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	// VER COMO USUARIO
 
 	// Es el Administrador de la Aplicación.
-	if (($_SESSION['ide'] == 'admin') || (stristr($_SESSION['cargo'],'0') == TRUE)) {
+	if (($_SESSION['ide'] == 'admin')) {
 		$_SESSION['user_admin'] = 1;
 	}
 	else {

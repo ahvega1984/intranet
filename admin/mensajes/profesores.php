@@ -133,7 +133,7 @@ if(isset($_POST['submit1'])) {
 
 			if($direccion == '1')
 				{
-				$dir0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%1%'");
+				$dir0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%1%' and idea <> 'admin'");
 				while($dir1 = mysqli_fetch_array($dir0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$dir1[0]'");
 				$num0 = mysqli_fetch_row($rep0);

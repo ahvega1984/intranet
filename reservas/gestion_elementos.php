@@ -1,7 +1,7 @@
 <?php
 require('../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('0', '1'));
 
 
 if (isset($_GET['id'])) $id_recurso = mysqli_real_escape_string($db_con, trim($_GET['id']));

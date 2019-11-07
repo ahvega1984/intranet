@@ -570,7 +570,7 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Equipo directivo</legend>
 
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%1%' ORDER BY `nombre` ASC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `cargo` LIKE '%1%' AND `nombre` <> 'Administrador' ORDER BY `nombre` ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
 							<?php while($row = mysqli_fetch_array($result)): ?>

@@ -2,16 +2,19 @@
 
 <ul class="nav nav-pills nav-stacked">
 
-	<?php if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE): ?>
+	<?php if (acl_permiso($_SESSION['cargo'], array('0', '1'))): ?>
 	<!-- CONFIGURACIÓN -->
 	<li class="nav-header">Configuración</li>
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
+	<?php endif;?>
 	<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/actualizaciones/index.php">Comprobar actualizaciones</a></li>
 	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
 	<li><a href="//<?php echo $config['dominio']; ?>/intranet/analitica/index.php">Instalaciones de la Intranet</a></li>
 	<?php endif; ?>
 	<?php endif;?>
 
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 	<!-- A PRINCIPIO DE CURSO -->
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos y Asignaturas</a></li>
@@ -27,7 +30,9 @@
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<!--<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>-->
 	<?php endif; ?>
+	<?php endif; ?>
 
+	<?php if (acl_permiso($_SESSION['cargo'], array('0', '1'))): ?>
 	<!-- ACTUALIZACIÓN -->
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
@@ -48,7 +53,9 @@
 	<?php endif; ?>
 	<li><a href="jefe/index_hor.php">Sustitución de profesores</a></li>
 	<li><a href="jefe/index_fotos_profes.php">Subir fotos de profesores</a></li>
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 	<li><a href="jefe/informes/accesos.php">Informe de accesos</a></li>
+	<?php endif; ?>
 
 	<!-- ALUMNOS -->
 	<li class="nav-header">Alumnos</li>
@@ -60,14 +67,17 @@
 	<?php endif; ?>
 	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años</a></li>
 	<?php if($_SESSION['pagina_centro']==1): ?>
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
+	<?php endif; ?>
 	<?php endif; ?>
 	<li><a href="../admin/libros-texto/programa-gratuidad/index.php" target="_blank">Libros de texto gratuitos</a></li>
 	<!-- CALIFICACIONES -->
 	<li class="nav-header">Notas de evaluación</li>
 	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 	<li><a href="jefe/calificaciones/index.php">Imprimir Calificaciones</a></li>
-
+	<?php endif; ?>
 
 	<?php if(isset($config['mod_centrotic']) && $config['mod_centrotic']): ?>
 	<!-- CENTRO TIC -->
@@ -84,15 +94,18 @@
 	<!-- SISTEMA DE RESERVAS -->
 	<li class="nav-header">Sistema de Reservas</li>
 	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li>
-
-	<?php if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE):?>
-	<li class="nav-header">Bases de datos</li>
-	<li><a href="../config/config_datos.php">Bases de datos de cursos anteriores</a></li>
-	<li><a href="jefe/copia_db/index.php">Copias de seguridad</a></li>
 	<?php endif; ?>
 
+	<li class="nav-header">Bases de datos</li>
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
+	<li><a href="../config/config_datos.php">Bases de datos de cursos anteriores</a></li>
+	<?php endif; ?>
+	<li><a href="jefe/copia_db/index.php">Copias de seguridad</a></li>
+
+	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
 	<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
 	<li class="nav-header">SMS</li>
 	<li><a href="jefe/index_sms.php">Información envíos SMS</a></li>
+	<?php endif; ?>
 	<?php endif; ?>
 </ul>

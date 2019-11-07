@@ -1,7 +1,7 @@
 <?php
 include("../../../bootstrap.php");
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('0', '1'));
 
 $profe = $_SESSION['profi'];
 
@@ -118,7 +118,7 @@ include("../../../menu.php");
 							<td><?php echo mb_file(filesize($archivo)); ?></td>
 							<td><?php echo $fecha_formateada; ?></td>
 							<td nowrap>
-								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" data-bb="confirm-restore" data-bs="tooltip" title="Restaurar"><span class="far fa-undo fa-lg fa-fw"></span></a>
+								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" data-bb="confirm-restore" data-bs="tooltip" title="Restaurar"><span class="fas fa-undo fa-lg fa-fw"></span></a>
 								<a href="index.php?action=descargar&archivo=<?php echo $archivo; ?>" data-bs="tooltip" title="Descargar"><span class="fas fa-download fa-lg fa-fw"></span></a>
 								<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="far fa-trash-alt fa-lg fa-fw"></span></a>
 							</td>

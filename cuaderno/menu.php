@@ -102,7 +102,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 			$extra_cal = "and dia = '$z' and hora = '$n_hora'";
 		}
 
-		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo FROM  horw where prof = '$profesor' $extra_cal" );	
+		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, a_aula FROM  horw where prof = '$profesor' $extra_cal" );	
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
 		
 		if (strlen( $rowasignatur1 [2] )>1 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
@@ -147,7 +147,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 							echo "/".trim($exp_grupo[1]);
 						}
 						else {
-							echo $grupo.'<br>';
+							echo $grupo;
 						}
 					}
 					else {
@@ -171,6 +171,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 		}*/
 		?>
     </span></div>
+    <?php if(strlen($grupo)>0){echo "<small><span class='label label-success'>".$rowasignatur1[3]."</span></small>";}?>
 </td>
 <?php
 	}

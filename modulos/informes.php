@@ -69,25 +69,28 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 				}
 
 				if ($hay_al=="1" or $hay_grupo<1) {
-			$num_pend="";
-			$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto') and grupo='$nivel_i') and abrev like '%\_%'";
+					/*
+					$num_pend="";
+					$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto') and grupo='$nivel_i') and abrev like '%\_%'";
 
-				$query_pend = mysqli_query($db_con,$asigna_pend);
-				if (mysqli_num_rows($query_pend) > 0){
+					$query_pend = mysqli_query($db_con,$asigna_pend);
+					if (mysqli_num_rows($query_pend) > 0){
 
-				while ($res_pend = mysqli_fetch_array($query_pend)) {
+						while ($res_pend = mysqli_fetch_array($query_pend)) {
 
-				$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row1[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
-				if (mysqli_num_rows($si_pend) > 0)
-				{}
-				else{
-					$num_pend+=1;
-				}
+							$si_pend = mysqli_query($db_con, "select id from infotut_profesor where id_alumno = '$row1[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
+							if (mysqli_num_rows($si_pend) > 0)
+							{}
+							else{
+								$num_pend+=1;
+							}
 
-				}
-				}
+						}
+					}
+					*/
+				
 
-				$hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
+				$hay = "select id from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
 				$si = mysqli_query($db_con, $hay);
 				$num_inf = mysqli_num_rows($si);
 

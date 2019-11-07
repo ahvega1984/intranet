@@ -1,7 +1,7 @@
 <?php
 include("../../../bootstrap.php");
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('0', '1'));
 
 $profe = $_SESSION['profi'];
 

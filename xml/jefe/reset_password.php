@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('0', '1'));
 
 function generador_password($long)
 {
