@@ -95,12 +95,12 @@ include("../../menu.php");
 											$clase = '';
 											if(! $usuarioExiste) {
 												// INCORPORACIÓN EN TABLA DEPARTAMENTOS
-												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea, fechatoma, fechacese) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Administracion', '7', '".$pas_idea."', '$pas_tomaposesion', '$pas_ceseposesion')");
+												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea, fechatoma, fechacese) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Administración', '7', '".$pas_idea."', '$pas_tomaposesion', '$pas_ceseposesion')");
 
 												// INCORPORACIÓN EN TABLA C_PROFES
 												if (! empty($pas_ceseposesion) && $pas_ceseposesion != "0000-00-00" && date("Y-m-d") >= $pas_ceseposesion) $estado = 1;
 												else $estado = 0;
-												
+
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', '$estado')");
 
 												$clase = ' class="success"';
@@ -124,7 +124,7 @@ include("../../menu.php");
 											$clase = '';
 											if(! $usuarioExiste) {
 												// TABLA DEPARTAMENTOS
-												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Auxiliar de Conversacion', '', '".$pas_idea."')");
+												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Auxiliar de Conversación', '', '".$pas_idea."')");
 
 												// INCORPORACIÓN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
@@ -203,7 +203,7 @@ include("../../menu.php");
 											$clase = '';
 											if(! $usuarioExiste) {
 												// TABLA DEPARTAMENTOS
-												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."',  'Conserjeria', '6', '".$pas_idea."')");
+												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."',  'Conserjería', '6', '".$pas_idea."')");
 
 												// INCORPORACIÓN EN TABLA C_PROFES
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
@@ -242,6 +242,32 @@ include("../../menu.php");
 										echo "<td>".$pas_nombre."</td>\n";
 										echo "<td>".$pas_dni."</td>\n";
 										echo "<td>Servicio Técnico y/o Mantenimiento</td>\n";
+										echo "<td>".$pas_idea."</td>\n";
+										echo "<td>".$pas_dni."</td>\n";
+										echo "</tr>\n";
+									}
+
+									// Monitor de Interpretación de Lengua de Signos = '';
+									if(stristr($pas_departamento, 'Monitor de Interpretación de Lengua de Signos') == TRUE) {
+
+										$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
+										(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
+
+										$clase = '';
+										if(! $usuarioExiste) {
+											// TABLA DEPARTAMENTOS
+											mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Monitor de Interpretación de Lengua de Signos', '', '".$pas_idea."')");
+
+											// INCORPORACIÓN EN TABLA C_PROFES
+											mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
+
+											$clase = ' class="success"';
+										}
+
+										echo "<tr".$clase.">\n";
+										echo "<td>".$pas_nombre."</td>\n";
+										echo "<td>".$pas_dni."</td>\n";
+										echo "<td>Monitor de Interpretación de Lengua de Signos</td>\n";
 										echo "<td>".$pas_idea."</td>\n";
 										echo "<td>".$pas_dni."</td>\n";
 										echo "</tr>\n";
