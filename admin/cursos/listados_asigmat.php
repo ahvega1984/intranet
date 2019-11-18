@@ -116,7 +116,7 @@ foreach ($unidades as $unidad) {
 
 		// ENCABEZADO DE LA TABLA
 
-		$width_columns = array(8, 60);
+		$width_columns = array(6, 50);
 		$columns_names = array('NC', 'Alumno/a');
 		$columns_aligns = array('L', 'L');
 
@@ -127,7 +127,7 @@ foreach ($unidades as $unidad) {
 				$codasig_pmar = $row_asignaturas['codigo'];
 			}
 
-			array_push($width_columns, 9.3);
+			array_push($width_columns, 7.5);
 			if (! $esPMAR && $row_asignaturas['abrev'] == 'AMBCM') {
 				array_push($columns_names, 'PMAR');
 			}
@@ -137,17 +137,17 @@ foreach ($unidades as $unidad) {
 			array_push($columns_aligns, 'C');
 		}
 
-		array_push($width_columns, 9.3);
+		array_push($width_columns, 7.5);
 		array_push($columns_names, 'Total');
 		array_push($columns_aligns, 'C');
 
 		// Imprime el encabezado
 		$MiPDF->SetWidths($width_columns);
-		$MiPDF->SetFont('NewsGotT', 'B', 12);
+		$MiPDF->SetFont('NewsGotT', 'B', 6);
 		$MiPDF->SetTextColor(255, 255, 255);
 		$MiPDF->SetFillColor(61, 61, 61);
 
-		$MiPDF->SetFont('NewsGotT', '', 7);
+		$MiPDF->SetFont('NewsGotT', '', 6);
 		$MiPDF->SetAligns($columns_aligns);
 		$MiPDF->Row($columns_names, 'DF', 6);
 
@@ -157,7 +157,7 @@ foreach ($unidades as $unidad) {
 		// CUERPO DE LA TABLA
 		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' ORDER BY apellidos ASC, nombre ASC");
 		$MiPDF->SetTextColor(0, 0, 0);
-		$MiPDF->SetFont('NewsGotT', '', 10);
+		$MiPDF->SetFont('NewsGotT', '', 8.5);
 
 		$MiPDF->SetFillColor(239,240,239);
 
