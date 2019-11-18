@@ -100,7 +100,7 @@ include("../../menu.php");
 												// INCORPORACIÓN EN TABLA C_PROFES
 												if (! empty($pas_ceseposesion) && $pas_ceseposesion != "0000-00-00" && date("Y-m-d") >= $pas_ceseposesion) $estado = 1;
 												else $estado = 0;
-												
+
 												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', '$estado')");
 
 												$clase = ' class="success"';
@@ -242,6 +242,32 @@ include("../../menu.php");
 										echo "<td>".$pas_nombre."</td>\n";
 										echo "<td>".$pas_dni."</td>\n";
 										echo "<td>Servicio Técnico y/o Mantenimiento</td>\n";
+										echo "<td>".$pas_idea."</td>\n";
+										echo "<td>".$pas_dni."</td>\n";
+										echo "</tr>\n";
+									}
+
+									// Monitor de Interpretación de Lengua de Signos = '';
+									if(stristr($pas_departamento, 'Monitor de Interpretación de Lengua de Signos') == TRUE) {
+
+										$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
+										(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
+
+										$clase = '';
+										if(! $usuarioExiste) {
+											// TABLA DEPARTAMENTOS
+											mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Monitor de Interpretación de Lengua de Signos', '', '".$pas_idea."')");
+
+											// INCORPORACIÓN EN TABLA C_PROFES
+											mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
+
+											$clase = ' class="success"';
+										}
+
+										echo "<tr".$clase.">\n";
+										echo "<td>".$pas_nombre."</td>\n";
+										echo "<td>".$pas_dni."</td>\n";
+										echo "<td>Monitor de Interpretación de Lengua de Signos</td>\n";
 										echo "<td>".$pas_idea."</td>\n";
 										echo "<td>".$pas_dni."</td>\n";
 										echo "</tr>\n";
