@@ -1,0 +1,83 @@
+body, html {
+    height: 100%;
+    padding-top: 25px;
+}
+
+h1 {
+  color: #fff;
+}
+
+.card-container.card {
+    max-width: 700px;
+    padding: 40px 40px 10px 40px;
+}
+
+@media (max-width: 768px) {
+  body, html {
+    padding-top: 0px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .card-container.card {
+    margin-top: 20px;
+    padding: 20px 20px 10px 20px;
+  }
+}
+
+/*
+ * Card component
+ */
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 4px 73px 0 rgba(0, 1, 0, 0.24);
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/*
+ * Form styles
+ */
+.text-error {
+    font-size: 16px;
+    font-weight: bold !important;
+    text-align: center;
+    margin: 15px 0;
+    min-height: 1em;
+}
+
+.form-signin {
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.forgot-password {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  font-style: 0.675em;
+}
+
+.copyright {
+  margin-top: 50px;
+  font-size: 12px;
+}

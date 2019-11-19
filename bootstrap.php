@@ -66,7 +66,7 @@ $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pas
 mysqli_query($db_con,"SET NAMES 'utf8'");
 
 
-if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
+if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/loginSeneca.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
 
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['intranet_auth'] != 1) {

@@ -31,7 +31,7 @@ $tutor = $fprof[0];
 </div>
 <br>
 
-<div class="col-md-6 col-md-offset-3">	
+<div class="col-md-6 col-md-offset-3">
 <div class="well well-large">
 <?php
 if($unidad)
@@ -53,12 +53,12 @@ else
 <SELECT name="unidad" onChange="submit()" class="form-control">
 	<option><?php echo $unidad;?></option>
 	<?php unidad();?>
-</SELECT> 
+</SELECT>
 </FORM>
 </div>
 	<?php
 }
-?> 
+?>
 <?php
 echo "<form name='alumno' method='POST' action='activar.php' role='form'>";
 
@@ -77,7 +77,7 @@ else
 	$alumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
 	while($falumno = mysqli_fetch_array($alumno))
 	{
-	 echo "<OPTION value='$falumno[1], $falumno[2] --> $falumno[0]'>$falumno[1], $falumno[2]</OPTION>";
+	 echo '<OPTION value="'.$falumno[1].', '.$falumno[2].' --> '.$falumno[0].'">'.$falumno[1].', '.$falumno[2].'</OPTION>';
 	}
 }
 echo "</optgroup></select></div>";
@@ -95,7 +95,7 @@ else
 <div class='form-group' id="datetimepicker1">
 <label>Fecha de la reunión</label>
 <div class="input-group">
-<input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
+<input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required>
 	<span class="input-group-addon"><i class="far fa-calendar"></i>
 	</span>
 	</div>
@@ -123,13 +123,13 @@ else
 <?php
 include("../../pie.php");
 ?> <script>
- $(function ()  
- { 
+ $(function ()
+ {
  	$('#datetimepicker1').datetimepicker({
  		language: 'es',
  		pickTime: false
  	})
- });  
+ });
  </script>
 </body>
 </html>
