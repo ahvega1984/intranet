@@ -54,7 +54,7 @@ if (isset($_POST['listOfItems'])){
 	$result_update = mysqli_query($db_con, "UPDATE `puestos_alumnos_tic` SET `monopuesto` = '".$_SESSION['mesas_monopuesto']."', `puestos` = '".$_POST['listOfItems']."' WHERE `profesor` = '$mesas_profesor' AND `grupo` = '$mesas_grupo' AND `asignatura` = '$mesas_codasig' AND `aula` = '$mesas_aula'");
 	if(!$result_update) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";
-	}
+}
 	
 	// OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
 $result = mysqli_query($db_con, "SELECT `profesor`,`grupo`,`asignatura`,`aula`, `puestos`, `monopuesto` FROM `puestos_alumnos_tic` WHERE `profesor` = '$mesas_profesor' AND `grupo` = '$mesas_grupo' AND `asignatura` = '$mesas_codasig' AND `aula` = '$mesas_aula' LIMIT 1");
@@ -63,26 +63,29 @@ if (! mysqli_num_rows($result)) {
 	$result_insert = mysqli_query($db_con, "INSERT INTO `puestos_alumnos_tic` (`profesor`,`grupo`,`asignatura`,`aula`, `puestos`, `monopuesto`) VALUES ('".$mesas_profesor."', '".$mesas_grupo."', '".$mesas_codasig."', '".$mesas_aula."', '', '0')");
 	$_SESSION['mesas_monopuesto'] ='0';
 	if (! $result_insert) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
-	}
-	else {
-		$row = mysqli_fetch_array($result);
-		$cadena_puestos = $row['puestos'];
-		$monopuesto_reg= $row['monopuesto'];
-		mysqli_free_result($result);
-		}
-		if (! isset($_POST['monopuesto']) && $monopuesto_reg != ''){
-			$_SESSION['mesas_monopuesto'] = $monopuesto_reg;
-			}
+}
+else {
+	$row = mysqli_fetch_array($result);
+	$cadena_puestos = $row['puestos'];
+	$monopuesto_reg= $row['monopuesto'];
+	mysqli_free_result($result);
+}
+
+if (! isset($_POST['monopuesto']) && $monopuesto_reg != ''){
+	$_SESSION['mesas_monopuesto'] = $monopuesto_reg;
+}
+
 $matriz_puestos = explode(';', $cadena_puestos);
 foreach ($matriz_puestos as $value) {
 	$los_puestos = explode('|', $value);
 	if ($los_puestos[0] == 'allItems') {
 		$sin_puesto[] = $los_puestos[1];
-		}
-		else {
-			$con_puesto[$los_puestos[0]] = $los_puestos[1];
-			}
+	}
+	else {
+		$con_puesto[$los_puestos[0]] = $los_puestos[1];
+	}
 }
+
 include("../menu.php");
 include("menu.php");
 ?>
@@ -248,29 +251,36 @@ include("menu.php");
 			<!-- COLUMNA IZQUIERDA -->
 			<div id="dhtmlgoodies_listOfItems" class="col-sm-3 hidden-print">
 
+				<?php if (mb_strstr($codasig,'+')==true): ?> 
+				<?php $codasig_exp = explode('+', $codasig); ?>
+				<?php else: ?>
+				<?php $codasig_exp = $codasig; ?>
+				<?php endif; ?>
+
 				<div id="allItems">
 					<p>Alumnos/as</p>
 					<ul class="list-unstyled">
 						<?php $result = mysqli_query($db_con, "SELECT combasi, apellidos, nombre, claveal, unidad FROM alma ORDER BY unidad, apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-						 <?php $cod_combasi = explode(':', $row['combasi']);?>
-						<?php if (!in_array($row['claveal'],$con_puesto) && (in_array($codasig, $cod_combasi) || $codasig=='2') && mb_strstr($grupo,$row['unidad'])): ?>
-					  <li id="<?php echo $row['claveal']; ?>">
-					  <?php if (mb_strstr($grupo,'+')): ?>
-					        <?php echo $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')'; ?>
-					  <?php else: ?>
-						    <?php echo $row['apellidos'].', '.$row['nombre']; ?>
-					  <?php endif; ?>
-					  </li>
-					  <?php endif; ?>
-					  <?php endwhile; ?>
+							<?php $cod_combasi = explode(':', $row['combasi']);?>
+							<?php foreach ($codasig_exp as $codasig_item): ?>
+								<?php if (!in_array($row['claveal'],$con_puesto) && (in_array($codasig_item, $cod_combasi) || $codasig=='2') && mb_strstr($grupo,$row['unidad'])): ?>
+								<li id="<?php echo $row['claveal']; ?>">
+								<?php if (mb_strstr($grupo,'+')): ?>
+								    <?php echo $row['apellidos'].', '.$row['nombre'].' ('.$row['unidad'].')'; ?>
+								<?php else: ?>
+								    <?php echo $row['apellidos'].', '.$row['nombre']; ?>
+								<?php endif; ?>
+								</li>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						<?php endwhile; ?>
 					</ul>
 				</div>
 
 				<ul id="dragContent" class="list-unstyled"></ul>
 
 			</div><!-- /.col-sm-3 -->
-
 
 			<!-- COLUMNA DERECHA -->
 			<div id="dhtmlgoodies_mainContainer" class="col-sm-9">

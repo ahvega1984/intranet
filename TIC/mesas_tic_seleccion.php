@@ -70,7 +70,7 @@ include("menu.php");
 								<?php $dia=0; $hora=0;$cont=0;$grupo='';$k=0;$cadena=array();$cadena2=array();?>
 						    	<?php while($row = mysqli_fetch_array($result)):?>
 								<?php if(($row['dia']==$dia) && ($row['hora']==$hora)): ?>
-								<?php		$grupo=$grupo.'+'.$row['a_grupo'];$cont=$cont+1; ?>
+								<?php		$grupo=$grupo.'+'.$row['a_grupo']; $casig = ($casig != $row['c_asig']) ? $casig.'+'.$row['c_asig'] : $casig; $cont=$cont+1; ?>
 								<?php else: ?>
 								<?php 		if($cont>0):?>
 								<?php				$k=$k+1;$cadena[$k]=$profesor.'==>'.$grupo.'==>'.$asig.'==>'.$aula.'==>'.$casig.'==>'.$id; $cadena2[$k]=$grupo.' ('.$asig.')';?>
