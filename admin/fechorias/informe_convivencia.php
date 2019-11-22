@@ -66,9 +66,15 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 <tr>
                                 <th>Absentismo</th>
                                 <th>Convivencia</th>
+                                <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                <th>Otras conductas</th>
+                                <th>Conductas contrarias</th>
+                                <th>Conductas gravemente contrarias</th>
+                                <?php else: ?>
                                 <th>Leves</th>
                                 <th>Graves</th>
                                 <th>Muy Graves</th>
+                                <?php endif; ?>
                                 <th>Expulsiones</th>
                                 <th>Alumnos Expulsados</th>
                                 <th>Expulsión del Aula</th>
@@ -471,28 +477,28 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_expulsados3 = $result['total'];
                                             
-                                            $SQL = "select count(*) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel'  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and Fechoria.fecha <= '$minNavidad'";
+                                            $SQL = "select count(distinct Fechoria.claveal) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel'  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and Fechoria.fecha <= '$minNavidad'";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_expulsadosaula1 = $result['total'];
                                             
-                                            $SQL = "select count(*) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel'  and expulsionaula = '1' and Fechoria.fecha >= '$maxNavidad' and Fechoria.fecha <= '$minSanta'";
+                                            $SQL = "select count(distinct Fechoria.claveal) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel'  and expulsionaula = '1' and Fechoria.fecha >= '$maxNavidad' and Fechoria.fecha <= '$minSanta'";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_expulsadosaula2 = $result['total'];
                                             
-                                            $SQL = "select count(*) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel'  and expulsionaula = '1' and Fechoria.fecha >='$maxSanta' and Fechoria.fecha <= '".$config['curso_fin']."'";
+                                            $SQL = "select count(distinct Fechoria.claveal) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel'  and expulsionaula = '1' and Fechoria.fecha >='$maxSanta' and Fechoria.fecha <= '".$config['curso_fin']."'";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_expulsadosaula3 = $result['total'];
                                             
-                                            $SQL = "select count(*) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and month(F_ENTREV) >='09' and date(F_ENTREV) <= '$minNavidad'";
+                                            $SQL = "select count(distinct id) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and month(F_ENTREV) >='09' and date(F_ENTREV) <= '$minNavidad'";
                                             //echo $SQL."<br>";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_informes1 = $result['total'];
                                             
-                                            $SQL = "select count(*) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and F_ENTREV >= '$maxNavidad' and date(F_ENTREV) <= '$minSanta'";
+                                            $SQL = "select count(distinct id) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and F_ENTREV >= '$maxNavidad' and date(F_ENTREV) <= '$minSanta'";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_informes2 = $result['total'];
                                             
-                                            $SQL = "select count(*) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and date(F_ENTREV) >= '$maxSanta' and F_ENTREV <= '".$config['curso_fin']."'";
+                                            $SQL = "select count(distinct id) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and date(F_ENTREV) >= '$maxSanta' and F_ENTREV <= '".$config['curso_fin']."'";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_informes3 = $result['total'];
                                             
@@ -549,9 +555,15 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                 <tr>
                                                     <th>Absentismo</th>
                                                     <th>Convivencia</th>
+                                                    <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                                    <th>Otras conductas</th>
+                                                    <th>Conductas contrarias</th>
+                                                    <th>Conductas gravemente contrarias</th>
+                                                    <?php else: ?>
                                                     <th>Leves</th>
                                                     <th>Graves</th>
                                                     <th>Muy Graves</th>
+                                                    <?php endif; ?>
                                                     <th>Expulsiones</th>
                                                     <th>Alumnos Expulsados</th>
                                                     <th>Expulsi&oacute;n del Aula</th>
@@ -761,39 +773,39 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_expulsadosaula3 = $result['total'];
                         
-                        $SQL = "select count(*) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV) >='09' and date(F_ENTREV) <= '$minNavidad'";
+                        $SQL = "select count(distinct id) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV) >='09' and date(F_ENTREV) <= '$minNavidad'";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_informes1 = $result['total'];
                         
-                        $SQL = "select count(*) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and infotut_alumno.unidad = '$grupo' and F_ENTREV >= '$maxNavidad' and date(F_ENTREV) <= '$minSanta'";
+                        $SQL = "select count(distinct id) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and infotut_alumno.unidad = '$grupo' and F_ENTREV >= '$maxNavidad' and date(F_ENTREV) <= '$minSanta'";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_informes2 = $result['total'];
                         
-                        $SQL = "select count(*) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and infotut_alumno.unidad = '$grupo' and date(F_ENTREV) >= '$maxSanta' and month(F_ENTREV) >= '06'";
+                        $SQL = "select count(distinct id) as total from infotut_alumno inner join alma on alma.claveal = infotut_alumno.claveal where curso = '$nivel' and infotut_alumno.unidad = '$grupo' and date(F_ENTREV) >= '$maxSanta' and month(F_ENTREV) >= '06'";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_informes3 = $result['total'];
                         
-                        $SQL = "select count(*) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= '$minNavidad' ";
+                        $SQL = "select count(distinct id) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= '$minNavidad' ";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_acciones1 = $result['total'];
                         
-                        $SQL = "select count(*) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and tutoria.fecha >= '$maxNavidad' and date(tutoria.fecha) <= '$minSanta' ";
+                        $SQL = "select count(distinct id) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and tutoria.fecha >= '$maxNavidad' and date(tutoria.fecha) <= '$minSanta' ";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_acciones2 = $result['total'];
                         
-                        $SQL = "select count(*) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and date(tutoria.fecha) >= '$maxSanta' and tutoria.fecha <= '".$config['curso_fin']."' ";
+                        $SQL = "select count(distinct id) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and date(tutoria.fecha) >= '$maxSanta' and tutoria.fecha <= '".$config['curso_fin']."' ";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_acciones3 = $result['total'];
                         
-                        $SQL = "select count(*) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= '$minNavidad' ";
+                        $SQL = "select count(distinct id) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and date(tutoria.fecha) <= '$minNavidad' ";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_comunica1 = $result['total'];
                         
-                        $SQL = "select count(*) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and tutoria.fecha >= '$maxNavidad' and date(tutoria.fecha) <= '$minSanta' ";
+                        $SQL = "select count(distinct id) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and tutoria.fecha >= '$maxNavidad' and date(tutoria.fecha) <= '$minSanta' ";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_comunica2 = $result['total'];
                         
-                        $SQL = "select count(*) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and date(tutoria.fecha) >= '$maxSanta' and tutoria.fecha <= '".$config['curso_fin']."' ";
+                        $SQL = "select count(distinct id) as total from tutoria inner join alma on tutoria.claveal = alma.claveal where curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and date(tutoria.fecha) >= '$maxSanta' and tutoria.fecha <= '".$config['curso_fin']."' ";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                         $num_comunica3 = $result['total'];
 
@@ -823,9 +835,15 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                             <tr>
                                 <th>Absentismo</th>
                                 <th>Convivencia</th>
+                                <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                <th>Otras conductas</th>
+                                <th>Conductas contrarias</th>
+                                <th>Conductas gravemente contrarias</th>
+                                <?php else: ?>
                                 <th>Leves</th>
                                 <th>Graves</th>
                                 <th>Muy Graves</th>
+                                <?php endif; ?>
                                 <th>Expulsiones</th>
                                 <th>Alumnos Expulsados</th>
                                 <th>Expulsi&oacute;n del Aula</th>
@@ -1135,7 +1153,18 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                         <tr>
                                                             <td><?php  echo $total[0];?></td>
                                                             <td><?php  echo $total[1];?></td>
-                                                            <td><?php  echo $total[2];?></td>
+                                                            <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                                            <?php
+                                                            switch($total[2]) {
+                                                                case 'leve' : $nom_gravedad = "Otra conducta"; break;
+                                                                case 'grave' : $nom_gravedad = "Conducta contraria"; break;
+                                                                case 'muy grave' : $nom_gravedad = "Conducta gravemente contraria"; break;
+                                                            }
+                                                            ?>
+                                                            <td><?php echo $nom_gravedad; ?></td>
+                                                            <?php else: ?>
+                                                            <td><?php echo $total[2];?></td>
+                                                            <?php endif; ?>   
                                                         </tr>
                                                     <?php
                                                     }
