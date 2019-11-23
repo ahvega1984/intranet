@@ -4,7 +4,7 @@ require('bootstrap.php');
 // Intentamos cargar la configuración de webcentros si existe
 if (file_exists("../config.php")) {
 	define("WEBCENTROS_DOMINIO", $_servername);
-	
+
 	include("../config.php");
 	if (isset($config['color_primario'])) {
 		$background_color = cmykcolor($config['color_primario'], 'hex');
@@ -26,10 +26,8 @@ if (isset($_SESSION['profi'])) {
 	session_destroy();
 }
 
-mysqli_query($db_con,"SET NAMES 'utf8'");
-
 // Entramos
-if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST['CLAVE']) < 9)) {
+if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST['CLAVE']) < 6)) {
 	$cmp_idea = htmlspecialchars($_POST['USUARIO']);
 	$cmp_clave = htmlspecialchars($_POST['CLAVE']);
 	$hash_clave = sha1($cmp_clave);
@@ -49,7 +47,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 			// OBTENEMOS LOS DATOS DEL FORMULARIO PARA INICIAR SESIÓN EN SÉNECA
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL,"https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/pda/default.htm");
+			curl_setopt($ch, CURLOPT_URL,"https://www.juntadeandalucia.es/educacion/seneca/seneca/senecamovil");
 			curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$server_output = curl_exec($ch);
@@ -57,7 +55,6 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 			// COMPROBAMOS EL CÓDIGO HTTP DE LA PETICIÓN
 			switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
 				case '200' :
-
 					$server_output = utf8_encode($server_output);
 					curl_close($ch);
 
@@ -69,7 +66,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 					preg_match_all($patronNVLogin, $server_output, $matchesNVLogin);
 					$senecaNVLogin = $matchesNVLogin[1][0];
 
-					// Si tenemos el valor del campo N_V_ podemos iniciar sesión en Séneca
+					// Si tenemos el valor del campo Nombre Ventana podemos iniciar sesión en Séneca
 					if ($senecaNVLogin) {
 						// INICIAMOS SESIÓN EN SÉNECA
 						$ch = curl_init();
@@ -78,6 +75,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 							'CLAVE' => $cmp_clave,
 							'N_V_'   => $senecaNVLogin,
 						];
+
 						curl_setopt($ch, CURLOPT_URL, $senecaUriLogin);
 						curl_setopt($ch, CURLOPT_POST, 1);
 						curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -89,16 +87,27 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 						switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
 							// Inicio de sesión en Séneca
 							case '200' :
-
 								$server_output = utf8_encode($server_output);
 								curl_close($ch);
 
-								// COMPROBAMOS SI EL USUARIO HA SIDO BLOQUEADO
-								$patronUsuarioBloqueado = '/Usuario bloqueado/i';
-								if (preg_match($patronUsuarioBloqueado, $server_output, $matchesUsuarioBloqueado)) {
+								// COMPROBAMOS SI HAY MENSAJE DE ERROR
+								$patronErrorLogin = '/class="text-danger">\n(.*)\n/';
+								preg_match_all($patronErrorLogin, $server_output, $matchesErrorLogin);
+								$senecaErrorLogin = trim($matchesErrorLogin[1][0]);
+
+								if ($senecaErrorLogin == "Usuario incorrecto") {
+									$sesionIntranet = 0;
+									$msg_error = "Usuario incorrecto";
+								}
+								elseif ($senecaErrorLogin == "Usuario bloqueado") {
 									mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
 									$sesionIntranet = 0;
-									$msg_error = $matchesUsuarioBloqueado[0];
+									$msg_error = "Usuario bloqueado";
+								}
+								elseif ($senecaErrorLogin == "Usuario desactivado") {
+									mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+									$sesionIntranet = 0;
+									$msg_error = "Usuario desactivado";
 								}
 								else {
 									$patronUsuarioCorrecto = '/'.$datosIntranet['profesor'].'/i';
@@ -248,7 +257,7 @@ include('control_acceso.php');
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/login.css" rel="stylesheet">
 	<?php if (isset($background_color)): ?>
 	<style type="text/css">
-	body, html { background-color: <?php echo $background_color; ?> !important; }
+	canvas { background-color: <?php echo $background_color; ?> !important; }
 	</style>
 	<?php endif; ?>
 </head>
@@ -281,17 +290,21 @@ include('control_acceso.php');
 
 	            <button type="submit" class="btn btn-primary btn-block btn-signin" name="submit">Iniciar sesión</button>
 
-							<a href="#" id="forgot-password" class="forgot-password">¿Olvidaste la contraseña?</a>
+							<a href="#" id="forgot-password" class="forgot-password">¿Olvidó su contraseña?</a>
 	        </form><!-- /form -->
 
-					<p class="copyright text-muted text-center">&copy; <?php echo date('Y'); ?> IES Monterroso</p>
-					<!-- Versión <?php echo INTRANET_VERSION; ?> //-->
+					<p class="copyright text-muted text-center">&copy; <?php echo date('Y'); ?> I.E.S. Monterroso - Versión <?php echo INTRANET_VERSION; ?></p>
 
 	    </div><!-- /card-container -->
 	</div><!-- /container -->
 
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/jquery-2.1.1.min.js"></script>
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap.min.js"></script>
+	<!-- particles.js lib - https://github.com/VincentGarreau/particles.js -->
+	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+	<script>
+	particlesJS.load('login', 'js/particles/particlesjs-config.json', function() {});
+	</script>
 
 	<?php if($msg_error): ?>
 	<script>$("#form-group").addClass( "has-error" );</script>
