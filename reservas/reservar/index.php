@@ -144,7 +144,7 @@ for ($i = 0; $i < $dayone; $i++) {
 			//Buscar actividad para el dóa y marcarla
 			$sql_currentday = "$year-$month-$zz";
 
-	    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
+	    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
 					$eventExec = mysqli_query($db_con, $eventQuery );
 			if (mysqli_num_rows($eventExec)>0) {
 				while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -194,7 +194,7 @@ $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
-$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM reservas WHERE eventdate = '$sql_date' and servicio='$servicio'";
+$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14, html FROM reservas WHERE eventdate = '$sql_date' and servicio='$servicio'";
 $eventExec = mysqli_query($db_con, $eventQuery);
 while($row = mysqli_fetch_array($eventExec)) {
   $event_event1 = stripslashes($row["event1"]);
@@ -259,6 +259,69 @@ while($row = mysqli_fetch_array($eventExec)) {
   }
   else {
     $event_event7_profesor = $event_event7;
+  }
+  $event_event8 = stripslashes($row["event8"]);
+  if (stristr($event_event8, '||') == true) {
+    $exp_event_event8 = explode('||', $event_event8);
+    $event_event8_profesor = $exp_event_event8[0];
+    $event_event8_observacion = $exp_event_event8[1];
+  }
+  else {
+    $event_event8_profesor = $event_event8;
+  }
+  $event_event9 = stripslashes($row["event9"]);
+  if (stristr($event_event9, '||') == true) {
+    $exp_event_event9 = explode('||', $event_event9);
+    $event_event9_profesor = $exp_event_event9[0];
+    $event_event9_observacion = $exp_event_event9[1];
+  }
+  else {
+    $event_event9_profesor = $event_event9;
+  }
+  $event_event10 = stripslashes($row["event10"]);
+  if (stristr($event_event10, '||') == true) {
+    $exp_event_event10 = explode('||', $event_event10);
+    $event_event10_profesor = $exp_event_event10[0];
+    $event_event10_observacion = $exp_event_event10[1];
+  }
+  else {
+    $event_event10_profesor = $event_event10;
+  }
+  $event_event11 = stripslashes($row["event11"]);
+  if (stristr($event_event11, '||') == true) {
+    $exp_event_event11 = explode('||', $event_event11);
+    $event_event11_profesor = $exp_event_event11[0];
+    $event_event11_observacion = $exp_event_event11[1];
+  }
+  else {
+    $event_event11_profesor = $event_event11;
+  }
+  $event_event12 = stripslashes($row["event12"]);
+  if (stristr($event_event12, '||') == true) {
+    $exp_event_event12 = explode('||', $event_event12);
+    $event_event12_profesor = $exp_event_event12[0];
+    $event_event12_observacion = $exp_event_event12[1];
+  }
+  else {
+    $event_event12_profesor = $event_event12;
+  }
+  $event_event13 = stripslashes($row["event13"]);
+  if (stristr($event_event13, '||') == true) {
+    $exp_event_event13 = explode('||', $event_event13);
+    $event_event13_profesor = $exp_event_event13[0];
+    $event_event13_observacion = $exp_event_event13[1];
+  }
+  else {
+    $event_event13_profesor = $event_event13;
+  }
+  $event_event14 = stripslashes($row["event14"]);
+  if (stristr($event_event14, '||') == true) {
+    $exp_event_event14 = explode('||', $event_event14);
+    $event_event14_profesor = $exp_event_event14[0];
+    $event_event14_observacion = $exp_event_event14[1];
+  }
+  else {
+    $event_event14_profesor = $event_event14;
   }
 }
 
@@ -349,7 +412,12 @@ if(empty($event_event3_profesor)) { echo "<label>3ª hora</label> &nbsp;&nbsp; <
 	} echo "</select>";}
 	else {
 
-	if(mb_strtolower($pr) == mb_strtolower($event_event3_profesor)) {echo "<label>3ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event3\"  value=\"$event_event3_profesor\"></div>"; }
+	if(mb_strtolower($pr) == mb_strtolower($event_event3_profesor)) {
+    echo "<label>3ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event3\"  value=\"$event_event3_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event3_obs\" rows=\"2\" maxlength=\"190\">$event_event3_observacion</textarea>";
+    echo "</div>"; }
 	else{
     echo "<label>3ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event3_profesor'></div>";
     if (isset($event_event3_observacion)){
@@ -376,8 +444,13 @@ if (empty($event_event4_profesor)) { echo "<label>4ª hora</label> &nbsp;&nbsp; 
 	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event4_profesor)) {echo "<label>4ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event4\"  value=\"$event_event4_profesor\"></div>"; }
-	else{
+	if(mb_strtolower($pr) == mb_strtolower($event_event4_profesor)) {
+      echo "<label>4ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+      echo "<input class=\"form-control\" type=\"text\" name=\"day_event4\"  value=\"$event_event4_profesor\">";
+      echo "<label><small>Observaciones</small></label>";
+      echo "<textarea class=\"form-control\" name=\"day_event4_obs\" rows=\"2\" maxlength=\"190\">$event_event4_observacion</textarea>";
+      echo "</div>"; }
+  else{
     echo "<label>4ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event4_profesor'></div>";
     if (isset($event_event4_observacion)){
       echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event4_observacion</textarea>";
@@ -403,7 +476,12 @@ if (empty($event_event5_profesor)) { echo "<label>5ª hora</label> &nbsp;&nbsp; 
 	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event5_profesor)) {echo "<label>5ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event5\"  value=\"$event_event5_profesor\"></div>"; }
+	if(mb_strtolower($pr) == mb_strtolower($event_event5_profesor)) {
+    echo "<label>5ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event5\"  value=\"$event_event5_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event5_obs\" rows=\"2\" maxlength=\"190\">$event_event5_observacion</textarea>";
+    echo "</div>"; }
 	else{
     echo "<label>5ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event5_profesor'></div>";
     if (isset($event_event5_observacion)){
@@ -430,7 +508,12 @@ if (empty($event_event6_profesor)) { echo "<label>6ª hora</label> &nbsp;&nbsp; 
 	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event6_profesor)) {echo "<label>6ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event6\"  value=\"$event_event6_profesor\"></div>"; }
+	if(mb_strtolower($pr) == mb_strtolower($event_event6_profesor)) {
+    echo "<label>6ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event6\"  value=\"$event_event6_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event6_obs\" rows=\"2\" maxlength=\"190\">$event_event6_observacion</textarea>";
+    echo "</div>"; }
 	else{
     echo "<label>6ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event6_profesor'></div>";
     if (isset($event_event6_observacion)){
@@ -457,9 +540,14 @@ if (empty($event_event7_profesor)) { echo "<label>7ª hora</label> &nbsp;&nbsp; 
 	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event7_profesor)) {echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event7\"  value=\"$event_event7_profesor\"></div>"; }
+	if(mb_strtolower($pr) == mb_strtolower($event_event7_profesor)) {
+    echo "<label>7ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event7\"  value=\"$event_event7_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event7_obs\" rows=\"2\" maxlength=\"190\">$event_event7_observacion</textarea>";
+    echo "</div>"; }
 	else{
-    echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event6_profesor'></div>";
+    echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event7_profesor'></div>";
     if (isset($event_event7_observacion)){
       echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event7_observacion</textarea>";
     }
@@ -468,6 +556,229 @@ if (empty($event_event7_profesor)) { echo "<label>7ª hora</label> &nbsp;&nbsp; 
 	}
 	echo '</div>';
 
+if($servicio){$eventQuery2 = "SELECT hora8 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>8ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event8_profesor)) { echo "<label>8ª hora</label> &nbsp;&nbsp; <select name=\"day_event8\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event8_profesor)) {
+    echo "<label>8ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event8\"  value=\"$event_event8_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event8_obs\" rows=\"2\" maxlength=\"190\">$event_event8_observacion</textarea>";
+    echo "</div>"; }
+	else{
+    echo "<label>8ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event8_profesor'></div>";
+    if (isset($event_event8_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event8_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event8_profesor\" name=\"day_event8\">";
+  } }
+	}
+	echo '</div>';
+
+if($servicio){$eventQuery2 = "SELECT hora9 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>9ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event9_profesor)) { echo "<label>9ª hora</label> &nbsp;&nbsp; <select name=\"day_event9\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event9_profesor)) {
+    echo "<label>9ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event9\"  value=\"$event_event9_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event9_obs\" rows=\"2\" maxlength=\"190\">$event_event9_observacion</textarea>";
+    echo "</div>"; }
+	else{
+    echo "<label>9ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event9_profesor'></div>";
+    if (isset($event_event9_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event9_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event9_profesor\" name=\"day_event9\">";
+  } }
+	}
+	echo '</div>';
+
+if($servicio){$eventQuery2 = "SELECT hora10 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>10ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event10_profesor)) { echo "<label>10ª hora</label> &nbsp;&nbsp; <select name=\"day_event10\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event10_profesor)) {
+    echo "<label>10ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event10\"  value=\"$event_event10_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event10_obs\" rows=\"2\" maxlength=\"190\">$event_event10_observacion</textarea>";
+    echo "</div>"; }
+	else{
+    echo "<label>10ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event10_profesor'></div>";
+    if (isset($event_event10_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event10_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event10_profesor\" name=\"day_event10\">";
+  } }
+	}
+	echo '</div>';
+
+if($servicio){$eventQuery2 = "SELECT hora11 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>11ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event11_profesor)) { echo "<label>11ª hora</label> &nbsp;&nbsp; <select name=\"day_event11\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event11_profesor)) {
+    echo "<label>11ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event11\"  value=\"$event_event11_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event11_obs\" rows=\"2\" maxlength=\"190\">$event_event11_observacion</textarea>";
+    echo "</div>"; }
+	else{
+    echo "<label>11ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event11_profesor'></div>";
+    if (isset($event_event11_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event11_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event11_profesor\" name=\"day_event11\">";
+  } }
+	}
+	echo '</div>';
+
+if($servicio){$eventQuery2 = "SELECT hora12 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>12ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event12_profesor)) { echo "<label>12ª hora</label> &nbsp;&nbsp; <select name=\"day_event12\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event12_profesor)) {
+    echo "<label>12ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event12\"  value=\"$event_event12_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event12_obs\" rows=\"2\" maxlength=\"190\">$event_event12_observacion</textarea>";
+    echo "</div>"; }
+	else{
+    echo "<label>12ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event12_profesor'></div>";
+    if (isset($event_event12_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event12_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event12_profesor\" name=\"day_event12\">";
+  } }
+	}
+	echo '</div>';
+
+if($servicio){$eventQuery2 = "SELECT hora13 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>13ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event13_profesor)) { echo "<label>13ª hora</label> &nbsp;&nbsp; <select name=\"day_event13\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event13_profesor)) {
+    echo "<label>13ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event13\"  value=\"$event_event13_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event13_obs\" rows=\"2\" maxlength=\"190\">$event_event13_observacion</textarea>";
+    echo "</div>"; }
+  else{
+    echo "<label>13ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event13_profesor'></div>";
+    if (isset($event_event13_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event13_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event13_profesor\" name=\"day_event13\">";
+  } }
+	}
+	echo '</div>';
+
+if($servicio){$eventQuery2 = "SELECT hora14 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+if (mysqli_num_rows($reservado0)>0) {
+$reservado1 = mysqli_fetch_row($reservado0);
+}
+}
+	echo '<div class="form-group">';
+	if(!(empty($reservado1[0]))) {echo "<label>14ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
+	else
+	{
+if (empty($event_event14_profesor)) { echo "<label>14ª hora</label> &nbsp;&nbsp; <select name=\"day_event14\" class='form-control'><option></option>";
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+	echo "<option>" . $profesor . "</option>";
+	} echo "</select>";}
+	else {
+	if(mb_strtolower($pr) == mb_strtolower($event_event14_profesor)) {
+    echo "<label>14ª Hora</label> &nbsp;&nbsp; <div class=\"form-group\">";
+    echo "<input class=\"form-control\" type=\"text\" name=\"day_event14\"  value=\"$event_event14_profesor\">";
+    echo "<label><small>Observaciones</small></label>";
+    echo "<textarea class=\"form-control\" name=\"day_event14_obs\" rows=\"2\" maxlength=\"190\">$event_event14_observacion</textarea>";
+    echo "</div>"; }
+	else{
+    echo "<label>14ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event14_profesor'></div>";
+    if (isset($event_event14_observacion)){
+      echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">$event_event14_observacion</textarea>";
+    }
+    echo "<input type=\"hidden\" value=\"$event_event14_profesor\" name=\"day_event14\">";
+  } }
+	}
+	echo '</div>';
 
 echo "<input type=\"hidden\" value=\"$year\" name=\"year\">
       <input type=\"hidden\" value=\"$month\" name=\"month\">

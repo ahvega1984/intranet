@@ -792,3 +792,17 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla de problemas de convivencia de Séneca', NOW())");
 }
+
+/*
+	@descripcion: Ampliación reservas a horario de tarde
+	@fecha: 26 de noviembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Ampliación reservas a horario de tarde'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `reservas` ADD `event8` VARCHAR(255) NULL AFTER `event7`, ADD `event9` VARCHAR(255) NULL AFTER `event8`, ADD `event10` VARCHAR(255) NULL AFTER `event9`, ADD `event11` VARCHAR(255) NULL AFTER `event10`, ADD `event12` VARCHAR(255) NULL AFTER `event11`, ADD `event13` VARCHAR(255) NULL AFTER `event12`, ADD `event14` VARCHAR(255) NULL AFTER `event13`;");
+
+	mysqli_query($db_con, "ALTER TABLE `reservas` CHANGE `servicio` `servicio` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Ampliación reservas a horario de tarde', NOW())");
+}

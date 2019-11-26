@@ -9,7 +9,7 @@ include("../menu.php");
 
 if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 
-	for ($i=1;$i<=7;$i++)
+	for ($i=1;$i<=15;$i++)
 	{
 		if (isset($_POST['day_event'.$i]) and
 strstr($_POST['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} =
@@ -41,8 +41,7 @@ $_GET['day_event'.$i]; }
 	$hoy = getdate($semana);
 	$numero_dia = $hoy['wday'];
 
-	$eventQuery = "SELECT id FROM `reservas` WHERE eventdate
-= '$sql_date' and servicio='$servicio'";
+	$eventQuery = "SELECT id FROM `reservas` WHERE eventdate = '$sql_date' and servicio='$servicio'";
 	//echo $eventQuery;
 	$eventExec = mysqli_query($db_con, $eventQuery);
 	$event_found = "";
@@ -56,6 +55,13 @@ $_GET['day_event'.$i]; }
 	$day_event_safe5 = addslashes($day_event5);
 	$day_event_safe6 = addslashes($day_event6);
 	$day_event_safe7 = addslashes($day_event7);
+	$day_event_safe8 = addslashes($day_event8);
+	$day_event_safe9 = addslashes($day_event9);
+	$day_event_safe10 = addslashes($day_event10);
+	$day_event_safe11 = addslashes($day_event11);
+	$day_event_safe12 = addslashes($day_event12);
+	$day_event_safe13 = addslashes($day_event13);
+	$day_event_safe14 = addslashes($day_event14);
 	//$aula = htmlspecialchars($aula);
 
 	if ($event_found == 1) {
@@ -63,26 +69,29 @@ $_GET['day_event'.$i]; }
 		$postQuery = "UPDATE `reservas` SET event1 = '".$day_event1."',
 event2 = '".$day_event2."', event3 = '".$day_event3."',
     event4 = '".$day_event4."', event5 = '".$day_event5."', event6 =
-'".$day_event6."', event7 = '".$day_event7."' WHERE eventdate = '$sql_date' and servicio='$servicio';";
+'".$day_event6."', event7 = '".$day_event7."', event8 = '".$day_event8."',
+ event9 = '".$day_event9."', event10 = '".$day_event10."', event11 = '".$day_event11."',
+  event12 = '".$day_event12."', event13 = '".$day_event13."', event14 = '".$day_event14."'
+	 WHERE eventdate = '$sql_date' and servicio='$servicio';";
 		// echo $postQuery;
 		$postExec = mysqli_query($db_con, $postQuery) or die('Error al actualizar la información de reservas. MySQL Error: '.mysqli_error($db_con));
 		mysqli_query($db_con, "DELETE FROM `reservas`
 WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5
-= ''  and event6 = ''  and event7 = '' and servicio='$servicio' ");
+= ''  and event6 = ''  and event7 = '' and event8 = '' and event9 = '' and event10 = '' and event11 = '' and event12 = '' and event13 = '' and event14 = '' and servicio='$servicio' ");
 		$mens="actualizar";
 	} else {
 		//INSERT
 		$postQuery = "INSERT INTO `reservas`
-(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html, servicio) VALUES
+(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,event8,event9,event10,event11,event12,event13,event14,html, servicio) VALUES
 ('$sql_date','$numero_dia','".$day_event1."','".$day_event2."','".$day_event3."'
-,'".$day_event4."','".$day_event5."','".$day_event6."','".$day_event7."',
+,'".$day_event4."','".$day_event5."','".$day_event6."','".$day_event7."','".$day_event8."','".$day_event9."','".$day_event10."','".$day_event11."','".$day_event12."','".$day_event13."','".$day_event14."',
 '$show_html', '$servicio')";
 		 //echo $postQuery;
 		$postExec = mysqli_query($db_con, $postQuery) or die('Error al insertar la información de reservas. MySQL Error: '.mysqli_error($db_con));
 
 		mysqli_query($db_con, "DELETE FROM `reservas`
 WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5
-= ''  and event6 = ''  and event7 = '' and servicio='$servicio'");
+= ''  and event6 = ''  and event7 = '' and event8 = '' and event9 = '' and event10 = '' and event11 = '' and event12 = '' and event13 = '' and event14 = '' and servicio='$servicio'");
 		$mens="insertar";
 	}
 }
@@ -105,10 +114,8 @@ if (isset($_POST['permanente'])) {
 			$_POST['day_event'.$i]="";
 		}
 	}
-	$post_perm = "INSERT INTO reservas_hor (dia, hora1, hora2, hora3, hora4, hora5, hora6, hora7, servicio) VALUES
-('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST[
-'day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST
-['day_event6']."','".$_POST['day_event7']."','".$servicio."')";
+	$post_perm = "INSERT INTO reservas_hor (dia, hora1, hora2, hora3, hora4, hora5, hora6, hora7, hora8, hora9, hora10, hora11, hora12, hora13, hora14, servicio) VALUES
+('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."','".$_POST['day_event8']."','".$_POST['day_event9']."','".$_POST['day_event10']."','".$_POST['day_event11']."','".$_POST['day_event12']."','".$_POST['day_event13']."','".$_POST['day_event14']."','".$servicio."')";
 	$exec_permanente = mysqli_query($db_con, $post_perm) or die('Error al insertar la información de reservas para todo el curso. MySQL Error: '.mysqli_error($db_con));
 
 }
@@ -281,8 +288,7 @@ $aula;
 		//Buscar actividad para el dóa y marcarla
 		$sql_currentday = "$year-$month-$zz";
 
-		$eventQuery = "SELECT event1, event2, event3, event4, event5,
-event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
+		$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
 		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -334,7 +340,7 @@ $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
-$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7,
+$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14,
 html FROM `reservas` WHERE eventdate = '$sql_date' and servicio='$servicio'";
 $eventExec = mysqli_query($db_con, $eventQuery);
 while($row = mysqli_fetch_array($eventExec)) {
@@ -345,6 +351,13 @@ while($row = mysqli_fetch_array($eventExec)) {
 	$event_event5 = stripslashes($row["event5"]);
 	$event_event6 = stripslashes($row["event6"]);
 	$event_event7 = stripslashes($row["event7"]);
+	$event_event8 = stripslashes($row["event8"]);
+	$event_event9 = stripslashes($row["event9"]);
+	$event_event10 = stripslashes($row["event10"]);
+	$event_event11 = stripslashes($row["event11"]);
+	$event_event12 = stripslashes($row["event12"]);
+	$event_event13 = stripslashes($row["event13"]);
+	$event_event14 = stripslashes($row["event14"]);
 }
 
 // El profesor es del Equipo Directivo o es un aula de informática y es Coordinador TIC
@@ -364,7 +377,7 @@ $_SESSION['profi'] ."'";
 
 if($aula){
 
-	for ($i = 1; $i < 8; $i++)
+	for ($i = 1; $i < 15; $i++)
 	{
 		$num_aula_hor=0;
 		$num_hor=0;

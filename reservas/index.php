@@ -125,7 +125,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   if ($result_found != 1) {
 		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
-    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio = '$servicio'";
+    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio = '$servicio'";
  		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -193,7 +193,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 	{$dayname = "Sábado";}
 
     $sql_currentday = "$current_year-$current_month-$current_day";
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio = '$servicio'";
+    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio = '$servicio'";
     $eventExec = mysqli_query($db_con, $eventQuery);
     while($row = mysqli_fetch_array($eventExec)) {
    if (mysqli_num_rows($eventExec) == 1) {
@@ -262,6 +262,69 @@ for ($i = $today; $i <= ($today + 6); $i++) {
    else {
      $event_event7_profesor = $event_event7;
    }
+	 $event_event8 = stripslashes($row["event8"]);
+   if (stristr($event_event8, '||') == true) {
+     $exp_event_event8 = explode('||', $event_event8);
+     $event_event8_profesor = $exp_event_event8[0];
+     $event_event8_observacion = $exp_event_event8[1];
+   }
+   else {
+     $event_event8_profesor = $event_event8;
+   }
+	 $event_event9 = stripslashes($row["event9"]);
+   if (stristr($event_event9, '||') == true) {
+     $exp_event_event9 = explode('||', $event_event9);
+     $event_event9_profesor = $exp_event_event9[0];
+     $event_event9_observacion = $exp_event_event9[1];
+   }
+   else {
+     $event_event9_profesor = $event_event9;
+   }
+	 $event_event10 = stripslashes($row["event10"]);
+   if (stristr($event_event10, '||') == true) {
+     $exp_event_event10 = explode('||', $event_event10);
+     $event_event10_profesor = $exp_event_event10[0];
+     $event_event10_observacion = $exp_event_event10[1];
+   }
+   else {
+     $event_event10_profesor = $event_event10;
+   }
+	 $event_event11 = stripslashes($row["event11"]);
+   if (stristr($event_event11, '||') == true) {
+     $exp_event_event11 = explode('||', $event_event11);
+     $event_event11_profesor = $exp_event_event11[0];
+     $event_event11_observacion = $exp_event_event11[1];
+   }
+   else {
+     $event_event11_profesor = $event_event11;
+   }
+	 $event_event12 = stripslashes($row["event12"]);
+   if (stristr($event_event12, '||') == true) {
+     $exp_event_event12 = explode('||', $event_event12);
+     $event_event12_profesor = $exp_event_event12[0];
+     $event_event12_observacion = $exp_event_event12[1];
+   }
+   else {
+     $event_event12_profesor = $event_event12;
+   }
+	 $event_event13 = stripslashes($row["event13"]);
+   if (stristr($event_event13, '||') == true) {
+     $exp_event_event13 = explode('||', $event_event13);
+     $event_event13_profesor = $exp_event_event13[0];
+     $event_event13_observacion = $exp_event_event13[1];
+   }
+   else {
+     $event_event13_profesor = $event_event13;
+   }
+	 $event_event14 = stripslashes($row["event14"]);
+   if (stristr($event_event14, '||') == true) {
+     $exp_event_event14 = explode('||', $event_event14);
+     $event_event14_profesor = $exp_event_event14[0];
+     $event_event14_observacion = $exp_event_event14[1];
+   }
+   else {
+     $event_event14_profesor = $event_event14;
+   }
       }
     }
 
@@ -313,6 +376,49 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 				echo "<div style=\"margin-left: 20px;\"><small>$event_event7_observacion</small></div>";
 			}
  	}
+		if ($event_event8_profesor !== "") {
+		 echo "<p>8ª hora: $event_event8_profesor</p>";
+		 if (isset($event_event8_observacion) && ! empty($event_event8_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event8_observacion</small></div>";
+		 }
+	}
+		if ($event_event9_profesor !== "") {
+		 echo "<p>9ª hora: $event_event9_profesor</p>";
+		 if (isset($event_event9_observacion) && ! empty($event_even9_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event9_observacion</small></div>";
+		 }
+	}
+		if ($event_event10_profesor !== "") {
+		 echo "<p>10ª hora: $event_event10_profesor</p>";
+		 if (isset($event_event10_observacion) && ! empty($event_even10_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event10_observacion</small></div>";
+		 }
+	}
+		if ($event_event11_profesor !== "") {
+		 echo "<p>11ª hora: $event_event11_profesor</p>";
+		 if (isset($event_event11_observacion) && ! empty($event_even11_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event11_observacion</small></div>";
+		 }
+	}
+		if ($event_event12_profesor !== "") {
+		 echo "<p>12ª hora: $event_event12_profesor</p>";
+		 if (isset($event_event12_observacion) && ! empty($event_even12_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event12_observacion</small></div>";
+		 }
+	}
+		if ($event_event13_profesor !== "") {
+		 echo "<p>13ª hora: $event_event13_profesor</p>";
+		 if (isset($event_event13_observacion) && ! empty($event_even13_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event13_observacion</small></div>";
+		 }
+	}
+		if ($event_event14_profesor !== "") {
+		 echo "<p>14ª hora: $event_event14_profesor</p>";
+		 if (isset($event_event14_observacion) && ! empty($event_even14_observacion)) {
+			 echo "<div style=\"margin-left: 20px;\"><small>$event_event14_observacion</small></div>";
+		 }
+	}
+
  }
 
 echo "</a></p>";
@@ -325,6 +431,13 @@ echo "</a></p>";
    $event_event5 = "";
    $event_event6 = "";
    $event_event7 = "";
+	 $event_event8 = "";
+	 $event_event9 = "";
+	 $event_event10 = "";
+	 $event_event11 = "";
+	 $event_event12 = "";
+	 $event_event13 = "";
+	 $event_event14 = "";
 }
 echo '<br>';
 echo '<a class="btn btn-primary btn-block" href="//'.$config['dominio'].'/intranet/reservas/reservar/index.php?servicio='.$servicio.'">Reservar...</a>';

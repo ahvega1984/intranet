@@ -206,7 +206,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		if ($result_found != 1) {
 			//Buscar actividad para el día y marcarla
 			$sql_currentday = "$year-$month-$zz";
-			$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio'";
+			$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio'";
 			//echo $eventQuery;
 			$eventExec = mysqli_query($db_con, $eventQuery );
 			if (mysqli_num_rows($eventExec)>0) {
@@ -275,7 +275,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		{$dayname = "Sábado";}
 
 		$sql_currentday = "$current_year-$current_month-$current_day";
-		$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio'";
+		$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, event8, event9, event10, event11, event12, event13, event14 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio'";
 		$eventExec = mysqli_query($db_con, $eventQuery);
 		while($row = mysqli_fetch_array($eventExec)) {
 			if (mysqli_num_rows($eventExec) == 1) {
@@ -287,6 +287,13 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 				$event_event5 = stripslashes($row["event5"]);
 				$event_event6 = stripslashes($row["event6"]);
 				$event_event7 = stripslashes($row["event7"]);
+				$event_event8 = stripslashes($row["event8"]);
+				$event_event9 = stripslashes($row["event9"]);
+				$event_event10 = stripslashes($row["event10"]);
+				$event_event11 = stripslashes($row["event11"]);
+				$event_event12 = stripslashes($row["event12"]);
+				$event_event13 = stripslashes($row["event13"]);
+				$event_event14 = stripslashes($row["event14"]);
 			}
 		}
 
@@ -317,6 +324,27 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 			if ($event_event7 !== "") {
 				echo "<p>7ª hora: $event_event7</p>";
 			}
+			if ($event_event8 !== "") {
+				echo "<p>8ª hora: $event_event8</p>";
+			}
+			if ($event_event9 !== "") {
+				echo "<p>9ª hora: $event_event9</p>";
+			}
+			if ($event_event10 !== "") {
+				echo "<p>10ª hora: $event_event10</p>";
+			}
+			if ($event_event11 !== "") {
+				echo "<p>11ª hora: $event_event11</p>";
+			}
+			if ($event_event12 !== "") {
+				echo "<p>12ª hora: $event_event12</p>";
+			}
+			if ($event_event13 !== "") {
+				echo "<p>13ª hora: $event_event13</p>";
+			}
+			if ($event_event14 !== "") {
+				echo "<p>14ª hora: $event_event14</p>";
+			}
 		}
 
 		echo "</a></p>";
@@ -329,6 +357,13 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		$event_event5 = "";
 		$event_event6 = "";
 		$event_event7 = "";
+		$event_event8 = "";
+		$event_event9 = "";
+		$event_event10 = "";
+		$event_event11 = "";
+		$event_event12 = "";
+		$event_event13 = "";
+		$event_event14 = "";
 	}
 	echo '<br>';
 	echo '<a class="btn btn-primary btn-block" href="//'.$config['dominio'].'/intranet/reservas/reservar/index_aulas.php?servicio='.$servicio.'">Reservar...</a>';
