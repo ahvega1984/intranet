@@ -266,34 +266,36 @@ include('control_acceso.php');
 
 	<div class="container">
 
-			<div class="">
-				<h1 class="text-center"><?php echo $config['centro_denominacion']; ?></h1>
-			</div>
+		<div class="">
+			<h1 class="text-center"><?php echo $config['centro_denominacion']; ?></h1>
+		</div>
 
 	    <div class="card card-container animated zoomIn faster">
-					<div class="text-center text-muted">
-						<i class="far fa-user-circle fa-7x"></i>
-						<h4>Inicia sesión para acceder</h4>
-					</div>
+			<div class="text-center text-muted">
+				<i class="far fa-user-circle fa-7x"></i>
+				<h4>Inicia sesión para acceder</h4>
+			</div>
 
 	        <form class="form-signin" method="post" autocomplete="off">
-							<?php if($msg_error): ?>
-							<p class="text-error text-danger"><?php echo $msg_error; ?></p>
-							<?php endif; ?>
+				<?php if($msg_error): ?>
+				<p class="text-error text-danger"><?php echo $msg_error; ?></p>
+				<?php endif; ?>
 
-							<div class="form-group">
-								<input type="text" id="USUARIO" name="USUARIO" class="form-control" placeholder="Nombre de usuario" required autofocus>
-							</div>
-							<div class="form-group">
-								<input type="password" id="CLAVE" name="CLAVE" class="form-control" placeholder="Contraseña" required>
-							</div>
+				<div class="form-group">
+					<input type="text" id="USUARIO" name="USUARIO" class="form-control" placeholder="Nombre de usuario" required autofocus>
+				</div>
+				<div class="form-group">
+					<input type="password" id="CLAVE" name="CLAVE" class="form-control" placeholder="Contraseña" required>
+				</div>
 
 	            <button type="submit" class="btn btn-primary btn-block btn-signin" name="submit">Iniciar sesión</button>
 
-							<a href="#" id="forgot-password" class="forgot-password">¿Olvidó su contraseña?</a>
+				<a href="#" id="forgot-password" class="forgot-password">¿Olvidó su contraseña?</a>
+				<br>
+				<p class="text-center"><a href="//<?php echo $config['dominio']; ?>/intranet/login.php">Inicio de sesión clásico</a></p>
 	        </form><!-- /form -->
 
-					<p class="copyright text-muted text-center">&copy; <?php echo date('Y'); ?> I.E.S. Monterroso - Versión <?php echo INTRANET_VERSION; ?></p>
+			<p class="copyright text-muted text-center">&copy; <?php echo date('Y'); ?> I.E.S. Monterroso - Versión <?php echo INTRANET_VERSION; ?></p>
 
 	    </div><!-- /card-container -->
 	</div><!-- /container -->
@@ -313,7 +315,7 @@ include('control_acceso.php');
 	$(document).ready(function () {
 		$("#forgot-password").click(function () {
 	    window.open("https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/general/DetOlvCon.jsp", "popupWindow", "width=600, height=420, scrollbars=yes");
-    });
+    	});
 	});
 	</script>
 
