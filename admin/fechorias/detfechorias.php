@@ -181,14 +181,32 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
           </tr>
           <tr>
             <th>GRAVEDAD</th>
-            <td colspan="4"><?php echo $grave; ?></td>
+            <?php
+            if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']) {
+              switch($grave) {
+                case 'leve' : $nom_gravedad = "Otra conducta"; break;
+                case 'grave' : $nom_gravedad = "Conducta contraria"; break;
+                case 'muy grave' : $nom_gravedad = "Conducta grave"; break;
+              }
+              echo "<td colspan=\"4\">$nom_gravedad</td>";
+            }
+            else {
+              echo "<td colspan=\"4\">$grave</td>";
+            }
+            ?>
           </tr>
           <tr>
             <th>ANTECEDENTES</th>
             <td >Total: <?php echo $numerototal; ?></td>
+            <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+            <td >Contrarias: <?php echo $numerograves; ?></td>
+            <td >Graves: <?php echo $numeromuygraves; ?></td>
+            <td >Expulsiones: <?php echo $numeroexpulsiones; ?></td>
+            <?php else: ?>
             <td >Graves: <?php echo $numerograves; ?></td>
             <td >Muy Graves: <?php echo $numeromuygraves; ?></td>
             <td >Expulsiones: <?php echo $numeroexpulsiones; ?></td>
+            <?php endif; ?>
           </tr>
           <tr>
             <th>PROTOCOLOS</th>
@@ -222,9 +240,19 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 	while ( $row = mysqli_fetch_array ( $result ) ) {
 		echo "<tr>
 	<td nowrap>$row[0]</td>
-	<td>$row[1]</td>
-	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fas fa-search fa-fw fa-lg'></i></a>";
+	<td>$row[1]</td>";
+  if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']) {
+    switch($row[2]) {
+      case 'leve' : $nom_gravedad = "Otra conducta"; break;
+      case 'grave' : $nom_gravedad = "Conducta contraria"; break;
+      case 'muy grave' : $nom_gravedad = "Conducta grave"; break;
+    }
+    echo "<td>$nom_gravedad</td>";
+  }
+  else {
+    echo "<td>$row[2]</td>";
+  }
+	echo "<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fas fa-search fa-fw fa-lg'></i></a>";
   if($_SESSION['profi']==$row[4] or stristr($_SESSION['cargo'],'1') == TRUE){
     echo "<a href='delfechorias.php?id= $row[3]' data-bs='tooltip' data-bb='confirm-delete' title='Eliminar'><i class='far fa-trash-alt fa-fw fa-lg'></i></a>";
   }
