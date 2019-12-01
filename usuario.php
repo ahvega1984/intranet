@@ -37,7 +37,7 @@ if (isset($_POST['registrarTelefono'])) {
 	
 }
 
-if (! isset($_SESSION['sesion_seneca']) || isset($_SESSION['sesion_seneca']) && $_SESSION['sesion_seneca'] == 0) {
+if (! isset($_SESSION['session_seneca']) || isset($_SESSION['session_seneca']) && $_SESSION['session_seneca'] == 0) {
 	if (isset($_POST['registrarClave'])) {
 		if ((isset($_POST['password']) && ! empty($_POST['password'])) && (isset($_POST['new_password']) && ! empty($_POST['new_password'])) && (isset($_POST['repeat_password']) && ! empty($_POST['repeat_password']))) {
 			$cmp_password = htmlspecialchars(trim($_POST['password']));
@@ -366,7 +366,7 @@ include("menu.php");
 				      </div>
 				    </div>
 				  </div>
-				  <?php if (! isset($_SESSION['sesion_seneca']) || (isset($_SESSION['sesion_seneca']) && $_SESSION['sesion_seneca'] != 1)): ?>
+				  <?php if (! isset($_SESSION['session_seneca']) || (isset($_SESSION['session_seneca']) && $_SESSION['session_seneca'] != 1)): ?>
 				  <div class="panel panel-default">
 				    <div class="panel-heading" role="tab" id="cuentaHeadingThree">
 				      <h4 class="panel-title">

@@ -128,7 +128,15 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 								</div>
 							</li>
 							<li class="divider hidden-xs"></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/usuario.php">Información de la cuenta</a></li>
+							<?php if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org"): ?>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/usuario.php"><i class="fas fa-user fa-fw"></i> Información de la cuenta</a></li>
+							<?php else: ?>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><i class="fas fa-lock fa-fw"></i> Cambiar contraseña, correo y teléfono</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><i class="fas fa-key fa-fw"></i> Autenticación en dos pasos</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><i class="fas fa-camera fa-fw"></i> Cambiar fotografía</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><i class="fas fa-paint-brush fa-fw"></i> Cambiar tema</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><i class="fas fa-user-secret fa-fw"></i> Consultar accesos</a></li>
+							<?php endif; ?>
 						</ul>
 					</li>
 				</ul>

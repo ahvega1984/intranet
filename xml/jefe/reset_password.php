@@ -180,7 +180,11 @@ include("../../menu.php");
 					<div class="form-group">
 						<label for="resetPassword">Selecciona los profesores</label>
 						<select class="form-control" id="resetPassword" name="cambio[]" multiple size="15">
+							<?php if (isset($_SESSION['session_seneca']) && $_SESSION['session_seneca'] == 1): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_profes.profesor, c_profes.dni FROM c_profes JOIN departamentos ON c_profes.idea = departamentos.idea WHERE departamentos.departamento = 'Admin' OR departamentos.departamento = 'Adminstracion' OR departamentos.departamento = 'Conserjeria' OR departamentos.departamento = 'Auxiliar de Conversación' OR departamentos.departamento = 'Educador' OR departamentos.departamento = 'Mentor acompañante' OR departamentos.departamento = 'Jefe Servicio Técnico y/o Mantenimiento' ORDER BY profesor"); ?>
+							<?php else: ?>
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT profesor, dni FROM c_profes ORDER BY profesor"); ?>
+							<?php endif; ?>
 							<?php while($row = mysqli_fetch_array($result)): ?>
 							<option value="<?php echo $row['dni'];?>"><?php echo $row['profesor'];?></option>
 							<?php endwhile; ?>
