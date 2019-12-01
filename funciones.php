@@ -1,13 +1,24 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 function getRealIP() {
-    if (!empty($_SERVER['HTTP_CLIENT_IP']))
-        return $_SERVER['HTTP_CLIENT_IP'];
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = $_SERVER['REMOTE_ADDR'];
 
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    if(filter_var($client, FILTER_VALIDATE_IP))
+    {
+        $ip = $client;
+    }
+    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+    {
+        $ip = $forward;
+    }
+    else
+    {
+        $ip = $remote;
+    }
 
-    return $_SERVER['REMOTE_ADDR'];
+    return $ip;
 }
 
 function isPrivateIP($ip){
@@ -51,7 +62,7 @@ function getBrowser($u_agent) {
     } elseif (preg_match('/iPad/i', $u_agent)) {
         $platform = 'iPad iOS';
         $pname = 'iPad; CPU OS';
-    } elseif (preg_match('/mac os x 10_13|mac os x 10_12/i', $u_agent)) {
+    } elseif (preg_match('/mac os x 10_16|mac os x 10_15|mac os x 10_14|mac os x 10_13|mac os x 10_12/i', $u_agent)) {
         $platform = 'macOS';
         $pname = 'Mac OS X';
     } elseif (preg_match('/mac os x 10_11|mac os x 10_10|mac os x 10_9/i', $u_agent)) {
@@ -118,7 +129,7 @@ function getBrowser($u_agent) {
         elseif ($pname == 'Android') {
             $pversion = str_replace(' es-es; ', '', $pversion);
             $exp_pversion = explode(';', $pversion);
-            $platform = ltrim(trim($exp_pversion[1]).' - Android', ' - ');
+            $platform = ltrim(trim($exp_pversion[1]).' con Android', ' con ');
             $pversion = trim($exp_pversion[0]);
         }
     }
@@ -888,4 +899,36 @@ function cmykcolor($color, $output = false, $tono = false) {
 				}
 			}
 		}
+}
+
+function nombreIniciales($nombre) {
+	$exp_nombre = explode(' ', $nombre);
+	$iniciales = "";
+
+	foreach ($exp_nombre as $letra) {
+		$iniciales .= $letra[0];
+	}
+
+	$minusculas = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','y','z');
+	$nada = array('','','','','','','','','','','','','','','','','','','','','','','','','','');
+	$iniciales = str_replace($minusculas, $nada, $iniciales);
+
+	return $iniciales;
+}
+
+function rgpdNombreProfesor($nombre) {
+	global $db_con;
+
+	$result = mysqli_query($db_con, "SELECT `rgpd_mostrar_nombre` FROM `c_profes` WHERE `profesor` = '$nombre' LIMIT 1");
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
+		if (! $row['rgpd_mostrar_nombre']) {
+			$iniciales = nombreIniciales($nombre);
+			return $iniciales;
+		}
+		else {
+			return $nombre;
+		}
+	}
+	return $nombre;
 }

@@ -98,7 +98,7 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 									<?php if(isset($_SESSION['user_admin']) && $_SESSION['user_admin']): ?>
 									<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 										<div class="form-group" style="margin-bottom: 0;">
-											<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 90%;">
+											<select class="form-control input-sm" id="view_as_user" name="view_as_user" onchange="submit()">
 												<?php $result_perfiles = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
 												<?php while($row_perfiles = mysqli_fetch_assoc($result_perfiles)): ?>
 												<option value="<?php echo $row_perfiles['nombre']; ?>"<?php echo ($row_perfiles['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row_perfiles['nombre']; ?></option>
@@ -128,11 +128,7 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 								</div>
 							</li>
 							<li class="divider hidden-xs"></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><i class="fas fa-lock fa-fw"></i> Cambiar contraseña, correo y teléfono</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/totp.php"><i class="fas fa-key fa-fw"></i> Autenticación en dos pasos</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><i class="fas fa-camera fa-fw"></i> Cambiar fotografía</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><i class="fas fa-paint-brush fa-fw"></i> Cambiar tema</a></li>
-							<li><a href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/informes/sesiones.php"><i class="fas fa-user-secret fa-fw"></i> Consultar accesos</a></li>
+							<li><a href="//<?php echo $config['dominio']; ?>/intranet/usuario.php">Información de la cuenta</a></li>
 						</ul>
 					</li>
 				</ul>

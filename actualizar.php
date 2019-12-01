@@ -806,3 +806,28 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Ampliación reservas a horario de tarde', NOW())");
 }
+
+/*
+	@descripcion: Ampliación campo IP para direcciones IPv6
+	@fecha: 01 de diciembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Ampliación campo IP para direcciones IPv6'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `reg_intranet` CHANGE `ip` `ip` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Ampliación campo IP para direcciones IPv6', NOW())");
+}
+
+/*
+	@descripcion: Cambios en tabla c_profes
+	@fecha: 01 de diciembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Cambios en tabla c_profes'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `correo_verificado` TINYINT(1) NOT NULL DEFAULT '0' AFTER `correo`;");
+	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `telefono_verificado` TINYINT(1) NOT NULL DEFAULT '0' AFTER `telefono`;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Cambios en tabla c_profes', NOW())");
+}

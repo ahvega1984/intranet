@@ -159,7 +159,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 				$_SESSION['intranet_auth'] = 1;
 				$_SESSION['cambiar_clave'] = 1;
-				header("location:clave.php?tour=1");
+				header("location:usuario.php?tab=cuenta&pane=password");
 				exit();
 			}
 			else {

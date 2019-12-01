@@ -210,8 +210,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 			// Obtenemos los datos de navegación del usuario
 			$direccionIP = getRealIP();
 			$useragent = $_SERVER['HTTP_USER_AGENT'];
-			$useragent_parseado = getBrowser($useragent);
-
+			
 			// Registramos la sesión
 			mysqli_query($db_con, "INSERT INTO reg_intranet (profesor, fecha, ip, useragent) VALUES ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','".$direccionIP."', '".$useragent."')");
 			$id_reg = mysqli_query($db_con, "SELECT id FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' ORDER BY id DESC LIMIT 1" );
