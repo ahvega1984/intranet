@@ -17,6 +17,7 @@ if (isset($_GET['calendario'])) {$calendario = $_GET['calendario'];}elseif (isse
 if (isset($_GET['act_calendario'])) {$act_calendario = $_GET['act_calendario'];}elseif (isset($_POST['act_calendario'])) {$act_calendario = $_POST['act_calendario'];}else{$act_calendario="";}
 if (isset($_GET['confirmado'])) {$confirmado = $_GET['confirmado'];}elseif (isset($_POST['confirmado'])) {$confirmado = $_POST['confirmado'];}else{$confirmado="";}
 if (isset($_GET['detalles'])) {$detalles = $_GET['detalles'];}elseif (isset($_POST['detalles'])) {$detalles = $_POST['detalles'];}else{$detalles="";}
+if (isset($_GET['lugar'])) {$lugar = $_GET['lugar'];}elseif (isset($_POST['lugar'])) {$lugar = $_POST['lugar'];}else{$lugar="";}
 if (isset($_GET['fecha'])) {$fecha = $_GET['fecha'];}elseif (isset($_POST['fecha'])) {$fecha = $_POST['fecha'];}else{$fecha="";}
 if (isset($_GET['fechafin'])) {$fechafin = $_GET['fechafin'];}elseif (isset($_POST['fechafin'])) {$fechafin = $_POST['fechafin'];}else{$fechafin="";}
 if (isset($_GET['horario'])) {$horario = $_GET['horario'];}elseif (isset($_POST['horario'])) {$horario = $_POST['horario'];}else{$horario="";}
@@ -144,6 +145,12 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Ln(5);
 
 	#Cuerpo.
+	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->Cell(30, 5, 'Lugar: ', 0, 0, 'L');
+
+	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->Cell(130, 5, $lugar, 0, 1, 'L');
+
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(30, 5, 'Fecha: ', 0, 0, 'L');
 

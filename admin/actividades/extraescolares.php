@@ -72,7 +72,7 @@ $alumnos0 = "SELECT claveal, nombre, apellidos FROM alma where unidad = '$unidad
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 $num = mysqli_num_rows($alumnos1);
 
-$datos0 = "SELECT fechaini, horaini, profesores, nombre, descripcion, observaciones, fechafin, horafin FROM calendario WHERE id ='$id'";
+$datos0 = "SELECT fechaini, horaini, profesores, nombre, descripcion, observaciones, fechafin, horafin, lugar FROM calendario WHERE id ='$id'";
 $datos1 = mysqli_query($db_con, $datos0);
 $datos = mysqli_fetch_array($datos1);
 $fecha0 = explode("-",$datos[0]);
@@ -84,11 +84,13 @@ $observaciones = $datos[5];
 $fecha1 = explode("-",$datos[6]);
 $fecha2  = $fecha1[2]."-". $fecha1[1]."-". $fecha1[0];
 $horario2 = $datos[7];
+$lugar = $datos[8];
 ?>
 <?php
 
 if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
+<input name="lugar" type="hidden" value="<?php echo $lugar;?>">
 <input name="fecha" type="hidden" value="<?php echo $fecha;?>">
 <input name="horario" type="hidden" value="<?php echo $horario;?>">
 <input name="fechafin" type="hidden" value="<?php echo $fecha2;?>">

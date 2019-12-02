@@ -229,9 +229,9 @@ include("menu.php");
 		text-decoration: none;
 	}
 	</style>
-	<div class="bg-clouds" style="background-color: #ecf0f1; margin-top: -10px; margin-bottom: 20px;">
+	<div class="<?php echo ($_SESSION['fondo'] == 'navbar-default') ? 'navbar-inverse' : 'navbar-default'; ?>" style="margin-top: -20px; margin-bottom: 20px;">
 		<div class="container">
-			<div class="page-header">
+			<div class="page-header" style="border: 0 !important;">
 				<div class="media">
 					<div class="media-left">
 						<?php $fotoProfesor = obtener_foto_profesor($_SESSION['ide']); ?>
@@ -244,7 +244,7 @@ include("menu.php");
 						<?php endif; ?>
 					</div>
 					<div class="media-body" style="padding-top: 20px; padding-left: 15px;">
-						<h2 class="media-heading"><?php echo $_SESSION['profi']; ?></h2>
+						<h2 class="grey-light media-heading"><?php echo $_SESSION['profi']; ?></h2>
 						<?php if ($_SESSION['profi'] == 'Administrador'): ?>
 						<p class="text-muted">Administrador de la Intranet</p>
 						<?php else: ?>
