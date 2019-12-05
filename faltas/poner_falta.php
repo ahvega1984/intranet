@@ -100,20 +100,28 @@ foreach($_POST as $clave => $valor)
 			$sms_tfno_u = trim($sms_row[6]);
 			$sms_tutor1 = trim($sms_row[7]);
 
-			if ($hora == '1' && $valor == 'R' && ! empty($sms_tutor1)) {
+			$ahora_mismo = date("H:i:s");
+			if ($ahora_mismo > '08:15:00' and $ahora_mismo < '09:15:00') {
+				$envia_sms=1;
+			}
+
+			if ($envia_sms == '1' && $valor == 'R' && ! empty($sms_tutor1)) {
 				$retraso_primera = 1;
-				$causa = "Retraso en la Asistencia al aula";
+				$causa = "Retraso en la asistencia al aula";
 				$sms_message = "Su hijo/a ha entrado con retraso en el aula a primera hora del día $hoy. Para consultar la asistencia de su hijo/a entre en http://".$config['dominio'];
-				}
-				
-			if ($hora == '1' && $valor == 'F' && ! empty($sms_tutor1)) {
+				}				
+			elseif ($envia_sms == '1' && $valor == 'F' && ! empty($sms_tutor1)) {
 				$falta_primera = 1;
-				$causa = "Faltas de Asistencia";
+				$causa = "Falta de asistencia a primera hora";
 				$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
 				}
 
 			if ($falta_primera == 1 OR $retraso_primera == 1) {
-				
+
+				$falta_ya = mysqli_query($db_con, "select * from sms where (mensaje like '%primera hora%' OR mensaje like '%con retraso%') and fecha like '$hoy%' and (telefono like '$sms_tfno' OR telefono like '$sms_tfno_u')");
+				if (mysqli_num_rows($falta_ya)>0) {}
+				else{
+
 				if (substr($sms_tfno, 0, 1) == "6" || substr($sms_tfno, 0, 1 ) == "7") {
 					$mobile = $sms_tfno;
 				}
@@ -141,10 +149,11 @@ foreach($_POST as $clave => $valor)
 						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$sms_message','$profesor')");
 
 						// Registro de Tutoría
-						$observaciones = $message;
+						$observaciones = $sms_message;
 						$accion = "Env&iacute;o de SMS";
 						
 						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
+						}
 					}
 				}
 			}								

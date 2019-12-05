@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 
 if (file_exists('config.php')) {
-	include('config.php');
+    include('config.php');
 }
     include("../../menu.php");
 
@@ -11,16 +11,16 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
 
 <div class="container">
 
-  	<div class="page-header">
-    	<h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
-  	</div>
+    <div class="page-header">
+        <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
+    </div>
 
-  	<div class="text-center" id="t_larga_barra">
+    <div class="text-center" id="t_larga_barra">
         <span class="lead"><span class="far fa-circle-o-notch fa-spin"></span>Cargando los datos. El proceso puede tardar un poco...</span>
-  	</div>
-  	<div id='t_larga' style='display:none' >
+    </div>
+    <div id='t_larga' style='display:none' >
         <div>
-           	<ul class="nav nav-tabs">
+            <ul class="nav nav-tabs">
                <li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
                <li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
                <li><a href="#tab3" data-toggle="tab">Resumen por Grupo</a></li>
@@ -69,7 +69,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                 <th>Otras conductas</th>
                                 <th>Conductas contrarias</th>
-                                <th>Conductas graves</th>
+                                <th>Conductas gravemente contrarias</th>
                                 <?php else: ?>
                                 <th>Leves</th>
                                 <th>Graves</th>
@@ -195,27 +195,27 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 if (mysqli_num_rows($chk)<=0)
                                   mysqli_query($db_con,"ALTER TABLE `tutoria` ADD `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST");
 
-                                $SQL = "select count(distinct id) as total from tutoria where month(fecha) >='09' and fecha <= '$minNavidad' ";
+                                $SQL = "select count(distinct id) as total from tutoria where month(fecha) >='09' and fecha <= '$minNavidad' and causa not like 'Retraso en la asistencia al aula' and causa not like 'Falta de asistencia a primera hora'";
                                 $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                 $num_acciones1 = $result['total'];
                                 
-                                $SQL = "select count(distinct id) as total from tutoria where fecha >= '$maxNavidad' and fecha <= '$minSanta' ";
+                                $SQL = "select count(distinct id) as total from tutoria where fecha >= '$maxNavidad' and fecha <= '$minSanta' and causa not like 'Retraso en la asistencia al aula' and causa not like 'Falta de asistencia a primera hora'";
                                 $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                 $num_acciones2 = $result['total'];
                                 
-                                $SQL = "select count(distinct id) as total from tutoria where fecha >='$maxSanta' and month(fecha) <= '06' ";
+                                $SQL = "select count(distinct id) as total from tutoria where fecha >='$maxSanta' and month(fecha) <= '06'  and causa not like 'Retraso en la asistencia al aula' and causa not like 'Falta de asistencia a primera hora'";
                                 $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                 $num_acciones3 = $result['total'];
                                 
-                                $SQL = "select count(distinct id) as total from tutoria where causa = 'Faltas de Asistencia' and month(fecha) >='09' and fecha <= '$minNavidad' ";
+                                $SQL = "select count(distinct id) as total from tutoria where (causa like '%Asistencia%' or causa like 'Retraso%') and month(fecha) >='09' and fecha <= '$minNavidad' ";
                                 $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                 $num_comunica1 = $result['total'];
                                 
-                                $SQL = "select count(distinct id) as total from tutoria where causa = 'Faltas de Asistencia' and fecha >= '$maxNavidad' and fecha <= '$minSanta' ";
+                                $SQL = "select count(distinct id) as total from tutoria where (causa like '%Asistencia%' or causa like 'Retraso%') and fecha >= '$maxNavidad' and fecha <= '$minSanta' ";
                                 $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                 $num_comunica2 = $result['total'];
                                 
-                                $SQL = "select count(distinct id) as total from tutoria where causa = 'Faltas de Asistencia' and fecha >='$maxSanta' and month(fecha) <= '06' ";
+                                $SQL = "select count(distinct id) as total from tutoria where (causa like '%Asistencia%' or causa like 'Retraso%') and fecha >='$maxSanta' and month(fecha) <= '06' ";
                                 $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                 $num_comunica3 = $result['total'];
 
@@ -558,7 +558,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                     <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                                     <th>Otras conductas</th>
                                                     <th>Conductas contrarias</th>
-                                                    <th>Conductas graves</th>
+                                                    <th>Conductas gravemente contrarias</th>
                                                     <?php else: ?>
                                                     <th>Leves</th>
                                                     <th>Graves</th>
@@ -838,7 +838,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                 <th>Otras conductas</th>
                                 <th>Conductas contrarias</th>
-                                <th>Conductas graves</th>
+                                <th>Conductas gravemente contrarias</th>
                                 <?php else: ?>
                                 <th>Leves</th>
                                 <th>Graves</th>
@@ -966,34 +966,34 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                         <div class="tabbable" style="margin-bottom: 18px;">
                             <ul class="nav nav-tabs">
                             <?php
-                            	$cur = substr($config['curso_inicio'],0,4);
-                            	for ($b = 0; $b < $numCursosAnteriores; $b++)
-                            	{
-                                	$anio_escolar = $cur - $b;
-                                	$haydatos = 0;
+                                $cur = substr($config['curso_inicio'],0,4);
+                                for ($b = 0; $b < $numCursosAnteriores; $b++)
+                                {
+                                    $anio_escolar = $cur - $b;
+                                    $haydatos = 0;
 
                                     if ($b == 0)
-                                	{
-                                    	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
-                                    	mysqli_query($db_con,"SET NAMES 'utf8'");
-                                    	$haydatos = 1;
-                                	}
+                                    {
+                                        $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+                                        mysqli_query($db_con,"SET NAMES 'utf8'");
+                                        $haydatos = 1;
+                                    }
 
-                                	if($b > 0 && ! empty($config['db_host_c'.$anio_escolar]))
-                                	{
-                                    	$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
-                                    	mysqli_query($db_con,"SET NAMES 'utf8'");
-                                    	$haydatos = 1;
-                                	}
+                                    if($b > 0 && ! empty($config['db_host_c'.$anio_escolar]))
+                                    {
+                                        $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+                                        mysqli_query($db_con,"SET NAMES 'utf8'");
+                                        $haydatos = 1;
+                                    }
 
-                                	if($haydatos)
-                                	{
-                            		?>
-                                    	<li<?php echo ($b == 0) ? ' class="active"' : '';?>><a href="#m<?php echo $b+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a>
-                                    	</li>
-                                    	<?php
-                                	}
-                            	}
+                                    if($haydatos)
+                                    {
+                                    ?>
+                                        <li<?php echo ($b == 0) ? ' class="active"' : '';?>><a href="#m<?php echo $b+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a>
+                                        </li>
+                                        <?php
+                                    }
+                                }
                             ?>
                             </ul>
 
@@ -1062,47 +1062,47 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                         </div>
                                     <?php
                                 }
-                    	?>
-                    	</div>
+                        ?>
+                        </div>
                         </div>
                     </div>
                 <?php
                 }
-                ?>	
+                ?>  
                 <div class="tab-pane fade in" id="tab5">
-                       	<br /><h3>Informe por Tipo de problema</h3><br />
-                        	<div class="tabbable" style="margin-bottom: 18px;">
-                            	<ul class="nav nav-tabs">
-                                	<?php
-                                	$cur = substr($config['curso_inicio'],0,4);
-                                	for ($c = 0; $c < $numCursosAnteriores; $c++)
-                                	{
-                                    	$anio_escolar = $cur - $c;
-                                    	$haydatos = 0;
+                        <br /><h3>Informe por Tipo de problema</h3><br />
+                            <div class="tabbable" style="margin-bottom: 18px;">
+                                <ul class="nav nav-tabs">
+                                    <?php
+                                    $cur = substr($config['curso_inicio'],0,4);
+                                    for ($c = 0; $c < $numCursosAnteriores; $c++)
+                                    {
+                                        $anio_escolar = $cur - $c;
+                                        $haydatos = 0;
 
                                         if ($c == 0)
-                                    	{
-                                        	$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
-                                        	mysqli_query($db_con,"SET NAMES 'utf8'");
-                                        	$haydatos = 1;
-                                    	}
+                                        {
+                                            $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+                                            mysqli_query($db_con,"SET NAMES 'utf8'");
+                                            $haydatos = 1;
+                                        }
 
-                                    	if($c > 0 && ! empty($config['db_host_c'.$anio_escolar]))
-                                    	{
-                                        	$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
-                                        	mysqli_query($db_con,"SET NAMES 'utf8'");
-                                        	$haydatos = 1;
-                                    	}
+                                        if($c > 0 && ! empty($config['db_host_c'.$anio_escolar]))
+                                        {
+                                            $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+                                            mysqli_query($db_con,"SET NAMES 'utf8'");
+                                            $haydatos = 1;
+                                        }
 
-                                    	if($haydatos)
-                                    	{
-                                    	?>
-                                        	<li<?php echo ($c == 0) ? ' class="active"' : '';?>><a href="#p<?php echo $c+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
-                                    	<?php
-                                    	}
-                                	}
+                                        if($haydatos)
+                                        {
+                                        ?>
+                                            <li<?php echo ($c == 0) ? ' class="active"' : '';?>><a href="#p<?php echo $c+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
+                                        <?php
+                                        }
+                                    }
                                 ?>
-                            	</ul>
+                                </ul>
 
                                 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 
@@ -1158,7 +1158,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                             switch($total[2]) {
                                                                 case 'leve' : $nom_gravedad = "Otra conducta"; break;
                                                                 case 'grave' : $nom_gravedad = "Conducta contraria"; break;
-                                                                case 'muy grave' : $nom_gravedad = "Conducta grave"; break;
+                                                                case 'muy grave' : $nom_gravedad = "Conducta gravemente contraria"; break;
                                                             }
                                                             ?>
                                                             <td><?php echo $nom_gravedad; ?></td>
