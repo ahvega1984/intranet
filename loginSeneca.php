@@ -28,11 +28,11 @@ if (isset($_SESSION['profi'])) {
 
 // Entramos
 if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST['CLAVE']) < 6)) {
-	$cmp_idea = htmlspecialchars($_POST['USUARIO']);
+	$cmp_idea = trim(htmlspecialchars($_POST['USUARIO']));
 	$cmp_clave = htmlspecialchars($_POST['CLAVE']);
 	$hash_clave = sha1($cmp_clave);
 
-	$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
+	$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret`, `departamentos`.`nombre` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
 	$usuarioExiste = mysqli_num_rows($result_usuario);
 
 	if ($usuarioExiste) {
@@ -41,9 +41,13 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 		$_SESSION['session_seneca'] = 0;
 
 		$datosIntranet = mysqli_fetch_array($result_usuario);
+		
+		$cmp_nombre_profesor = $datosIntranet[7];
 
 		// Cualquier usuario diferente del Administrador de la Intranet debe estar registrado en Séneca
-		if ($cmp_idea != 'admin') {
+		$no_profesor = mysqli_query($db_con,"SELECT * FROM `departamentos` WHERE idea = '".$cmp_idea."' and departamentos.nombre in (select nomprofesor from profesores_seneca where nomprofesor = '".$cmp_nombre_profesor."')");
+
+		if (mysqli_num_rows($no_profesor)>0) {
 
 			// OBTENEMOS LOS DATOS DEL FORMULARIO PARA INICIAR SESIÓN EN SÉNECA
 			$ch = curl_init();
