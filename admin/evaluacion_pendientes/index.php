@@ -28,13 +28,6 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
 
 $depto = $_SESSION ['dpt'];
 $profe_dep = $_SESSION ['profi'];
-
-$query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by grupo";
-
-$Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
-$row_Recordset1 = mysqli_fetch_array($Recordset1);
-$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
-
 ?>
 
 <div class="container">
@@ -92,16 +85,19 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 						<div class="form-group">
 						  <select class="form-control" name="select">
 <?php 
-do {  
-	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$row_Recordset1[0]' and abrev like '%\_%' order by curso, nombre");
+
+$query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes, unidades where grupo=nomunidad order by idunidad";
+
+$Recordset1 = mysqli_query($db_con, $query_Recordset1);
+while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) { 
+	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$row_Recordset1[0]' and abrev like '%\_%' order by curso, nombre limit 1");
 	$asignatur = mysqli_fetch_row($asig);
 	$asignatura = $asignatur[0];
 	$curso = $asignatur[1];
 ?>
     <option value='<?php  echo $row_Recordset1[0];?>'><?php  echo $curso." => ".$asignatura;?></option>
     <?php 
-} while ($row_Recordset1 = mysqli_fetch_array($Recordset1));
-  $rows = mysqli_num_rows($Recordset1);
+}
 ?>
 						  </select>
 						</div>

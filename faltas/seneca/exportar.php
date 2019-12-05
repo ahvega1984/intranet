@@ -115,7 +115,7 @@ if ($handle = opendir($dir)) {
       if (file_exists("exportado/".$file)) unlink("exportado/".$file);
       $fp1=fopen("exportado/".$file,"w");
       fwrite($fp1,$xml);
-      unlink('./origen/'.$file);
+      //unlink('./origen/'.$file);
     }
   }
 }
