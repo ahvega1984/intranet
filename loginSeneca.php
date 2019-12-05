@@ -42,7 +42,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 		$datosIntranet = mysqli_fetch_array($result_usuario);
 		
-		$cmp_nombre_profesor = $datosIntranet[7];
+		$cmp_nombre_profesor = $datosIntranet['nombre'];
 
 		// Cualquier usuario diferente del Administrador de la Intranet debe estar registrado en Séneca
 		$no_profesor = mysqli_query($db_con,"SELECT * FROM `departamentos` WHERE idea = '".$cmp_idea."' and departamentos.nombre in (select nomprofesor from profesores_seneca where nomprofesor = '".$cmp_nombre_profesor."')");
@@ -170,6 +170,17 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 		// CONSTRUIMOS LA SESIÓN EN LA INTRANET
 		if ($sesionIntranet) {
 			$_SESSION['intranet_auth'] = 1;
+
+			if (file_exists('../alumnado/login.php')) {
+				$_SESSION['pagina_centro'] = 1;
+			}
+			// Versión IES Monterroso
+			elseif (file_exists('/home/e-smith/files/ibays/Primary/html/alumnado/login.php')) {
+				$_SESSION['pagina_centro'] = 1;
+			}
+			else {
+				$_SESSION['pagina_centro'] = 0;
+			}
 
 			$_SESSION['profi'] = $datosIntranet['profesor'];
 			$profe = $_SESSION['profi'];
