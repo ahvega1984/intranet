@@ -69,7 +69,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                 <th>Otras conductas</th>
                                 <th>Conductas contrarias</th>
-                                <th>Conductas gravemente contrarias</th>
+                                <th>Conductas graves</th>
                                 <?php else: ?>
                                 <th>Leves</th>
                                 <th>Graves</th>
@@ -558,7 +558,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                     <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                                     <th>Otras conductas</th>
                                                     <th>Conductas contrarias</th>
-                                                    <th>Conductas gravemente contrarias</th>
+                                                    <th>Conductas graves</th>
                                                     <?php else: ?>
                                                     <th>Leves</th>
                                                     <th>Graves</th>
@@ -838,7 +838,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                 <th>Otras conductas</th>
                                 <th>Conductas contrarias</th>
-                                <th>Conductas gravemente contrarias</th>
+                                <th>Conductas graves</th>
                                 <?php else: ?>
                                 <th>Leves</th>
                                 <th>Graves</th>
@@ -1158,7 +1158,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                             switch($total[2]) {
                                                                 case 'leve' : $nom_gravedad = "Otra conducta"; break;
                                                                 case 'grave' : $nom_gravedad = "Conducta contraria"; break;
-                                                                case 'muy grave' : $nom_gravedad = "Conducta gravemente contraria"; break;
+                                                                case 'muy grave' : $nom_gravedad = "Conducta grave"; break;
                                                             }
                                                             ?>
                                                             <td><?php echo $nom_gravedad; ?></td>
