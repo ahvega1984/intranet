@@ -41,13 +41,12 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 		$_SESSION['session_seneca'] = 0;
 
 		$datosIntranet = mysqli_fetch_array($result_usuario);
-		
-		$cmp_nombre_profesor = $datosIntranet['nombre'];
 
-		// Cualquier usuario diferente del Administrador de la Intranet debe estar registrado en Séneca
-		$no_profesor = mysqli_query($db_con,"SELECT * FROM `departamentos` WHERE idea = '".$cmp_idea."' and departamentos.nombre in (select nomprofesor from profesores_seneca where nomprofesor = '".$cmp_nombre_profesor."')");
+		// Cualquier usuario diferente del Administrador de la Intranet o personal no docente debe poder acceder a Séneca Móvil
+		$result_profesor = mysqli_query($db_con,"SELECT `departamentos`.`departamento` FROM `departamentos` WHERE `departamentos`.`idea` = '".$cmp_idea."' AND `departamentos`.`nombre` IN (SELECT `nomprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$datosIntranet['nombre']."')");
+		$usuarioProfesor = mysqli_num_rows($result_profesor);
 
-		if (mysqli_num_rows($no_profesor)>0) {
+		if ($usuarioProfesor) {
 
 			// OBTENEMOS LOS DATOS DEL FORMULARIO PARA INICIAR SESIÓN EN SÉNECA
 			$ch = curl_init();

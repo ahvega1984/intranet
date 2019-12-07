@@ -831,3 +831,16 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Cambios en tabla c_profes', NOW())");
 }
+
+/*
+	@descripcion: Cambios en alma. Teléfono de tutores legales
+	@fecha: 07 de diciembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Cambios en alma. Teléfono de tutores legales'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `alma` ADD `TELEFONOTUTOR` CHAR(9) NULL DEFAULT NULL AFTER `NOMBRETUTOR`;");
+	mysqli_query($db_con, "ALTER TABLE `alma` ADD `TELEFONOTUTOR2` CHAR(9) NULL DEFAULT NULL AFTER `NOMBRETUTOR2`;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Cambios en alma. Teléfono de tutores legales', NOW())");
+}
