@@ -269,7 +269,7 @@ include('control_acceso.php');
 	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-	<link href="//<?php echo $config['dominio']; ?>/intranet/vendor/fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/vendor/fontawesome-free-5.11.2-web/css/all.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/animate.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/login.css" rel="stylesheet">
 	<?php if (isset($background_color)): ?>
