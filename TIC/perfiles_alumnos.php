@@ -38,7 +38,7 @@ $asignatura = $exp_unidad[3];
 		<div class="row">
 
 			<!-- COLUMNA CENTRAL -->
-			<div class="col-sm-10 col-sm-offset-1">
+			<div class="col-sm-12">
 
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped">
@@ -46,9 +46,10 @@ $asignatura = $exp_unidad[3];
 							<tr>
 								<th>Alumno/a</th>
 								<th>Usuario</th>
-								<th>Contraseña Gesuser</th>
-								<th>Contraseña Moodle</th>
-								<th>G-Suite<br>(Usuario / Pass)</th>
+								<th>Contraseña<br>Gesuser</th>
+								<th>Contraseña<br>Moodle</th>
+								<th>Correo electrónico<br>G-Suite y Office 365</th>
+								<th>Contraseña<br>G-Suite</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -76,15 +77,23 @@ $asignatura = $exp_unidad[3];
 								$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
 								$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $row['nombre']);
 								$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $row['apellidos']);
-								$correo = "al.".$row['claveal'].'@'.$config['dominio'];
-								$pass_gsuite = $iniciales."_".$row['claveal'];
+								if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+									$correo = "al.".$row['claveal'].'@'.$config['dominio'];
+									$pass_gsuite = $iniciales."_".$row['claveal'];
+								}
+								else {
+									$correo = $row['claveal'].'.alumno@'.$config['dominio'];
+									$pass_gsuite = substr(sha1($row['claveal']),0,8);
+								}
+								
 							?>
 							<tr>
 								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
 								<td><?php echo $row['claveal']; ?></td>
 								<td><?php echo $row['claveal']; ?></td>
 								<td><?php echo substr(sha1($row['claveal']),0,8); ?></td>
-								<td><?php echo $correo."<br><em>".$pass_gsuite."</em>"; ?></td>
+								<td><?php echo $correo; ?></td>
+								<td><?php echo $pass_gsuite; ?></td>
 							</tr>
 							<?php endwhile; ?>
 							<?php mysqli_free_result($result); ?>

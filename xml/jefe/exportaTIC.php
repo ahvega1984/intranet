@@ -205,7 +205,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 	}
 
-	// GOOGLE SUITE
+	// GOOGLE SUITE PROFESORES
 	$gsuite_profesores	= 'profesores_gsuite.csv';
 
 	if (file_exists($directorio.$gsuite_profesores)) unlink($directorio.$gsuite_profesores);
@@ -238,12 +238,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
-				if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
-					$correo = $primer_nombre . '.' . $primer_apellido;
-				}
-				else {
-					$correo = $primer_nombre.$primer_apellido;
-				}
+				$correo = $primer_nombre.'.'.$primer_apellido;
 				$correo = str_ireplace('M ª', 'María', $correo);
 				$correo = str_ireplace('Mª', 'María', $correo);
 				$correo = str_ireplace('M.', 'María', $correo);
@@ -254,12 +249,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				// Si ya existe la cuenta de correo, añadimos el segundo apellido
 				if (in_array($correo, $array_correos)) {
 
-					if (isset($_GET['puntoSeparacion']) && $_GET['puntoSeparacion']) {
-						$correo = $primer_nombre . '.' . $primer_apellido . '.' . $segundo_apellido;
-					}
-					else {
-						$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
-					}
+					$correo = $primer_nombre . '.' . $primer_apellido . '.' . $segundo_apellido;
 					$correo = str_ireplace('M ª', 'María', $correo);
 					$correo = str_ireplace('Mª', 'María', $correo);
 					$correo = str_ireplace('M.', 'María', $correo);
@@ -300,7 +290,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 	}
 
 
-	// GOOGLE SUITE para alumnos
+	// GOOGLE SUITE ALUMNADO
 	$gsuite_alumnos	= 'alumnos_gsuite.csv';
 
 	if (file_exists($directorio.$gsuite_alumnos)) unlink($directorio.$gsuite_alumnos);
@@ -317,47 +307,45 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 
 			$result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM alma ORDER BY apellidos, nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
-				$nombre = trim($row[1]);
-				$apellidos = trim($row[0]);
-
-				$exp_nombre = explode(' ',$row[1]);
-				$primer_nombre = trim($exp_nombre[0]);
-
-				$exp_apell = explode(' ',$row[0]);
-				$primer_apellido = trim($exp_apell[0]);
-				$segundo_apellido = trim($exp_apell[1]);
-				$iniciales = strtolower(substr($nombre, 0,1).substr($apellidos, 0,1));
+				$nombre = trim($row['nombre']);
+				$apellidos = trim($row['apellidos']);
 
 				$nie = trim($row[2]);
 				
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
-				$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
-				$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $nombre);
-				$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $apellidos);
-				$pass_alumno = $iniciales."_".$row['claveal'];
+				if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+					$exp_nombre = explode(' ',$nombre);
+					$primer_nombre = trim($exp_nombre[0]);
+
+					$exp_apellidos = explode(' ',$apellidos);
+					$primer_apellido = trim($exp_apellidos[0]);
+					$segundo_apellido = trim($exp_apellidos[1]);
+					$iniciales = mb_strtolower(substr($nombre, 0,1).substr($apellidos, 0,1), 'UTF-8');
+					$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
+
+					$pass_alumno = $iniciales."_".$row['claveal'];
+				}
+				else {
+					$pass_alumno = substr(sha1($row['claveal']),0,8);
+				}
 
 				$correo = str_ireplace('M ª', 'María', $correo);
 				$correo = str_ireplace('Mª', 'María', $correo);
 				$correo = str_ireplace('M.', 'María', $correo);
 				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
 				$correo = mb_strtolower($correo, 'UTF-8');
-				$correo = "al.".$nie.'@'.$config['dominio'];
-
-				// Si ya existe la cuenta de correo, añadimos el segundo apellido
-				if (in_array($correo, $array_correos)) {
-					$correo = str_ireplace('M ª', 'María', $correo);
-					$correo = str_ireplace('Mª', 'María', $correo);
-					$correo = str_ireplace('M.', 'María', $correo);
-					$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
-					$correo = mb_strtolower($correo, 'UTF-8');
-					$correo = "al.".$nie.'@'.$config['dominio'];
+				if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+					$correo = 'al_'.$nie.'@'.$config['dominio'];
+				}
+				else {
+					$correo = $nie.'.alumno@'.$config['dominio'];
 				}
 
 				array_push($array_correos, $correo);
 
-				fwrite($fp, utf8_decode($nombre).",".utf8_decode($apellidos).",".$correo.",".$pass_alumno."\r\n");
+				fwrite($fp, $nombre.",".$apellidos.",".$correo.",".$pass_alumno."\r\n");
 			}
 
 			fclose($fp);
@@ -387,7 +375,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 	}
 
 
-	// OFFICE 365
+	// OFFICE 365 PROFESORES
 	$office365_profesores	= 'profesores_office365.csv';
 
 	if (file_exists($directorio.$office365_profesores)) unlink($directorio.$office365_profesores);
@@ -400,7 +388,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 		else {
 			// Cabecera del archivo
-			fwrite($fp, utf8_decode("Nombre de usuario,Nombre,Apellidos,Nombre para mostrar,Puesto,Departamento,Número del trabajo,Teléfono del trabajo,Teléfono móvil,Número de fax,Dirección,Ciudad,Estado o provincia,Código postal,País o región\r\n"));
+			fwrite($fp, "Nombre de usuario,Nombre,Apellidos,Nombre para mostrar,Puesto,Departamento,Número del trabajo,Teléfono del trabajo,Teléfono móvil,Número de fax,Dirección,Ciudad,Estado o provincia,Código postal,País o región\r\n");
 
 			$result = mysqli_query($db_con, "SELECT DISTINCT d.nombre, d.idea, d.departamento, d.dni, c.correo FROM departamentos AS d JOIN c_profes AS c ON d.idea = c.idea WHERE d.departamento <> 'Admin' ORDER BY d.nombre ASC") or die (mysqli_query($db_con));
 			while ($row = mysqli_fetch_array($result)) {
@@ -420,7 +408,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
-				$correo = $primer_nombre.$primer_apellido;
+				$correo = $primer_nombre.'.'.$primer_apellido;
 				$correo = str_ireplace('M ª', 'María', $correo);
 				$correo = str_ireplace('Mª', 'María', $correo);
 				$correo = str_ireplace('M.', 'María', $correo);
@@ -430,7 +418,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 
 				// Si ya existe la cuenta de correo, añadimos el segundo apellido
 				if (in_array($correo, $array_correos)) {
-					$correo = $primer_nombre.$primer_apellido.$segundo_apellido;
+					$correo = $primer_nombre.'.'.$primer_apellido.'.'.$segundo_apellido;
 					$correo = str_ireplace('M ª', 'María', $correo);
 					$correo = str_ireplace('Mª', 'María', $correo);
 					$correo = str_ireplace('M.', 'María', $correo);
@@ -441,7 +429,10 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 
 				array_push($array_correos, $correo);
 
-				fwrite($fp, $correo.",".utf8_decode($nombre).",".utf8_decode($apellidos).",".utf8_decode($nombre_completo)."\r\n");
+				$puesto = "Personal docente / no docente";
+				$departamento = trim($row['departamento']);
+
+				fwrite($fp, $correo.",".$nombre.",".$apellidos.",".$nombre_completo.",".$puesto.",".$departamento."\r\n");
 			}
 
 			fclose($fp);
@@ -467,6 +458,79 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				readfile($directorio.$office365_profesores);
 			}
 				unlink($directorio.$office365_profesores);
+		}
+	}
+
+	// OFFICE 365 ALUMNADO
+	$office365_alumnado	= 'alumnos_office365.csv';
+
+	if (file_exists($directorio.$office365_alumnado)) unlink($directorio.$office365_alumnado);
+
+	$array_correos = array();
+
+	if ($_GET['exportar'] == $office365_alumnado) {
+		if (!$fp = fopen($directorio.$office365_alumnado, 'w+')) {
+			die ("Error: No se puede crear o abrir el archivo ".$directorio.$office365_alumnado);
+		}
+		else {
+			// Cabecera del archivo
+			fwrite($fp, "Nombre de usuario,Nombre,Apellidos,Nombre para mostrar,Puesto,Departamento,Número del trabajo,Teléfono del trabajo,Teléfono móvil,Número de fax,Dirección,Ciudad,Estado o provincia,Código postal,País o región\r\n");
+
+			$result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal, unidad FROM alma ORDER BY apellidos, nombre ASC") or die (mysqli_query($db_con));
+			while ($row = mysqli_fetch_array($result)) {
+				$nombre = trim($row['nombre']);
+				$apellidos = trim($row['apellidos']);
+
+				$nombre_completo = $nombre.' '.$apellidos;
+
+				$nie = trim($row['claveal']);
+				
+				$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
+				$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
+
+				$correo = str_ireplace('M ª', 'María', $correo);
+				$correo = str_ireplace('Mª', 'María', $correo);
+				$correo = str_ireplace('M.', 'María', $correo);
+				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+				$correo = mb_strtolower($correo, 'UTF-8');
+				if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+					$correo = 'al_'.$nie.'@'.$config['dominio'];
+				}
+				else {
+					$correo = $nie.'.alumno@'.$config['dominio'];
+				}
+
+				array_push($array_correos, $correo);
+
+				$puesto = "Alumnado";
+				$departamento = trim($row['unidad']);
+
+				fwrite($fp, $correo.",".$nombre.",".$apellidos.",".$nombre_completo.",".$puesto.",".$departamento."\r\n");
+			}
+
+			fclose($fp);
+
+			if (is_file($directorio.$office365_alumnado)) {
+				$size = filesize($directorio.$office365_alumnado);
+				if (function_exists('mime_content_type')) {
+					$type = mime_content_type($directorio.$office365_alumnado);
+				} else if (function_exists('finfo_file')) {
+					$info = finfo_open(FILEINFO_MIME);
+					$type = finfo_file($info, $directorio.$office365_alumnado);
+					finfo_close($info);
+				}
+				if ($type == '') {
+					$type = "application/force-download";
+				}
+				// Set Headers
+				header("Content-Type: $type");
+				header("Content-Disposition: attachment; filename=$office365_alumnado");
+				header("Content-Transfer-Encoding: binary");
+				header("Content-Length: " . $size);
+				// Download File
+				readfile($directorio.$office365_alumnado);
+			}
+				unlink($directorio.$office365_alumnado);
 		}
 	}
 
