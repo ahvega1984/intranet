@@ -113,11 +113,18 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 									$msg_error = "Usuario desactivado";
 								}
 								else {
+									/*  Separamos el nombre y los apellidos para realizar una coincidencia parcial.
+										Con esto se soluciona el problema de inicio de sesión con profesores que
+										han iniciado sesión en Séneca Móvil, pero su nombre y apellidos no están en
+										el orden correcto. */
+									$exp_profesor = explode(', ', $datosIntranet['profesor']);
+									$nom_profesor = trim($exp_profesor[1]);
+
 									$patronUsuarioCorrecto = '/'.$datosIntranet['profesor'].'/i';
-									preg_match($patronUsuarioCorrecto, $server_output, $matchesUsuarioCorrecto);
+									$patronUsuarioCorrecto_parcial = '/'.$nom_profesor.'/i';
 
 									// USUARIO Y CONTRASEÑA CORRECTOS EN SÉNECA
-									if ($matchesUsuarioCorrecto[0] == $datosIntranet['profesor']) {
+									if (preg_match($patronUsuarioCorrecto, $server_output, $matchesUsuarioCorrecto) || preg_match($patronUsuarioCorrecto_parcial, $server_output, $matchesUsuarioCorrecto_parcial)) {
 										$_SESSION['session_seneca'] = 1;
 
 										mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
