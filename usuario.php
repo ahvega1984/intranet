@@ -61,8 +61,16 @@ if (! isset($_SESSION['session_seneca']) || isset($_SESSION['session_seneca']) &
 						$password_hash = sha1($cmp_new_password);
 
 						$result = mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$password_hash."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-						if ($result) $msg_password_success = "La contraseña ha sido modificada.";
-						else $msg_password_error = "Se ha producido un error al modificar la contraseña.";
+							
+						if ($result) {
+							if (isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
+								unset($_SESSION['cambiar_clave']);
+							}
+							$msg_password_success = "La contraseña ha sido modificada.";
+						}
+						else {
+							$msg_password_error = "Se ha producido un error al modificar la contraseña.";
+						}
 
 					}
 					else {
@@ -245,8 +253,8 @@ include("menu.php");
 					</div>
 					<div class="media-body" style="padding-top: 20px; padding-left: 15px;">
 						<h2 class="grey-light media-heading"><?php echo $_SESSION['profi']; ?></h2>
-						<?php if ($_SESSION['profi'] == 'Administrador'): ?>
-						<p class="text-muted">Administrador de la Intranet</p>
+						<?php if ($_SESSION['dpt'] == 'Admin' || $_SESSION['dpt'] == 'Administracion' || $_SESSION['dpt'] == 'Conserjeria' || $_SESSION['dpt'] == 'Auxiliar de Conversacion' || $_SESSION['dpt'] == 'Educador' || $_SESSION['dpt'] == 'Mentor acompañante' || $_SESSION['dpt'] == 'Monitor de Interpretación de Lengua de Signos'  || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
+						<p class="text-muted"><?php echo $_SESSION['dpt']; ?></p>
 						<?php else: ?>
 						<p class="text-muted">Departamento de <?php echo $_SESSION['dpt']; ?></p>
 						<?php endif; ?>
@@ -259,6 +267,7 @@ include("menu.php");
 	<div class="container">
 
 		<div>
+		  <?php if (! isset($_SESSION['cambiar_clave']) || isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave'] != 1): ?>
 		  <!-- Nav tabs -->
 		  <ul id="informacionUsuario" class="nav nav-tabs nav-justified" role="tablist">
 		    <li role="presentation" class="active"><a href="#cuenta" aria-controls="cuenta" role="tab" data-toggle="tab">Cuenta</a></li>
@@ -266,6 +275,7 @@ include("menu.php");
 		    <li role="presentation"><a href="#seguridad" aria-controls="seguridad" role="tab" data-toggle="tab">Seguridad</a></li>
 		    <li role="presentation"><a href="#preferencias" aria-controls="preferencias" role="tab" data-toggle="tab">Preferencias</a></li>
 		  </ul>
+		  <?php endif ;?>
 
 		  <!-- Tab panes -->
 		  <div class="tab-content">
@@ -273,11 +283,16 @@ include("menu.php");
 		  	<!-- Panel de información de cuenta -->
 		    <div role="tabpanel" class="tab-pane active" id="cuenta">
 
-		    	<h3>Información sobre la cuenta</h3>
+		    	<?php if (isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']): ?>
+		      	<h3>Lo primero es lo primero. Cambie la contraseña por una más segura.</h3>
+		      	<?php else: ?>
+		      	<h3>Información sobre la cuenta</h3>
+		      	<?php endif; ?>
 
 		    	<br>
 
 		    	<div class="panel-group" id="cuentaAccordion" role="tablist" aria-multiselectable="true">
+		    	  <?php if (! isset($_SESSION['cambiar_clave']) || isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave'] != 1): ?>
 				  <div class="panel panel-default">
 				    <div class="panel-heading" role="tab" id="cuentaHeadingOne">
 				      <h4 class="panel-title">
@@ -366,6 +381,7 @@ include("menu.php");
 				      </div>
 				    </div>
 				  </div>
+				  <?php endif; ?>
 				  <?php if (! isset($_SESSION['session_seneca']) || (isset($_SESSION['session_seneca']) && $_SESSION['session_seneca'] != 1)): ?>
 				  <div class="panel panel-default">
 				    <div class="panel-heading" role="tab" id="cuentaHeadingThree">
@@ -387,7 +403,7 @@ include("menu.php");
 				      	<p class="text-success"><?php echo $msg_password_success; ?></p>
 				      	<?php endif; ?>
 				        
-				        <form action="?tab=cuenta&pane=clave" method="post" class="form-horizontal">
+				        <form action="?tab=cuenta&pane=password" method="post" class="form-horizontal">
 				        	<div class="row">
 				        		<div class="col-sm-7">
 				        			<div class="form-group">
@@ -438,6 +454,7 @@ include("menu.php");
 				    </div>
 				  </div>
 				  <?php endif; ?>
+				  <?php if (! isset($_SESSION['cambiar_clave']) || isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave'] != 1): ?>
 				  <div class="panel panel-default">
 				    <div class="panel-heading" role="tab" id="cuentaHeadingFour">
 				      <h4 class="panel-title">
@@ -505,6 +522,7 @@ include("menu.php");
 				      </div>
 				    </div>
 				  </div>
+				  <?php endif; ?>
 				</div>
 
 		    </div><!-- /.tab-pane -->

@@ -107,14 +107,14 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 		}
 	}
 
-	if($_SERVER['SCRIPT_NAME'] != '/intranet/clave.php') {
+	if($_SERVER['SCRIPT_NAME'] != '/intranet/usuario.php') {
 		if(isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
 			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
-				header('Location:'.'https://'.$config['dominio'].'/intranet/clave.php');
+				header('Location:'.'https://'.$config['dominio'].'/intranet/usuario.php?tab=cuenta&pane=password');
 				exit();
 			}
 			else {
-				header('Location:'.'http://'.$config['dominio'].'/intranet/clave.php');
+				header('Location:'.'http://'.$config['dominio'].'/intranet/usuario.php?tab=cuenta&pane=password');
 				exit();
 			}
 		}

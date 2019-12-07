@@ -158,7 +158,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 					break;
 			}
 		}
-		// Si el usuario es el Administrador de la Intranet
+		// Si el usuario es el Administrador de la Intranet o personal no docente
 		else {
 			// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
 			if ($datosIntranet['pass'] == $hash_clave) {
@@ -171,10 +171,6 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 			$_SESSION['intranet_auth'] = 1;
 
 			if (file_exists('../alumnado/login.php')) {
-				$_SESSION['pagina_centro'] = 1;
-			}
-			// Versión IES Monterroso
-			elseif (file_exists('/home/e-smith/files/ibays/Primary/html/alumnado/login.php')) {
 				$_SESSION['pagina_centro'] = 1;
 			}
 			else {
@@ -233,8 +229,16 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 			session_regenerate_id(true);
 
-			header("location:index.php");
-			exit();
+			if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $hash_clave) {
+				$_SESSION['cambiar_clave'] = 1;
+				header("location:usuario.php?tab=cuenta&pane=password");
+				exit();
+			}
+			else {
+				header("location:index.php");
+				exit();
+			}
+
 		}
 		// Cualquier problema que impida crear la sesión
 		else {
