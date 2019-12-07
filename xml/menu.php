@@ -49,7 +49,7 @@
 	<li><a href="jefe/reset_password.php">Restablecer contraseñas</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<li><a href="jefe/horarios/index.php">Crear / Modificar horarios</a></li>
-	<li><a href="jefe/horas.php">Hoja de Firmas para Profesores</a></li>
+	<li><a href="jefe/firmas/index.php">Hoja de Firmas para Profesores</a></li>
 	<?php endif; ?>
 	<li><a href="jefe/index_hor.php">Sustitución de profesores</a></li>
 	<li><a href="jefe/index_fotos_profes.php">Subir fotos de profesores</a></li>

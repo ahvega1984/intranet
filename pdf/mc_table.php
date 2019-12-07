@@ -46,6 +46,44 @@ function Row($data, $bg = 1, $lh = 5.1)
     $this->Ln($h);
 }
 
+function RowWithGrey($data, $bg = 1, $lh = 5.1, $turno)
+{
+    //Calculate the height of the row
+    $nb=0;
+    for($i=0;$i<count($data);$i++)
+        $nb=max($nb, $this->NbLines($this->widths[$i], $data[$i]));
+    $h=$lh*$nb;
+    //Issue a page break first if needed
+    $this->CheckPageBreak($h);
+    //Draw the cells of the row
+    for($i=0;$i<count($data);$i++)
+    {
+        $w=$this->widths[$i];
+        $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
+        //Save the current position
+        $x=$this->GetX();
+        $y=$this->GetY();
+        
+		if ($turno=='M') {
+        	if ($data[$i]=="\n\n" && $i != 1 && $i != 9)
+            	$this->SetFillColor(225, 225, 225);
+        	else
+            	$this->SetFillColor(255, 255, 255);
+        }
+		elseif ($data[$i]=="\n\n" && $i != 1 && $i != 8)
+            	$this->SetFillColor(225, 225, 225);
+        	else
+            	$this->SetFillColor(255, 255, 255);
+        //Draw the border
+        $this->Rect($x, $y, $w, $h, $bg);
+        //Print the text
+        $this->MultiCell($w, $lh, $data[$i], 1, $a);
+        //Put the position to the right of the cell
+        $this->SetXY($x+$w, $y);
+    }
+    //Go to the next line
+    $this->Ln($h);
+}
 function CheckPageBreak($h)
 {
     //If the height h would cause an overflow, add a new page immediately
