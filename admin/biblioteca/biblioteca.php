@@ -70,7 +70,7 @@ if(!(empty($idfondo)))
 {
 	echo "<h3>Datos del volumen seleccionado</h3>";
 
-	$informe = "select  id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, LugarEdicion from biblioteca where id = '$idfondo'";
+	$informe = "SELECT id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, LugarEdicion FROM biblioteca WHERE id = '$idfondo'";
 //echo $informe;
 	$sqlinforme = mysqli_query($db_con, $informe);
 	if($rowinforme = mysqli_fetch_array($sqlinforme))
@@ -81,18 +81,18 @@ if(!(empty($idfondo)))
 		$editorial0 = $rowinforme[3];
 		$isbn = $rowinforme[4];
 		$tipofondo = $rowinforme[5];
-		$anoedicion = $rowinforme[6];
+		$anoedicion = ($rowinforme[6] == 0) ? '' : $rowinforme[6];
 		$extension = $rowinforme[7];
 		$serie = $rowinforme[8];
 		$LugarEdicion = $rowinforme[10];
 		$ubicacion = $rowinforme[9];
-		$numero = "select id from biblioteca where Titulo = '$titulo0' and Autor = '$autor'";
+		$numero = "SELECT id FROM biblioteca WHERE Titulo = '$tituloa' and Autor = '$autor0'";
 		$numero1 = mysqli_query($db_con, $numero);
 		$numero2 = mysqli_num_rows($numero1);
 		$ejemplares = $numero2;
 		echo "<table class='table table-striped table-bordered'>
   <tr>
-    <td>T&Iacute;TULO: <span class='text-info'>$tituloa</span></td>
+    <td>TÍTULO: <span class='text-info'>$tituloa</span></td>
       <td>AUTOR: <span class='text-info'>$autor0</span></td>
     </tr>
   <tr>
@@ -102,16 +102,16 @@ if(!(empty($idfondo)))
     
   <tr>
     <td>TIPO DE FONDO: <span class='text-info'>$tipofondo</span></td>
-      <td>AÃO DE EDICI&Oacute;N: <span class='text-info'>$anoedicion</span></td>
+      <td>AÑO EDICIÓN: <span class='text-info'>$anoedicion</span></td>
     </tr>
     
       <tr>
-    <td>P&Aacute;GINAS: <span class='text-info'>$extension</span></td>
-      <td>UBICACI&Oacute;N: <span class='text-info'>$ubicacion </span></td>
+    <td>PÁGINAS: <span class='text-info'>$extension</span></td>
+      <td>UBICACIÓN: <span class='text-info'>$ubicacion </span></td>
     </tr>
       <tr>
-    <td>N&Uacute;MERO DE EJEMPLARES: <span class='text-info'>$ejemplares</span></td>
-      <td>LUGAR DE EDICI&Oacute;N: <span class='text-info'>$LugarEdicion </span></td>
+    <td>NÚMERO DE EJEMPLARES: <span class='text-info'>$ejemplares</span></td>
+      <td>LUGAR DE EDICIÓN: <span class='text-info'>$LugarEdicion </span></td>
     </tr>
         
   </table><hr />";
