@@ -80,6 +80,10 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 					if ($response['correcto'] == "NO") {
 						$sesionIntranet = 0;
 						$msg_error = $response['mensaje'];
+						
+						if ($response['mensaje'] == "Usuario bloqueado") {
+							mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+						}
 					}
 					elseif ($response['correcto'] == "SI") {
 						$_SESSION['session_seneca'] = 1;
