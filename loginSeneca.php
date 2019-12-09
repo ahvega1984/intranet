@@ -31,6 +31,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 	$cmp_idea = trim(htmlspecialchars($_POST['USUARIO']));
 	$cmp_clave = htmlspecialchars($_POST['CLAVE']);
 	$hash_clave = sha1($cmp_clave);
+	$cmp_clavecifrada = trim($_POST['CLAVECIFRADA']);
 
 	$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret`, `departamentos`.`nombre` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
 	$usuarioExiste = mysqli_num_rows($result_usuario);
@@ -42,116 +43,59 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 		$datosIntranet = mysqli_fetch_array($result_usuario);
 
-		// Cualquier usuario diferente del Administrador de la Intranet o personal no docente debe poder acceder a Séneca Móvil
+		// Cualquier usuario diferente del Administrador de la Intranet o personal no docente debe poder acceder a Séneca
 		$result_profesor = mysqli_query($db_con,"SELECT `departamentos`.`departamento` FROM `departamentos` WHERE `departamentos`.`idea` = '".$cmp_idea."' AND `departamentos`.`nombre` IN (SELECT `nomprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$datosIntranet['nombre']."')");
 		$usuarioProfesor = mysqli_num_rows($result_profesor);
 
 		if ($usuarioProfesor) {
 
-			// OBTENEMOS LOS DATOS DEL FORMULARIO PARA INICIAR SESIÓN EN SÉNECA
+			// ESTABLECEMOS CONEXIÓN CON SÉNECA
+			$LOGIN_NV = "NV_" . intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+			$LOGIN_RNDVAL = intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+			$LOGIN_C_INTERFAZ = "SENECA";
+
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL,"https://www.juntadeandalucia.es/educacion/seneca/seneca/senecamovil");
+			$post = [
+				'N_V_' => $LOGIN_NV,
+				'rndval' => $LOGIN_RNDVAL,
+				'CLAVECIFRADA'   => $cmp_clavecifrada,
+				'USUARIO' => $cmp_idea,
+				'C_INTERFAZ' => $LOGIN_C_INTERFAZ
+			];
+
+			curl_setopt($ch, CURLOPT_URL, 'https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/ComprobarUsuarioExt.jsp');
+			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$server_output = curl_exec($ch);
 
 			// COMPROBAMOS EL CÓDIGO HTTP DE LA PETICIÓN
 			switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
 				case '200' :
-					$server_output = utf8_encode($server_output);
-					curl_close($ch);
+					$xml = simplexml_load_string($server_output);
+					$json = json_encode($xml);
+					$response = json_decode($json, true);
 
-					$patronUriLogin = '/role="form" action="(.*)" /';
-					preg_match_all($patronUriLogin, $server_output, $matchesUriLogin);
-					$senecaUriLogin = $matchesUriLogin[1][0];
+					if ($response['correcto'] == "NO") {
+						$sesionIntranet = 0;
+						$msg_error = $response['mensaje'];
+					}
+					elseif ($response['correcto'] == "SI") {
+						$_SESSION['session_seneca'] = 1;
 
-					$patronNVLogin = '/<input type="hidden" name="N_V_" value="(.*)">/';
-					preg_match_all($patronNVLogin, $server_output, $matchesNVLogin);
-					$senecaNVLogin = $matchesNVLogin[1][0];
+						mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
 
-					// Si tenemos el valor del campo Nombre Ventana podemos iniciar sesión en Séneca
-					if ($senecaNVLogin) {
-						// INICIAMOS SESIÓN EN SÉNECA
-						$ch = curl_init();
-						$post = [
-							'USUARIO' => $cmp_idea,
-							'CLAVE' => $cmp_clave,
-							'N_V_'   => $senecaNVLogin,
-						];
-
-						curl_setopt($ch, CURLOPT_URL, $senecaUriLogin);
-						curl_setopt($ch, CURLOPT_POST, 1);
-						curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-						curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						$server_output = curl_exec($ch);
-
-						// COMPROBAMOS EL CÓDIGO HTTP DE LA PETICIÓN
-						switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-							// Inicio de sesión en Séneca
-							case '200' :
-								$server_output = utf8_encode($server_output);
-								curl_close($ch);
-
-								// COMPROBAMOS SI HAY MENSAJE DE ERROR
-								$patronErrorLogin = '/class="text-danger">\n(.*)\n/';
-								preg_match_all($patronErrorLogin, $server_output, $matchesErrorLogin);
-								$senecaErrorLogin = trim($matchesErrorLogin[1][0]);
-
-								if ($senecaErrorLogin == "Usuario incorrecto") {
-									$sesionIntranet = 0;
-									$msg_error = "Usuario incorrecto";
-								}
-								elseif ($senecaErrorLogin == "Usuario bloqueado") {
-									mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
-									$sesionIntranet = 0;
-									$msg_error = "Usuario bloqueado";
-								}
-								elseif ($senecaErrorLogin == "Usuario desactivado") {
-									mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
-									$sesionIntranet = 0;
-									$msg_error = "Usuario desactivado";
-								}
-								else {
-									/*  Separamos el nombre y los apellidos para realizar una coincidencia parcial.
-										Con esto se soluciona el problema de inicio de sesión con profesores que
-										han iniciado sesión en Séneca Móvil, pero su nombre y apellidos no están en
-										el orden correcto. */
-									$exp_profesor = explode(', ', $datosIntranet['profesor']);
-									$nom_profesor = trim($exp_profesor[1]);
-
-									$patronUsuarioCorrecto = '/'.$datosIntranet['profesor'].'/i';
-									$patronUsuarioCorrecto_parcial = '/'.$nom_profesor.'/i';
-
-									// USUARIO Y CONTRASEÑA CORRECTOS EN SÉNECA
-									if (preg_match($patronUsuarioCorrecto, $server_output, $matchesUsuarioCorrecto) || preg_match($patronUsuarioCorrecto_parcial, $server_output, $matchesUsuarioCorrecto_parcial)) {
-										$_SESSION['session_seneca'] = 1;
-
-										mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
-
-										// Actualizamos la contraseña de la Intranet con la de Séneca
-										mysqli_query($db_con, "UPDATE FROM `c_profes` SET `pass` = '".$hash_clave."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
-										$sesionIntranet = 1;
-									}
-								}
-
-								break;
-
-							// Cualquier otro tipo de código HTTP, pasa a inicio de sesión local
-							default:
-								// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-								if ($datosIntranet['pass'] == $hash_clave) {
-									$sesionIntranet = 1;
-								}
-								break;
-						}
-
-					} // if ($senecaNVLogin)
-					// En otro caso como estado de mantenimiento u error, pasa a inicio de sesión local
+						// Actualizamos la contraseña de la Intranet con la de Séneca
+						mysqli_query($db_con, "UPDATE FROM `c_profes` SET `pass` = '".$hash_clave."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+						$sesionIntranet = 1;
+					}
 					else {
+						// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
 						if ($datosIntranet['pass'] == $hash_clave) {
 							$sesionIntranet = 1;
 						}
+						break;
 					}
 
 					break;
@@ -310,6 +254,7 @@ include('control_acceso.php');
 				</div>
 				<div class="form-group">
 					<input type="password" id="CLAVE" name="CLAVE" class="form-control" placeholder="Contraseña" required>
+					<input type="hidden" id="CLAVECIFRADA" name="CLAVECIFRADA" value="">
 				</div>
 
 	            <button type="submit" class="btn btn-primary btn-block btn-signin" name="submit">Iniciar sesión</button>
@@ -326,6 +271,7 @@ include('control_acceso.php');
 
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/jquery-2.1.1.min.js"></script>
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap.min.js"></script>
+	<script src="//<?php echo $config['dominio']; ?>/intranet/js/cifrado.js"></script>
 	<!-- particles.js lib - https://github.com/VincentGarreau/particles.js -->
 	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 	<script>
@@ -337,8 +283,15 @@ include('control_acceso.php');
 	<?php endif; ?>
 	<script>
 	$(document).ready(function () {
+
+		$("#CLAVE").keyup(function() {
+			var CLAVE = $('#CLAVE').val();
+			var CLAVECIFRADA = cifrar(CLAVE);
+			$("#CLAVECIFRADA").val(CLAVECIFRADA);
+		});
+
 		$("#forgot-password").click(function () {
-	    window.open("https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/general/DetOlvCon.jsp", "popupWindow", "width=600, height=420, scrollbars=yes");
+	    	window.open("https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/general/DetOlvCon.jsp", "popupWindow", "width=600, height=420, scrollbars=yes");
     	});
 	});
 	</script>
