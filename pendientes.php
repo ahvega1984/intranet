@@ -509,7 +509,7 @@ if (strstr($_SESSION['cargo'],'8')==TRUE) {
 	$mas=" and orientacion IS NULL ";
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE or strstr($_SESSION['cargo'],'8')==TRUE) {
-	$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad";
+	$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad LIMIT 5";
 	// echo $SQL0;
 	$result0 = mysqli_query($db_con, $SQL0);
 	if (mysqli_num_rows($result0) > 0)
