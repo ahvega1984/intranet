@@ -504,12 +504,13 @@ if (strstr($_SESSION['cargo'],'2')==TRUE) {
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 	$mas=" and (jefatura IS NULL or jefatura = '')";
+	$limite = "LIMIT 5";
 }
 if (strstr($_SESSION['cargo'],'8')==TRUE) {
 	$mas=" and orientacion IS NULL ";
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE or strstr($_SESSION['cargo'],'8')==TRUE) {
-	$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad LIMIT 5";
+	$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad $limite";
 	// echo $SQL0;
 	$result0 = mysqli_query($db_con, $SQL0);
 	if (mysqli_num_rows($result0) > 0)
