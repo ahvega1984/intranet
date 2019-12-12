@@ -63,7 +63,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 				'C_INTERFAZ' => $LOGIN_C_INTERFAZ
 			];
 
-			curl_setopt($ch, CURLOPT_URL, 'https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/ComprobarUsuarioExt.jsp');
+			curl_setopt($ch, CURLOPT_URL, 'https://www.juntadeandalucia.es/educacion/senecav2/seneca/jsp/ComprobarUsuarioExt.jsp');
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
