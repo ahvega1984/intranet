@@ -2,6 +2,11 @@
 require('bootstrap.php');
 require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 
+if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+	header("Location:loginSeneca.php");
+	exit();
+}
+
 // Comienzo de sesión
 $_SESSION['intranet_auth'] = 0;
 

@@ -264,8 +264,6 @@ include('control_acceso.php');
 	            <button type="submit" class="btn btn-primary btn-block btn-signin" name="submit">Iniciar sesión</button>
 
 				<a href="#" id="forgot-password" class="forgot-password">¿Olvidó su contraseña?</a>
-				<br>
-				<p class="text-center"><a href="//<?php echo $config['dominio']; ?>/intranet/login.php">Inicio de sesión clásico</a></p>
 	        </form><!-- /form -->
 
 			<p class="copyright text-muted text-center">&copy; <?php echo date('Y'); ?> I.E.S. Monterroso - Versión <?php echo INTRANET_VERSION; ?></p>
