@@ -4,7 +4,15 @@ function limpiarInput($input, $type) { // Eg.: limpiarInput('This, is a test.', 
 
     if($type == 'numeric') { // ALLOW NUMBERS
     
-        $output = intval($input);
+        if(!intval($input)) {
+        
+            $output = preg_replace('([^0-9])', '', $input);
+            
+        } else {
+         
+            $output = intval($input);
+            
+        }
     
     } else if($type == 'mayus') { // ALLOW MAYUS
      
