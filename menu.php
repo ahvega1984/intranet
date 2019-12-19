@@ -276,7 +276,7 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 											<a class="text-center" href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades" target="_blank" style="display: block;"><strong>Ver novedades</strong></a>
 										</div>
 										<div class="col-sm-6" style="padding: 11px 0 !important;">
-											<a class="text-center" href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank" style="display: block;"><strong>Portal Séneca</strong></a>
+											<a class="text-center" href="https://www.juntadeandalucia.es/educacion/senecav2/seneca" target="_blank" style="display: block;"><strong>Portal Séneca</strong></a>
 										</div>
 									</div>
 								</li>
