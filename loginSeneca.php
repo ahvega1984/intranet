@@ -31,7 +31,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 	$cmp_idea = limpiarInput(trim($_POST['USUARIO']), 'alphanumericspecial');
 	$cmp_clave = htmlspecialchars($_POST['CLAVE']);
 	$hash_clave = sha1($cmp_clave);
-	$cmp_clavecifrada = limpiarInput(trim($_POST['CLAVECIFRADA']), 'numeric');
+	$cmp_clavecifrada = limpiarInput(trim($_POST['CLAVECIFRADA']), 'alphanumeric');
 
 	$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret`, `departamentos`.`nombre` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
 	$usuarioExiste = mysqli_num_rows($result_usuario);
