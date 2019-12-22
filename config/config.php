@@ -33,6 +33,12 @@ if (isset($_POST['config']))
 {
 
 	// LIMPIAMOS CARACTERES
+	if (! isset($config['intranet_secret']) || empty($config['intranet_secret'])) {
+		$intranet_secret = generateRandomPassword(25);
+	}
+	else {
+		$intranet_secret = $config['intranet_secret'];
+	}
 	$dominio_centro	= limpiar_string($_POST['dominio_centro']);
 	$forzar_ssl = (isset($_POST['forzar_ssl'])) ? 1 : 0;
 	$mantenimiento = (isset($_POST['mantenimiento'])) ? 1 : 0;
@@ -102,6 +108,7 @@ if (isset($_POST['config']))
 		fwrite($file, "<?php \r\n");
 
 		fwrite($file, "\r\n// CONFIGURACIÓN INTRANET\r\n");
+		fwrite($file, "\$config['intranet_secret']\t\t\t= '$intranet_secret';\r\n");
 		fwrite($file, "\$config['dominio']\t\t\t= '$dominio_centro';\r\n");
 		fwrite($file, "\$config['forzar_ssl']\t\t= $forzar_ssl;\r\n");
 		fwrite($file, "\$config['mantenimiento']\t= $mantenimiento;\r\n");

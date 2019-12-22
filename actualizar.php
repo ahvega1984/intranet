@@ -861,3 +861,22 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar archivos obsoletos', NOW())");
 }
+
+/*
+	@descripcion: Generamos el secreto para la instancia de la Intranet
+	@fecha: 22 de diciembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Secreto de la Intranet'");
+if (! mysqli_num_rows($actua)) {
+	
+	if (! isset($config['intranet_secret']) || empty($config['intranet_secret'])) {
+		$intranet_secret = generateRandomPassword(25);
+
+		if($file = fopen(CONFIG_FILE, 'a')) {
+			fwrite($file, "\r\n");
+			fwrite($file, "\$config['intranet_secret']\t\t\t= '$intranet_secret';\r\n");
+		}
+	}
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Secreto de la Intranet', NOW())");
+}

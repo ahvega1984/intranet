@@ -2,7 +2,9 @@
 require('bootstrap.php');
 
 if ($_GET['resetea_mensaje']==1) {
-	mysqli_query($db_con,"update mens_profes set recibidoprofe='1' where profesor='".$_GET['idea_mensaje']."'");
+	$idea_mensaje = limpiarInput($_GET['idea_mensaje'], 'alphanumeric');
+
+	mysqli_query($db_con,"update mens_profes set recibidoprofe='1' where profesor='".$idea_mensaje."'");
 }
 
 include("menu.php");

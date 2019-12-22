@@ -316,6 +316,35 @@ function acl_acceso($cargo_usuario, $cargo_requerido) {
 	}
 }
 
+function generateRandomPassword($long = 13)
+{
+	$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    $pass = array();
+    $long_alfabeto = strlen($alfabeto) - 1;
+    for ($i = 0; $i < $long; $i++) {
+        $p = rand(0, $long_alfabeto);
+        $pass[] = $alfabeto[$p];
+    }
+    return implode($pass);
+}
+
+function generateHashPassword($password) {
+	global $config;
+	
+	return hash('sha3-512', $password . $config['intranet_secret'], FALSE);
+}
+
+function verifyHashPassword($password, $hash_password) {
+	global $config;
+
+	if ($hash_password === hash('sha3-512', $password . $config['intranet_secret'], FALSE)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 function redondeo($n){
 
 	$entero10 = explode(".",$n);

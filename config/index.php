@@ -44,7 +44,7 @@ function crear_directorio($dirname)
 	}
 }
 
-function generador_password($long)
+function generateRandomPassword($long)
 {
 	$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $pass = array();
@@ -79,6 +79,7 @@ if (isset($_POST['instalar']))
 {
 
 	// LIMPIAMOS CARACTERES
+	$intranet_secret	= generateRandomPassword(25);
 	$dominio_centro		= limpiar_string($_POST['dominio_centro']);
 	(isset($_POST['forzar_ssl'])) ? $forzar_ssl = 1 : $forzar_ssl = 0;
 
@@ -138,6 +139,7 @@ if (isset($_POST['instalar']))
 		fwrite($file, "<?php \r\n");
 
 		fwrite($file, "\r\n// CONFIGURACIÓN INTRANET\r\n");
+		fwrite($file, "\$config['intranet_secret']\t\t\t= '$intranet_secret';\r\n");
 		fwrite($file, "\$config['dominio']\t\t\t= '$dominio_centro';\r\n");
 		fwrite($file, "\$config['forzar_ssl']\t\t= $forzar_ssl;\r\n");
 		fwrite($file, "\$config['mantenimiento']\t= 0;\r\n");
@@ -242,7 +244,7 @@ if (isset($_POST['instalar']))
 		}
 		else
 		{
-			$pass_admin = generador_password(9);
+			$pass_admin = generateRandomPassword(9);
 			$pass_sha1	= sha1($pass_admin);
 
 			// CREACIÓN DE LA BASE DE DATOS
