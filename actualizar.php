@@ -856,6 +856,7 @@ if (! mysqli_num_rows($actua)) {
 	unlink(INTRANET_DIRECTORY . '/logintotp.php');
 	unlink(INTRANET_DIRECTORY . '/totp.php');
 	unlink(INTRANET_DIRECTORY . '/clave.php');
+	unlink(INTRANET_DIRECTORY . '/salir.php');
 	unlink(INTRANET_DIRECTORY . '/xml/jefe/index_temas.php');
 	unlink(INTRANET_DIRECTORY . '/xml/jefe/informes/sesiones.php');
 
