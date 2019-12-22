@@ -13,7 +13,8 @@ include ("../menu.php");
 
 	<?php
 	if ($_GET['borrar']=='1') {
-		mysqli_query($db_con, "delete from departamentos where dni = '".$_GET['dni_profe']."'");
+		$dni_profe = preg_replace('([^A-Za-z0-9])', '', $_GET['dni_profe']);
+		mysqli_query($db_con, "delete from departamentos where dni = '".$dni_profe."'");
 		echo '<div class="alert alert-success">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
 	            El profesor ha sido borrado de la base de datos..
