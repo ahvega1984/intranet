@@ -174,7 +174,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 			// Obtenemos los datos de navegación del usuario
 			$direccionIP = getRealIP();
-			$useragent = $_SERVER['HTTP_USER_AGENT'];
+			$useragent = limpiarInput($_SERVER['HTTP_USER_AGENT'], 'alphanumericspecial');
 			
 			// Registramos la sesión
 			mysqli_query($db_con, "INSERT INTO reg_intranet (profesor, fecha, ip, useragent) VALUES ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','".$direccionIP."', '".$useragent."')");

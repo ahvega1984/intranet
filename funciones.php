@@ -1,6 +1,6 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-function limpiarInput($input, $type = 'alphanumericspecial') {
+function limpiarInput($input, $type = 'alphanumeric') {
 
 	switch ($type) {
 		// ALLOW NUMBERS
@@ -38,10 +38,10 @@ function limpiarInput($input, $type = 'alphanumericspecial') {
 
 			break;
 
-		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space, ¡!"#$%&'()*+,-./:;»=>¿?@[\]^_`{|}~
+		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space,  !"#$%&'()*+,-./:;»=>?@[\]^_`{|}~
 		case 'alphanumericspecial':
 		default:
-			$output = preg_replace('([^A-Za-z0-9 ¡!"#$%&\'()*+,-./:;»=>¿?@[\]^_`{|}~])', '', $input);
+			$output = preg_replace('([^A-Za-z0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
 
 			break;
 
@@ -564,6 +564,9 @@ function nomprofesor($nombre) {
 }
 
 function obtener_nombre_profesor_por_idea($idea) {
+
+	$idea = limpiarInput($idea, 'alphanumeric');
+
 	$result = mysqli_query($GLOBALS['db_con'], "SELECT nombre FROM departamentos WHERE idea = '".$idea."' LIMIT 1");
 	$row = mysqli_fetch_array($result);
 	return $row['nombre'];
@@ -571,6 +574,9 @@ function obtener_nombre_profesor_por_idea($idea) {
 
 
 function obtener_idea_por_nombre_profesor($nombre) {
+
+	$nombre = limpiarInput($nombre, 'alphanumericspecial');
+
 	$result = mysqli_query($GLOBALS['db_con'], "SELECT idea FROM departamentos WHERE nombre = '".$nombre."' LIMIT 1");
 	$row = mysqli_fetch_array($result);
 	return $row['idea'];
@@ -637,6 +643,8 @@ function obtener_foto_profesor($idea) {
 
 function sistemaPuntos($claveal) {
 	global $db_con, $config;
+
+	$claveal = limpiarInput($claveal, 'numeric');
 
   $conf_puntos_maximo = (isset($config['convivencia']['puntos']['maximo'])) ? $config['convivencia']['puntos']['maximo'] : 15;
   $conf_puntos_total = (isset($config['convivencia']['puntos']['total'])) ? $config['convivencia']['puntos']['total'] : 8;
@@ -952,6 +960,9 @@ function cmykcolor($color, $output = false, $tono = false) {
 }
 
 function nombreIniciales($nombre) {
+
+	$nombre = limpiarInput($nombre, 'alphanumeric');
+
 	$exp_nombre = explode(' ', $nombre);
 	$iniciales = "";
 
@@ -968,6 +979,8 @@ function nombreIniciales($nombre) {
 
 function rgpdNombreProfesor($nombre) {
 	global $db_con;
+
+	$nombre = limpiarInput($nombre, 'alphanumeric');
 
 	$result = mysqli_query($db_con, "SELECT `rgpd_mostrar_nombre` FROM `c_profes` WHERE `profesor` = '$nombre' LIMIT 1");
 	if (mysqli_num_rows($result)) {

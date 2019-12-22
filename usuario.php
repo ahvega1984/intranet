@@ -4,7 +4,7 @@ require("bootstrap.php");
 // Envío de formularios
 if (isset($_POST['registrarCorreo'])) {
 	if (isset($_POST['email']) && ! empty($_POST['email'])) {
-		$cmp_correo = htmlspecialchars(trim($_POST['email']));
+		$cmp_correo = limpiarInput(trim($_POST['email']), 'alphanumericspecial');
 		if (filter_var($cmp_correo, FILTER_VALIDATE_EMAIL)) {
 			mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
 		}
@@ -20,7 +20,7 @@ if (isset($_POST['registrarCorreo'])) {
 
 if (isset($_POST['registrarTelefono'])) {
 	if (isset($_POST['telefono']) && (strlen(trim($_POST['telefono'])) == 9)) {
-		$cmp_telefono = htmlspecialchars(trim($_POST['telefono']));
+		$cmp_telefono = limpiarInput(trim($_POST['telefono']), 'numeric');
 		if (preg_match("/^[6|7][0-9]{8}$/", $cmp_telefono)) {
 			mysqli_query($db_con, "UPDATE `c_profes` SET `telefono` = '".$cmp_telefono."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
 		}
@@ -40,9 +40,9 @@ if (isset($_POST['registrarTelefono'])) {
 if (! isset($_SESSION['session_seneca']) || isset($_SESSION['session_seneca']) && $_SESSION['session_seneca'] == 0) {
 	if (isset($_POST['registrarClave'])) {
 		if ((isset($_POST['password']) && ! empty($_POST['password'])) && (isset($_POST['new_password']) && ! empty($_POST['new_password'])) && (isset($_POST['repeat_password']) && ! empty($_POST['repeat_password']))) {
-			$cmp_password = htmlspecialchars(trim($_POST['password']));
-			$cmp_new_password = htmlspecialchars(trim($_POST['new_password']));
-			$cmp_repeat_password = htmlspecialchars(trim($_POST['repeat_password']));
+			$cmp_password = limpiarInput(trim($_POST['password']), 'alphanumericspecial');
+			$cmp_new_password = limpiarInput(trim($_POST['new_password']), 'alphanumericspecial');
+			$cmp_repeat_password = limpiarInput(trim($_POST['repeat_password']), 'alphanumericspecial');
 
 			// Obtenemos el hash de la contraseña actual
 			$result = mysqli_query($db_con, "SELECT `pass` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
@@ -111,7 +111,7 @@ if (isset($_POST['registrarFoto'])) {
 
 if (isset($_POST['registrarMostrarNombre'])) {
 	if (isset($_POST['mostrarNombre']) && ! empty($_POST['mostrarNombre'])) {
-		$cmp_mostrarNombre = htmlspecialchars(trim($_POST['mostrarNombre']));
+		$cmp_mostrarNombre = limpiarInput(trim($_POST['mostrarNombre']), 'alpha');
 
 		switch ($cmp_mostrarNombre) {
 			case 'nombreCompleto':
@@ -135,7 +135,7 @@ if (isset($_POST['registrarMostrarNombre'])) {
 
 if (isset($_POST['registrarTema'])) {
 	if (isset($_POST['tema']) && ! empty($_POST['tema'])) {
-		$cmp_tema = htmlspecialchars(trim($_POST['tema']));
+		$cmp_tema = limpiarInput(trim($_POST['tema']), 'alphanumericspecial');
 		$cmp_tema_inverso = (isset($_POST['temaInverso']) && $_POST['temaInverso'] == 1) ? 'navbar-inverse' : 'navbar-default';
 
 		$result = mysqli_query($db_con, "SELECT `tema`, `fondo` FROM `temas` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");

@@ -844,3 +844,20 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Cambios en alma. Teléfono de tutores legales', NOW())");
 }
+
+/*
+	@descripcion: Eliminar archivos obsoletos
+	@fecha: 22 de diciembre de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminar archivos obsoletos'");
+if (! mysqli_num_rows($actua)) {
+
+	unlink(INTRANET_DIRECTORY . '/loginSeneca.php');
+	unlink(INTRANET_DIRECTORY . '/logintotp.php');
+	unlink(INTRANET_DIRECTORY . '/totp.php');
+	unlink(INTRANET_DIRECTORY . '/clave.php');
+	unlink(INTRANET_DIRECTORY . '/xml/jefe/index_temas.php');
+	unlink(INTRANET_DIRECTORY . '/xml/jefe/informes/sesiones.php');
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar archivos obsoletos', NOW())");
+}

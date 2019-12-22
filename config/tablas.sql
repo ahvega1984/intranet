@@ -356,8 +356,10 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `idea` varchar(12) NOT NULL DEFAULT '',
   `correo` varchar(64) DEFAULT NULL,
+  `correo_verificado` TINYINT(1) NOT NULL DEFAULT '0'
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
+  `telefono_verificado` TINYINT(1) NOT NULL DEFAULT '0'
   `totp_secret` CHAR(16) NULL,
   `rgpd_mostrar_nombre` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
@@ -917,7 +919,7 @@ CREATE TABLE IF NOT EXISTS `libros_texto` (
   `editorial` varchar(60) NOT NULL DEFAULT '',
   `titulo` varchar(100) NOT NULL DEFAULT '',
   `importe` decimal(5,2) DEFAULT NULL,
-  `nivel` varchar(48) NOT NULL DEFAULT '',
+  `nivel` varchar(80) NOT NULL DEFAULT '',
   `programaGratuidad` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
@@ -1659,7 +1661,7 @@ CREATE TABLE IF NOT EXISTS `reg_intranet` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `ip` varchar(15) NOT NULL DEFAULT '',
+  `ip` varchar(40) NOT NULL DEFAULT '',
   `useragent` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0;
@@ -1708,14 +1710,21 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `eventdate` date NOT NULL,
   `dia` tinyint(1) NOT NULL DEFAULT '0',
   `html` tinyint(1) NOT NULL DEFAULT '0',
-  `event1` varchar(64) DEFAULT NULL,
-  `event2` varchar(64) NOT NULL DEFAULT '',
-  `event3` varchar(64) NOT NULL DEFAULT '',
-  `event4` varchar(64) NOT NULL DEFAULT '',
-  `event5` varchar(64) NOT NULL DEFAULT '',
-  `event6` varchar(64) NOT NULL DEFAULT '',
-  `event7` varchar(64) NOT NULL DEFAULT '',
-  `servicio` varchar(32) NOT NULL,
+  `event1` varchar(255) DEFAULT NULL,
+  `event2` varchar(255) NOT NULL DEFAULT '',
+  `event3` varchar(255) NOT NULL DEFAULT '',
+  `event4` varchar(255) NOT NULL DEFAULT '',
+  `event5` varchar(255) NOT NULL DEFAULT '',
+  `event6` varchar(255) NOT NULL DEFAULT '',
+  `event7` varchar(255) NOT NULL DEFAULT '',
+  `event8` varchar(255) NOT NULL DEFAULT '',
+  `event9` varchar(255) NOT NULL DEFAULT '',
+  `event10` varchar(255) NOT NULL DEFAULT '',
+  `event11` varchar(255) NOT NULL DEFAULT '',
+  `event12` varchar(255) NOT NULL DEFAULT '',
+  `event13` varchar(255) NOT NULL DEFAULT '',
+  `event14` varchar(255) NOT NULL DEFAULT '',
+  `servicio` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
