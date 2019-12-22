@@ -1,5 +1,55 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
+function limpiarInput($input, $type = 'alphanumericspecial') {
+
+	switch ($type) {
+		// ALLOW NUMBERS
+		case 'numeric':
+			if (! intval($input)) {
+				$output = preg_replace('([^0-9])', '', $input);
+			}
+			else {
+				$output = intval($input);
+			}
+
+			break;
+		
+		// ALLOW MAYUS
+		case 'mayus':
+			$output = preg_replace('([^A-Z])', '', $input);
+
+			break;
+
+		// ALLOW MINUS
+		case 'minus':
+			$output = preg_replace('([^a-z])', '', $input);
+
+			break;
+
+		// ALLOW LETTERS (MAYUS AND MINUS)
+		case 'alpha':
+			$output = preg_replace('([^A-Za-z])', '', $input);
+
+			break;
+
+		// ALLOW ALPHANUMERIC
+		case 'alphanumeric':
+			$output = preg_replace('([^A-Za-z0-9])', '', $input);
+
+			break;
+
+		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space, ¡!"#$%&'()*+,-./:;»=>¿?@[\]^_`{|}~
+		case 'alphanumericspecial':
+		default:
+			$output = preg_replace('([^A-Za-z0-9 ¡!"#$%&\'()*+,-./:;»=>¿?@[\]^_`{|}~])', '', $input);
+
+			break;
+
+	}
+
+	return $output;
+}
+
 function getRealIP() {
     $client  = @$_SERVER['HTTP_CLIENT_IP'];
     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];

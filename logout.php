@@ -4,11 +4,5 @@ require('bootstrap.php');
 session_unset();
 session_destroy();
 
-if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org" || date('Y') > '2019') {
-	header("Location://".$config['dominio']."/intranet/loginSeneca.php");
-	exit();
-}
-else {
-	header("Location://".$config['dominio']."/intranet/login.php");
+header("Location://".$config['dominio']."/intranet/login.php");
 exit();
-}
