@@ -293,7 +293,7 @@ include('control_acceso.php');
 		});
 
 		$("#forgot-password").click(function () {
-	    	window.open("https://www.juntadeandalucia.es/educacion/seneca/seneca/jsp/general/DetOlvCon.jsp", "popupWindow", "width=600, height=420, scrollbars=yes");
+	    	window.open("https://www.juntadeandalucia.es/educacion/senecav2/seneca/jsp/general/DetOlvConV2.jsp?rndval=<?php echo intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) ); ?>", "popupWindow", "width=920, height=640, scrollbars=yes");
     	});
 	});
 	</script>
