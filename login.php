@@ -29,7 +29,7 @@ if (isset($_SESSION['profi'])) {
 // Entramos
 if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST['CLAVE']) < 6)) {
 	$cmp_idea = limpiarInput(trim($_POST['USUARIO']), 'alphanumericspecial');
-	$cmp_clave = htmlspecialchars($_POST['CLAVE']);
+	$cmp_clave = limpiarInput($_POST['CLAVE'], 'alphanumericspecial');
 	$hash_clave = sha1($cmp_clave);
 	$cmp_clavecifrada = limpiarInput(trim($_POST['CLAVECIFRADA']), 'alphanumeric');
 
