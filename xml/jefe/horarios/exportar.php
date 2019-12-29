@@ -8,7 +8,7 @@ $empleados = array();
 $actividades_seneca_noregular = array('661','156','289','286','284','5','346','285','36','780','96');
 
 if (isset($_POST['idempleado'])) {
-	$post_idempleado = $_POST['idempleado'];
+	$post_idempleado = limpiarInput($_POST['idempleado'], 'numeric');
 	$result_empleados = mysqli_query($db_con, "SELECT DISTINCT `c_prof` FROM `horw` WHERE `c_prof` = '$post_idempleado' LIMIT 1");
 
 }
