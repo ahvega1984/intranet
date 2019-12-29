@@ -82,16 +82,17 @@ if (isset($profesor)) {
 }
 
 // MODIFICADORES DE FORMULARIO
-if (isset($_GET['dia'])) $dia = urldecode($_GET['dia']);
-else $dia = $_POST['dia'];
+if (isset($_GET['dia'])) $dia = limpiarInput(urldecode($_GET['dia']), 'numeric');
+else $dia = limpiarInput($_POST['dia'], 'numeric');
 
-if (isset($_GET['hora'])) $hora = urldecode($_GET['hora']);
-else $hora = $_POST['hora'];
+if (isset($_GET['hora'])) $hora = limpiarInput(urldecode($_GET['hora']), 'numeric');
+else $hora = limpiarInput($_POST['hora'], 'numeric');
 
-if (isset($_GET['asignatura'])) $asignatura = urldecode($_GET['asignatura']);
-else $asignatura = $_POST['asignatura'];
+if (isset($_GET['asignatura'])) $asignatura = limpiarInput(urldecode($_GET['asignatura']), 'alphanumericspecial');
+else $asignatura = limpiarInput($_POST['asignatura'], 'alphanumericspecial');
 
 if (isset($_POST['unidad'])) {
+	$unidad = limpiarInput($_POST['unidad'], 'alphanumericspecial');
 	$unidad = substr($_POST['unidad'], 0, -1);
 	$unidad_curso = $_POST['unidad'];
 	$exp_unidad = explode('|', $unidad_curso);
@@ -99,7 +100,7 @@ if (isset($_POST['unidad'])) {
 	$curso = $exp_unidad[1];
 }
 elseif (isset($_GET['unidad']) && $_GET['asignatura'] !== '25' and $_POST['unidad']=="") {
-	$unidad = urldecode($_GET['unidad']);
+	$unidad = limpiarInput(urldecode($_GET['unidad']), 'alphanumericspecial');
 
 	// A partir del código de la asignatura y la unidad, descubrimos el curso...
 	$result = mysqli_query($db_con, "SELECT `CURSO` FROM `materias` WHERE `GRUPO` = '$unidad' AND `CODIGO` = '$asignatura' LIMIT 1");
