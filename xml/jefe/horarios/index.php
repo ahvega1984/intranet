@@ -70,7 +70,7 @@ else {
 	}
 
 	if ($_POST['profesor']) {
-		$profesor = $_POST['profesor'];
+		$profesor = limpiarInput($_POST['profesor'], 'alphanumericspecial');
 		$_SESSION['mod_horarios']['profesor'] = $profesor;
 	}
 }
