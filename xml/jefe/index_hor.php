@@ -13,8 +13,8 @@ if (isset($_POST['enviar'])) {
 		$msg_error = "Debe seleccionar el profesor sustituto.";
 	}
 	else{
-		$sustituido = $_POST['sustituido'];
-		$sustituto = $_POST['sustituto'];
+		$sustituido = limpiarInput($_POST['sustituido'], 'alphanumericspecial');
+		$sustituto = limpiarInput($_POST['sustituto'], 'alphanumericspecial');
 		$ok = 1;
 
 		// ACTUALIZACION EN HORARIOS
