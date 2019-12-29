@@ -21,7 +21,7 @@ if(isset($_GET['id'])) {
 
 		$titulo = "Modificación de regla";
 		$boton = "Actualizar";
-		$id = $_GET['id'];
+		$id = limpiarInput($_GET['id'], 'numeric');
 	}
 }
 
