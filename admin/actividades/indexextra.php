@@ -185,7 +185,7 @@ if($detalles == '1')
 		<tr>
 			<td nowrap><?php echo $datos['fechaini'];?><br><small><span class="label label-default"><?php echo $mes2; ?></span></small></td>
 			<td class="col-md-5"><?php echo $datos['nombre'];?><br><small class="text-muted">Responsable: <strong><?php echo obtener_nombre_profesor_por_idea($datos['profesorreg']); ?></strong></small></td>
-			<td><?php echo (! empty($datos['unidades'])) ? $datos['unidades'] : '<strong class="text-danger">No se ha seleccionado unidades</strong>';?></td>
+			<td><?php echo (! empty($datos['unidades'])) ? $datos['unidades'] : '<strong class="text-danger">No se han seleccionado unidades</strong>';?></td>
 			<td><?php echo $datos['profesores'];?></td>
 			<td class="hidden-print" nowrap>
 			<?php
