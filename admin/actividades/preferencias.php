@@ -99,24 +99,5 @@ include("menu.php");
 
 <?php include("../../pie.php"); ?>
 
-    <script>
-    // EDITOR DE TEXTO
- 	$('textarea').summernote({
- 		height: 500,
- 		lang: 'es-ES',
-		toolbar: [
-			// [groupName, [list of button]]
-			['style', ['bold', 'italic', 'underline', 'clear']],
-			['font', ['strikethrough', 'superscript', 'subscript']],
-			['fontsize', ['fontsize']],
-			['color', ['color']],
-			['para', ['ul', 'ol', 'paragraph']],
-			['table', ['table']],
-			['media', ['link', 'picture', 'video']],
-			['code', ['codeview']]
-		]
- 	});
-    </script>
-
 </body>
 </html>

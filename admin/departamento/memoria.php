@@ -263,20 +263,70 @@ echo "</form>";
 
 		// EDITOR DE TEXTO
 		for (var i = 1; i <= 15; i++) {
-			$('#p'+i).summernote({
+			tinymce.init({
+				selector: 'textarea#p'+i,
+				language: 'es_ES',
 				height: 260,
-				lang: 'es-ES',
-				toolbar: [
-  				// [groupName, [list of button]]
-  				['style', ['bold', 'italic', 'underline', 'clear']],
-  				['font', ['strikethrough', 'superscript', 'subscript']],
-  				['fontsize', ['fontsize']],
-  				['color', ['color']],
-  				['para', ['ul', 'ol', 'paragraph']],
-  				['table', ['table']],
-  				['media', ['link', 'picture', 'video']],
-  				['code', ['codeview']]
-  			]
+				plugins: 'print preview fullpage paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars',
+				imagetools_cors_hosts: ['picsum.photos'],
+				menubar: 'file edit view insert format tools table help',
+				toolbar: 'undo redo | bold italic underline strikethrough | fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap | fullscreen  preview save print | insertfile image media template link anchor | ltr rtl',
+				toolbar_sticky: true,
+				autosave_ask_before_unload: true,
+				autosave_interval: "30s",
+				autosave_prefix: "{path}{query}-{id}-",
+				autosave_restore_when_empty: false,
+				autosave_retention: "2m",
+				image_advtab: true,
+				
+				/* enable title field in the Image dialog*/
+				image_title: true,
+				/* enable automatic uploads of images represented by blob or data URIs*/
+				automatic_uploads: true,
+				/*
+				URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+				images_upload_url: 'postAcceptor.php',
+				here we add custom filepicker only to Image dialog
+				*/
+				file_picker_types: 'image',
+				/* and here's our custom image picker*/
+				file_picker_callback: function (cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				/*
+				  Note: In modern browsers input[type="file"] is functional without
+				  even adding it to the DOM, but that might not be the case in some older
+				  or quirky browsers like IE, so you might want to add it to the DOM
+				  just in case, and visually hide it. And do not forget do remove it
+				  once you do not need it anymore.
+				*/
+
+				input.onchange = function () {
+				  var file = this.files[0];
+
+				  var reader = new FileReader();
+				  reader.onload = function () {
+				    /*
+				      Note: Now we need to register the blob in TinyMCEs image blob
+				      registry. In the next release this part hopefully won't be
+				      necessary, as we are looking to handle it internally.
+				    */
+				    var id = 'blobid' + (new Date()).getTime();
+				    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+				    var base64 = reader.result.split(',')[1];
+				    var blobInfo = blobCache.create(id, file, base64);
+				    blobCache.add(blobInfo);
+
+				    /* call the callback and populate the Title field with the file name */
+				    cb(blobInfo.blobUri(), { title: file.name });
+				  };
+				  reader.readAsDataURL(file);
+				};
+
+				input.click();
+				}
 			});
 		}
 

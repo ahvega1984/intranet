@@ -45,8 +45,7 @@
     <!-- PLUGINS JS -->
     <script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/validator/validator.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/summernote.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/summernote/lang/summernote-es-ES.min.js"></script>
+    <script src="//<?php echo $config['dominio'];?>/intranet/vendor/tinymce/tinymce.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment-es.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
