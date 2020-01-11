@@ -1,5 +1,16 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
+function add_security_header() {
+	header_remove("X-Powered-By");
+	header("Strict-Transport-Security:max-age=31536000;includeSubDomains; preload");
+    header("X-Content-Type-Options: nosniff");
+    header("X-Frame-Options: SAMEORIGIN");
+    header("Referrer-Policy: strict-origin-when-cross-origin");
+    header("Feature-Policy: accelerometer 'none'; camera 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; payment 'none'; usb 'none'");
+    header("X-XSS-Protection: 1;mode=block");
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' platform.twitter.com syndication.twitter.com cdn.syndication.twimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src https://www.youtube.com");
+}
+
 function limpiarInput($input, $type = 'alphanumeric') {
 
 	switch ($type) {

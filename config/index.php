@@ -349,16 +349,16 @@ if (isset($_POST['instalar']))
 	        <p class="lead text-center">Estás utilizando una versión de Internet Explorer demasiado antigua. <br>Actualiza tu navegador o cámbiate a <a href="http://www.google.com/chrome/">Chrome</a> o <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a>.</p>
 	        <br>
 	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+	    </div>
+	  </div>
+	</div>
 	<![endif]-->
 
 	<div class="container">
 
 		<div class="page-header">
 			<h1 class="text-center">
-				<span class="fas fa-tachometer-alt fa-2x"></span><br>
+				<i class="fas fa-tachometer-alt fa-2x"></i><br>
 				<?php echo $page_header; ?>
 			</h1>
 		</div>
@@ -389,7 +389,7 @@ if (isset($_POST['instalar']))
 				    		<br>
 
 				    		<div class="pull-right">
-				    			<a href="#php-config" aria-controls="php-config" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fas fa-chevron-right fa-fw"></span></a>
+				    			<a href="#php-config" aria-controls="php-config" data-toggle="tab" class="btn btn-primary disabled">Continuar <i class="fas fa-chevron-right fa-fw"></i></a>
 				    		</div>
 				    		<div class="clearfix"></div>
 				    	</div>
@@ -449,10 +449,10 @@ if (isset($_POST['instalar']))
 				    		<br>
 
 				    		<div class="pull-left">
-				    			<a href="#terminos" aria-controls="terminos" data-toggle="tab" class="btn btn-default"><span class="fas fa-chevron-left fa-fw"></span> Anterior</a>
+				    			<a href="#terminos" aria-controls="terminos" data-toggle="tab" class="btn btn-default"><i class="fas fa-chevron-left fa-fw"></i> Anterior</a>
 				    		</div>
 				    		<div class="pull-right">
-				    			<a href="#informacion" aria-controls="informacion" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fas fa-chevron-right fa-fw"></span></a>
+				    			<a href="#informacion" aria-controls="informacion" data-toggle="tab" class="btn btn-primary disabled">Continuar <i class="fas fa-chevron-right fa-fw"></i></a>
 				    		</div>
 				    		<div class="clearfix"></div>
 				    	</div>
@@ -580,10 +580,10 @@ if (isset($_POST['instalar']))
 				    		<br>
 
 				    		<div class="pull-left">
-				    			<a href="#php-config" aria-controls="php-config" data-toggle="tab" class="btn btn-default"><span class="fas fa-chevron-left fa-fw"></span> Anterior</a>
+				    			<a href="#php-config" aria-controls="php-config" data-toggle="tab" class="btn btn-default"><i class="fas fa-chevron-left fa-fw"></i> Anterior</a>
 				    		</div>
 				    		<div class="pull-right">
-				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fas fa-chevron-right fa-fw"></span></a>
+				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-primary disabled">Continuar <i class="fas fa-chevron-right fa-fw"></i></a>
 				    		</div>
 				    		<div class="clearfix"></div>
 				    	</div>
@@ -636,10 +636,10 @@ if (isset($_POST['instalar']))
 				    		<br>
 
 				    		<div class="pull-left">
-				    			<a href="#informacion" aria-controls="informacion" data-toggle="tab" class="btn btn-default"><span class="fas fa-chevron-left fa-fw"></span> Anterior</a>
+				    			<a href="#informacion" aria-controls="informacion" data-toggle="tab" class="btn btn-default"><i class="fas fa-chevron-left fa-fw"></i> Anterior</a>
 				    		</div>
 				    		<div class="pull-right">
-				    			<a href="#curso-escolar" aria-controls="curso-escolar" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fas fa-chevron-right fa-fw"></span></a>
+				    			<a href="#curso-escolar" aria-controls="curso-escolar" data-toggle="tab" class="btn btn-primary disabled">Continuar <i class="fas fa-chevron-right fa-fw"></i></a>
 				    		</div>
 				    		<div class="clearfix"></div>
 				    	</div>
@@ -684,10 +684,10 @@ if (isset($_POST['instalar']))
 				    		<br>
 
 				    		<div class="pull-left">
-				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><span class="fas fa-chevron-left fa-fw"></span> Anterior</a>
+				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><i class="fas fa-chevron-left fa-fw"></i> Anterior</a>
 				    		</div>
 				    		<div class="pull-right">
-				    			<a href="#modulos" aria-controls="modulos" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fas fa-chevron-right fa-fw"></span></a>
+				    			<a href="#modulos" aria-controls="modulos" data-toggle="tab" class="btn btn-primary disabled">Continuar <i class="fas fa-chevron-right fa-fw"></i></a>
 				    		</div>
 				    		<div class="clearfix"></div>
 				    	</div>
@@ -924,7 +924,7 @@ if (isset($_POST['instalar']))
 				    		<br><br>
 
 				    		<div class="pull-left">
-				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><span class="fas fa-chevron-left fa-fw"></span> Anterior</a>
+				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><i class="fas fa-chevron-left fa-fw"></i> Anterior</a>
 				    		</div>
 				    		<div class="pull-right">
 				    			<button type="button" class="btn btn-success" id="instalar">Instalar</button>
@@ -935,7 +935,7 @@ if (isset($_POST['instalar']))
 				    	<div id="wrap_instalacion" class="well" style="display: none; padding: 50px 0; min-height: 300px;">
 
 				    		<div class="text-center text-success">
-				    			<span class="fas fa-cog fa-spin fa-5x"></span>
+				    			<i class="fas fa-cog fa-spin fa-5x"></span>
 				    		</div>
 				    		<h3 class="text-center text-success">Instalando la Intranet&hellip;</h3>
 
@@ -967,7 +967,7 @@ if (isset($_POST['instalar']))
 				    		</div>
 				    		<?php else: ?>
 				    		<div class="text-center text-success">
-				    			<span class="fas fa-check fa-5x"></span>
+				    			<i class="fas fa-check fa-5x"></span>
 				    		</div>
 				    		<h3 class="text-center text-success">La Intranet ha sido instalada correctamente</h3>
 

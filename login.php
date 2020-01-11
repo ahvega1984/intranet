@@ -274,8 +274,7 @@ include('control_acceso.php');
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/jquery-2.1.1.min.js"></script>
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap.min.js"></script>
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/cifrado.js"></script>
-	<!-- particles.js lib - https://github.com/VincentGarreau/particles.js -->
-	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+	<script src="//<?php echo $config['dominio']; ?>/intranet/js/particles/particles.min.js"></script>
 	<script>
 	particlesJS.load('login', 'js/particles/particlesjs-config.json', function() {});
 	</script>
