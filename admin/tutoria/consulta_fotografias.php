@@ -41,7 +41,7 @@ if (isset($_POST['enviar'])) {
 	}
 	else {
 		
-		require('../../lib/class.Images.php');
+		require(INTRANET_DIRECTORY.'/lib/class.Images.php');
 		$image = new Image($fotografia);
 		$image->resize(240,320,'crop');
 		$image->save($claveal, INTRANET_DIRECTORY.'/xml/fotos/', 'jpg');
