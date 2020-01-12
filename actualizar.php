@@ -873,11 +873,35 @@ if (! mysqli_num_rows($actua)) {
 	if (! isset($config['intranet_secret']) || empty($config['intranet_secret'])) {
 		$intranet_secret = generateRandomPassword(25);
 
-		if($file = fopen(CONFIG_FILE, 'a')) {
+		if ($file = fopen(CONFIG_FILE, 'a')) {
 			fwrite($file, "\r\n");
 			fwrite($file, "\$config['intranet_secret']\t\t\t= '$intranet_secret';\r\n");
 		}
 	}
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Secreto de la Intranet', NOW())");
+}
+
+/*
+	@descripcion: Añadimos campo vistas a la tabla noticias
+	@fecha: 11 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Campo vista en tabla noticias'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `noticias` ADD `vistas` INT UNSIGNED NOT NULL DEFAULT '0' AFTER `categoria`;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Campo vista en tabla noticias', NOW())");
+}
+
+/*
+	@descripcion: Ampliación campo pass en tabla c_profes
+	@fecha: 12 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Ampliación campo pass en tabla c_profes'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `c_profes` CHANGE `pass` `pass` VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Ampliación campo pass en tabla c_profes', NOW())");
 }

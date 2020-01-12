@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-setlocale(LC_TIME, "es_ES");
+$id_noticia = limpiarInput($_GET['id'], 'numeric');
 
 include("../../menu.php");
 include("menu.php");
@@ -19,13 +19,14 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				
-				<?php $result = mysqli_query($db_con, "SELECT titulo, contenido, autor, fechapub FROM noticias WHERE id = '".$_GET['id']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT `titulo`, `contenido`, `autor`, `fechapub` FROM `noticias` WHERE `id` = ".$id_noticia." LIMIT 1"); ?>
 				
 				<?php if (mysqli_num_rows($result)): ?>
 					
 					<?php $row = mysqli_fetch_array($result); ?>
 					<?php $exp_profesor = explode(',', $row['autor']); ?>
 					<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
+					<?php mysqli_query($db_con, "UPDATE `noticias` SET `vistas` = `vistas` + 1 WHERE `id` = ".$id_noticia." LIMIT 1"); ?>
 					
 					<h3><?php echo $row['titulo']; ?></h3>
 					<h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> el <?php echo fecha_actual2($row['fechapub']); ?></h5>

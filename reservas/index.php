@@ -2,7 +2,7 @@
 require('../bootstrap.php');
 
 if (isset($_GET['recurso'])) {
-	$nombre_rec = $_GET['recurso'];
+	$nombre_rec = limpiarInput($_GET['recurso'], 'alphanumericspecial');
 }
 
 include("../menu.php");
@@ -12,7 +12,7 @@ include("menu.php");
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Sistema de Reservas <small> <?php echo $nombre_rec; ?></small></h2>
+	  <h2>Sistema de Reservas <small> <?php echo htmlContextCleaner($nombre_rec); ?></small></h2>
 	</div>
 
 <?php
@@ -91,7 +91,7 @@ if ($ci == 1 or $ci == 4 or $ci == 7 or $ci == 10 or $ci == 13 or $ci == 16){
 <div class="col-sm-4">
 	<a name="<?php echo $servicio; ?>"></a>
 	<h3 class="text-center"><?php echo $servicio;?></h3>
-	<h4><small><?php echo $lugar; ?></small></h4>
+	<h4 class="text-center"><small><?php echo $lugar; ?></small></h4>
 
 	<table class="table table-bordered table-centered">
 		<thead>

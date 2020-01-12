@@ -339,20 +339,54 @@ function generateRandomPassword($long = 13)
     return implode($pass);
 }
 
-function generateHashPassword($password) {
-	global $config;
-	
-	return hash('sha3-512', $password . $config['intranet_secret'], FALSE);
+function intranet_password_hash($password) {
+  $opciones = [
+    'cost' => 11,
+    'salt' => random_bytes(22)
+  ];
+
+  return password_hash($password, PASSWORD_BCRYPT, $opciones);
 }
 
-function verifyHashPassword($password, $hash_password) {
-	global $config;
+function generateToken($length = 50) {
 
-	if ($hash_password === hash('sha3-512', $password . $config['intranet_secret'], FALSE)) {
-		return true;
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+    
+}
+
+function outputToken() {
+    $token = generateToken();
+    $_SESSION['csrf'] = $token;
+    $output = '<input type="hidden" name="csrf" value="' . $token . '">';
+    return $output;
+}
+
+function checkToken()  {
+
+	if (isset($_POST['csrf'])) {
+		if ($_POST['csrf'] == $_SESSION['csrf']) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	elseif (isset($_GET['csrf'])) {
+		if ($_GET['csrf'] == $_SESSION['csrf']) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 	else {
-		return false;
+		return 0;
 	}
 }
 

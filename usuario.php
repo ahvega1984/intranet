@@ -51,16 +51,17 @@ if (! isset($_SESSION['session_seneca']) || isset($_SESSION['session_seneca']) &
 				$usuario['password_hash'] = $row['pass'];
 			}
 
-			if (sha1($cmp_password) == $usuario['password_hash']) {
+			if (sha1($cmp_password) == $usuario['password_hash'] || password_verify($cmp_password, $usuario['password_hash'])) {
 				if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,20})", $cmp_new_password)) {
 
 					if ($cmp_password === $cmp_new_password) {
 						$msg_password_error = "La nueva contraseña no puede ser la misma que la actual.";
 					}
 					elseif ($cmp_new_password === $cmp_repeat_password) {
-						$password_hash = sha1($cmp_new_password);
+						$hash_clave_sha1 = sha1($cmp_new_password);
+						$hash_clave_bcrypt = intranet_password_hash($cmp_new_password);
 
-						$result = mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$password_hash."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+						$result = mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
 							
 						if ($result) {
 							if (isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
