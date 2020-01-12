@@ -853,7 +853,7 @@ $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modu
 if (! mysqli_num_rows($actua)) {
 
 	@unlink(INTRANET_DIRECTORY . '/loginSeneca.php');
-	@unlink(INTRANET_DIRECTORY . '/logintotp.php');
+	@unlink(INTRANET_DIRECTORY . '/login_totp.php');
 	@unlink(INTRANET_DIRECTORY . '/totp.php');
 	@unlink(INTRANET_DIRECTORY . '/clave.php');
 	@unlink(INTRANET_DIRECTORY . '/salir.php');
