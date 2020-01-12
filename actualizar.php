@@ -852,13 +852,13 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminar archivos obsoletos'");
 if (! mysqli_num_rows($actua)) {
 
-	unlink(INTRANET_DIRECTORY . '/loginSeneca.php');
-	unlink(INTRANET_DIRECTORY . '/logintotp.php');
-	unlink(INTRANET_DIRECTORY . '/totp.php');
-	unlink(INTRANET_DIRECTORY . '/clave.php');
-	unlink(INTRANET_DIRECTORY . '/salir.php');
-	unlink(INTRANET_DIRECTORY . '/xml/jefe/index_temas.php');
-	unlink(INTRANET_DIRECTORY . '/xml/jefe/informes/sesiones.php');
+	@unlink(INTRANET_DIRECTORY . '/loginSeneca.php');
+	@unlink(INTRANET_DIRECTORY . '/logintotp.php');
+	@unlink(INTRANET_DIRECTORY . '/totp.php');
+	@unlink(INTRANET_DIRECTORY . '/clave.php');
+	@unlink(INTRANET_DIRECTORY . '/salir.php');
+	@unlink(INTRANET_DIRECTORY . '/xml/jefe/index_temas.php');
+	@unlink(INTRANET_DIRECTORY . '/xml/jefe/informes/sesiones.php');
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar archivos obsoletos', NOW())");
 }
