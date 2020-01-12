@@ -45,6 +45,7 @@ if (file_exists(CONFIG_FILE)) {
 	include_once(VERSION_FILE);
 	include_once(INTRANET_DIRECTORY . '/funciones.php');
 	include_once(INTRANET_DIRECTORY . '/lib/cleanxss.php');
+	include_once(INTRANET_DIRECTORY . '/lib/csrf.php');
 	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
 
 	add_security_header();
@@ -88,7 +89,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	}
 	else {
 
-		if (! acl_permiso($_SESSION['cargo'], array('1')) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
+		if ((! acl_permiso($_SESSION['cargo'], array('1')) && $_SESSION['user_admin'] != 0) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
 			include(INTRANET_DIRECTORY.'/mantenimiento.php');
 			$_SESSION['intranet_auth'] = 0;
 			session_unset();
@@ -96,19 +97,6 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 			exit();
 		}
 
-	}
-
-	if($_SERVER['SCRIPT_NAME'] != '/intranet/totp.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php') {
-		if(isset($_SESSION['totp_configuracion']) && $_SESSION['totp_configuracion']) {
-			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
-				header('Location:'.'https://'.$config['dominio'].'/intranet/totp.php');
-				exit();
-			}
-			else {
-				header('Location:'.'http://'.$config['dominio'].'/intranet/totp.php');
-				exit();
-			}
-		}
 	}
 
 	if($_SERVER['SCRIPT_NAME'] != '/intranet/usuario.php') {
