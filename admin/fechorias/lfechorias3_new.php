@@ -1,6 +1,14 @@
 <?php
 require('../../bootstrap.php');
 
+if (file_exists('config.php')) {
+	include('config.php');
+}
+
+if (isset($config['convivencia']['listados_direccion']) && $config['convivencia']['listados_direccion'] == 1) {
+	acl_acceso($_SESSION['cargo'], array('1'));
+}
+
 
 $PLUGIN_DATATABLES = 1;
 

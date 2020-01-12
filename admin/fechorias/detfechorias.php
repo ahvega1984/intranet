@@ -84,31 +84,32 @@ echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             $mensaje.'
           </div></div>';
 }
-$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, Fechoria.claveal, Fechoria.adjunto from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, alma.fecha AS fechancto, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, Fechoria.claveal, Fechoria.adjunto from Fechoria, alma, listafechorias where Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
   if ($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
 		$unidad = $row[2];
-		$fecha = $row[4];
-		$notas = $row[5];
-		$asunto = $row[6];
-		$informa = $row[7];
-		$grave = $row[8];
-		$medida = $row[9];
-		$medidas2 = $row[10];
-		$expulsion = $row[11];
-		$tutoria = $row[12];
-		$inicio = $row[13];
-		$fin = $row[14];
-		$convivencia = $row[15];
-		$inicio_aula = $row[16];
-		$fin_aula = $row[17];
-		$horas = $row[18];
+    $fechancto = $row[4];
+		$fecha = $row[5];
+		$notas = $row[6];
+		$asunto = $row[7];
+		$informa = $row[8];
+		$grave = $row[9];
+		$medida = $row[10];
+		$medidas2 = $row[11];
+		$expulsion = $row[12];
+		$tutoria = $row[13];
+		$inicio = $row[14];
+		$fin = $row[15];
+		$convivencia = $row[16];
+		$inicio_aula = $row[17];
+		$fin_aula = $row[18];
+		$horas = $row[19];
 		$adjunto = $row[20];
 
     if (!$claveal) {
-      $claveal = $row[19];
+      $claveal = $row[21];
     }
 
  	if($inicio){ $inicio1 = explode("-",$inicio); $inicio = $inicio1[2] . "-" . $inicio1[1] ."-" . $inicio1[0];}
@@ -158,6 +159,10 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
             <td colspan="4"><?php echo $unidad; ?></td>
           </tr>
           <tr>
+            <th>FECHA NCTO.</th>
+            <td colspan="4"><?php echo $fechancto; ?></td>
+          </tr>
+          <tr style="border-top: 2px solid #2c3e50;">
             <th>FECHA</th>
             <td colspan="4"><?php echo $fecha; ?></td>
           </tr>
