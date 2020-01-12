@@ -351,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
 DROP TABLE IF EXISTS `c_profes`;
 CREATE TABLE IF NOT EXISTS `c_profes` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `pass` varchar(48) DEFAULT NULL,
+  `pass` varchar(60) DEFAULT NULL,
   `PROFESOR` varchar(48) DEFAULT NULL,
   `dni` varchar(9) NOT NULL DEFAULT '',
   `idea` varchar(12) NOT NULL DEFAULT '',
@@ -1518,6 +1518,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `fechapub` datetime NOT NULL,
   `fechafin` date DEFAULT NULL,
   `categoria` varchar(200) NOT NULL,
+  `vistas` INT UNSIGNED NOT NULL DEFAULT '0'
   `pagina` char(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
