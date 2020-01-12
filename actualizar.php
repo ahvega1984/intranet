@@ -870,22 +870,20 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Secreto de la Intranet'");
 if (! mysqli_num_rows($actua)) {
 
-	if (! function_exists('generateRandomPassword')) {
-		function generateRandomPassword($long = 13)
-		{
-			$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-		    $pass = array();
-		    $long_alfabeto = strlen($alfabeto) - 1;
-		    for ($i = 0; $i < $long; $i++) {
-		        $p = rand(0, $long_alfabeto);
-		        $pass[] = $alfabeto[$p];
-		    }
-		    return implode($pass);
-		}
+	function randomPassword($long = 13)
+	{
+		$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+	    $pass = array();
+	    $long_alfabeto = strlen($alfabeto) - 1;
+	    for ($i = 0; $i < $long; $i++) {
+	        $p = rand(0, $long_alfabeto);
+	        $pass[] = $alfabeto[$p];
+	    }
+	    return implode($pass);
 	}
 
 	if (! isset($config['intranet_secret']) || empty($config['intranet_secret'])) {
-		$intranet_secret = generateRandomPassword(25);
+		$intranet_secret = randomPassword(25);
 
 		if ($file = fopen(CONFIG_FILE, 'a')) {
 			fwrite($file, "\r\n");
