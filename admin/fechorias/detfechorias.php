@@ -106,10 +106,10 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 		$inicio_aula = $row[17];
 		$fin_aula = $row[18];
 		$horas = $row[19];
-		$adjunto = $row[20];
+		$adjunto = $row[21];
 
     if (!$claveal) {
-      $claveal = $row[21];
+      $claveal = $row[20];
     }
 
  	if($inicio){ $inicio1 = explode("-",$inicio); $inicio = $inicio1[2] . "-" . $inicio1[1] ."-" . $inicio1[0];}
