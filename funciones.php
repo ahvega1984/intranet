@@ -200,9 +200,9 @@ function getBrowser($u_agent) {
     if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
         $bname = 'Internet Explorer';
 		$ub = "MSIE";
-	} elseif(preg_match('/Edge/i',$u_agent)) {
+	} elseif(preg_match('/Edge/i',$u_agent) || preg_match('/Edg/i',$u_agent)) {
         $bname = 'Microsoft Edge';
-        $ub = "Edge";
+        $ub = "Edg";
     } elseif(preg_match('/Firefox/i',$u_agent)) {
         $bname = 'Mozilla Firefox';
         $ub = "Firefox";
