@@ -56,8 +56,7 @@ else {
 <?php endif; ?>
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
-<li class="active"><a href="#tab0" data-toggle="tab">Eval. Inicial</a></li>	
-<li><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
+<li class="active"><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
 <li><a href="#tab2" data-toggle="tab">2ª Evaluación</a></li>
 <li><a href="#tab3" data-toggle="tab">Evaluación Ordinaria</a></li>
 <li><a href="#tab4" data-toggle="tab">Evaluación Extraordinaria</a></li>
@@ -67,7 +66,7 @@ else {
 
 <?php 
 // Comprobamos datos de evaluaciones
-$n1 = mysqli_query($db_con, "select * from notas where notas0 not like '' or notas1 not like ''");
+$n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
 if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
@@ -82,7 +81,7 @@ else{
 <?php
 mysqli_query($db_con, "drop table temp3 IF EXISTS");
 
-$titulos = array("0"=>"Eval. Inicial","1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
+$titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria","4"=>"Evaluación Extraordinaria");
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
@@ -96,21 +95,21 @@ INDEX (  `claveal` )
 ) ENGINE = MyISAM";
  mysqli_query($db_con, $crea_tabla2); 
  mysqli_query($db_con, "ALTER TABLE  `temp3` ADD INDEX (  `asignatura` )");
-	$key == '0' ? $activ=" active" : $activ='';
+	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <?php
 // Evaluaciones ESO
-$nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
+$nivele = mysqli_query($db_con, "select distinct curso from alma_primera order by curso");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
-$niv = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[0]'");
+$niv = mysqli_query($db_con, "select distinct curso from alma_primera where curso = '$orden_nivel[0]'");
 while ($ni = mysqli_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
 	$rep = ""; 
 	$promo = "";
 		$todos="";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso from alma_primera, notas where alma_primera.CLAVEAL1 = notas.claveal and alma_primera.curso = '$curso'";
 //echo $notas1."<br>";
 
 $result1 = mysqli_query($db_con, $notas1);
@@ -154,13 +153,13 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 ?>
 <h3>Resultados de los Alumnos por Materias y Grupo</h3><br />
 <?php
-$nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
+$nivele = mysqli_query($db_con, "select distinct curso from alma_primera order by curso");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 ?>
 	<legend><?php echo $orden_nivel[1]; ?></legend><hr />
 <?php
 // UNIDADES DEL CURSO
-$niv = mysqli_query($db_con, "select distinct unidad from alma where curso = '$orden_nivel[0]' order by unidad");
+$niv = mysqli_query($db_con, "select distinct unidad from alma_primera where curso = '$orden_nivel[0]' order by unidad");
 while ($ni = mysqli_fetch_array($niv)) {
 	$unidad = $ni[0];
 	?>
@@ -171,6 +170,7 @@ while ($ni = mysqli_fetch_array($niv)) {
 <th class='text-info'>Matriculados</th>
 <th class='text-info'>Aprob. (%)</th>
 <th class='text-info'>Al. Aprob.</th>
+<th class='text-info' nowrap>Nota media</th>
 </thead>
 <tbody>	
 	<?php
@@ -178,7 +178,7 @@ $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas,
 //echo $sql;	
 $as = mysqli_query($db_con, $sql);
 while ($asi = mysqli_fetch_array($as)) {
-	$n_c = mysqli_query($db_con, "select distinct nivel from alma where curso = '$orden_nivel[0]'");
+	$n_c = mysqli_query($db_con, "select distinct nivel from alma_primera where curso = '$orden_nivel[0]'");
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
@@ -198,16 +198,24 @@ while ($asi = mysqli_fetch_array($as)) {
 	
 	//echo "select id from temp3 where asignatura = '$codasi'<br>";
 	$total_alumnos="";
-	$todo_grupo = mysqli_query($db_con, "select claveal from alma where unidad = '$unidad'");
+	$todo_grupo = mysqli_query($db_con, "select claveal from alma_primera where unidad = '$unidad'");
 	$total_alumnos = mysqli_num_rows($todo_grupo);
 
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
-	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
+	$combas = mysqli_query($db_con, "select claveal from alma_primera where combasi like '%$codasi%' and unidad = '$unidad'");
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
+
+	$medias = mysqli_query($db_con, "select nota from temp3 where asignatura = '$codasi' and unidad = '$unidad'");
+	$media_asig='';
+	$nota_media="";
+	while($total_notas = mysqli_fetch_array($medias)){
+		$nota_media+=$total_notas[0];
+	}
+	$media_asig = $nota_media/$num_matr;
 	
 	$porcient_asig = ($num_susp*100)/$num_matr;
 	$porciento_asig='';
@@ -229,7 +237,7 @@ else{
 
 if ($num_matr> ($total_alumnos-3)) {
 			echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
-	echo $porciento_asig2."</td><td>".$num_apro."</span></td></tr>";
+	echo $porciento_asig2."</td><td>".$num_apro."</span></td><td>".substr($media_asig,0,4)."</td></tr>";
 	}
 	}
 }
