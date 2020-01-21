@@ -954,6 +954,13 @@ $page_header = "Redactar mensaje";
 			autosave_prefix: "{path}{query}-{id}-",
 			autosave_restore_when_empty: false,
 			autosave_retention: "2m",
+			relative_urls : false,
+			remove_script_host : false,
+			<?php if ($_SERVER['HTTPS'] = "On"): ?>
+			document_base_url : "https://<?php echo $config['dominio']; ?>/intranet/",
+			<?php else: ?>
+			document_base_url : "http://<?php echo $config['dominio']; ?>/intranet/",
+			<?php endif; ?>
 			image_advtab: true,
 			
 			/* enable title field in the Image dialog*/
