@@ -31,21 +31,6 @@ $unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
-// Problemas con fechas y horas
-if($fechaini_evento > $fechafin_evento and !($todo_dia==1)) {
-header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
-exit();
-}
-
-if($horaini_evento > $horafin_evento and $fechaini_evento == $fechafin_evento and !($todo_dia==1)) {
-header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=121');
-exit();
-}
-// $fechafin_evento no puede estar vacío en caso de Día completo o produce error.
-if (empty($fechafin_evento)) {
-	$fechafin_evento = $fechaini_evento;
-}
-
 // Limpiamos espacios innecesarios
 $nombre_evento = trim($nombre_evento);
 $fechaini_evento = trim($fechaini_evento);
@@ -56,6 +41,23 @@ $descripcion_evento = trim($descripcion_evento);
 $observaciones_evento = trim($observaciones_evento);
 $lugar_evento = trim($lugar_evento);
 
+$fechaini_evento1 = strtotime(str_ireplace("/", "-", $fechaini_evento));
+$fechafin_evento1 = strtotime(str_ireplace("/", "-", $fechafin_evento));
+
+// Problemas con fechas y horas
+if($fechaini_evento1 > $fechafin_evento1 and !($todo_dia==1)) {
+header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=12');
+exit();
+}
+
+if($horaini_evento > $horafin_evento and $fechaini_evento1 == $fechafin_evento1 and !($todo_dia==1)) {
+header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg_cal=121');
+exit();
+}
+// $fechafin_evento no puede estar vacío en caso de Día completo o produce error.
+if (empty($fechafin_evento)) {
+	$fechafin_evento = $fechaini_evento;
+}
 
 if ($fechadiacomp_evento == '') $fechadiacomp_evento = 0;
 else $fechadiacomp_evento = 1;
