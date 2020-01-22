@@ -97,7 +97,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 					}
 					else {
 						// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-						if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $hash_clave_bcrypt)) {
+						if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 							$sesionIntranet = 1;
 						}
 						break;
@@ -108,7 +108,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 				// Si no es posible conectar con Séneca, pasa a inicio de sesión local
 				default :
 					// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-					if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $hash_clave_bcrypt)) {
+					if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 						$sesionIntranet = 1;
 					}
 					break;
@@ -117,7 +117,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 		// Si el usuario es el Administrador de la Intranet o personal no docente
 		else {
 			// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-			if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $hash_clave_bcrypt)) {
+			if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 
 				// Actualizamos la contraseña a BCRYPT
 				if ($datosIntranet['pass'] == $hash_clave_sha1) {

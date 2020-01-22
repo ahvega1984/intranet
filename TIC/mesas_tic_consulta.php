@@ -254,7 +254,7 @@ include("menu.php");
 				<?php if (mb_strstr($codasig,'+')==true): ?> 
 				<?php $codasig_exp = explode('+', $codasig); ?>
 				<?php else: ?>
-				<?php $codasig_exp = $codasig; ?>
+				<?php $codasig_exp[0] = $codasig; ?>
 				<?php endif; ?>
 
 				<div id="allItems">
