@@ -11,7 +11,7 @@ if (isset($_POST['enviar'])) {
 	$mail_from = $cor_pr0[0];
 
 	$titulo = stripslashes(mysqli_real_escape_string($db_con, $_POST['tema']));
-	$contenido = stripslashes(mysqli_real_escape_string($db_con, $_POST['texto']));
+	$contenido = $_POST['texto'];
 
 	require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
