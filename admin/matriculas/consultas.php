@@ -103,7 +103,18 @@ INDEX (  `id_matriculas` )
 		$text_n="";
 		$text_t="";
 		$id_cambios = $cam[0];
-		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
+		if ($curso == "1ESO") {
+			if (date('n')==9) {
+				$alma="alma_primaria";
+			}
+			else{
+				$alma="alma";
+			}			
+		}
+		else
+			{
+				$alma="alma";
+			}
 		$contr = mysqli_query($db_con, "select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id_cambios'");
 		//$col_datos = array()
 		$control = mysqli_fetch_array($contr);

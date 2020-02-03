@@ -107,9 +107,11 @@ if(mysqli_num_rows($cal2) > 0)
 	{
 		$actividad = $cal['nombre'];
 		$id = $cal['id'];
+		$hora_ini = $cal['horaini'];
+		$hora_fin = $cal['horafin'];
 		?>
 <li  style="padding-bottom:12px;"><?php echo $unidad.": ";?>
-	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a> para <?php echo (($cal['fechaini'] == $hoy) ? 'hoy' : 'el día '.strftime('%e de %B', strtotime($cal['fechaini']))); ?>.
+	<a class="alert-link" data-toggle="modal" href="calendario/index.php?viewModal=<?php echo $id;?>"><?php echo stripslashes($actividad); ?></a> para <?php echo (($cal['fechaini'] == $hoy) ? 'hoy (<small>de '.$hora_ini.' a '.$hora_fin.'</small>)' : 'el día '.strftime('%e de %B', strtotime($cal['fechaini'])).'(<small>de '.$hora_ini.' a '.$hora_fin.'</small>)'); ?>.
 </li>
 		<?php
 	}
