@@ -163,7 +163,7 @@
 	        				
 	        				<?php if ($config['calendario']['prefUltimoTrimestre']==0 and $fecha_actual > $semana_santa): ?>
 	        				<?php else: ?>
-
+	        				<?php if (stristr($_SESSION['cargo'],'1')==TRUE and stristr($_SERVER['SERVER_NAME'],"iesmonterroso")): ?>
 	       					<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
