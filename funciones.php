@@ -33,19 +33,19 @@ function limpiarInput($input, $type = 'alphanumeric') {
 
 		// ALLOW MINUS
 		case 'minus':
-			$output = preg_replace('([^a-záéíóúñºª])', '', $input);
+			$output = preg_replace('([^a-záéíóúñ])', '', $input);
 
 			break;
 
 		// ALLOW LETTERS (MAYUS AND MINUS)
 		case 'alpha':
-			$output = preg_replace('([^A-ZÁÉÍÓÑÚa-záéíóúñºª])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÑÚa-záéíóúñ])', '', $input);
 
 			break;
 
 		// ALLOW ALPHANUMERIC
 		case 'alphanumeric':
-			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñºª0-9])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñ0-9])', '', $input);
 
 			break;
 
