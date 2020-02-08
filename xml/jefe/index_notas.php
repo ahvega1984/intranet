@@ -20,7 +20,7 @@ if (strlen($eval)>1) {
 	include('../../lib/pclzip.lib.php');
 	
 	// Borramos archivos antiguos					
-	$files = glob($exporta.'/*'); 
+	$files = glob('../'.$exporta.'/*'); 
 	foreach($files as $file)
 	{ 
 		if(is_file($file) and stristr($file, "index")==FALSE)
@@ -28,7 +28,7 @@ if (strlen($eval)>1) {
 	}    
 		   
 	$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
-	if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
+	if ($archive->extract(PCLZIP_OPT_PATH,'../'.$exporta) == 0) 
 	{
 		include("../../menu.php");
 		die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
