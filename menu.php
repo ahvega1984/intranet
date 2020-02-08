@@ -272,7 +272,7 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 								<li style="padding: 0 20px; font-size: 0.9em;">
 									<div class="row">
 										<div class="col-sm-6" style="border-right: 1px solid #dedede; padding: 11px 0 !important;">
-											<a class="text-center" href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades" target="_blank" style="display: block;"><strong>Ver novedades</strong></a>
+											<a class="text-center" href="http://www.juntadeandalucia.es/educacion/portals/web/ced" target="_blank" style="display: block;"><strong>Ver novedades</strong></a>
 										</div>
 										<div class="col-sm-6" style="padding: 11px 0 !important;">
 											<a class="text-center" href="https://www.juntadeandalucia.es/educacion/senecav2/seneca/jsp/portal/" target="_blank" style="display: block;"><strong>Portal Séneca</strong></a>
