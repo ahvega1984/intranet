@@ -27,32 +27,32 @@ function limpiarInput($input, $type = 'alphanumeric') {
 		
 		// ALLOW MAYUS
 		case 'mayus':
-			$output = preg_replace('([^A-ZÁÉÍÓÚÑ])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑºª])', '', $input);
 
 			break;
 
 		// ALLOW MINUS
 		case 'minus':
-			$output = preg_replace('([^a-záéíóúñ])', '', $input);
+			$output = preg_replace('([^a-záéíóúñºª])', '', $input);
 
 			break;
 
 		// ALLOW LETTERS (MAYUS AND MINUS)
 		case 'alpha':
-			$output = preg_replace('([^A-ZÁÉÍÓÑÚa-záéíóúñ])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÑÚa-záéíóúñºª])', '', $input);
 
 			break;
 
 		// ALLOW ALPHANUMERIC
 		case 'alphanumeric':
-			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñ0-9])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñºª0-9])', '', $input);
 
 			break;
 
 		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space,  !"#$%&'()*+,-./:;»=>?@[\]^_`{|}~
 		case 'alphanumericspecial':
 		default:
-			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñ0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñºª0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
 
 			break;
 
