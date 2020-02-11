@@ -675,8 +675,9 @@ CREATE TABLE IF NOT EXISTS `FTUTORES` (
   `TUTOR` varchar(48) NOT NULL DEFAULT '',
   `observaciones1` mediumtext NOT NULL,
   `observaciones2` mediumtext NOT NULL,
-  PRIMARY KEY (`unidad`,`TUTOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

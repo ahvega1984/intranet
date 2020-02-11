@@ -917,3 +917,16 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Ampliación campo pass en tabla c_profes', NOW())");
 }
+
+/*
+	@descripcion: Clave primaria en FTUTORES
+	@fecha: 11 de febrero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Clave primaria en FTUTORES'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE FTUTORES DROP PRIMARY KEY;");
+	mysqli_query($db_con, "ALTER TABLE `FTUTORES` ADD `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Clave primaria en FTUTORES', NOW())");
+}

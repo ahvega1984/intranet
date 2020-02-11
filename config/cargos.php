@@ -22,13 +22,20 @@ include ("../menu.php");
 	}
 	if (isset($_POST['enviar'])) {
 
+	// Backup de FTUTORES
 	mysqli_query($db_con, "drop table FTUTORES_seg" );
 	mysqli_query($db_con, "create table FTUTORES_seg select * from FTUTORES" );
 	mysqli_query($db_con, "truncate table FTUTORES" );
+	// Backup de departamentos
 	mysqli_query($db_con, "drop table departamentos_seg" );
 	mysqli_query($db_con, "create table departamentos_seg select * from departamentos" );
-	mysqli_query($db_con, "truncate table cargos" );
+	// Backup de c_profes
+	mysqli_query($db_con, "drop table c_profes_seg" );
+	mysqli_query($db_con, "create table c_profes_seg select * from c_profes" );
 	mysqli_query($db_con, "update c_profes set telefono = ''" );
+
+	mysqli_query($db_con, "truncate table cargos" );
+
 
 		foreach ( $_POST as $dni => $cargo_profe ) {
 			// echo "$dni => $cargo_profe<br>";
