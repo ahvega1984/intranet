@@ -39,7 +39,7 @@ $llenar="";
 
 if(empty($llenar)){}else{$id = $llenar;}
 
-$alumno = mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id, tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and ID='$id'");
+$alumno = mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id, tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and tareas_alumnos.ID='$id'");
 $dalumno = mysqli_fetch_array ( $alumno );
 $claveal = $dalumno[7];
 $fecha_t = $dalumno[5];

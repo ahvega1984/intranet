@@ -51,7 +51,7 @@ El Informe ha sido guardado correctamente. Puedes comprobar los datos más abajo
 	
 
 
-$alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id,tutor, FECHA, duracion FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and ID='$id_alumno'");
+$alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id,tutor, FECHA, duracion FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and tareas_alumnos.ID='$id_alumno'");
 $dalumno = mysqli_fetch_array($alumno);
 echo "<br><h4>Alumno: $dalumno[1] $dalumno[0] ($dalumno[2])</h4><h4> Fecha de Expulsión: $dalumno[5] ($dalumno[6] días)</h4><h4>Tutor: $dalumno[4]</h4><br />";
 $datos=mysqli_query($db_con, "SELECT asignatura, tarea, id FROM tareas_profesor WHERE id_alumno='$id_alumno'");

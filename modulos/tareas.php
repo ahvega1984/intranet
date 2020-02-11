@@ -101,8 +101,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 </div>
 <div class="modal-body">
 <?php
-$alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES
-WHERE FTUTORES.unidad = tareas_alumnos.unidad and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'");
+$alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and FTUTORES.grupo = tareas_alumnos.grupo and tareas_alumnos.ID='$id'");
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[7];
 $datos=mysqli_query($db_con, "SELECT asignatura, tarea FROM tareas_profesor WHERE id_alumno='$id'");

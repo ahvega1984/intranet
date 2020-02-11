@@ -53,7 +53,7 @@ $MiPDF->SetFont('NewsGotT', '', 12);
 
 
 // INFORMACION DEL ALUMNO
-$result = mysqli_query($db_con, "SELECT apellidos, nombre, tareas_alumnos.unidad, tareas_alumnos.id, tutor, fecha, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and id='$id'");
+$result = mysqli_query($db_con, "SELECT apellidos, nombre, tareas_alumnos.unidad, tareas_alumnos.id, tutor, fecha, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and tareas_alumnos.id='$id'");
 
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
