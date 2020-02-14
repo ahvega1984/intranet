@@ -75,7 +75,7 @@ if ($_GET['inf']=="1") {
 $al=mysqli_query($db_con, "SELECT distinct apellidos, nombre, absentismo.unidad, matriculas, numero, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
 if (mysqli_num_rows($al)>0) {
 $datos=mysqli_fetch_array($al);
-if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];$obs2=$datos[8];$obs3=$datos[6];$obs4=$datos[7];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];}else {$obs=$datos[7];}
+if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];$obs2=$datos[8];$obs3=$datos[6];$obs4=$datos[7];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];$obs2=$datos[8];$obs3=$datos[6];$obs4=$datos[7];$obs5=$datos[5];}else {$obs=$datos[7];}
 ?>
 
 <?
@@ -206,17 +206,24 @@ echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 <div class="form-group"><label>Observaciones</label>
 <textarea name="texto" title="Informe de Alumno absentista." class="form-control" rows="12"><?php echo $obs;?></textarea></div>
 <?php
-if (strstr($_SESSION['cargo'],'1')==TRUE) {
+if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
+if (strstr($_SESSION['cargo'],'8')==TRUE) { ?>
+<div class="form-group"><label>Informe de Jefatura</label>
+<textarea name="texto2" title="Informe de Alumno absentista." class="form-control" rows="12" readonly><?php echo $obs5;?></textarea></div>
+<?php	
+}
 ?>
 <div class="form-group"><label>Informe de Servicios Sociales</label>
 <textarea name="texto2" title="Informe de Alumno absentista." class="form-control" rows="12"><?php echo $obs2;?></textarea></div>
 
 <div class="form-group"><label>Informe del Tutor</label>
 <textarea name="" title="Informe de Alumno absentista." class="form-control" rows="12" readonly><?php echo $obs4;?></textarea></div>
-
+<?php 
+if (strstr($_SESSION['cargo'],'8')==FALSE) { ?>
 <div class="form-group"><label>Informe de Orientación</label>
 <textarea name="" title="Informe de Alumno absentista." class="form-control" rows="12" readonly><?php echo $obs3;?></textarea></div>
 <?php
+}
 }
 ?>
 <input type="submit" name="submit" value="Enviar Informe" class="btn btn-primary">
