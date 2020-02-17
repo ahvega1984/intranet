@@ -108,12 +108,12 @@ foreach($_POST as $clave => $valor)
 			if ($envia_sms == '1' && $valor == 'R' && ! empty($sms_tutor1)) {
 				$retraso_primera = 1;
 				$causa = "Retraso en la asistencia al aula";
-				$sms_message = "Su hijo/a ha entrado con retraso en el aula a primera hora del día $hoy. Para consultar la asistencia de su hijo/a entre en http://".$config['dominio'];
+				$sms_message = "Su hijo/a ha entrado con retraso en el aula a primera hora del día $hoy. Para consultar la asistencia de su hijo/a entre en http://".$config['dominio']."/alumnado/";
 				}				
 			elseif ($envia_sms == '1' && $valor == 'F' && ! empty($sms_tutor1)) {
 				$falta_primera = 1;
 				$causa = "Falta de asistencia a primera hora";
-				$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio'];
+				$sms_message = "Su hijo/a ha faltado a primera hora del día $hoy. Para consultar las faltas de asistencia de su hijo/a entre en http://".$config['dominio']."/alumnado/";
 				}
 
 			if ($falta_primera == 1 OR $retraso_primera == 1) {
