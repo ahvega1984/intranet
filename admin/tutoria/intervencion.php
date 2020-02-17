@@ -35,7 +35,7 @@ if (isset($_GET['alumno'])) $alumno = $_GET['alumno'];
 
 // COMPROBAMOS SI SE PASA UN ID DE INTERVENCION
 if (isset($_GET['id'])) {
-	$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal FROM tutoria, FTUTORES WHERE tutoria.unidad = FTUTORES.unidad AND tutoria.id='".$_GET['id']."' AND tutoria.unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
+	$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, tutoria.id, prohibido, orienta, jefatura, claveal FROM tutoria, FTUTORES WHERE tutoria.unidad = FTUTORES.unidad AND tutoria.id='".$_GET['id']."' AND tutoria.unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
 
 	if (mysqli_num_rows($result)) {
 		$row = mysqli_fetch_array($result);
