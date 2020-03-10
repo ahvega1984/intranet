@@ -90,7 +90,8 @@ foreach($_POST as $clave => $valor)
 			$retraso_primera = "";
 			$falta_primera = "";
 
-		if (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) {
+		if (isset($config['asistencia']['notificacion_primerahora']) && $config['asistencia']['notificacion_primerahora'] == 1) 
+		{
 			$sms_alumno = mysqli_query($db_con, "SELECT distinct alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas, alma.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA, alma.DNITUTOR FROM alma WHERE alma.claveal = '$claveal'" );
 			$sms_row = mysqli_fetch_array($sms_alumno);
 			$sms_apellidos = trim($sms_row[0]);
@@ -143,8 +144,9 @@ foreach($_POST as $clave => $valor)
 					$sms->set_immediate();
 
 					if ($sms->validate()){
-						$sms->send();
 
+						$sms->send();
+					
 						// Registro de SMS
 						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$sms_message','$profesor')");
 
@@ -152,7 +154,7 @@ foreach($_POST as $clave => $valor)
 						$observaciones = $sms_message;
 						$accion = "Env&iacute;o de SMS";
 						
-						mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
+						mysqli_query($db_con, "insert into tutoria (apellidos,nombre,tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $sms_apellidos . "','" . $sms_nombre_alum . "','" . $profesor . "','" . $sms_unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $hoy . "','" . $claveal . "')" );
 						}
 					}
 				}

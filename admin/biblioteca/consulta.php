@@ -19,7 +19,7 @@ function seleccionar_todo(){
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-	  <h2>Biblioteca <small>Gestión de los Préstamos</small></h1>
+	  <h2>Biblioteca <small>Gesti&oacute;n de los Pr&eacute;stamos</small></h1>
 		<h3>Lista de morosos</small></h3>
 	</div>
 	
@@ -33,10 +33,10 @@ function seleccionar_todo(){
 	<thead>
 		<tr>		
 		<th  style="width:60px; text-align: left"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="far fa-sm fa-check-square"> </i></a></th>
-		<th style="width:100px">Código</th>
+		<th style="width:100px">C&oacute;digo</th>
 		<th style="width:100px">Grupo</th>
 		<th>Alumno</th>
-		<th>Título</th>
+		<th>T&iacute;tulo</th>
 		<th nowrap style="width:150px">Fecha dev.</th>
 		<th></th>
 		</tr>	

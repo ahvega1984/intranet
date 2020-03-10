@@ -31,16 +31,17 @@ include("../../menu.php");
 <?php 
 		$excluidos = '"Tarari"';
 		$num=0;
-		$unidad = mysqli_query($db_con, "select distinct unidad from alma where unidad not like '%T-%' and unidad not like '%S-%' order by unidad asc");
+		$unidad = mysqli_query($db_con, "select distinct unidad, curso from alma where curso like '%E.S.O.%' or curso like '%Bachillerato%' order by unidad asc");
 		while ($unidades = mysqli_fetch_array($unidad)) {
 			
 			$grupo_origen = $unidades[0];
+			$curso_origen = $unidades[1];
 			if (stristr($excluidos, $grupo_origen)==FALSE) {
-				if (stristr($grupo_origen, "1E-")) {
-					$orienta = " and grupo not like '3E-%'";
+				if (stristr($curso_origen, "1º de E.S.O.") AND $_SERVER['SERVER_NAME']=="iesmonterroso.org") {
+					$orienta = " and grupo not like '3%'";
 				}
-				elseif (stristr($grupo_origen, "2E-")) {
-					$orienta = " and grupo not like '4E-%'";
+				elseif (stristr($curso_origen, "2º de E.S.O.") AND $_SERVER['SERVER_NAME']=="iesmonterroso.org") {
+					$orienta = " and grupo not like '4%'";
 				}
 				else{
 					$orienta = "";
