@@ -86,8 +86,8 @@ exit;
 }
 
 $insertar=mysqli_query($db_con, "INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,unidad,F_ENTREV,TUTOR,FECHA_REGISTRO,motivo)
-VALUES ('$claveal',\"$apellidos\",'$nombre','$unidad',
-'$fecha','".$_POST['tutor']."', '$hoy', '$motivo')") or die ("Error en la activación del informe: " . mysqli_error($db_con));
+VALUES ('$claveal','".mysqli_real_escape_string($db_con, $apellidos)."','".mysqli_real_escape_string($db_con, $nombre)."','$unidad',
+'$fecha','".mysqli_real_escape_string($db_con, $_POST['tutor'])."', '$hoy', '".mysqli_real_escape_string($db_con, $motivo)."')") or die ("Error en la activación del informe: " . mysqli_error($db_con));
 
 if (stristr($apellidos, "Informe general")==TRUE) {
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
