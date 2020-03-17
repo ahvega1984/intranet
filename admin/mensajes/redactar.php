@@ -33,6 +33,8 @@ $profesor = $_POST['profesor'];
 $convivencia = $_POST['convivencia'];
 $profesor_nocturno = $_POST['profesor_nocturno']; // Checkbox
 $profesores_nocturnos = $_POST['profesores_nocturnos']; // Select
+$profesor_diurno = $_POST['profesor_diurno']; // Checkbox
+$profesores_diurnos = $_POST['profesores_diurnos']; // Select
 
 if (isset($_POST['padres'])) {
 	$padres = $_POST['padres'];
@@ -187,17 +189,29 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
 
-								<?php $result_profesores_nocturnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND `c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `prof` ASC"); ?>
-								<?php $existeProfesoresNocturnos = (mysqli_num_rows($result_profesores_nocturnos)) ? 1 : 0; ?>
-								<?php if ($existeProfesoresNocturnos): ?>
-								<div class="form-group">
+				<?php $result_profesores_nocturnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND `c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `prof` ASC"); ?>
+				<?php $existeProfesoresNocturnos = (mysqli_num_rows($result_profesores_nocturnos)) ? 1 : 0; ?>
+				<?php if ($existeProfesoresNocturnos): ?>
+				<div class="form-group">
                 	<div class="checkbox">
                 		<label>
                 			<input id="profesor_nocturno" name="profesor_nocturno" type="checkbox" value="1" <?php if($profesor_nocturno=='1' and !$claustro) echo 'checked'; ?>> Profesorado nocturno
                 		</label>
                 	</div>
                 </div>
-								<?php endif; ?>
+				<?php endif; ?>
+
+				<?php $result_profesores_diurnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` < 8 AND `c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `prof` ASC"); ?>
+				<?php $existeProfesoresDiurnos = (mysqli_num_rows($result_profesores_diurnos)) ? 1 : 0; ?>
+				<?php if ($existeProfesoresDiurnos): ?>
+				<div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input id="profesor_diurno" name="profesor_diurno" type="checkbox" value="1" <?php if($profesor_diurno=='1' and !$claustro) echo 'checked'; ?>> Profesorado diurno
+                		</label>
+                	</div>
+                </div>
+				<?php endif; ?>
 
 								<?php if((stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE) and $_SESSION['pagina_centro'] == 1): ?>
               	<div class="form-group">
@@ -455,6 +469,35 @@ $page_header = "Redactar mensaje";
 							<?php endif; ?>
 
 							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples profesores de nocturno.</div>
+						</div>
+
+					</fieldset>
+				</div>
+				<?php endif; ?>
+
+				<?php if ($existeProfesoresDiurnos): ?>
+				<!-- PROFESORADO NOCTURNO -->
+				<div id="grupo_profesor_diurno" class="well <?php echo (isset($profesor_diurno) && !empty($profesor_diurno)) ? '' : 'hidden'; ?>">
+
+					<fieldset>
+						<legend>Seleccione profesorado de diurno</legend>
+
+						<div class="form-group">
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `horw`.`prof`, `departamentos`.`idea` FROM `horw` JOIN `departamentos` ON `horw`.`prof` = `departamentos`.`nombre` WHERE `horw`.`hora` < 8 AND `horw`.`c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `horw`.`prof` ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
+							<select class="form-control" name="profesores_diurnos[]" multiple="multiple" size="23">
+								<?php while($row = mysqli_fetch_array($result)): ?>
+								<option value="<?php echo $row['idea']; ?>"><?php echo $row['prof']; ?></option>
+								<?php endwhile; ?>
+								<?php mysqli_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="profesores_diurnos[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces clic con el ratón para seleccionar múltiples profesores de diurno.</div>
 						</div>
 
 					</fieldset>
@@ -777,13 +820,23 @@ $page_header = "Redactar mensaje";
 				}
 			});
 
-			// Equipos
+			// Nocturno
 			$('#profesor_nocturno').change(function() {
 				if(profesor_nocturno.checked==true) {
 					$('#grupo_profesor_nocturno').removeClass('hidden');
 				}
 				else {
 					$('#grupo_profesor_nocturno').addClass('hidden');
+				}
+			});
+
+			// Nocturno
+			$('#profesor_diurno').change(function() {
+				if(profesor_diurno.checked==true) {
+					$('#grupo_profesor_diurno').removeClass('hidden');
+				}
+				else {
+					$('#grupo_profesor_diurno').addClass('hidden');
 				}
 			});
 
@@ -807,6 +860,7 @@ $page_header = "Redactar mensaje";
 					$('#convivencia').prop('disabled', true);
 					$('#mantenimiento').prop('disabled', true);
 					$('#profesor_nocturno').prop('disabled', true);
+					$('#profesor_diurno').prop('disabled', true);
 				}
 				else {
 					$('#grupo_claustro').addClass('hidden');
@@ -826,6 +880,7 @@ $page_header = "Redactar mensaje";
 					$('#convivencia').prop('disabled', false);
 					$('#mantenimiento').prop('disabled', false);
 					$('#profesor_nocturno').prop('disabled', false);
+					$('#profesor_diurno').prop('disabled', false);
 				}
 			});
 
@@ -1045,14 +1100,14 @@ $page_header = "Redactar mensaje";
 	    }
 
 	    // Comprobación de Grupo de destinatarios sin marcar
-	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.profesor_nocturno.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.convivencia.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
+	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.profesor_nocturno.checked == false && formulario.profesor_diurno.checked == false && formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.convivencia.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
 			bootbox.alert("No ha seleccionado ningún grupo de destinatarios para el mensaje.");
 			return false;
 	    }
 
 	    // Comprobación de destinatario vacío
 	    if(formulario.claustro.checked == false && formulario.pas.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.mantenimiento.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?>) {
-		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['profesores_nocturnos[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
+		    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['profesores_nocturnos[]'].selectedIndex == -1 && document.forms['formulario']['profesores_diurnos[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
 		    	bootbox.alert("No ha seleccionado ningún destinatario para el mensaje.");
 		    	return false;
 		  	}
