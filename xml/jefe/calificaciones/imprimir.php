@@ -305,40 +305,40 @@ foreach ($alumnos as $alumno) {
 
     $MiPDF->Ln(10);
 
-    $MiPDF->SetFont('Noto Sans HK', 'BU', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'BU', 8.5);
     $MiPDF->Cell(0, 5, 'BOLETÍN DE CALIFICACIONES', 0, 0, 'C', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
 
     $curso_alumno = str_replace('(Humanidades y Ciencias Sociales (Lomce))', '(Humanid. y CC.SS.)', $alumno['curso']);
 
     // INFORMACION DE LA CARTA
     $MiPDF->SetY(45);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'ALUMNO/A:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $alumno['nombre'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'NÚMERO EXP:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $alumno['numexp'], 0, 0, 'L', 0);
     $MiPDF->Cell(85, 5, $alumno['tutorlegal'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'CURSO:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $curso_alumno, 0, 0, 'L', 0);
     $MiPDF->Cell(85, 5, $alumno['direccion1'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'UNIDAD:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $alumno['unidad'], 0, 0, 'L', 0);
     $MiPDF->Cell(85, 5, $alumno['direccion2'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'CONVOCATORIA:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $convocatoria['abrev'].' ('.$convocatoria['nombre'].')', 0, 1, 'L', 0);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'AÑO ACADÉMICO:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $anio_academico, 0, 1, 'L', 0);
 
     $MiPDF->Ln(5);
@@ -396,15 +396,15 @@ foreach ($alumnos as $alumno) {
     }
 
     // TABLA CON CALIFICACIONES
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(0, 5, 'EVALUACIÓN', 0, 1, 'C', 0);
 
     $MiPDF->SetAligns($tabla_alineacion);
     $MiPDF->SetWidths($tabla_anchos);
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->SetFillColor(200, 200, 200);
     $MiPDF->Row($tabla_encabezado, 0, 4.5, 1);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
 
     foreach ($combasi as $idasignatura) {
         $result_asignatura = mysqli_query($db_con, "SELECT `nombre`, `curso` FROM `asignaturas` WHERE `codigo` = '$idasignatura' LIMIT 1");
@@ -577,9 +577,9 @@ foreach ($alumnos as $alumno) {
                 break;
         }
 
-        $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+        $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
         $MiPDF->Cell(0, 5, 'Resumen de faltas de asistencia desde '.(strftime('%d/%m/%Y', strtotime($fecha_inicio_faltas))).' hasta '.(strftime('%d/%m/%Y', strtotime($fecha_fin_faltas))).':', 0, 1, 'L', 0);
-        $MiPDF->SetFont('Noto Sans HK', '', 9);;
+        $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
 
         $total_dias_justificadas = 0;
         $result_dias_faltas_justificadas = mysqli_query($db_con, "SELECT `fecha`, COUNT(`hora`) AS 'horas' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'J' GROUP BY `fecha` HAVING `horas` = 6 ORDER BY `fecha` ASC, `hora` ASC");
@@ -617,9 +617,9 @@ foreach ($alumnos as $alumno) {
         $MiPDF->Ln(5);
     }
 
-    $MiPDF->SetFont('Noto Sans HK', 'B', 9);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(0, 5, 'Observaciones:', 0, 1, 'L', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Ln(10);
 
     // OBTENEMOS EL/LA TUTOR/A DE LA UNIDAD
@@ -661,7 +661,7 @@ foreach ($alumnos as $alumno) {
     // Imagen sello. Se coloca aquí para que quede por detrás del texto
     $MiPDF->Image('../../../img/sello.jpg', 45, $MiPDF->GetY()-5, 35, '', 'jpg');
 
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(90, 5, 'Sello del Centro', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Les saluda cordialmente,', 0, 1, 'L', 0);
 
@@ -678,10 +678,10 @@ foreach ($alumnos as $alumno) {
     $MiPDF->SetTextColor(0,0,0);
     // Fin sello
 
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(55, 5, '', 0, 0, 'C', 0);
     $MiPDF->Cell(55, 5, '', 0, 1, 'C', 0);
-    $MiPDF->SetFont('Noto Sans HK', '', 9);;
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Tutor/a: '.$tutor, 0, 1, 'L', 0);
     if ($horario_tutoria != "") {
