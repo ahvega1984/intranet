@@ -1,20 +1,29 @@
 <?php
 require("bootstrap.php");
 
+// Comprobamos si el usuario es profesor
+$result_profesor = mysqli_query($db_con, "SELECT `idprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$_SESSION['profi']."' LIMIT 1");
+$esProfesor = (mysqli_num_rows($result_profesor)) ? 1 : 0;
+
 // Envío de formularios
 if (isset($_POST['registrarCorreo'])) {
 	if (checkToken()) {
 		if (isset($_POST['email']) && ! empty($_POST['email'])) {
 			$cmp_correo = limpiarInput(trim($_POST['email']), 'alphanumericspecial');
 			if (filter_var($cmp_correo, FILTER_VALIDATE_EMAIL)) {
-				mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+				if (! $esProfesor || ($esProfesor && (strpos($cmp_correo, '@'.'juntadeandalucia.es') !== false || strpos($cmp_correo, '@'.$_SERVER['SERVER_NAME']) !== false))) {
+					mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+				}
+				else {
+					$msg_email_error = "Debe introducir una dirección de correo electrónico @juntadeandalucia.es o @".$_SERVER['SERVER_NAME'];
+				}
 			}
 			else {
-				$msg_email_error = "Debe introducir una dirección de correo electrónico válida.";
+				$msg_email_error = "Debe introducir una dirección de correo electrónico corporativa válida.";
 			}
 		}
 		else {
-			$msg_email_error = "Debe introducir una dirección de correo electrónico válida.";
+			$msg_email_error = "Debe introducir una dirección de correo electrónico corporativa válida.";
 		}
 	}
 	else {
@@ -332,7 +341,9 @@ include("menu.php");
 				    </div>
 				    <div id="cuentaCollapseEmail" class="panel-collapse collapse" role="tabpanel" aria-labelledby="cuentaHeadingOne">
 				      <div class="panel-body">
-				      	<p class="help-block">Por motivos de seguridad y en cumplimiento al derecho a la desconexión digital en el ámbito laboral regulado en la <a href="https://www.boe.es/eli/es/lo/2018/12/05/3/con#a8-10" target="_blank">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos y garantía de los derechos digitales (LOPDGDD)</a>, utilice el correo corporativo de la Consejería de Educación de la Junta de Andalucía <strong>edu@juntadeandalucia.es</strong> que puede solicitar en la aplicación Séneca, pantalla Utilidades, Correo corporativo.</p>
+				      	<?php if ($esProfesor): ?>
+				      	<p class="help-block">Por motivos de seguridad y en cumplimiento al derecho a la desconexión digital en el ámbito laboral regulado en la <a href="https://www.boe.es/eli/es/lo/2018/12/05/3/con#a8-10" target="_blank">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos y garantía de los derechos digitales (LOPDGDD)</a>, utilice el correo corporativo de la Consejería de Educación de la Junta de Andalucía <strong>edu@juntadeandalucia.es</strong> que puede solicitar en la aplicación Séneca, pantalla Utilidades, Correo corporativo. También puede usar una dirección de correo electrónico <strong>@<?php echo $_SERVER['SERVER_NAME']; ?></strong>, si el Centro se la ha proporcionado.</p>
+				      	<?php endif; ?>
 
 				      	<br>
 				      	<?php if (isset($msg_email_error)): ?>
