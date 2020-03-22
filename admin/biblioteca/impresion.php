@@ -1,18 +1,9 @@
 <?php
 require('../../bootstrap.php');
+require("../../pdf/fpdf.php");
+define('FPDF_FONTPATH', '../../pdf/font/');
 
 acl_acceso($_SESSION['cargo'], array(1, 'c'));
-
-if(isset($_POST['impreso'])){
-
-	$impreso=$_POST['impreso'];
-	$hola=$_POST['hola'];
-
-	$j=0;
-	foreach ($_POST as $ide => $valor) {
-		if(($ide != 'impreso') and (!empty( $valor))){
-			include ("../../pdf/fpdf.php");
-			define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 
 
 # creamos la clase extendida de fpdf.php
@@ -48,22 +39,37 @@ class GranPDF extends FPDF {
 	}
 }
 
-			# creamos el nuevo objeto partiendo de la clase
-			$MiPDF=new GranPDF('P','mm','A4');
+# creamos el nuevo objeto partiendo de la clase
+$MiPDF=new GranPDF('P','mm','A4');
+$MiPDF->AddFont('Noto Sans HK Bold','','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK Bold','B','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK','','NotoSansHK-Regular.php');
+$MiPDF->AddFont('Noto Sans HK','B','NotoSansHK-Bold.php');
+
+
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
 $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
-			# creamos el nuevo objeto partiendo de la clase ampliada
-			$MiPDF->SetMargins ( 25, 20, 20 );
-			# ajustamos al 100% la visualizaciÃ³n
-			$MiPDF->SetDisplayMode ( 'fullpage' );
-			$hoy= date ('d-m-Y',time());
-			$tutor="Jefatura de Estudios";
-			$titulo1 = "COMUNICACI�N DE AMONESTACI�N ESCRITA";
+# creamos el nuevo objeto partiendo de la clase ampliada
+$MiPDF->SetMargins ( 25, 20, 20 );
+# ajustamos al 100% la visualizaciÃ³n
+$MiPDF->SetDisplayMode ( 'fullpage' );
+$hoy= date ('d-m-Y',time());
+$tutor="Jefatura de Estudios";
+$titulo1 = "COMUNICACIÓN DE AMONESTACIÓN ESCRITA";
 
+if(isset($_POST['impreso'])){
+
+	$impreso=$_POST['impreso'];
+	$hola=$_POST['hola'];
+
+	$j=0;
+	foreach ($_POST as $ide => $valor) {
+		if(($ide != 'impreso') and (!empty( $valor))){
+		
 			for($i=0; $i <= count($valor)-1; $i++){
 			$j+=1; //echo $valor[$i];
 			$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id='$valor[$i]'") or die ("error al localizar alumno");
@@ -81,10 +87,10 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 				$nombre=$nombre;
 				$apellido=$apellido;
 
-				$cuerpo1 = "Muy Se�or/Sra. m�o/a:
+				$cuerpo1 = "Muy Señor/Sra. mío/a:
 
-Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno del grupo $curso ha sido amonestado/a por \"Retraso injustificado en la devoluci�n de material a la Biblioteca del Centro\"";
-				$cuerpo2 = "Asimismo, le comunico que, seg�n contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Org�nico de los Institutos de Educaci�n Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podr�a impon�rsele otra medida de correcci�n que podr�a llegar a ser la suspensi�n del derecho de asistencia al Centro.";
+Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno del grupo $curso ha sido amonestado/a por \"Retraso injustificado en la devolución de material a la Biblioteca del Centro\"";
+				$cuerpo2 = "Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.";
 				$cuerpo3 = "----------------------------------------------------------------------------------------------------------------------------------------------
 
 En ".$config['centro_localidad'].", a _________________________________
@@ -92,14 +98,14 @@ Firmado: El Padre/Madre/Representante legal:
 
 
 
-D./D�a _____________________________________________________________________
+D./Dña _____________________________________________________________________
 D.N.I ___________________________";
 				$cuerpo4 = "
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-COMUNICACI�N DE AMONESTACI�N ESCRITA
+COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 
-	El alumno/a $nombre $apellido del grupo $curso, ha sido amonestado/a con fecha $hoy con falta grave, recibiendo la notificaci�n mediante comunicaci�n escrita de la misma para entregarla al padre/madre/representante legal.
+	El alumno/a $nombre $apellido del grupo $curso, ha sido amonestado/a con fecha $hoy con falta grave, recibiendo la notificación mediante comunicación escrita de la misma para entregarla al padre/madre/representante legal.
 
                                            Firma del alumno/a:
 
@@ -108,7 +114,7 @@ COMUNICACI�N DE AMONESTACI�N ESCRITA
 				# insertamos la primera pagina del documento
 				$MiPDF->Addpage ();
 				#### Cabecera con dirección
-				$MiPDF->SetFont ( 'NewsGotT', '', 12 );
+				$MiPDF->SetFont('Noto Sans HK', '', 10);
 				$MiPDF->SetTextColor ( 0, 0, 0 );
 				$MiPDF->SetTextColor ( 0, 0, 0 );
 				$MiPDF->Text ( 128, 35, $config['centro_denominacion'] );
@@ -117,9 +123,9 @@ COMUNICACI�N DE AMONESTACI�N ESCRITA
 				$MiPDF->Text ( 128, 47, "Tlfno. " . $config['centro_telefono']);
 				#Cuerpo.
 				$MiPDF->Ln ( 45 );
-				$MiPDF->SetFont ( 'NewsGotT', 'B', 12 );
+				$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 				$MiPDF->Multicell ( 0, 4, $titulo1, 0, 'C', 0 );
-				$MiPDF->SetFont ( 'NewsGotT', '', 12 );
+				$MiPDF->SetFont('Noto Sans HK', '', 10);
 				$MiPDF->Ln ( 4 );
 				$MiPDF->Multicell ( 0, 4, $cuerpo1, 0, 'J', 0 );
 				$MiPDF->Ln ( 3 );
@@ -138,5 +144,3 @@ COMUNICACI�N DE AMONESTACI�N ESCRITA
 	 }
 	}
 }
-
-?>

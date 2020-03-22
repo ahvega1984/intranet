@@ -121,7 +121,7 @@ function ft_settings_external_load() {
     $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
-  // Permisos de todos los profesores para la carpeta Recursos
+  // Permisos de todos los profesores para los subdirectorios de la carpeta Recursos
   elseif ((strpos($dir, '/Recursos/') !== false)) {
     $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
     $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.

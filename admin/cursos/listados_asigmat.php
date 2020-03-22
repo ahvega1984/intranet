@@ -3,6 +3,11 @@ require('../../bootstrap.php');
 require("../../pdf/mc_table.php");
 
 $MiPDF = new PDF_MC_Table('L', 'mm', 'A4');
+$MiPDF->AddFont('Noto Sans HK Bold','','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK Bold','B','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK','','NotoSansHK-Regular.php');
+$MiPDF->AddFont('Noto Sans HK','B','NotoSansHK-Bold.php');
+
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
@@ -10,7 +15,7 @@ $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 
-$MiPDF->SetMargins(10, 10, 10);
+$MiPDF->SetMargins(5, 5, 5);
 $MiPDF->SetAutoPageBreak(true, 10);
 $MiPDF->SetDisplayMode('fullpage');
 
@@ -76,13 +81,13 @@ foreach ($unidades as $unidad) {
 	foreach ($cursos as $curso) {
 		$MiPDF->Addpage();
 
-		$MiPDF->SetFont('NewsGotT', 'B', 12);
+		$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 		$MiPDF->Multicell(0, 5, mb_strtoupper("Listado de clase y asignaturas matriculadas", 'UTF-8'), 0, 'C', 0 );
 		$MiPDF->Ln(2);
 
-		$MiPDF->SetFont('NewsGotT', 'B', 10);
+		$MiPDF->SetFont('Noto Sans HK', 'B', 8);
 		$MiPDF->Cell(13, 5, 'Unidad: ', 0, 0, 'L', 0);
-		$MiPDF->SetFont('NewsGotT', '', 10);
+		$MiPDF->SetFont('Noto Sans HK', '', 8);
 
 		if ($esPMAR) {
 			$MiPDF->Cell(120, 5, $unidad.' (PMAR) ('.$curso.')', 0, 0, 'L', 0 );
@@ -91,9 +96,9 @@ foreach ($unidades as $unidad) {
 			$MiPDF->Cell(120, 5, $unidad.' ('.$curso.')', 0, 0, 'L', 0 );
 		}
 
-		$MiPDF->SetFont('NewsGotT', 'B', 10);
+		$MiPDF->SetFont('Noto Sans HK', 'B', 8);
 		$MiPDF->Cell(27, 5, 'Curso académico: ', 0, 0, 'L', 0);
-		$MiPDF->SetFont('NewsGotT', '', 10);
+		$MiPDF->SetFont('Noto Sans HK', '', 8);
 		$MiPDF->Cell(92, 5, $config['curso_actual'], 0, 1, 'L', 0 );
 
 		// Obtenemos el tutor/a de la unidad
@@ -102,14 +107,14 @@ foreach ($unidades as $unidad) {
 		$tutor = $row['tutor'];
 		mysqli_free_result($result);
 
-		$MiPDF->SetFont('NewsGotT', 'B', 10);
+		$MiPDF->SetFont('Noto Sans HK', 'B', 8);
 		$MiPDF->Cell(13, 5, 'Tutor/a: ', 0, 0, 'L', 0);
-		$MiPDF->SetFont('NewsGotT', '', 10);
+		$MiPDF->SetFont('Noto Sans HK', '', 8);
 		$MiPDF->Cell(120, 5, nomprofesor($tutor), 0, 0, 'L', 0 );
 
-		$MiPDF->SetFont('NewsGotT', 'B', 10);
+		$MiPDF->SetFont('Noto Sans HK', 'B', 8);
 		$MiPDF->Cell(11, 5, 'Fecha: ', 0, 0, 'L', 0);
-		$MiPDF->SetFont('NewsGotT', '', 10);
+		$MiPDF->SetFont('Noto Sans HK', '', 8);
 		$MiPDF->Cell(108, 5, date('d/m/Y'), 0, 1, 'L', 0 );
 
 		$MiPDF->Ln(2);
@@ -143,11 +148,11 @@ foreach ($unidades as $unidad) {
 
 		// Imprime el encabezado
 		$MiPDF->SetWidths($width_columns);
-		$MiPDF->SetFont('NewsGotT', 'B', 6);
+		$MiPDF->SetFont('Noto Sans HK', 'B', 5);
 		$MiPDF->SetTextColor(255, 255, 255);
 		$MiPDF->SetFillColor(61, 61, 61);
 
-		$MiPDF->SetFont('NewsGotT', '', 6);
+		$MiPDF->SetFont('Noto Sans HK', '', 5);
 		$MiPDF->SetAligns($columns_aligns);
 		$MiPDF->Row($columns_names, 'DF', 6);
 
@@ -157,7 +162,7 @@ foreach ($unidades as $unidad) {
 		// CUERPO DE LA TABLA
 		$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, combasi, matriculas FROM alma WHERE unidad='".$unidad."' AND curso = '".$curso."' ORDER BY apellidos ASC, nombre ASC");
 		$MiPDF->SetTextColor(0, 0, 0);
-		$MiPDF->SetFont('NewsGotT', '', 8.5);
+		$MiPDF->SetFont('Noto Sans HK', '', 7);
 
 		$MiPDF->SetFillColor(239,240,239);
 
@@ -176,7 +181,7 @@ foreach ($unidades as $unidad) {
 			$aux = '';
 
 			if ($row['matriculas'] > 1) {
-				$aux .= ' (Rep.)';
+				$aux .= ' (R)';
 			}
 
 			// Comprobamos si el centro utiliza el módulo de matriculaciones y obtenemos si el alumno es bilingüe o está exento de alguna materia
@@ -186,14 +191,14 @@ foreach ($unidades as $unidad) {
 			$row_datos_matricula_bach = mysqli_fetch_array($result_datos_matricula_bach);
 
 			if ($row_datos_matricula['bilinguismo'] == 'Si') {
-				$aux .= ' (Bil.)';
+				$aux .= ' (B)';
 			}
 			if ($row_datos_matricula_bach['bilinguismo'] == 'Si') {
-				$aux .= ' (Bil.)';
+				$aux .= ' (B)';
 			}
 
 			if ($row_datos_matricula['exencion'] == 1) {
-				$aux .= ' (Exe.)';
+				$aux .= ' (E)';
 			}
 
 			$row_data = array($nc, $row['apellidos'].', '.$row['nombre'].$aux);
