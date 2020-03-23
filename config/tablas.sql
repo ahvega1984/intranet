@@ -351,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
 DROP TABLE IF EXISTS `c_profes`;
 CREATE TABLE IF NOT EXISTS `c_profes` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `pass` varchar(48) DEFAULT NULL,
+  `pass` varchar(60) DEFAULT NULL,
   `PROFESOR` varchar(48) DEFAULT NULL,
   `dni` varchar(9) NOT NULL DEFAULT '',
   `idea` varchar(12) NOT NULL DEFAULT '',
@@ -675,8 +675,9 @@ CREATE TABLE IF NOT EXISTS `FTUTORES` (
   `TUTOR` varchar(48) NOT NULL DEFAULT '',
   `observaciones1` mediumtext NOT NULL,
   `observaciones2` mediumtext NOT NULL,
-  PRIMARY KEY (`unidad`,`TUTOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -760,17 +761,17 @@ CREATE TABLE IF NOT EXISTS `horw` (
 --
 
 CREATE TABLE IF NOT EXISTS `incidencias_tic` (
-	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`fecha` date NOT NULL,
-	`solicitante` varchar(12) NOT NULL,
-	`dependencia` varchar(30) DEFAULT NULL,
-	`problema` smallint(3) unsigned NOT NULL,
-	`descripcion` text,
-	`estado` tinyint(1) unsigned NOT NULL DEFAULT '1',
-	`fecha_estado` date NULL,
-	`numincidencia` char(10) DEFAULT NULL,
-	`resolucion` text NULL,
-	PRIMARY KEY (`id`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `solicitante` varchar(12) NOT NULL,
+  `dependencia` varchar(30) DEFAULT NULL,
+  `problema` smallint(3) unsigned NOT NULL,
+  `descripcion` text,
+  `estado` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `fecha_estado` date NULL,
+  `numincidencia` char(10) DEFAULT NULL,
+  `resolucion` text NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
@@ -885,24 +886,24 @@ CREATE TABLE IF NOT EXISTS `inventario_lugares` (
 --
 
 CREATE TABLE IF NOT EXISTS `inventario_tic` (
-	`numregistro` varchar(30) NOT NULL,
-	`numserie` varchar(30) DEFAULT NULL,
-	`tipo` varchar(80) NOT NULL,
-	`articulo` int(6) unsigned NOT NULL,
-	`proveedor` int(6) unsigned NOT NULL,
-	`expediente` varchar(30) DEFAULT NULL,
-	`procedencia` varchar(80) DEFAULT NULL,
-	`localizacion` varchar(80) DEFAULT NULL,
-	`adscripcion` varchar(80) DEFAULT NULL,
-	`fechaalta` date DEFAULT NULL,
-	`fechabaja` date DEFAULT NULL,
-	`motivobaja` text,
-	`estado` varchar(30) NOT NULL,
-	`descripcion` text,
-	`dotacionapae` text,
-	`observaciones` text,
-	`marcadobaja` tinyint(1) unsigned NOT NULL DEFAULT '0',
-	PRIMARY KEY (`numregistro`)
+  `numregistro` varchar(30) NOT NULL,
+  `numserie` varchar(30) DEFAULT NULL,
+  `tipo` varchar(80) NOT NULL,
+  `articulo` int(6) unsigned NOT NULL,
+  `proveedor` int(6) unsigned NOT NULL,
+  `expediente` varchar(30) DEFAULT NULL,
+  `procedencia` varchar(80) DEFAULT NULL,
+  `localizacion` varchar(80) DEFAULT NULL,
+  `adscripcion` varchar(80) DEFAULT NULL,
+  `fechaalta` date DEFAULT NULL,
+  `fechabaja` date DEFAULT NULL,
+  `motivobaja` text,
+  `estado` varchar(30) NOT NULL,
+  `descripcion` text,
+  `dotacionapae` text,
+  `observaciones` text,
+  `marcadobaja` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`numregistro`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
@@ -1518,6 +1519,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `fechapub` datetime NOT NULL,
   `fechafin` date DEFAULT NULL,
   `categoria` varchar(200) NOT NULL,
+  `vistas` INT UNSIGNED NOT NULL DEFAULT '0'
   `pagina` char(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;

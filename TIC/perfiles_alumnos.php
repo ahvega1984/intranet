@@ -72,14 +72,14 @@ $asignatura = $exp_unidad[3];
 
 							$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
 							$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad = '".$unidad."' AND ".$codigo_asignatura." ORDER BY apellidos ASC, nombre ASC");
-							while ($row = mysqli_fetch_array($result)): 
-								$iniciales = strtolower(substr($row['nombre'], 0,1).substr($row['apellidos'], 0,1));
-								$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
-								$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $row['nombre']);
-								$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $row['apellidos']);
+							while ($row = mysqli_fetch_array($result)): 								
+								$nombre = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nombre']);
+								$apellidos = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['apellidos']);
+								$iniciales = strtolower(substr($nombre, 0,1).substr($apellidos, 0,1));
+								$iniciales = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
 								if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
 									$correo = "al.".$row['claveal'].'@'.$config['dominio'];
-									$pass_gsuite = $iniciales."_".$row['claveal'];
+									$pass_gsuite = $iniciales.".".$row['claveal'];
 								}
 								else {
 									$correo = $row['claveal'].'.alumno@'.$config['dominio'];

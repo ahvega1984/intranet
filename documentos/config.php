@@ -145,6 +145,7 @@ function ft_settings_external_load() {
     $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
+
   else {
   // Permisos en el resto de carpetas públicas
     $ft["settings"]["UPLOAD"]            = FALSE; // Set to FALSE if you want to disable file uploads.
@@ -153,6 +154,21 @@ function ft_settings_external_load() {
     $ft["settings"]["DELETEFOLDERS"]     = FALSE; // Set to TRUE to allow deletion of non-empty folders.
     $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
   }
+
+// Permisos de todos los profesores para la carpeta de recursos educativos
+$rc = mysqli_query($db_con, "select distinct nomunidad from unidades where nomunidad in (select distinct grupo from profesores where profesor = '".$_SESSION['profi']."') order by idcurso");
+while($rec = mysqli_fetch_array($rc)){
+if (stristr($dir, "/Recursos/".$rec[0]."")) {
+    $ft["settings"]["UPLOAD"]            = TRUE; // Set to FALSE if you want to disable file uploads.
+    $ft["settings"]["CREATE"]            = TRUE; // Set to FALSE if you want to disable file/folder/url creation.
+    $ft["settings"]["FILEACTIONS"]       = TRUE; // Set to FALSE if you want to disable file actions (rename, move, delete, edit, duplicate).
+    $ft["settings"]["DELETEFOLDERS"]     = TRUE; // Set to TRUE to allow deletion of non-empty folders.
+    $ft["settings"]["ADVANCEDACTIONS"]   = FALSE; // Set to TRUE to enable advanced actions like chmod and symlinks.
+  }
+}
+
+
+ 
 
   return $ft;
 }

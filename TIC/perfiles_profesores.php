@@ -35,8 +35,8 @@ include("menu.php");
 							</tr>
 						</thead>
 						<tbody>
-							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'AND idea=\''.$_SESSION['ide'].'\''; ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT idea, nombre, dni, departamento FROM departamentos WHERE departamento <> 'Admin' $sql_where ORDER BY nombre ASC"); ?>
+							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'AND departamentos.idea=\''.$_SESSION['ide'].'\''; ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamentos.idea, departamentos.nombre, departamentos.dni, departamentos.departamento, correo_corp FROM departamentos, c_profes WHERE departamentos.idea = c_profes.idea and departamentos.departamento <> 'Admin' $sql_where ORDER BY departamentos.nombre"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<?php
 							$exp_nombre = explode(', ', $row['nombre']);
@@ -54,14 +54,20 @@ include("menu.php");
 
 							$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 							$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
-
-							$correo = $primer_nombre.'.'.$primer_apellido;
-							$correo = str_ireplace('M ª', 'María', $correo);
-							$correo = str_ireplace('Mª', 'María', $correo);
-							$correo = str_ireplace('M.', 'María', $correo);
-							$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
-							$correo = mb_strtolower($correo, 'UTF-8');
-							$correo = $correo.'@'.$config['dominio'];
+							
+							if (strlen($row['correo_corp'])>0) {
+								$correo = $row['correo_corp'];
+							}
+							else{
+								$correo = $primer_nombre.'.'.$primer_apellido;
+								$correo = str_ireplace('M ª', 'María', $correo);
+								$correo = str_ireplace('Mª', 'María', $correo);
+								$correo = str_ireplace('M.', 'María', $correo);
+								$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+								$correo = mb_strtolower($correo, 'UTF-8');
+								$correo = $correo.'@'.$config['dominio'];
+							}
+							
 
 							// Si ya existe la cuenta de correo, añadimos el segundo apellido
 							if (in_array($correo, $array_correos)) {

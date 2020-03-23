@@ -322,10 +322,15 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 					$exp_apellidos = explode(' ',$apellidos);
 					$primer_apellido = trim($exp_apellidos[0]);
 					$segundo_apellido = trim($exp_apellidos[1]);
-					$iniciales = mb_strtolower(substr($nombre, 0,1).substr($apellidos, 0,1), 'UTF-8');
+
+					$primer_nombre = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $primer_nombre);
+					$primer_apellido = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $primer_apellido);
+					$iniciales = strtolower(substr($primer_nombre, 0,1).substr($primer_apellido, 0,1));
 					$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
 
-					$pass_alumno = $iniciales."_".$row['claveal'];
+					$pass_alumno = $iniciales.".".$row['claveal'];
+
+
 				}
 				else {
 					$pass_alumno = substr(sha1($row['claveal']),0,8);
@@ -337,7 +342,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
 				$correo = mb_strtolower($correo, 'UTF-8');
 				if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
-					$correo = 'al_'.$nie.'@'.$config['dominio'];
+					$correo = 'al.'.$nie.'@'.$config['dominio'];
 				}
 				else {
 					$correo = $nie.'.alumno@'.$config['dominio'];

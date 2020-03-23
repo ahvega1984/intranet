@@ -852,13 +852,13 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminar archivos obsoletos'");
 if (! mysqli_num_rows($actua)) {
 
-	unlink(INTRANET_DIRECTORY . '/loginSeneca.php');
-	unlink(INTRANET_DIRECTORY . '/logintotp.php');
-	unlink(INTRANET_DIRECTORY . '/totp.php');
-	unlink(INTRANET_DIRECTORY . '/clave.php');
-	unlink(INTRANET_DIRECTORY . '/salir.php');
-	unlink(INTRANET_DIRECTORY . '/xml/jefe/index_temas.php');
-	unlink(INTRANET_DIRECTORY . '/xml/jefe/informes/sesiones.php');
+	@unlink(INTRANET_DIRECTORY . '/loginSeneca.php');
+	@unlink(INTRANET_DIRECTORY . '/login_totp.php');
+	@unlink(INTRANET_DIRECTORY . '/totp.php');
+	@unlink(INTRANET_DIRECTORY . '/clave.php');
+	@unlink(INTRANET_DIRECTORY . '/salir.php');
+	@unlink(INTRANET_DIRECTORY . '/xml/jefe/index_temas.php');
+	@unlink(INTRANET_DIRECTORY . '/xml/jefe/informes/sesiones.php');
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar archivos obsoletos', NOW())");
 }
@@ -869,15 +869,64 @@ if (! mysqli_num_rows($actua)) {
 */
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Secreto de la Intranet'");
 if (! mysqli_num_rows($actua)) {
-	
-	if (! isset($config['intranet_secret']) || empty($config['intranet_secret'])) {
-		$intranet_secret = generateRandomPassword(25);
 
-		if($file = fopen(CONFIG_FILE, 'a')) {
+	function randomPassword($long = 13)
+	{
+		$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+	    $pass = array();
+	    $long_alfabeto = strlen($alfabeto) - 1;
+	    for ($i = 0; $i < $long; $i++) {
+	        $p = rand(0, $long_alfabeto);
+	        $pass[] = $alfabeto[$p];
+	    }
+	    return implode($pass);
+	}
+
+	if (! isset($config['intranet_secret']) || empty($config['intranet_secret'])) {
+		$intranet_secret = randomPassword(25);
+
+		if ($file = fopen(CONFIG_FILE, 'a')) {
 			fwrite($file, "\r\n");
 			fwrite($file, "\$config['intranet_secret']\t\t\t= '$intranet_secret';\r\n");
 		}
 	}
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Secreto de la Intranet', NOW())");
+}
+
+/*
+	@descripcion: Añadimos campo vistas a la tabla noticias
+	@fecha: 11 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Campo vista en tabla noticias'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `noticias` ADD `vistas` INT UNSIGNED NOT NULL DEFAULT '0' AFTER `categoria`;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Campo vista en tabla noticias', NOW())");
+}
+
+/*
+	@descripcion: Ampliación campo pass en tabla c_profes
+	@fecha: 12 de enero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Ampliación campo pass en tabla c_profes'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `c_profes` CHANGE `pass` `pass` VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Ampliación campo pass en tabla c_profes', NOW())");
+}
+
+/*
+	@descripcion: Clave primaria en FTUTORES
+	@fecha: 11 de febrero de 2019
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Clave primaria en FTUTORES'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE FTUTORES DROP PRIMARY KEY;");
+	mysqli_query($db_con, "ALTER TABLE `FTUTORES` ADD `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY;");
+
+	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Clave primaria en FTUTORES', NOW())");
 }

@@ -1,163 +1,197 @@
 <?php
 require("bootstrap.php");
 
+// Comprobamos si el usuario es profesor
+$result_profesor = mysqli_query($db_con, "SELECT `idprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$_SESSION['profi']."' LIMIT 1");
+$esProfesor = (mysqli_num_rows($result_profesor)) ? 1 : 0;
+
 // Envío de formularios
 if (isset($_POST['registrarCorreo'])) {
-	if (isset($_POST['email']) && ! empty($_POST['email'])) {
-		$cmp_correo = limpiarInput(trim($_POST['email']), 'alphanumericspecial');
-		if (filter_var($cmp_correo, FILTER_VALIDATE_EMAIL)) {
-			mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+	if (checkToken()) {
+		if (isset($_POST['email']) && ! empty($_POST['email'])) {
+			$cmp_correo = limpiarInput(trim($_POST['email']), 'alphanumericspecial');
+			if (filter_var($cmp_correo, FILTER_VALIDATE_EMAIL)) {
+				if (! $esProfesor || ($esProfesor && (strpos($cmp_correo, '@'.'juntadeandalucia.es') !== false || strpos($cmp_correo, '@'.$_SERVER['SERVER_NAME']) !== false))) {
+					mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+				}
+				else {
+					$msg_email_error = "Debe introducir una dirección de correo electrónico @juntadeandalucia.es o @".$_SERVER['SERVER_NAME'];
+				}
+			}
+			else {
+				$msg_email_error = "Debe introducir una dirección de correo electrónico corporativa válida.";
+			}
 		}
 		else {
-			$msg_email_error = "Debe introducir una dirección de correo electrónico válida.";
+			$msg_email_error = "Debe introducir una dirección de correo electrónico corporativa válida.";
 		}
 	}
 	else {
-		$msg_email_error = "Debe introducir una dirección de correo electrónico válida.";
-	}
-	
+		$msg_email_error = "Token CSRF no válido.";
+	}	
 }
 
 if (isset($_POST['registrarTelefono'])) {
-	if (isset($_POST['telefono']) && (strlen(trim($_POST['telefono'])) == 9)) {
-		$cmp_telefono = limpiarInput(trim($_POST['telefono']), 'numeric');
-		if (preg_match("/^[6|7][0-9]{8}$/", $cmp_telefono)) {
-			mysqli_query($db_con, "UPDATE `c_profes` SET `telefono` = '".$cmp_telefono."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+	if (checkToken()) {
+		if (isset($_POST['telefono']) && (strlen(trim($_POST['telefono'])) == 9)) {
+			$cmp_telefono = limpiarInput(trim($_POST['telefono']), 'numeric');
+			if (preg_match("/^[6|7][0-9]{8}$/", $cmp_telefono)) {
+				mysqli_query($db_con, "UPDATE `c_profes` SET `telefono` = '".$cmp_telefono."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+			}
+			else {
+				$msg_telefono_error = "Debe introducir un número de teléfono móvil válido.";
+			}
+		}
+		elseif (! isset($_POST['telefono']) || (isset($_POST['telefono']) && strlen(trim($_POST['telefono'])) == 0)) {
+			mysqli_query($db_con, "UPDATE `c_profes` SET `telefono` = '' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
 		}
 		else {
 			$msg_telefono_error = "Debe introducir un número de teléfono móvil válido.";
 		}
 	}
-	elseif (! isset($_POST['telefono']) || (isset($_POST['telefono']) && strlen(trim($_POST['telefono'])) == 0)) {
-		mysqli_query($db_con, "UPDATE `c_profes` SET `telefono` = '' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-	}
 	else {
-		$msg_telefono_error = "Debe introducir un número de teléfono móvil válido.";
+		$msg_telefono_error = "Token CSRF no válido.";
 	}
-	
 }
 
 if (! isset($_SESSION['session_seneca']) || isset($_SESSION['session_seneca']) && $_SESSION['session_seneca'] == 0) {
 	if (isset($_POST['registrarClave'])) {
-		if ((isset($_POST['password']) && ! empty($_POST['password'])) && (isset($_POST['new_password']) && ! empty($_POST['new_password'])) && (isset($_POST['repeat_password']) && ! empty($_POST['repeat_password']))) {
-			$cmp_password = limpiarInput(trim($_POST['password']), 'alphanumericspecial');
-			$cmp_new_password = limpiarInput(trim($_POST['new_password']), 'alphanumericspecial');
-			$cmp_repeat_password = limpiarInput(trim($_POST['repeat_password']), 'alphanumericspecial');
+		if (checkToken()) {
+			if ((isset($_POST['password']) && ! empty($_POST['password'])) && (isset($_POST['new_password']) && ! empty($_POST['new_password'])) && (isset($_POST['repeat_password']) && ! empty($_POST['repeat_password']))) {
+				$cmp_password = limpiarInput(trim($_POST['password']), 'alphanumericspecial');
+				$cmp_new_password = limpiarInput(trim($_POST['new_password']), 'alphanumericspecial');
+				$cmp_repeat_password = limpiarInput(trim($_POST['repeat_password']), 'alphanumericspecial');
 
-			// Obtenemos el hash de la contraseña actual
-			$result = mysqli_query($db_con, "SELECT `pass` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-			if (mysqli_num_rows($result)) {
-				$row = mysqli_fetch_array($result);
-				$usuario['password_hash'] = $row['pass'];
-			}
+				// Obtenemos el hash de la contraseña actual
+				$result = mysqli_query($db_con, "SELECT `pass` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+				if (mysqli_num_rows($result)) {
+					$row = mysqli_fetch_array($result);
+					$usuario['password_hash'] = $row['pass'];
+				}
 
-			if (sha1($cmp_password) == $usuario['password_hash']) {
-				if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,20})", $cmp_new_password)) {
+				if (sha1($cmp_password) == $usuario['password_hash'] || password_verify($cmp_password, $usuario['password_hash'])) {
+					if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,20})", $cmp_new_password)) {
 
-					if ($cmp_password === $cmp_new_password) {
-						$msg_password_error = "La nueva contraseña no puede ser la misma que la actual.";
-					}
-					elseif ($cmp_new_password === $cmp_repeat_password) {
-						$password_hash = sha1($cmp_new_password);
+						if ($cmp_password === $cmp_new_password) {
+							$msg_password_error = "La nueva contraseña no puede ser la misma que la actual.";
+						}
+						elseif ($cmp_new_password === $cmp_repeat_password) {
+							$hash_clave_sha1 = sha1($cmp_new_password);
+							$hash_clave_bcrypt = intranet_password_hash($cmp_new_password);
 
-						$result = mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$password_hash."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-							
-						if ($result) {
-							if (isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
-								unset($_SESSION['cambiar_clave']);
+							$result = mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+								
+							if ($result) {
+								if (isset($_SESSION['cambiar_clave']) && $_SESSION['cambiar_clave']) {
+									unset($_SESSION['cambiar_clave']);
+								}
+								$msg_password_success = "La contraseña ha sido modificada.";
 							}
-							$msg_password_success = "La contraseña ha sido modificada.";
+							else {
+								$msg_password_error = "Se ha producido un error al modificar la contraseña.";
+							}
+
 						}
 						else {
-							$msg_password_error = "Se ha producido un error al modificar la contraseña.";
+							$msg_password_error = "Las contraseñas no coinciden.";
 						}
-
+						
 					}
 					else {
-						$msg_password_error = "Las contraseñas no coinciden.";
+						$msg_password_error = "La contraseña no cumple los requisitos de seguridad.";
 					}
-					
 				}
 				else {
-					$msg_password_error = "La contraseña no cumple los requisitos de seguridad.";
+					$msg_password_error = "La contraseña actual no es correcta.";
 				}
 			}
 			else {
-				$msg_password_error = "La contraseña actual no es correcta.";
+				$msg_password_error = "Debe introducir una contraseña.";
 			}
 		}
 		else {
-			$msg_password_error = "Debe introducir una contraseña.";
+			$msg_password_error = "Token CSRF no válido.";
 		}
-		
 	}
 }
 
 if (isset($_POST['registrarFoto'])) {
 	
-	$fotografia = $_FILES['foto']['tmp_name'];
-	
-	if (empty($fotografia)) {
-		$msg_foto_error = "Debe subir una fotografía en formato JPEG.";
+	if (checkToken()) {
+		$fotografia = $_FILES['foto']['tmp_name'];
+		
+		if (empty($fotografia)) {
+			$msg_foto_error = "Debe subir una fotografía en formato JPEG.";
+		}
+		else {
+			require('./lib/class.Images.php');
+			$image = new Image($fotografia);
+			$image->resize(240,320,'crop');
+			$image->save($_SESSION['ide'], './xml/fotos_profes/', 'jpg');		
+		}
 	}
 	else {
-		require('./lib/class.Images.php');
-		$image = new Image($fotografia);
-		$image->resize(240,320,'crop');
-		$image->save($_SESSION['ide'], './xml/fotos_profes/', 'jpg');		
+		$msg_foto_error = "Token CSRF no válido.";
 	}
-	
 }
 
 if (isset($_POST['registrarMostrarNombre'])) {
-	if (isset($_POST['mostrarNombre']) && ! empty($_POST['mostrarNombre'])) {
-		$cmp_mostrarNombre = limpiarInput(trim($_POST['mostrarNombre']), 'alpha');
+	if (checkToken()) {
+		if (isset($_POST['mostrarNombre']) && ! empty($_POST['mostrarNombre'])) {
+			$cmp_mostrarNombre = limpiarInput(trim($_POST['mostrarNombre']), 'alpha');
 
-		switch ($cmp_mostrarNombre) {
-			case 'nombreCompleto':
-				mysqli_query($db_con, "UPDATE `c_profes` SET `rgpd_mostrar_nombre` = '1' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-				break;
+			switch ($cmp_mostrarNombre) {
+				case 'nombreCompleto':
+					mysqli_query($db_con, "UPDATE `c_profes` SET `rgpd_mostrar_nombre` = '1' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+					break;
 
-			case 'nombreIniciales':
-				mysqli_query($db_con, "UPDATE `c_profes` SET `rgpd_mostrar_nombre` = '0' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-				break;
+				case 'nombreIniciales':
+					mysqli_query($db_con, "UPDATE `c_profes` SET `rgpd_mostrar_nombre` = '0' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+					break;
 
-			default:
-				$msg_mostrarNombre_error = "Debe elegir entre una de las opciones.";
-				break;
+				default:
+					$msg_mostrarNombre_error = "Debe elegir entre una de las opciones.";
+					break;
+			}
+		}
+		else {
+			$msg_mostrarNombre_error = "Debe elegir entre una de las opciones.";
 		}
 	}
 	else {
-		$msg_mostrarNombre_error = "Debe elegir entre una de las opciones.";
-	}
-	
+		$msg_mostrarNombre_error = "Token CSRF no válido.";
+	}	
 }
 
 if (isset($_POST['registrarTema'])) {
-	if (isset($_POST['tema']) && ! empty($_POST['tema'])) {
-		$cmp_tema = limpiarInput(trim($_POST['tema']), 'alphanumericspecial');
-		$cmp_tema_inverso = (isset($_POST['temaInverso']) && $_POST['temaInverso'] == 1) ? 'navbar-inverse' : 'navbar-default';
+	if (checkToken()) {
+		if (isset($_POST['tema']) && ! empty($_POST['tema'])) {
+			$cmp_tema = limpiarInput(trim($_POST['tema']), 'alphanumericspecial');
+			$cmp_tema_inverso = (isset($_POST['temaInverso']) && $_POST['temaInverso'] == 1) ? 'navbar-inverse' : 'navbar-default';
 
-		$result = mysqli_query($db_con, "SELECT `tema`, `fondo` FROM `temas` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
-		if (mysqli_num_rows($result)) {
-			$row = mysqli_fetch_array($result);
-			$tema['tema'] = $row['tema'];
-			$tema['fondo'] = $row['fondo'];
+			$result = mysqli_query($db_con, "SELECT `tema`, `fondo` FROM `temas` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+			if (mysqli_num_rows($result)) {
+				$row = mysqli_fetch_array($result);
+				$tema['tema'] = $row['tema'];
+				$tema['fondo'] = $row['fondo'];
 
-			mysqli_query($db_con, "UPDATE `temas` SET `tema` = '".$cmp_tema."', `fondo` = '".$cmp_tema_inverso."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+				mysqli_query($db_con, "UPDATE `temas` SET `tema` = '".$cmp_tema."', `fondo` = '".$cmp_tema_inverso."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+			}
+			else {
+				mysqli_query($db_con, "INSERT INTO `temas` (`idea`, `tema`, `fondo`) VALUES ('".$_SESSION['ide']."', '".$cmp_tema."', '".$cmp_tema_inverso."')");
+			}
+
+			$_SESSION['tema'] = $cmp_tema;
+			$_SESSION['fondo'] = $cmp_tema_inverso;
+			
 		}
 		else {
-			mysqli_query($db_con, "INSERT INTO `temas` (`idea`, `tema`, `fondo`) VALUES ('".$_SESSION['ide']."', '".$cmp_tema."', '".$cmp_tema_inverso."')");
+			$msg_tema_error = "Debe elegir entre uno de los temas disponibles.";
 		}
-
-		$_SESSION['tema'] = $cmp_tema;
-		$_SESSION['fondo'] = $cmp_tema_inverso;
-		
 	}
 	else {
-		$msg_tema_error = "Debe elegir entre uno de los temas disponibles.";
+		$msg_tema_error = "Token CSRF no válido.";
 	}
-	
 }
 
 
@@ -225,6 +259,9 @@ while ($row = mysqli_fetch_array($result)) {
 
 	array_push($accesos, $acceso);
 }
+
+// Generamos token CSRF
+$html_token = outputToken();
 
 include("menu.php");
 ?>
@@ -304,7 +341,9 @@ include("menu.php");
 				    </div>
 				    <div id="cuentaCollapseEmail" class="panel-collapse collapse" role="tabpanel" aria-labelledby="cuentaHeadingOne">
 				      <div class="panel-body">
-				      	<p class="help-block">Por motivos de seguridad y en cumplimiento al derecho a la desconexión digital en el ámbito laboral regulado en la <a href="https://www.boe.es/eli/es/lo/2018/12/05/3/con#a8-10" target="_blank">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos y garantía de los derechos digitales (LOPDGDD)</a>, utilice el correo corporativo de la Consejería de Educación de la Junta de Andalucía <strong>edu@juntadeandalucia.es</strong> que puede solicitar en la aplicación Séneca, pantalla Utilidades, Correo corporativo.</p>
+				      	<?php if ($esProfesor): ?>
+				      	<p class="help-block">Por motivos de seguridad y en cumplimiento al derecho a la desconexión digital en el ámbito laboral regulado en la <a href="https://www.boe.es/eli/es/lo/2018/12/05/3/con#a8-10" target="_blank">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos y garantía de los derechos digitales (LOPDGDD)</a>, utilice el correo corporativo de la Consejería de Educación de la Junta de Andalucía <strong>edu@juntadeandalucia.es</strong> que puede solicitar en la aplicación Séneca, pantalla Utilidades, Correo corporativo. También puede usar una dirección de correo electrónico <strong>@<?php echo $_SERVER['SERVER_NAME']; ?></strong>, si el Centro se la ha proporcionado.</p>
+				      	<?php endif; ?>
 
 				      	<br>
 				      	<?php if (isset($msg_email_error)): ?>
@@ -312,6 +351,8 @@ include("menu.php");
 				      	<?php endif; ?>
 
 				        <form action="?tab=cuenta&pane=email" method="post" class="form-horizontal">
+				        	<?php echo $html_token; ?>
+
 				        	<div class="form-group">
 				        		<label for="email" class="col-sm-3 control-label">Correo electrónico</label>
 				        		<div class="col-sm-4">
@@ -355,6 +396,8 @@ include("menu.php");
 				      	<?php endif; ?>
 
 				    	<form action="?tab=cuenta&pane=telefono" method="post" class="form-horizontal">
+				    		<?php echo $html_token; ?>
+
 				        	<div class="form-group">
 				        		<label for="telefono" class="col-sm-3 control-label">Teléfono móvil</label>
 				        		<div class="col-sm-4">
@@ -404,6 +447,8 @@ include("menu.php");
 				      	<?php endif; ?>
 				        
 				        <form action="?tab=cuenta&pane=password" method="post" class="form-horizontal">
+				        	<?php echo $html_token; ?>
+
 				        	<div class="row">
 				        		<div class="col-sm-7">
 				        			<div class="form-group">
@@ -472,6 +517,8 @@ include("menu.php");
 				      	<?php endif; ?>
 
 				    	<form action="?tab=cuenta&pane=foto" method="post" enctype="multipart/form-data" class="form-horizontal">
+				    		<?php echo $html_token; ?>
+
 				        	<div class="row">
 				        		<div class="col-sm-7">
 
@@ -553,6 +600,8 @@ include("menu.php");
 				      	<?php endif; ?>
 
 				        <form action="?tab=privacidad&pane=mostrarNombre" method="post" class="form-horizontal">
+				        	<?php echo $html_token; ?>
+
 				        	<div class="radio col-sm-offset-3">
 							  <label>
 							    <input type="radio" name="mostrarNombre" id="mostrarNombre1" value="nombreCompleto"<?php echo (! isset($usuario['rgpd_mostrar_nombre']) || isset($usuario['rgpd_mostrar_nombre']) && $usuario['rgpd_mostrar_nombre'] == 1) ? ' checked' : ''; ?>>
@@ -663,6 +712,8 @@ include("menu.php");
 				    	<br>
 
 				    	<form action="?tab=preferencias&pane=tema" method="post" class="form-horizontal">
+				    		<?php echo $html_token; ?>
+
 				    		<div class="row">
 				    		
 					    		<div class="col-sm-7">
