@@ -318,9 +318,11 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 				if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
 					$exp_nombre = explode(' ',$nombre);
 					$primer_nombre = trim($exp_nombre[0]);
+					$primer_nombre = str_replace("Á", "A", $primer_nombre);
 
 					$exp_apellidos = explode(' ',$apellidos);
 					$primer_apellido = trim($exp_apellidos[0]);
+					$primer_apellido = str_replace("Á", "A", $primer_apellido);
 					$segundo_apellido = trim($exp_apellidos[1]);
 
 					$primer_nombre = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $primer_nombre);
@@ -329,8 +331,6 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 					$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
 
 					$pass_alumno = $iniciales.".".$row['claveal'];
-
-
 				}
 				else {
 					$pass_alumno = substr(sha1($row['claveal']),0,8);

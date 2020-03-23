@@ -33,7 +33,7 @@ $curso_tutor = $_SESSION['mod_tutoria']['unidad'];
 // ENVIO DEL FORMULARIO
 if (isset($_POST['enviar'])) {
 	
-	$claveal = $_POST['alumno'];
+	$claveal = limpiarInput($_POST['alumno'], 'numeric');
 	$fotografia = $_FILES['foto']['tmp_name'];
 	
 	if (empty($claveal) || empty($fotografia)) {
@@ -41,13 +41,13 @@ if (isset($_POST['enviar'])) {
 	}
 	else {
 		
-		require('../../lib/class.Images.php');
+		require(INTRANET_DIRECTORY.'/lib/class.Images.php');
 		$image = new Image($fotografia);
 		$image->resize(240,320,'crop');
-		$image->save($claveal, '../../xml/fotos/', 'jpg');
+		$image->save($claveal, INTRANET_DIRECTORY.'/xml/fotos/', 'jpg');
 		
-		$file_content = mysqli_real_escape_string($db_con, file_get_contents('../../xml/fotos/'.$claveal.'.jpg'));
-		$file_size = filesize('../../xml/fotos/'.$claveal.'.jpg');
+		$file_content = mysqli_real_escape_string($db_con, file_get_contents(INTRANET_DIRECTORY.'/xml/fotos/'.$claveal.'.jpg'));
+		$file_size = filesize(INTRANET_DIRECTORY.'/xml/fotos/'.$claveal.'.jpg');
 		
 		// Eliminamos posibles imagenes que hayan en la tabla
 		mysqli_query($db_con, "DELETE FROM fotos WHERE nombre='".$claveal.".jpg'");

@@ -177,7 +177,7 @@ exit();
 if (isset($submit1))
 	{
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
-$query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, alma, FechCaduca where FechCaduca.id = Fechoria.id and alma.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, alma.unidad, alma.apellidos";
+$query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas, Fechoria.notas from Fechoria, alma, FechCaduca where FechCaduca.id = Fechoria.id and alma.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, alma.unidad, alma.apellidos";
   // echo $query0;
   $result = mysqli_query($db_con, $query0);
  echo "<br /><center>
@@ -228,6 +228,7 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		$fin_aula=$row[18];
 		$confirmado=$row[19];
 		$horas=$row[20];
+    $notas=$row[21];
 		if ($confirmado == '1') {
 			$marca = " checked = 'checked'";
 		}
@@ -264,9 +265,15 @@ $query0 = "select alma.apellidos, alma.nombre, alma.unidad, alma.claveal, Fechor
 		echo "</td>";
 		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>
-		<td nowrap>$fecha</td>
-		<td>$asunto</td>
-		<td>".nomprofesor($informa)."</td>";
+		<td nowrap>$fecha</td>";
+    if (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] == 1) {
+      echo "<td><strong>$asunto</strong><p>$notas</p></td>";
+    }
+    else {
+      echo "<td>$asunto</td>";
+    }
+
+		echo "<td>".nomprofesor($informa)."</td>";
 		if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca'] == 1) {
 			switch ($grave) {
 				case 'leve':

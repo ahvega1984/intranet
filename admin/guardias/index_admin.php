@@ -78,7 +78,7 @@ include 'menu.php';
 								<option value=""></option>
 								<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE c_asig = '25' ORDER BY prof ASC"); ?>
 								<?php while ($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo nomprofesor($row['prof']); ?>" <?php echo ($row['prof'] == $profesor) ? 'selected' : ''; ?>><?php echo nomprofesor($row['prof']); ?></option>
+								<option value="<?php echo nomprofesor($row['prof']); ?>" <?php echo (nomprofesor($row['prof']) == nomprofesor($profesor)) ? 'selected' : ''; ?>><?php echo nomprofesor($row['prof']); ?></option>
 								<?php endwhile; ?>
 							</select>
 						</div>

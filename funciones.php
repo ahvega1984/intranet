@@ -8,7 +8,7 @@ function add_security_header() {
     header("Referrer-Policy: strict-origin-when-cross-origin");
     header("Feature-Policy: accelerometer 'none'; camera 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; payment 'none'; usb 'none'");
     header("X-XSS-Protection: 1;mode=block");
-    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' platform.twitter.com syndication.twitter.com cdn.syndication.twimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src https://www.youtube.com");
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' platform.twitter.com syndication.twitter.com cdn.syndication.twimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' blob: data:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src https://www.youtube.com");
 }
 
 function limpiarInput($input, $type = 'alphanumeric') {
@@ -27,32 +27,32 @@ function limpiarInput($input, $type = 'alphanumeric') {
 		
 		// ALLOW MAYUS
 		case 'mayus':
-			$output = preg_replace('([^A-Z])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑºª])', '', $input);
 
 			break;
 
 		// ALLOW MINUS
 		case 'minus':
-			$output = preg_replace('([^a-z])', '', $input);
+			$output = preg_replace('([^a-záéíóúñ])', '', $input);
 
 			break;
 
 		// ALLOW LETTERS (MAYUS AND MINUS)
 		case 'alpha':
-			$output = preg_replace('([^A-Za-z])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÑÚa-záéíóúñ])', '', $input);
 
 			break;
 
 		// ALLOW ALPHANUMERIC
 		case 'alphanumeric':
-			$output = preg_replace('([^A-Za-z0-9])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñ0-9])', '', $input);
 
 			break;
 
 		// ALLOW ALPHANUMERIC AND SPECIAL CHARS: space,  !"#$%&'()*+,-./:;»=>?@[\]^_`{|}~
 		case 'alphanumericspecial':
 		default:
-			$output = preg_replace('([^A-Za-z0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÚÑa-záéíóúñºª0-9 !"#$%&\'()*+,-./:;»=>?@[\]^_`{|}~])', '', $input);
 
 			break;
 
@@ -200,9 +200,9 @@ function getBrowser($u_agent) {
     if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
         $bname = 'Internet Explorer';
 		$ub = "MSIE";
-	} elseif(preg_match('/Edge/i',$u_agent)) {
+	} elseif(preg_match('/Edge/i',$u_agent) || preg_match('/Edg/i',$u_agent)) {
         $bname = 'Microsoft Edge';
-        $ub = "Edge";
+        $ub = "Edg";
     } elseif(preg_match('/Firefox/i',$u_agent)) {
         $bname = 'Mozilla Firefox';
         $ub = "Firefox";
@@ -339,21 +339,13 @@ function generateRandomPassword($long = 13)
     return implode($pass);
 }
 
-function generateHashPassword($password) {
-	global $config;
-	
-	return hash('sha3-512', $password . $config['intranet_secret'], FALSE);
-}
+function intranet_password_hash($password) {
+  $opciones = [
+    'cost' => 11,
+    'salt' => random_bytes(22)
+  ];
 
-function verifyHashPassword($password, $hash_password) {
-	global $config;
-
-	if ($hash_password === hash('sha3-512', $password . $config['intranet_secret'], FALSE)) {
-		return true;
-	}
-	else {
-		return false;
-	}
+  return password_hash($password, PASSWORD_BCRYPT, $opciones);
 }
 
 function redondeo($n){

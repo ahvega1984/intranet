@@ -15,6 +15,7 @@ if (isset($_POST['btnGuardar'])) {
 	$prefConvivenciaSeneca	= $_POST['prefConvivenciaSeneca'];
 	$prefNotificacionPadres	= limpiar_string($_POST['prefNotificacionPadres']);
 	$prefMostrarDescripcion	= limpiar_string($_POST['prefMostrarDescripcion']);
+	$prefListadosDireccion	= limpiar_string($_POST['prefListadosDireccion'], 'numeric');
 	$prefCompromisoConvivencia	= $_POST['prefCompromisoConvivencia'];
 	$prefPuntosHabilitado	= $_POST['prefPuntosHabilitado'];
 	$prefPuntosMaximo	= $_POST['prefPuntosMaximo'];
@@ -39,6 +40,7 @@ if (isset($_POST['btnGuardar'])) {
 		fwrite($file, "\$config['convivencia']['convivencia_seneca']\t= $prefConvivenciaSeneca;\r\n");
 		fwrite($file, "\$config['convivencia']['notificaciones_padres']\t= $prefNotificacionPadres;\r\n");
 		fwrite($file, "\$config['convivencia']['mostrar_descripcion']\t= $prefMostrarDescripcion;\r\n");
+		fwrite($file, "\$config['convivencia']['listados_direccion']\t= $prefListadosDireccion;\r\n");
 		fwrite($file, "\$config['convivencia']['compromiso_convivencia']\t= $prefCompromisoConvivencia;\r\n");
 		fwrite($file, "\r\n// CONFIGURACIÓN SISTEMA POR PUNTOS\r\n");
 		fwrite($file, "\$config['convivencia']['puntos']['habilitado']\t= $prefPuntosHabilitado;\r\n");
@@ -137,6 +139,16 @@ include("menu.php");
 								<select class="form-control" id="prefMostrarDescripcion" name="prefMostrarDescripcion">
 									<option value="0" <?php echo (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
 									<option value="1" <?php echo (isset($config['convivencia']['mostrar_descripcion']) && $config['convivencia']['mostrar_descripcion'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="prefListadosDireccion" class="col-sm-4 control-label">Listados de problemas visibles solo para Dirección</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="prefListadosDireccion" name="prefListadosDireccion">
+									<option value="0" <?php echo (isset($config['convivencia']['listados_direccion']) && $config['convivencia']['listados_direccion'] == 0) ? 'selected' : ''; ?>>Deshabilitado</option>
+									<option value="1" <?php echo (isset($config['convivencia']['listados_direccion']) && $config['convivencia']['listados_direccion'] == 1) ? 'selected' : ''; ?>>Habilitado</option>
 								</select>
 							</div>
 						</div>

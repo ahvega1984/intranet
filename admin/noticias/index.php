@@ -54,12 +54,12 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, autor, pagina FROM noticias ORDER BY fechapub DESC LIMIT $limit_ini, $limit"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, titulo, fechapub, autor, vistas, pagina FROM noticias ORDER BY fechapub DESC LIMIT $limit_ini, $limit"); ?>
 				
 				<?php if (mysqli_num_rows($result)): ?>
 					
 					<style class="text/css">
-						a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
+						a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration: none !important; }
 					</style>
 					
 					<div class="table-responsive">
@@ -70,6 +70,7 @@ include("menu.php");
 									<th>Título</th>
 									<th nowrap>Fecha publicación</th>
 									<th>Autor</th>
+									<th>Vistas</th>
 									<th>Int.</th>
 									<th>Ext.</th>
 									<th>&nbsp;</th>
@@ -82,6 +83,7 @@ include("menu.php");
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['titulo']) > 60) ? substr($row['titulo'],0,60).'...' : $row['titulo']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['fechapub'])); ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo nomprofesor($row['autor']); ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['vistas']; ?></a></td>
 										<td class="text-center">
 											<span class="far <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square' : 'fa-square'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>

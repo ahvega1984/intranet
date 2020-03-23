@@ -18,12 +18,12 @@ function SetAligns($a)
     $this->aligns=$a;
 }
 
-function Row($data, $bg = 1, $lh = 5.1)
+function Row($data, $bg = 1, $lh = 5, $fill = 0)
 {
     //Calculate the height of the row
     $nb=0;
     for($i=0;$i<count($data);$i++)
-        $nb=max($nb, $this->NbLines($this->widths[$i], $data[$i]));
+        $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
     $h=$lh*$nb;
     //Issue a page break first if needed
     $this->CheckPageBreak($h);
@@ -36,17 +36,17 @@ function Row($data, $bg = 1, $lh = 5.1)
         $x=$this->GetX();
         $y=$this->GetY();
         //Draw the border
-        $this->Rect($x, $y, $w, $h, $bg);
+        $this->Rect($x,$y,$w,$h,$bg);
         //Print the text
-        $this->MultiCell($w, $lh, $data[$i], 1, $a);
+        $this->MultiCell($w,$lh,$data[$i],$fill,$a);
         //Put the position to the right of the cell
-        $this->SetXY($x+$w, $y);
+        $this->SetXY($x+$w,$y);
     }
     //Go to the next line
     $this->Ln($h);
 }
 
-function RowWithGrey($data, $bg = 1, $lh = 5.1, $turno)
+function RowWithGrey($data, $bg = 1, $lh = 5, $turno)
 {
     //Calculate the height of the row
     $nb=0;
@@ -64,16 +64,16 @@ function RowWithGrey($data, $bg = 1, $lh = 5.1, $turno)
         $x=$this->GetX();
         $y=$this->GetY();
         
-		if ($turno=='M') {
-        	if ($data[$i]=="\n\n" && $i != 1 && $i != 9)
-            	$this->SetFillColor(225, 225, 225);
-        	else
-            	$this->SetFillColor(255, 255, 255);
+        if ($turno=='M') {
+            if ($data[$i]=="\n\n" && $i != 1 && $i != 9)
+                $this->SetFillColor(225, 225, 225);
+            else
+                $this->SetFillColor(255, 255, 255);
         }
-		elseif ($data[$i]=="\n\n" && $i != 1 && $i != 8)
-            	$this->SetFillColor(225, 225, 225);
-        	else
-            	$this->SetFillColor(255, 255, 255);
+        elseif ($data[$i]=="\n\n" && $i != 1 && $i != 8)
+                $this->SetFillColor(225, 225, 225);
+            else
+                $this->SetFillColor(255, 255, 255);
         //Draw the border
         $this->Rect($x, $y, $w, $h, $bg);
         //Print the text
@@ -84,6 +84,7 @@ function RowWithGrey($data, $bg = 1, $lh = 5.1, $turno)
     //Go to the next line
     $this->Ln($h);
 }
+
 function CheckPageBreak($h)
 {
     //If the height h would cause an overflow, add a new page immediately
@@ -91,14 +92,14 @@ function CheckPageBreak($h)
         $this->AddPage($this->CurOrientation);
 }
 
-function NbLines($w, $txt)
+function NbLines($w,$txt)
 {
     //Computes the number of lines a MultiCell of width w will take
     $cw=&$this->CurrentFont['cw'];
     if($w==0)
         $w=$this->w-$this->rMargin-$this->x;
     $wmax=($w-2*$this->cMargin)*1000/$this->FontSize;
-    $s=str_replace("\r", '', $txt);
+    $s=str_replace("\r",'',$txt);
     $nb=strlen($s);
     if($nb>0 and $s[$nb-1]=="\n")
         $nb--;

@@ -30,7 +30,8 @@ if (isset($_SESSION['profi'])) {
 if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST['CLAVE']) < 6)) {
 	$cmp_idea = limpiarInput(trim($_POST['USUARIO']), 'alphanumericspecial');
 	$cmp_clave = limpiarInput($_POST['CLAVE'], 'alphanumericspecial');
-	$hash_clave = sha1($cmp_clave);
+	$hash_clave_sha1 = sha1($cmp_clave);
+	$hash_clave_bcrypt = intranet_password_hash($cmp_clave);
 	$cmp_clavecifrada = limpiarInput(trim($_POST['CLAVECIFRADA']), 'alphanumeric');
 
 	$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret`, `departamentos`.`nombre` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
@@ -82,21 +83,21 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 						$msg_error = $response['mensaje'];
 						
 						if ($response['mensaje'] == "Usuario bloqueado") {
-							mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+							mysqli_query($db_con, "UPDATE `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
 						}
 					}
 					elseif ($response['correcto'] == "SI") {
 						$_SESSION['session_seneca'] = 1;
 
-						mysqli_query($db_con, "UPDATE FROM `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+						mysqli_query($db_con, "UPDATE `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
 
 						// Actualizamos la contraseña de la Intranet con la de Séneca
-						mysqli_query($db_con, "UPDATE FROM `c_profes` SET `pass` = '".$hash_clave."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+						mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
 						$sesionIntranet = 1;
 					}
 					else {
 						// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-						if ($datosIntranet['pass'] == $hash_clave) {
+						if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 							$sesionIntranet = 1;
 						}
 						break;
@@ -107,7 +108,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 				// Si no es posible conectar con Séneca, pasa a inicio de sesión local
 				default :
 					// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-					if ($datosIntranet['pass'] == $hash_clave) {
+					if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 						$sesionIntranet = 1;
 					}
 					break;
@@ -116,7 +117,13 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 		// Si el usuario es el Administrador de la Intranet o personal no docente
 		else {
 			// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-			if ($datosIntranet['pass'] == $hash_clave) {
+			if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
+
+				// Actualizamos la contraseña a BCRYPT
+				if ($datosIntranet['pass'] == $hash_clave_sha1) {
+					mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+				}
+
 				$sesionIntranet = 1;
 			}
 		}
@@ -184,7 +191,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 			session_regenerate_id(true);
 
-			if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $hash_clave) {
+			if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $hash_clave_sha1) {
 				$_SESSION['cambiar_clave'] = 1;
 				header("location:usuario.php?tab=cuenta&pane=password");
 				exit();

@@ -6,14 +6,13 @@ acl_acceso($_SESSION['cargo'], array('0', '1'));
 $profe = $_SESSION['profi'];
 
 function copia_bd($host, $user, $pass, $name) {
+	$backup_file = escapeshellarg('db-backup_'.$name.'_'.date('YmdHis').'.sql.gz');
 
-   $backup_file = 'db-backup_'.$name.'_'.date('YmdHis').'.sql.gz';
+	$command = "mysqldump --opt --ignore-table=$name.fotos -h $host -u $user -p$pass $name | gzip -9 > $backup_file";
 
-   $command = "mysqldump --opt --ignore-table=$name.fotos -h $host -u $user -p$pass $name | gzip -9 > $backup_file";
-
-   // ejecución y salida de éxito o errores
-   system($command,$output);
-   return $output;
+	// ejecución y salida de éxito o errores
+	system($command,$output);
+	return $output;
 }
 
 function mb_file($bytes) {
@@ -60,14 +59,20 @@ if(isset($_GET['action']) && $_GET['action']=="crear") {
 
 // DESCARGA DE ARCHIVO
 if((isset($_GET['action']) && $_GET['action']=="descargar") && (isset($_GET['archivo']) && file_exists($_GET['archivo']))) {
-	header("Content-disposition: attachment; filename=".$_GET['archivo']."");
-	header("Content-type: application/octet-stream");
-	readfile($_GET['archivo']);
+	$file = limpiarInput($_GET['archivo'], 'alphanumericspecial');
+	if (strstr($file, 'db-backup_') == true) {
+		header("Content-disposition: attachment; filename=".$file."");
+		header("Content-type: application/octet-stream");
+		readfile(INTRANET_DIRECTORY . '/xml/jefe/copia_db/' . $file);
+	}
 }
 
 // ELIMINAR COPIA DE SEGURIDAD
 if((isset($_GET['action']) && $_GET['action']=="eliminar") && (isset($_GET['archivo']) && file_exists($_GET['archivo']))) {
-	unlink($_GET['archivo']);
+	$file = limpiarInput($_GET['archivo'], 'alphanumericspecial');
+	if (strstr($file, 'db-backup_') == true) {
+		unlink(INTRANET_DIRECTORY . '/xml/jefe/copia_db/' . $file);
+	}
 }
 
 
@@ -110,7 +115,8 @@ include("../../../menu.php");
             <?php foreach (array_reverse(glob("*.sql.gz")) as $archivo): ?>
             <?php
             $exp_archivo = explode('_', $archivo);
-            $fecha_completa = rtrim($exp_archivo[2], '.sql.gz');
+            $total_exp_archivo = count($exp_archivo);
+            $fecha_completa = rtrim($exp_archivo[$total_exp_archivo-1], '.sql.gz');
             $fecha_formateada = preg_replace('/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/i', '$3-$2-$1 $4:$5:$6', $fecha_completa);
             ?>
 						<tr>

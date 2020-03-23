@@ -109,12 +109,18 @@ INDEX (  `id_matriculas` )
 	while ($cam = mysqli_fetch_array($camb)) {
 		$id_cambios = $cam[0];
 		if ($curso == "1BACH") {
-			$c_clave = mysqli_query($db_con, "select * from alma_primera, matriculas_bach where alma_primera.claveal = matriculas_bach.claveal and id = '$id_cambios'");
+			//$c_clave = mysqli_query($db_con, "select * from alma_primera, matriculas_bach where alma_primera.claveal = matriculas_bach.claveal and id = '$id_cambios'");
+			$c_clave = mysqli_query($db_con, "select * from alma, matriculas_bach where alma.claveal = matriculas_bach.claveal and id = '$id_cambios'");
 			if(mysqli_num_rows($c_clave)>0){
-			$alma="alma_primera";
+				if (date('n')=="9") {
+						$alma="alma_primera";
+					}
+					else{
+						$alma="alma";
+					}	
 			}
 			else{
-			$alma="alma_secundaria";
+				$alma="alma_secundaria";
 			}
 		}
 		else{

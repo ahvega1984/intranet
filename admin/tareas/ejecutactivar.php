@@ -59,7 +59,7 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 else{
 
 $insertar=mysqli_query($db_con, "INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN)
- VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysqli_error($db_con));
+ VALUES ('".mysqli_real_escape_string($db_con, $dalumno[0])."','".mysqli_real_escape_string($db_con, $dalumno[1])."','".mysqli_real_escape_string($db_con, $dalumno[2])."','".mysqli_real_escape_string($db_con, $dalumno[3])."','$fecha',$duracion,'".mysqli_real_escape_string($db_con, $tutor)."',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysqli_error($db_con));
   echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
 			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";

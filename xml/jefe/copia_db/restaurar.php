@@ -6,8 +6,9 @@ acl_acceso($_SESSION['cargo'], array('0', '1'));
 $profe = $_SESSION['profi'];
 
 function restaurar_bd($backup_file,$host,$user,$pass,$name) {
-   
-   $command = "gunzip < $backup_file | mysql -h $host -u $user -p$pass $name";
+   $esc_backup_file = escapeshellarg($backup_file);
+
+   $command = "gunzip < $esc_backup_file | mysql -h $host -u $user -p$pass $name";
    system($command,$output);
    
    return $output;
@@ -16,7 +17,7 @@ function restaurar_bd($backup_file,$host,$user,$pass,$name) {
 
 // RESTAURAR COPIA GUARDADA EN LOCAL
 if (isset($_GET['archivo']) && file_exists($_GET['archivo'])) {
-	$backup_file = $_GET['archivo'];
+	$backup_file = limpiarInput($_GET['archivo'], 'alphanumericspecial');
 	$result = restaurar_bd($backup_file, $config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 	
 	if (!$result) $msg_success = "La copia de seguridad ha sido restaurada.";

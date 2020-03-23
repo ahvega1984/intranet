@@ -22,9 +22,20 @@ include ("../menu.php");
 	}
 	if (isset($_POST['enviar'])) {
 
-	mysqli_query($db_con, "update c_profes set telefono = ''" );
+	// Backup de FTUTORES
+	mysqli_query($db_con, "drop table FTUTORES_seg" );
+	mysqli_query($db_con, "create table FTUTORES_seg select * from FTUTORES" );
 	mysqli_query($db_con, "truncate table FTUTORES" );
-	mysqli_query($db_con, "truncate table cargos " );
+	// Backup de departamentos
+	mysqli_query($db_con, "drop table departamentos_seg" );
+	mysqli_query($db_con, "create table departamentos_seg select * from departamentos" );
+	// Backup de c_profes
+	mysqli_query($db_con, "drop table c_profes_seg" );
+	mysqli_query($db_con, "create table c_profes_seg select * from c_profes" );
+	mysqli_query($db_con, "update c_profes set telefono = ''" );
+
+	mysqli_query($db_con, "truncate table cargos" );
+
 
 		foreach ( $_POST as $dni => $cargo_profe ) {
 			// echo "$dni => $cargo_profe<br>";
@@ -43,7 +54,7 @@ include ("../menu.php");
 				$unidad = $cargo_profe;
 				$n_tutor = mb_strtoupper ( $n_prof [0], 'UTF-8' );
 
-				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor`, `observaciones1`, `observaciones2` ) VALUES ('$unidad', '$n_tutor', '', '')" ) or die (mysqli_error($db_con));
+				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor`, `observaciones1`, `observaciones2` ) VALUES ('$unidad', '$n_tutor', '', '')" );
 
 			} elseif (strlen ( $cargo_profe ) < "2") {
 				$dni=trim($dni);

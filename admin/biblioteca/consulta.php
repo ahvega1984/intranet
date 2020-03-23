@@ -19,7 +19,7 @@ function seleccionar_todo(){
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-	  <h2>Biblioteca <small>Gestión de los Préstamos</small></h1>
+	  <h2>Biblioteca <small>Gesti&oacute;n de los Pr&eacute;stamos</small></h1>
 		<h3>Lista de morosos</small></h3>
 	</div>
 	
@@ -33,10 +33,10 @@ function seleccionar_todo(){
 	<thead>
 		<tr>		
 		<th  style="width:60px; text-align: left"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="far fa-sm fa-check-square"> </i></a></th>
-		<th style="width:100px">Código</th>
+		<th style="width:100px">C&oacute;digo</th>
 		<th style="width:100px">Grupo</th>
 		<th>Alumno</th>
-		<th>Título</th>
+		<th>T&iacute;tulo</th>
 		<th nowrap style="width:150px">Fecha dev.</th>
 		<th></th>
 		</tr>	
@@ -66,7 +66,17 @@ function seleccionar_todo(){
 			echo '<span class="fa fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}
 		if ($list[5]=='SI') {
-			echo '<span class="fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha regsitrado una amonestación"></span>';
+			echo '<span class="fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Se ha registrado una amonestaci�n"></span>';
+		}
+
+		$ya_sms=mysqli_query($db_con, "select * from sms where (telefono like (select telefono from alma where apellidos = '$list[1]' and nombre = '$list[2]' and unidad = '$list[0]' limit 1) or telefono like (select telefonourgencia from alma where apellidos = '$list[1]' and nombre = '$list[2]' and unidad = '$list[0]' limit 1)) and mensaje like '%material de la Biblioteca%'");
+		if (mysqli_num_rows($ya_sms)>0 and $list[7] != "SI") {
+			echo '<span class="text-muted fa fa-comment fa-fw fa-lg" data-bs="tooltip" title="Ya se ha enviado un mensaje a la familia"></span>';
+		}
+
+		$ya_fechoria=mysqli_query($db_con, "select * from Fechoria where apellidos = '$list[1]' and nombre = '$list[2]' and unidad = '$list[0]' and asunto like '%material de la Biblioteca%'");
+		if (mysqli_num_rows($ya_sms)>0 and $list[5] != "SI" and $list[7] != "SI") {
+			echo '<span class="text-muted fa fa-bolt fa-fw fa-lg" data-bs="tooltip" title="Ya se ha registrado un problema de convivencia"></span>';
 		}
 		?>
 		</td>
@@ -103,14 +113,14 @@ function seleccionar_todo(){
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "zeroRecords": "No se ha encontrado ning�n resultado con ese criterio.",
+	  		            "info": "P�gina _PAGE_ de _PAGES_",
 	  		            "infoEmpty": "No hay resultados disponibles.",
 	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
 	  		            "search": "Buscar: ",
 	  		            "paginate": {
 	  		                  "first": "Primera",
-	  		                  "next": "Última",
+	  		                  "next": "�ltima",
 	  		                  "next": "",
 	  		                  "previous": ""
 	  		                }

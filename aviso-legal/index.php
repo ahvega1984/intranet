@@ -129,6 +129,7 @@ include("../menu.php");
                 <p>Puede usted permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador:</p>
 
                 <ul>
+                    <li>Para más información sobre Microsoft Edge <a href="https://support.microsoft.com/es-es/help/4027947/microsoft-edge-delete-cookies" target="_blank">pulse aquí</a>.</li>
                     <li>Para más información sobre Internet Explorer <a href="http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-11" target="_blank">pulse aquí</a>.</li>
                     <li>Para más información sobre Google Chrome <a href="https://support.google.com/chrome/answer/95647?hl=es" target="_blank">pulse aquí</a>.</li>
                     <li>Para más información sobre Safari <a href="https://support.apple.com/es-es/HT201265" target="_blank">pulse aquí</a>.</li>

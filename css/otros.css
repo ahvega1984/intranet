@@ -10,7 +10,7 @@
   font-style: normal;
 }
 
-.icon-junta:before { content: '\e800'; }
+.icon-junta:before { content: '\e900'; }
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "juntaandalucia";

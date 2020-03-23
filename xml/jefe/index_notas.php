@@ -9,18 +9,18 @@ $profe = $_SESSION['profi'];
 if (isset($_POST['eval']) and !empty($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 
 if (strlen($eval)>1) {	
-	if (substr($eval,0,1)=='0') {$exporta='../exporta0';}
-	if (substr($eval,0,1)=='1') {$exporta='../exporta1';}
-	if (substr($eval,0,1)=='2') {$exporta='../exporta2';}
-	if (substr($eval,0,1)=='J') {$exporta='../exportaO';}
-	if (substr($eval,0,1)=='S') {$exporta='../exportaE';}
+	if (substr($eval,0,1)=='0') {$exporta='exporta0';}
+	if (substr($eval,0,1)=='1') {$exporta='exporta1';}
+	if (substr($eval,0,1)=='2') {$exporta='exporta2';}
+	if (substr($eval,0,1)=='J') {$exporta='exportaO';}
+	if (substr($eval,0,1)=='S') {$exporta='exportaE';}
 	//echo $exporta;
 
 	// Descomprimimos el zip de las calificaciones en el directorio exporta/
 	include('../../lib/pclzip.lib.php');
 	
 	// Borramos archivos antiguos					
-	$files = glob($exporta.'/*'); 
+	$files = glob('../'.$exporta.'/*'); 
 	foreach($files as $file)
 	{ 
 		if(is_file($file) and stristr($file, "index")==FALSE)
@@ -28,7 +28,7 @@ if (strlen($eval)>1) {
 	}    
 		   
 	$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
-	if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
+	if ($archive->extract(PCLZIP_OPT_PATH,'../'.$exporta) == 0) 
 	{
 		include("../../menu.php");
 		die('<br><div align="center"><div class="alert alert-danger alert-block fade in">

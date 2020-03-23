@@ -77,6 +77,7 @@ $asignatura = $exp_unidad[3];
 								$apellidos = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['apellidos']);
 								$iniciales = strtolower(substr($nombre, 0,1).substr($apellidos, 0,1));
 								$iniciales = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
+
 								if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
 									$correo = "al.".$row['claveal'].'@'.$config['dominio'];
 									$pass_gsuite = $iniciales.".".$row['claveal'];

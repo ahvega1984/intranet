@@ -52,27 +52,42 @@ define('FPDF_FONTPATH','../../pdf/font/');
 
 # creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
-	function Header() {
-    global $config;
+	function SetFontSpacing($size) {
+		$size = ($size / 100);
+	    if($this->FontSpacingPt==$size)
+	        return;
+	    $this->FontSpacingPt = $size;
+	    $this->FontSpacing = $size/$this->k;
+	    if ($this->page>0)
+	        $this->_out(sprintf('BT %.3f Tc ET', $size));
+	}
 
-		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
-		$this->SetFont('ErasDemiBT','B',10);
+	function Header() {
+		global $config;
+
+		$this->SetTextColor(48, 46, 43);
+		$this->SetFontSpacing(-10);
+		$this->SetY(14);
+		$this->SetFont('Noto Sans HK Bold','',16);
+		$this->Cell(80,5,'Junta de Andalucía',0,1);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
-		$this->SetFont('ErasMDBT','I',10);
+		$this->SetFontSpacing(0);
+		$this->SetFont('Noto Sans HK','',10);
+		$this->Cell(80,5,'Consejería de Educación y Deporte',0,1);
 		$this->Cell(75);
-		$this->Cell(80,5,$config['centro_denominacion'],0,1);
+		$this->SetTextColor(53, 110, 59);
+		$this->SetFont('Noto Sans HK','',7);
+		$this->Cell(80,5,mb_strtoupper($config['centro_denominacion']),0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
-    global $config;
-    
-		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		global $config;
+
+		$this->SetTextColor(53, 110, 59);
+		$this->Image( '../../img/pie.jpg', 0, 250, 25, '', 'jpg' );
 		$this->SetY(275);
-		$this->SetFont('ErasMDBT','',8);
+		$this->SetFont('Noto Sans HK','',7);
 		$this->Cell(75);
 		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
@@ -83,10 +98,13 @@ class GranPDF extends FPDF {
 	}
 }
 
-			# creamos el nuevo objeto partiendo de la clase
-			$MiPDF=new GranPDF('P','mm','A4');
 # creamos el nuevo objeto partiendo de la clase
 $MiPDF=new GranPDF('P','mm','A4');
+$MiPDF->AddFont('Noto Sans HK Bold','','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK Bold','B','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK','','NotoSansHK-Regular.php');
+$MiPDF->AddFont('Noto Sans HK','B','NotoSansHK-Bold.php');
+
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
@@ -131,64 +149,65 @@ while($alumno = mysqli_fetch_array($alumnos1))
 
 	// INFORMACION DE LA CARTA
 	$MiPDF->SetY(45);
-	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell(75, 5, 'Fecha:  '.date('d.m.Y'), 0, 0, 'L', 0 );
 	$MiPDF->Cell(75, 5, $alumno['padre'], 0, 1, 'L', 0 );
-	$MiPDF->Cell(75, 8, 'Ref.:     Act/'.$id, 0, 0, 'L', 0 );
+	$MiPDF->Cell(75, 12, 'Ref.:     Act/'.$id, 0, 0, 'L', 0);
 	$MiPDF->Cell(75, 5, $alumno['domicilio'], 0, 1, 'L', 0 );
-	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
+	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0);
 	$MiPDF->Cell(75, 5, $alumno['codpostal'].' '.$alumno['localidad'].', '.mb_strtoupper($alumno['provinciaresidencia'], 'UTF-8'), 0, 1, 'L', 0 );
-	$MiPDF->Cell(0, 0, 'Asunto: '.$actividad, 0, 1, 'L', 0 );
-	$MiPDF->Ln(7);
+	$MiPDF->Cell(0, 12, 'Asunto: '.$actividad, 0, 1, 'L', 0);
+	$MiPDF->Ln(5);
+
 
 	$MiPDF->Multicell(0, 5, $autorizacion, 0, 'L', 0);
 	$MiPDF->Ln(5);
 
 	#Cuerpo.
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 5, 'Lugar: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell(130, 5, $lugar, 0, 1, 'L');
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 5, 'Fecha: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell(130, 5, $fecha_act, 0, 1, 'L');
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 5, 'Horario: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell(130, 5, $horario_act, 0, 1, 'L');
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 5, 'Actividad: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell(130, 5, $actividad, 0, 1, 'L');
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 5, 'Descripción: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->SetY($MiPDF->GetY()+1);
 	$MiPDF->SetX($MiPDF->GetX()+30);
 	$MiPDF->MultiCell(130, 5, $descripcion, 0, 'L' , 0);
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 8, 'Observaciones: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->SetY($MiPDF->GetY()+1);
 	$MiPDF->SetX($MiPDF->GetX()+30);
 	$MiPDF->MultiCell(130, 5, $observaciones, 0, 'L' , 0);
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Cell(30, 8, 'Profesor/es: ', 0, 0, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->SetY($MiPDF->GetY()+1.5);
 	$MiPDF->SetX($MiPDF->GetX()+30);
 	$MiPDF->MultiCell(130, 5, $profesor, 0, 'L' , 0);
@@ -201,40 +220,40 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Line(20, $MiPDF->GetY(), 190, $MiPDF->GetY());
 	$MiPDF->Ln(3);
 
-	$MiPDF->SetFont('NewsGotT', 'B', 10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->Multicell(0, 5, 'RECORTE POR LA LÍNEA Y ENTREGUE ESTE DOCUMENTO AL PROFESOR RESPONSABLE', 0, 'L', 0 );
 	$MiPDF->Ln(3);
 
-	$MiPDF->SetFont('NewsGotT', '', 10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Multicell(0, 5, $txt_acuse, 0, 'L', 0 );
 	$MiPDF->Ln(3);
 
-	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(55, 8, 'Teléfonos de contacto con la familia:', 0, 0, 'L');
-	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell(110, 8, $alumno['telefono'] . ' / ' . $alumno['telefonourgencia'], 0, 1, 'L');
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
+	$MiPDF->Cell(65, 8, 'Teléfonos de contacto con la familia:', 0, 0, 'L');
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
+	$MiPDF->Cell(100, 8, $alumno['telefono'] . ' / ' . $alumno['telefonourgencia'], 0, 1, 'L');
 	$MiPDF->Ln(3);
 
-	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->MultiCell(0, 8, 'Información médica (marque con una X):', 0, 'L', 0);
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell(10, 8, '____', 0, 0, 'L');
 	$MiPDF->Cell(150, 8, ' Necesita tratamiento médico o medicación específica.', 0, 1, 'L');
 
 	$MiPDF->Cell(10, 8, '____', 0, 0, 'L');
 	$MiPDF->Cell(150, 8, ' Es alérgico a algún tipo de comida.', 0, 1, 'L');
 
-	$MiPDF->SetFont('NewsGotT','',8);
+	$MiPDF->SetFont('Noto Sans HK', '', 8);
 	$MiPDF->MultiCell(0, 8, 'En el caso de haber marcado alguna opción, anote en el reverso del documento las circunstancias que concurren.', 0, 'L', 0);
 	$MiPDF->Ln(5);
 
-	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell (90, 5, '', 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 5, 'Representante legal', 0, 1, 'C', 0 );
 	$MiPDF->Cell (55, 20, '', 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
-	$MiPDF->SetFont('NewsGotT', '', 10);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->Cell (90, 5, '', 0, 0, 'C', 0 );
 	$MiPDF->Cell (55, 0, 'Fdo. '.$alumno['padre'], 0, 1, 'C', 0 );
 
@@ -245,4 +264,3 @@ while($alumno = mysqli_fetch_array($alumnos1))
 }
 $MiPDF->Output();
 
-?>

@@ -22,37 +22,46 @@ if(isset($_POST['borrar'])){
 	$j=0;
 	foreach ($_POST as $ide => $valor)
 	{
+
+		// Borrar registros
+
 		if(($ide != 'borrar') and (!empty( $valor))){
 			for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
 			$bor = mysqli_query($db_con, "delete from morosos where id='$valor[$i]'") or die("No se ha podido borrar");
 			}
 
 			echo '<div align="center"><div class="alert alert-success alert-block fade in">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI&Oacute;N:</legend>
-El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aacute;n a aparecer en la lista.
-	</div></div><br />';
+			 <button type="button" class="close" data-dismiss="alert">&times;</button>
+						<legend>ATENCI&Oacute;N:</legend>
+			El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aacute;n a aparecer en la lista.
+				</div></div><br />';
 
-			echo '<div align="center">
-  	<input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-			</div>';	
+						echo '<div align="center">
+			  	<input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+						</div>';	
 		}
 		elseif ($j==0)
 		{
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI&Oacute;N:</legend>
-No se ha podido borrar porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.
-	</div></div><br />
-<div align="center">
-  	<input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-			</div>';			
+			 <button type="button" class="close" data-dismiss="alert">&times;</button>
+						<legend>ATENCI&Oacute;N:</legend>
+			No se ha podido borrar porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.
+				</div></div><br />
+			<div align="center">
+			  	<input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+						</div>';			
 		}
 	}
 }
-elseif(isset($_POST['registro']) or isset($_POST['sms'])){
+
+// Registrar SMS y Fechorías
+
+elseif(isset($_POST['registro']) or isset($_POST['sms']))
+{
+
 if(isset($_POST['registro'])){$registro=$_POST['registro'];}
 if(isset($_POST['sms'])){$sms=$_POST['sms'];}
+
 	$i=0;
 	$j=0;
 	$asunto='Retraso injustificado en la devolución de material a la Biblioteca del Centro';
@@ -65,8 +74,9 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 	$causa='Otras';
 	$accion='Envío de SMS';
 
-foreach ($_POST as $ide => $valor) {      
-if(($ide != 'registro') and (!empty( $valor)))
+foreach ($_POST as $ide => $valor) {   
+
+if(($ide !== 'registro') and (!empty( $valor)))
 { 
 $envio='';
 for($i=0; $i <= count($valor)-1; $i++)
@@ -76,9 +86,10 @@ $j+=1;
 $envio='-'.$valor[$i]; 
 
 if (isset($_POST['registro'])) {
-		$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id='$valor[$i]'") or die ("No se ha podido actualizar el registro");
-		//localizo el alumno a travÃ©s de la id de la tabla morosos.
+	$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id='$valor[$i]'") or die ("No se ha podido actualizar el registro");
 	}
+
+	//localizo el alumno a través de la id de la tabla morosos.
 	$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id='$valor[$i]'") or die ("error al localizar alumno");
 
 	while($alu=mysqli_fetch_array($al)){
@@ -87,21 +98,21 @@ if (isset($_POST['registro'])) {
 		$apellido=$alu[0];
 		$curso=$alu[2];
 		//localizo la clave del alumno.
-		$cla=mysqli_query($db_con, "SELECT claveal, unidad FROM alma WHERE nombre = '$nombre' AND apellidos = '$apellido' AND unidad = '$curso'");
+		$cla=mysqli_query($db_con, "SELECT claveal, unidad FROM alma WHERE nombre = '$nombre' AND apellidos = '$apellido' AND unidad = '$curso' LIMIT 1");
 		while($clav=mysqli_fetch_array($cla)){
 
 			$dia= date ('Y-m-d',time());
 			$clave=$clav['claveal'];// echo $clave.'---'. $dia;
 			$unidad=$clav['unidad']; //echo $nivel;
-			//insertamos, por fÃ­n, la fechorÃ­a
-if (isset($_POST['registro'])) {
+			//insertamos, por fÃ­n, la fechoría
+		if (isset($_POST['registro'])) {
+				// Registramos fechoría
 				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("Error al registrar fechoría");
-				//ahora registramos la intervencion en la tabla tutorÃ­a, debido al tema de los SMS
+				
+				//Registramos la intervencion en la tabla tutorÃ­a, debido al tema de los SMS
 				$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 			}
-if (isset($_POST['sms'])) {
-		mysqli_query($db_con, "update morosos set sms='SI' where id='$valor[$i]'") or die ("No se ha podido actualizar el registro SMS");
-	}
+
 			$alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, unidad, CLAVEAL, TELEFONO, TELEFONOURGENCIA FROM alma WHERE claveal = '$clave'" );
 			$rowa = mysqli_fetch_array ( $alumno );
 			$apellidos = trim ( $rowa [0] );
@@ -117,9 +128,18 @@ if (isset($_POST['sms'])) {
 
 			if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7") {
 				$mobile = $tfno;
-			} else {
+			} 
+			elseif (substr($tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7"){
 				$mobile = $tfno_u;
 			}
+			else{
+				$mobile = "";
+				echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+				No se ha podido enviar SMS al alumno/a '.$nombre.' '.$apellidos.' de '.$unidad.' porque no lo tiene.
+					</div></div>';						
+				//echo "Sin teléfono: $claveal => $tfno -- $tfno_u<br>";
+			}
+
 			if ($registro) {
 				$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro: No devolver en el tiempo debido material de la Biblioteca.";
 			}
@@ -129,7 +149,7 @@ if (isset($_POST['sms'])) {
 			
 			if(strlen($mobile) == 9) {
 			
-				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor,claveal) values (now(),'$mobile','$message','$informa','$claveal')");
 				
 				// ENVIO DE SMS
 				include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
@@ -139,7 +159,14 @@ if (isset($_POST['sms'])) {
 				$sms->message = $message;
 				$sms->sender = $config['mod_sms_id'];
 				$sms->set_immediate();
-				if ($sms->validate()) $sms->send();
+				if($sms->validate()) {
+					//$num++;
+					$sms->send(); 
+					//echo "$num ENVIADO: $apellidos, $nombre, $unidad<br>";
+				}
+				if (isset($_POST['sms'])) {
+					mysqli_query($db_con, "update morosos set sms='SI' where id='$valor[$i]'") or die ("No se ha podido actualizar el registro SMS");
+				}
 				
 			}
 			else {
@@ -151,9 +178,9 @@ if (isset($_POST['sms'])) {
 				}
 			}
 		}
-}
 	}
-	elseif ($j==0)     {
+}
+elseif ($j==0)     {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>

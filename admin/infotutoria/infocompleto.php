@@ -119,8 +119,7 @@ $frase = substr($frase,0,-19).")";
 
 $datos1 = mysqli_query($db_con, "SELECT distinct materia, profesor from 
 profesores, asignaturas WHERE materia = nombre and profesores.grupo = 
-'$dalumno[2]' and profesor not in (SELECT profesor FROM infotut_profesor WHERE 
-id_alumno='$id') and materia not in (SELECT asignatura FROM infotut_profesor 
+'$dalumno[2]' and materia not in (SELECT asignatura FROM infotut_profesor 
 WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
 while($informe1 = mysqli_fetch_array($datos1))
 {

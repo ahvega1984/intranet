@@ -16,27 +16,42 @@ require ("../../../pdf/fpdf.php");
 
 # creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
+	function SetFontSpacing($size) {
+		$size = ($size / 100);
+	    if($this->FontSpacingPt==$size)
+	        return;
+	    $this->FontSpacingPt = $size;
+	    $this->FontSpacing = $size/$this->k;
+	    if ($this->page>0)
+	        $this->_out(sprintf('BT %.3f Tc ET', $size));
+	}
+
 	function Header() {
 		global $config;
 
-		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
-		$this->SetFont('ErasDemiBT','B',10);
+		$this->SetTextColor(48, 46, 43);
+		$this->SetFontSpacing(-10);
+		$this->SetY(14);
+		$this->SetFont('Noto Sans HK Bold','',16);
+		$this->Cell(80,5,'Junta de Andalucía',0,1);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
-		$this->SetFont('ErasMDBT','I',10);
+		$this->SetFontSpacing(0);
+		$this->SetFont('Noto Sans HK','',10);
+		$this->Cell(80,5,'Consejería de Educación y Deporte',0,1);
 		$this->Cell(75);
-		$this->Cell(80,5,$config['centro_denominacion'],0,1);
+		$this->SetTextColor(53, 110, 59);
+		$this->SetFont('Noto Sans HK','',7);
+		$this->Cell(80,5,mb_strtoupper($config['centro_denominacion']),0,1);
 		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
 		global $config;
 
-		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		$this->SetTextColor(53, 110, 59);
+		$this->Image( '../../../img/pie.jpg', 0, 250, 25, '', 'jpg' );
 		$this->SetY(275);
-		$this->SetFont('ErasMDBT','',8);
+		$this->SetFont('Noto Sans HK','',7);
 		$this->Cell(75);
 		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
 		$this->Cell(75);
@@ -50,6 +65,11 @@ class GranPDF extends FPDF {
 # creamos el nuevo objeto partiendo de la clase ampliada
 $A4="A4";
 $MiPDF = new GranPDF ( 'P', 'mm', $A4 );
+$MiPDF->AddFont('Noto Sans HK Bold','','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK Bold','B','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK','','NotoSansHK-Regular.php');
+$MiPDF->AddFont('Noto Sans HK','B','NotoSansHK-Bold.php');
+
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
@@ -118,7 +138,7 @@ $MiPDF->Addpage();
 
 // INFORMACION DE LA CARTA
 $MiPDF->SetY(45);
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->Cell(75, 5, 'Fecha:  '.$hoy, 0, 0, 'L', 0);
 $MiPDF->Cell(75, 5, $padre, 0, 1, 'L', 0);
 $MiPDF->Cell(75, 12, 'Ref.:     Fec/'.$row['id'], 0, 0, 'L', 0);
@@ -129,11 +149,11 @@ $MiPDF->Cell(0, 12, 'Asunto: '.$titulo, 0, 1, 'L', 0);
 $MiPDF->Ln(10);
 
 // CUERPO DE LA CARTA
-$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 $MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0);
 $MiPDF->Ln(5);
 
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->Multicell(0, 5, $cuerpo, 0, 'L', 0);
 $MiPDF->Ln(10);
 
@@ -143,7 +163,7 @@ $MiPDF->Cell(90, 5, 'Representante legal', 0, 0, 'C', 0);
 $MiPDF->Cell(55, 5, 'Director/a del centro', 0, 1, 'C', 0);
 $MiPDF->Cell(55, 20, '', 0, 0, 'C', 0);
 $MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
-$MiPDF->SetFont('NewsGotT', '', 10);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->Cell(90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0);
 $MiPDF->Cell(55, 5, 'Fdo. '.mb_convert_case($config['directivo_direccion'], MB_CASE_TITLE, "UTF-8"), 0, 1, 'C', 0);
 
@@ -158,10 +178,10 @@ Asimismo se le comunica que en relación con los hechos imputados pueden efectua
 
 $MiPDF->Addpage();
 $MiPDF->Ln(15);
-$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 $MiPDF->MultiCell( 0, 4, 'ACTA DE AUDIENCIA A SUS REPRESENTANTES LEGALES', 0, 'C', 0);
 $MiPDF->Ln(3);
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->SetTextColor(0, 0, 0);
 $MiPDF->MultiCell( 0, 4, $texto_acta, 0, 'L', 0);
 
@@ -189,7 +209,7 @@ Resolución:
 
 
 ';
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->SetTextColor(0, 0, 0);
 $MiPDF->MultiCell( 0, 4, $texto_alegaciones, 0, 'L', 0);
 
@@ -200,7 +220,7 @@ $MiPDF->Cell(90, 5, 'Representante legal', 0, 0, 'C', 0);
 $MiPDF->Cell(55, 5, 'Representante legal', 0, 1, 'C', 0);
 $MiPDF->Cell(55, 20, '', 0, 0, 'C', 0);
 $MiPDF->Cell(55, 20, '', 0, 1, 'C', 0);
-$MiPDF->SetFont('NewsGotT', '', 10);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->Cell(90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0);
 $MiPDF->Cell(55, 5, 'Fdo. '.$tutor2, 0, 1, 'C', 0);
 $MiPDF->Ln(10);
@@ -211,13 +231,13 @@ $num = mysqli_num_rows($result1);
 
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->SetTextColor(0, 0, 0);
 $MiPDF->Ln(15);
-$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 $MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
 $MiPDF->Ln(3);
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC limit 0, 24");
 
@@ -237,13 +257,13 @@ if ($num > '24' and $num < '49')
 {
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->SetTextColor(0, 0, 0);
 	$MiPDF->Ln(15);
-	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
 	$MiPDF->Ln(3);
-	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoriawhere Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC limit 25, 24");
  // print "$AUXSQL";
@@ -263,13 +283,13 @@ if ($num > '48' and $num < '73')
 {
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->SetTextColor(0, 0, 0);
 	$MiPDF->Ln(15);
-	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
 	$MiPDF->Ln(3);
-	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC limit 50,24");
  // print "$AUXSQL";
@@ -290,13 +310,13 @@ if ($num > '74' and $num < '24')
 {
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 	$MiPDF->SetTextColor(0, 0, 0);
 	$MiPDF->Ln(15);
-	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 	$MiPDF->MultiCell( 0, 4, $tit_fech, 0, 'L', 0);
 	$MiPDF->Ln(3);
-	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->SetFont('Noto Sans HK', '', 10);
 
 $result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.notas from Fechoria where Fechoria.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC 75,24");
  // print "$AUXSQL";
@@ -319,11 +339,11 @@ $MiPDF->Ln(8);
 $MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
 $MiPDF->Ln(3);
 
-$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->SetFont('Noto Sans HK', 'B', 10);
 $MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0);
 $MiPDF->Ln(3);
 
-$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->SetFont('Noto Sans HK', '', 10);
 $MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0);
 $MiPDF->Ln(15);
 $MiPDF->Cell(55, 25, '', 0, 0, 'L', 0);
@@ -331,5 +351,3 @@ $MiPDF->Cell(55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0);
 
 
 $MiPDF->Output ();
-
-?>

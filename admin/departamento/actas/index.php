@@ -229,8 +229,7 @@ if (isset($_POST['guardar'])) {
 	$exp_input_fecha_reunion = explode('-', $input_fecha_reunion);
 	$fecha_reunion_sql = $exp_input_fecha_reunion[2].'-'.$exp_input_fecha_reunion[1].'-'.$exp_input_fecha_reunion[0];
 	$input_num_acta = mysqli_real_escape_string($db_con, $_POST['num_acta']);
-	$_input_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_POST['texto_acta']);
-	$input_texto_acta = mysqli_real_escape_string($db_con, $_input_texto_acta);
+	$input_texto_acta = $_POST['texto_acta'];
 	$fecha_hoy = date('Y-m-d H:i:s');
 
 	$result = mysqli_query($db_con, "INSERT INTO r_departamento (contenido, jefedep, timestamp, DEPARTAMENTO, fecha, impreso, numero) VALUES ('$input_texto_acta', '$input_jefe_departamento', '$fecha_hoy', '$departamento', '$fecha_reunion_sql', 0, $input_num_acta)");
@@ -250,8 +249,7 @@ if (isset($_GET['edit_id'])) {
 	$exp_fecha_reunion = explode('-', $fecha_reunion_sql);
 	$fecha_reunion = $exp_fecha_reunion[2].'-'.$exp_fecha_reunion[1].'-'.$exp_fecha_reunion[0];
 	$numero_acta = $row['numero'];
-	$_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $row['contenido']);
-	$texto_acta = $_texto_acta;
+	$texto_acta = $row['contenido'];
 }
 
 // ACTUALIZAMOS EL ACTA
@@ -263,8 +261,7 @@ if (isset($_POST['actualizar'])) {
 	$exp_fecha_reunion = explode('-', $fecha_reunion);
 	$fecha_reunion_sql = $exp_fecha_reunion[2].'-'.$exp_fecha_reunion[1].'-'.$exp_fecha_reunion[0];
 	$numero_acta = mysqli_real_escape_string($db_con, $_POST['num_acta']);
-	$_texto_acta = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $_POST['texto_acta']);
-	$texto_acta = mysqli_real_escape_string($db_con, $_texto_acta);
+	$texto_acta = $_POST['texto_acta'];
 	$fecha_hoy = date('Y-m-d H:i:s');
 
 	$result = mysqli_query($db_con, "UPDATE r_departamento SET contenido = '$texto_acta', fecha = '$fecha_reunion_sql', numero = $numero_acta WHERE id = $id_acta");

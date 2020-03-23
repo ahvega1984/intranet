@@ -37,14 +37,31 @@ if ($_GET['eliminar']=="1") {
 	}
 }
 
-if($confirmado == '1')
-{
-	mysqli_query($db_con, "UPDATE calendario SET confirmado =  '1' WHERE id = '$id'");
-	echo '
-<div><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-La Actividad ha sido confirmada por la Autoridad.
-			</div></div>';
+if(acl_permiso($_SESSION['cargo'], array('1','5')) && isset($confirmado) && $confirmado) {
+	$result_confirmado = mysqli_query($db_con, "SELECT `confirmado` FROM `calendario` WHERE `id` = '".$id."' LIMIT 1");
+	$row_confirmado = mysqli_fetch_array($result_confirmado);
+	$estado_confirmado = $row_confirmado['confirmado'];
+
+	if ($estado_confirmado == 0) {
+		mysqli_query($db_con, "UPDATE calendario SET confirmado =  '1' WHERE id = '".$id."' LIMIT 1");
+		echo '
+		<div>
+			<div class="alert alert-success alert-block fade in">
+	            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	            La actividad extraescolar ha sido autorizada.
+			</div>
+		</div>';
+	}
+	elseif ($estado_confirmado == 1) {
+		mysqli_query($db_con, "UPDATE calendario SET confirmado =  '0' WHERE id = '".$id."' LIMIT 1");
+		echo '
+		<div>
+			<div class="alert alert-success alert-block fade in">
+	            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	            La actividad extraescolar ha sido desautorizada.
+			</div>
+		</div>';
+	}
 
 }
 if($detalles == '1')
@@ -214,7 +231,7 @@ if($detalles == '1')
 					?>
 					<?php if((stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'5') == TRUE)){ ?>
 					<?php if($autoriz == 1) { ?>
-					<span class="fas fa-check-circle fa-fw fa-lg text-success"></span>
+						<a href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1" data-bs="tooltip" title="Desautorizar"><span class="fas fa-check-circle fa-fw fa-lg text-success"></span></a>
 					<?php } else { ?>
 					<a href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1" data-bs="tooltip" title="Autorizar"><span class="fas fa-check-circle fa-fw fa-lg text-danger"></span></a>
 					<?php } ?>

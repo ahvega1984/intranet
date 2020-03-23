@@ -29,35 +29,51 @@ function obtener_calificacion_texto($nota) {
 acl_acceso($_SESSION['cargo'], array(1));
 
 class GranPDF extends PDF_MC_Table {
-	function Header() {
-    global $config;
+    function SetFontSpacing($size) {
+        $size = ($size / 100);
+        if($this->FontSpacingPt==$size)
+            return;
+        $this->FontSpacingPt = $size;
+        $this->FontSpacing = $size/$this->k;
+        if ($this->page>0)
+            $this->_out(sprintf('BT %.3f Tc ET', $size));
+    }
 
-		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
-    $this->Image( '../../../img/logo-fse.jpg',85,13,23,'','jpg');
-		$this->SetFont('ErasDemiBT','B',10);
-		$this->SetY(15);
-		$this->Cell(85);
-		$this->Cell(70,5,'CONSEJERÍA DE EDUCACIÓN Y DEPORTE',0,1);
-		$this->SetFont('ErasMDBT','I',10);
-		$this->Cell(85);
-		$this->Cell(70,5,$config['centro_denominacion'],0,1);
-		$this->SetTextColor(255, 255, 255);
-	}
+    function Header() {
+        global $config;
+
+        $this->SetTextColor(48, 46, 43);
+        $this->SetFontSpacing(-10);
+        $this->SetY(14);
+        $this->SetFont('Noto Sans HK Bold','',16);
+        $this->Cell(80,5,'Junta de Andalucía',0,1);
+        $this->Image( '../../../img/logo-fse.jpg',85,13,23,'','jpg');
+        $this->SetY(15);
+        $this->Cell(85);
+        $this->SetFontSpacing(0);
+        $this->SetFont('Noto Sans HK','',10);
+        $this->Cell(80,5,'Consejería de Educación y Deporte',0,1);
+        $this->Cell(85);
+        $this->SetTextColor(53, 110, 59);
+        $this->SetFont('Noto Sans HK','',7);
+        $this->Cell(80,5,mb_strtoupper($config['centro_denominacion']),0,1);
+        $this->SetTextColor(255, 255, 255);
+    }
+
 	function Footer() {
-    global $config;
+        global $config;
 
-		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
-		$this->SetY(275);
-		$this->SetFont('ErasMDBT','',8);
-		$this->Cell(75);
-		$this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
-		$this->Cell(75);
-		$this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
-		$this->Cell(75);
-		$this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
-		$this->SetTextColor(255, 255, 255);
+        $this->SetTextColor(53, 110, 59);
+        $this->Image( '../../../img/pie.jpg', 0, 250, 25, '', 'jpg' );
+        $this->SetY(275);
+        $this->SetFont('Noto Sans HK','',7);
+        $this->Cell(75);
+        $this->Cell(80,4,$config['centro_direccion'].'. '.$config['centro_codpostal'].', '.$config['centro_localidad'].' ('.$config['centro_provincia'] .')',0,1);
+        $this->Cell(75);
+        $this->Cell(80,4,'Telf: '.$config['centro_telefono'].' '.(($config['centro_fax']) ? '   Fax: '.$config['centro_fax'] : ''),0,1);
+        $this->Cell(75);
+        $this->Cell(80,4,'Correo-e: '.$config['centro_email'],0,1);
+        $this->SetTextColor(255, 255, 255);
     }
 
     function Rotate($angle, $x=-1, $y=-1)
@@ -90,6 +106,11 @@ class GranPDF extends PDF_MC_Table {
 }
 
 $MiPDF = new GranPDF('P', 'mm', 'A4');
+$MiPDF->AddFont('Noto Sans HK Bold','','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK Bold','B','NotoSansHK-Bold.php');
+$MiPDF->AddFont('Noto Sans HK','','NotoSansHK-Regular.php');
+$MiPDF->AddFont('Noto Sans HK','B','NotoSansHK-Bold.php');
+
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
@@ -284,40 +305,40 @@ foreach ($alumnos as $alumno) {
 
     $MiPDF->Ln(10);
 
-    $MiPDF->SetFont('NewsGotT', 'BU', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'BU', 8.5);
     $MiPDF->Cell(0, 5, 'BOLETÍN DE CALIFICACIONES', 0, 0, 'C', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
 
     $curso_alumno = str_replace('(Humanidades y Ciencias Sociales (Lomce))', '(Humanid. y CC.SS.)', $alumno['curso']);
 
     // INFORMACION DE LA CARTA
     $MiPDF->SetY(45);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'ALUMNO/A:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $alumno['nombre'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'NÚMERO EXP:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $alumno['numexp'], 0, 0, 'L', 0);
     $MiPDF->Cell(85, 5, $alumno['tutorlegal'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'CURSO:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $curso_alumno, 0, 0, 'L', 0);
     $MiPDF->Cell(85, 5, $alumno['direccion1'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'UNIDAD:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $alumno['unidad'], 0, 0, 'L', 0);
     $MiPDF->Cell(85, 5, $alumno['direccion2'], 0, 1, 'L', 0);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'CONVOCATORIA:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $convocatoria['abrev'].' ('.$convocatoria['nombre'].')', 0, 1, 'L', 0);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(28, 5, 'AÑO ACADÉMICO:', 0, 0, 'R', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(58, 5, $anio_academico, 0, 1, 'L', 0);
 
     $MiPDF->Ln(5);
@@ -375,15 +396,15 @@ foreach ($alumnos as $alumno) {
     }
 
     // TABLA CON CALIFICACIONES
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(0, 5, 'EVALUACIÓN', 0, 1, 'C', 0);
 
     $MiPDF->SetAligns($tabla_alineacion);
     $MiPDF->SetWidths($tabla_anchos);
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->SetFillColor(200, 200, 200);
-    $MiPDF->Row($tabla_encabezado, 0, 4.5);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->Row($tabla_encabezado, 0, 4.5, 1);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
 
     foreach ($combasi as $idasignatura) {
         $result_asignatura = mysqli_query($db_con, "SELECT `nombre`, `curso` FROM `asignaturas` WHERE `codigo` = '$idasignatura' LIMIT 1");
@@ -556,9 +577,9 @@ foreach ($alumnos as $alumno) {
                 break;
         }
 
-        $MiPDF->SetFont('NewsGotT', 'B', 10);
+        $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
         $MiPDF->Cell(0, 5, 'Resumen de faltas de asistencia desde '.(strftime('%d/%m/%Y', strtotime($fecha_inicio_faltas))).' hasta '.(strftime('%d/%m/%Y', strtotime($fecha_fin_faltas))).':', 0, 1, 'L', 0);
-        $MiPDF->SetFont('NewsGotT', '', 10);
+        $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
 
         $total_dias_justificadas = 0;
         $result_dias_faltas_justificadas = mysqli_query($db_con, "SELECT `fecha`, COUNT(`hora`) AS 'horas' FROM `FALTAS` WHERE `claveal` = '".$alumno['claveal']."' AND `falta` = 'J' GROUP BY `fecha` HAVING `horas` = 6 ORDER BY `fecha` ASC, `hora` ASC");
@@ -596,9 +617,9 @@ foreach ($alumnos as $alumno) {
         $MiPDF->Ln(5);
     }
 
-    $MiPDF->SetFont('NewsGotT', 'B', 10);
+    $MiPDF->SetFont('Noto Sans HK', 'B', 8.5);
     $MiPDF->Cell(0, 5, 'Observaciones:', 0, 1, 'L', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Ln(10);
 
     // OBTENEMOS EL/LA TUTOR/A DE LA UNIDAD
@@ -640,7 +661,7 @@ foreach ($alumnos as $alumno) {
     // Imagen sello. Se coloca aquí para que quede por detrás del texto
     $MiPDF->Image('../../../img/sello.jpg', 45, $MiPDF->GetY()-5, 35, '', 'jpg');
 
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(90, 5, 'Sello del Centro', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Les saluda cordialmente,', 0, 1, 'L', 0);
 
@@ -657,10 +678,10 @@ foreach ($alumnos as $alumno) {
     $MiPDF->SetTextColor(0,0,0);
     // Fin sello
 
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(55, 5, '', 0, 0, 'C', 0);
     $MiPDF->Cell(55, 5, '', 0, 1, 'C', 0);
-    $MiPDF->SetFont('NewsGotT', '', 10);
+    $MiPDF->SetFont('Noto Sans HK', '', 8.5);;
     $MiPDF->Cell(90, 5, 'Firma del Padre, Madre, o Tutor/a', 0, 0, 'L', 0);
     $MiPDF->Cell(55, 5, 'Tutor/a: '.$tutor, 0, 1, 'L', 0);
     if ($horario_tutoria != "") {
@@ -668,7 +689,7 @@ foreach ($alumnos as $alumno) {
         $MiPDF->Cell(55, 5, 'Horario de tutoría: '.$horario_tutoria, 0, 1, 'L', 0);
     }
 
-    $MiPDF->SetFont('NewsGotT', '', 8);
+    $MiPDF->SetFont('Noto Sans HK', '', 7);
     $MiPDF->RotatedText(10, 100, 'Ref.Doc: BolCalAluInfInd', 90);
     $MiPDF->RotatedText(10, 150, 'Cód.Centro: '.$config['centro_codigo'], 90);
     $MiPDF->RotatedText(10, 220, 'Fecha Generación: '.date('d/m/Y H:i:s'), 90);

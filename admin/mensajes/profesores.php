@@ -91,6 +91,42 @@ if(isset($_POST['submit1'])) {
 				$ok=1;
 				}
 
+			$prof_nocturnos = $_POST["profesores_nocturnos"];
+			foreach ($prof_nocturnos as $nombre_prof) {
+				$prof_nocturnos0 = mysqli_query($db_con, "select distinct idea from profesores where idea = '$nombre_prof'");
+				
+				while ($prof_nocturnos1 = mysqli_fetch_array($prof_nocturnos0)) {
+					$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$prof_nocturnos1[0]'");
+					$num0 = mysqli_fetch_row($rep0);
+
+					if (strlen($num0[0]) < 1) {
+						mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$prof_nocturnos1[0]."')");
+					}
+
+					$t_nombres.="Profesorado nocturno";
+					mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
+					$ok=1;
+				}
+			}
+
+			$prof_diurnos = $_POST["profesores_diurnos"];
+			foreach ($prof_diurnos as $nombre_prof) {
+				$prof_diurnos0 = mysqli_query($db_con, "select distinct idea from profesores where idea = '$nombre_prof'");
+				
+				while ($prof_diurnos1 = mysqli_fetch_array($prof_diurnos0)) {
+					$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$prof_diurnos1[0]'");
+					$num0 = mysqli_fetch_row($rep0);
+
+					if (strlen($num0[0]) < 1) {
+						mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$prof_diurnos1[0]."')");
+					}
+
+					$t_nombres.="Profesorado diurno";
+					mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
+					$ok=1;
+				}
+			}
+
 			if($ca == '1')
 				{
 				$ca0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%9%'");
