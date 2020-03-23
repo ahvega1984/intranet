@@ -36,7 +36,7 @@ include("menu.php");
 						</thead>
 						<tbody>
 							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'AND departamentos.idea=\''.$_SESSION['ide'].'\''; ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamentos.idea, departamentos.nombre, departamentos.dni, departamentos.departamento, correo_corp FROM departamentos, c_profes WHERE departamentos.idea = c_profes.idea and departamentos.departamento <> 'Admin' $sql_where ORDER BY departamentos.nombre"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamentos.idea, departamentos.nombre, departamentos.dni, departamentos.departamento, c_profes.correo FROM departamentos, c_profes WHERE departamentos.idea = c_profes.idea and departamentos.departamento <> 'Admin' $sql_where ORDER BY departamentos.nombre"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<?php
 							$exp_nombre = explode(', ', $row['nombre']);
@@ -55,10 +55,8 @@ include("menu.php");
 							$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 							$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 							
-							if (strlen($row['correo_corp'])>0) {
-								$correo = $row['correo_corp'];
-							}
-							else{
+							
+							
 								$correo = $primer_nombre.'.'.$primer_apellido;
 								$correo = str_ireplace('M ª', 'María', $correo);
 								$correo = str_ireplace('Mª', 'María', $correo);
@@ -66,10 +64,17 @@ include("menu.php");
 								$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
 								$correo = mb_strtolower($correo, 'UTF-8');
 								$correo = $correo.'@'.$config['dominio'];
-							}
-							
 
-							// Si ya existe la cuenta de correo, añadimos el segundo apellido
+							if ($row['correo']!==$correo) {
+								$correo = $row['correo'];
+								$dni = "*********";
+							}
+							else{
+								$dni = $row['dni'];
+							}
+
+							 //Si ya existe la cuenta de correo, añadimos el segundo apellido
+							/*
 							if (in_array($correo, $array_correos)) {
 								$correo = $primer_nombre.'.'.$primer_apellido.'.'.$segundo_apellido;
 								$correo = str_ireplace('M ª', 'María', $correo);
@@ -80,7 +85,7 @@ include("menu.php");
 								$correo = $correo.'@'.$config['dominio'];
 							}
 
-							array_push($array_correos, $correo);
+							array_push($array_correos, $correo);*/
 							?>
 							<tr>
 								<td><?php echo $row['nombre']; ?></td>
@@ -88,7 +93,7 @@ include("menu.php");
 								<td><?php echo $row['idea']; ?></td>
 								<td><?php echo $row['dni']; ?></td>
 								<td><?php echo $correo; ?></td>
-								<td><?php echo $row['dni']; ?></td>
+								<td><?php echo $dni; ?></td>
 							</tr>
 							<?php endwhile; ?>
 							<?php mysqli_free_result($result); ?>

@@ -3,26 +3,28 @@ require('../../bootstrap.php');
 
 
 include("../../menu.php");
+include("../informes/menu_alumno.php");
+
 ?>
   
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Fotografías <small>Alumnado</small></h2>
+		<h2>Fotografías <small>Alumnos del centro</small></h2>
 	</div>
 	
-	
+	<br>
 	<!-- SCAFFOLDING -->
 	<div class="row">
 	
-		<div class="col-sm-6 col-sm-offset-3">
+		<div class="col-sm-4 col-sm-offset-4">
 			
 			<div class="well">
 				
 				<form method="post" action="fotos_alumnos.php" target="_blank">
 					<fieldset>
-						<legend>Seleccione grupo</legend>
+						<legend>Selecciona el grupo</legend>
 						
 						<div class="form-group">
 						  <select class="form-control" name="curso">

@@ -144,7 +144,7 @@ include("../informes/menu_alumno.php");
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<?php $result = mysqli_query($db_con, "SELECT unidad, tutor FROM FTUTORES ORDER BY unidad ASC"); ?>
-			<form class="pull-right col-sm-3 hidden-print" method="post" action="">
+			<form class="pull-right col-sm-4 hidden-print" method="post" action="">
 				<select class="form-control" id="tutor" name="tutor" onChange="submit()">
 					<?php while($row = mysqli_fetch_array($result)): ?>
 					<option value="<?php echo $row['unidad'].'==>'.$row['tutor']; ?>" <?php echo ($row['unidad'].'==>'.$row['tutor'] == $unidad.'==>'.$tutor) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?> - <?php echo nomprofesor($row['tutor']); ?></option>

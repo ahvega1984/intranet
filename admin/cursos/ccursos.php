@@ -23,7 +23,7 @@ include("../informes/menu_alumno.php");
 	<div class="row">
 	
 		<!-- COLUMNA IZQUIERDA -->
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-sm-offset-3">
 			
 			<div class="well">
 				

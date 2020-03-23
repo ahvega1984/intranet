@@ -22,6 +22,7 @@ if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $ac
 
 $PLUGIN_DATATABLES = 1;
 include('../../menu.php');
+include("../informes/menu_alumno.php");
 
 
 // COMPROBAMOS SI ES EL TUTOR
@@ -83,7 +84,7 @@ if (!$claveal) {
 		<?php $row2 = mysqli_fetch_array($result); ?>
 		<?php mysqli_free_result($result); ?>
 
-		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente from alma where alma.claveal= '$claveal'"); ?>
+		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente, dnitutor, dnitutor2 from alma where alma.claveal= '$claveal'"); ?>
 
 		<?php if ($row = mysqli_fetch_array($result)):
 		$nivel_alumno = $row['curso'];
@@ -123,6 +124,10 @@ if (!$claveal) {
 						<dl class="dl-horizontal">
 						  <dt>DNI / Pasaporte</dt>
 						  <dd><?php echo ($row['DNI'] != "") ? $row['DNI']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dt>DNI Tutor legal 1</dt>
+						  <dd><?php echo ($row['DNI'] != "") ? $row['dnitutor']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dt>DNI Tutor legal 2</dt>
+						  <dd><?php echo ($row['DNI'] != "") ? $row['dnitutor2']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Fecha de nacimiento</dt>
 						  <dd><?php echo ($row['fecha'] != "") ? $row['fecha']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Edad</dt>
@@ -135,21 +140,6 @@ if (!$claveal) {
 						  <dd><?php echo ($row['telefono'] != "") ? '<a href="tel:'.$row['telefono'].'">'.$row['telefono'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Teléfono urgencias</dt>
 						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Correo electrónico</dt>
-							<?php
-							if ($row['correo'] != "") {
-								$correo = '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>';
-							}
-							elseif($row2['correo'] != "") {
-								$correo = '<a href="mailto:'.$row2['correo'].'">'.$row2['correo'].'</a>';
-							}
-							else {
-								$correo = '<span class="text-muted">Sin registrar</span>';
-							}
-							?>
-						  <dd><?php echo $correo ?></dd>
-						  <dt>Representante legal</dt>
-						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						</dl>
 
 					</div><!-- /.col-sm-6 -->
@@ -175,6 +165,21 @@ if (!$claveal) {
 							<dt>Puntos</dt>
 							<dd><?php echo sistemaPuntos($row['claveal']); ?></dd>
 							<?php endif; ?>
+							<dt>Correo electrónico</dt>
+							<?php
+							if ($row['correo'] != "") {
+								$correo = '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>';
+							}
+							elseif($row2['correo'] != "") {
+								$correo = '<a href="mailto:'.$row2['correo'].'">'.$row2['correo'].'</a>';
+							}
+							else {
+								$correo = '<span class="text-muted">Sin registrar</span>';
+							}
+							?>
+						  <dd><?php echo $correo ?></dd>
+						  <dt>Representante legal</dt>
+						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						</dl>
 
 					</div><!-- /.col-sm-6 -->

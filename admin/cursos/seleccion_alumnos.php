@@ -85,6 +85,8 @@ if (isset($_POST['restablecer_seleccion'])) {
 }
 
 include("../../menu.php");
+include("../informes/menu_alumno.php");
+
 ?>
     <?php if (isset($es_pt_o_ref) && $es_pt_o_ref): ?>
     <div class="container">
