@@ -84,13 +84,19 @@
 	<!-- CENTRO TIC -->
 	<li class="nav-header">Centro TIC</li>
 	<li><a href="jefe/exportaTIC.php?exportar=alumnos.txt" target="_blank">Usuarios alumnos (Gesuser)</a></li>
-	<li><a href="jefe/exportaTIC.php?exportar=alumnos_moodle.txt" target="_blank">Usuarios alumnos (Moodle)</a></li>
-	<li><a href="jefe/exportaTIC.php?exportar=alumnos_gsuite.csv" target="_blank">Usuarios alumnos (G Suite)</a></li>
-	<li><a href="jefe/exportaTIC.php?exportar=alumnos_office365.csv" target="_blank">Usuarios alumnos (Office 365)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores.txt" target="_blank">Usuarios profesores (Gesuser)</a></li>
+	<?php if (isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']): ?>
+	<li><a href="jefe/exportaTIC.php?exportar=alumnos_moodle.txt" target="_blank">Usuarios alumnos (Moodle)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_moodle.txt" target="_blank">Usuarios profesores (Moodle)</a></li>
+	<?php endif; ?>
+	<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
+	<li><a href="jefe/exportaTIC.php?exportar=alumnos_gsuite.csv" target="_blank">Usuarios alumnos (G Suite)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_gsuite.csv" target="_blank">Usuarios profesores (G Suite)</a></li>
+	<?php endif; ?>
+	<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
+	<li><a href="jefe/exportaTIC.php?exportar=alumnos_office365.csv" target="_blank">Usuarios alumnos (Office 365)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_office365.csv" target="_blank">Usuarios profesores (Office 365)</a></li>
+	<?php endif; ?>
 	<?php endif; ?>
 
 	<!-- SISTEMA DE RESERVAS -->

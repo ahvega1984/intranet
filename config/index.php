@@ -112,6 +112,9 @@ if (isset($_POST['instalar']))
 	(isset($_POST['mod_bilingue'])) ? $modulo_bilingue = 1 : $modulo_bilingue = 0;
 
 	(isset($_POST['mod_centrotic'])) ? $modulo_centrotic = 1 : $modulo_centrotic = 0;
+	(isset($_POST['mod_centrotic_office365'])) ? $modulo_centrotic_office365 = 1 : $modulo_centrotic_office365 = 0;
+	(isset($_POST['mod_centrotic_gsuite'])) ? $modulo_centrotic_gsuite = 1 : $modulo_centrotic_gsuite = 0;
+	(isset($_POST['mod_centrotic_moodle'])) ? $modulo_centrotic_moodle = 1 : $modulo_centrotic_moodle = 0;
 
 	(isset($_POST['mod_documentos'])) ? $modulo_documentos = 1 : $modulo_documentos = 0;
 	$modulo_documentos_dir	= limpiar_string($_POST['mod_documentos_dir']);
@@ -180,6 +183,9 @@ if (isset($_POST['instalar']))
 
 		fwrite($file, "\r\n// MÓDULO: CENTRO TIC\r\n");
 		fwrite($file, "\$config['mod_centrotic']\t\t= $modulo_centrotic;\r\n");
+		fwrite($file, "\$config['mod_centrotic_office365']\t\t= $modulo_centrotic_office365;\r\n");
+		fwrite($file, "\$config['mod_centrotic_gsuite']\t\t= $modulo_centrotic_gsuite;\r\n");
+		fwrite($file, "\$config['mod_centrotic_moodle']\t\t= $modulo_centrotic_moodle;\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: DOCUMENTOS\r\n");
 		fwrite($file, "\$config['mod_documentos']\t\t= $modulo_documentos;\r\n");
@@ -772,6 +778,38 @@ if (isset($_POST['instalar']))
 						    			    	</label>
 					    			    	</div>
 					    			    </div>
+
+					    			    <h4 class="text-info">Exportación de usuarios para plataformas online</h4>
+
+									    <div class="form-group">
+									    	<div class="checkbox">
+									    		<label>
+						    			    		<input type="checkbox" name="mod_centrotic_moodle" value="1" <?php echo (isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']) ? 'checked' : ''; ?>>
+						    			    		<strong>Plataforma Moodle</strong>
+						    			    		<p class="help-block">Genera los archivos de exportación de alumnado y profesorado del centro para la plataforma educativa Moodle.</p>
+						    			    	</label>
+									    	</div>
+									    </div>
+
+									    <div class="form-group">
+									    	<div class="checkbox">
+									    		<label>
+						    			    		<input type="checkbox" name="mod_centrotic_gsuite" value="1" <?php echo (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) ? 'checked' : ''; ?>>
+						    			    		<strong>Google Suite para centros educativos</strong>
+						    			    		<p class="help-block">Genera los archivos de exportación de alumnado y profesorado del centro para la Google Suite.</p>
+						    			    	</label>
+									    	</div>
+									    </div>
+
+									    <div class="form-group">
+									    	<div class="checkbox">
+									    		<label>
+						    			    		<input type="checkbox" name="mod_centrotic_office365" value="1" <?php echo (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']) ? 'checked' : ''; ?>>
+						    			    		<strong>Office 365</strong>
+						    			    		<p class="help-block">Genera los archivos de exportación de alumnado y profesorado del centro para Office 365.</p>
+						    			    	</label>
+									    	</div>
+									    </div>
 
 				    			    </div>
 
