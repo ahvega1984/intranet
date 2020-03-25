@@ -189,7 +189,7 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
 
-				<?php $result_profesores_nocturnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND `c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `prof` ASC"); ?>
+				<?php $result_profesores_nocturnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
 				<?php $existeProfesoresNocturnos = (mysqli_num_rows($result_profesores_nocturnos)) ? 1 : 0; ?>
 				<?php if ($existeProfesoresNocturnos): ?>
 				<div class="form-group">
@@ -201,7 +201,7 @@ $page_header = "Redactar mensaje";
                 </div>
 				<?php endif; ?>
 
-				<?php $result_profesores_diurnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` < 8 AND `c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `prof` ASC"); ?>
+				<?php $result_profesores_diurnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` < 8 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
 				<?php $existeProfesoresDiurnos = (mysqli_num_rows($result_profesores_diurnos)) ? 1 : 0; ?>
 				<?php if ($existeProfesoresDiurnos): ?>
 				<div class="form-group">
