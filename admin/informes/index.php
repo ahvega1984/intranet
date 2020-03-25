@@ -125,9 +125,9 @@ if (!$claveal) {
 						  <dt>DNI / Pasaporte</dt>
 						  <dd><?php echo ($row['DNI'] != "") ? $row['DNI']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>DNI Tutor legal 1</dt>
-						  <dd><?php echo ($row['DNI'] != "") ? $row['dnitutor']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($row['dnitutor'] != "") ? $row['dnitutor']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>DNI Tutor legal 2</dt>
-						  <dd><?php echo ($row['DNI'] != "") ? $row['dnitutor2']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($row['dnitutor2'] != "") ? $row['dnitutor2']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Fecha de nacimiento</dt>
 						  <dd><?php echo ($row['fecha'] != "") ? $row['fecha']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Edad</dt>
