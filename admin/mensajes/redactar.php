@@ -454,7 +454,7 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione profesorado de nocturno</legend>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `horw`.`prof`, `departamentos`.`idea` FROM `horw` JOIN `departamentos` ON `horw`.`prof` = `departamentos`.`nombre` WHERE `horw`.`hora` > 7 AND `horw`.`c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `horw`.`prof` ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profesores_nocturnos[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
@@ -483,7 +483,7 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione profesorado de diurno</legend>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `horw`.`prof`, `departamentos`.`idea` FROM `horw` JOIN `departamentos` ON `horw`.`prof` = `departamentos`.`nombre` WHERE `horw`.`hora` < 8 AND `horw`.`c_asig` NOT IN (SELECT `idactividad` FROM `actividades_seneca`) ORDER BY `horw`.`prof` ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` < 8 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profesores_diurnos[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
