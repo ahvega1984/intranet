@@ -15,6 +15,7 @@ if (isset($_POST['enviar'])) {
 	// VARIABLES DEL FORMULARIO
 	$titulo = $_POST['titulo'];
 	$contenido = preg_replace('/&quot;/i', '', $_POST['contenido']);
+	$contenido = preg_replace('/&nbsp;&nbsp;/i', '', $contenido);
 	$contenido = preg_replace('/<h([1-6]) style=".*?"/i', '<h$1', $contenido);
 	$contenido = preg_replace('/font-family:.*?;/i', '', $contenido);
 	$contenido = preg_replace('/font-size: medium;/i', '', $contenido);
