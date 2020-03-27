@@ -177,7 +177,7 @@ if (isset($_POST['enviar'])) {
             $mensaje_emisor = "depto. de orientación educativa";
           }
 
-          $result_tutoria = mysqli_query($db_con, "INSERT INTO `tutoria` (`apellidos`, `nombre`, `tutor`, `unidad`, `observaciones`, `causa`, `accion`, `fecha`, `claveal`, `jefatura`, `orienta`) VALUES ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$mensaje."','".$causaSeleccionada."','".$accion."','".$fecha."','".$claveal."', '".$jefatura."', '".$orienta."')");
+          $result_tutoria = mysqli_query($db_con, 'INSERT INTO `tutoria` (`apellidos`, `nombre`, `tutor`, `unidad`, `observaciones`, `causa`, `accion`, `fecha`, `claveal`, `jefatura`, `orienta`) VALUES ("'.$apellidos.'","'.$nombre.'","'.$tutor.'","'.$unidad.'","'.$mensaje.'","'.$causaSeleccionada.'","'.$accion.'","'.$fecha.'","'.$claveal.'", "'.$jefatura.'", "'.$orienta.'")');
           if (! $result_tutoria) {
             $msg_error = "No se ha podido registrar la intervención de tutoría. Error: ".mysqli_error($db_con);
           }

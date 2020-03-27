@@ -175,7 +175,9 @@ $extid = $n_sms[0]+1;
 	if ($sms->validate()) $sms->send();
 
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
-	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+	
+	mysqli_query($db_con, 'INSERT INTO `tutoria` (`apellidos`, `nombre`, `tutor`, `unidad`, `observaciones`, `causa`, `accion`, `fecha`, `claveal`) VALUES ("'.$apellidos.'","'.$nombre.'","'.$tuto.'","'.$unidad.'","'.$observaciones.'","'.$causa.'","'.$accion.'","'.$fecha2.'","'.$claveal.'")');
+	
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
 	El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acción tutorial ha sido también registrada.
