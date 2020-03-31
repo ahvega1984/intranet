@@ -4,6 +4,20 @@ require('../../bootstrap.php');
 if($_POST['token']) $token = $_POST['token'];
 if(!isset($token)) $token = time();
 
+if (acl_permiso($_SESSION['cargo'], array('2'))) {
+	$equipoEducativo = array();
+
+	$grupoTutoria = "";
+	if (isset($_SESSION['mod_tutoria']['unidad'])) {
+		$grupoTutoria = $_SESSION['mod_tutoria']['unidad'];
+	}
+
+	$result = mysqli_query($db_con, "SELECT DISTINCT `profesores`.`profesor`, `c_profes`.`idea` FROM `profesores` JOIN `c_profes` ON `profesores`.`profesor` = `c_profes`.`PROFESOR` WHERE `grupo` = '".$grupoTutoria."'");
+	while ($row = mysqli_fetch_array($result)) {
+		array_push($equipoEducativo, $row['idea']);
+	}
+}
+
 if (isset($_POST['enviar'])) {
 	$profe_envia = $_SESSION['profi'];
 	$cor_pr = mysqli_query($db_con, "select correo from c_profes where profesor = '$profe_envia'");
@@ -161,7 +175,10 @@ include("menu.php");
 					<a href="javascript:seleccionar_todo()"	class="btn btn-sm btn-info">Todos los Profesores</a>&nbsp;
 					<a href="javascript:seleccionar_tutor()" class="btn btn-sm btn-info">Tutores</a>&nbsp;
 					<a href="javascript:seleccionar_jd()" class="btn btn-sm btn-info">Jefes de Depto.</a>&nbsp;<hr>
-					<a href="javascript:seleccionar_ca()" class="btn btn-sm btn-info">Coordinadores de Area</a>&nbsp;
+					<?php if (acl_permiso($_SESSION['cargo'], array('2'))): ?>
+					<a href="javascript:seleccionar_equipoEducativo()" class="btn btn-sm btn-info">Equipo educativo</a>&nbsp;
+					<?php endif; ?>
+					<a href="javascript:seleccionar_ca()" class="btn btn-sm btn-info">Coord. de Area</a>&nbsp;
 					<?php if ($config['mod_bilingue']==1) { ?>
 					<a href="javascript:seleccionar_bil()" class="btn btn-sm btn-info">Bilingüismo</a>
 					<?php } ?>
@@ -185,19 +202,20 @@ include("menu.php");
 				    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
 				      <div class="panel-body">
 
-				      <?php $profesores = mysqli_query($db_con, "SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND profesor <> 'Administrador' AND correo IS NOT NULL ORDER BY profesor"); ?>
+				      <?php $profesores = mysqli_query($db_con, "SELECT distinct profesor, c_profes.idea, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND profesor <> 'Administrador' AND correo IS NOT NULL ORDER BY profesor"); ?>
 				      <?php if(mysqli_num_rows($profesores)>0): ?>
 
 			        <?php while($profesor = mysqli_fetch_array($profesores)): ?>
 	        			<?php $pro = $profesor[0]; ?>
-	        			<?php $dni = $profesor[1]; ?>
-	         			<?php $correo = $profesor[2]; ?>
-	         			<?php $perf = $profesor[3]; ?>
+	        			<?php $idea = $profesor[1]; ?>
+	        			<?php $dni = $profesor[2]; ?>
+	         			<?php $correo = $profesor[3]; ?>
+	         			<?php $perf = $profesor[4]; ?>
 	         			<?php $n_i = $n_i + 1; ?>
 
       					<div class="checkbox">
       						<label>
-         						<input type="checkbox" id="dato0" name="<?php echo $dni;?>" value="cambio"> <?php echo nomprofesor($pro); ?>
+         						<input type="checkbox" id="dato0" data-equipoEducativo="<?php echo (in_array($idea, $equipoEducativo)) ? $grupoTutoria : ''; ?>" name="<?php echo $dni;?>" value="cambio"> <?php echo nomprofesor($pro); ?>
          					</label>
       					</div>
       					<input type="hidden" name="<?php echo $dni.":".$perf;?>" value="<?php echo $perf;?>">
@@ -239,6 +257,19 @@ function deseleccionar_todo(){
 		if(document.cargos.elements[i].type == "checkbox")
 			document.cargos.elements[i].checked=0
 }
+<?php if (acl_permiso($_SESSION['cargo'], array('2'))): ?>
+function seleccionar_equipoEducativo(){
+	deseleccionar_todo()
+for (i=0;i<document.cargos.elements.length;i++){
+		if(document.cargos.elements[i].type == "checkbox"){
+		valorCasilla = document.cargos.elements[i].getAttribute('data-equipoEducativo');
+		if(valorCasilla == "<?php echo $grupoTutoria; ?>"){
+			document.cargos.elements[i].checked=1;
+}
+}
+}
+}
+<?php endif; ?>
 function seleccionar_tutor(){
 	deseleccionar_todo()
 for (i=0;i<document.cargos.elements.length;i++){
