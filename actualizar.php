@@ -516,7 +516,7 @@ $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modu
 if (! mysqli_num_rows($actua)) {
 	$result_update = mysqli_query($db_con, "SHOW COLUMNS FROM `departamentos` WHERE Field = 'fechatoma'");
 	if (! mysqli_num_rows($result_update)) {
-		mysqli_query($db_con, "ALTER TABLE `departamentos` ADD `fechatoma` DATE NOT NULL , ADD `fechacese` DATE NULL ;");
+		mysqli_query($db_con, "ALTER TABLE `departamentos` ADD `fechatoma` DATE NOT NULL DEFAULT '0000-00-00', ADD `fechacese` DATE NOT NULL DEFAULT '0000-00-00' ;");
 	}
 
 	mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Campos fechatoma y fechacese en tabla departamentos', NOW())");

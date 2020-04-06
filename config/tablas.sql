@@ -356,10 +356,10 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `idea` varchar(12) NOT NULL DEFAULT '',
   `correo` varchar(64) DEFAULT NULL,
-  `correo_verificado` TINYINT(1) NOT NULL DEFAULT '0'
+  `correo_verificado` TINYINT(1) NOT NULL DEFAULT '0',
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   `telefono` char(9) DEFAULT NULL,
-  `telefono_verificado` TINYINT(1) NOT NULL DEFAULT '0'
+  `telefono_verificado` TINYINT(1) NOT NULL DEFAULT '0',
   `totp_secret` CHAR(16) NULL,
   `rgpd_mostrar_nombre` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
@@ -407,8 +407,8 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `DEPARTAMENTO` varchar(80) DEFAULT NULL,
   `CARGO` varchar(10) DEFAULT NULL,
   `idea` varchar(12) NOT NULL DEFAULT '',
-  `fechatoma` DATE NOT NULL,
-  `fechacese` DATE NULL,
+  `fechatoma` DATE NOT NULL DEFAULT '0000-00-00',
+  `fechacese` DATE NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`idea`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
