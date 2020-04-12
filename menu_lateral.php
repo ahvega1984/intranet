@@ -545,10 +545,13 @@ $menu_departamento = array(
 				'href'   => 'admin/evaluacion_pendientes/index.php',
 				'titulo' => 'Evaluación de pendientes',
 			),
+			array(
+				'href'   => 'admin/departamento/adaptaciones/index.php',
+				'titulo' => 'Adaptaciones curriculares (ACNS)',
+			),
 		)
 	)
 );
-
 $menu_actas = array(
 	'menu_id' => 'actas',
 	'titulo'  => 'Actas',

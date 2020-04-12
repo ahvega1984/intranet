@@ -9,6 +9,7 @@
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'pendientes')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/pendientes/index.php">Pendientes</a></li>
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'fotos/')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/index.php">Fotografías</a></li>
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'seleccion_alumnos.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/seleccion_alumnos.php">Selección de alumnos</a></li>
+		<li<?php if (strstr($_SERVER['REQUEST_URI'],'adaptaciones')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/departamento/adaptaciones/index.php">Adaptaciones curriculares (ACNS)</a></li>
 	</ul>
 
 </div>
