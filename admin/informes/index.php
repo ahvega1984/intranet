@@ -20,6 +20,18 @@ if(isset($_POST['tutoria'])){$tutoria = $_POST['tutoria'];}else{ $tutoria=""; }
 if(isset($_POST['horarios'])){$horarios = $_POST['horarios'];}else{ $horarios=""; }
 if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $act_tutoria=""; }
 
+
+// Borramos alumno de la base de datos
+if (isset($_GET['borrar']) and $_GET['borrar']==1) {
+	mysqli_query($db_con, "delete from alma where claveal = '".$_GET['claveal']."'");
+	if (mysqli_affected_rows($db_con)>0) {
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+		El alumno ha sido eliminado correctamente de la Base de datos.
+		</div></div>';
+	}
+}
+
 $PLUGIN_DATATABLES = 1;
 include('../../menu.php');
 include("../informes/menu_alumno.php");
@@ -92,18 +104,47 @@ if (!$claveal) {
 		$tuto = mysqli_fetch_array($tut);
 		$tr_tutor = explode(", ",$tuto['tutor']);
 		$tutor = $tr_tutor[1]." ".$tr_tutor[0];
+
+		if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+			$nombre_o = str_replace("Á", "A", $row1['nombre']);
+			$apellidos_o = str_replace("Á", "A", $row1['apellidos']);
+			$iniciales = strtolower(substr($nombre_o, 0,1).substr($apellidos_o, 0,1));
+			$iniciales = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $iniciales);
+			$nombre = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $nombre_o);
+			$apellidos = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $apellidos_o);
+
+			$correo_gsuite = "al.".$row1['claveal'].'@'.$config['dominio'];
+			$pass_gsuite = $iniciales.".".$row1['claveal'];
+
+			$usuario_moodle = $row1['claveal'];
+			$pass_moodle = substr(sha1($row1['claveal']),0,8);
+		}
+		else {
+			$correo_gsuite = $row1['claveal'].'.alumno@'.$config['dominio'];
+			$pass_gsuite = substr(sha1($row1['claveal']),0,8);
+
+			$usuario_moodle = $row1['claveal'];
+			$pass_moodle = substr(sha1($row1['claveal']),0,8);
+		}
+
 		?>
 		<!-- SCAFFOLDING -->
 		<div class="well">
 		<div class="row">
 
 			<!-- COLUMNA IZQUIERDA -->
-			<div class="col-sm-2 text-center hidden-xs">
+			<div class="col-sm-2 text-left hidden-xs">
 				<?php if ($foto = obtener_foto_alumno($claveal)): ?>
 				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" style="width: 120px !important;" alt="<?php echo $apellido.', '.$nombrepil; ?>">
 				<?php else: ?>
 				<h2><span class="img-thumbnail far fa-user fa-fw fa-4x" style="width: 120px !important;"></span></h2>
 				<?php endif; ?>
+				<hr>
+				<a class="btn btn-sm btn-primary btn-block" href="//<?php echo $config['dominio'];?>/intranet/admin/informes/cinforme.php?nombre_al=<?php echo $apellidos_o.", ".$nombre_o." --> ".$claveal;?>&unidad=<?php echo $unidad;?>"><i class="far fa-calendar fa-fw"></i> Informe histórico</a>
+				<?php 
+				if (stristr($_SESSION['cargo'],'1') == TRUE) { ?>
+					<a class="btn btn-sm btn-danger btn-block" href="datos.php?borrar=1&claveal=<?php echo $claveal;?>"  data-bs="tooltip" title="Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado." data-bb="confirm-delete"><i class="far fa-trash-alt fa-fw\"></i> Borrar alumno</a>
+				<?php } ?>
 
 			</div><!-- /.col-sm-2 -->
 			
@@ -185,6 +226,57 @@ if (!$claveal) {
 					</div><!-- /.col-sm-6 -->
 
 				</div><!-- /.row -->
+
+				<?php if ((isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']) || (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
+					<button class="btn btn-link btn-block" id="collapseButtonCredenciales" type="button" data-toggle="collapse" data-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseCredenciales"><span class="h6 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span></button>
+					
+					<div class="collapse pb-3" id="collapseCredenciales">
+
+						<div class="row">
+							<br>
+							<?php if (isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']): ?>
+							<div class="col-sm-6">
+								<h6 class="mb-3">
+									Acceso a plataforma Moodle del Centro <a href="http://www.juntadeandalucia.es/averroes/centros-tic/<?php echo $config['centro_codigo']; ?>/moodle2/" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+								</h6>
+
+								<dl class="dl-horizontal">
+									<dt>Usuario</dt>
+									<dd><?php echo $usuario_moodle; ?></dd>
+
+									<dt>Contraseña</dt>
+									<dd><?php echo $pass_moodle; ?></dd>
+								</dl>
+							</div>
+							<?php endif; ?>
+
+							<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
+							<div class="col-sm-6">
+								<h6 class="mb-3">
+									<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
+									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php endif; ?>
+									<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) && (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
+									&nbsp;/&nbsp;
+									<?php endif; ?>
+									<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?> 
+									Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									<?php endif; ?>
+								</h6>
+
+								<dl class="dl-horizontal">
+									<dt>Usuario</dt>
+									<dd><?php echo $correo_gsuite; ?></dd>
+
+									<dt>Contraseña</dt>
+									<dd><?php echo $pass_gsuite; ?></dd>
+								</dl>
+							</div>
+							<?php endif; ?>
+
+						</div>
+					</div>
+					<?php endif; ?>
 
 			</div><!-- /.col-sm-10 -->
 
