@@ -11,6 +11,33 @@ function add_security_header() {
     header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' platform.twitter.com syndication.twitter.com cdn.syndication.twimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' blob: data:; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src https://www.youtube.com");
 }
 
+function cifrarTexto($plaintext) {
+  global $config;
+
+  $ivlen = openssl_cipher_iv_length($cipher="AES-128-CFB");
+  $iv = openssl_random_pseudo_bytes($ivlen);
+  $ciphertext_raw = openssl_encrypt($plaintext, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+  $hmac = hash_hmac('sha256', $ciphertext_raw, $config['intranet_secret'], $as_binary=true);
+  $ciphertext = base64_encode($iv.$hmac.$ciphertext_raw);
+  return $ciphertext;
+}
+
+function decifrarTexto($ciphertext) {
+  global $config;
+
+  $c = base64_decode($ciphertext);
+  $ivlen = openssl_cipher_iv_length($cipher="AES-128-CFB");
+  $iv = substr($c, 0, $ivlen);
+  $hmac = substr($c, $ivlen, $sha2len=32);
+  $ciphertext_raw = substr($c, $ivlen+$sha2len);
+  $original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+  $calcmac = hash_hmac('sha256', $ciphertext_raw, $config['intranet_secret'], $as_binary=true);
+  if (hash_equals($hmac, $calcmac)) //PHP 5.6+ timing attack safe comparison
+  {
+      return $original_plaintext;
+  }
+}
+
 function limpiarInput($input, $type = 'alphanumeric') {
 
 	switch ($type) {

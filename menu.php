@@ -14,7 +14,7 @@ function obtenerNovedadesConsejeria() {
 
 	$feed = new SimplePie();
 
-	$feed->set_feed_url("http://www.juntadeandalucia.es/educacion/portals/delegate/rss/ced/portalconsejeria/-/-/-/true/OR/true/cm_modified/DESC/");
+	$feed->set_feed_url("http://www.juntadeandalucia.es/educacion/portals/delegate/rss/ced/portalconsejeria/-/-/-/true/OR/true/ishare_noticefrom/DESC/");
 	$feed->set_output_encoding('UTF-8');
 	$feed->enable_cache(false);
 	$feed->set_cache_duration(600);
@@ -55,7 +55,7 @@ $novedadesConsejeria = obtenerNovedadesConsejeria();
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css" rel="stylesheet">
 
 	<!-- PLUGINS CSS -->
-	<link href="//<?php echo $config['dominio']; ?>/intranet/vendor/fontawesome-free-5.11.2-web/css/all.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/vendor/fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/js/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet">
 	<?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
 	<link href="//<?php echo $config['dominio']; ?>/intranet/js/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
