@@ -46,25 +46,6 @@ if (!(isset($AUXSQL))) {
 	$AUXSQL="";
 }
 
-/*
-//Reseteamos Clave en la página principal
-if (isset($_GET['resetear']) and $_GET['resetear']==1) {
-	$sql_reset=mysqli_query($db_con, "delete from control where claveal = '".$_GET['clavealumno']."'");
-	if ($sql_reset) {
-		echo '<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-La contraseña del alumno para el acceso a la página pública del Centro se ha reiniciado correctamente. El alumno debe entrar ahora con el NIE como usuario y contraseña. Una vez dentro se le forzará a cambiar la contraseña.
-		</div></div>';
-		if (strstr($_GET['correo'],'@')==TRUE) {
-		$direccion = $_GET['correo'];
-		$tema = "Contraseña de acceso privado reiniciada en ".$config['dominio'];
-		$texto = "La clave de acceso privada del alumno/a ha sido reiniciada. Para entrar en las páginas personales del alumno deberás introducir de nuevo el NIE (Número de Identificación Escolar) que el Centro te ha proporcionado en los dos campos del formulario de acceso. Si a pesar de todo persisten los problemas y no puedes entrar, ponte en contacto con el Tutor o Jefatura de Estudios. Gracias. ";
-		mail($direccion, $tema, $texto);
-		}
-	}
-}
-*/
-
 // Borramos alumno de la base de datos
 if (isset($_GET['borrar']) and $_GET['borrar']==1) {
 	mysqli_query($db_con, "delete from control where claveal = '".$_GET['clavealumno']."'");
@@ -212,10 +193,6 @@ echo "<li><a href=\"//".$config['dominio']."/intranet/admin/cursos/horarios.php?
 		$unidad=$tut[0];
 		echo "<li><a href=\"../orientacion/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad\"><i class=\"far fa-edit fa-fw\"></i> Intervención de Orientación</a></li>";
 	}
-/*	if ($s_control=='1' and (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE)) {
-			echo "<li><a href=\"datos.php?resetear=1&clavealumno=$claveal&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo\"  data-bs=\"tooltip\" title=\"Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.\"><i class=\"fas fa-sync-alt fa-fw\"></i> Reiniciar contraseña</a></li>";
-			}*/
-
 
 	echo '</td></tr>';
 
