@@ -27,7 +27,7 @@ if (isset($_GET['borrar']) and $_GET['borrar']==1) {
 	if (mysqli_affected_rows($db_con)>0) {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-		El alumno ha sido eliminado correctamente de la Base de datos.
+		El alumno ha sido eliminado de la base de datos del centro.
 		</div></div>';
 	}
 }
@@ -133,19 +133,20 @@ if (!$claveal) {
 		<div class="row">
 
 			<!-- COLUMNA IZQUIERDA -->
-			<div class="col-sm-2 text-left hidden-xs">
+			<div class="col-sm-2 text-center hidden-xs">
 				<?php if ($foto = obtener_foto_alumno($claveal)): ?>
 				<img class="img-thumbnail" src="../../xml/fotos/<?php echo $foto; ?>" style="width: 120px !important;" alt="<?php echo $apellido.', '.$nombrepil; ?>">
 				<?php else: ?>
 				<h2><span class="img-thumbnail far fa-user fa-fw fa-4x" style="width: 120px !important;"></span></h2>
 				<?php endif; ?>
 				<hr>
+				<div align="left">
 				<a class="btn btn-sm btn-primary btn-block" href="//<?php echo $config['dominio'];?>/intranet/admin/informes/cinforme.php?nombre_al=<?php echo $apellidos_o.", ".$nombre_o." --> ".$claveal;?>&unidad=<?php echo $unidad;?>"><i class="far fa-calendar fa-fw"></i> Informe histórico</a>
 				<?php 
 				if (stristr($_SESSION['cargo'],'1') == TRUE) { ?>
-					<a class="btn btn-sm btn-danger btn-block" href="datos.php?borrar=1&claveal=<?php echo $claveal;?>"  data-bs="tooltip" title="Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado." data-bb="confirm-delete"><i class="far fa-trash-alt fa-fw\"></i> Borrar alumno</a>
+					<a class="btn btn-sm btn-danger btn-block" href="index.php?borrar=1&claveal=<?php echo $claveal;?>"  data-bs="tooltip" title="Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado." data-bb="confirm-delete"><i class="far fa-trash-alt fa-fw\"></i> Borrar alumno</a>
 				<?php } ?>
-
+				</div>
 			</div><!-- /.col-sm-2 -->
 			
 			<?php
