@@ -42,11 +42,11 @@ while ($row = mysqli_fetch_array($result)) {
 
   if ((strlen($row['telefono']) == 9 && (substr($row['telefono'], 0, 1) == 6 || substr($row['telefono'], 0, 1) == 7)) || (strlen($row['telefonourgencia']) == 9 && (substr($row['telefonourgencia'], 0, 1) == 6 || substr($row['telefonourgencia'], 0, 1) == 7))) {
 
-    if (substr($row['telefonourgencia'], 0, 1) == 6 || substr($row['telefonourgencia'], 0, 1) == 7) {
-      $movil = $row['telefonourgencia'];
-    }
-    elseif (substr($row['telefono'], 0, 1) == 6 || substr($row['telefono'], 0, 1) == 7) {
+    if (substr($row['telefono'], 0, 1) == 6 || substr($row['telefono'], 0, 1) == 7) {
       $movil = $row['telefono'];
+    }
+    elseif (substr($row['telefonourgencia'], 0, 1) == 6 || substr($row['telefonourgencia'], 0, 1) == 7) {
+      $movil = $row['telefonourgencia'];
     }
 
     $alumno = array(
