@@ -73,7 +73,7 @@ $curso_tutor=$query2[0];
 		<li><a href="matriculas.php">Datos importantes de la Matrícula</a></li>	
 		<?php endif; ?>
 		<?php if (isset($config['mod_sms']) && $config['mod_sms']): ?>
-		<li><a href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar SMS</a></li>	
+		<li><a href="../../sms/alumnado.php">Enviar SMS</a></li>	
 		<?php endif; ?>
 		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
 		<li><a href="../../faltas/justificar/index.php">Justificar Faltas de Asistencia del Grupo</a></li>	

@@ -5,7 +5,7 @@ if (ini_get('default_charset') != "UTF-8" && ini_get('default_charset') != "UTF-
 
 // COMPROBAMOS LA VERSIÓN DE PHP DEL SERVIDOR
 if (version_compare(phpversion(), '7.1', '<')) die ("<h1>Versión de PHP incompatible</h1><br><p>Necesita PHP 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
-//if (version_compare(phpversion(), '7.3', '>')) die ("<h1>Versión de PHP incompatible</h1><br><p>Necesita PHP 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
+if (version_compare(phpversion(), '7.3', '>')) die ("<h1>Versión de PHP incompatible</h1><br><p>Necesita PHP 7.1 o 7.2 para poder utilizar esta aplicación.</p>");
 
 // CONFIGURACIÓN DE LA SESIÓN
 ini_set("session.use_cookies", 1);
