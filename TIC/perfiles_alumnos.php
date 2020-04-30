@@ -71,7 +71,7 @@ $asignatura = $exp_unidad[3];
 							$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
 
 							$codigo_asignatura = substr($cod_asignatura,0,strlen($cod_asignatura)-4);
-							$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad = '".$unidad."' AND ".$codigo_asignatura." ORDER BY apellidos ASC, nombre ASC");
+							$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad = '".$unidad."' AND (".$codigo_asignatura.") ORDER BY apellidos ASC, nombre ASC");
 							while ($row = mysqli_fetch_array($result)): 								
 								$nombre = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nombre']);
 								$apellidos = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['apellidos']);

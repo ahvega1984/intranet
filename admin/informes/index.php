@@ -255,7 +255,7 @@ if (!$claveal) {
 							<div class="col-sm-6">
 								<h6 class="mb-3">
 									<?php if (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']): ?>
-									Acceso a Google Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									Acceso a Gmail / Classroom <a href="https://classroom.google.com/a/<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
 									<?php endif; ?>
 									<?php if ((isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) && (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
 									&nbsp;/&nbsp;

@@ -98,6 +98,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 			  <ul class="dropdown-menu" role="menu">
 			  	<li><a href="index_primaria.php">Importar Alumnado de Primaria</a></li>
 			  	<li><a href="index_secundaria.php">Importar Alumnado de ESO</a></li>
+			  	<li><a href="activar.php">Activar matriculación</a></li>
 			  </ul>
 			</li>
 			<?php if ($config['matriculas']['transito']==1) { ?>
