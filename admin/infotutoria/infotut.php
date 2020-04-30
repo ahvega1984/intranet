@@ -20,7 +20,7 @@ include("menu.php");
 padding-right: 5px; }
 </style>
 <?php
-$prof = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
+$prof = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad = '$unidad' LIMIT 1");
 $fprof = mysqli_fetch_array($prof);
 $tutor = $fprof[0];
 ?>
