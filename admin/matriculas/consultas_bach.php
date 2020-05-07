@@ -10,6 +10,22 @@ if (file_exists('config.php')) {
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
+
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $c_escolar);
+		$anio_escolar = $exp_c_escolar[0];
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+		mysqli_query($db_con,"SET NAMES 'utf8'");
+	}
+	if (empty($c_escolar)){
+		$c_escolar = $config['curso_actual'];
+	}
+}
+else {
+	$c_escolar = $config['curso_actual'];
+}
 
 // Control de tablas
 $bck =mysqli_query($db_con,"select divorcio from matriculas_backup");
@@ -499,9 +515,10 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		echo '<tr>
 
 	<td><input value="1" name="confirmado-'. $id .'" type="checkbox"';
-		if ($confirmado=="1") { echo " checked";}
-		echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
-	<td><a href="matriculas_bach.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
+	if ($confirmado=="1") { echo " checked";}
+	echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
+	<td><a href="matriculas_bach.php?id='. $id .'&c_escolar='. $c_escolar .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
+
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $grupo_actual .'" /></td>';

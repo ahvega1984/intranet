@@ -13,6 +13,29 @@ if ($n>2) {
 <br>
 <form action="consultas_bach.php" method="post" name="form2">
 <div class="well well-sm hidden-print">
+
+<div class="row">
+	<div class="col-sm-2">
+<?php
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
+  <div class="form-group">
+    <label for="c_escolar">Curso escolar</label>
+    
+    <select class="form-control" id="c_escolar" name="c_escolar" onchange="submit()">
+    	<?php $exp_c_escolar = explode("/", $config['curso_actual']); ?>
+    	<?php for($i=0; $i<3; $i++): ?>
+    	<?php $anio_escolar = $exp_c_escolar[0] - $i; ?>
+    	<?php $anio_escolar_sig = substr(($exp_c_escolar[0] - $i + 1), 2, 2); ?>
+    	<?php if($i == 0 || (isset($config['db_host_c'.$anio_escolar]) && $config['db_host_c'.$anio_escolar] != "")): ?>
+    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>"<?php if($anio_escolar.'/'.$anio_escolar_sig == $c_escolar) echo " selected";?>><?php echo $anio_escolar.'/'.$anio_escolar_sig; ?></option>
+    	<?php endif; ?>
+    	<?php endfor; ?>
+    </select>
+  </div>
+ <?php endif; ?>
+</div>
+</div>
+
 <div class="row">
 <div class="col-sm-4">
 <div class="form-group" align="left">
@@ -28,7 +51,7 @@ if ($n>2) {
 <div class="form-group">	
 <label>Unidades:</label>
 <div class="checkbox">
-<?					
+<?php					
 $tipo0 = "select distinct grupo_actual from matriculas_bach where curso = '$curso' order by grupo_actual";
 $tipo10 = mysqli_query($db_con, $tipo0);
   while($tipo20 = mysqli_fetch_array($tipo10))

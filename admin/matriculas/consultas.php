@@ -13,6 +13,24 @@ if (file_exists('config.php')) {
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
+
+
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $c_escolar);
+		$anio_escolar = $exp_c_escolar[0];
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+		mysqli_query($db_con,"SET NAMES 'utf8'");
+	}
+	if (empty($c_escolar)){
+		$c_escolar = $config['curso_actual'];
+	}
+}
+else {
+	$c_escolar = $config['curso_actual'];
+}
+
 
 
 if (isset($_POST['listados'])) {
@@ -365,7 +383,6 @@ if (!($orden)) {
 		$sql.=", optativa$i";
 	}
 	$sql.=" from matriculas where ". $extra ." order by ". $orden ." apellidos, nombre, curso, grupo_actual";
-	// echo $sql;
 	$cons = mysqli_query($db_con, $sql);
 	if(mysqli_num_rows($cons) < 1){
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
@@ -523,7 +540,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	<td><input value="1" name="confirmado-'. $id .'" type="checkbox"';
 			if ($confirmado=="1") { echo " checked";}
 			echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
-	<td><a href="matriculas.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
+	<td><a href="matriculas.php?id='. $id .'&c_escolar='. $c_escolar .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $grupo_actual .'" /></td>';

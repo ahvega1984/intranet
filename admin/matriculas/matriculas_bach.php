@@ -13,6 +13,24 @@ if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$d
 if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}
 if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+
+if(isset($_GET['c_escolar'])){$c_escolar = $_GET['c_escolar'];}else{ $c_escolar=""; }
+
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $c_escolar);
+		$anio_escolar = $exp_c_escolar[0];
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+		mysqli_query($db_con,"SET NAMES 'utf8'");
+	}
+	if (empty($c_escolar)){
+		$c_escolar = $config['curso_actual'];
+	}
+}
+else {
+	$c_escolar = $config['curso_actual'];
+}
+
 // Divorcios
 $divorciados = array(
 array(
