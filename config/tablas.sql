@@ -142,6 +142,19 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `audiencia`
+--
+
+CREATE TABLE IF NOT EXISTS `audiencia` (
+  `claveal` varchar(12) NOT NULL,
+  `texto` text NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `ausencias`
 --
 

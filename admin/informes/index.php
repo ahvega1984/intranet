@@ -5,6 +5,20 @@ if (file_exists('../fechorias/config.php')) {
 	include('../fechorias/config.php');
 }
 
+// Modificación de datos del alumno en la tabla Alma
+if (isset($_POST['enviar_datos'])) {
+	
+	foreach ($_POST as $nombre => $valor) {
+		${$nombre} = $valor;
+	}
+
+mysqli_query($db_con, "update alma set DNI='$DNI', fecha='$fecha', domicilio='$domicilio', localidad='$localidad', provinciaresidencia='$provinciaresidencia', telefono='$telefono', padre='$padre', telefonourgencia='$telefonourgencia', paisnacimiento='$paisnacimiento', correo='$correo', nacionalidad='nacionalidad', unidad='$unidad', dnitutor='$dnitutor', dnitutor2='$dnitutor', nsegsocial='$nsegsocial' where claveal='$claveal'");
+	
+	$mensaje1 = 1;
+
+	$todos = "Ver Informe Completo";
+
+}
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if(isset($_GET['unidad'])){$unidad = $_GET['unidad'];}else{$unidad = $_POST['unidad'];}
@@ -92,11 +106,7 @@ if (!$claveal) {
 			<h3><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
 
-		<?php $result = mysqli_query($db_con, "SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>
-		<?php $row2 = mysqli_fetch_array($result); ?>
-		<?php mysqli_free_result($result); ?>
-
-		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente, dnitutor, dnitutor2 from alma where alma.claveal= '$claveal'"); ?>
+		<?php $result = mysqli_query($db_con, "select distinct claveal, DNI, fecha, domicilio, localidad, provinciaresidencia, telefono, padre, matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente, dnitutor, dnitutor2, nsegsocial from alma where claveal= '$claveal'"); ?>
 
 		<?php if ($row = mysqli_fetch_array($result)):
 		$nivel_alumno = $row['curso'];
@@ -128,6 +138,15 @@ if (!$claveal) {
 		}
 
 		?>
+
+		<?php if ($mensaje1==1) { ?>
+			<div align="center">
+				<div class="alert alert-info alert-block fade in">
+            	<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<p class="text-left">Los datos del alumno se han modificado correctamente en la base de datos de la Intranet. No olvides actualizar los mismos datos en <strong>Séneca</strong> para que <em>la próxima actualización de alumnos registre los cambios permanentemente</em>.</p>
+				</div>
+			</div>
+		<?php } ?>
 		<!-- SCAFFOLDING -->
 		<div class="well">
 		<div class="row">
@@ -155,81 +174,147 @@ if (!$claveal) {
 			$anos = $hoy->diff($fecha_nacimiento);
 			$edad = $anos->y;
 			?>
+			<?php
+			if(stristr($_SESSION['cargo'],'1') == TRUE) {
+				$DNI = "<input class='form-control-sm col-md-12' type='text' name='DNI' value='".$row['DNI']."' />";
+				$dnitutor = "<input class='form-control-sm col-md-12' type='text' name='dnitutor' value='".$row['dnitutor']."' />";
+				$dnitutor2 = "<input class='form-control-sm col-md-12' type='text' name='dnitutor2' value='".$row['dnitutor2']."' />";
+				$fecha = "<input class='form-control-sm col-md-12' type='text' name='fecha' value='".$row['fecha']."' />";
+				$domicilio = "<input class='form-control-sm col-md-12' type='text' name='domicilio' value='".$row['domicilio']."' />";
+				$localidad = "<input class='form-control-sm col-md-12' type='text' name='localidad' value='".$row['localidad']."' />";
+				$provinciaresidencia = "<input class='form-control-sm col-md-12' type='text' name='provinciaresidencia' value='".$row['provinciaresidencia']."' />";
+				$nacionalidad = "<input class='form-control-sm col-md-12' type='text' name='nacionalidad' value='".$row['nacionalidad']."' />";
+				$telefono = "<input class='form-control-sm col-md-12' type='text' name='telefono' value='".$row['telefono']."' />";
 
+				$telefonourgencia = "<a href='tel:<input class=\"form-control-sm col-md-12\" type=\"text\" name=\"telefono\" value=\"654258924\" />'><input class='form-control-sm col-md-12' type='text' name='telefonourgencia' value='".$row['telefonourgencia']."' /></a>";
+				$unidad = "<input class='form-control-sm col-md-12' type='text' name='unidad' value='".$row['unidad']."' />";
+				$correo = "<input class='form-control-sm col-md-12' type='text' name='correo' value='".$row['correo']."' />";
+				$padre = "<input class='form-control-sm col-md-12' type='text' name='padre' value='".$row['padre']."' />";
+				$nsegsocial = "<input class='form-control-sm col-md-12' type='text' name='nsegsocial' value='".$row['nsegsocial']."' />";
+			}
+			else{
+				if (empty($row['DNI'])) {
+					$DNI = '<span class="text-muted">Sin registrar</span>';
+				}
+				else{
+					$DNI = $row['DNI'];
+				}
+				$dnitutor = $row['dnitutor'];
+				if (empty($row['dnitutor2'])) {
+					$dnitutor2 = '<span class="text-muted">Sin registrar</span>';
+				}
+				else{
+					$dnitutor2 = $row['dnitutor2'];
+				}
+				$fecha = $row['fecha'];
+				$domicilio = $row['domicilio'];
+				$localidad = $row['localidad'];
+				$provinciaresidencia = $row['provinciaresidencia'];
+				$nacionalidad = $row['nacionalidad'];
+				$telefono = $row['telefono'];
+				if (empty($row['telefonourgencia'])) {
+					$telefonourgencia = '<span class="text-muted">Sin registrar</span>';
+				}
+				else{
+					$telefonourgencia = $row['telefonourgencia'];
+				}
+				$unidad = $row['unidad'];
+				if (empty($row['correo'])) {
+					$correo = '<span class="text-muted">Sin registrar</span>';
+				}
+				else{
+					$correo = $row['correo'];
+				}
+				$padre = $row['padre'];
+				if (empty($row['nsegsocial'])) {
+					$nsegsocial = '<span class="text-muted">Sin registrar</span>';
+				}
+				else{
+					$nsegsocial = $row['nsegsocial'];
+				}
+				
+			}
+			?>
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-10">
 
 				<div class="row">
 
-					<div class="col-sm-6">
+					<form method="POST" action="index.php">
 
-						<dl class="dl-horizontal">
-						  <dt>DNI / Pasaporte</dt>
-						  <dd><?php echo ($row['DNI'] != "") ? $row['DNI']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>DNI Tutor legal 1</dt>
-						  <dd><?php echo ($row['dnitutor'] != "") ? $row['dnitutor']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>DNI Tutor legal 2</dt>
-						  <dd><?php echo ($row['dnitutor2'] != "") ? $row['dnitutor2']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Fecha de nacimiento</dt>
-						  <dd><?php echo ($row['fecha'] != "") ? $row['fecha']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Edad</dt>
-						  <dd><?php echo ($row['edad'] != "") ? $edad.' años': '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Domicilio</dt>
-						  <dd><?php echo ($row['domicilio'] != "") ? $row['domicilio']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Nacionalidad</dt>
-						  <dd><?php echo ($row['nacionalidad'] != "") ? $row['nacionalidad']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Teléfono</dt>
-						  <dd><?php echo ($row['telefono'] != "") ? '<a href="tel:'.$row['telefono'].'">'.$row['telefono'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Teléfono urgencias</dt>
-						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						</dl>
+						<input type="hidden" value = "<?php echo $claveal; ?>" name="claveal">
+						
+						<div class="form-group">
 
-					</div><!-- /.col-sm-6 -->
+							<div class="col-sm-6">
 
-					<div class="col-sm-6">
+								<dl class="dl-horizontal">
+								  <dt><abbr data-bs="tooltip" title="Número de Identificación Escolar">N.I.E.</abbr></dt>
+								  <dd><?php echo ($row['claveal'] != "") ? $row['claveal']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Nº Expediente</dt>
+								  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Año académico</dt>
+								  <dd><?php echo $c_escolar; ?></dd>						  
+								  <dt>Fecha de nacimiento</dt>
+								  <dd><?php echo ($row['fecha'] != "") ? $fecha: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Edad</dt>
+								  <dd><?php echo ($row['edad'] != "") ? $edad.' años': '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Domicilio</dt>
+								  <dd><?php echo ($row['domicilio'] != "") ? $domicilio: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Provincia de residencia</dt>
+								  <dd><?php echo ($row['provinciaresidencia'] != "") ? $provinciaresidencia: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Localidad</dt>
+								  <dd><?php echo ($row['localidad'] != "") ? $localidad: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Nacionalidad</dt>
+								  <dd><?php echo ($row['nacionalidad'] != "") ? $nacionalidad: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Teléfono</dt>
+								  <dd><?php echo ($row['telefono'] != "") ? '<a href="tel:'.$telefono.'">'.$telefono.'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Teléfono urgencias</dt>
+								  <dd><?php echo $telefonourgencia; ?></dd>
+								</dl>
 
-						<dl class="dl-horizontal">
-						  <dt><abbr data-bs="tooltip" title="Número de Identificación Escolar">N.I.E.</abbr></dt>
-						  <dd><?php echo ($row['claveal'] != "") ? $row['claveal']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Nº Expediente</dt>
-						  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Año académico</dt>
-						  <dd><?php echo $c_escolar; ?></dd>
-						  <dt>Curso</dt>
-						  <dd><?php echo ($row['curso'] != "") ? $row['curso']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Unidad</dt>
-						  <dd><?php echo ($row['unidad'] != "") ? $row['unidad']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Tutor</dt>
-						  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'UTF-8'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						  <dt>Repetidor/a</dt>
-						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
-							<?php if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']): ?>
-							<dt>Puntos</dt>
-							<dd><?php echo sistemaPuntos($row['claveal']); ?></dd>
-							<?php endif; ?>
-							<dt>Correo electrónico</dt>
-							<?php
-							if ($row['correo'] != "") {
-								$correo = '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>';
-							}
-							elseif($row2['correo'] != "") {
-								$correo = '<a href="mailto:'.$row2['correo'].'">'.$row2['correo'].'</a>';
-							}
-							else {
-								$correo = '<span class="text-muted">Sin registrar</span>';
-							}
-							?>
-						  <dd><?php echo $correo ?></dd>
-						  <dt>Representante legal</dt>
-						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
-						</dl>
+							</div><!-- /.col-sm-6 -->
 
-					</div><!-- /.col-sm-6 -->
+							<div class="col-sm-6">
 
+								<dl class="dl-horizontal">
+								  <dt>DNI / Pasaporte</dt>
+								  <dd><?php echo $DNI; ?></dd>								  
+								  <dt>Curso</dt>
+								  <dd><?php echo ($row['curso'] != "") ? $row['curso']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Unidad</dt>
+								  <dd><?php echo ($row['unidad'] != "") ? $unidad: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Tutor</dt>
+								  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'UTF-8'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>Repetidor/a</dt>
+								  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
+									<?php if (isset($config['convivencia']['puntos']['habilitado']) && $config['convivencia']['puntos']['habilitado']): ?>
+									<dt>Puntos</dt>
+									<dd><?php echo sistemaPuntos($row['claveal']); ?></dd>
+									<?php endif; ?>									
+								  <dt>Correo electrónico</dt>
+								  <dd><?php echo $correo; ?></dd>								  	
+								  <dt>Representante legal</dt>
+								  <dd><?php echo ($row['padre'] != "") ? $padre: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>DNI Tutor legal 1</dt>
+								  <dd><?php echo ($row['dnitutor'] != "") ? $dnitutor: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+								  <dt>DNI Tutor legal 2</dt>
+								  <dd><?php echo $dnitutor2; ?></dd>
+								  <dt>Nº de Seguridad Social</dt>
+								  <dd><?php echo $nsegsocial; ?></dd>
+								  </dl>	
+								  <?php 
+								  if(stristr($_SESSION['cargo'],'1') == TRUE):
+								  ?>					
+								  <input class="form-group btn btn-info btn-sm pull-right" name="enviar_datos" type="submit" value="Modificar datos">	
+								  <?php endif; ?>	  
+							</div><!-- /.col-sm-6 -->
+						</div><!-- /.form-group -->
+					</form>
 				</div><!-- /.row -->
 
 				<?php if ((isset($config['mod_centrotic_moodle']) && $config['mod_centrotic_moodle']) || (isset($config['mod_centrotic_gsuite']) && $config['mod_centrotic_gsuite']) || (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365'])): ?>
-					<button class="btn btn-link btn-block" id="collapseButtonCredenciales" type="button" data-toggle="collapse" data-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseCredenciales"><span class="h6 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span></button>
+					<button class="btn btn-link btn-block" id="collapseButtonCredenciales" type="button" data-toggle="collapse" data-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseCredenciales"><span class="h5 mb-0 pb-0">Mostrar más <i class="fas fa-chevron-down fa-fw"></i></span></button>
 					
 					<div class="collapse pb-3" id="collapseCredenciales">
 
