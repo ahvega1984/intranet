@@ -953,3 +953,21 @@ if (! mysqli_num_rows($actua)) {
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla de adaptaciones', NOW())");
 }
+
+
+/*
+  @descripcion: Tablas para los trámites de audiencia y matrículas
+  @fecha: 04 de abril de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tabla de audiencias'");
+if (! mysqli_num_rows($actua)) {
+
+  mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `audiencia` (
+  `claveal` varchar(12) NOT NULL,
+  `texto` text NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
+
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla de audiencias', NOW())");
+}
