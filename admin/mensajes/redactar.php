@@ -454,11 +454,11 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione profesorado de nocturno</legend>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` > 7 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamentos`.`nombre`, `departamentos`.`idea` FROM `horw` JOIN `departamentos` ON `horw`.`prof` = `departamentos`.`nombre` WHERE `horw`.`hora` > 7 AND (`horw`.`idactividad` = 1 OR `horw`.`idactividad` = 636 OR `horw`.`idactividad` = 476) ORDER BY `departamentos`.`nombre` ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profesores_nocturnos[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['idea']; ?>"><?php echo $row['prof']; ?></option>
+								<option value="<?php echo $row['idea']; ?>"><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
@@ -475,19 +475,19 @@ $page_header = "Redactar mensaje";
 				</div>
 				<?php endif; ?>
 
-				<?php if ($existeProfesoresDiurnos): ?>
-				<!-- PROFESORADO NOCTURNO -->
+				<?php if ($existeProfesoresNocturnos && $existeProfesoresDiurnos): ?>
+				<!-- PROFESORADO DIURNO -->
 				<div id="grupo_profesor_diurno" class="well <?php echo (isset($profesor_diurno) && !empty($profesor_diurno)) ? '' : 'hidden'; ?>">
 
 					<fieldset>
 						<legend>Seleccione profesorado de diurno</legend>
 
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` < 8 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamentos`.`nombre`, `departamentos`.`idea` FROM `horw` JOIN `departamentos` ON `horw`.`prof` = `departamentos`.`nombre` WHERE `horw`.`hora` < 8 AND (`horw`.`idactividad` = 1 OR `horw`.`idactividad` = 636 OR `horw`.`idactividad` = 476) ORDER BY `departamentos`.`nombre` ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profesores_diurnos[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['idea']; ?>"><?php echo $row['prof']; ?></option>
+								<option value="<?php echo $row['idea']; ?>"><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
