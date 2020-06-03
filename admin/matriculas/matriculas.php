@@ -1080,7 +1080,7 @@ exit();
 							<div class="radio"><label> <input type="radio" 
 
 								<?php if($i==1){ ?> onClick="getElementById('r1').disabled = false; getElementById('ciencias4').disabled = false; getElementById('ciencias5').disabled = false;" <?php } else{ ?>onClick="getElementById('r1').disabled = true; getElementById('ciencias4').disabled = true; getElementById('ciencias5').disabled = true;" <?php } ?>
-				id="itinerario<?php echo $i; ?>" name="itinerario" required
+				id="itinerario<?php echo $i; ?>" name="itinerario" required="required"
 							<?php if($itinerario == $i){echo " checked";} ?>
 				value="<?php echo $i; ?>"> <span class="text-uppercase"><strong>Itinerario
 							<?php echo $i; ?></strong></span><br>

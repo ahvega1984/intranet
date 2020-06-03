@@ -632,7 +632,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						}
 					if ($n_curso == "2") {
 						if($key_nota == "1" and $val_nota<'427' or $val_nota =="439" or $val_nota ==""){
-							$val_notas=$val_notas+1;
+							//$val_notas=$val_notas+1;
 						}
 						}
 					}

@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
+?>
 
+<?php
 include("../../menu.php");
 
 include("menu_alumno.php");
@@ -46,7 +48,6 @@ if(!isset($_POST['consultar_notas']) and empty($_POST['unidad'])){
 
 						<p class="help-block">Esta consulta presenta las calificaciones de los alumnos de un grupo en las distintas evaluaciones de las asignaturas del curso escolar.</p>
 
-
 						<br>
 
 						<button type="submit" class="btn btn-primary" name="consultar_notas">Consultar notas de las evaluaciones</button>
@@ -70,6 +71,22 @@ else{
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2 style="display:inline;">Alumnos y Grupos <small>Calificaciones del grupo <?php echo $_POST['unidad'];?></small></h2>
+	
+		<form method="post" action="">
+			<div class="pull-right">
+				<select	class="form-control input-sm hidden-print" name="unidad" onchange="submit()" style="width:280px;">
+					<?php 
+					$grupos = mysqli_query($db_con,"select nomunidad from unidades order by idcurso, idunidad");
+					while ($sel_grupo = mysqli_fetch_array($grupos)) { ?>
+						<option value="<?php echo $sel_grupo['nomunidad']; ?>" <?php echo ($_POST['unidad'] == $sel_grupo['nomunidad']) ? 'selected' : ''; ?>><?php echo $sel_grupo['nomunidad']; ?></option>
+					<?php 
+					}
+					?>
+				</select> 
+				<input name="consultar_notas" type="hidden">			
+			</div>
+		</form>
+
 	</div>
 
 	<div class="row">
@@ -78,8 +95,8 @@ else{
 			<tr>
 				<td style="vertical-align: top; padding: 1px">
 				<table class='table table-bordered table-condensed table-striped'	style='width: auto;'>
-					<tr class="danger">
-						<td>Materias</td>
+					<tr>
+						<td class='info'>Materias</td>
 						<?php
 						$curso0 = "select distinct codigo, abrev from materias where materias.grupo = '".$_POST['unidad']."' and abrev not like '%\_%' and abrev not like 'LIBD%' and abrev not like 'VE' and abrev not like 'Re%'";
 						$curso20 = mysqli_query($db_con, $curso0);
@@ -88,12 +105,12 @@ else{
 
 						while ($curso10 = mysqli_fetch_array($curso20))
 						{
-							echo "<td colspan='4' class='text-center'><strong>".$curso10[1]."</strong></td>";
+							echo "<td colspan='4' class='text-center info'><strong  style='color:#444'>".$curso10[1]."</strong></td>";
 							$asignaturas[] = $curso10[1].":".$curso10[0];
 						}
 
 						?>
-						<td colspan='4' class='text-center'><strong>Nº Susp.</strong></td>
+						<td colspan='4' class='text-center danger'><strong style='color:#ccc'>Nº Susp.</strong></td>
 					</tr>
 					<tr class="success">
 						<td>Evaluaciones</td>
@@ -102,13 +119,13 @@ else{
 						foreach ($asignaturas as $columnas) {
 							for ($i=1; $i < 5; $i++) {
 								if ($i<3) {
-									echo "<td nowrap><strong>".$i."ª</strong></td>";
+									echo "<td nowrap style='color:#666'><strong>".$i."ª</strong></td>";
 								}
 								elseif ($i==3) {
-									echo "<td nowrap><strong>Ord.</strong></td>";
+									echo "<td nowrap style='color:#666'><strong>Ord.</strong></td>";
 								}
 								else{
-									echo "<td nowrap><strong>Extr.</strong></td>";
+									echo "<td nowrap style='color:#666'><strong>Extr.</strong></td>";
 								}
 							}
 						}
@@ -116,13 +133,13 @@ else{
 						<?php 
 							for ($i=1; $i < 5; $i++) {
 								if ($i<3) {
-									echo "<td nowrap><strong>".$i."ª</strong></td>";
+									echo "<td nowrap class='warning'><strong style='color:#ddd'>".$i."ª</strong></td>";
 								}
 								elseif ($i==3) {
-									echo "<td nowrap><strong>Ord.</strong></td>";
+									echo "<td nowrap class='warning'><strong style='color:#ddd'>Ord.</strong></td>";
 								}
 								else{
-									echo "<td nowrap><strong>Extr.</strong></td>";
+									echo "<td nowrap class='warning'><strong style='color:#ddd'>Extr.</strong></td>";
 								}
 							}
 						?>
@@ -158,7 +175,7 @@ else{
 							
 
 							for ($i=1; $i < 5; $i++) {
-							echo "<td>";
+							echo "<td id='$claveal-$abrev-$i'>";
 							${seneca.$i} = mysqli_query($db_con, "select notas".$i." from notas where claveal = (select claveal1 from alma where claveal = '$claveal')");
 
 							${dato_seneca.$i} = mysqli_fetch_array(${seneca.$i});
@@ -173,7 +190,14 @@ else{
 									$rown = mysqli_fetch_array($calificacion);
 									if ($rown[0]<5) {
 										${n_susp.$i}++;
-										echo "<span class='text-danger'>$rown[0]</span>";
+										?>
+										<script type="text/javascript">
+										celda = document.getElementById("<?php echo "$claveal-$abrev-$i"; ?>");
+										celda.style.backgroundColor="#aaa";
+										celda.style.color="#333";
+										</script>
+										<?php
+										echo "<span>$rown[0]</span>";
 									}
 									else{
 										echo "<span class='text-info'>$rown[0]</span>";
@@ -186,7 +210,7 @@ else{
 					}	
 					
 					for ($i=1; $i < 5; $i++) { 
-							echo "<td>".${n_susp.$i}."</td>";				
+							echo "<td class='text-danger'><strong>".${n_susp.$i}."</strong></td>";				
 				}
 
 				?>

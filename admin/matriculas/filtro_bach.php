@@ -27,7 +27,7 @@ if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
     	<?php $anio_escolar = $exp_c_escolar[0] - $i; ?>
     	<?php $anio_escolar_sig = substr(($exp_c_escolar[0] - $i + 1), 2, 2); ?>
     	<?php if($i == 0 || (isset($config['db_host_c'.$anio_escolar]) && $config['db_host_c'.$anio_escolar] != "")): ?>
-    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>"<?php if($anio_escolar.'/'.$anio_escolar_sig == $c_escolar) echo " selected";?>><?php echo $anio_escolar.'/'.$anio_escolar_sig; ?></option>
+    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>" <?php if($anio_escolar.'/'.$anio_escolar_sig == $c_escolar) echo "selected";?>><?php echo ($anio_escolar+1).'/'.($anio_escolar_sig+1); ?></option>
     	<?php endif; ?>
     	<?php endfor; ?>
     </select>
