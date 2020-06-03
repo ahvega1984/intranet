@@ -415,6 +415,10 @@ $menu_trabajo =  array(
 					array(
 						'href'   => 'admin/infotutoria/index.php',
 						'titulo' => 'Informes de tutoria',
+					),
+					array(
+						'href'   => 'admin/informes/extraordinaria/index.php',
+						'titulo' => 'Informes de materias pendientes',
 					)
 				)
 			),
