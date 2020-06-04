@@ -5,7 +5,7 @@ if(isset($_POST['submit1'])) {
 	if(!$asunto or empty($texto) or empty($profesor)) {
   		$msg_error = "Todos los campos del formulario son obligatorios.";
   	}
-	elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$prof_nocturnos and !$prof_diurnos and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !$convivencia and !($padres) and !$dfeie and !$pas) {
+	elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$profesores_nocturnos and !$profesores_diurnos and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !$convivencia and !($padres) and !$dfeie and !$pas) {
 		$msg_error = "Debes seleccionar al menos un destinatario.";
 	}
 	else {
@@ -92,8 +92,8 @@ if(isset($_POST['submit1'])) {
 				}
 
 			$prof_nocturnos = $_POST["profesores_nocturnos"];
-			foreach ($prof_nocturnos as $nombre_prof) {
-				$prof_nocturnos0 = mysqli_query($db_con, "select distinct idea from profesores where idea = '$nombre_prof'");
+			foreach ($prof_nocturnos as $idea_prof) {
+				$prof_nocturnos0 = mysqli_query($db_con, "select distinct idea from departamentos where idea = '$idea_prof'");
 				
 				while ($prof_nocturnos1 = mysqli_fetch_array($prof_nocturnos0)) {
 					$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$prof_nocturnos1[0]'");
@@ -108,10 +108,10 @@ if(isset($_POST['submit1'])) {
 					$ok=1;
 				}
 			}
-
+			
 			$prof_diurnos = $_POST["profesores_diurnos"];
-			foreach ($prof_diurnos as $nombre_prof) {
-				$prof_diurnos0 = mysqli_query($db_con, "select distinct idea from profesores where idea = '$nombre_prof'");
+			foreach ($prof_diurnos as $idea_prof) {
+				$prof_diurnos0 = mysqli_query($db_con, "select distinct idea from departamentos where idea = '$idea_prof'");
 				
 				while ($prof_diurnos1 = mysqli_fetch_array($prof_diurnos0)) {
 					$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$prof_diurnos1[0]'");
