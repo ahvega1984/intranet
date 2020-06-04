@@ -197,12 +197,12 @@ include("menu.php");
 
 							<div class="form-group">
 								<label for="contenidos">Contenidos de la unidad</label>
-								<textarea id="contenidos" name="contenidos" class="form-control" rows="8" required><?php if(!empty($edicion['contenidos'])) { echo $edicion['contenidos']; } else{ echo '';} ?></textarea>
+								<textarea id="contenidos" name="contenidos" class="form-control" rows="8" required placeholder="Utiliza la etiqueta <br> al final de una frase o palabra para producir un salto de línea (o sea, punto y aparte). De ese modo el texto se vuelve más ordenado y legible."><?php if(!empty($edicion['contenidos'])) { echo $edicion['contenidos']; } else{ echo '';} ?></textarea>
 							</div>
 
 							<div class="form-group">
 								<label for="actividades">Actividades propuestas</label>
-								<textarea id="actividades" name="actividades" class="form-control" rows="8" required><?php if(!empty($edicion['actividades'])) {echo $edicion['actividades']; } else{ echo '';} ?></textarea>
+								<textarea id="actividades" name="actividades" class="form-control" rows="8" required placeholder="Puedes también insertar otras etiquetas para dar formatro al texto. Por ejemplo, <b>palabra</b> produce texto en negrita; <u>palabra</u>, texto subrayado; <em>palabra</em>, texto en cursiva."><?php if(!empty($edicion['actividades'])) {echo $edicion['actividades']; } else{ echo '';} ?></textarea>
 							</div>
 
 							<div class="form-group">
