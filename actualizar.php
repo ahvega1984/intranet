@@ -971,3 +971,47 @@ if (! mysqli_num_rows($actua)) {
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla de audiencias', NOW())");
 }
+
+/*
+  @descripcion: Tablas para los informes de evaluación extraordinaria
+  @fecha: 05 de junio de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tablas de informes extraordinaria'");
+if (! mysqli_num_rows($actua)) {
+
+  mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `informe_extraordinaria` (
+  `id_informe` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `profesor` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `asignatura` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
+  `unidad` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
+  `curso` varchar(96) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `modalidad` varchar(12) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `fechareg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `plantilla` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_informe`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=36");
+
+  mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `informe_extraordinaria_alumnos` (
+  `id_informe` int(10) unsigned NOT NULL,
+  `id_contenido` int(10) unsigned NOT NULL,
+  `claveal` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `debe_recuperar` int(1) NOT NULL DEFAULT '0',
+  `actividades` text COLLATE latin1_spanish_ci,
+  PRIMARY KEY (`id_informe`,`id_contenido`,`claveal`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+  mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `informe_extraordinaria_contenidos` (
+  `id_informe` int(10) unsigned NOT NULL,
+  `id_contenido` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `unidad` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+  `titulo` varchar(90) COLLATE latin1_spanish_ci NOT NULL,
+  `contenidos` text COLLATE latin1_spanish_ci NOT NULL,
+  `actividades` text COLLATE latin1_spanish_ci NOT NULL,
+  `fechareg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_contenido`,`id_informe`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=39");
+  
+
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tablas de informes extraordinaria', NOW())");
+}
