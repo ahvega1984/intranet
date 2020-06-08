@@ -81,7 +81,6 @@ include("menu.php");
 							
 							$al_prof = mysqli_query($db_con,"select alumnos from grupos where profesor = '".$_SESSION['profi']."' and asignatura = '$codigo' and curso = '$grupo'");
 							$alum_profe = mysqli_fetch_array($al_prof);
-							if (strstr($alum_profe['alumnos'], $alumnos['claveal'])==TRUE) {	
 							
 							$candidato="";
 
@@ -93,9 +92,17 @@ include("menu.php");
 									$nota_asig = explode(":",$val);
 									$asignatura_al = $nota_asig[0];
 									$nota_al = $nota_asig[1];
-									if ($asignatura_al == $codigo and $nota_al < "427") {
+									if (stristr($alumnos['curso'], "E.S.O")==TRUE) {
+										if ($asignatura_al == $codigo and $nota_al < "347" and $nota_al !== '339') {
 										$candidato = 1;
 									}
+									}
+									elseif (stristr($alumnos['curso'], "Bachillerato")==TRUE) {
+										if ($asignatura_al == $codigo and $nota_al < "427") {
+										$candidato = 1;
+									}
+									}
+									
 								}
 							}
 							if ($candidato==1) { 
@@ -144,7 +151,7 @@ include("menu.php");
 							</tr>
 							<?php }	?>
 						
-							<?php } endwhile; ?>
+							<?php endwhile; ?>
 							<tr><td colspan="3">  
 								<input type="hidden" name="id_informe" value="<?php echo $id_informe;?>" >
 								<input type="hidden" name="grupo" value="<?php echo $grupo;?>" >
