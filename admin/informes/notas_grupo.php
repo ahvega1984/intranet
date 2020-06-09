@@ -95,8 +95,8 @@ else{
 			<tr>
 				<td style="vertical-align: top; padding: 1px">
 				<table class='table table-bordered table-condensed table-striped'	style='width: auto;'>
-					<tr>
-						<td class='info'>Materias</td>
+					<tr class='info'>
+						<td>Materias</td>
 						<?php
 						$curso0 = "select distinct codigo, abrev from materias where materias.grupo = '".$_POST['unidad']."' and abrev not like '%\_%' and abrev not like 'LIBD%' and abrev not like 'VE' and abrev not like 'Re%'";
 						$curso20 = mysqli_query($db_con, $curso0);
@@ -105,7 +105,7 @@ else{
 
 						while ($curso10 = mysqli_fetch_array($curso20))
 						{
-							echo "<td colspan='4' class='text-center info'><strong  style='color:#444'>".$curso10[1]."</strong></td>";
+							echo "<td colspan='4' class='text-center'><strong>".$curso10[1]."</strong></td>";
 							$asignaturas[] = $curso10[1].":".$curso10[0];
 						}
 
@@ -119,13 +119,13 @@ else{
 						foreach ($asignaturas as $columnas) {
 							for ($i=1; $i < 5; $i++) {
 								if ($i<3) {
-									echo "<td nowrap style='color:#666'><strong>".$i."ª</strong></td>";
+									echo "<td nowrap><strong>".$i."ª</strong></td>";
 								}
 								elseif ($i==3) {
-									echo "<td nowrap style='color:#666'><strong>Ord.</strong></td>";
+									echo "<td nowrap><strong>Ord.</strong></td>";
 								}
 								else{
-									echo "<td nowrap style='color:#666'><strong>Extr.</strong></td>";
+									echo "<td nowrap><strong>Extr.</strong></td>";
 								}
 							}
 						}
