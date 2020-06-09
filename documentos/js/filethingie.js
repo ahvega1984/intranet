@@ -117,7 +117,7 @@
       			  list = list+'<li class="'+i+'">'+actions[i]+'</li>';
       			}
       			// Append file actions box.
-      			var filename = $(this).parent().parent().find("td.name").text();
+      			var filename = $(this).parent().parent().find("td.name").text().trim();
       			$(this).parent().parent().next("tr.filedetails").append("<td colspan=\"4\"><ul class=\"list-inline navigation\">"+list+"</ul><form method=\"post\" class=\"form-inline\" action=\""+options.formpost+"\"><div><label for='newvalue'>"+options.rename+"</label><input type=\"text\" value=\""+filename+"\" class='form-control input-sm' name=\"newvalue\" /><input type=\"hidden\" value=\""+filename+"\" class='file' name=\"file\" /><input type=\"submit\" class='btn btn-primary btn-sm submit' value=\""+options.ok+"\" /><input type=\"hidden\" name=\"dir\" value=\""+options.directory+"\" /><input type=\"hidden\" name=\"act\" class=\"act\" value=\"rename\" /></div></form></td>")
       			.find("li").hover(
       			  function(){$(this).toggleClass('hover')},

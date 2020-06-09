@@ -246,7 +246,7 @@ function ft_do_action() {
 		# Delete
 		} elseif ($_REQUEST['act'] == "delete" && ft_check_fileactions() === TRUE) {
 			// Check that file is set.
-			$file = ft_stripslashes($_REQUEST['file']);
+			$file = ft_stripslashes($_POST['file']);
 			if (!empty($file) && ft_check_file($file)) {
 				if (is_dir(ft_get_dir()."/".$file)) {
           if (DELETEFOLDERS == TRUE) {
