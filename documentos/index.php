@@ -208,8 +208,8 @@ function ft_do_action() {
 		# Move
 		} elseif ($_REQUEST['act'] == "move" && ft_check_fileactions() === TRUE) {
 			// Check that both file and newvalue are set.
-			$file = trim(ft_stripslashes($_REQUEST['file']));
-			$dir = trim(ft_stripslashes($_REQUEST['newvalue']));
+			$file = trim(ft_stripslashes($_POST['file']));
+			$dir = trim(ft_stripslashes($_POST['newvalue']));
 			if (substr($dir, -1, 1) != "/") {
 				$dir .= "/";
 			}
@@ -273,8 +273,8 @@ function ft_do_action() {
 		# Rename && Duplicate && Symlink
 		} elseif ($_REQUEST['act'] == "rename" || $_REQUEST['act'] == "duplicate" && ft_check_fileactions() === TRUE) {
 			// Check that both file and newvalue are set.
-			$old = trim(ft_stripslashes($_REQUEST['file']));
-			$new = trim(ft_stripslashes($_REQUEST['newvalue']));
+			$old = trim(ft_stripslashes($_POST['file']));
+			$new = trim(ft_stripslashes($_POST['newvalue']));
 			if ($_REQUEST['act'] == 'rename') {
 			  $m['typefail'] = t("!old was not renamed to !new (type not allowed).", array('!old' => $old, '!new' => $new));
 			  $m['writefail'] = t("!old could not be renamed (write failed).", array('!old' => $old));
