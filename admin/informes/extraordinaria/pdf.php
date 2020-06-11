@@ -52,19 +52,20 @@ define("DOMPDF_ENABLE_PHP", true);
 	$html.="<p style='border: solid 1px #ccc; padding: 10px 10px; text-align: justify; color:#444'>Este documento presenta los <b>contenidos y actividades</b> que el alumno deberá preparar y realizar para superar la prueba extraordinaria de septiembre en aquellas asignaturas que no haya superado en la evaluación ordinaria de junio. También contiene la <b>fecha</b> en la que habrá de realizarse el examen de la evaluación, si ese fuera el método de recuperación requerido por el profesor y la materia corespondientes; o bien las instrucciones para presentar las actividades encomendadas si ese fuera el método elegido para su evaluación.</p>";
 
 
-	$materias = mysqli_query($db_con, "SELECT distinct informe_extraordinaria.asignatura, informe_extraordinaria.id_informe, informe_extraordinaria.fecha FROM informe_extraordinaria, informe_extraordinaria_alumnos WHERE informe_extraordinaria.id_informe = informe_extraordinaria_alumnos.id_informe and claveal = '$claveal'");
+	$materias = mysqli_query($db_con, "SELECT distinct informe_extraordinaria.asignatura, informe_extraordinaria.id_informe, informe_extraordinaria.fecha, informe_extraordinaria.curso FROM informe_extraordinaria, informe_extraordinaria_alumnos WHERE informe_extraordinaria.id_informe = informe_extraordinaria_alumnos.id_informe and claveal = '$claveal'");
 	$num_informes = mysqli_num_rows($materias);
 	while($materia_curso = mysqli_fetch_array($materias)){
 
 		$n_inf++;
 
 		$id_informe = $materia_curso['id_informe'];
+		$curso_pend = $materia_curso['curso'];
 
 		$fecha_reg = explode(" ", $materia_curso['fecha']);
 		$dia_reg = $fecha_reg[0];
 		$hora_reg = $fecha_reg[1];
 
-		$html.="<br><h3>".$materia_curso['asignatura']."<small> (".$alum['curso'].")</small><hr><small style='color:#666'>Fecha del examen o entrega de actividades:  el día <u>".cambia_fecha($dia_reg)."</u> a las <u>".$hora_reg."</u> horas</small></h3><br>";
+		$html.="<br><h3>".$materia_curso['asignatura']."<small> (".$curso_pend.")</small><hr><small style='color:#666'>Fecha del examen o entrega de actividades:  el día <u>".cambia_fecha($dia_reg)."</u> a las <u>".$hora_reg."</u> horas</small></h3><br>";
 		
 		$html.="
 			<table class='table table-bordered'>

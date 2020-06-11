@@ -73,7 +73,7 @@ $profe_dep = $_SESSION ['profi'];
 
 echo '<legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';
 echo '<form action="lista_pendientes.php" method="POST">';
-echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Curso</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
+echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Curso</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th><th></th><thead><tbody>";
 
 if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
@@ -99,6 +99,7 @@ $Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea 
 while ($salida = mysqli_fetch_array($Recordset1)){
 	$claveal=$salida['claveal'];
 	$abrev_pendiente=$salida['abrev'];
+	//$asig_pendiente=$salida[3];
 	$val_nivel=substr($pendi[5],0,1);
 	$c_unidad = substr($salida['unidad'],0,1);
 	$c_curso = substr($salida['curso'],-2,1);
@@ -121,8 +122,24 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		echo "<td><input type='number' step='1' min='0' max='10' name='$i-$claveal-$asig_pendiente-$abrev_pendiente' value='$nota_evaluacion' style='max-width:40px;'></td>";
 	}
 	
-	echo"</tr>";
+	if (date('m')>'05' and date('m')<'09') {
 
+	echo"<td>";
+
+	$curso_pendiente = substr($curso,0,10);
+	
+	$pendiente = mysqli_fetch_array(mysqli_query($db_con,"select id_informe from informe_extraordinaria where asignatura='$asignatura' and curso like '$curso_pendiente%' and plantilla='1' limit 1"));
+	if (!empty($pendiente['id_informe'])){
+		$extra_inf="";
+		$ya_informe = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal ='".$salida['claveal']."' and id_informe='".$pendiente['id_informe']."'");
+
+		if (mysqli_num_rows($ya_informe) > 0){ $extra_inf = "<span class='text-success far fa-edit fa-fw fa-lg'> </span>"; } else { $extra_inf = "<span class='text-danger far fa-edit fa-fw fa-lg'> </span>"; }
+
+			echo "<a href='//".$config['dominio']."/intranet/admin/informes/extraordinaria/alumnado_pendientes.php?claveal=".$salida['claveal']."&id_informe=".$pendiente['id_informe']."&curso_pendiente=".$curso_pendiente."' target='_blank'  data-bs='tooltip' title='Redactar informe de la materia para la prueba extraordinaria de septiembre'> ".$extra_inf." </a>";
+		}
+		echo "</td>";
+	}
+	echo "</tr>";
 }
 
 echo "</tbody></table>";

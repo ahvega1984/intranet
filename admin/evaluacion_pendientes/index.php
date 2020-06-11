@@ -86,7 +86,7 @@ $profe_dep = $_SESSION ['profi'];
 						  <select class="form-control" name="select">
 <?php 
 
-$query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes, unidades where grupo=nomunidad order by idunidad";
+$query_Recordset1 = "SELECT distinct pendientes.codigo, unidades.idcurso FROM pendientes, unidades where grupo=nomunidad order by idcurso";
 
 $Recordset1 = mysqli_query($db_con, $query_Recordset1);
 while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) { 

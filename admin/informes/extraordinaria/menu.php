@@ -27,7 +27,6 @@
 
 	<ul class="nav nav-tabs">
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/index.php">Mis informes</a></li>
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'informe.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/informe.php">Crear informe</a></li>
 		<?php if (stristr($_SESSION['cargo'], "1") OR stristr($_SESSION['cargo'], "2")) { ?>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'admin.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/admin.php">Administrar informes</a></li>
 		<?php } ?>
