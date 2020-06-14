@@ -829,7 +829,7 @@ echo "<br>
 		echo "<th>Promociona</th>";
 		echo "<th>Repite</th>";
 		if ($curso=="1BACH"){
-		echo "<th>3/4</th>";
+		//echo "<th>3/4</th>";
 		}
 		
 		echo "<th>Itinerario1</th>";
