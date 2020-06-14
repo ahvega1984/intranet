@@ -166,23 +166,17 @@ if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
 	echo "<br>";
-	if ($curso=="4ESO") {
-		$tabla ='matriculas_bach';
-	}
-	else{
-		$tabla = 'matriculas';
-	}
+	
 	if ($curso=="1ESO") {
-		$tabla_origen='alma_primaria';
 		$cur_cole = "6";
 		$cur_monterroso = substr($curso, 0, 1);
+		$cur_monterroso2 = substr($curso, 0, 1)-1;
 		$cole_nene = ", colegio";
 		$cole_order = "colegio,";
-		$tabla_origen2='alma';
 
-		$query2 = "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.claveal from alma_primaria, matriculas where alma_primaria.claveal=matriculas.claveal and (confirmado not like '1') order by alma_primaria.unidad, alma_primaria.apellidos, alma_primaria.nombre";
+		$query2 = "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.claveal from alma_primaria, matriculas where alma_primaria.claveal=matriculas.claveal and (matriculas.confirmado = '0' or matriculas.confirmado is null) order by unidad, apellidos, nombre";
 
-		$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha $cole_nene, claveal from $tabla_origen where claveal not in (select claveal from $tabla) and curso like '$cur_cole%' order by $cole_order unidad, apellidos, nombre");
+		$camb = mysqli_query($db_con, "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.claveal from alma_primaria where alma_primaria.claveal not in (select claveal from matriculas where curso like '1ESO') order by unidad, apellidos, nombre");
 
 		echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de Colegios de Primaria.</h3><br />';
 		echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
@@ -192,17 +186,24 @@ if (isset($_POST['sin_matricula'])) {
 
 		}
 		echo "</ul></div><br />";
+		
+		$canf = mysqli_query($db_con, $query2);
+		echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
+		echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
+		while ($cam2 = mysqli_fetch_array($canf)) {
+			echo "<li><i class='fa fa-user'></i> &nbsp;".$cam2['claveal']." -- <span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+
+		}
+		echo "</ul></div>";
 	}
 	else{
-		$tabla_origen = 'alma';
-		$tabla_origen2 = 'alma';
-		$cur_monterroso = substr($curso, 0, 1);
-		$cole_nene = "";
-		$cole_order = "";
-		$query2 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha, alma.claveal from alma, matriculas where alma.claveal=matriculas.claveal  and alma.curso like '$cur_monterroso%' and alma.curso like '%E.S.O.' and confirmado not like '1' order by unidad, apellidos, nombre";
-	}
+	$cur_monterroso = substr($curso, 0, 1);
+	$cur_monterroso2 = substr($curso, 0, 1)-1;
+	$cole_nene = "";
+	$cole_order = "";
+	$query2 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha, alma.claveal from alma, matriculas where alma.claveal=matriculas.claveal  and alma.curso like '$cur_monterroso2%' and alma.curso like '%E.S.O.' and (matriculas.confirmado = '0' or matriculas.confirmado is null) order by unidad, apellidos, nombre";
 
-	$camb2 = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha, claveal from $tabla_origen2 where claveal not in (select claveal from $tabla) and curso like '$cur_monterroso%' and curso like '%E.S.O.' order by unidad, apellidos, nombre");
+	$camb2 = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha, alma.claveal from alma where alma.curso like '$cur_monterroso2%' and alma.curso like '%E.S.O.' and alma.claveal not in (select claveal from matriculas where curso like '$cur_monterroso%' and curso like '%ESO') order by unidad, apellidos, nombre");
 
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de nuestro Centro.</h3><br />';
 	echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
@@ -215,10 +216,11 @@ if (isset($_POST['sin_matricula'])) {
 
 	$canf = mysqli_query($db_con, $query2);
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
-	echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+	echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysqli_fetch_array($canf)) {
 		echo "<li><i class='fa fa-user'></i> &nbsp;".$cam2['claveal']." -- <span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 
+		}
 	}
 	echo "</ul></div>";
 	include("../../pie.php");

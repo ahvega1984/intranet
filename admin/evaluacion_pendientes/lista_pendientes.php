@@ -1,8 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
-
 include "../../menu.php";
+include "menu.php";
 ?>
 <style>
 input[type=number]::-webkit-inner-spin-button {
@@ -21,7 +21,7 @@ input[type=number] {
 		<h2>Evaluación de Pendientes <small>Alumnos con la asignatura pendiente</small></h2>
 </div>
 <div class="row">
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-10 col-sm-offset-1">
 <?php
 if(isset($_POST['enviar'])){
 	

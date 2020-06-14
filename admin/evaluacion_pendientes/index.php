@@ -1,17 +1,8 @@
 <?php
-if (isset($_POST['poner'])) {
-	include 'lista_pendientes.php';
-	exit();
-}
-if (isset($_POST['consultar'])) {
-	include 'consulta_pendientes.php';
-	exit();
-}
-
 require('../../bootstrap.php');
 
-
 include("../../menu.php"); 
+include("menu.php"); 
 
 $check=mysqli_query($db_con,"select * from evalua_pendientes");
 if ($check) {}else{
@@ -78,7 +69,7 @@ $profe_dep = $_SESSION ['profi'];
 			
 			<div class="well">
 				
-				<form method="post" action="index.php">
+				<form method="post" action="lista_pendientes.php">
 					<fieldset>
 						<legend>Registro de Calificaciones de Pendientes</legend>
 						
@@ -113,7 +104,7 @@ while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) {
 			
 			<div class="well">
 			
-			<form method="post" action="index.php">
+			<form method="post" action="consulta_pendientes.php">
 					<fieldset>
 						<legend>Consulta de Calificaciones</legend>
 						

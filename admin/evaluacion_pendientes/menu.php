@@ -26,10 +26,9 @@
 	</div>
 
 	<ul class="nav nav-tabs">
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/index.php">Mis informes</a></li>
-		<?php if (stristr($_SESSION['cargo'], "1") OR stristr($_SESSION['cargo'], "2") OR stristr($_SESSION['cargo'], "4")) { ?>
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'admin.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/admin.php">Administrar informes</a></li>
-		<?php } ?>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/evaluacion_pendientes/index.php">Evaluación de alumnos con materias pendientes</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'lista_pendientes.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/evaluacion_pendientes/index.php">Registro de calificaciones</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'consulta_pendientes.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/evaluacion_pendientes/index.php">Consulta por Nivel / Grupo</a></li>
 	</ul>
 
 </div>

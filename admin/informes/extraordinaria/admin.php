@@ -1,10 +1,10 @@
 <?php
 require('../../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 2));
+acl_acceso($_SESSION['cargo'], array(1, 2, 4));
 
 if (isset($_SESSION['mod_tutoria']['unidad'])) {
-	$extra= "and alma.unidad= '".$_SESSION['mod_tutoria']['unidad']."'";
+	$extra_tutor= "and alma.unidad= '".$_SESSION['mod_tutoria']['unidad']."'";
 }
 
 include("../../../menu.php");
@@ -45,7 +45,7 @@ include("menu.php");
 					<tbody>
 						<?php 
 						// OBTENEMOS INFORMES
-						$al = mysqli_query($db_con,"select distinct informe_extraordinaria_alumnos.claveal, alma.unidad, apellidos, nombre from informe_extraordinaria_alumnos, alma where informe_extraordinaria_alumnos.claveal = alma.claveal $extra_curso order by alma.unidad, apellidos, nombre");
+						$al = mysqli_query($db_con,"select distinct informe_extraordinaria_alumnos.claveal, alma.unidad, apellidos, nombre from informe_extraordinaria_alumnos, alma where informe_extraordinaria_alumnos.claveal = alma.claveal $extra_tutor $extra_curso order by alma.unidad, apellidos, nombre");
 						while ($alumno_informe = mysqli_fetch_array($al)) {
 						?>						
 						<tr>

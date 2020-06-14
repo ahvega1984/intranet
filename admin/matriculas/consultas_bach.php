@@ -205,16 +205,17 @@ if (isset($_POST['sin_matricula'])) {
 		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
 			if(strlen($cam[6])>0){$cole = " ($cam[6])";}else{$cole="";}
-			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
+			echo "<li><i class='fa fa-user'></i> <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
 			}
 		echo "</ul></div><br />";
 		}
-		$canf = mysqli_query($db_con, "select distinct apellidos, nombre, curso, telefono1, telefono2, nacimiento from matriculas_bach where confirmado NOT LIKE  '1' and curso like '1BACH' order by apellidos, nombre");
+		$canf = mysqli_query($db_con, "select distinct matriculas_bach.apellidos, matriculas_bach.nombre, matriculas_bach.curso, matriculas_bach.telefono1, matriculas_bach.telefono2, matriculas_bach.nacimiento, alma.unidad from matriculas_bach, alma where matriculas_bach.claveal=alma.claveal and (confirmado = '0' or confirmado is null) and matriculas_bach.curso like '1BACH' order by matriculas_bach.apellidos, matriculas_bach.nombre");
+
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
 			echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysqli_fetch_array($canf)) {
 				
-			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[6]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
 	}
 	}
@@ -233,12 +234,12 @@ if (isset($_POST['sin_matricula'])) {
 
 echo "</ul></div><br />";
 
-	$canf = mysqli_query($db_con, "select distinct apellidos, nombre, curso, telefono1, telefono2, nacimiento from matriculas_bach where (confirmado <> '1' or confirmado is NULL) and curso like '2%' order by apellidos, nombre");
+	$canf = mysqli_query($db_con, "select distinct matriculas_bach.apellidos, matriculas_bach.nombre, matriculas_bach.curso, matriculas_bach.telefono1, matriculas_bach.telefono2, matriculas_bach.nacimiento, alma.unidad from matriculas_bach, alma where matriculas_bach.claveal=alma.claveal and (confirmado = '0' or confirmado is null) and matriculas_bach.curso like '2BACH' order by matriculas_bach.apellidos, matriculas_bach.nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
 			echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysqli_fetch_array($canf)) {
 				
-			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[6]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
 	}
 }
