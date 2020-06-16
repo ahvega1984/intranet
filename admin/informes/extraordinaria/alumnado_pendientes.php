@@ -33,7 +33,7 @@ if (isset($_GET['curso_pendiente'])) {	$curso_pendiente = $_GET['curso_pendiente
 if (isset($_GET['id_informe'])) {	$id_informe = $_GET['id_informe'];}
 if (isset($_GET['claveal'])) {	$claveal = $_GET['claveal'];}
 
-$materias = mysqli_query($db_con,"select codigo, nombre from asignaturas where curso like '$curso_pendiente%' and nombre = (select asignatura from informe_extraordinaria where id_informe = '$id_informe' and plantilla='1')");
+$materias = mysqli_query($db_con,"select codigo, nombre from asignaturas where curso like '$curso_pendiente%' and nombre = (select asignatura from informe_extraordinaria where id_informe = '$id_informe' and plantilla='1') and abrev not like '%\_%'");
 
 $materia_informe = mysqli_fetch_array($materias);
 $codigo = $materia_informe['codigo'];

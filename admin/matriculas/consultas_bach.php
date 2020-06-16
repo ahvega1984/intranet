@@ -807,7 +807,7 @@ echo "<br>
 		$num_it13 = mysqli_num_rows($it_13);
 		$it_14 = mysqli_query($db_con, "select itinerario1 from matriculas_bach where $extra and itinerario1 = '4'");
 		$num_it14 = mysqli_num_rows($it_14);
-				
+
 		$it_21 = mysqli_query($db_con, "select itinerario2 from matriculas_bach where $extra and itinerario1 = '1'");
 		$num_it21 = mysqli_num_rows($it_21);
 		$it_22 = mysqli_query($db_con, "select itinerario2 from matriculas_bach where $extra and itinerario2 = '2'");
@@ -829,7 +829,7 @@ echo "<br>
 		echo "<th>Promociona</th>";
 		echo "<th>Repite</th>";
 		if ($curso=="1BACH"){
-		echo "<th>3/4</th>";
+		//echo "<th>3/4</th>";
 		}
 		
 		echo "<th>Itinerario1</th>";

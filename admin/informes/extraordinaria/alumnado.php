@@ -32,10 +32,20 @@ if (isset($_POST['enviar_datos'])) {
 if (isset($_GET['grupo'])) {	$grupo = $_GET['grupo'];}
 if (isset($_GET['id_informe'])) {	$id_informe = $_GET['id_informe'];}
 
-$materias = mysqli_query($db_con,"select codigo, nombre from materias where grupo = '$grupo' and nombre = (select asignatura from informe_extraordinaria where id_informe = '$id_informe')");
-$materia_informe = mysqli_fetch_array($materias);
-$codigo = $materia_informe['codigo'];
-$asignatura = $materia_informe['nombre'];
+$materias = mysqli_query($db_con,"select codigo, nombre, curso from materias where grupo = '$grupo' and nombre = (select asignatura from informe_extraordinaria where id_informe = '$id_informe') and abrev not like '%\_%'");
+if (mysqli_num_rows($materias)>1) {
+	$nb="";
+	while ($materia_informe = mysqli_fetch_array($materias)) {
+		$nb++;
+		${codigo.$nb}=$materia_informe['codigo'];
+	}
+		$asignatura = $materia_informe['nombre'];
+}
+else{
+	$materia_informe = mysqli_fetch_array($materias);
+	$codigo1 = $materia_informe['codigo'];
+	$asignatura = $materia_informe['nombre'];
+}
 
 include("../../../menu.php");
 include("menu.php");
@@ -59,7 +69,6 @@ include("menu.php");
 		<?php endif; ?>
 
 		<div class="row">
-			
 			<div class="col-sm-12">
 				<p class="help-block">En esta lista se presentan los alumnos que tienen al menos 1 evaluación suspensa en tu asignatura y son, por lo tanto, posibles candidados a un informe individual de cara a la <u>evaluación extraordinaria</u>. Marca las casillas de los contenidos (<em>UNIDADES</em>) que el alumno debe preparar para la evaluación extraordinaria. Si no marcas ninguna casilla en un alumno, éste no tendrá informe individualizado en tu asignatura.<br>Si necesitas personalizar las actividades y tareas de un alumno, puedes añadir información únuca para él en el campo de observaciones.</p>
 				<br>
@@ -79,9 +88,6 @@ include("menu.php");
 						$alumno = mysqli_query($db_con,"select claveal, claveal1, unidad, curso, concat(nombre,' ',apellidos) as nombre_alumno from alma where unidad = '".$grupo."'");
 						while($alumnos = mysqli_fetch_array($alumno)):
 							
-							$al_prof = mysqli_query($db_con,"select alumnos from grupos where profesor = '".$_SESSION['profi']."' and asignatura = '$codigo' and curso = '$grupo'");
-							$alum_profe = mysqli_fetch_array($al_prof);
-							
 							$candidato="";
 
 							$nota = mysqli_query($db_con, "select notas1, notas2, notas3 from notas where claveal = '".$alumnos['claveal1']."'");
@@ -93,12 +99,12 @@ include("menu.php");
 									$asignatura_al = $nota_asig[0];
 									$nota_al = $nota_asig[1];
 									if (stristr($alumnos['curso'], "E.S.O")==TRUE) {
-										if ($asignatura_al == $codigo and $nota_al < "347" and $nota_al !== '339') {
+										if ($asignatura_al == $codigo1 and $nota_al < "347" and $nota_al !== '339') {
 										$candidato = 1;
 									}
 									}
 									elseif (stristr($alumnos['curso'], "Bachillerato")==TRUE) {
-										if ($asignatura_al == $codigo and $nota_al < "427") {
+										if (($asignatura_al == $codigo1 OR $asignatura_al == $codigo2) and $nota_al < "427") {
 										$candidato = 1;
 									}
 									}

@@ -7,6 +7,15 @@ if (isset($_SESSION['mod_tutoria']['unidad'])) {
 	$extra_tutor= "and alma.unidad= '".$_SESSION['mod_tutoria']['unidad']."'";
 }
 
+if (stristr($_SESSION['cargo'], "4")) {
+	$dep = mysqli_query($db_con,"select idea from departamentos where departamento = '".$_SESSION['dpt']."'");
+	while ($profe_dep=mysqli_fetch_array($dep)) {
+		$extra_dep.="profesor like '".$profe_dep['idea']."' OR ";
+	}
+	$extra_dep = substr($extra_dep, 0,-3);
+	$extra_dep = "and informe_extraordinaria_alumnos.id_informe in (select informe_extraordinaria.id_informe from informe_extraordinaria where $extra_dep)";
+}
+
 include("../../../menu.php");
 include("menu.php");
 ?>
@@ -39,13 +48,13 @@ include("menu.php");
 						<tr>
 							<th>Alumno</th>
 							<th>Unidad</th>
-							<th ></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php 
 						// OBTENEMOS INFORMES
-						$al = mysqli_query($db_con,"select distinct informe_extraordinaria_alumnos.claveal, alma.unidad, apellidos, nombre from informe_extraordinaria_alumnos, alma where informe_extraordinaria_alumnos.claveal = alma.claveal $extra_tutor $extra_curso order by alma.unidad, apellidos, nombre");
+						$al = mysqli_query($db_con,"select distinct informe_extraordinaria_alumnos.claveal, alma.unidad, apellidos, nombre from informe_extraordinaria_alumnos, alma where informe_extraordinaria_alumnos.claveal = alma.claveal $extra_tutor $extra_curso $extra_dep order by alma.unidad, apellidos, nombre");
 						while ($alumno_informe = mysqli_fetch_array($al)) {
 						?>						
 						<tr>
