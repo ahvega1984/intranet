@@ -1,21 +1,13 @@
 <?php
+if (isset($_POST['consultar'])) {
+	include("consulta_pendientes.php");
+	exit();
+}
+
 require('../../bootstrap.php');
 
 include("../../menu.php"); 
 include("menu.php"); 
-
-$check=mysqli_query($db_con,"select * from evalua_pendientes");
-if ($check) {}else{
-mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
-`id` int(11) NOT NULL auto_increment,
-  `evaluacion` tinyint(1) NOT NULL,
-  `claveal` varchar(8) NOT NULL,
-  `codigo` int(6) NOT NULL,
-  `materia` varchar(8) NOT NULL,
-  `nota` tinyint(2) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
-}
 
 $depto = $_SESSION ['dpt'];
 $profe_dep = $_SESSION ['profi'];
@@ -104,7 +96,7 @@ while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) {
 			
 			<div class="well">
 			
-			<form method="post" action="consulta_pendientes.php">
+			<form method="post" action="index.php">
 					<fieldset>
 						<legend>Consulta de Calificaciones</legend>
 						

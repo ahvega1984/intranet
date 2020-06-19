@@ -174,24 +174,25 @@ if (isset($_POST['sin_matricula'])) {
 		$cole_nene = ", colegio";
 		$cole_order = "colegio,";
 
-		$query2 = "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.claveal from alma_primaria, matriculas where alma_primaria.claveal=matriculas.claveal and (matriculas.confirmado = '0' or matriculas.confirmado is null) order by unidad, apellidos, nombre";
+		$query2 = "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.claveal, alma_primaria.colegio from alma_primaria, matriculas where alma_primaria.claveal=matriculas.claveal and (matriculas.confirmado = '0' or matriculas.confirmado is null) order by alma_primaria.colegio, apellidos, nombre";
 
-		$camb = mysqli_query($db_con, "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.claveal from alma_primaria where alma_primaria.claveal not in (select claveal from matriculas where curso like '1ESO') order by unidad, apellidos, nombre");
+		$camb = mysqli_query($db_con, "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha, alma_primaria.colegio, alma_primaria.claveal from alma_primaria where alma_primaria.claveal not in (select claveal from matriculas where curso like '1ESO') order by colegio, apellidos, nombre");
 
 		echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de Colegios de Primaria.</h3><br />';
-		echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
+		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
-			if(strlen($cam[6])>0){$cole = " ($cam[6])";}else{$cole="";}
-			echo "<li><i class='fa fa-user'></i> &nbsp;".$cam['claveal']." -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
+			if(strlen($cam[6])>0){$cole = " (<em><b>$cam[6]</b></em>)";}else{$cole="";}
+			echo "<li><i class='fa fa-user'></i> &nbsp;".$cam['claveal']." -- <span style='color:#08c'>$cam[0], $cam[1]</span> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
 
 		}
 		echo "</ul></div><br />";
 		
 		$canf = mysqli_query($db_con, $query2);
 		echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
-		echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
+		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam2 = mysqli_fetch_array($canf)) {
-			echo "<li><i class='fa fa-user'></i> &nbsp;".$cam2['claveal']." -- <span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+			if(strlen($cam2[7])>0){$cole = " (<em><b>$cam2[7]</b></em>)";}else{$cole="";}
+			echo "<li><i class='fa fa-user'></i> &nbsp;".$cam2['claveal']." -- <span style='color:#08c'>$cam2[0], $cam2[1]</span>: $cam2[3] - $cam2[4] ==> $cam2[5] $cole</li>";
 
 		}
 		echo "</ul></div>";
