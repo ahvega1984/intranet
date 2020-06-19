@@ -60,7 +60,7 @@ if(isset($_POST['enviar'])){
 				}				
 			}
 			else{
-				mysqli_queryli_query($db_con,"delete from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval'");
+				mysqli_query($db_con,"delete from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval'");
 			}
 
 			
