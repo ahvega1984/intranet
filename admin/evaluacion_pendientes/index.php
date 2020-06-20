@@ -102,7 +102,7 @@ while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) {
 						
 						<div class="form-group">
 						<label>Curso</label>
-						  <select class="form-control" name="curso" onChange="submit()">
+						  <select class="form-control" name="curso" onChange="submit()" required="required">
 <?php 
 if(isset($_POST['curso'])){
 echo "<option>".$_POST['curso']."</option>";
@@ -124,7 +124,7 @@ echo "<option></option>";
 						<div class="form-group">
 						<label>Grupo</label>
 						  <select class="form-control" name="unidad">
-						  <option></option>
+						  <option>Cualquiera</option>
 
 <?php 
 	$uni = mysqli_query($db_con,"select distinct unidad from alma where curso = '".$_POST['curso']."' order by unidad");
