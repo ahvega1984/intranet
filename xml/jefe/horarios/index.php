@@ -310,6 +310,11 @@ if (isset($_POST['actualizar'])) {
 			}
 		}
 
+		$ya_profesores = mysqli_query($db_con,"select * from profesores where profesor='$profesor' and materia='$materia' and nivel='$nivel' and grupo='$grupo'");
+		if (mysqli_num_rows($ya_profesores)<1) {
+			mysqli_query($db_con, "INSERT INTO `profesores` (`nivel`,`materia`,`grupo`,`profesor`) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
+		}
+
 		$_SESSION['msg_success'] = 1;
 		header('Location:'.'index.php');
 	}
