@@ -88,7 +88,7 @@ include("menu.php");
 
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-            <a href="https://iesantoniomachado.es/intranet/TIC/incidencias_pdf.php" class="btn btn-default pull-right">Imprimir</a>
+            <a href="//<?php echo $config['dominio']; ?>/intranet/TIC/incidencias_pdf.php" class="btn btn-default pull-right">Imprimir</a>
 			<h2>Centro TIC <small>Incidencias TIC</small></h2>
 		</div>
 
