@@ -1,21 +1,13 @@
 <?php
+if (isset($_POST['consultar'])) {
+	include("consulta_pendientes.php");
+	exit();
+}
+
 require('../../bootstrap.php');
 
 include("../../menu.php"); 
 include("menu.php"); 
-
-$check=mysqli_query($db_con,"select * from evalua_pendientes");
-if ($check) {}else{
-mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
-`id` int(11) NOT NULL auto_increment,
-  `evaluacion` tinyint(1) NOT NULL,
-  `claveal` varchar(8) NOT NULL,
-  `codigo` int(6) NOT NULL,
-  `materia` varchar(8) NOT NULL,
-  `nota` tinyint(2) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
-}
 
 $depto = $_SESSION ['dpt'];
 $profe_dep = $_SESSION ['profi'];
@@ -104,13 +96,13 @@ while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) {
 			
 			<div class="well">
 			
-			<form method="post" action="consulta_pendientes.php">
+			<form method="post" action="index.php">
 					<fieldset>
 						<legend>Consulta de Calificaciones</legend>
 						
 						<div class="form-group">
 						<label>Curso</label>
-						  <select class="form-control" name="curso" onChange="submit()">
+						  <select class="form-control" name="curso" onChange="submit()" required="required">
 <?php 
 if(isset($_POST['curso'])){
 echo "<option>".$_POST['curso']."</option>";
@@ -132,7 +124,7 @@ echo "<option></option>";
 						<div class="form-group">
 						<label>Grupo</label>
 						  <select class="form-control" name="unidad">
-						  <option></option>
+						  <option>Cualquiera</option>
 
 <?php 
 	$uni = mysqli_query($db_con,"select distinct unidad from alma where curso = '".$_POST['curso']."' order by unidad");

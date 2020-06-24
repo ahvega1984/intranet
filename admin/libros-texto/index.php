@@ -122,6 +122,7 @@ $editoriales = array(
   "Editorial Paidotribo, S.L.",
   "Editorial Planeta SAU",
   "Editorial Prodidacta Abril Edicions",
+  "Editorial Sansy",
   "Editorial Síntesis, S.A.",
   "Editorial Stanley",
   "Editorial Teide, S.A.",
@@ -605,7 +606,7 @@ include('menu.php');
     }
 
     $(document).ready(function() {
-		$('#isbn').keyup(function() {
+    $('#isbn').keyup(function() {
             var isbn = $('#isbn').val();
 
             if (isValidISBN(isbn)) {
@@ -662,7 +663,7 @@ include('menu.php');
                 modal.find('.form-group-edit').html('<input type="hidden" name="idlibro" value="' + idlibro + '">');
             }
         })
-	});
+  });
     </script>
     <?php endif; ?>
 

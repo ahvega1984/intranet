@@ -8,14 +8,15 @@ include "menu.php";
 
 <div class="container">
 <div class="page-header">
-		<h2>Evaluación de Pendientes <small>Calificación de las materias pendientes</small></h2>
+	<h2>Evaluación de Pendientes <small>Calificación de las materias pendientes</small></h2>
 </div>
 
 <div class="row">
 <div class="col-sm-12">
 <?php
 $curso_pendiente=$_POST["curso"];
-if(strlen($_POST["unidad"])>0){
+
+if($_POST["unidad"]!=="Cualquiera"){
 $grupo_pendiente=$_POST["unidad"];
 $extra = " and pendientes.claveal in (select claveal from alma where unidad = '$grupo_pendiente')";
 }

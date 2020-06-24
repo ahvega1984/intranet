@@ -23,8 +23,13 @@ input[type=number] {
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 <?php
+
+$asig_pendiente = $_POST['select'];
+
 if(isset($_POST['enviar'])){
 	
+	$borrar = mysqli_query($db_con,"delete from `evalua_pendientes` where codigo = '".$asig_pendiente."'") or die ("No se han podido borrar los registros");
+
 	foreach ($_POST as $clave=>$valor){
 		if ($clave!=="enviar" and $clave!=="select") {
 			
@@ -41,34 +46,16 @@ if(isset($_POST['enviar'])){
 			
 			$nota_eval=$valor;
 			if(is_numeric($nota_eval)){
-			
+
 			$cod_asig = mysqli_query($db_con,"select abrev from asignaturas where codigo='$asig_eval' AND abrev LIKE  '%\_%'");
 			$cod_asignatura = mysqli_fetch_array($cod_asig);
 			$abrev_eval=$cod_asignatura[0];
-			
-			$check2=mysqli_query($db_con,"select id from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval' and materia='$abrev_eval'");
-				if (mysqli_num_rows($check2)==1) {
-					$ya = mysqli_fetch_array($check2);
-					if($nota_eval!==""){
-					mysqli_query($db_con,"update evalua_pendientes set nota='$nota_eval' where id='$ya[0]'");
-					}
-				}
-				else{
-					if($nota_eval!==""){
-					mysqli_query($db_con,"insert into evalua_pendientes VALUES ('','$eval','$clave_eval','$asig_eval','$abrev_eval','$nota_eval')");
-					}
-				}				
+			mysqli_query($db_con,"insert into evalua_pendientes (`evaluacion`, `claveal`, `codigo`, `materia`, `nota`) VALUES ('$eval','$clave_eval','$asig_eval','$abrev_eval','$nota_eval')");
 			}
-			else{
-				mysqli_query($db_con,"delete from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval'");
-			}
-
-			
 		}
-	}	
+	}
 }
 
-$asig_pendiente=$_POST["select"];
 $asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$asig_pendiente' order by nombre");
 $asignatur = mysqli_fetch_row($asig);
 $asignatura = $asignatur[0];
@@ -104,8 +91,6 @@ $Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea 
 while ($salida = mysqli_fetch_array($Recordset1)){
 	$claveal=$salida['claveal'];
 	$abrev_pendiente=$salida['abrev'];
-	//$asig_pendiente=$salida[3];
-	$val_nivel=substr($pendi[5],0,1);
 	$c_unidad = substr($salida['unidad'],0,1);
 	$c_curso = substr($salida['curso'],-2,1);
 	if ($salida['matriculas']>1) {

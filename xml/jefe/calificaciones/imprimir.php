@@ -60,7 +60,7 @@ class GranPDF extends PDF_MC_Table {
         $this->SetTextColor(255, 255, 255);
     }
 
-	function Footer() {
+    function Footer() {
         global $config;
 
         $this->SetTextColor(53, 110, 59);
