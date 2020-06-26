@@ -99,18 +99,35 @@ include("menu.php");
 									$asignatura_al = $nota_asig[0];
 									$nota_al = $nota_asig[1];
 									if (stristr($alumnos['curso'], "E.S.O")==TRUE) {
-										if ($asignatura_al == $codigo1 and $nota_al < "347" and $nota_al !== '339') {
+										if ($asignatura_al == $codigo1 and $nota_al < "347" and $nota_al !== '339' and !empty($nota_al)) {
 										$candidato = 1;
 									}
 									}
 									elseif (stristr($alumnos['curso'], "Bachillerato")==TRUE) {
-										if (($asignatura_al == $codigo1 OR $asignatura_al == $codigo2) and $nota_al < "427") {
+										if (($asignatura_al == $codigo1 OR $asignatura_al == $codigo2) and $nota_al < "427" and !empty($nota_al)) {
 										$candidato = 1;
-									}
-									}
-									
+										}
+									}									
 								}
 							}
+
+							$nota1 = mysqli_query($db_con, "select notas3 from notas where claveal = '".$alumnos['claveal1']."'");
+							if (mysqli_num_rows($nota1)>0) {
+							$notas1 = mysqli_fetch_array($nota1);
+								$tr3 = explode(";", $notas1['notas3']);
+								foreach ($tr3 as $val) {
+									$nota_asig = explode(":",$val);
+									$asignatura_al = $nota_asig[0];
+									$nota_al = $nota_asig[1];
+									if (stristr($alumnos['curso'], "E.S.O")==TRUE AND $asignatura_al == $codigo1 and ($nota_al >= "347" OR $nota_al == '339') and !empty($nota_al)) {
+										$candidato = 0;
+									}
+									elseif (stristr($alumnos['curso'], "Bachillerato")==TRUE AND ($asignatura_al == $codigo1 OR $asignatura_al == $codigo2) and $nota_al >= "427" and !empty($nota_al)) {
+										$candidato = 0;
+									}									
+								}
+							}
+							
 							if ($candidato==1) { 
 								$al_reg = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$alumnos['claveal']."'");
 								while($reg = mysqli_fetch_array($al_reg)){

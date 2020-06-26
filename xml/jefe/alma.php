@@ -90,7 +90,7 @@ include("../../menu.php");
 					$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
-			 `CLAVEAL` varchar( 12 ) default NULL ,
+			 `CLAVEAL` varchar( 12 ) ,
 			 `DNI` varchar( 10 ) default NULL ,
 			 `DOMICILIO` varchar( 255 ) default NULL ,
 			 `CODPOSTAL` varchar( 255 ) default NULL ,
@@ -249,34 +249,27 @@ include("../../menu.php");
 					$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%F.P.B%') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%' and ESTADOMATRICULA not like 'Pendiente de confirma%' and ESTADOMATRICULA not like 'Traslad%') or (COMBASI IS NULL and ESTADOMATRICULA like 'Traslad%')";
 					$result6 = mysqli_query($db_con, $SQL6);
 
-					// Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-					//$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA not like '' and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%'  and ESTADOMATRICULA not like 'Pendiente de confirm%'";
-					//mysqli_query($db_con, $SQL7);
+					
 
-					// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
-					$SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
-					mysqli_query($db_con, $SQL8);
+					// Buscamos asignaturas en backup o bien creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
+
+					$SQL8 = mysqli_query($db_con,"select claveal, combasi from alma where combasi IS NULL AND (curso not like '%E.S.O.%' AND curso not like '%Bachiller%') OR curso like '4%' OR curso like '2º de Bachillerato%'");
+					while ($bck = mysqli_fetch_array($SQL8)) {
+						$seg = mysqli_query($db_con,"select claveal, combasi, claveal1 from alma_seg where claveal='".$bck[0]."'");
+						if(mysqli_num_rows($seg)>0){
+							$upd = mysqli_fetch_array($seg);
+							if ($upd[1]!=='Sin_Asignaturas' && $upd[1]!=="") {
+								mysqli_query($db_con,"update alma set combasi = '".$upd[1]."', claveal1='".$upd[2]."' where claveal='".$upd[0]."'");
+							}	
+						}
+					}
+
+					$SQL9 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
+					mysqli_query($db_con, $SQL9);
 					echo '<div class="alert alert-success alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
 			</div>';
-
-					//Caso especial de 2º de Bachillerato en Mayo
-					/*if ((date('m')=='05' and date('d')>'25') OR (date('m')>'5' and date('m')<'9') ) {
-					$ct = mysqli_query($db_con,"select * from alma where curso like '2%' and curso like '%Bach%'");
-					if (mysqli_num_rows($ct)>0) {}
-					else{
-					//$ctrl = mysqli_query($db_con,"insert into alma (select * from alma_seg where curso like '2%' and curso like '%Bach%')");
-					if (mysqli_affected_rows($ctrl)>0) {	}
-					else{
-					echo '<div align="center"><div class="alert alert-warning alert-block fade in">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<h5>ATENCIÓN:</h5>
-					Ha surgido un problema con la incorporación de alumnos de 2º de Bachillerato. Busca ayuda.
-					</div></div><br />';
-					}
-					}
-					}*/
 
 					include("actualizar.php");
 

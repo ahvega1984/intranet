@@ -2,6 +2,10 @@
 
 				// Vaciamos o borramos tablas
 				mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
+				mysqli_query($db_con, "drop table materias_seg");
+				mysqli_query($db_con, "drop table asignaturas_seg");
+				mysqli_query($db_con, "create table materias_seg select * from materias");
+				mysqli_query($db_con, "create table asignaturas_seg select * from asignaturas");
 				mysqli_query($db_con, "TRUNCATE TABLE asignaturas");
 				mysqli_query($db_con, "drop table materias");
 
