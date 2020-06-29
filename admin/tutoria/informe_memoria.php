@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 
 if (file_exists('config.php')) {
-	include('config.php');
+  include('config.php');
 }
 
 acl_acceso($_SESSION['cargo'], array(1, 2, 8));
@@ -10,35 +10,35 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 // COMPROBAMOS SI ES EL TUTOR, SI NO, ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
 
-	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
-	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
+  $_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
+  $_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
 
 }
 else {
 
-	if(isset($_POST['tutor'])) {
-		$exp_tutor = explode('==>', $_POST['tutor']);
-		$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
-		$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
-	}
-	else{
-		if (!isset($_SESSION['mod_tutoria'])) {
-			header('Location:'.'tutores.php');
-		}
-	}
+  if(isset($_POST['tutor'])) {
+    $exp_tutor = explode('==>', $_POST['tutor']);
+    $_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
+    $_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+  }
+  else{
+    if (!isset($_SESSION['mod_tutoria'])) {
+      header('Location:'.'tutores.php');
+    }
+  }
 
 }
 
 
 
 if (isset($_GET['imprimir'])) {
-	$imprimir = $_GET['imprimir'];
+  $imprimir = $_GET['imprimir'];
 }
 if (isset($_POST['observaciones1'])) {
-	$observaciones1 = $_POST['observaciones1'];
+  $observaciones1 = $_POST['observaciones1'];
 }
 if (isset($_POST['observaciones2'])) {
-	$observaciones2 = $_POST['observaciones2'];
+  $observaciones2 = $_POST['observaciones2'];
 }
 
 
@@ -47,65 +47,65 @@ include("menu.php");
 ?>
 <style type="text/css">
 textarea.form-control {
-	resize: none !important;
+  resize: none !important;
 }
 @media print {
-	body {
-		font-size: 10px;
-	}
-	h2 {
-		font-size: 22px;
-	}
+  body {
+    font-size: 10px;
+  }
+  h2 {
+    font-size: 22px;
+  }
 
-	h3 {
-		font-size: 16px;
-	}
+  h3 {
+    font-size: 16px;
+  }
 
-	h4 {
-		font-size: 18px;
-	}
-	.container {
-		width: 100%;
-	}
+  h4 {
+    font-size: 18px;
+  }
+  .container {
+    width: 100%;
+  }
 
-	textarea.form-control {
-		display: block;
-		font-size: 10px;
-		border: 0;
-		margin: 0;
-		padding: 0;
-		height: auto;
-	}
+  textarea.form-control {
+    display: block;
+    font-size: 10px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: auto;
+  }
 }
 </style>
 
 <div class="container">
 
-	<!-- TITULO DE LA PAGINA -->
-	<div class="page-header">
-		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
-		<h4 class="text-info">Tutor: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
-	</div>
+  <!-- TITULO DE LA PAGINA -->
+  <div class="page-header">
+    <h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
+    <h4 class="text-info">Tutor: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
+  </div>
 
  <?php
 if (isset($_POST['imp_memoria'])) {
-	mysqli_query($db_con, "update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+  mysqli_query($db_con, "update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
+  echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las observaciones que has redactado han sido guardadas. Puedes añadir y editar el texto tantas veces como quieras. O puedes volver a la página de la memoria e imprimirla para entregarla en Jefatura.
 </div></div><br />';
-	echo '<center><input type="button" value="Volver a la Memoria de Tutoría" name="boton" onclick="window.location.href = \'informe_memoria.php\'" class="btn btn-primary" /></center>';
-	echo "</div>";
-	include("../../pie.php");
-	echo '</body></html>';
-	exit();
+  echo '<center><input type="button" value="Volver a la Memoria de Tutoría" name="boton" onclick="window.location.href = \'informe_memoria.php\'" class="btn btn-primary" /></center>';
+  echo "</div>";
+  include("../../pie.php");
+  echo '</body></html>';
+  exit();
 }
 
  $obs1=mysqli_query($db_con, "select observaciones1, observaciones2 from FTUTORES where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
  $obs2=mysqli_fetch_array($obs1);
  if (empty($obs2[0]) && empty($obs[1]) && date('m')==06) {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
- 	else{
-		$boton = "Imprimir Memoria final de Tutoría"; $click="onClick=print();";}
+  else{
+    $boton = "Imprimir Memoria final de Tutoría"; $click="onClick=print();";}
  ?>
   <div class="hidden-print" style="margin-bottom:0px; ">
  <input type="button" class="btn btn-primary pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
@@ -137,43 +137,15 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
  $num_acaban = mysqli_num_rows($result);
 
  // Alumnos que promocionan en Junio
- $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result1 = mysqli_query($db_con, $SQL1);
+ $SQL1 = "SELECT  * FROM `alma` where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and (estadomatricula like 'Promociona%' OR estadomatricula like 'Obtiene tít%')";
+ echo $SQL1;
+ $result_promo = mysqli_query($db_con, $SQL1);
+ $num_promocionan = mysqli_num_rows($result_promo);
 
- while ($num_promo0 = mysqli_fetch_array($result1))
-{
-        $n_susp = "";
-        $trozos0 = explode(";",$num_promo0[0]);
-        foreach ($trozos0 as $val)
-        {
-        $trozos1 = explode(":",$val);
-                {
-                if (stristr($curso_seneca,"Bach")==TRUE)
-                        {
-                        if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439"))
-                                {
-                                    $n_susp++;
-                                }
-                        }
-                else
-                        {
-                if (($trozos1[1] > "336" and $trozos1[1] < "347" and $trozos1[1] !== "339" and $trozos1[1] !== ""))
-                                {
-                                    $n_susp++;
-                                }
-                        }
-                }
-        }
- if ($n_susp > "0" and (((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))
-        {
-//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";
-                $n_al = $n_al + 1;
-        }
-        elseif($n_susp > "2" and !(((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))
-        {
-//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";
-                $n_al = $n_al + 1;
-        }                                                                                                                                                                                       }
+ // Alumnos que no promocionan en Junio
+ $SQL2 = "SELECT * FROM `alma` where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and estadomatricula like 'Repite%'";
+ $result_no_promo = mysqli_query($db_con, $SQL2);
+ $num_no_promocionan = mysqli_num_rows($result_no_promo);
 
 ?>
 <table class="table table-bordered table-striped">
@@ -185,10 +157,10 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
     <th>Repetidores</th>
 </tr>
 <tr>
-	<td><?php echo $num_empiezan; ?></td>
+  <td><?php echo $num_empiezan; ?></td>
     <td><?php echo $num_acaban; ?></td>
-    <td><?php echo $n_al; // echo "<br>".$valor;?></td>
-    <td><?php echo $num_acaban-$n_al; ?></td>
+    <td><?php echo $num_no_promocionan;?></td>
+    <td><?php echo $num_promocionan; ?></td>
     <td><?php echo $num_repetidores; ?></td>
     </tr>
 </table>
@@ -258,7 +230,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
     <th>Actividades Extraescolares</th>
 </tr>
 <tr>
-	<td><?php echo $num_faltas; ?></td>
+  <td><?php echo $num_faltas; ?></td>
     <td><?php echo $num_conv; ?></td>
     <td><?php echo $num_informes; ?></td>
     <td><?php echo $num_acciones; ?></td>
@@ -272,10 +244,10 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 <tr>
     <th>Problemas Leves</th>
     <th>Problemas Graves</th>
-	<th>Problemas Muy Graves</th>
+  <th>Problemas Muy Graves</th>
     <th>Expulsiones</th>
     <th>Alumnos Expulsados</th>
-	<th>Expulsi&oacute;n del Aula</th>
+  <th>Expulsi&oacute;n del Aula</th>
 </tr>
 <tr>
     <td><?php echo $num_leves; ?></td>
@@ -283,7 +255,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
     <td><?php echo $num_muygraves; ?></td>
     <td><?php echo $num_expulsion; ?></td>
     <td><?php echo $num_expulsados; ?></td>
-	<td><?php echo $num_expulsadosaula; ?></td>
+  <td><?php echo $num_expulsadosaula; ?></td>
 </tr>
 </table>
 
@@ -293,11 +265,11 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 $n1 = mysqli_query($db_con, "select * from notas where notas3 not like ''");
 if(mysqli_num_rows($n1)>0){}
 else{
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
+  echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
+      <h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
-	exit();
+  exit();
 }
 ?>
 
@@ -337,13 +309,13 @@ $result = mysqli_query($db_con, $SQL);
 
   if ($row = mysqli_fetch_array($result))
         {
-	$hoy = date("d"). "-" . date("m") . "-" . date("Y");
+  $hoy = date("d"). "-" . date("m") . "-" . date("Y");
                 do {
-	$claveal = $row[0];
+  $claveal = $row[0];
           echo "<tr><td style='text-align:left'>$row[2], $row[3]</td><td style='text-align:left'>$row[1]</td></tr>";
         } while($row = mysqli_fetch_array($result));
         }
-		        echo "</table>";
+            echo "</table>";
   ?>
 </div>
 </div>
@@ -449,9 +421,9 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
-	 ?>
-	 </div>
-	 <div class="col-sm-7">
+   ?>
+   </div>
+   <div class="col-sm-7">
  <hr><br /><h3>Intervenciones de Tutoría (excluidos SMS)</h3>
 
      <?php
@@ -494,7 +466,7 @@ include("inc_actividades.php");
 <hr><br /><h3>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h3>
 <form action="" method="POST">
-	<textarea class="form-control autosize" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
+  <textarea class="form-control autosize" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
 
 <hr>
 <br />
