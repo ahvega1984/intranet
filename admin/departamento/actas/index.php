@@ -544,7 +544,7 @@ $html_textarea = "<p>".$titulo."</p>
 		// EDITOR DE TEXTO
 		tinymce.init({
 			selector: 'textarea#texto_acta',
-			language: 'es_ES',
+			language: 'es',
 			height: 500,
 			<?php if ($bloquea_campos): ?>
 			readonly : 1,
