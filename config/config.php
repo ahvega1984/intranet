@@ -105,6 +105,23 @@ if (isset($_POST['config']))
 	$modulo_transporte_escolar = (isset($_POST['mod_transporte_escolar'])) ? 1 : 0;
 
 
+	$api_tinymce_key = limpiar_string($_POST['api_tinymce_key']);
+
+	$api_google_analytics_tracking_id = limpiar_string($_POST['api_google_analytics_tracking_id']);
+
+	$api_google_maps_key = limpiar_string($_POST['api_google_maps_key']);
+	$api_google_maps_latitude = limpiar_string($_POST['api_google_maps_latitude']);
+	$api_google_maps_longitude = limpiar_string($_POST['api_google_maps_longitude']);
+	$api_google_maps_zoom = limpiar_string($_POST['api_google_maps_zoom']);
+
+	$api_google_recaptcha_key = limpiar_string($_POST['api_google_recaptcha_key']);
+	$api_google_recaptcha_secret = limpiar_string($_POST['api_google_recaptcha_secret']);
+
+	$api_facebook_chat_page_id = limpiar_string($_POST['api_facebook_chat_page_id']);
+	$api_facebook_chat_theme_color = limpiar_string($_POST['api_facebook_chat_theme_color']);
+	$api_facebook_chat_welcome = limpiar_string($_POST['api_facebook_chat_welcome']);
+
+
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen(CONFIG_FILE, 'w+'))
 	{
@@ -193,6 +210,27 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['mod_matriculacion']\t\t= $modulo_matriculacion;\r\n");
 		fwrite($file, "\$config['mod_transporte_escolar']\t= $modulo_transporte_escolar;\r\n");
 
+		fwrite($file, "\r\n// APIS: TINYMCE\r\n");
+		fwrite($file, "\$config['api_tinymce_key']\t\t= '$api_tinymce_key';\r\n");
+
+		fwrite($file, "\r\n// APIS: GOOGLE ANALYTICS\r\n");
+		fwrite($file, "\$config['api_google_analytics_tracking_id']\t\t= '$api_google_analytics_tracking_id';\r\n");
+
+		fwrite($file, "\r\n// APIS: GOOGLE MAPS\r\n");
+		fwrite($file, "\$config['api_google_maps_key']\t\t= '$api_google_maps_key';\r\n");
+		fwrite($file, "\$config['api_google_maps_latitude']\t\t= '$api_google_maps_latitude';\r\n");
+		fwrite($file, "\$config['api_google_maps_longitude']\t\t= '$api_google_maps_longitude';\r\n");
+		fwrite($file, "\$config['api_google_maps_zoom']\t\t= '$api_google_maps_zoom';\r\n");
+
+		fwrite($file, "\r\n// APIS: GOOGLE RECAPTCHA\r\n");
+		fwrite($file, "\$config['api_google_recaptcha_key']\t\t= '$api_google_recaptcha_key';\r\n");
+		fwrite($file, "\$config['api_google_recaptcha_secret']\t\t= '$api_google_recaptcha_secret';\r\n");
+
+		fwrite($file, "\r\n// APIS: FACEBOOK CHAT\r\n");
+		fwrite($file, "\$config['api_facebook_chat_page_id']\t\t= '$api_facebook_chat_page_id';\r\n");
+		fwrite($file, "\$config['api_facebook_chat_theme_color']\t\t= '$api_facebook_chat_theme_color';\r\n");
+		fwrite($file, "\$config['api_facebook_chat_welcome']\t\t= '$api_facebook_chat_welcome';\r\n");
+
 		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
 
 		$config_nuevo = 1;
@@ -249,6 +287,9 @@ if (isset($_POST['config']))
 
 }
 
+
+$PLUGIN_COLORPICKER = 1;
+
 include('../menu.php');
 ?>
 
@@ -270,6 +311,7 @@ include('../menu.php');
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">Configuración general</a></li>
 				<li><a href="#modulos" aria-controls="modulos" role="tab" data-toggle="tab">Módulos</a></li>
+				<li><a href="#apis" aria-controls="apis" role="tab" data-toggle="tab">APIs</a></li>
 			</ul>
 
 			<br>
@@ -837,6 +879,140 @@ include('../menu.php');
 
 				</div><!-- /.tab-pane -->
 
+				<!-- APIS -->
+				<div role="tabpanel" class="tab-pane" id="apis">
+					<div class="row">
+
+						<div class="col-sm-12">
+
+							<div class="well">
+								<h3><i class="fas fa-key"></i> APIs</h3>
+								<br>
+
+								<div class="row">
+									<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: -3px;">
+										<ul class="nav nav-pills nav-stacked" role="tablist">
+											<li class="active"><a href="#api_tinymce" aria-controls="api_tinymce" role="tab" data-toggle="tab">Editor TinyMCE</a></li>
+											<?php if (isset($_SESSION['pagina_centro']) && $_SESSION['pagina_centro']): ?>
+											<li><a href="#api_google_analytics" aria-controls="api_google_analytics" role="tab" data-toggle="tab">Google Analytics</a></li>
+											<li><a href="#api_google_maps" aria-controls="api_google_maps" role="tab" data-toggle="tab">Google Maps</a></li>
+											<li><a href="#api_google_recaptcha" aria-controls="api_google_recaptcha" role="tab" data-toggle="tab">Google reCaptcha</a></li>
+											<li><a href="#api_facebook_chat" aria-controls="api_facebook_chat" role="tab" data-toggle="tab">Facebook Chat Plugin</a></li>
+											<?php endif; ?>
+										</ul>
+									</div>
+
+									<div class="tab-content col-sm-7" style="border-left: 3px solid #dce4ec; padding-left: 45px;">
+
+										<!-- API: TinyMCE -->
+									    <div role="tabpanel" class="tab-pane active" id="api_tinymce">
+
+									    	<div class="form-group">
+									    		<label for="cmp_api_tinymce_key">API Key</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_tinymce_key" name="api_tinymce_key" placeholder="no-api-key" value="<?php echo (isset($config['api_tinymce_key']) && $config['api_tinymce_key']) ? $config['api_tinymce_key'] : ''; ?>">
+					    			    	</div>
+					    			    </div><!-- /.tab-panel -->
+
+					    			    <?php if (isset($_SESSION['pagina_centro']) && $_SESSION['pagina_centro']): ?>
+					    			    <!-- API: Google Analytics -->
+									    <div role="tabpanel" class="tab-pane" id="api_google_analytics">
+
+									    	<div class="form-group">
+									    		<label for="cmp_api_google_analytics_tracking_id">GA Tracking ID</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_google_analytics_tracking_id" name="api_google_analytics_tracking_id" placeholder="YOUR_GA_TRACKING_ID" value="<?php echo (isset($config['api_google_analytics_tracking_id']) && $config['api_google_analytics_tracking_id']) ? $config['api_google_analytics_tracking_id'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<p class="help-block">Consigue el ID de seguimiento para usar la API de Google Analytics en <a href="https://analytics.google.com/analytics/" target="_blank">https://analytics.google.com/analytics/</a></p>
+					    			    </div><!-- /.tab-panel -->
+
+					    			     <!-- API: Google Maps -->
+									    <div role="tabpanel" class="tab-pane" id="api_google_maps">
+
+									    	<div class="form-group">
+									    		<label for="cmp_api_google_maps_key">API key</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_google_maps_key" name="api_google_maps_key" placeholder="YOUR_API_KEY" value="<?php echo (isset($config['api_google_maps_key']) && $config['api_google_maps_key']) ? $config['api_google_maps_key'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<p class="help-block">Consigue la clave para usar la API de Google Maps Javascript en <a href="https://console.cloud.google.com/" target="_blank">https://console.cloud.google.com/</a></p>
+
+					    			    	<br>
+
+					    			    	<div class="form-group">
+									    		<label for="cmp_api_google_maps_latitude">Latitud</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_google_maps_latitude" name="api_google_maps_latitude" placeholder="36.4295948" value="<?php echo (isset($config['api_google_maps_latitude']) && $config['api_google_maps_latitude']) ? $config['api_google_maps_latitude'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<div class="form-group">
+									    		<label for="cmp_api_google_maps_langitude">Longitud</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_google_maps_langitude" name="api_google_maps_longitude" placeholder="-5.1544486" value="<?php echo (isset($config['api_google_maps_longitude']) && $config['api_google_maps_longitude']) ? $config['api_google_maps_longitude'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<div class="form-group">
+									    		<label for="cmp_api_google_maps_zoom">Zoom</label>
+						    			    	<select class="form-control" id="cmp_api_google_maps_zoom" name="api_google_maps_zoom">
+						    			    		<?php for ($zoom=0; $zoom < 19; $zoom++): ?>
+						    			    		<option value="<?php echo $zoom; ?>" <?php echo ((isset($config['api_google_maps_zoom']) && $config['api_google_maps_zoom'] == $zoom) || (! isset($config['api_google_maps_zoom']) && $zoom == 15)) ? ' selected' : ''; ?>><?php echo $zoom; ?></option>
+						    			    		<?php endfor; ?>
+						    			    	</select>
+					    			    	</div>
+
+					    			    	<p class="help-block">Puedes obtener las coordenadas de tu centro educativo en <a href="https://www.coordenadas-gps.com" target="_blank">https://www.coordenadas-gps.com</a></p>
+					    			    	
+					    			    </div><!-- /.tab-panel -->
+
+					    			    <!-- API: Google reCaptcha -->
+									    <div role="tabpanel" class="tab-pane" id="api_google_recaptcha">
+
+									    	<div class="form-group">
+									    		<label for="cmp_api_google_recaptcha_key">Site Key</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_google_recaptcha_key" name="api_google_recaptcha_key" placeholder="YOUR_SITE_KEY" value="<?php echo (isset($config['api_google_recaptcha_key']) && $config['api_google_recaptcha_key']) ? $config['api_google_recaptcha_key'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<div class="form-group">
+									    		<label for="cmp_api_google_recaptcha_secret">Secret Key</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_google_recaptcha_secret" name="api_google_recaptcha_secret" placeholder="YOUR_SITE_KEY" value="<?php echo (isset($config['api_google_recaptcha_secret']) && $config['api_google_recaptcha_secret']) ? $config['api_google_recaptcha_secret'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<p class="help-block">Consigue la clave para usar la API de Google reCAPTCHA v2 en <a href="https://www.google.com/recaptcha/admin/create" target="_blank">https://www.google.com/recaptcha/admin/create</a></p>
+					    			    </div><!-- /.tab-panel -->
+
+					    			    <!-- API: Facebook Chat -->
+									    <div role="tabpanel" class="tab-pane" id="api_facebook_chat">
+
+									    	<div class="form-group">
+									    		<label for="cmp_api_facebook_chat_page_id">Page ID</label>
+						    			    	<input type="text" class="form-control" id="cmp_api_facebook_chat_page_id" name="api_facebook_chat_page_id" placeholder="YOUR_PAGE_ID" value="<?php echo (isset($config['api_facebook_chat_page_id']) && $config['api_facebook_chat_page_id']) ? $config['api_facebook_chat_page_id'] : ''; ?>">
+					    			    	</div>
+
+					    			    	<p class="help-block">Lea la documentación <a href="https://developers.facebook.com/docs/messenger-platform/discovery/facebook-chat-plugin" target="_blank">https://developers.facebook.com/docs/messenger-platform/discovery/facebook-chat-plugin</a></p>
+
+					    			    	<br>
+
+					    			    	<div class="form-group">
+									    		<label for="cmp_api_facebook_chat_theme_color">Color del chat</label>
+									    		<div class="input-group" id="colorpicker1">
+							    			    	<input type="text" class="form-control" id="cmp_api_facebook_chat_theme_color" name="api_facebook_chat_theme_color" placeholder="#0084ff" value="<?php echo (isset($config['api_facebook_chat_theme_color']) && $config['api_facebook_chat_theme_color']) ? $config['api_facebook_chat_theme_color'] : '#0084ff'; ?>">
+							    			    	<span class="input-group-addon" style="background-color: #dce4ec; "><i></i></span>
+						    			    	</div>
+					    			    	</div>
+
+					    			    	<div class="form-group">
+									    		<label for="cmp_api_facebook_chat_welcome">Mensaje de bienvenida</label>
+									    		<input type="text" class="form-control" id="cmp_api_facebook_chat_welcome" name="api_facebook_chat_welcome" placeholder="¡Hola! ¿En qué te podemos ayudar?" value="<?php echo (isset($config['api_facebook_chat_welcome']) && $config['api_facebook_chat_welcome']) ? $config['api_facebook_chat_welcome'] : '¡Hola! ¿En qué te podemos ayudar?'; ?>">
+					    			    	</div>
+					    			    	
+					    			    </div><!-- /.tab-panel -->
+					    				<?php endif; ?>
+
+					    			</div><!-- /.tab-content -->
+					    		</div><!-- /.row -->
+					    	</div><!-- /.well -->
+
+						</div><!-- /.col-sm-6 -->
+
+					</div><!-- /.row -->
+				</div><!-- /.tab-panel -->
+
 
 				<div class="row">
 
@@ -880,6 +1056,9 @@ include('../menu.php');
 			}
 		});
 	});
+	</script>
+	<script type="text/javascript">
+	$('#colorpicker1').colorpicker();
 	</script>
 
 </body>

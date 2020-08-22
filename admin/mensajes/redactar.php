@@ -997,7 +997,7 @@ $page_header = "Redactar mensaje";
 		// EDITOR DE TEXTO
 		tinymce.init({
 			selector: 'textarea#texto',
-			language: 'es_ES',
+			language: 'es',
 			height: 300,
 			plugins: 'print preview fullpage paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars',
 			imagetools_cors_hosts: ['picsum.photos'],

@@ -10,7 +10,7 @@ La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pe
 ## Requisitos
 
 * Servidor Web: [Apache (versión 2 o superior)](http://httpd.apache.org/)
-* Versión de PHP: [PHP 7.1 o 7.2](http://www.php.net/)
+* Versión de PHP: [PHP 7.2 o 7.3](http://www.php.net/)
 * Base de datos: [MySQL 5 o superior](http://www.php.net/)
 
 ## Módulos

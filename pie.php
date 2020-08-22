@@ -45,7 +45,7 @@
     <!-- PLUGINS JS -->
     <script src="//<?php echo $config['dominio'];?>/intranet/js/bootbox.min.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/validator/validator.min.js"></script>
-    <script src="//<?php echo $config['dominio'];?>/intranet/vendor/tinymce/tinymce.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/<?php echo (isset($config['api_tinymce_key']) && $config['api_tinymce_key']) ? $config['api_tinymce_key'] : ''; ?>/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/moment-es.js"></script>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
