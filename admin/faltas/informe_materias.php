@@ -1,12 +1,34 @@
 <?php
 require('../../bootstrap.php');
-
-$PLUGIN_DATATABLES = 1;
-
 include("../../menu.php");
 include("../../faltas/menu.php");
-
 ?>
+
+<script src="../../js/ChartJS/Chart.min.js"></script>
+<script type="text/javascript">
+window.chartColors = {
+    red: 'rgb(244, 67, 54)',
+    pink: 'rgb(255, 64, 129)',
+    purple: 'rgb(156, 39, 176)',
+    deeppurple: 'rgb(124, 77, 255)',
+    indigo: 'rgb(63, 81, 181)',
+    blue: 'rgb(68, 138, 255)',
+    lightblue: 'rgb(3, 169, 244)',
+    cyan: 'rgb(0, 188, 212)',
+    teal: 'rgb(0, 0, 0)',
+    green: 'rgb(76, 175, 80)',
+    lightgreen: 'rgb(139, 195, 74)',
+    lime: 'rgb(205, 220, 57)',
+    yellow: 'rgb(255, 235, 59)',
+    amber: 'rgb(255, 193, 7)',
+    orange: 'rgb(255, 152, 0)',
+    deeporange: 'rgb(255, 87, 34)',
+    brown: 'rgb(121, 85, 72)',
+    grey: 'rgb(158, 158, 158)',
+    bluegrey: 'rgb(96, 125, 139)'
+};
+</script>
+
 <div class="container">
 
 <div class="page-header">
@@ -14,7 +36,7 @@ include("../../faltas/menu.php");
 </div>
 
 <div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+    <br><br><span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small></span><br><br><span class="fas fa-spinner fa-spin fa-5x"></span>
 </div>
 
 
@@ -41,20 +63,25 @@ while ($curs = mysqli_fetch_array($crs)) {
 
 $curso=$curs[0];
 $idcurso=$curs[1];
-
 ?> 
-  <h3 class='text-info' align='center'><?php echo $curso;?></h3>
-  <table class="table table-bordered table-vcentered datatable">
-  <thead><tr>
-      <th></th>
-      <th>Trimestre 1º</th>
-      <th>Trimestre 2º</th>
-      <th>Trimestre 3º</th> 
-  </tr></thead>
-  <tbody>
-<?php
 
-$unidades = mysqli_query($db_con, "select distinct nombre, codigo from asignaturas where curso = '$curso' and abrev not like '%\_%' order by nombre");
+<?php 
+$asig_a="";
+$total_navidad_f="";
+$num_navidadF_f="";
+$num_navidadJ_f="";
+$total_santa_f="";
+$num_santaF_f="";
+$num_santaJ_f="";
+$total_verano_f="";
+$num_veranoF_f="";
+$num_veranoJ_f="";
+?>
+
+  <h3 class='text-info' align='center'><?php echo $curso;?></h3>
+
+<?php
+$unidades = mysqli_query($db_con, "select distinct nombre, codigo from asignaturas where curso = '$curso' and abrev not like '%\_%' and nombre not like 'Refuerzo%' and nombre not like '%Padres y Madres%' order by nombre");
 while ($grp = mysqli_fetch_array($unidades)) {
   
   $num_asig = "";
@@ -83,18 +110,123 @@ while ($grp = mysqli_fetch_array($unidades)) {
   $num_veranoJ = mysqli_num_rows($veranoJ);
   $total_verano = ($num_veranoF+$num_veranoJ)/$num_asig;
 ?>
-<tr>
-  <td><h5><?php echo $nom_asig." (<SPAN class='text-info'>".$num_asig."</SPAN>)";?></h5></td>
-  <td><?php echo "<b>".substr($total_navidad,0,4)."</b> (<span class='text-danger'>".$num_navidadF."</span><b> | </b><span class='text-success'>".$num_navidadJ."</span>)";?></td>
-  <td><?php echo "<b>".substr($total_santa,0,4)."</b>  (<span class='text-danger'>".$num_santaF."</span><b> | </b><span class='text-success'>".$num_santaJ."</span>)";?></td>
-  <td><?php echo "<b>".substr($total_verano,0,4)."</b>  (<span class='text-danger'>".$num_veranoF."</span><b> | </b><span class='text-success'>".$num_veranoJ."</span>)";?></td>
-</tr>  
+
+<?php if ($num_asig > 0): ?>
+
+<?php $asig_a.='"'.$nom_asig.' ('.$num_asig.')",'; ?>
+<?php $total_navidad_f.='"'.substr($total_navidad,0,4).'",'; ?>
+<?php $num_navidadF_f.='"'.$num_navidadF.'",'; ?>
+<?php $num_navidadJ_f.='"'.$num_navidadJ.'",'; ?>
+<?php $total_santa_f.='"'.substr($total_santa,0,4).'",'; ?>
+<?php $num_santaF_f.='"'.$num_santaF.'",'; ?>
+<?php $num_santaJ_f.='"'.$num_santaJ.'",'; ?>
+<?php $total_verano_f.='"'.substr($total_verano,0,4).'",'; ?>
+<?php $num_veranoF_f.='"'.$num_veranoF.'",'; ?>
+<?php $num_veranoJ_f.='"'.$num_veranoJ.'",'; ?>
+
+<?php endif; ?>
+
 <?php
 }
 ?>
+<?php $chart_n++; ?>
+<canvas id="chart_<?php echo $chart_n; ?>_<?php echo $idcurso; ?>" width="200" height="460"></canvas>
+<script>
+    var ctx = document.getElementById('chart_<?php echo $chart_n; ?>_<?php echo $idcurso; ?>').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: {
+    labels: [<?php echo $asig_a; ?>],
+    datasets: [
 
-</tbody>
-<table>
+    {
+      backgroundColor: window.chartColors.teal,
+      label: '1 trim. total',
+      stack: 'Stack 0',
+      data: [
+        <?php echo $total_navidad_f; ?>
+      ]
+    }, {
+      label: '1 trim.',
+      backgroundColor: window.chartColors.red,
+      stack: 'Stack 0',
+      data: [
+        <?php echo $num_navidadF_f; ?>
+      ]
+    }, {
+      label: '1 trim.',
+      backgroundColor: window.chartColors.green,
+      stack: 'Stack 0',
+      data: [
+        <?php echo $num_navidadJ_f; ?>
+      ]
+    }, 
+
+    {
+      backgroundColor: window.chartColors.teal,
+      label: '2 trim. total',
+      stack: 'Stack 1',
+      data: [
+        <?php echo $total_santa_f; ?>
+      ]
+    }, {
+      label: '2 trim.',
+      backgroundColor: window.chartColors.red,
+      stack: 'Stack 1',
+      data: [
+        <?php echo $num_santaF_f; ?>
+      ]
+    }, {
+      label: '2 trim.',
+      backgroundColor: window.chartColors.green,
+      stack: 'Stack 1',
+      data: [
+        <?php echo $num_santaJ_f; ?>
+      ]
+    }, 
+
+    {
+      backgroundColor: window.chartColors.teal,
+      label: '3 trim. total',
+      stack: 'Stack 2',
+      data: [
+        <?php echo $total_verano_f; ?>
+      ]
+    }, {
+      label: '3 trim.',
+      backgroundColor: window.chartColors.red,
+      stack: 'Stack 2',
+      data: [
+        <?php echo $num_veranoF_f; ?>
+      ]
+    }, {
+      label: '3 trim.',
+      backgroundColor: window.chartColors.green,
+      stack: 'Stack 2',
+      data: [
+        <?php echo $num_veranoJ_f; ?>
+      ]
+    }]
+  },
+      options: {
+        tooltips: {
+          mode: 'nearest',
+          intersect: false
+        },
+        responsive: true,
+        scales: {
+          xAxes: [{
+            stacked: true,
+            position: 'top'
+          }],
+          yAxes: [{
+            stacked: true
+          }]
+        }
+      }
+    });
+
+</script>
 <br>
 <?php
 }
@@ -106,36 +238,7 @@ while ($grp = mysqli_fetch_array($unidades)) {
 
 <?php 
 include("../../pie.php");
-?>  
- <script>
-  $(document).ready(function() {
-    var table = $('.datatable').DataTable({
-        "paging":   true,
-        "ordering": true,
-        "info":     false,
-        
-        "lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-        
-        "order": [[ 1, "asc" ]],
-        
-        "language": {
-                    "lengthMenu": "_MENU_",
-                    "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-                    "info": "Página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay resultados disponibles.",
-                    "infoFiltered": "(filtrado de _MAX_ resultados)",
-                    "search": "Buscar: ",
-                    "paginate": {
-                          "first": "Primera",
-                          "next": "Última",
-                          "next": "",
-                          "previous": ""
-                        }
-                }
-      });
-  });
-  </script> 
-
+?> 
 <script>
 function espera() {
   document.getElementById("wrap").style.display = '';

@@ -222,7 +222,7 @@ $menu = array(
 						'titulo' => 'Informe sobre convivencia'
 					),
 					array(
-						'href'   => 'admin/faltas/informe_profesores.php',
+						'href'   => 'admin/faltas/informe_grupos.php',
 						'titulo' => 'Informe sobre faltas de asistencia',
 						'modulo' => $config['mod_asistencia'],
 					),

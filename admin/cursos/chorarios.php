@@ -5,6 +5,8 @@ require('../../bootstrap.php');
 if (!$config['mod_horarios']) header('Location:'.'http://'.$config['dominio'].'/intranet/');
 
 include("../../menu.php");
+include("../informes/menu_alumno.php");
+
 ?>
 
 <div class="container">

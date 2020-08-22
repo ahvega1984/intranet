@@ -4,26 +4,49 @@ require('../../bootstrap.php');
 
 $profesor = $_SESSION['profi'];
 
-$PLUGIN_DATATABLES = 1;
-
 include("../../menu.php");
 
 if (isset($_GET['menu']) && $_GET['menu'] == 'guardias' && acl_permiso($_SESSION['cargo'], array(1))) {
 	include("../guardias/menu.php");
 }
 ?>
+<script src="../../js/ChartJS/Chart.min.js"></script>
+<script type="text/javascript">
+window.chartColors = {
+    red: 'rgb(244, 67, 54)',
+    pink: 'rgb(255, 64, 129)',
+    purple: 'rgb(156, 39, 176)',
+    deeppurple: 'rgb(124, 77, 255)',
+    indigo: 'rgb(63, 81, 181)',
+    blue: 'rgb(68, 138, 255)',
+    lightblue: 'rgb(3, 169, 244)',
+    cyan: 'rgb(0, 188, 212)',
+    teal: 'rgb(0, 150, 136)',
+    green: 'rgb(76, 175, 80)',
+    lightgreen: 'rgb(139, 195, 74)',
+    lime: 'rgb(205, 220, 57)',
+    yellow: 'rgb(255, 235, 59)',
+    amber: 'rgb(255, 193, 7)',
+    orange: 'rgb(255, 152, 0)',
+    deeporange: 'rgb(255, 87, 34)',
+    brown: 'rgb(121, 85, 72)',
+    grey: 'rgb(158, 158, 158)',
+    bluegrey: 'rgb(96, 125, 139)'
+};
+</script>
+
  <div class="container">
   <div class="page-header">
   <h2>Información sobre Guardias <small> Datos y Estadísticas</small></h2>
 </div>
 <div class="row">
-<div class="well well-larfe" style="width:750px;margin:auto">
+<div class="well well-large" style="width:750px;margin:auto">
 <p class="block-help">
 <legend class=" text-warning" align="center">Aclaraciones sobre los datos presentados sobre las Guardias.</legend>
 <ul class=" text-info">
-<li>Las Guardias de Pasillo presentan las guardias de pasillo totales registradas en el Horario en Séneca. Quedan excluidas las guardias de Biblioteca, las guardias en el Aula de Convivencia y las guardias de Recreo. Si el profesor tiene además guardias de recreo, aparece un asterisco azul moradito; si el profesor tiene guardias de Biblioteca, aparece un asterisco verde; y si el profesor tiene guardias de Convivencia, aparece un asterisco naranja.</li>
-<li>Las Guardias de Biblioteca, Aula de Convivencia y Recreo aparecen en tablas específicas para cada grupo.</li>
-<li>Las Guardias en el Aula se refieren a las sustituciones realizadas por los profesores de guardia hasta la fecha. En letra gris aparece el número de guardias asignadas en horario para cada profesor.</li>
+<li>Las Guardias de Pasillo presentan las guardias de pasillo totales registradas en el Horario en Séneca. Quedan excluidas las guardias de Biblioteca, las guardias en el Aula de Convivencia y las guardias de Recreo. Si el profesor tiene además guardias de recreo, aparece el texto <b>(R.)</b> al lado del nombre; si el profesor tiene guardias de Biblioteca, aparece <b>(B.)</b>; y si el profesor tiene guardias de Convivencia, aparece <b>(C.)</b>.</li>
+<li>Las Guardias de Biblioteca, Aula de Convivencia y Recreo aparecen en gráficos específicos para cada grupo.</li>
+<li>Las Guardias en el Aula se refieren a las sustituciones realizadas por los profesores de guardia hasta la fecha. Entre paréntesis aparece el número de guardias que tiene en el horario cada profesor.</li>
 </ul>
 </p>
 </div>
@@ -61,26 +84,18 @@ ORDER BY  `prof` ASC ";
 $sql_reg = "SELECT DISTINCT profesor, COUNT( * ) AS numero
 FROM  `guardias` where profesor not like ''
 GROUP BY profesor
-ORDER BY  `numero` ASC ";
+ORDER BY  `numero` DESC ";
 
 $sql_rec = "SELECT prof, count(*) as numero
 FROM  `horw` where prof not like '' and hora = 'R' and c_asig = '353'
 group by prof ORDER BY  prof ASC";
 ?>
 
-<div class="col-sm-4">
+<div class="col-sm-6">
 <legend align="center" class="text-info">Guardias de Pasillo</legend>
-<table class="table table-striped table-bordered datatable" align="center">
-<thead>
-<th>
-Profesor
-</th>
-<th>
-#
-</th>
-</thead>
 
 <?php
+$chart_n = 0;
 $query = mysqli_query($db_con, $sql);
 while ($arr = mysqli_fetch_array($query)) {
 	
@@ -92,15 +107,62 @@ while ($arr = mysqli_fetch_array($query)) {
 	$conviven = mysqli_query($db_con, "select * from horw where prof = '$arr[0]' and a_asig like 'GUC%'");
 	$recreo = mysqli_query($db_con, "select * from recreo where profesor = '$arr[0]'");
 	
-	if (mysqli_num_rows($biblio)>0) { $bibl =  "<span class='text-success' style='font-size:18px'>*</span>";}
-	if (mysqli_num_rows($conviven)>0) {$convi =  "<span class='text-warning' style='font-size:18px'>*</span>";}
-	if (mysqli_num_rows($recreo)>0) { $recr =  "<span class='text-info' style='font-size:18px'>*</span>";}
-	
-	echo "<tr><td><a href='consulta_profesores.php?profesor=".nomprofesor($arr[0])."''>".nomprofesor($arr[0])."</td><td class='col-sm-2'>$arr[1]  $bibl $convi $recr</td></tr>";
+	if (mysqli_num_rows($biblio)>0) { $bibl =  " (B.)";}
+	if (mysqli_num_rows($conviven)>0) {$convi =  " (C.)";}
+	if (mysqli_num_rows($recreo)>0) { $recr =  " (R.)";}
+?>
+ <?php 
+if ($arr[1]>0) {
+	$profe_pasillo.='"'.nomprofesor($arr[0]).' '. $bibl.$convi.$recr.'",';
+	$numero.="$arr[1],"; 
+}
+?>	
+<?php	//echo "<tr><td><a href='consulta_profesores.php?profesor=".nomprofesor($arr[0])."''>".nomprofesor($arr[0])."</td><td class='col-sm-2'>$arr[1]  $bibl $convi $recr</td></tr>";
 	$num_gu+=$arr[1];
 	$num_prof+=1;
-}
-echo "</table>";
+} 
+?>
+<?php $chart_n++; ?>
+<canvas id="chart_<?php echo $chart_n; ?>_pasillo" width="100" height="300"></canvas>
+<script>
+var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_pasillo");
+
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: [
+        <?php echo $profe_pasillo; ?>
+      ],
+      datasets: [{
+        backgroundColor: window.chartColors.orange,
+        data: [
+            <?php echo $numero; ?>
+        ]
+      }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                position: 'top',
+	                ticks: {
+	                min: 0,
+	                stepSize: 1
+	            }
+            }]
+        },
+        legend: {
+            display: false,
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    }
+});
+</script>
+
+<?php 
 $media = substr($num_gu/$num_prof,0,3);
 
 echo '<br /><table class="table table-striped table-bordered" align="center">';
@@ -111,81 +173,11 @@ echo "</table>";
 ?>
 </div>
 
-<div class="col-sm-4">
-<legend align="center" class="text-info">Guardias de Biblioteca</legend>
-<table class="table table-striped table-bordered" align="center">
-<thead>
-<th>
-Profesor
-</th>
-<th>
-#
-</th>
-</thead>
-<?php
-$query_bib = mysqli_query($db_con, $sql_bib);
-while ($arr_bib = mysqli_fetch_array($query_bib)) {
-	
-	echo "<tr><td>".nomprofesor($arr_bib[0])."</td><td class='col-sm-2'>$arr_bib[1]</td></tr>";
-}
-echo "</table>";
-?>
-<br />
-<hr />
-<legend align="center" class="text-info">Guardias de Convivencia</legend>
-<table class="table table-striped table-bordered" align="center">
-<thead>
-<th>
-Profesor
-</th>
-<th>
-#
-</th>
-</thead>
-<?php
-$query_conv = mysqli_query($db_con, $sql_conv);
-while ($arr_conv = mysqli_fetch_array($query_conv)) {
-	echo "<tr><td>".nomprofesor($arr_conv[0])."</td><td class='col-sm-2'>$arr_conv[1]</td></tr>";
-}
-echo "</table>";
-?>
 
-<br />
-<hr />
-<legend align="center" class="text-info">Guardias de Recreo</legend>
-<table class="table table-striped table-bordered" align="center">
-<thead>
-<th>
-Profesor
-</th>
-<th>
-#
-</th>
-</thead>
-<?php
-$query_rec = mysqli_query($db_con, $sql_rec);
-while ($arr_rec = mysqli_fetch_array($query_rec)) {
-	echo "<tr><td>".nomprofesor($arr_rec[0])."</td><td class='col-sm-2'>$arr_rec[1]</td></tr>";
-}
-echo "</table>";
-?>
+<div class="col-sm-6">
 
-</div>
-
-<div class="col-sm-4">
 <legend align="center" class="text-info">Guardias en las Aulas</legend>
-<table class="table table-striped table-bordered datatable">
-<thead>
-<th>
-Profesor
-</th>
-<th>
-#
-</th>
-<th>
-#
-</th>
-</thead>
+
 <?php
 $query_reg = mysqli_query($db_con, $sql_reg);
 while ($arr_reg = mysqli_fetch_array($query_reg)) {
@@ -204,18 +196,56 @@ while ($arr_reg = mysqli_fetch_array($query_reg)) {
 			$cont = $cont + 1;
 	}
 
-//echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$cont</td></tr>";
-echo "<tr><td><a href='consulta_profesores.php?profesor=".nomprofesor($arr_reg[0])."''>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>".$cont."</td><td class='col-sm-2 text-muted'>".$num_horw."</tr></a>";
-
+	$profe_aula.='"'.nomprofesor($arr_reg[0]).' ('. $num_horw.')",';
+	$numero_aula.="$cont,"; 
 
 //$num_gureg+=$arr_reg[1];
 $num_gureg+=$cont;
 $num_profreg+=1;
 }
-echo "</table>";
+?>
+<?php $chart_n++; ?>
+<canvas id="chart_<?php echo $chart_n; ?>_aula" width="100" height="320"></canvas>
+<script>
+var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_aula");
 
-	
-echo "</table>";
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: [
+        <?php echo $profe_aula; ?>
+      ],
+      datasets: [{
+        backgroundColor: window.chartColors.red,
+        data: [
+            <?php echo $numero_aula; ?>
+        ]
+      }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                position: 'top',
+	                ticks: {
+	                min: 0,
+	                stepSize: 1
+	            }
+            }]
+        },
+        legend: {
+            display: false,
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    }
+});
+</script>
+
+<?php	
+
 $media_reg = substr($num_gureg/$num_profreg,0,4);
 
 echo '<br /><table class="table table-striped table-bordered" align="center">';
@@ -226,40 +256,172 @@ echo "</table>";
 
 </div>
 
+<div class="col-sm-6">
+<legend align="center" class="text-info">Guardias de Biblioteca</legend>
+<?php
+$query_bib = mysqli_query($db_con, $sql_bib);
+while ($arr_bib = mysqli_fetch_array($query_bib)) {
+	$profe_biblio.='"'.nomprofesor($arr_bib[0]).'",';
+	$numero_biblio.="$arr_bib[1],"; 
+}
+?>
+
+<?php $chart_n++; ?>
+<canvas id="chart_<?php echo $chart_n; ?>_biblio" width="100" height="60"></canvas>
+<script>
+var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_biblio");
+
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: [
+        <?php echo $profe_biblio; ?>
+      ],
+      datasets: [{
+        backgroundColor: window.chartColors.green,
+        data: [
+            <?php echo $numero_biblio; ?>
+        ]
+      }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                position: 'top',
+	                ticks: {
+	                min: 0,
+	                stepSize: 1
+	            }
+            }]
+        },
+        legend: {
+            display: false,
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    }
+});
+</script>
+
+<br />
+
+</div>
+
+<div class="col-sm-6">
+<legend align="center" class="text-info">Guardias de Convivencia</legend>
+
+<?php
+$query_conv = mysqli_query($db_con, $sql_conv);
+while ($arr_conv = mysqli_fetch_array($query_conv)) {
+	$profe_conv.='"'.nomprofesor($arr_conv[0]).'",';
+	$numero_conv.="$arr_conv[1],"; 
+}
+?>
+<?php $chart_n++; ?>
+<canvas id="chart_<?php echo $chart_n; ?>_conv" width="100" height="80"></canvas>
+<script>
+var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_conv");
+
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: [
+        <?php echo $profe_conv; ?>
+      ],
+      datasets: [{
+        backgroundColor: window.chartColors.yellow,
+        data: [
+            <?php echo $numero_conv; ?>
+        ]
+      }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                position: 'top',
+	                ticks: {
+	                min: 0,
+	                stepSize: 1
+	            }
+            }]
+        },
+        legend: {
+            display: false,
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    }
+});
+</script>
+
+<br />
+
+</div>
+
+<div class="col-sm-6">
+<legend align="center" class="text-info">Guardias de Recreo</legend>
+
+<?php
+$query_rec = mysqli_query($db_con, $sql_rec);
+while ($arr_rec = mysqli_fetch_array($query_rec)) {
+	$profe_rec.='"'.nomprofesor($arr_rec[0]).'",';
+	$numero_rec.="$arr_rec[1],"; 
+}
+?>
+<?php $chart_n++; ?>
+<canvas id="chart_<?php echo $chart_n; ?>_biblio" width="100" height="150"></canvas>
+<script>
+var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_biblio");
+
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: [
+        <?php echo $profe_rec; ?>
+      ],
+      datasets: [{
+        backgroundColor: window.chartColors.blue,
+        data: [
+            <?php echo $numero_rec; ?>
+        ]
+      }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                position: 'top',
+	                ticks: {
+	                min: 0,
+	                stepSize: 1
+	            }
+            }]
+        },
+        legend: {
+            display: false,
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    }
+});
+</script>
+<br>
+</div>
+
+
 </div>
 </div>
 <?php
 include("../../pie.php");
 ?>
-
-	<script>
-	$(document).ready(function() {
-	  var table = $('.datatable').DataTable({
-	  		"paging":   true,
-	      "ordering": true,
-	      "info":     false,
-	      
-	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-	  		
-	  		"order": [[ 0, "asc" ]],
-	  		
-	  		"language": {
-	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
-	  		            "infoEmpty": "No hay resultados disponibles.",
-	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
-	  		            "search": "Buscar: ",
-	  		            "paginate": {
-	  		                  "first": "Primera",
-	  		                  "next": "Última",
-	  		                  "next": "",
-	  		                  "previous": ""
-	  		                }
-	  		        }
-	  	});
-	});
-	</script>
 	
 </body>
 </html>

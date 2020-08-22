@@ -6,8 +6,33 @@ if (file_exists('config.php')) {
 }
     include("../../menu.php");
 
-$numCursosAnteriores = 4; //num de años a considerar en la consulta
+$numCursosAnteriores = 5; //num de años a considerar en la consulta
 ?>
+
+<script src="../../js/ChartJS/Chart.min.js"></script>
+<script type="text/javascript">
+window.chartColors = {
+    red: 'rgb(244, 67, 54)',
+    pink: 'rgb(255, 64, 129)',
+    purple: 'rgb(156, 39, 176)',
+    deeppurple: 'rgb(124, 77, 255)',
+    indigo: 'rgb(63, 81, 181)',
+    blue: 'rgb(68, 138, 255)',
+    lightblue: 'rgb(3, 169, 244)',
+    cyan: 'rgb(0, 188, 212)',
+    teal: 'rgb(0, 150, 136)',
+    green: 'rgb(76, 175, 80)',
+    lightgreen: 'rgb(139, 195, 74)',
+    lime: 'rgb(205, 220, 57)',
+    yellow: 'rgb(255, 235, 59)',
+    amber: 'rgb(255, 193, 7)',
+    orange: 'rgb(255, 152, 0)',
+    deeporange: 'rgb(255, 87, 34)',
+    brown: 'rgb(121, 85, 72)',
+    grey: 'rgb(158, 158, 158)',
+    bluegrey: 'rgb(96, 125, 139)'
+};
+</script>
 
 <div class="container">
 
@@ -16,7 +41,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
     </div>
 
     <div class="text-center" id="t_larga_barra">
-        <span class="lead"><span class="far fa-circle-o-notch fa-spin"></span>Cargando los datos. El proceso puede tardar un poco...</span>
+        <span class="lead">Cargando los datos. El proceso puede tardar un poco...</span><br><br><span class="fas fa-spinner fa-spin fa-5x"></span>
     </div>
     <div id='t_larga' style='display:none' >
         <div>
@@ -59,29 +84,13 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                         }
 
                         if($haydatos)
-                        {
-                        ?>
+                        { ?>
+                           
+
+                            <?php $chart_n = 0; ?>
+                    
                             <h4 class="text-info">Curso <?php echo $anio_escolar; echo "-".($anio_escolar+1);?></h4>
-                            <table class="table table-striped" style="width:auto">
-                                <tr>
-                                <th>Absentismo</th>
-                                <th>Convivencia</th>
-                                <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
-                                <th>Otras conductas</th>
-                                <th>Conductas contrarias</th>
-                                <th>Conductas graves</th>
-                                <?php else: ?>
-                                <th>Leves</th>
-                                <th>Graves</th>
-                                <th>Muy Graves</th>
-                                <?php endif; ?>
-                                <th>Expulsiones</th>
-                                <th>Alumnos Expulsados</th>
-                                <th>Expulsión del Aula</th>
-                                <th>Acciones Tutoría</th>
-                                <th>Informes</th>
-                                <th>Comunicaciones</th>
-                                </tr>
+                            
                                 <?php
                                 
                                 $consulta = mysqli_fetch_assoc(mysqli_query($db_con, "select min(fecha) as minNav, max(fecha) as maxNav from festivos where nombre like '%Navidad%'"));
@@ -249,79 +258,107 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
                                 $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
                                 ?>
-                                <tr>
-                                    <td><?php echo $num_faltas; ?><br /><br /><br />
-                                        <hr><strong>Totales:</strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_conv1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_conv2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_conv3; ?>
-                                        <hr><strong><?php echo $num_conv; ?></strong>
-                                    </td>
-                                    <td nowrap>
-                                        <span style="color:#abc">1T.</span>  <?php echo $num_leves1; ?><br />
-                                        <span style="color:#abc">2T.</span>  <?php echo $num_leves2; ?><br />
-                                        <span style="color:#abc">3T.</span>  <?php echo $num_leves3; ?>
-                                        <hr><strong><?php echo $num_leves; ?></strong>
-                                    </td>
-                                    <td nowrap>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_graves1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_graves2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_graves3; ?>
-                                        <hr><strong><?php echo $num_graves; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_muygraves1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_muygraves2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_muygraves3; ?>
-                                        <hr><strong><?php echo $num_muygraves; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_expulsion1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_expulsion2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_expulsion3; ?>
-                                        <hr><strong><?php echo $num_expulsion; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_expulsados1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_expulsados2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_expulsados3; ?>
-                                        <hr><strong><?php echo $num_expulsados; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_expulsadosaula1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?>
-                                        <hr><strong><?php echo $num_expulsadosaula; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_acciones1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?>
-                                        <hr><strong><?php echo $num_acciones; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_informes1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_informes3; ?>
-                                        <hr><strong><?php echo $num_informes; ?></strong>
-                                    </td>
-                                    <td>
-                                        <span style="color:#abc">1T.</span> <?php echo $num_comunica1; ?><br />
-                                        <span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br />
-                                        <span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?>
-                                        <hr><strong><?php echo $num_comunica; ?></strong>
-                                    </td>
-                                </tr>
-                            </table>
+
+
+                                <?php $chart_n++; ?>
+
+                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>" width="200" height="100"></canvas>
+                                <script>
+                                var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>");
+                                
+                                var myChart = new Chart(ctx, {
+                                    responsive: true,
+                                    type: 'horizontalBar',
+                                    data: {
+                                      labels: [
+                                        "Absentismo",
+                                        "Convivencia",
+                                        <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                        "Otras conductas",
+                                        "Conductas contrarias",
+                                        "Conductas graves",
+                                        <?php else: ?>
+                                        "Leves",
+                                        "Graves",
+                                        "Muy Graves",
+                                        <?php endif; ?>
+                                        "Expulsiones",
+                                        "Alumnos Expulsados",
+                                        "Expulsión del Aula",
+                                        "Informes",
+                                        "Comunicaciones"
+                                      ],
+                                      datasets: [{
+                                            label: 'Primer trimestre',
+                                            backgroundColor: window.chartColors.red,
+                                            data: [
+                                                <?php echo $num_faltas; ?>,
+                                                <?php echo $num_conv1; ?>, 
+                                                <?php echo $num_leves1; ?>, 
+                                                <?php echo $num_graves1; ?>, 
+                                                <?php echo $num_muygraves1; ?>, 
+                                                <?php echo $num_expulsion1; ?>, 
+                                                <?php echo $num_expulsados1; ?>,
+                                                <?php echo $num_expulsadosaula1; ?>,
+                                                <?php echo $num_informes1; ?>,
+                                                <?php echo $num_comunica1; ?>
+                                            ]
+                                        }, {
+                                            label: 'Segundo trimestre',
+                                            backgroundColor: window.chartColors.blue,
+                                            data: [
+                                                <?php echo $num_faltas; ?>,
+                                                <?php echo $num_conv2; ?>, 
+                                                <?php echo $num_leves2; ?>, 
+                                                <?php echo $num_graves2; ?>, 
+                                                <?php echo $num_muygraves2; ?>, 
+                                                <?php echo $num_expulsion2; ?>, 
+                                                <?php echo $num_expulsados2; ?>,
+                                                <?php echo $num_expulsadosaula2; ?>,
+                                                <?php echo $num_informes2; ?>,
+                                                <?php echo $num_comunica2; ?>
+                                            ]
+                                        }, {
+                                            label: 'Tercer trimestre',
+                                            backgroundColor: window.chartColors.green,
+                                            data: [
+                                                <?php echo $num_faltas; ?>,
+                                                <?php echo $num_conv3; ?>, 
+                                                <?php echo $num_leves3; ?>, 
+                                                <?php echo $num_graves3; ?>, 
+                                                <?php echo $num_muygraves3; ?>, 
+                                                <?php echo $num_expulsion3; ?>, 
+                                                <?php echo $num_expulsados3; ?>,
+                                                <?php echo $num_expulsadosaula3; ?>,
+                                                <?php echo $num_informes3; ?>,
+                                                <?php echo $num_comunica3; ?>
+                                            ]
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            xAxes: [{
+                                                position: 'top',
+                                                ticks: {
+                                                    stepSize: 0
+                                                }
+                                            }],
+                                            yAxes: [{
+                                                
+                                            }]
+                                        }
+                                    }
+                                });
+                                </script>
                         <?php
                         } //cierre if ($hayDatos)
+                        echo "<br><br>";
                     } //cierre del for
                     ?>
-                    <hr style="width:950px">
                 </div>
                 <div class="tab-pane fade in" id="tab2">
+
+
 
                     <br /><h3>Información por Nivel</h3>
                     <br />
@@ -387,6 +424,8 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
 
                                 if($haydatos)
                                 {
+                                    $chart_n = 0;
+
                                     $consulta = mysqli_fetch_assoc(mysqli_query($db_con, "select min(fecha) as minNav, max(fecha) as maxNav from festivos where nombre like '%Navidad%'"));
                                     $minNavidad = $consulta['minNav'];
                                     $maxNavidad = $consulta['maxNav'];
@@ -398,11 +437,12 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                     <div class="tab-pane fade in <?php echo $activ;?>" id="<?php echo "n".$num;?>">
                                         <br>
                                         <?php
-                                        $nivel0 = "select distinct curso from alma order by curso";
+                                        $nivel0 = "select nomcurso, idcurso from cursos order by nomcurso";
                                         $nivel1 = mysqli_query($db_con, $nivel0);
                                         while($nivel = mysqli_fetch_array($nivel1))
                                         {
                                             $nivel = $nivel[0];
+                                            $idcurso = $nivel[1];
                                             
                                             $SQL = "select count(*) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel' and month(Fechoria.fecha) >='09' and Fechoria.fecha <= '$minNavidad'";
                                             //echo $SQL."<br>";
@@ -549,96 +589,101 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                             $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
                                             $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
                                             ?>
-                                            <h4 class="badge badge-success"><?php echo $nivel; ?></h4>
+                                            
+                                
+                                <?php $chart_n++; ?>
+                                <div class="col-sm-6">
+                                    <h4 class="badge badge-success"><?php echo $nivel; ?></h4>
                                             <br>
-                                            <table class="table table-striped" style="width:auto">
-                                                <tr>
-                                                    <th>Absentismo</th>
-                                                    <th>Convivencia</th>
-                                                    <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
-                                                    <th>Otras conductas</th>
-                                                    <th>Conductas contrarias</th>
-                                                    <th>Conductas graves</th>
-                                                    <?php else: ?>
-                                                    <th>Leves</th>
-                                                    <th>Graves</th>
-                                                    <th>Muy Graves</th>
-                                                    <?php endif; ?>
-                                                    <th>Expulsiones</th>
-                                                    <th>Alumnos Expulsados</th>
-                                                    <th>Expulsi&oacute;n del Aula</th>
-                                                    <th>Acciones</th>
-                                                    <th>Informes</th>
-                                                    <th>Comunicaciones</th>
-                                                </tr>
+                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $idcurso; ?>" width="200" height="140"></canvas>
+                                <script>
+                                var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $idcurso; ?>");
+                                
+                                var myChart = new Chart(ctx, {
+                                    responsive: true,
+                                    type: 'horizontalBar',
+                                    data: {
+                                      labels: [
+                                        "Absentismo",
+                                        "Convivencia",
+                                        <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                        "Otras conductas",
+                                        "Conductas contrarias",
+                                        "Conductas graves",
+                                        <?php else: ?>
+                                        "Leves",
+                                        "Graves",
+                                        "Muy Graves",
+                                        <?php endif; ?>
+                                        "Expulsiones",
+                                        "Alumnos Expulsados",
+                                        "Expulsión del Aula",
+                                        "Informes",
+                                        "Comunicaciones"
+                                      ],
+                                      datasets: [{
+                                            label: 'Primer trimestre',
+                                            backgroundColor: window.chartColors.red,
+                                            data: [
+                                                <?php echo $num_faltas; ?>,
+                                                <?php echo $num_conv1; ?>, 
+                                                <?php echo $num_leves1; ?>, 
+                                                <?php echo $num_graves1; ?>, 
+                                                <?php echo $num_muygraves1; ?>, 
+                                                <?php echo $num_expulsion1; ?>, 
+                                                <?php echo $num_expulsados1; ?>,
+                                                <?php echo $num_expulsadosaula1; ?>,
+                                                <?php echo $num_informes1; ?>,
+                                                <?php echo $num_comunica1; ?>
+                                            ]
+                                        }, {
+                                            label: 'Segundo trimestre',
+                                            backgroundColor: window.chartColors.blue,
+                                            data: [
+                                                <?php echo $num_faltas; ?>,
+                                                <?php echo $num_conv2; ?>, 
+                                                <?php echo $num_leves2; ?>, 
+                                                <?php echo $num_graves2; ?>, 
+                                                <?php echo $num_muygraves2; ?>, 
+                                                <?php echo $num_expulsion2; ?>, 
+                                                <?php echo $num_expulsados2; ?>,
+                                                <?php echo $num_expulsadosaula2; ?>,
+                                                <?php echo $num_informes2; ?>,
+                                                <?php echo $num_comunica2; ?>
+                                            ]
+                                        }, {
+                                            label: 'Tercer trimestre',
+                                            backgroundColor: window.chartColors.green,
+                                            data: [
+                                                <?php echo $num_faltas; ?>,
+                                                <?php echo $num_conv3; ?>, 
+                                                <?php echo $num_leves3; ?>, 
+                                                <?php echo $num_graves3; ?>, 
+                                                <?php echo $num_muygraves3; ?>, 
+                                                <?php echo $num_expulsion3; ?>, 
+                                                <?php echo $num_expulsados3; ?>,
+                                                <?php echo $num_expulsadosaula3; ?>,
+                                                <?php echo $num_informes3; ?>,
+                                                <?php echo $num_comunica3; ?>
+                                            ]
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            xAxes: [{
+                                                position: 'top',
+                                                ticks: {
+                                                    stepSize: 0
+                                                }
+                                            }],
+                                            yAxes: [{
                                                 
-                                                <tr>
-                                                    <td><?php echo $num_faltas; ?><br /><br /><br />
-                                                        <hr><strong>Totales:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_conv1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_conv2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_conv3; ?>
-                                                        <hr><strong><?php echo $num_conv; ?></strong>
-                                                    </td>
-                                                    <td nowrap>
-                                                        <span style="color:#abc">1T.</span>  <?php echo $num_leves1; ?><br />
-                                                        <span style="color:#abc">2T.</span>  <?php echo $num_leves2; ?><br />
-                                                        <span style="color:#abc">3T.</span>  <?php echo $num_leves3; ?>
-                                                        <hr><strong><?php echo $num_leves; ?></strong>
-                                                    </td>
-                                                    <td nowrap>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_graves1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_graves2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_graves3; ?>
-                                                        <hr><strong><?php echo $num_graves; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_muygraves1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_muygraves2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_muygraves3; ?>
-                                                        <hr><strong><?php echo $num_muygraves; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_expulsion1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_expulsion2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_expulsion3; ?>
-                                                        <hr><strong><?php echo $num_expulsion; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_expulsados1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_expulsados2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_expulsados3; ?>
-                                                        <hr><strong><?php echo $num_expulsados; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_expulsadosaula1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?>
-                                                        <hr><strong><?php echo $num_expulsadosaula; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_acciones1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?>
-                                                        <hr><strong><?php echo $num_acciones; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_informes1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_informes3; ?>
-                                                        <hr><strong><?php echo $num_informes; ?></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span style="color:#abc">1T.</span> <?php echo $num_comunica1; ?><br />
-                                                        <span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br />
-                                                        <span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?>
-                                                        <hr><strong><?php echo $num_comunica; ?></strong>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <hr>
+                                            }]
+                                        }
+                                    }
+                                });
+                                </script>
+                            </div>
                                         <?php
                                         }
                                         ?>
@@ -650,13 +695,11 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                         </div>
                     </div>
 
-                    <hr style="width:950px">
                 </div>
                 <div class="tab-pane fade in" id="tab3">
                     <br />
                     <h3>Información por Grupo</h3>
                     <br>
-                    <h4 class="text-info">Curso <?php echo $config['curso_actual']; ?></h4>
                     <?php
                     $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
                     mysqli_query($db_con,"SET NAMES 'utf8'");
@@ -675,7 +718,7 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                     {
                         $nivel = $cursos[0];
                         $grupo = $cursos[1];
-                        $unidad = $cursos[0]."-".$cursos[1];
+                        $unidad = $cursos[0]." -- ".$cursos[1];
                         
                         $SQL = "select count(*) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha) >='09' and Fechoria.fecha <= '$minNavidad'";
                         $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
@@ -829,97 +872,107 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                         $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
                         $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
                     ?>
-                        <h4  class="badge badge-info"><?php echo $unidad;?></h4>
+                        <h4  class="badge"><?php echo $unidad;?></h4>
                         <br />
-                        <table class="table table-striped" style="width:auto">
-                            <tr>
-                                <th>Absentismo</th>
-                                <th>Convivencia</th>
-                                <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
-                                <th>Otras conductas</th>
-                                <th>Conductas contrarias</th>
-                                <th>Conductas graves</th>
-                                <?php else: ?>
-                                <th>Leves</th>
-                                <th>Graves</th>
-                                <th>Muy Graves</th>
-                                <?php endif; ?>
-                                <th>Expulsiones</th>
-                                <th>Alumnos Expulsados</th>
-                                <th>Expulsi&oacute;n del Aula</th>
-                                <th>Acciones</th>
-                                <th>Informes</th>
-                                <th>Comunicaciones</th>
-                            </tr>
-                            <tr>
-                                <td><?php echo $num_faltas; ?><br /><br /><br />
-                                    <hr><strong>Totales:</strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_conv1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_conv2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_conv3; ?>
-                                    <hr><strong><?php echo $num_conv; ?></strong>
-                                </td>
-                                <td nowrap>
-                                    <span style="color:#abc">1T.</span>  <?php echo $num_leves1; ?><br />
-                                    <span style="color:#abc">2T.</span>  <?php echo $num_leves2; ?><br />
-                                    <span style="color:#abc">3T.</span>  <?php echo $num_leves3; ?>
-                                    <hr><strong><?php echo $num_leves; ?></strong>
-                                </td>
-                                <td nowrap>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_graves1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_graves2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_graves3; ?>
-                                    <hr><strong><?php echo $num_graves; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_muygraves1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_muygraves2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_muygraves3; ?>
-                                    <hr><strong><?php echo $num_muygraves; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_expulsion1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_expulsion2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_expulsion3; ?>
-                                    <hr><strong><?php echo $num_expulsion; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_expulsados1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_expulsados2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_expulsados3; ?>
-                                    <hr><strong><?php echo $num_expulsados; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_expulsadosaula1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?>
-                                    <hr><strong><?php echo $num_expulsadosaula; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_acciones1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?>
-                                    <hr><strong><?php echo $num_acciones; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_informes1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_informes3; ?>
-                                    <hr><strong><?php echo $num_informes; ?></strong>
-                                </td>
-                                <td>
-                                    <span style="color:#abc">1T.</span> <?php echo $num_comunica1; ?><br />
-                                    <span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br />
-                                    <span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?>
-                                    <hr><strong><?php echo $num_comunica; ?></strong>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="row">
+                            
+                            <div class="col-sm-10">
 
-                        <hr>
+                        <?php $chart_n++; ?>
+
+                        <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $grupo; ?>" width="200" height="80"></canvas>
+                        <script>
+                        var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $grupo; ?>");
+                        
+                        var myChart = new Chart(ctx, {
+                            responsive: true,
+                            type: 'horizontalBar',
+                            data: {
+                              labels: [
+                                "Absentismo",
+                                "Convivencia",
+                                <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
+                                "Otras conductas",
+                                "Conductas contrarias",
+                                "Conductas graves",
+                                <?php else: ?>
+                                "Leves",
+                                "Graves",
+                                "Muy Graves",
+                                <?php endif; ?>
+                                "Expulsiones",
+                                "Alumnos Expulsados",
+                                "Expulsión del Aula",
+                                "Informes",
+                                "Comunicaciones"
+                              ],
+                              datasets: [{
+                                    label: 'Primer trimestre',
+                                    backgroundColor: window.chartColors.red,
+                                    data: [
+                                        <?php echo $num_faltas; ?>,
+                                        <?php echo $num_conv1; ?>, 
+                                        <?php echo $num_leves1; ?>, 
+                                        <?php echo $num_graves1; ?>, 
+                                        <?php echo $num_muygraves1; ?>, 
+                                        <?php echo $num_expulsion1; ?>, 
+                                        <?php echo $num_expulsados1; ?>,
+                                        <?php echo $num_expulsadosaula1; ?>,
+                                        <?php echo $num_informes1; ?>,
+                                        <?php echo $num_comunica1; ?>
+                                    ]
+                                }, {
+                                    label: 'Segundo trimestre',
+                                    backgroundColor: window.chartColors.blue,
+                                    data: [
+                                        <?php echo $num_faltas; ?>,
+                                        <?php echo $num_conv2; ?>, 
+                                        <?php echo $num_leves2; ?>, 
+                                        <?php echo $num_graves2; ?>, 
+                                        <?php echo $num_muygraves2; ?>, 
+                                        <?php echo $num_expulsion2; ?>, 
+                                        <?php echo $num_expulsados2; ?>,
+                                        <?php echo $num_expulsadosaula2; ?>,
+                                        <?php echo $num_informes2; ?>,
+                                        <?php echo $num_comunica2; ?>
+                                    ]
+                                }, {
+                                    label: 'Tercer trimestre',
+                                    backgroundColor: window.chartColors.green,
+                                    data: [
+                                        <?php echo $num_faltas; ?>,
+                                        <?php echo $num_conv3; ?>, 
+                                        <?php echo $num_leves3; ?>, 
+                                        <?php echo $num_graves3; ?>, 
+                                        <?php echo $num_muygraves3; ?>, 
+                                        <?php echo $num_expulsion3; ?>, 
+                                        <?php echo $num_expulsados3; ?>,
+                                        <?php echo $num_expulsadosaula3; ?>,
+                                        <?php echo $num_informes3; ?>,
+                                        <?php echo $num_comunica3; ?>
+                                    ]
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        position: 'top',
+                                        ticks: {
+                                            stepSize: 0
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        
+                                    }]
+                                }
+                            }
+                        });
+                        </script>
+
                         <br />
+
+                    </div>
+                </div>
                         <?php
                         /*$tabla = 'tmp_'.$grupo;
                         $temp = mysqli_query($db_con, "CREATE TEMPORARY TABLE `$tabla` SELECT Fechoria.asunto FROM Fechoria, alma WHERE Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'");
@@ -929,7 +982,10 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                             
                         if (mysqli_num_rows($ini0)):
                             ?>
-                            <table class="table table-striped" align="left" style="width:800px">
+                            <div class="row">
+                            <div class="col-sm-10">
+
+                            <table class="table table-striped table-hover" align="left">
                                 <tr>
                                     <th>Tipo de Problema</th>
                                     <th>Número</th>
@@ -940,16 +996,17 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                 ?>
                                     <tr>
                                         <td><?php  echo $ini[0];?></td>
-                                        <td><?php  echo $ini[1];?></td>
+                                        <td class="text-danger"><b><?php  echo $ini[1];?></b></td>
                                     </tr>
                                 <?php
                                 }
                                 ?>
                             </table>
-                        <?php
-                        endif;
-                        echo '<hr style="width:800px"><br />';
-                        //mysqli_query($db_con, "DROP TABLE `$tabla`");
+                        </div>
+                    </div>
+                    <?php
+                    endif;
+                    //mysqli_query($db_con, "DROP TABLE `$tabla`");
                 }
                         ?>
                 </div>
@@ -1027,34 +1084,66 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                     if($haydatos)
                                     {
                                     ?>
+                                    <?php $chart_n = 0; ?>
+
                                         <div class="tab-pane fade in <?php echo $activ;?>" id="<?php echo "m".$num;?>">
                                         <br /><br />
-                                        <table class="table table-bordered table-striped table-hover" style="width:auto">
-                                            <thead>
-                                                <tr>
-                                                    <th>Profesor</th><th width="62">Número</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        
                                         <?php
                                             $tot0 = '';
+                                            $profesor = '';
+                                            $numero = '';
                                             //$tot1 = mysqli_query($db_con, "create table fech_temp select informa, count(*) as numeros from Fechoria group by informa");
                                             //$tot0 = mysqli_query($db_con, "select informa, numeros from fech_temp order by numeros desc");
                                         
                                             $tot0 = mysqli_query($db_con, "select informa, count(*) as numeros from Fechoria group by informa order by numeros desc");
                                         
-                                            while ($total0 = mysqli_fetch_array($tot0))
-                                            {
+                                           
                                     ?>
-                                                <tr>
-                                                    <td><?php  echo nomprofesor($total0[0]);?></td>
-                                                    <td><?php  echo $total0[1];?></td>
-                                                </tr>
-                                    <?php
-                                            }
-                                        ?>
-                                            </tbody>
-                                        </table>
+
+                                     <?php  while ($total0 = mysqli_fetch_array($tot0))
+                                            { ?>
+                                            <?php $profesor.='"'.$total0[0].'",'; ?>
+                                           <?php $numero.="$total0[1],"; ?>
+                                        <?php } ?>
+                                               <?php $chart_n++; ?>
+
+                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_prof" width="200" height="400"></canvas>
+                                <script>
+                                var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_prof");
+                                
+                                var myChart = new Chart(ctx, {
+                                    responsive: true,
+                                    type: 'horizontalBar',
+                                    data: {
+                                      labels: [
+                                        <?php echo $profesor; ?>
+                                      ],
+                                      datasets: [{
+                                        backgroundColor: window.chartColors.green,
+                                        data: [
+                                            <?php echo $numero; ?>
+                                        ]
+                                      }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                         scales: {
+                                            xAxes: [{
+                                                position: 'top'
+                                            }]
+                                        },
+                                        legend: {
+                                            display: false,
+                                        },
+                                        animation: {
+                                            animateScale: true,
+                                            animateRotate: true
+                                        }
+                                    }
+                                });
+                                </script>
+                                     
                                         <?php
                                         //mysqli_query($db_con, "drop table fech_temp");
                                     }
@@ -1132,27 +1221,18 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                     
                                     if($haydatos)
                                     {
+                                        $tipo = '';
+                                        $numero = '';
                                     ?>
+                                    <?php $chart_n = 0; ?>
                                         <div class="tab-pane fade in <?php echo $activ;?>" id="<?php echo "p".$num;?>">
-                                            <br /><br />
-                                            <table class="table table-bordered table-striped table-hover" style="width:auto">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Tipo de Problema</th>
-                                                        <th width="62">Número</th>
-                                                        <th width="72">Gravedad</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <br />
                                                 <?php
                                                     $tot = '';
                                                     $tot = mysqli_query($db_con, "select asunto, count(*) as total, grave from Fechoria group by grave, asunto order by total desc");
                                                     while ($total = mysqli_fetch_array($tot))
-                                                    {
-                                                ?>
-                                                        <tr>
-                                                            <td><?php  echo $total[0];?></td>
-                                                            <td><?php  echo $total[1];?></td>
+                                                    { ?>
+
                                                             <?php if (isset($config['convivencia']['convivencia_seneca']) && $config['convivencia']['convivencia_seneca']): ?>
                                                             <?php
                                                             switch($total[2]) {
@@ -1161,15 +1241,49 @@ $numCursosAnteriores = 4; //num de años a considerar en la consulta
                                                                 case 'muy grave' : $nom_gravedad = "Conducta grave"; break;
                                                             }
                                                             ?>
-                                                            <td><?php echo $nom_gravedad; ?></td>
-                                                            <?php else: ?>
-                                                            <td><?php echo $total[2];?></td>
                                                             <?php endif; ?>   
-                                                        </tr>
+                                                            <?php $tipo.='"'.substr($total[0],0,80).'... ('.$total[2].')",'; ?>
+                                                            <?php $numero.="$total[1],"; ?>
                                                     <?php
                                                     }
                                                     ?>
-                                            </table>
+                                <?php $chart_n++; ?>
+
+                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_tipo" width="100" height="120"></canvas>
+                                <script>
+                                var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_tipo");
+                                
+                                var myChart = new Chart(ctx, {
+                                    responsive: true,
+                                    type: 'horizontalBar',
+                                    data: {
+                                      labels: [
+                                        <?php echo $tipo; ?>
+                                      ],
+                                      datasets: [{
+                                        backgroundColor: window.chartColors.orange,
+                                        data: [
+                                            <?php echo $numero; ?>
+                                        ]
+                                      }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        scales: {
+                                            xAxes: [{
+                                                position: 'top'
+                                            }]
+                                        },
+                                        legend: {
+                                            display: false,
+                                        },
+                                        animation: {
+                                            animateScale: true,
+                                            animateRotate: true
+                                        }
+                                    }
+                                });
+                                </script>
                                         </div>
                                     <?php
                                     }

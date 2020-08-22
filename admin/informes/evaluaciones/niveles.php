@@ -199,8 +199,32 @@ if ($existenNotas) {
 }
 
 ?>
-	
-	<div class="container-fluid">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+	<script type="text/javascript">
+	window.chartColors = {
+		red: 'rgb(244, 67, 54)',
+		pink: 'rgb(255, 64, 129)',
+		purple: 'rgb(156, 39, 176)',
+		deeppurple: 'rgb(124, 77, 255)',
+		indigo: 'rgb(63, 81, 181)',
+		blue: 'rgb(68, 138, 255)',
+		lightblue: 'rgb(3, 169, 244)',
+		cyan: 'rgb(0, 188, 212)',
+		teal: 'rgb(0, 150, 136)',
+		green: 'rgb(76, 175, 80)',
+		lightgreen: 'rgb(139, 195, 74)',
+		lime: 'rgb(205, 220, 57)',
+		yellow: 'rgb(255, 235, 59)',
+		amber: 'rgb(255, 193, 7)',
+		orange: 'rgb(255, 152, 0)',
+		deeporange: 'rgb(255, 87, 34)',
+		brown: 'rgb(121, 85, 72)',
+		grey: 'rgb(158, 158, 158)',
+		bluegrey: 'rgb(96, 125, 139)'
+	};
+	</script>
+
+	<div class="container">
 		
 		<div class="page-header">
 			<h2>Informes de evaluaciones <small>Estadísticas por niveles</small></h2>
@@ -252,156 +276,365 @@ if ($existenNotas) {
 		</div>
 		
 		<br>
+				
+		<?php if ($evaluacionSinNotas): ?>
+		<div class="text-center">
+			<br><br><br>
+			<p class="lead">No se han importado las notas de esta evaluación</p>
+			<br><br><br><br>
+		</div>
+		<?php else: ?>
 		
-		<div class="row">
-			
-			<div class="col-sm-12">
-				
-				<?php if ($evaluacionSinNotas): ?>
-				<div class="text-center">
-					<br><br><br>
-					<p class="lead">No se han importado las notas de esta evaluación</p>
-					<br><br><br><br>
-				</div>
-				<?php else: ?>
-				
-				<?php 
-				$flag = 0;
-				$num_unidades = 1;
-				$nomcurso = "";
-				
-                foreach ($resultados_evaluaciones as $evaluacion):
-				
-				    if ($nomcurso != $evaluacion['nomcurso']):
-				        if ($flag == 1): ?>
-                            </tbody>
-					        <tfoot>
-						          <tr>
-							     <th>Totales</th>
-							     <th><?php echo $total_alumnos; ?></th>
-							     <th class="text-center"><?php echo $alumnos_repiten; ?></th>
-							     <th class="text-center"><?php echo $cero_suspensos; ?></th>
-							     <th class="text-center"><?php echo $uno_suspensos; ?></th>
-							     <th class="text-center"><?php echo $dos_suspensos; ?></th>
-							     <th class="text-center"><?php echo $tres_suspensos; ?></th>
-							     <th class="text-center"><?php echo $cuatro_suspensos; ?></th>
-							     <th class="text-center"><?php echo $cinco_suspensos; ?></th>
-							     <th class="text-center"><?php echo $seis_suspensos; ?></th>
-							     <th class="text-center"><?php echo $siete_suspensos; ?></th>
-							     <th class="text-center"><?php echo $ocho_suspensos; ?></th>
-							     <th class="text-center"><?php echo $nueve_o_mas_suspensos; ?></th>
-							     <th><span class="<?php echo round($titulan/($total_alumnos)) >= 0.50 ? 'text-success' : 'text-danger'; ?>"><?php echo round(100*$titulan/($total_alumnos)); ?> %</span> / <?php echo $titulan; ?></th>
-						      </tr>
-					        </tfoot>
-                            </table>
-				            <?php 
-                        endif; 
-				        $flag = 1;
-				        $num_unidades = 1;
-				        $total_alumnos = 0;
-				        $alumnos_repiten = 0;
-				        $cero_suspensos = 0;
-				        $uno_suspensos = 0;
-				        $dos_suspensos = 0;
-				        $tres_suspensos = 0;
-				        $cuatro_suspensos = 0;
-				        $cinco_suspensos = 0;
-				        $seis_suspensos = 0;
-				        $siete_suspensos = 0;
-				        $ocho_suspensos = 0;
-				        $nueve_o_mas_suspensos = 0;
-				        $promocionan = 0;
-				        $titulan = 0;
-				        ?>
-				
-				        <h4 class="text-info"><?php echo $evaluacion['nomcurso']; ?></h4>
-				
-				        <table class="table table-bordered table-hover" style="font-size: 11px;">
-					       <thead>
-						      <tr>
-                                <th width="9.15%">Unidad</th>
-                                <th width="6.15%">Alumnos</th>
-                                <th width="6.15%" class="text-center">Repetidores</th>
-                                <th width="4.14%" class="text-center">0</th>
-                                <th width="4.14%" class="text-center">1</th>
-                                <th width="4.14%" class="text-center">2</th>
-                                <th width="4.14%" class="text-center">3</th>
-                                <th width="4.14%" class="text-center">4</th>
-                                <th width="4.14%" class="text-center">5</th>
-                                <th width="4.14%" class="text-center">6</th>
-                                <th width="4.14%" class="text-center">7</th>
-                                <th width="4.14%" class="text-center">8 </th>
-                                <th width="4.14%" class="text-center">9+</th>
-                                <?php if (stristr($evaluacion['nomcurso'], '4º de E.S.O.') == TRUE OR (stristr($evaluacion['nomcurso'], '2') == TRUE AND stristr($evaluacion['nomcurso'], 'E.S.O.') == FALSE)) { ?>
-							<th width="7.15%" class="text-center">Tit.</th>
-							<?php } else { ?>
-							<th width="7.15%" class="text-center">Promo. / Tit.</th>
-							<?php } ?>
-						      </tr>
-					       </thead>
-					       <tbody>
-				            <?php 
-                    endif; ?>
-					           <tr>
-                                    <th><?php echo $evaluacion['nomunidad']; ?></th>
-                                    <td><?php echo $evaluacion['total_alumnos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['repiten_alumnos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['cero_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['uno_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['dos_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['tres_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['cuatro_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['cinco_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['seis_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['siete_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['ocho_suspensos']; ?></td>
-                                    <td class="text-center"><?php echo $evaluacion['nueve_o_mas_suspensos']; ?></td>
-                                    <td><span class="<?php echo $evaluacion['promocionan'] >= 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round($evaluacion['promocionan']); ?> %</span> / <?php echo $evaluacion['titulan']; ?></td>
-					       </tr>
-				
-                    <?php 
-                    $total_alumnos += $evaluacion['total_alumnos'];
-                    $alumnos_repiten += $evaluacion['repiten_alumnos'];
-                    $cero_suspensos += $evaluacion['cero_suspensos'];
-                    $uno_suspensos += $evaluacion['uno_suspensos'];
-                    $dos_suspensos += $evaluacion['dos_suspensos'];
-                    $tres_suspensos += $evaluacion['tres_suspensos'];
-                    $cuatro_suspensos += $evaluacion['cuatro_suspensos'];
-                    $cinco_suspensos += $evaluacion['cinco_suspensos'];
-                    $seis_suspensos += $evaluacion['seis_suspensos'];
-                    $siete_suspensos += $evaluacion['siete_suspensos'];
-                    $ocho_suspensos += $evaluacion['ocho_suspensos'];
-                    $nueve_o_mas_suspensos += $evaluacion['nueve_o_mas_suspensos'];
-                    $promocionan += $evaluacion['promocionan'];
-                    $titulan += $evaluacion['titulan'];
+		<?php 
+		$flag = 0;
+		$num_unidades = 1;
+		$nomcurso = "";
+		$aux_nomcurso = "";
 
-                    $num_unidades++; 
-                    $nomcurso = $evaluacion['nomcurso']; 
-                                                
-				endforeach; 
-                ?>
-				</tbody>
-					       <tfoot>
-						      <tr>
-							     <th>Totales</th>
-							     <th><?php echo $total_alumnos; ?></th>
-							     <th class="text-center"><?php echo $alumnos_repiten; ?></th>
-							     <th class="text-center"><?php echo $cero_suspensos; ?></th>
-							     <th class="text-center"><?php echo $uno_suspensos; ?></th>
-							     <th class="text-center"><?php echo $dos_suspensos; ?></th>
-							     <th class="text-center"><?php echo $tres_suspensos; ?></th>
-							     <th class="text-center"><?php echo $cuatro_suspensos; ?></th>
-							     <th class="text-center"><?php echo $cinco_suspensos; ?></th>
-							     <th class="text-center"><?php echo $seis_suspensos; ?></th>
-							     <th class="text-center"><?php echo $siete_suspensos; ?></th>
-							     <th class="text-center"><?php echo $ocho_suspensos; ?></th>
-							     <th class="text-center"><?php echo $nueve_o_mas_suspensos; ?></th>
-							     <th><span class="<?php echo round(100*$titulan/($total_alumnos)) >= 50 ? 'text-success' : 'text-danger'; ?>"><?php echo round(100*$titulan/($total_alumnos)); ?> %</span> / <?php echo $titulan; ?></th>
-						      </tr>
-					       </tfoot>
-				</table>
-				<?php 
-                endif; ?>
+		$chart_n = 0;
+		?>
+
+        <?php foreach ($resultados_evaluaciones as $evaluacion): ?>
+
+		<?php if ($nomcurso != $evaluacion['nomcurso']): ?>
+		<?php if ($flag == 1): ?>
+
+		</div>
+		<br><br>
+		<div class="row">
+
+			<div class="col-sm-10">
+
+				<h4 class="text-danger">Resultados globales de <?php echo $aux_nomcurso;?></h4>
+				
+				<?php $chart_n++; ?>
+                <canvas id="chart_<?php echo $chart_n; ?>" width="940" height="200"></canvas>
+		        <script>
+					var ctx = document.getElementById("chart_<?php echo $chart_n; ?>");
+					
+					var myChart = new Chart(ctx, {
+						type: 'bar',
+						data: {
+						  labels: [
+						  	"0 supensas", 
+						  	"1 supensa", 
+						  	"2 supensas", 
+						  	"3 supensas", 
+						  	"4 supensas", 
+						  	"5 supensas", 
+						  	"6 supensas", 
+						  	"7 supensas", 
+						  	"8 supensas", 
+						  	"9+ supensas",
+						  	"Prom. / Tit."
+						  ],
+						  datasets: [{
+						    data: [
+						    	<?php echo $cero_suspensos; ?>,
+						    	<?php echo $uno_suspensos; ?>, 
+						    	<?php echo $dos_suspensos; ?>, 
+						    	<?php echo $tres_suspensos; ?>, 
+						    	<?php echo $cuatro_suspensos; ?>, 
+						    	<?php echo $cinco_suspensos; ?>, 
+						    	<?php echo $seis_suspensos; ?>,
+						    	<?php echo $siete_suspensos; ?>,
+						    	<?php echo $ocho_suspensos; ?>,
+						    	<?php echo $nueve_o_mas_suspensos; ?>,
+								<?php echo $titulan; ?>
+					    	],
+						    backgroundColor: [
+						    	window.chartColors.lightgreen,
+						    	window.chartColors.green,
+						    	window.chartColors.teal,
+						    	window.chartColors.cyan,
+						    	window.chartColors.blue,
+						    	window.chartColors.indigo,
+						    	window.chartColors.deeppurple,
+						    	window.chartColors.purple,
+						    	window.chartColors.pink,
+						    	window.chartColors.red,
+						    	window.chartColors.orange
+					    	]
+						  }]
+						},
+						options: {
+						  events: false,
+						  legend: {
+						  	display: false
+						  },
+						  tooltips: {
+						  	enabled: false
+						  },
+					      scales: {
+					        xAxes: [{
+					          ticks: {
+					          	stepSize: 10
+					          }
+					        }]
+					      },
+					      animation: {
+							duration: 0,
+							onComplete: function () {
+							    // render the value of the chart above the bar
+							    var ctx = this.chart.ctx;
+							    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+							    ctx.fillStyle = this.chart.config.options.defaultFontColor;
+							    ctx.textAlign = 'center';
+							    ctx.textBaseline = 'bottom';
+							    this.data.datasets.forEach(function (dataset) {
+							        for (var i = 0; i < dataset.data.length; i++) {
+							            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+							            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+							        }
+							    });
+							}
+						  }
+					    }
+					});
+		        </script>
+
+		        </div>
+
+		    </div>
+		    <br><br>
+				<?php endif; // $flag == 1 ?>
+
+		        <?php 
+		        $flag = 1;
+		        $num_unidades = 1;
+		        $total_alumnos = 0;
+		        $alumnos_repiten = 0;
+		        $cero_suspensos = 0;
+		        $uno_suspensos = 0;
+		        $dos_suspensos = 0;
+		        $tres_suspensos = 0;
+		        $cuatro_suspensos = 0;
+		        $cinco_suspensos = 0;
+		        $seis_suspensos = 0;
+		        $siete_suspensos = 0;
+		        $ocho_suspensos = 0;
+		        $nueve_o_mas_suspensos = 0;
+		        $promocionan = 0;
+		        $titulan = 0;
+		        ?>
+
+				<div class="row">
+
+				<legend class="text-info"><?php echo $evaluacion['nomcurso']; ?></legend>				
+				
+				<?php endif; // $nomcurso != $evaluacion['nomcurso'] ?>
+				<?php $aux_nomcurso = $evaluacion['nomcurso']; ?>
+
+				<div class="col-sm-4">
+
+	                        	<?php $chart_n++; ?>
+
+	                        	<canvas id="chart_<?php echo $chart_n; ?>" width="200" height="200"></canvas>
+	                        	<script>
+								var ctx = document.getElementById("chart_<?php echo $chart_n; ?>");
+								
+								var myChart = new Chart(ctx, {
+									type: 'bar',
+									data: {
+									  labels: [
+									  	"Repetidores",
+									  	"0 supensas", 
+									  	"1 supensa", 
+									  	"2 supensas", 
+									  	"3 supensas", 
+									  	"4 supensas", 
+									  	"5 supensas", 
+									  	"6 supensas", 
+									  	"7 supensas", 
+									  	"8 supensas", 
+									  	"9+ supensas"
+									  ],
+									  datasets: [{
+									    data: [
+									    	<?php echo $evaluacion['repiten_alumnos']; ?>,
+									    	<?php echo $evaluacion['cero_suspensos']; ?>,
+									    	<?php echo $evaluacion['uno_suspensos']; ?>, 
+									    	<?php echo $evaluacion['dos_suspensos']; ?>, 
+									    	<?php echo $evaluacion['tres_suspensos']; ?>, 
+									    	<?php echo $evaluacion['cuatro_suspensos']; ?>, 
+									    	<?php echo $evaluacion['cinco_suspensos']; ?>, 
+									    	<?php echo $evaluacion['seis_suspensos']; ?>,
+									    	<?php echo $evaluacion['siete_suspensos']; ?>,
+									    	<?php echo $evaluacion['ocho_suspensos']; ?>,
+									    	<?php echo $evaluacion['nueve_o_mas_suspensos']; ?>
+								    	],
+									    backgroundColor: [
+									    	window.chartColors.yellow,
+									    	window.chartColors.lightgreen,
+									    	window.chartColors.green,
+									    	window.chartColors.teal,
+									    	window.chartColors.cyan,
+									    	window.chartColors.blue,
+									    	window.chartColors.indigo,
+									    	window.chartColors.deeppurple,
+									    	window.chartColors.purple,
+									    	window.chartColors.pink,
+									    	window.chartColors.red
+								    	]
+									  }]
+									},
+									options: {
+										responsive: true,
+										events: false,
+									    legend: {
+									  		display: false
+									    },
+									    tooltips: {
+									  		enabled: false
+									    },
+										title: {
+											display: true, 
+											text: '<?php echo $evaluacion['nomunidad']." (".$evaluacion['total_alumnos'].")"; ?>'
+										},
+										animation: {
+											duration: 0,
+											onComplete: function () {
+											    // render the value of the chart above the bar
+											    var ctx = this.chart.ctx;
+											    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+											    ctx.fillStyle = this.chart.config.options.defaultFontColor;
+											    ctx.textAlign = 'center';
+											    ctx.textBaseline = 'bottom';
+											    this.data.datasets.forEach(function (dataset) {
+											        for (var i = 0; i < dataset.data.length; i++) {
+											            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+											            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+											        }
+											    });
+											}
+										}
+									}
+								});
+						        </script>
+				
+	                    <?php 
+	                    $total_alumnos += $evaluacion['total_alumnos'];
+	                    $alumnos_repiten += $evaluacion['repiten_alumnos'];
+	                    $cero_suspensos += $evaluacion['cero_suspensos'];
+	                    $uno_suspensos += $evaluacion['uno_suspensos'];
+	                    $dos_suspensos += $evaluacion['dos_suspensos'];
+	                    $tres_suspensos += $evaluacion['tres_suspensos'];
+	                    $cuatro_suspensos += $evaluacion['cuatro_suspensos'];
+	                    $cinco_suspensos += $evaluacion['cinco_suspensos'];
+	                    $seis_suspensos += $evaluacion['seis_suspensos'];
+	                    $siete_suspensos += $evaluacion['siete_suspensos'];
+	                    $ocho_suspensos += $evaluacion['ocho_suspensos'];
+	                    $nueve_o_mas_suspensos += $evaluacion['nueve_o_mas_suspensos'];
+	                    $promocionan += $evaluacion['promocionan'];
+	                    $titulan += $evaluacion['titulan'];
+
+	                    $num_unidades++; 
+	                    $nomcurso = $evaluacion['nomcurso']; 
+	                    ?>          
+	            
+	            </div>          
+				
+				<?php endforeach; // $resultados_evaluaciones as $evaluacion ?>
+
+				<br><br>
+				<div class="row">
+
+					<div class="col-sm-10">
+
+						<h4 class="text-danger">Resultados globales de <?php echo $aux_nomcurso;?></h4>
+						
+						<?php $chart_n++; ?>
+		                <canvas id="chart_<?php echo $chart_n; ?>" width="940" height="200"></canvas>
+				        <script>
+							var ctx = document.getElementById("chart_<?php echo $chart_n; ?>");
+							
+							var myChart = new Chart(ctx, {
+								type: 'bar',
+								data: {
+								  labels: [
+								  	"0 supensas", 
+								  	"1 supensa", 
+								  	"2 supensas", 
+								  	"3 supensas", 
+								  	"4 supensas", 
+								  	"5 supensas", 
+								  	"6 supensas", 
+								  	"7 supensas", 
+								  	"8 supensas", 
+								  	"9+ supensas",
+								  	"Prom. / Tit."
+								  ],
+								  datasets: [{
+								    data: [
+								    	<?php echo $cero_suspensos; ?>,
+								    	<?php echo $uno_suspensos; ?>, 
+								    	<?php echo $dos_suspensos; ?>, 
+								    	<?php echo $tres_suspensos; ?>, 
+								    	<?php echo $cuatro_suspensos; ?>, 
+								    	<?php echo $cinco_suspensos; ?>, 
+								    	<?php echo $seis_suspensos; ?>,
+								    	<?php echo $siete_suspensos; ?>,
+								    	<?php echo $ocho_suspensos; ?>,
+								    	<?php echo $nueve_o_mas_suspensos; ?>,
+										<?php echo $titulan; ?>
+							    	],
+								    backgroundColor: [
+								    	window.chartColors.lightgreen,
+								    	window.chartColors.green,
+								    	window.chartColors.teal,
+								    	window.chartColors.cyan,
+								    	window.chartColors.blue,
+								    	window.chartColors.indigo,
+								    	window.chartColors.deeppurple,
+								    	window.chartColors.purple,
+								    	window.chartColors.pink,
+								    	window.chartColors.red,
+								    	window.chartColors.orange
+							    	]
+								  }]
+								},
+								options: {
+								  events: false,
+								  legend: {
+								  	display: false
+								  },
+								  tooltips: {
+								  	enabled: false
+								  },
+							      scales: {
+							        xAxes: [{
+							          ticks: {
+							          	stepSize: 10
+							          }
+							        }]
+							      },
+							      animation: {
+									duration: 0,
+									onComplete: function () {
+									    // render the value of the chart above the bar
+									    var ctx = this.chart.ctx;
+									    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+									    ctx.fillStyle = this.chart.config.options.defaultFontColor;
+									    ctx.textAlign = 'center';
+									    ctx.textBaseline = 'bottom';
+									    this.data.datasets.forEach(function (dataset) {
+									        for (var i = 0; i < dataset.data.length; i++) {
+									            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+									            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+									        }
+									    });
+									}
+								  }
+							    }
+							});
+				        </script>
+
+				        </div>
+
+				    </div>
+				
+			<?php endif; // $evaluacionSinNotas ?>
 			</div>
+		</div>
 
 <?php include("../../../pie.php"); ?>

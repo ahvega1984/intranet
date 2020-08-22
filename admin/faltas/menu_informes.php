@@ -21,8 +21,8 @@ if (acl_permiso($_SESSION['cargo'], array('2'))) {
 <div class="hidden-print">
 
 	<ul class="nav nav-tabs">
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'informe_profesores.php')==TRUE) ? ' class="active"' : ''; ?>><a href="informe_profesores.php">Profesores</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'informe_grupos')==TRUE) ? ' class="active"' : ''; ?>><a href="informe_grupos.php">Grupos</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'informe_profesores.php')==TRUE) ? ' class="active"' : ''; ?>><a href="informe_profesores.php">Profesores</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'informe_materias.php')==TRUE) ? ' class="active"' : ''; ?>><a href="informe_materias.php">Asignaturas</a></li>
 		<?php if ($hayCiclosFormativos && (acl_permiso($_SESSION['cargo'], array('1')) || (acl_permiso($_SESSION['cargo'], array('2')) && $esTutorCiclo))): ?>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'informe_ciclos.php')==TRUE) ? ' class="active"' : ''; ?>><a href="informe_ciclos.php">Faltas Ciclos Formativos</a></li>

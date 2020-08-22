@@ -7,6 +7,33 @@ include("../../menu.php");
 include("../../faltas/menu.php");
 
 ?>
+
+<script src="../../js/ChartJS/Chart.min.js"></script>
+
+<script type="text/javascript">
+window.chartColors = {
+    red: 'rgb(244, 67, 54)',
+    pink: 'rgb(255, 64, 129)',
+    purple: 'rgb(156, 39, 176)',
+    deeppurple: 'rgb(124, 77, 255)',
+    indigo: 'rgb(63, 81, 181)',
+    blue: 'rgb(68, 138, 255)',
+    lightblue: 'rgb(3, 169, 244)',
+    cyan: 'rgb(0, 188, 212)',
+    teal: 'rgb(0, 150, 136)',
+    green: 'rgb(76, 175, 80)',
+    lightgreen: 'rgb(139, 195, 74)',
+    lime: 'rgb(205, 220, 57)',
+    yellow: 'rgb(255, 235, 59)',
+    amber: 'rgb(255, 193, 7)',
+    orange: 'rgb(255, 152, 0)',
+    deeporange: 'rgb(255, 87, 34)',
+    brown: 'rgb(121, 85, 72)',
+    grey: 'rgb(158, 158, 158)',
+    bluegrey: 'rgb(96, 125, 139)'
+};
+</script>
+
 <div class="container">
 
 <div class="page-header">
@@ -14,22 +41,15 @@ include("../../faltas/menu.php");
 </div>
 
 <div id="status-loading" class="text-center">
-    <br><br><span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+    <br><br><span class="lead"><span class="far fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small></span><br><br><span class="fas fa-spinner fa-spin fa-5x"></span>
 </div>
 
 
 <div id="wrap" class="row" style="display: none;">
 
 	<?php include("menu_informes.php"); ?>
-
-  <br>
-  
-  <div class="alert alert-info">
-  	En <strong>negrita</strong> el número total de faltas; en <strong>rojo</strong> las faltas no justificadas; en <strong>verde</strong> las faltas justificadas.
-  </div>
   
   <br>
-
 
   <div class="col-md-10 col-md-offset-1">
 <?php 
@@ -42,18 +62,16 @@ $idcurso=$curs[1];
 
 ?> 
   <h4 class='text-info' align='center'><?php echo $curso;?></h4>
-  <table class="table table-bordered table-vcentered">
-  <thead><tr>
-      <th></th>
-      <th>Trimestre 1º</th>
-      <th>Trimestre 2º</th>
-      <th>Trimestre 3º</th> 
-  </tr></thead>
-  <tbody>
+  
 <?php
+$grupo="";
+$total_navidad="";
+$total_santa="";
+$total_verano="";
 
 $unidades = mysqli_query($db_con, "select nomunidad from unidades where idcurso = '$idcurso' order by idcurso");
 while ($grp = mysqli_fetch_array($unidades)) {
+
 
   $unidad = $grp[0];
   
@@ -75,18 +93,92 @@ while ($grp = mysqli_fetch_array($unidades)) {
   $num_veranoJ = mysqli_num_rows($veranoJ);
   $total_verano = $num_veranoF+$num_veranoJ;
 ?>
-<tr>
-  <td><h5><?php echo $unidad;?></h5></td>
-  <td><?php echo "<b>".$total_navidad."</b> (<span class='text-danger'>".$num_navidadF."</span><b> | </b><span class='text-success'>".$num_navidadJ."</span>)";?></td>
-  <td><?php echo "<b>".$total_santa."</b>  (<span class='text-danger'>".$num_santaF."</span><b> | </b><span class='text-success'>".$num_santaJ."</span>)";?></td>
-  <td><?php echo "<b>".$total_verano."</b>  (<span class='text-danger'>".$num_veranoF."</span><b> | </b><span class='text-success'>".$num_veranoJ."</span>)";?></td>
-</tr>  
+
+<?php $grupo.='"'.$unidad.'",'; ?>
+<?php $f_navidad.="$num_navidadF,"; ?>
+<?php $j_navidad.="$num_navidadJ,"; ?>
+<?php $f_santa.="$num_santaF,"; ?>
+<?php $j_santa.="$num_santaJ,"; ?>
+<?php $f_verano.="$num_veranoF,"; ?>
+<?php $j_verano.="$num_veranoJ,"; ?>
+
+<?php $chart_n++; ?>
+
 <?php
 }
 ?>
+                                                
+<canvas id="chart_<?php echo $chart_n; ?>_<?php echo $unidad; ?>" width="200" height="80"></canvas>
 
-</tbody>
-<table>
+<script>
+    var ctx = document.getElementById('chart_<?php echo $chart_n; ?>_<?php echo $unidad; ?>').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+    labels: [<?php echo $grupo; ?>],
+    datasets: [{
+      label: '1Tr. No justificadas',
+      backgroundColor: window.chartColors.red,
+      stack: 'Stack 0',
+      data: [
+        <?php echo $f_navidad; ?>
+      ]
+    }, {
+      label: '1Tr. Justificadas',
+      backgroundColor: window.chartColors.green,
+      stack: 'Stack 0',
+      data: [
+        <?php echo $j_navidad; ?>
+      ]
+    }, {
+      label: '2Tr. No justificadas',
+      backgroundColor: window.chartColors.blue,
+      stack: 'Stack 1',
+      data: [
+        <?php echo $f_santa; ?>
+      ]
+    }, {
+      label: '2Tr. Justificadas',
+      backgroundColor: window.chartColors.yellow,
+      stack: 'Stack 1',
+      data: [
+        <?php echo $j_santa; ?>
+      ]
+    }, {
+      label: '3Tr. No justificadas',
+      backgroundColor: window.chartColors.brown,
+      stack: 'Stack 2',
+      data: [
+        <?php echo $f_verano; ?>
+      ]
+    }, {
+      label: '3Tr. Justificadas',
+      backgroundColor: window.chartColors.cyan,
+      stack: 'Stack 2',
+      data: [
+        <?php echo $j_verano; ?>
+      ]
+    }]
+  },
+      options: {
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        responsive: true,
+        scales: {
+          xAxes: [{
+            stacked: true,
+          }],
+          yAxes: [{
+            stacked: true
+          }]
+        }
+      }
+    });
+
+</script>
+
 <br>
 <?php
 }
