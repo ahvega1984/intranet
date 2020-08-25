@@ -32,12 +32,12 @@ switch ($config['centro_provincia']) {
 //
 
 
-$menu = array(
-	array(
-		'menu_id' => 'direccion',
-		'nombre'  => 'Dirección del centro',
-		'cargos'  => array('1'),
-		'items'   => array(
+$menu = array(	
+			array(
+			'menu_id' => 'direccion',
+			'nombre'  => 'Dirección del centro',
+			'cargos'  => array('1'),
+			'items'   => array(
 			array(
 				'href'   => 'xml/index.php',
 				'titulo' => 'Administración de la Intranet',
@@ -77,7 +77,6 @@ $menu = array(
 			)
 		)
 	),
-
 	array(
 		'menu_id' => 'extraescolares',
 		'nombre'  => 'Extraescolares',
@@ -93,7 +92,6 @@ $menu = array(
 			)
 		)
 	),
-
 	array(
 		'menu_id' => 'orientacion',
 		'nombre'  => 'Orientación',
@@ -124,7 +122,6 @@ $menu = array(
 			)
 		)
 	),
-
 	array(
 		'menu_id' => 'tutoria',
 		'nombre'  => 'Tutoría de '.$_SESSION['mod_tutoria']['unidad'],
@@ -149,7 +146,6 @@ $menu = array(
 			)
 		)
 	),
-
 	array(
 		'menu_id' => 'biblioteca',
 		'nombre'  => 'Biblioteca',
@@ -179,230 +175,108 @@ $menu = array(
 			)
 		)
 	),
+);
 
-
+$menu_centro = array(
 	array(
-		'menu_id' => 'consultas',
-		'nombre'  => 'Consultas',
+		'menu_id' => 'centro',
+		'nombre'  => 'Centro',
 		'items'   => array(
-			array(
-				'href'   => 'admin/datos/cdatos.php',
-				'titulo' => 'Alumnos y grupos',
-			),
-			array(
-				'href'   => 'admin/cursos/chorarios.php',
-				'titulo' => 'Horarios de profesores/grupos',
-				'modulo' => $config['mod_horarios'],
-			),
+			
 			array(
 				'href'   => '#',
-				'titulo' => 'Fotografías',
+				'titulo' => 'Calendarios',
 				'items' => array(
 					array(
-						'href'   => 'admin/fotos/index.php',
-						'titulo' => 'Fotos de los alumnos'
+						'href'   => 'calendario/index.php',
+						'titulo' => 'Calendario de actividades',
 					),
 					array(
-						'href'   => 'admin/fotos/profes.php',
-						'titulo' => 'Fotos de los profesores'
-					)
+						'href'   => 'calendario/index_unidades.php',
+						'titulo' => 'Calendario de los grupos',
+						'ncargos' => array('6'),
+					),
+					array(
+						'href'   => 'admin/actividades/indexextra.php',
+						'titulo' => 'Actividades extraescolares'
+					),
+					array(
+						'href'   => 'admin/cursos/calendario_escolar.php',
+						'titulo' => "Calendario escolar ". $config['curso_actual'],
+					),
 				)
-			),
-			array(
-				'href'   => '#',
-				'titulo' => 'Datos y estadísticas',
-				'ncargos' => array('6', '7'),
-				'items' => array(
-					array(
-						'href'   => 'admin/informes/evaluaciones/index.php',
-						'titulo' => 'Informe sobre las evaluaciones'
-					),
-					array(
-						'href'   => 'admin/fechorias/informe_convivencia.php',
-						'titulo' => 'Informe sobre convivencia'
-					),
-					array(
-						'href'   => 'admin/faltas/informe_grupos.php',
-						'titulo' => 'Informe sobre faltas de asistencia',
-						'modulo' => $config['mod_asistencia'],
-					),
-					array(
-						'href'   => 'admin/guardias/informe_guardias.php',
-						'titulo' => 'Informe sobre guardias',
-						'modulo' => $config['mod_horarios'],
-					),
-					array(
-						'href'   => 'admin/ausencias/ausencias_profes.php',
-						'titulo' => 'Informe sobre ausencias de profesores',
-					)
-				)
-			),
-			array(
-				'href'   => 'admin/cursos/calendario_escolar.php',
-				'titulo' => 'Calendario escolar',
 			),
 			array(
 				'href'   => 'admin/biblioteca/index.php',
-				'titulo' => 'Fondos de la biblioteca',
-				'modulo'  => $config['mod_biblioteca'],
-				'ncargos' => array('6', '7'),
+				'titulo' => 'Biblioteca',
+				'ncargos' => array('c'),
+			),			
+			array(
+					'href'   => 'https://iesmonterroso.org/plan-de-centro/',
+					'titulo' => 'Plan de centro',
+					'target' => '_blank',
 			),
 			array(
-				'href'   => 'xml/jefe/index_mayores.php',
-				'titulo' => 'Alumnos mayores de 18 años',
-				'cargos' => array('6'),
+					'href'   => 'varios/Planos_Centro.pdf',
+					'titulo' => 'Planos y dependencias',
+					'target' => '_blank',
 			),
-			array(
-				'href'   => 'admin/matriculas/index.php',
-				'titulo' => 'Matriculación de alumnos',
-				'modulo'  => $config['mod_matriculacion'],
-				'cargos'	 => array(7),
-			),
-			array(
-					'href'   => 'admin/noticias/permanentes.php',
-					'titulo' => 'Cómo se hace...',
-				)
 		)
 	)
 );
 
-$menu_trabajo =  array(
-	array(
-		'menu_id' => 'trabajo',
-		'nombre'  => 'Trabajo',
+$menu_alumnos = array(
+array(
+		'menu_id' => 'alumnos',
+		'nombre'  => 'Alumnos',
 		'items'   => array(
 			array(
-				'href'   => 'xml/index.php',
-				'titulo' => 'Administración de la Intranet',
-				'cargos' => array('0'),
-				'ncargos' => array('1'),
+				'href'   => 'admin/datos/cdatos.php',
+				'titulo' => 'Alumnos y unidades',
 			),
 			array(
-				'href'   => 'admin/actividades/indexextra.php',
-				'titulo' => 'Actividades extraescolares',
-				'cargos' => array('6', '7'),
+				'href'   => 'admin/cursos/chorarios.php',
+				'titulo' => 'Horarios',
+				'modulo' => $config['mod_horarios'],
 			),
 			array(
-				'href'   => '#',
+				'href'   => 'admin/fechorias/infechoria.php',
 				'titulo' => 'Problemas de convivencia',
 				'ncargos' => array('6', '7'),
-				'items' => array(
-					array(
-						'href'   => 'admin/fechorias/infechoria.php',
-						'titulo' => 'Registrar problema'
-					),
-					array(
-						'href'   => 'admin/fechorias/cfechorias.php',
-						'titulo' => 'Consultar problemas'
-					),
-					array(
-						'href'   => 'admin/fechorias/lfechorias.php',
-						'titulo' => 'Últimos problemas'
-					),
-					array(
-						'href'   => 'admin/fechorias/expulsados.php',
-						'titulo' => 'Alumnos expulsados'
-					),
-					array(
-						'href'   => 'admin/fechorias/convivencia_jefes.php',
-						'titulo' => 'Aula de convivencia',
-						'modulo' => $config['mod_convivencia'],
-						'cargos' => array('1'),
-					),
-					array(
-						'href'   => 'admin/fechorias/convivencia.php',
-						'titulo' => 'Aula de convivencia',
-						'modulo' => $config['mod_convivencia'],
-						'cargos' => array('b'),
-						'ncargos' => array('1'),
-					)
-				)
 			),
 			array(
-				'href'   => '#',
+				'href'   => 'faltas/index.php',
 				'titulo' => 'Faltas de asistencia',
 				'modulo' => $config['mod_asistencia'],
 				'ncargos' => array('6', '7'),
-				'items' => array(
-					array(
-						'href'   => 'faltas/index.php',
-						'titulo' => 'Poner faltas',
-					),
-					array(
-						'href'   => 'faltas/justificar/index.php',
-						'titulo' => 'Justificar faltas',
-						'cargos' => array('1','2'),
-					),
-					array(
-						'href'   => 'admin/faltas/index.php',
-						'titulo' => 'Consultas'
-					),
-					array(
-						'href'   => 'faltas/absentismo/index.php',
-						'titulo' => 'Alumnos absentistas',
-						'cargos' => array('1'),
-					),
-					array(
-						'href'   => 'admin/tutoria/consulta_absentismo.php',
-						'titulo' => 'Alumnos absentistas',
-						'cargos' => array('2'),
-					),
-					array(
-						'href'   => 'faltas/seneca/',
-						'titulo' => 'Subir faltas a Séneca',
-						'cargos' => array('1'),
-					),
-					array(
-						'href'   => 'faltas/seneca/importarSeneca.php',
-						'titulo' => 'Descargar faltas de Séneca',
-						'cargos' => array('1'),
-					),
-					array(
-						'href'   => 'admin/cursos/horariototal_faltas.php',
-						'titulo' => 'Partes de faltas (por días)',
-						'cargos' => array('1'),
-						'target' => '_blank',
-					),
-					array(
-						'href'   => 'admin/faltas/horario_semanal.php',
-						'titulo' => 'Partes de faltas (semanal)',
-						'cargos' => array('1'),
-						'target' => '_blank',
-					),
-					array(
-						'href'   => 'admin/faltas/horario_semanal_div.php',
-						'titulo' => 'Partes de faltas (PMAR)',
-						'cargos' => array('1'),
-						'target' => '_blank',
-					),
-					array(
-						'href'   => 'admin/cursos/horariofaltas.php?horario_profesor=1',
-						'titulo' => 'Horario de Faltas del Profesor',
-						'ncargos' => array('1'),
-						'target' => '_blank',
-					),
-					array(
-						'href'   => 'admin/cursos/ccursos.php',
-						'titulo' => 'Partes de Faltas de Grupo',
-						'cargos' => array('2'),
-					)
-				)
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Calendario',
+				'titulo' => 'Evaluaciones',
+				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
-						'href'   => 'calendario/index.php',
-						'titulo' => 'Ver calendario',
+						'href'   => 'admin/informes/notas_grupo.php',
+						'titulo' => 'Calificaciones'
 					),
 					array(
-						'href'   => 'calendario/index_unidades.php',
-						'titulo' => 'Calendario de unidades',
-						'ncargos' => array('6'),
-					)
-				)
-			),
+						'href'   => 'admin/evaluaciones/actas.php',
+						'titulo' => 'Actas de evaluación'
+					),
+					array(
+						'href'   => 'admin/evaluacion_pendientes/index.php',
+						'titulo' => 'Evaluación de pendientes',
+					),
+					array(
+						'href'   => 'admin/pendientes/index.php',
+						'titulo' => 'Alumnos con materias pendientes'
+					),
+				),
+				array(
+						'href'   => 'admin/informes/evaluaciones/index.php',
+						'titulo' => 'Estadísticas de las evaluaciones'
+					),
+			),	
 			array(
 				'href'   => '#',
 				'titulo' => 'Informes',
@@ -423,147 +297,56 @@ $menu_trabajo =  array(
 				)
 			),
 			array(
-				'href'   => '#',
-				'titulo' => 'Centro TIC',
-				'modulo' => $config['mod_centrotic'],
-				'items' => array(
-					array(
-						'href'   => 'TIC/index.php',
-						'titulo' => 'Incidencias TIC',
-					),
-					array(
-						'href'   => 'TIC/incidencia.php',
-						'titulo' => 'Nueva incidencia',
-					),
-					array(
-						'href'   => 'TIC/inventario.php',
-						'titulo' => 'Inventario TIC',
-					),
-					array(
-						'href'   => 'TIC/mesas_tic_seleccion.php',
-						'titulo' => 'Asignación de mesas TIC',
-						'ncargo' => array('6', '7', '8')
-					),
-					array(
-						'href'   => 'TIC/perfiles_alumnos.php',
-						'titulo' => 'Perfiles de alumnos',
-					),
-					array(
-						'href'   => 'TIC/perfiles_profesores.php',
-						'titulo' => 'Perfiles de profesores',
-					),
-					array(
-						'href'   => 'TIC/protocolo.php',
-						'titulo' => 'Protocolo de uso',
-					),
-					array(
-						'href'   => 'TIC/estadisticas.php',
-						'titulo' => 'Estadísticas de las TIC',
-					)
-				)
+				'href'   => 'admin/fotos/index.php',
+				'titulo' => 'Fotos de los alumnos'
 			),
+			
+			
 			array(
-				'href'   => '#',
-				'titulo' => 'Sistema de Reservas',
-				'items' => array(
-					array(
-						'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
-						'titulo' => 'Aulas y dependencias',
-						'modulo' => $config['mod_horario']
-					)
+				'href'   => 'admin/matriculas/index.php',
+				'titulo' => 'Matriculación',
+				'modulo'  => $config['mod_matriculacion'],
+				'cargos'	 => array(1,7),
 				)
-			),
-			array(
-				'href'   => '#',
-				'titulo' => 'Mensajería',
-				'items' => array(
-					array(
-						'href'   => 'admin/mensajes/index.php',
-						'titulo' => 'Mensajes',
-					),
-					array(
-						'href'   => 'admin/mensajes/correo.php',
-						'titulo' => 'Correo electrónico',
-					),
-					array(
-						'href'   => 'sms/alumnado.php',
-						'titulo' => 'Mensajes SMS',
-						'cargos'  => array('1', '2', '8'),
-						'modulo' => $config['mod_sms'],
-					)
-				)
-			),
-			array(
-				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Registrar ausencia',
-				'ncargos' => array('1', '6', '7'),
 			)
 		)
-	)
-);
-
-// Reservas
-$menu_lateral_reservas_tipos = mysqli_query($db_con, "SELECT `tipo` FROM `reservas_tipos`");
-while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reservas_tipos)) {
-
-	$menu_lateral_reservas_tipo = array(
-		'href'   => 'reservas/index.php?recurso='.urlencode($row_menu_lateral_reservas_tipos['tipo']),
-		'titulo' => $row_menu_lateral_reservas_tipos['tipo']
 	);
 
-	array_push($menu_trabajo[0]['items'][6]['items'], $menu_lateral_reservas_tipo);
-}
-
-$menu_departamento = array(
+$menu_profesores = array(
 	array(
-		'menu_id' => 'departamento',
-		'nombre'  => 'Departamento',
+		'menu_id' => 'profesores',
+		'nombre'  => 'Profesores',
 		'ncargos' => array('6', '7'),
 		'items'   => array(
 			array(
-				'href'   => 'admin/departamento/actas/index.php',
-				'titulo' => 'Actas del departamento'
-			),
-			array(
-				'href'   => 'admin/libros-texto/index.php',
-				'titulo' => 'Libros de texto',
-			),
-			array(
-				'href'   => 'admin/departamento/pedidos/index.php',
-				'titulo' => 'Pedidos de material',
-				'cargos' => array('1','4'),
-			),
-			array(
-				'href'   => 'admin/inventario/introducir.php',
-				'titulo' => 'Inventario de material',
-			),
+				'href'   => 'admin/departamento/actas/',
+				'titulo' => 'Departamento',
+			),	
 			array(
 				'href'   => 'admin/actividades/indexextra.php',
 				'titulo' => 'Actividades extraescolares',
 			),
 			array(
-				'href'   => 'admin/departamento/memoria.php',
-				'titulo' => 'Memoria de departamento',
+				'href'   => 'admin/guardias/consulta_profesores.php',
+				'titulo' => 'Guardias en el aula',
+				'modulo' => $config['mod_horarios'],
 			),
 			array(
-				'href'   => 'admin/evaluacion_pendientes/index.php',
-				'titulo' => 'Evaluación de pendientes',
+				'href'   => 'admin/ausencias/index.php',
+				'titulo' => 'Registro de ausencias',
 			),
 			array(
-				'href'   => 'admin/departamento/adaptaciones/index.php',
-				'titulo' => 'Adaptaciones curriculares (ACNS)',
-			),
+				'href'   => 'admin/fotos/profes.php',
+				'titulo' => 'Fotos de los profesores'
+			)
 		)
 	)
 );
+
 $menu_actas = array(
 	'menu_id' => 'actas',
 	'titulo'  => 'Actas',
 	'items'   => array(
-		array(
-			'href'   => 'admin/evaluaciones/actas.php',
-			'titulo' => 'Actas de evaluación'
-		),
 		array(
 			'href'   => 'admin/departamento/actas/index.php?organo=DFEIE',
 			'titulo' => 'Actas del DFEIE',
@@ -644,20 +427,97 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 	}
 }
 
-array_push($menu_trabajo[0]['items'], $menu_actas);
+if (count($menu_actas['items'])>0 AND acl_permiso($_SESSION['cargo'], array(1,f,9,a))) {
+	array_push($menu_profesores[0]['items'], $menu_actas);
+}
 
-if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+// Reservas
+$menu_lateral_reservas_tipos = mysqli_query($db_con, "SELECT `tipo` FROM `reservas_tipos`");
+while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reservas_tipos)) {
+
+	$menu_lateral_reservas_tipo = array(
+		'href'   => 'reservas/index.php?recurso='.urlencode($row_menu_lateral_reservas_tipos['tipo']),
+		'titulo' => $row_menu_lateral_reservas_tipos['tipo']
+	);
+
+	array_push($menu_trabajo[0]['items'][6]['items'], $menu_lateral_reservas_tipo);
+}
+
+	$menu_utilidades = array(
+		array(
+			'menu_id' => 'utilidades',
+			'nombre'  => 'Utilidades',
+			'items'   => array(
+		array(
+				'href'   => 'usuario.php',
+				'titulo' => 'Mis datos',
+			),
+		array(
+				'href'   => 'documentos/',
+				'titulo' => 'Documentos',
+			),
+		array(
+				'href'   => 'admin/mensajes/redactar.php',
+				'titulo' => 'Mensajes y comunicaciones',
+			),
+			array(
+				'href'   => 'calendario/index.php',
+				'titulo' => 'Agenda personal',
+			),
+			array(
+				'href'   => '#',
+				'titulo' => 'Datos y estadísticas',
+				'ncargos' => array('6', '7'),
+				'items' => array(
+					array(
+						'href'   => 'admin/informes/evaluaciones/index.php',
+						'titulo' => 'Informe sobre las evaluaciones'
+					),
+					array(
+						'href'   => 'admin/fechorias/informe_convivencia.php',
+						'titulo' => 'Informe sobre convivencia'
+					),
+					array(
+						'href'   => 'admin/faltas/informe_grupos.php',
+						'titulo' => 'Informe sobre faltas de asistencia',
+						'modulo' => $config['mod_asistencia'],
+					),
+					array(
+						'href'   => 'admin/guardias/informe_guardias.php',
+						'titulo' => 'Informe sobre guardias',
+						'modulo' => $config['mod_horarios'],
+					),
+					array(
+						'href'   => 'admin/ausencias/ausencias_profes.php',
+						'titulo' => 'Informe sobre ausencias de profesores',
+					)
+				)
+			),
+			array(
+				'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
+				'titulo' => 'Sistema de Reservas',
+			),
+			
+			array(
+				'href'   => 'xml/jefe/index_mayores.php',
+				'titulo' => 'Alumnos mayores de 18 años',
+				'cargos' => array('6'),
+			),
+			array(
+					'href'   => 'admin/noticias/permanentes.php',
+					'titulo' => 'Cómo se hace...',
+				)
+		)
+	)
+);
+
+	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
 	$paginas_interes = array(
 		array(
 			'menu_id' => 'paginas_interes',
 			'nombre'  => 'Páginas de interés',
 			'items'   => array(
-				array(
-					'href'   => 'varios/Planos_Centro.pdf',
-					'titulo' => 'Planos del Centro',
-					'target' => '_blank',
-				),
 				array(
 					'href'   => '//'.$config['dominio'],
 					'titulo' => 'Página del '.$config['centro_denominacion'],
@@ -666,11 +526,6 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 				array(
 					'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/29002885/moodle2/',
 					'titulo' => 'Plataforma Moodle',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'https://iesmonterroso.org/plan-de-centro/',
-					'titulo' => 'Plan de centro',
 					'target' => '_blank',
 				),
 				array(
@@ -751,7 +606,8 @@ else {
 
 }
 
-$menu = array_merge($menu, $menu_trabajo, $menu_departamento, $paginas_interes);
+
+$menu = array_merge($menu, $menu_centro, $menu_alumnos, $menu_profesores, $menu_utilidades, $paginas_interes);
 ?>
 <!-- MENU-LATERAL -->
 

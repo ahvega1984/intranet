@@ -28,6 +28,7 @@ if (isset($_GET['action'])) {
 }
 
 include("../../../menu.php");
+include("../menu.php");
 include("menu.php");
 ?>
 

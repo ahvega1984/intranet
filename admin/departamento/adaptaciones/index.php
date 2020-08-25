@@ -112,6 +112,7 @@ if (isset($_POST['alumno_claveal'])) {
 $uri = 'index.php';
 
 include ("../../../menu.php");
+include("../menu.php");
 include ("menu.php");
 
 

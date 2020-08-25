@@ -150,32 +150,33 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		<li <?php echo $activo5;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/justificar/index.php">Justificar</a></li>
 		<?php endif; ?>
 		<li <?php echo $activo6;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/index.php">Consultar</a></li>
-		<?php if (stristr($_SESSION['cargo'],'2') == TRUE): ?>
+		<?php if (stristr($_SESSION['cargo'],'2') == TRUE OR stristr($_SESSION['cargo'],'1') == TRUE): ?>
 		<li <?php echo $activo7;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/tutoria/consulta_absentismo.php">Alumnos Absentistas</a></li>
 		<?php endif; ?>
-		<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
-		<li <?php echo $activo7;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/absentismo/index.php">Alumnos Absentistas</a></li>
-		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Administración <span class="caret"></span></a>
+		
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Más... <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
+			<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/index.php"> Subir Faltas a S&eacute;neca</a></li>
 			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar Faltas de Séneca</a></li>
+			<?php endif; ?>
 			<li class="divider"></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por días)</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php">Horario de Faltas para Profesores</a></li>
 			<li class="divider"></li>
-			<?php if ($config['mod_sms']): ?>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre asistencia</a></li>
+			<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+			<li class="divider"></li>
+			<?php if ($config['mod_sms'] AND stristr($_SESSION['cargo'],'1') == TRUE): ?>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
 			<?php endif; ?>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/cpadres.php">Informe de Faltas para Padres</a></li>
-			<li class="divider"></li>
-			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre el Registro de Faltas</a></li>
+			<?php endif; ?>			
 		</ul>
 		</li>
-		<?php else: ?>
-		<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php?horario_profesor=1" target="_blank">Horario de Faltas para Profesores</a></li>
-		<?php endif; ?>
+		
 	</ul>
 
 </div>

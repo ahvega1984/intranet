@@ -24,11 +24,12 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 	else {
 		$departamento = mysqli_real_escape_string($db_con, $_GET['organo']);
 		$organo_centro = $_GET['organo'];
+		$titulo = $organo_centro;
 	}
 
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL CLAUSTRO
 	if ($departamento == 'Claustro de Profesores') {
-		acl_acceso($_SESSION['cargo'], array('1','1'));
+		acl_acceso($_SESSION['cargo'], array('1'));
 
 		$result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Educador' AND departamento <> 'Servicio Técnico y/o Mantenimiento' AND cargo LIKE '%1%' ORDER BY nombre ASC");
 		$existe_secretario_claustro = mysqli_num_rows($result);
@@ -292,20 +293,26 @@ else {
 $PLUGIN_DATATABLES = 1;
 
 include ("../../../menu.php");
-include ("menu.php");
+include('../menu.php');
+include('menu.php');
+
 ?>
 
 <div class="container">
 
-	<form method="post" action="">
+	
 
 		<div class="page-header">
-			<h2>Actas de departamentos <small>Registrar acta</small></h2>
+			<h2><?php echo $titulo; ?> <small>Registro de actas</small></h2>
 
 			<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
+				<br>
 			<div class="row">
+				<form method="post" action="" class="form-horizontal">
 				<div class="col-md-6 col-lg-5">
-					<select class="form-control input-lg text-info" id="departamento" name="departamento" onchange="submit()">
+					<label for="departamento" class="control-label">Selecciona órgano o departamento del centro.</label>
+					<br><br>
+					<select class="form-control input text-info" id="departamento" name="departamento" onchange="submit()">
 						<option value=""></option>
 						<optgroup label="Órganos del centro">
 							<?php foreach($organos as $organo): ?>
@@ -320,10 +327,9 @@ include ("menu.php");
 						</optgroup>
 					</select>
 				</div><!-- /.col-sm-6 -->
+			</form>
 			</div><!-- /.row -->
 			<?php elseif (isset($organo) && in_array($organo, $organos)): ?>
-			<h3><?php echo $departamento; ?></h3>
-			<?php else: ?>
 			<h3><?php echo $departamento; ?></h3>
 			<?php endif; ?>
 
@@ -349,13 +355,6 @@ include ("menu.php");
 
 		<div class="row">
 
-			<?php if (isset($departmento) || $departamento == '' || $departamento == 'Admin'): ?>
-			<div class="col-sm-12">
-				<br><br><br>
-				<p class="lead text-muted text-center">Seleccione un departamento</p>
-				<br><br><br><br>
-			</div>
-			<?php else: ?>
 			<div class="col-md-9">
 
 				<div class="well">
@@ -398,7 +397,6 @@ include ("menu.php");
 					?>
 
 					<fieldset>
-						<legend>Registrar acta</legend>
 
 						<div class="row">
 
@@ -521,7 +519,6 @@ $html_textarea = "<p>".$titulo."</p>
 				<?php endif; ?>
 
 			</div>
-			<?php endif; ?>
 
 		</div><!-- /.row -->
 

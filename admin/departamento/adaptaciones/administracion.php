@@ -10,6 +10,7 @@ acl_acceso($_SESSION['cargo'], array(1,2,4));
 $uri = 'index.php';
 
 include ("../../../menu.php");
+include("../menu.php");
 include ("menu.php");
 ?>
 

@@ -1,3 +1,4 @@
+
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
 if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$expresion = $_POST['q'];}else{$expresion="";}
@@ -5,11 +6,11 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
 	<div class="container hidden-print">
 		
 		<?php if (acl_permiso($carg, array('1'))): ?>
-		<a href="preferencias.php" class="btn btn-sm btn-default pull-right"><span class="fas fa-cog fa-lg"></span></a>
+		<a href="preferencias.php" class="btn btn-sm btn-default pull-right" style="margin-right: 5px; margin-top:4px;"><span class="fas fa-cog fa-lg"></span></a>
 		<?php endif; ?>
 		
 		<!-- Button trigger modal -->
-		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-right: 5px;">
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda" style="margin-right: 5px; margin-top:4px;">
 			<span class="fas fa-question fa-lg"></span>
 		</a>
 	
@@ -54,7 +55,7 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
 		</div>
 		
 	 	<form method="get" action="buscar.php">
-			<div class="navbar-search pull-right col-sm-3">
+			<div class="navbar-search pull-right col-sm-3" style="margin-top:4px;">
 				<div class="input-group">
 					<input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
  		     		<span class="input-group-btn">
@@ -63,10 +64,6 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
  		  		 </div><!-- /input-group -->
  		  	</div><!-- /.col-lg-3--> 		 
 		</form>  
-  	 	<ul class="nav nav-tabs">
- 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Registrar o consultar actas</a></li>	
- 			<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
-          	<li<?php echo (strstr($_SERVER['REQUEST_URI'],'administracion.php')==TRUE) ? ' class="active"' : ''; ?>><a href="administracion.php">Administrar actas</a></li>
-          	<?php endif; ?>
-		</ul>
+
 	</div>
+

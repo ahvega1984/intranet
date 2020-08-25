@@ -324,12 +324,11 @@ if (acl_permiso($_SESSION['cargo'], array(1, 4))) {
 }
 
 include('../../menu.php');
-include('menu.php');
-?>
+include('../departamento/menu.php');?>
     <div class="container">
 
         <div class="page-header">
-            <h2>Libros de texto</h2>
+            <h2>Departamento de <?php echo $_SESSION['dpt']; ?> <small>Libros de texto</small></h2>
         </div>
 
         <div class="row">

@@ -130,7 +130,7 @@ while ($grp = mysqli_fetch_array($unidades)) {
 }
 ?>
 <?php $chart_n++; ?>
-<canvas id="chart_<?php echo $chart_n; ?>_<?php echo $idcurso; ?>" width="200" height="460"></canvas>
+<canvas id="chart_<?php echo $chart_n; ?>_<?php echo $idcurso; ?>" width="200" height="360"></canvas>
 <script>
     var ctx = document.getElementById('chart_<?php echo $chart_n; ?>_<?php echo $idcurso; ?>').getContext('2d');
     var myChart = new Chart(ctx, {

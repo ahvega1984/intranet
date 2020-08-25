@@ -222,7 +222,7 @@ else{
 		?>
 <h2 class="text-muted text-center"><span class="far fa-clock fa-5x"></span>
 <br>
-Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "ª";?>)</h2>
+Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "&ordf;";?>)</h2>
 		<?php
 	}
 }
@@ -310,6 +310,7 @@ foreach ($array_unidades as $hora2) {
 	$res.=") order by alma.apellidos ASC, alma.nombre ASC";
 	 // echo $res;
 	$result = mysqli_query($db_con, $res);
+	$num_result = mysqli_num_rows($result);
 	if ($result) {
 		$t_grupos = $curs;
 		?>
@@ -325,7 +326,7 @@ foreach ($array_unidades as $hora2) {
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
 			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
+			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "&ordf; hora";}
 			echo "</small>";
 		}
 		echo "";
@@ -595,7 +596,7 @@ echo '<input name="fecha_dia" type="hidden" value="';
 echo $fecha_dia;
 echo '" />';
 
-if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="fas fa-check"> </i> Registrar faltas de asistencia</button>';}
+if($num_result > 0){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="fas fa-check"> </i> Registrar faltas de asistencia</button>';}
 
 ?></form>
 </div>

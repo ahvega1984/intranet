@@ -9,6 +9,8 @@ $profesor = $_SESSION ['profi'];
 $n_preg=15;
 
 include '../../menu.php';
+include 'menu.php';
+
 // Creación de la tabla
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mem_dep` (
   `departamento` varchar(80) COLLATE utf8_general_ci NOT NULL,
@@ -163,8 +165,7 @@ if (!($memoria[1]=='')){$profe=$memoria[1];}
 
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-	  <h2>Jefatura de Departamento <small>Memoria final</small></h2>
-	  <h3>Departamento de <?php echo $_SESSION['dpt']; ?></h3>
+		<h2>Departamento de <?php echo $_SESSION['dpt']; ?> <small>Memoria final</small></h2>
 	</div>
 
 

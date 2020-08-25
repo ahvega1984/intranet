@@ -118,6 +118,7 @@ if (isset($_GET['id']) && intval($_GET['id'])) {
 }
 
 include("../../../menu.php");
+include("../menu.php");
 include("menu.php");
 ?>
 

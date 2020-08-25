@@ -138,12 +138,13 @@ foreach ($alumnos as $alumno) {
 }
 
 include('../../../menu.php');
-include('../menu.php');
+include('../../departamento/menu.php');
 ?>
     <div class="container">
 
         <div class="page-header">
-            <h2>Libros de texto <small>Programa de Gratuidad en Libros de Texto</small></h2>
+            <h2>Departamento de <?php echo $_SESSION['dpt']; ?> <small>Libros de texto</small></h2>
+            <h3>Programa de Gratuidad en Libros de Texto</h3>
         </div>
 
         <div class="row">

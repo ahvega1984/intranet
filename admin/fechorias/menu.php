@@ -21,31 +21,18 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	<?php endif; ?>
 
 	<ul class="nav nav-tabs">
-		<li <?php echo $activo1;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/cfechorias.php">
-		Consultar Problemas</a></li>
-		<li <?php echo $activo2;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/infechoria.php">
+		<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/infechoria.php">
 		Registrar Problema</a></li>
-		<li <?php echo $activo3;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/lfechorias.php">
+		<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/cfechorias.php">
+		Consultar Problemas</a></li>
+		<li <?php echo $activo3;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/lfechorias.php">
 		Últimos Problemas</a></li>
-		<li <?php echo $activo4;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/expulsados.php">
+		<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/expulsados.php">
 		Alumnos expulsados</a></li>
 
 		<?php if (isset($config['convivencia']['compromiso_convivencia']) && $config['convivencia']['compromiso_convivencia']): ?>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'compromisos.php') == TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/compromisos.php">Compromisos de convivencia</a></li>
 		<?php endif; ?>
-
-		<li
-			class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE) ? ' active' : ''; ?>">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Ranking <span
-			class="caret"></span> </a>
-		<ul class="dropdown-menu" role="menu">
-			<li><a href="lfechorias3.php">General</a></li>
-			<li><a href="lfechorias3b.php">Tras última Expulsión del Centro</a></li>
-		</ul>
 		</li>
 		<?php
 		$pr_conv = $_SESSION['profi'];
@@ -53,8 +40,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 		// echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
 		if (mysqli_num_rows($conv) > '0' and $config['mod_convivencia']==1) {
 			?>
-		<li <?php echo $activo5;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia.php">Aula
+		<li <?php echo $activo5;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia.php">Aula
 		de Convivencia</a></li>
 		<?php
 		}
@@ -62,6 +48,15 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 		<?php if(stristr($_SESSION['cargo'],'1') == TRUE and $config['mod_convivencia']==1){ ?>
 		<li <?php echo $activo5;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
 		<?php } ?>
+
+
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Más... <span class="caret"></span></a>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="informe_convivencia.php">Informes sobre Convivencia</a></li>
+			<li><a href="lfechorias3.php">Ranking general</a></li>
+			<li><a href="lfechorias3b.php">Ranking tras última Expulsión</a></li>			
+		</ul>
+		</li>
 
 
 
