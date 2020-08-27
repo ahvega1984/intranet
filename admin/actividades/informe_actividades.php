@@ -5,6 +5,7 @@ if (file_exists('config.php')) {
     include('config.php');
 }
     include("../../menu.php");
+    include("menu.php");
 
 $numCursosAnteriores = 5; //num de años a considerar en la consulta
 ?>
