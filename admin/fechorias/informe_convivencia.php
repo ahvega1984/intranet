@@ -59,6 +59,7 @@ window.chartColors = {
             </ul>
 
             <div class="tab-content" style="padding-bottom: 9px;">
+
                 <div class="tab-pane fade in active" id="tab1">
                     <br /><h3>Resumen General</h3><br />
 
@@ -694,8 +695,8 @@ window.chartColors = {
                             ?>
                         </div>
                     </div>
-
                 </div>
+
                 <div class="tab-pane fade in" id="tab3">
                     <br />
                     <h3>Información por Grupo</h3>

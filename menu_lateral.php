@@ -490,6 +490,10 @@ while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reser
 					array(
 						'href'   => 'admin/ausencias/ausencias_profes.php',
 						'titulo' => 'Informe sobre ausencias de profesores',
+					),
+					array(
+						'href'   => 'admin/actividades/informe_actividades.php',
+						'titulo' => 'Informe sobre actividades extraescolares',
 					)
 				)
 			),
