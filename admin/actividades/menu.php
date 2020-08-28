@@ -30,7 +30,9 @@ $activo2="";
 $activo3="";
 if (strstr($_SERVER['REQUEST_URI'],'indexextra.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'informe.php')==TRUE){ $activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'calendario/')==TRUE){ $activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'informe.php')==TRUE){ $activo4 = ' class="active" ';}
+
 
 ?>
     <div class="container hidden-print">
@@ -84,6 +86,7 @@ if (strstr($_SERVER['REQUEST_URI'],'informe.php')==TRUE){ $activo3 = ' class="ac
         <?php if (acl_permiso($_SESSION['cargo'], array('1','2','4','5')) || (isset($config['extraescolares']['registro_profesores']) && $config['extraescolares']['registro_profesores'])): ?>
         <li<?php echo $activo2;?>><a href="../../calendario/index.php?action=nuevoEvento&calendario=Extraescolares">Introducir nueva actividad</a></li>
         <?php endif; ?>
-        <li<?php echo $activo3;?>><a href="informe_actividades.php">Datos e informes sobre las actividades</a></li>
+        <li<?php echo $activo3;?>><a href="../../calendario/index.php">Calendario de actividades</a></li>
+        <li<?php echo $activo4;?>><a href="informe_actividades.php">Datos e informes sobre las actividades</a></li>
       </ul>
   </div>

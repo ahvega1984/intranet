@@ -232,7 +232,7 @@ array(
 		'items'   => array(
 			array(
 				'href'   => 'admin/datos/cdatos.php',
-				'titulo' => 'Alumnos y unidades',
+				'titulo' => 'Alumnos y grupos',
 			),
 			array(
 				'href'   => 'admin/cursos/chorarios.php',
