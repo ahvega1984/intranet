@@ -47,34 +47,34 @@ input[type=number] {
 // Variables
 
 if (isset($_GET['nom_asig'])) {
-	$nom_asig = $_GET['nom_asig'];
+	$nom_asig = limpiarInput($_GET['nom_asig'], 'alphanumericspecial');
 }
 elseif (isset($_POST['nom_asig'])) {
-	$nom_asig = $_POST['nom_asig'];
+	$nom_asig = limpiarInput($_POST['nom_asig'], 'alphanumericspecial');
 }
 
 if (isset($_GET['clave'])) {
-	$clave = $_GET['clave'];
+	$clave = limpiarInput($_GET['clave']);
 }
 elseif (isset($_POST['clave'])) {
-	$clave = $_POST['clave'];
+	$clave = limpiarInput($_POST['clave']);
 }
 
 if (isset($_GET['seleccionar'])) {
-	$seleccionar = $_GET['seleccionar'];
+	$seleccionar = limpiarInput($_GET['seleccionar']);
 }
 elseif (isset($_POST['seleccionar'])) {
-	$seleccionar = $_POST['seleccionar'];
+	$seleccionar = limpiarInput($_POST['seleccionar']);
 }
 else{
 	$seleccionar = "";
 }
 
 if (isset($_GET['foto'])) {
-	$foto = $_GET['foto'];
+	$foto = limpiarInput($_GET['foto'], 'alphanumericspecial');
 }
 elseif (isset($_POST['foto'])) {
-	$foto = $_POST['foto'];
+	$foto = limpiarInput($_POST['foto'], 'alphanumericspecial');
 }
 
 // Elegir Curso y Asignatura.

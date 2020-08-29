@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 if (isset($_POST['submit_tarea']) && isset($_POST['id_tarea'])) {
-	$menu_idtarea = intval($_POST['id_tarea']);
+	$menu_idtarea = limpiarInput($_POST['id_tarea'], 'numeric');
 	$menu_result_tarea = mysqli_query($db_con, "UPDATE tareas SET estado = 1 WHERE id = $menu_idtarea LIMIT 1");
 	unset($menu_idtarea);
 }

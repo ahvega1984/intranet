@@ -6,10 +6,12 @@ header('Content-Type: text/html; charset=UTF-8');
 if(isset($_POST["word"]))
 {
 
+	$search_query = limpiarInput($_POST["word"], 'alphanumericspecial');
+
 	if($_POST["word"]{0}=="*"){
-		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE CONCAT(apellidos,' ',nombre) LIKE '%".substr($_POST["word"],1)."%' and CONCAT(apellidos,' ',nombre) <>'".$_POST["word"]."' OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");}
+		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE CONCAT(apellidos,' ',nombre) LIKE '%".substr($search_query,1)."%' and CONCAT(apellidos,' ',nombre) <>'".$search_query."' OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");}
 	else{
-		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE (CONCAT(apellidos,' ',nombre) LIKE '%".$_POST["word"]."%' and CONCAT(apellidos,' ',nombre) like '%".$_POST["word"]."%') or (CONCAT(nombre,' ',apellidos) LIKE '%".$_POST["word"]."%' and CONCAT(nombre,' ',apellidos) like '%".$_POST["word"]."%') OR claveal like '".$_POST["word"]."%' ORDER BY alumno LIMIT 10");
+		$result=mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE (CONCAT(apellidos,' ',nombre) LIKE '%".$search_query."%' and CONCAT(apellidos,' ',nombre) like '%".$search_query."%') or (CONCAT(nombre,' ',apellidos) LIKE '%".$search_query."%' and CONCAT(nombre,' ',apellidos) like '%".$search_query."%') OR claveal like '".$search_query."%' ORDER BY alumno LIMIT 10");
 	}
 	echo '<ul class="list-group">';
 	while ($row = mysqli_fetch_array($result)){

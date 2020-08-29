@@ -54,25 +54,25 @@ function limpiarInput($input, $type = 'alphanumeric') {
 		
 		// ALLOW MAYUS
 		case 'mayus':
-			$output = preg_replace('([^A-ZÁÉÍÓÜÑºª])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÀÈÌÒÙÄËÏÖÜÑÇ])', '', $input);
 
 			break;
 
 		// ALLOW MINUS
 		case 'minus':
-			$output = preg_replace('([^a-záéíóúüñ])', '', $input);
+			$output = preg_replace('([^a-záéíóúàèìòùäëïöüñç])', '', $input);
 
 			break;
 
 		// ALLOW LETTERS (MAYUS AND MINUS)
 		case 'alpha':
-			$output = preg_replace('([^A-ZÁÉÍÓÑÚÜa-záéíóúüñ])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÀÈÌÒÙÄËÏÖÜÑÇa-záéíóúàèìòùäëïöüñç])', '', $input);
 
 			break;
 
 		// ALLOW ALPHANUMERIC
 		case 'alphanumeric':
-			$output = preg_replace('([^A-ZÁÉÍÓÚÜÑa-záéíóúüñ0-9])', '', $input);
+			$output = preg_replace('([^A-ZÁÉÍÓÀÈÌÒÙÄËÏÖÜÑÇa-záéíóúàèìòùäëïöüñçºª0-9 ])', '', $input);
 
 			break;
 

@@ -133,7 +133,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	}
 
 	if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) {
-		$_SESSION['profi'] = $_POST['view_as_user'];
+		$_SESSION['profi'] = limpiarINput($_POST['view_as_user'], 'alphanumericspecial');
 		$profe = $_SESSION['profi'];
 
 		// Variables de sesión del cargo del Profesor

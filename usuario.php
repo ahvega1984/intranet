@@ -216,6 +216,10 @@ if (mysqli_num_rows($result)) {
 	$tema['tema'] = $row['tema'];
 	$tema['fondo'] = $row['fondo']; 
 }
+else {
+	$tema['tema'] = "bootstrap.min.css";
+	$tema['fondo'] = "navbar-default"; 
+}
 
 // Obtenemos los accesos a la Intranet
 $accesos = array();
@@ -282,7 +286,7 @@ include("menu.php");
 						<?php $fotoProfesor = obtener_foto_profesor($_SESSION['ide']); ?>
 						<?php if ($fotoProfesor): ?>
 						<div class="img-circle" style="width: 105px; height: 105px; overflow: hidden; ">
-							<img src="./xml/fotos_profes/<?php echo $fotoProfesor; ?>" class="img-responsive" style="margin-top: -20px;" alt="<?php echo $_SESSION['profi']; ?>">
+							<img src="./xml/fotos_profes/<?php echo $fotoProfesor; ?>?aleatorio=<?php uniqid(); ?>" class="img-responsive" style="margin-top: -10px;" alt="<?php echo $_SESSION['profi']; ?>">
 						</div>
 						<?php else: ?>
 						<i class="far fa-user-circle fa-7x"></i>
