@@ -48,30 +48,30 @@ $menu = array(
 				'items' => array(
 					array(
 						'href'   => 'admin/jefatura/index.php',
-						'titulo' => 'Intervenciones sobre alumnos'
+						'titulo' => 'sobre alumnos'
 					),
 					array(
 						'href'   => 'admin/jefatura/profesores.php',
-						'titulo' => 'Intervenciones sobre profesores'
+						'titulo' => 'sobre profesores'
 					)
 				)
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Control de tutorías',
+				'titulo' => 'Tutorías',
 			),
 			array(
 				'href'   => 'admin/guardias/index_admin.php',
-				'titulo' => 'Gestión de guardias',
+				'titulo' => 'Guardias',
 				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Gestión de ausencias',
+				'titulo' => 'Ausencias',
 			),
 			array(
 				'href'   => 'admin/matriculas/index.php',
-				'titulo' => 'Matriculación de alumnos',
+				'titulo' => 'Matriculación',
 				'modulo'  => $config['mod_matriculacion'],
 				'meses'	 => array(5, 6, 7, 8, 9),
 			)
@@ -129,7 +129,7 @@ $menu = array(
 		'items'   => array(
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Resumen global',
+				'titulo' => 'Resumen',
 			),
 			array(
 				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
