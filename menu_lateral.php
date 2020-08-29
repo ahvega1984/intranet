@@ -207,18 +207,23 @@ $menu_centro = array(
 				)
 			),
 			array(
+				'href'   => 'admin/cursos/chorarios.php',
+				'titulo' => 'Horarios',
+				'modulo' => $config['mod_horarios'],
+			),
+			array(
 				'href'   => 'admin/biblioteca/index.php',
 				'titulo' => 'Biblioteca',
 				'ncargos' => array('c'),
-			),			
-			array(
-					'href'   => 'https://iesmonterroso.org/plan-de-centro/',
-					'titulo' => 'Plan de centro',
-					'target' => '_blank',
 			),
 			array(
 					'href'   => 'varios/Planos_Centro.pdf',
 					'titulo' => 'Planos y dependencias',
+					'target' => '_blank',
+			),			
+			array(
+					'href'   => 'https://iesmonterroso.org/plan-de-centro/',
+					'titulo' => 'Plan de centro',
 					'target' => '_blank',
 			),
 		)
@@ -233,11 +238,6 @@ array(
 			array(
 				'href'   => 'admin/datos/cdatos.php',
 				'titulo' => 'Alumnos y grupos',
-			),
-			array(
-				'href'   => 'admin/cursos/chorarios.php',
-				'titulo' => 'Horarios',
-				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => 'admin/fechorias/infechoria.php',
@@ -453,64 +453,68 @@ while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reser
 				'titulo' => 'Mis datos',
 			),
 		array(
-				'href'   => 'documentos/',
-				'titulo' => 'Documentos',
+				'href'   => 'calendario/index.php',
+				'titulo' => 'Agenda personal',
+			),
+		array(
+				'href'   => 'tareas/',
+				'titulo' => 'Tareas',
 			),
 		array(
 				'href'   => 'admin/mensajes/redactar.php',
 				'titulo' => 'Mensajes y comunicaciones',
 			),
-			array(
-				'href'   => 'calendario/index.php',
-				'titulo' => 'Agenda personal',
+		array(
+				'href'   => 'documentos/',
+				'titulo' => 'Documentos',
 			),
-			array(
-				'href'   => '#',
-				'titulo' => 'Datos y estadísticas',
-				'ncargos' => array('6', '7'),
-				'items' => array(
-					array(
-						'href'   => 'admin/informes/evaluaciones/index.php',
-						'titulo' => 'Informe sobre las evaluaciones'
-					),
-					array(
-						'href'   => 'admin/fechorias/informe_convivencia.php',
-						'titulo' => 'Informe sobre convivencia'
-					),
-					array(
-						'href'   => 'admin/faltas/informe_grupos.php',
-						'titulo' => 'Informe sobre faltas de asistencia',
-						'modulo' => $config['mod_asistencia'],
-					),
-					array(
-						'href'   => 'admin/guardias/informe_guardias.php',
-						'titulo' => 'Informe sobre guardias',
-						'modulo' => $config['mod_horarios'],
-					),
-					array(
-						'href'   => 'admin/ausencias/ausencias_profes.php',
-						'titulo' => 'Informe sobre ausencias de profesores',
-					),
-					array(
-						'href'   => 'admin/actividades/informe_actividades.php',
-						'titulo' => 'Informe sobre actividades extraescolares',
-					)
+		array(
+			'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
+			'titulo' => 'Sistema de Reservas',
+		),
+		array(
+			'href'   => '#',
+			'titulo' => 'Datos y estadísticas',
+			'ncargos' => array('6', '7'),
+			'items' => array(
+				array(
+					'href'   => 'admin/informes/evaluaciones/index.php',
+					'titulo' => 'Informe sobre las evaluaciones'
+				),
+				array(
+					'href'   => 'admin/fechorias/informe_convivencia.php',
+					'titulo' => 'Informe sobre convivencia'
+				),
+				array(
+					'href'   => 'admin/faltas/informe_grupos.php',
+					'titulo' => 'Informe sobre faltas de asistencia',
+					'modulo' => $config['mod_asistencia'],
+				),
+				array(
+					'href'   => 'admin/guardias/informe_guardias.php',
+					'titulo' => 'Informe sobre guardias',
+					'modulo' => $config['mod_horarios'],
+				),
+				array(
+					'href'   => 'admin/ausencias/ausencias_profes.php',
+					'titulo' => 'Informe sobre ausencias de profesores',
+				),
+				array(
+					'href'   => 'admin/actividades/informe_actividades.php',
+					'titulo' => 'Informe sobre actividades extraescolares',
 				)
-			),
-			array(
-				'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
-				'titulo' => 'Sistema de Reservas',
-			),
-			
-			array(
-				'href'   => 'xml/jefe/index_mayores.php',
-				'titulo' => 'Alumnos mayores de 18 años',
-				'cargos' => array('6'),
-			),
-			array(
-					'href'   => 'admin/noticias/permanentes.php',
-					'titulo' => 'Cómo se hace...',
-				)
+			)
+		),
+		
+		array(
+			'href'   => 'xml/jefe/index_mayores.php',
+			'titulo' => 'Alumnos mayores de 18 años',
+			'cargos' => array('6'),
+		),
+		array(
+				'href'   => 'admin/noticias/permanentes.php',
+				'titulo' => 'Cómo se hace...',
+			)
 		)
 	)
 );

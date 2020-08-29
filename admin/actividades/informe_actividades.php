@@ -232,7 +232,7 @@ window.chartColors = {
                             $n_activ = mysqli_num_rows($tot1);  
 
                             if ($n_activ > 0) {
-                            $profesor.='"'.$profesor_dep.'",';
+                            $profesor.='"'.utf8_encode($profesor_dep).'",';
                             $numero_p.="$n_activ,"; 
                                 }                          
                             } 
@@ -365,7 +365,7 @@ window.chartColors = {
                             <?php   
                                 while($rep = mysqli_fetch_array($result2)){
                             ?>
-                            <tr><td class="text-muted"><?php echo $rep[1]; ?></td><td><?php echo $rep[0]; ?></td></tr>
+                            <tr><td class="text-muted"><?php echo $rep[1]; ?></td><td><?php echo utf8_encode($rep[0]); ?></td></tr>
                             <?php
                                 $num++;
                                 $num_media++;
