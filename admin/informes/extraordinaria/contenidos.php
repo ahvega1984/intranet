@@ -3,7 +3,7 @@ require('../../../bootstrap.php');
 
 // COMPROBAMOS EL ID DEL INFORME
 if (isset($_GET['id_informe']) && intval($_GET['id_informe'])) {
-	$id_informe = limpiarInput($_GET['id_informe'], 'number');
+	$id_informe = limpiarInput($_GET['id_informe'], 'numeric');
 }
 else {
 	header('Location:'.'index.php');
