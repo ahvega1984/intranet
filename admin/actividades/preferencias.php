@@ -3,14 +3,9 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
-function limpiar_string($string)
-{
-	return trim(htmlspecialchars($string, ENT_QUOTES,'UTF-8'));
-}
-
 if (isset($_POST['btnGuardar'])) {
 
-	$prefRegistroProfesores	= $_POST['prefRegistroProfesores'];
+	$prefRegistroProfesores	= limpiarInput($_POST['prefRegistroProfesores'], 'numeric');
 
 	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
 	if($file = fopen('config.php', 'w+')) {

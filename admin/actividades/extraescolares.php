@@ -29,10 +29,10 @@ include("menu.php");
 
 
 if (isset($_POST['id'])) {
-	$id = $_POST['id'];
+	$id = limpiarInput($_POST['id'], 'numeric');
 }
 else{
-	$id = $_GET['id'];
+	$id = limpiarInput($_GET['id'], 'numeric');
 }
 
 if (isset($_POST['poner_falta'])) {
@@ -66,7 +66,7 @@ if (isset($_POST['poner_falta'])) {
 			if(strstr($key,"falta_"))
 			{
 
-				$claveal = $val;
+				$claveal = limpiarInput($val);
 
 				$nv = mysqli_query($db_con,"select unidad from alma where claveal='$claveal'");
 				$n_uni = mysqli_fetch_row($nv);
@@ -99,7 +99,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
 	$jefes=1;
 }
 
-$profes_actividad = $_GET['profesores'];
+$profes_actividad = limpiarInput($_GET['profesores'], 'alphanumericspecial');
 ?>
 
 <div class="col-sm-8 col-sm-offset-2">
@@ -271,7 +271,7 @@ echo " $nc. $apellidos, $nombre";
 	<button type="submit" name="poner_falta" value="F" class="btn btn-danger hidden-print">Registrar ausencia</button>&nbsp;
 	<?php } ?>
 	<?php } else{ ?>
-	<a href="extraescolares.php?id=<?php echo $_GET['id'] ?>&ver_lista=1"  class="btn btn-success hidden-print">Lista para imprimir</a>
+	<a href="extraescolares.php?id=<?php echo limpiarInput($_GET['id'], 'numeric'); ?>&ver_lista=1"  class="btn btn-success hidden-print">Lista para imprimir</a>
 	<?php } ?>
 	</div>
   </form>

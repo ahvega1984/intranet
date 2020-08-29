@@ -27,7 +27,7 @@ include("menu.php");
 
 <div class="col-sm-12"><?php
 if ($_GET['eliminar']=="1") {
-	mysqli_query($db_con, "delete from calendario where id = '".$_GET['id']."'");
+	mysqli_query($db_con, "delete from calendario where id = '".$id."'");
 	if (mysqli_affected_rows($db_con)>'0') {
 		echo '
 <br /><div><div class="alert alert-success alert-block fade in">
