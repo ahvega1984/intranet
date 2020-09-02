@@ -435,7 +435,7 @@ include("menu.php");
 				      <h4 class="panel-title">
 				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#cuentaAccordion" href="#cuentaCollapsePassword" aria-expanded="false" aria-controls="cuentaCollapsePassword">
 				          Cambiar contraseña<br>
-				          <small class="text-muted">Elije una contraseña única para proteger tu cuenta</small>
+				          <small class="text-muted">Elige una contraseña única para proteger tu cuenta</small>
 				        </a>
 				      </h4>
 				    </div>
