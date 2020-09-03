@@ -5,13 +5,9 @@
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'cdatos.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/datos/cdatos.php">Datos</a></li>
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'ccursos.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/ccursos.php">Listas</a></li>
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'informes/')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/cinforme.php">Informes</a></li>
-		<li<?php if (strstr($_SERVER['REQUEST_URI'],'notas_grupo.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/chorarios.php">Horarios</a></li>
-		
+		<li<?php if (strstr($_SERVER['REQUEST_URI'],'chorarios.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/chorarios.php">Horarios</a></li>		
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'fotos/')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/index.php">Fotografías</a></li>
 		<li<?php if (strstr($_SERVER['REQUEST_URI'],'seleccion_alumnos.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/seleccion_alumnos.php">Selección de alumnos</a></li>
-		
-		<li<?php if (strstr($_SERVER['REQUEST_URI'],'notas_grupo.php')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/notas_grupo.php">Calificaciones por grupo</a></li>
-
 		<li role="presentation" class="dropdown">
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 	      Más... <span class="caret"></span>

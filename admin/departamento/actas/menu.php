@@ -57,7 +57,7 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
 	 	<form method="get" action="buscar.php">
 			<div class="navbar-search pull-right col-sm-3" style="margin-top:4px;">
 				<div class="input-group">
-					<input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
+					<input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar en la Actas...">
  		     		<span class="input-group-btn">
  		      			<button class="btn btn-default btn-sm" type="submit"><span class="fas fa-search fa-lg"></span></button>
  		     		</span>

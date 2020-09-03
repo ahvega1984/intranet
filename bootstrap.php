@@ -26,7 +26,7 @@ if (!isset($_SESSION['SERVER_GENERATED_SID_TIME']) || $_SESSION['SERVER_GENERATE
 }
 
 // CONFIGURACIÓN INICIAL
-error_reporting(0);
+error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, 'es_ES.UTF-8');
 
@@ -133,7 +133,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 	}
 
 	if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) {
-		$_SESSION['profi'] = limpiarINput($_POST['view_as_user'], 'alphanumericspecial');
+		$_SESSION['profi'] = $_POST['view_as_user'];
 		$profe = $_SESSION['profi'];
 
 		// Variables de sesión del cargo del Profesor

@@ -6,7 +6,7 @@ $activo4="";
 $activo5="";
 $activo6="";
 $activo7="";
-if (strstr($_SERVER['REQUEST_URI'],'importar')==TRUE) {$activo4 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'informe_grupos.php')==TRUE) {$activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'seneca/index.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'intranet/faltas/index.php')==TRUE) {$activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'justificar')==TRUE) {$activo5 = ' class="active" ';}
@@ -153,7 +153,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		<?php if (stristr($_SESSION['cargo'],'2') == TRUE OR stristr($_SESSION['cargo'],'1') == TRUE): ?>
 		<li <?php echo $activo7;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/tutoria/consulta_absentismo.php">Alumnos Absentistas</a></li>
 		<?php endif; ?>
-		
+		<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre asistencia</a></li>
 		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Más... <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
 			<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
@@ -166,7 +166,6 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php">Horario de Faltas para Profesores</a></li>
 			<li class="divider"></li>
-			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre asistencia</a></li>
 			<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 			<li class="divider"></li>
 			<?php if ($config['mod_sms'] AND stristr($_SESSION['cargo'],'1') == TRUE): ?>

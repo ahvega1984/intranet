@@ -17,7 +17,7 @@ if(!isset($_POST['consultar_notas']) and empty($_POST['unidad'])){
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Alumnos y Grupos <small>Calificaciones de un grupo></small></h2>
+		<h2 style="display:inline;">Evaluaciones <small>Calificaciones de un grupo</small></h2>
 	</div>
 	
 	<br>

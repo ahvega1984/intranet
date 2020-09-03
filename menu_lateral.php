@@ -48,33 +48,27 @@ $menu = array(
 				'items' => array(
 					array(
 						'href'   => 'admin/jefatura/index.php',
-						'titulo' => 'Intervenciones sobre alumnos'
+						'titulo' => 'sobre alumnos'
 					),
 					array(
 						'href'   => 'admin/jefatura/profesores.php',
-						'titulo' => 'Intervenciones sobre profesores'
+						'titulo' => 'sobre profesores'
 					)
 				)
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Control de tutorías',
+				'titulo' => 'Tutorías',
 			),
 			array(
 				'href'   => 'admin/guardias/index_admin.php',
-				'titulo' => 'Gestión de guardias',
+				'titulo' => 'Guardias',
 				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Gestión de ausencias',
+				'titulo' => 'Ausencias',
 			),
-			array(
-				'href'   => 'admin/matriculas/index.php',
-				'titulo' => 'Matriculación de alumnos',
-				'modulo'  => $config['mod_matriculacion'],
-				'meses'	 => array(5, 6, 7, 8, 9),
-			)
 		)
 	),
 	array(
@@ -129,7 +123,7 @@ $menu = array(
 		'items'   => array(
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Resumen global',
+				'titulo' => 'Resumen',
 			),
 			array(
 				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
@@ -188,6 +182,10 @@ $menu_centro = array(
 				'titulo' => 'Calendarios',
 				'items' => array(
 					array(
+						'href'   => 'admin/cursos/calendario_escolar.php',
+						'titulo' => "Calendario escolar ". $config['curso_actual'],
+					),
+					array(
 						'href'   => 'calendario/index.php',
 						'titulo' => 'Calendario de actividades',
 					),
@@ -200,16 +198,52 @@ $menu_centro = array(
 						'href'   => 'admin/actividades/indexextra.php',
 						'titulo' => 'Actividades extraescolares'
 					),
-					array(
-						'href'   => 'admin/cursos/calendario_escolar.php',
-						'titulo' => "Calendario escolar ". $config['curso_actual'],
-					),
 				)
 			),
 			array(
 				'href'   => 'admin/cursos/chorarios.php',
 				'titulo' => 'Horarios',
 				'modulo' => $config['mod_horarios'],
+			),
+			array(
+				'href'   => '#',
+				'titulo' => 'Centro TIC',
+				'modulo' => $config['mod_centrotic'],
+				'items' => array(
+					array(
+						'href'   => 'TIC/index.php',
+						'titulo' => 'Incidencias TIC',
+					),
+					array(
+						'href'   => 'TIC/incidencia.php',
+						'titulo' => 'Nueva incidencia',
+					),
+					array(
+						'href'   => 'TIC/inventario.php',
+						'titulo' => 'Inventario TIC',
+					),
+					array(
+						'href'   => 'TIC/mesas_tic_seleccion.php',
+						'titulo' => 'Asignación de mesas TIC',
+						'ncargo' => array('6', '7', '8')
+					),
+					array(
+						'href'   => 'TIC/perfiles_alumnos.php',
+						'titulo' => 'Perfiles de alumnos',
+					),
+					array(
+						'href'   => 'TIC/perfiles_profesores.php',
+						'titulo' => 'Perfiles de profesores',
+					),
+					array(
+						'href'   => 'TIC/protocolo.php',
+						'titulo' => 'Protocolo de uso',
+					),
+					array(
+						'href'   => 'TIC/estadisticas.php',
+						'titulo' => 'Estadísticas de las TIC',
+					)
+				)
 			),
 			array(
 				'href'   => 'admin/biblioteca/index.php',
@@ -280,7 +314,7 @@ array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Informes',
-				'ncargos' => array('6'),
+				'ncargos' => array(6,7),
 				'items' => array(
 					array(
 						'href'   => 'admin/tareas/index.php',
@@ -293,6 +327,10 @@ array(
 					array(
 						'href'   => 'admin/informes/extraordinaria/index.php',
 						'titulo' => 'Informes de materias pendientes',
+					),
+					array(
+						'href'   => 'admin/departamento/adaptaciones/index.php',
+						'titulo' => 'Adaptaciones curriculares (ACNS)',
 					)
 				)
 			),
@@ -300,13 +338,11 @@ array(
 				'href'   => 'admin/fotos/index.php',
 				'titulo' => 'Fotos de los alumnos'
 			),
-			
-			
 			array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación',
 				'modulo'  => $config['mod_matriculacion'],
-				'cargos'	 => array(1,7),
+				'cargos' => array(1,7),
 				)
 			)
 		)
@@ -347,6 +383,11 @@ $menu_actas = array(
 	'menu_id' => 'actas',
 	'titulo'  => 'Actas',
 	'items'   => array(
+		array(
+			'href'   => 'admin/departamento/actas/',
+			'titulo' => 'Actas del departamento',
+			'cargos'  => array('4')
+		),
 		array(
 			'href'   => 'admin/departamento/actas/index.php?organo=DFEIE',
 			'titulo' => 'Actas del DFEIE',
@@ -471,6 +512,7 @@ while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reser
 		array(
 			'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
 			'titulo' => 'Sistema de Reservas',
+			'ncargos' => array(7),
 		),
 		array(
 			'href'   => '#',
@@ -646,15 +688,9 @@ $menu = array_merge($menu, $menu_centro, $menu_alumnos, $menu_profesores, $menu_
 
 		<a href="admin/informes/cinforme.php">
 				<span class="far fa-address-book fa-2x"></span><br>
-				<small>Inf. alumno</small></a>
+				<small>Informes</small></a>
 
 		<?php } ?>
-		</div>
-
-		<div class="col-xs-3 text-center padmobile">
-			<a href="reservas/index_aula.php?recurso=aula_grupo">
-				<span class="fas fa-key fa-2x"></span><br>
-				<small>Reservas</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
 			<a href="admin/cursos/chorarios.php">
@@ -662,20 +698,24 @@ $menu = array_merge($menu, $menu_centro, $menu_alumnos, $menu_profesores, $menu_
 				<small>Horarios</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile">
+			<a href="admin/mensajes/redactar.php">
+				<span class="far fa-envelope fa-2x"></span><br>
+				<small>Mensajes</small></a>
+		</div>		
+		<div class="col-xs-3 text-center padmobile">
 			<a href="tareas/index.php">
 				<span class="fas fa-tasks fa-2x"></span><br>
 				<small>Tareas</small></a>
 		</div>
-		<div class="col-xs-3 text-center padmobile">
-			<a href="admin/mensajes/redactar.php">
-				<span class="far fa-envelope fa-2x"></span><br>
-				<small>Mensajes</small></a>
-		</div>
-
 		<div class="col-xs-3 text-center padmobile hidden-xs">
 			<a href="calendario/index.php">
 				<span class="far fa-calendar fa-2x"></span><br>
 				<small>Calendario</small></a>
+		</div>
+		<div class="col-xs-3 text-center padmobile">
+			<a href="reservas/index_aula.php?recurso=aula_grupo">
+				<span class="fas fa-key fa-2x"></span><br>
+				<small>Reservas</small></a>
 		</div>
 		<div class="col-xs-3 text-center padmobile hidden-sm hidden-md hidden-lg">
 			<a href="#" id="toggleMenu">
