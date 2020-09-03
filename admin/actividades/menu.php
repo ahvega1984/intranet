@@ -3,27 +3,27 @@ if (file_exists("config.php")) {
   include("config.php");
 }
 
-if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
-if (isset($_GET['eliminar'])) {$id = $_GET['eliminar'];}elseif (isset($_POST['eliminar'])) {$eliminar = $_POST['eliminar'];}else{$eliminar="";}
+if (isset($_GET['id'])) {$id = limpiarInput($_GET['id'], 'numeric');}elseif (isset($_POST['id'])) {$id = limpiarInput($_POST['id'], 'numeric');}else{$id="";}
+if (isset($_GET['eliminar'])) {$id = limpiarInput($_GET['eliminar'], 'numeric');}elseif (isset($_POST['eliminar'])) {$eliminar = limpiarInput($_POST['eliminar'], 'numeric');}else{$eliminar="";}
 if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
 if (isset($_GET['crear'])) {$crear = $_GET['crear'];}elseif (isset($_POST['crear'])) {$crear = $_POST['crear'];}else{$crear="";}
-if (isset($_GET['buscar'])) {$buscar = $_GET['buscar'];}elseif (isset($_POST['buscar'])) {$buscar = $_POST['buscar'];}else{$buscar="";}
+if (isset($_GET['buscar'])) {$buscar = limpiarInput($_GET['buscar'], 'alphanumericspecial');}elseif (isset($_POST['buscar'])) {$buscar = limpiarInput($_POST['buscar'], 'alphanumericspecial');}else{$buscar="";}
 if (isset($_GET['modificar'])) {$modificar = $_GET['modificar'];}elseif (isset($_POST['modificar'])) {$modificar = $_POST['modificar'];}else{$modificar="";}
-if (isset($_GET['confirmado'])) {$confirmado = $_GET['confirmado'];}elseif (isset($_POST['confirmado'])) {$confirmado = $_POST['confirmado'];}else{$confirmado="";}
-if (isset($_GET['calendario'])) {$calendario = $_GET['calendario'];}elseif (isset($_POST['calendario'])) {$calendario = $_POST['calendario'];}else{$calendario="";}
-if (isset($_GET['detalles'])) {$detalles = $_GET['detalles'];}elseif (isset($_POST['detalles'])) {$detalles = $_POST['detalles'];}else{$detalles="";}
+if (isset($_GET['confirmado'])) {$confirmado = limpiarInput($_GET['confirmado'], 'alphanumericspecial');}elseif (isset($_POST['confirmado'])) {$confirmado = limpiarInput($_POST['confirmado'], 'alphanumericspecial');}else{$confirmado="";}
+if (isset($_GET['calendario'])) {$calendario = limpiarInput($_GET['calendario'], 'alphanumericspecial');}elseif (isset($_POST['calendario'])) {$calendario = limpiarInput($_POST['calendario'], 'alphanumericspecial');}else{$calendario="";}
+if (isset($_GET['detalles'])) {$detalles = limpiarInput($_GET['detalles'], 'alphanumericspecial');}elseif (isset($_POST['detalles'])) {$detalles = limpiarInput($_POST['detalles'], 'alphanumericspecial');}else{$detalles="";}
 
-if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
-if (isset($_GET['act_calendario'])) {$act_calendario = $_GET['act_calendario'];}elseif (isset($_POST['act_calendario'])) {$act_calendario = $_POST['act_calendario'];}else{$act_calendario="";}
-if (isset($_GET['fecha'])) {$fecha = $_GET['fecha'];}elseif (isset($_POST['fecha'])) {$fecha = $_POST['fecha'];}else{$fecha="";}
-if (isset($_GET['fecha_act'])) {$fecha_act = $_GET['fecha_act'];}elseif (isset($_POST['fecha_act'])) {$fecha_act = $_POST['fecha_act'];}else{$fecha_act="";}
-if (isset($_GET['horario'])) {$horario = $_GET['horario'];}elseif (isset($_POST['horario'])) {$horario = $_POST['horario'];}else{$horario="";}
-if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}else{$profesor="";}
-if (isset($_GET['actividad'])) {$actividad = $_GET['actividad'];}elseif (isset($_POST['actividad'])) {$actividad = $_POST['actividad'];}else{$actividad="";}
-if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (isset($_POST['descripcion'])) {$descripcion = $_POST['descripcion'];}else{$descripcion="";}
-if (isset($_GET['justificacion'])) {$justificacion = $_GET['justificacion'];}elseif (isset($_POST['justificacion'])) {$justificacion = $_POST['justificacion'];}else{$justificacion="";}
-if (isset($_GET['hoy'])) {$hoy = $_GET['hoy'];}elseif (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];}else{$hoy="";}
-if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$expresion = $_POST['q'];}else{$expresion="";}
+if (isset($_GET['departamento'])) {$departamento = limpiarInput($_GET['departamento'], 'alphanumericspecial');}elseif (isset($_POST['departamento'])) {$departamento = limpiarInput($_POST['departamento'], 'alphanumericspecial');}else{$departamento="";}
+if (isset($_GET['act_calendario'])) {$act_calendario = limpiarInput($_GET['act_calendario'], 'alphanumericspecial');}elseif (isset($_POST['act_calendario'])) {$act_calendario = limpiarInput($_POST['act_calendario'], 'alphanumericspecial');}else{$act_calendario="";}
+if (isset($_GET['fecha'])) {$fecha = limpiarInput($_GET['fecha'], 'alphanumericspecial');}elseif (isset($_POST['fecha'])) {$fecha = limpiarInput($_POST['fecha'], 'alphanumericspecial');}else{$fecha="";}
+if (isset($_GET['fecha_act'])) {$fecha_act = limpiarInput($_GET['fecha_act'], 'alphanumericspecial');}elseif (isset($_POST['fecha_act'])) {$fecha_act = limpiarInput($_POST['fecha_act'], 'alphanumericspecial');}else{$fecha_act="";}
+if (isset($_GET['horario'])) {$horario = limpiarInput($_GET['horario'], 'alphanumericspecial');}elseif (isset($_POST['horario'])) {$horario = limpiarInput($_POST['horario'], 'alphanumericspecial');}else{$horario="";}
+if (isset($_GET['profesor'])) {$profesor = limpiarInput($_GET['profesor'], 'alphanumericspecial');}elseif (isset($_POST['profesor'])) {$profesor = limpiarInput($_POST['profesor'], 'alphanumericspecial');}else{$profesor="";}
+if (isset($_GET['actividad'])) {$actividad = limpiarInput($_GET['actividad'], 'alphanumericspecial');}elseif (isset($_POST['actividad'])) {$actividad = limpiarInput($_POST['actividad'], 'alphanumericspecial');}else{$actividad="";}
+if (isset($_GET['descripcion'])) {$descripcion = limpiarInput($_GET['descripcion'], 'alphanumericspecial');}elseif (isset($_POST['descripcion'])) {$descripcion = limpiarInput($_POST['descripcion'], 'alphanumericspecial');}else{$descripcion="";}
+if (isset($_GET['justificacion'])) {$justificacion = limpiarInput($_GET['justificacion'], 'alphanumericspecial');}elseif (isset($_POST['justificacion'])) {$justificacion = limpiarInput($_POST['justificacion'], 'alphanumericspecial');}else{$justificacion="";}
+if (isset($_GET['hoy'])) {$hoy = limpiarInput($_GET['hoy'], 'alphanumericspecial');}elseif (isset($_POST['hoy'])) {$hoy = limpiarInput($_POST['hoy'], 'alphanumericspecial');}else{$hoy="";}
+if (isset($_GET['q'])) {$expresion = limpiarInput($_GET['q'], 'alphanumericspecial');}elseif (isset($_POST['q'])) {$expresion = limpiarInput($_POST['q'], 'alphanumericspecial');}else{$expresion="";}
 
 $activo1="";
 $activo2="";

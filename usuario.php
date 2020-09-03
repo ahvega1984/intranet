@@ -435,7 +435,7 @@ include("menu.php");
 				      <h4 class="panel-title">
 				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#cuentaAccordion" href="#cuentaCollapsePassword" aria-expanded="false" aria-controls="cuentaCollapsePassword">
 				          Cambiar contraseña<br>
-				          <small class="text-muted">Elije una contraseña única para proteger tu cuenta</small>
+				          <small class="text-muted">Elige una contraseña única para proteger tu cuenta</small>
 				        </a>
 				      </h4>
 				    </div>
@@ -591,7 +591,7 @@ include("menu.php");
 				      <h4 class="panel-title">
 				        <a role="button" data-toggle="collapse" data-parent="#privacidadAccordion" href="#privacidadCollapseMostrarNombre" aria-expanded="false" aria-controls="privacidadCollapseMostrarNombre">
 				          Quién puede ver mi nombre y apellidos<br>
-				          <small class="text-muted">Elije cómo quieres que se muestre tu nombre y apellidos en la página web del Centro.</small>
+				          <small class="text-muted">Elige cómo quieres que se muestre tu nombre y apellidos en la página web del Centro.</small>
 				        </a>
 				      </h4>
 				    </div>
