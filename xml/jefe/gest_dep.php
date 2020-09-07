@@ -33,7 +33,9 @@ if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
 			$n_reg+=1;
 			$tr_cambio = explode("#",$key);
 			$origen = $tr_cambio[1];
-			//$origen = substr($origen,0,strlen($origen)-1);
+			if (substr($origen,strlen($origen)-1)=="_") {
+				$origen = substr($origen,0,strlen($origen)-1);
+			}
 			$q1 = mysqli_query($db_con, "select distinct departamento from departamentos");
 			while ($q2 = mysqli_fetch_array($q1)) {
 				$trasform1 = str_ireplace(" ","_",$q2[0]);
