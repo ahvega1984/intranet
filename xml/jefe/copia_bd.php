@@ -19,7 +19,6 @@ if (isset($_GET['action']) && ($_GET['action'] == 'bdtruncate')) {
 			mysqli_query($db_con, "TRUNCATE TABLE `".$tabla[0]."`");
 		}
 	}
-	echo 1;
 	
 }
 else {

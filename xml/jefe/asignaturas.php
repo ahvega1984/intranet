@@ -229,5 +229,3 @@
 
 				// Alumnos con pendientes
 				include("pendientes.php");
-
-?>

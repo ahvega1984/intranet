@@ -17,5 +17,5 @@ while ($sel=mysqli_fetch_array($sel0)) {
  mysqli_query($db_con, "insert into hermanos select distinct telefono, telefonourgencia, hermanos from hermanos_temp2");
  mysqli_query($db_con, "drop table hermanos_temp");
  mysqli_query($db_con, "drop table hermanos_temp2");
- ?>
+ 
  

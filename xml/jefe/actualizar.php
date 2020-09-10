@@ -1,24 +1,8 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// Creamos versión corta para FALTAS
-mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE,
-APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert 
-alert-danger alert-block fade in">
-            <button type="button" class="close" 
-data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido crear la tabla <strong>AlmaFaltas</strong> en la base de datos. 
-Ponte en contacto con quien pueda resolver el problema.
-</div></div><br /><br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" 
-onClick="../index.php" class="btn btn-primary" />
-</div>');
-mysqli_query($db_con, "ALTER TABLE almafaltas ADD PRIMARY KEY (  `CLAVEAL` )");
-
 $elimina = "select distinct alma_seg.claveal, alma_seg.apellidos,
-alma_seg.nombre, alma_seg.unidad from alma_seg, almafaltas where 
-alma_seg.claveal NOT IN (select distinct claveal from almafaltas)";
+alma_seg.nombre, alma_seg.unidad from alma_seg, alma where 
+alma_seg.claveal NOT IN (select distinct claveal from alma)";
 
 $elimina1 = mysqli_query($db_con, $elimina);
 if(mysqli_num_rows($elimina1) > 0)
@@ -37,9 +21,9 @@ creados:</div></div>";
 }
 echo "<br />";
 
-$SQL1 = "select distinct almafaltas.claveal, almafaltas.apellidos,
-almafaltas.nombre, almafaltas.unidad from almafaltas where 
-almafaltas.claveal NOT IN (select distinct claveal from alma_seg)";
+$SQL1 = "select distinct alma.claveal, alma.apellidos,
+alma.nombre, alma.unidad from alma where 
+alma.claveal NOT IN (select distinct claveal from alma_seg)";
 $result1 = mysqli_query($db_con, $SQL1);
 $total = mysqli_num_rows($result1);
 if ($total !== 0)
@@ -137,5 +121,5 @@ while($cambio = mysqli_fetch_array($cambio0)){
 	}	
 }
 
-mysqli_query($db_con, "drop table almafaltas");
+mysqli_query($db_con, "drop table alma");
 ?>
