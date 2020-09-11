@@ -80,7 +80,7 @@ include ("menu.php");
 						$result = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '$organo' ORDER BY numero DESC");
 					}
 					else {
-						$result = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '$organo' AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' ORDER BY numero DESC");
+						$result = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '$organo' ORDER BY numero DESC");
 					}
 					while ($row = mysqli_fetch_array($result)) {
 						$total++;
@@ -154,7 +154,7 @@ include ("menu.php");
 
 					}
 					else {
-						$result_actas_depto = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '".$row['departamento']."' AND fecha BETWEEN '".$config['curso_inicio']."' AND '".$config['curso_fin']."' ORDER BY numero DESC");
+						$result_actas_depto = mysqli_query($db_con, "SELECT id, numero, fecha, impreso FROM r_departamento WHERE departamento = '".$row['departamento']."' ORDER BY numero DESC");
 					}
 					while ($row_actas_depto = mysqli_fetch_array($result_actas_depto)) {
 						$total++;

@@ -93,6 +93,7 @@
 	<li><a href="jefe/exportaTIC.php?exportar=alumnos_gsuite.csv" target="_blank">Usuarios alumnos (G Suite)</a></li>
 	<li><a href="jefe/exportaTIC.php?exportar=profesores_gsuite.csv" target="_blank">Usuarios profesores (G Suite)</a></li>
 	<li><a href="jefe/exportaTIC_grupos.php" >Grupos de alumnos (G Suite)</a></li>
+	<li><a href="jefe/exportaTIC_profesores.php" >Grupo de profesores (G Suite)</a></li>
 	<?php endif; ?>
 	<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
 	<li><a href="jefe/exportaTIC.php?exportar=alumnos_office365.csv" target="_blank">Usuarios alumnos (Office 365)</a></li>
