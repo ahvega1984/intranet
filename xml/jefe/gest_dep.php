@@ -33,7 +33,7 @@ if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
 			$n_reg+=1;
 			$tr_cambio = explode("#",$key);
 			$origen = $tr_cambio[1];
-			//$origen = substr($origen,0,strlen($origen)-1);
+
 			if (substr($origen,strlen($origen)-1)=="_") {
 				$origen = substr($origen,0,strlen($origen)-1);
 			}

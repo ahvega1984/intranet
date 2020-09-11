@@ -6,7 +6,7 @@ if (! isset($_POST['id'])) exit('No direct script access allowed');
 if (acl_permiso($carg, array('1'))) {
 
 	if ($_POST['id'] == 'accesos') { 
-		mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT('".date('Y-m-d')."','%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC");
+		mysqli_query($db_con, "CREATE TEMPORARY TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE '".date('Y-m-d')."%' AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC");
 								
 		$result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND idea NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC");
 								
@@ -138,10 +138,10 @@ if (acl_permiso($carg, array('1'))) {
 	}
 	
 	if ($_POST['id'] == 'mensajes') { 		
-		mysqli_query($db_con, "create table mens_tmp select * from mens_profes where recibidoprofe='0' order by id_texto desc limit 5000");
-		mysqli_query($db_con, "delete from mens_tmp where profesor not in (select idea from departamentos)");
-		mysqli_query($db_con, "create table mens_tmp2 SELECT profesor, count(*) as num FROM mens_tmp group by profesor");
-		$result = mysqli_query($db_con, "SELECT profesor, nombre, num FROM mens_tmp2, departamentos where departamentos.idea = mens_tmp2.profesor and num > '25' order by nombre");
+		mysqli_query($db_con, "CREATE TEMPORARY TABLE mens_tmp SELECT * FROM mens_profes WHERE recibidoprofe='0' ORDER BY id_texto DESC LIMIT 5000");
+		mysqli_query($db_con, "DELETE FROM mens_tmp WHERE profesor NOT IN (SELECT idea FROM departamentos)");
+		mysqli_query($db_con, "CREATE TEMPORARY TABLE mens_tmp2 SELECT profesor, COUNT(*) AS num FROM mens_tmp GROUP BY profesor");
+		$result = mysqli_query($db_con, "SELECT profesor, nombre, num FROM mens_tmp2, departamentos WHERE departamentos.idea = mens_tmp2.profesor AND num > '25' ORDER BY nombre ASC");
 		
 		$row = mysqli_num_rows($result);
 		

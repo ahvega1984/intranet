@@ -24,11 +24,11 @@ include '../../menu.php';
 				<?php
 				if($archivo1 and $archivo2){
 					// Comprobamos si es la primera vez que se ha creado una base de datos.
-					$fechorias = mysqli_query($db_con, "select * from Fechoria");
-					$mensajes = mysqli_query($db_con, "select * from mens_texto limit 10");
-					$reg_int = mysqli_query($db_con, "select * from reg_intranet limit 10");
+					$comprobar_alma = mysqli_query($db_con, "select * from alma");
+					$comprobar_mensajes = mysqli_query($db_con, "select * from mens_texto limit 10");
+					$comprobar_reg_int = mysqli_query($db_con, "select * from reg_intranet limit 10");
 
-					if ((mysqli_num_rows($fechorias) > 5) && (mysqli_num_rows($mensajes) > 5) && (mysqli_num_rows($reg_int) > 5)) {
+					if ((mysqli_num_rows($comprobar_alma) > 5) && (mysqli_num_rows($comprobar_mensajes) > 5) && (mysqli_num_rows($comprobar_reg_int) > 5)) {
 						include("copia_bd.php");
 					}
 
@@ -41,7 +41,7 @@ include '../../menu.php';
 			$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
-			 `CLAVEAL` varchar( 12 ) default NULL ,
+			 `CLAVEAL` varchar( 12 ) ,
 			 `DNI` varchar( 10 ) default NULL ,
 			 `DOMICILIO` varchar( 255 ) default NULL ,
 			 `CODPOSTAL` varchar( 255 ) default NULL ,
@@ -250,34 +250,6 @@ include '../../menu.php';
 					// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 					$SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
 					mysqli_query($db_con, $SQL8);
-
-					// Creamos version corta para FALTAS
-					mysqli_query($db_con, "DROP TABLE almafaltas");
-					mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
-			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>ATENCIÓN:</legend>
-			No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
-			</div></div><br />
-			<div align="center">
-			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-			</div>');
-
-					// Claveal primaria e indice
-					$SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
-					$result6 = mysqli_query($db_con, $SQL6);
-
-					echo '<div class="alert alert-success alert-block fade in">
-			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
-			</div><br />';
-
-					// Eliminamos temporales
-					mysqli_query($db_con, "drop table almafaltas");
-
-					// Copia de la primera versión de alma
-					mysqli_query($db_con, "DROP TABLE alma_primera");
-					mysqli_query($db_con, "create table alma_primera select * from alma");
-					mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
 
 					// Alumnos con hermanos
 					include("crear_hermanos.php");

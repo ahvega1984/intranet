@@ -176,7 +176,6 @@ $menu_centro = array(
 		'menu_id' => 'centro',
 		'nombre'  => 'Centro',
 		'items'   => array(
-			
 			array(
 				'href'   => '#',
 				'titulo' => 'Calendarios',
@@ -250,19 +249,24 @@ $menu_centro = array(
 				'titulo' => 'Biblioteca',
 				'ncargos' => array('c'),
 			),
-			array(
-					'href'   => 'varios/Planos_Centro.pdf',
-					'titulo' => 'Planos y dependencias',
-					'target' => '_blank',
-			),			
-			array(
-					'href'   => 'https://iesmonterroso.org/plan-de-centro/',
-					'titulo' => 'Plan de centro',
-					'target' => '_blank',
-			),
+			
 		)
 	)
 );
+
+if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org") {
+	$monterroso1 = array(
+						'href'   => 'varios/Planos_Centro.pdf',
+						'titulo' => 'Planos y dependencias',
+						'target' => '_blank',
+				);			
+	$monterroso2 = array(
+						'href'   => 'https://iesmonterroso.org/plan-de-centro/',
+						'titulo' => 'Plan de centro',
+						'target' => '_blank',
+				);
+	array_push($menu_centro[0]['items'], $monterroso1, $monterroso2);
+}
 
 $menu_alumnos = array(
 array(
@@ -561,100 +565,55 @@ while ($row_menu_lateral_reservas_tipos = mysqli_fetch_array($menu_lateral_reser
 	)
 );
 
-	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
-	$paginas_interes = array(
-		array(
-			'menu_id' => 'paginas_interes',
-			'nombre'  => 'Páginas de interés',
-			'items'   => array(
-				array(
-					'href'   => '//'.$config['dominio'],
-					'titulo' => 'Página del '.$config['centro_denominacion'],
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/29002885/moodle2/',
-					'titulo' => 'Plataforma Moodle',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/educacion/webportal/web/delegacion-'.$web_delegacion.'/',
-					'titulo' => 'Delegación de Educación',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
-					'titulo' => 'Portal del Personal Docente',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'https://www.educacionyfp.gob.es/',
-					'titulo' => 'Ministerio de Educación y FP',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
-					'titulo' => 'Portal Averroes',
-					'target' => '_blank',
-				)
+$paginas_interes = array(
+	array(
+		'menu_id' => 'paginas_interes',
+		'nombre'  => 'Páginas de interés',
+		'items'   => array(
+			array(
+				'href'   => '//'.$config['dominio'],
+				'titulo' => 'Página del '.$config['centro_denominacion'],
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'https://correo.juntadeandalucia.es/',
+				'titulo' => 'Correo corporativo',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$config['centro_codigo'].'/',
+				'titulo' => 'Servidor de contenidos',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'https://www.educacionyfp.gob.es/',
+				'titulo' => 'Ministerio de Educación y FP',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'http://www.juntadeandalucia.es/educacion/portals/web/ced',
+				'titulo' => 'Consejería de Educación y Deporte',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'http://www.juntadeandalucia.es/educacion/webportal/web/delegacion-'.$web_delegacion.'/',
+				'titulo' => 'Delegación de Educación',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
+				'titulo' => 'Portal del Personal Docente',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
+				'titulo' => 'Portal Averroes',
+				'target' => '_blank',
 			)
 		)
-	);
-
-}
-else {
-
-	$paginas_interes = array(
-		array(
-			'menu_id' => 'paginas_interes',
-			'nombre'  => 'Páginas de interés',
-			'items'   => array(
-				array(
-					'href'   => '//'.$config['dominio'],
-					'titulo' => 'Página del '.$config['centro_denominacion'],
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'https://correo.juntadeandalucia.es/',
-					'titulo' => 'Correo corporativo',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$config['centro_codigo'].'/',
-					'titulo' => 'Servidor de contenidos',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'https://www.educacionyfp.gob.es/',
-					'titulo' => 'Ministerio de Educación y FP',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/educacion/portals/web/ced',
-					'titulo' => 'Consejería de Educación y Deporte',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/educacion/webportal/web/delegacion-'.$web_delegacion.'/',
-					'titulo' => 'Delegación de Educación',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
-					'titulo' => 'Portal del Personal Docente',
-					'target' => '_blank',
-				),
-				array(
-					'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
-					'titulo' => 'Portal Averroes',
-					'target' => '_blank',
-				)
-			)
-		)
-	);
-
-}
+	)
+);
 
 
 $menu = array_merge($menu, $menu_centro, $menu_alumnos, $menu_profesores, $menu_utilidades, $paginas_interes);
