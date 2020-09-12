@@ -300,8 +300,6 @@ include('menu.php');
 
 <div class="container">
 
-	
-
 		<div class="page-header">
 			<h2><?php echo $titulo; ?> <small>Registro de actas</small></h2>
 
@@ -352,6 +350,8 @@ include('menu.php');
 			<?php echo $msg_success; ?>
 		</div>
 		<?php endif; ?>
+
+		<form method="post" action="">
 
 		<div class="row">
 
