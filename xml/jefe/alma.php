@@ -55,7 +55,7 @@ include("../../menu.php");
 						$n_col_tabla++;
 					}
 
-					if (($n_col_tabla - 1) != $num_col) {
+					if ($n_col_tabla != $num_col) {
 
 						// Detenemos la operación porque Séneca ha modificado la estructura de RegAlum.txt
 
@@ -140,9 +140,6 @@ include("../../menu.php");
 			<div align="center">
 			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>');
-
-					$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
-					$result6 = mysqli_query($db_con, $SQL6);
 
 
 

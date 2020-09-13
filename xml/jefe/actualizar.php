@@ -121,5 +121,4 @@ while($cambio = mysqli_fetch_array($cambio0)){
 	}	
 }
 
-mysqli_query($db_con, "drop table alma");
-?>
+//mysqli_query($db_con, "drop table alma");
