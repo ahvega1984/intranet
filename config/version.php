@@ -1,2 +1,2 @@
 <?php
-define('INTRANET_VERSION', '4.55.0');
+define('INTRANET_VERSION', '4.55.1');
