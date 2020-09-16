@@ -43,18 +43,8 @@ $menu = array(
 				'titulo' => 'Administración de la Intranet',
 			),
 			array(
-				'href'   => '#',
+				'href'   => 'admin/jefatura/index.php',
 				'titulo' => 'Intervenciones',
-				'items' => array(
-					array(
-						'href'   => 'admin/jefatura/index.php',
-						'titulo' => 'sobre alumnos'
-					),
-					array(
-						'href'   => 'admin/jefatura/profesores.php',
-						'titulo' => 'sobre profesores'
-					)
-				)
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
