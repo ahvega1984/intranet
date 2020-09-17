@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array('0', '1'));
+acl_acceso($_SESSION['cargo'], array('z', '1'));
 
 if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['unidad']) && ! empty($_GET['unidad'])) {
 

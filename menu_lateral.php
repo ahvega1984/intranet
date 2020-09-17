@@ -32,12 +32,12 @@ switch ($config['centro_provincia']) {
 //
 
 
-$menu = array(	
-			array(
-			'menu_id' => 'direccion',
-			'nombre'  => 'Dirección del centro',
-			'cargos'  => array('1'),
-			'items'   => array(
+$menu = array(
+	array(
+		'menu_id' => 'direccion',
+		'nombre'  => 'Dirección del centro',
+		'cargos'  => array('1'),
+		'items'   => array(
 			array(
 				'href'   => 'xml/index.php',
 				'titulo' => 'Administración de la Intranet',
@@ -166,6 +166,12 @@ $menu_centro = array(
 		'menu_id' => 'centro',
 		'nombre'  => 'Centro',
 		'items'   => array(
+			array(
+				'href'   => 'xml/index.php',
+				'titulo' => 'Administración de la Intranet',
+				'cargos' => array('z'),
+				'ncargos' => array('1'),
+			),
 			array(
 				'href'   => '#',
 				'titulo' => 'Calendarios',

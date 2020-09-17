@@ -30,7 +30,7 @@ include("menu.php");
 								<th>Usuario</th>
 								<th>Contraseña<br>Gesuser</th>
 								<th>Contraseña<br>Moodle</th>
-								<th>Correo electrónico<br>G-Suite y Office 365</th>
+								<th>Correo electrónico<br>G-Suite y Microsoft 365</th>
 								<th>Contraseña<br>G-Suite</th>
 							</tr>
 						</thead>
@@ -54,38 +54,25 @@ include("menu.php");
 
 							$caracteres_no_permitidos = array('\'','-','á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü','ñ');
 							$caracteres_permitidos = array('','','a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U','n');
-							
-							
-							
-								$correo = $primer_nombre.'.'.$primer_apellido;
-								$correo = str_ireplace('M ª', 'María', $correo);
-								$correo = str_ireplace('Mª', 'María', $correo);
-								$correo = str_ireplace('M.', 'María', $correo);
-								$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
-								$correo = mb_strtolower($correo, 'UTF-8');
-								$correo = $correo.'@'.$config['dominio'];
+				
+							$correo = $primer_nombre.'.'.$primer_apellido;
+							$correo = str_ireplace('M ª', 'María', $correo);
+							$correo = str_ireplace('Mª', 'María', $correo);
+							$correo = str_ireplace('M.', 'María', $correo);
+							$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
+							$correo = mb_strtolower($correo, 'UTF-8');
+							$correo = $correo.'@'.$config['dominio'];
 
-							if ($row['correo']!==$correo) {
+							$exp_correo_profesor = explode("@", $row['correo']);
+							$dominio_correo_profesor = trim($exp_correo_profesor[1]);
+
+							if ($dominio_correo_profesor == $_SERVER['SERVER_NAME'] && $row['correo']!==$correo) {
 								$correo = $row['correo'];
 								$dni = "*********";
 							}
 							else{
 								$dni = $row['dni'];
 							}
-
-							 //Si ya existe la cuenta de correo, añadimos el segundo apellido
-							/*
-							if (in_array($correo, $array_correos)) {
-								$correo = $primer_nombre.'.'.$primer_apellido.'.'.$segundo_apellido;
-								$correo = str_ireplace('M ª', 'María', $correo);
-								$correo = str_ireplace('Mª', 'María', $correo);
-								$correo = str_ireplace('M.', 'María', $correo);
-								$correo = str_ireplace($caracteres_no_permitidos, $caracteres_permitidos, $correo);
-								$correo = mb_strtolower($correo, 'UTF-8');
-								$correo = $correo.'@'.$config['dominio'];
-							}
-
-							array_push($array_correos, $correo);*/
 							?>
 							<tr>
 								<td><?php echo $row['nombre']; ?></td>

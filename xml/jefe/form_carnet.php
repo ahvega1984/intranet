@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 
 
-acl_acceso($_SESSION['cargo'], array('0', '1', '2'));
+acl_acceso($_SESSION['cargo'], array('z', '1', '2'));
 
 include("../../menu.php");
 ?>
@@ -45,7 +45,7 @@ $unidad = $row_Recordset1[16];
   <label class="control-label" for="grupo">Selecciona un Grupo:</label>
 
 <?php
-if (acl_permiso($_SESSION['cargo'], array('2')) && ! acl_permiso($_SESSION['cargo'], array('0', '1'))) {
+if (acl_permiso($_SESSION['cargo'], array('2')) && ! acl_permiso($_SESSION['cargo'], array('z', '1'))) {
 	$unidad_tutor = $_SESSION['mod_tutoria']['unidad'];
 	echo "<input type='text' name='select' value='$unidad_tutor' readonly class='form-control'/>"; 
 }

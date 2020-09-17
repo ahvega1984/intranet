@@ -2,7 +2,7 @@
 require_once("../../bootstrap.php");
 include("../../lib/pclzip.lib.php");
 
-acl_acceso($_SESSION['cargo'], array('0', '1'));
+acl_acceso($_SESSION['cargo'], array('z', '1'));
 
 
 class my_ZipArchive extends ZipArchive

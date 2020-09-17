@@ -346,7 +346,7 @@ if (!$claveal) {
 									&nbsp;/&nbsp;
 									<?php endif; ?>
 									<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?> 
-									Office 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
+									Microsoft 365 <a href="https://login.microsoftonline.com/?whr=<?php echo $_SERVER['SERVER_NAME']; ?>" target="_blank"><i class="fas fa-external-link-alt ml-1"></i></a>
 									<?php endif; ?>
 								</h6>
 

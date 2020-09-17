@@ -59,7 +59,7 @@ function abrevactividad($db_con, $actividad) {
 	return $abrev;
 }
 
-acl_acceso($_SESSION['cargo'], array('0', '1'));
+acl_acceso($_SESSION['cargo'], array('z', '1'));
 
 $HorExpSen = $_FILES['HorExpSen']['tmp_name'];
 

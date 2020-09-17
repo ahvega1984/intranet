@@ -48,8 +48,8 @@ $asignatura = $exp_unidad[3];
 								<th>Usuario</th>
 								<th>Contraseña<br>Gesuser</th>
 								<th>Contraseña<br>Moodle</th>
-								<th>Correo electrónico<br>G-Suite y Office 365</th>
-								<th>Contraseña<br>G-Suite</th>
+								<th>Correo electrónico<br>G-Suite y Microsoft 365</th>
+								<th>Contraseña<br>G-Suite y Microsoft 365</th>
 							</tr>
 						</thead>
 						<tbody>

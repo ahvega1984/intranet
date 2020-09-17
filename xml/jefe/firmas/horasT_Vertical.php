@@ -2,7 +2,7 @@
 require('../../../bootstrap.php');
 require("../../../pdf/mc_table.php");
 
-acl_acceso($_SESSION['cargo'], array('0', '1'));
+acl_acceso($_SESSION['cargo'], array('z', '1'));
 
 if (!isset($_POST['dia']))  
 	$fechaInicio = date("Y-m-d", strtotime("next Monday"));

@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 require("../../pdf/mc_table.php");
 
-acl_acceso($_SESSION['cargo'], array('0', '1'));
+acl_acceso($_SESSION['cargo'], array('z', '1'));
 
 $MiPDF = new PDF_MC_Table('L','mm', 'A4');
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');

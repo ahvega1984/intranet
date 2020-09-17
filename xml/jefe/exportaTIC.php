@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array('0', '1'));
+acl_acceso($_SESSION['cargo'], array('z', '1'));
 
 if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['exportar']) && ! empty($_GET['exportar'])) {
 
@@ -380,7 +380,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 	}
 
 
-	// OFFICE 365 PROFESORES
+	// Microsoft 365 PROFESORES
 	$office365_profesores	= 'profesores_office365.csv';
 
 	if (file_exists($directorio.$office365_profesores)) unlink($directorio.$office365_profesores);
@@ -466,7 +466,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 		}
 	}
 
-	// OFFICE 365 ALUMNADO
+	// Microsoft 365 ALUMNADO
 	$office365_alumnado	= 'alumnos_office365.csv';
 
 	if (file_exists($directorio.$office365_alumnado)) unlink($directorio.$office365_alumnado);

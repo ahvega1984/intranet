@@ -705,8 +705,8 @@ include('../menu.php');
 								    	<div class="checkbox">
 								    		<label>
 					    			    		<input type="checkbox" name="mod_centrotic_office365" value="1" <?php echo (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']) ? 'checked' : ''; ?>>
-					    			    		<strong>Office 365</strong>
-					    			    		<p class="help-block">Genera los archivos de exportación de alumnado y profesorado del centro para Office 365.</p>
+					    			    		<strong>Microsoft 365</strong>
+					    			    		<p class="help-block">Genera los archivos de exportación de alumnado y profesorado del centro para Microsoft 365.</p>
 					    			    	</label>
 								    	</div>
 								    </div>

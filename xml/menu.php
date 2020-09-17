@@ -2,7 +2,7 @@
 
 <ul class="nav nav-pills nav-stacked">
 
-	<?php if (acl_permiso($_SESSION['cargo'], array('0', '1'))): ?>
+	<?php if (acl_permiso($_SESSION['cargo'], array('z', '1'))): ?>
 	<!-- CONFIGURACIÓN -->
 	<li class="nav-header">Configuración</li>
 	<?php if (acl_permiso($_SESSION['cargo'], array('1'))): ?>
@@ -32,7 +32,7 @@
 	<?php endif; ?>
 	<?php endif; ?>
 
-	<?php if (acl_permiso($_SESSION['cargo'], array('0', '1'))): ?>
+	<?php if (acl_permiso($_SESSION['cargo'], array('z', '1'))): ?>
 	<!-- ACTUALIZACIÓN -->
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
@@ -96,8 +96,8 @@
 	<li><a href="jefe/exportaTIC_profesores.php" >Grupo de profesores (G Suite)</a></li>
 	<?php endif; ?>
 	<?php if (isset($config['mod_centrotic_office365']) && $config['mod_centrotic_office365']): ?>
-	<li><a href="jefe/exportaTIC.php?exportar=alumnos_office365.csv" target="_blank">Usuarios alumnos (Office 365)</a></li>
-	<li><a href="jefe/exportaTIC.php?exportar=profesores_office365.csv" target="_blank">Usuarios profesores (Office 365)</a></li>
+	<li><a href="jefe/exportaTIC.php?exportar=alumnos_office365.csv" target="_blank">Usuarios alumnos (Microsoft 365)</a></li>
+	<li><a href="jefe/exportaTIC.php?exportar=profesores_office365.csv" target="_blank">Usuarios profesores (Microsoft 365)</a></li>
 	<?php endif; ?>
 	<?php endif; ?>
 
