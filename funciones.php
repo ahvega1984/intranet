@@ -22,7 +22,7 @@ function cifrarTexto($plaintext) {
   return $ciphertext;
 }
 
-function decifrarTexto($ciphertext) {
+function descifrarTexto($ciphertext) {
   global $config;
 
   $c = base64_decode($ciphertext);
@@ -1054,3 +1054,74 @@ function rgpdNombreProfesor($nombre) {
 	}
 	return $nombre;
 }
+
+function correoValidacion() {
+    global $db_con, $config;
+
+    require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
+
+    $mail = new PHPMailer();
+
+    if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
+        $mail->isSMTP();
+        $mail->Host = $config['email_smtp']['hostname'];
+        $mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
+        $mail->Port = $config['email_smtp']['port'];
+        $mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
+
+        $mail->Username = $config['email_smtp']['username'];
+        $mail->Password = $config['email_smtp']['password'];
+
+        $mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
+    }
+    else {
+        $mail->Host = "localhost";
+        $mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
+    }
+
+    $result = mysqli_query($db_con, "SELECT `id`, `profesor`, `correo` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+    if (mysqli_num_rows($result)) {
+        $row = mysqli_fetch_array($result);
+
+        $id_profesor = $row['id'];
+        $correo_profesor = $row['correo'];
+        $nombre_completo_profesor = $row['profesor'];
+        if (strpos($nombre_completo_profesor, ',') !== false) {
+            $exp_nombre_profesor = explode(", ", $nombre_completo_profesor);
+            $nombre_profesor = $exp_nombre_profesor[0];
+        }
+        else {
+            $nombre_profesor = $nombre_completo_profesor;
+        }
+
+        $codigo_verificacion = cifrarTexto($id_profesor.'|'.$correo_profesor);
+
+        $url_verificacion = "https://".$config['dominio']."/intranet/validarCorreo.php?verificar=".urlencode($codigo_verificacion);
+
+        $mail->IsHTML(true);
+
+        $message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+        $message = str_replace('{{dominio}}', $config['dominio'], $message);
+        $message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+        $message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+        $message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+        $message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+        $message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+        $message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+        $message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+        $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+        $message = str_replace('{{centro_email}}', $config['centro_email'], $message);
+        $message = str_replace('{{titulo}}', 'Verificación de correo electrónico', $message);
+        $message = str_replace('{{contenido}}', '<p>Hola '.$nombre_profesor.', estamos verificando tu correo electrónico.</p><p>Queremos garantizarte una comunicación completamente segura, por favor valida tu correo haciendo clic en el siguiente enlace, o cópialo y pégalo en la barra de direcciones de tu navegador web:</p><a href="'.$url_verificacion.'" target="_blank">'.$url_verificacion.'</a><br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo.', $message);
+        $message = str_replace('{{autor}}', 'Administrador de la Intranet', $message);
+
+        $mail->msgHTML(utf8_decode($message));
+        $mail->Subject = utf8_decode('Verificación de correo electrónico');
+        $mail->AltBody = utf8_decode('Hola '.$nombre_profesor.', estamos verificando tu correo electrónico.\n\nQueremos garantizarte una comunicación completamente segura, por favor valida tu correo haciendo clic en el siguiente enlace, o cópialo y pégalo en la barra de direcciones de tu navegador web:\n\n'.$url_verificacion.'\n\n\nEste correo es informativo. Por favor, no responder a esta dirección de correo.');
+
+        $mail->AddAddress($correo_profesor, $nombre_completo_profesor);
+        $mail->Send();
+    }
+    
+}
+

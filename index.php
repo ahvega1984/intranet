@@ -1,6 +1,22 @@
 <?php
 require('bootstrap.php');
 
+// Acciones
+if (isset($_GET['action'])) {
+	$action = limpiarInput($_GET['action'], 'alpha');
+
+	switch ($action) {
+		// Reenvío de email de verificación
+		case 'reenviarEmail':
+			correoValidacion();
+			$pendientes_reenviarEmail = 1;
+			break;
+		
+		default:
+			break;
+	}
+}
+
 if ($_GET['resetea_mensaje']==1) {
 	$idea_mensaje = limpiarInput($_GET['idea_mensaje'], 'alphanumeric');
 

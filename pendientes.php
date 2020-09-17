@@ -36,6 +36,39 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 </div>
 <?php endif; ?>
 
+
+<?php
+// COMIENZO VERIFICACION DE CORREO ELECTRÓNICO
+$result_verificacion_correo = mysqli_query($db_con, "SELECT `correo`, `correo_verificado` FROM `c_profes` WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1"); ?>
+
+<?php if (mysqli_num_rows($result_verificacion_correo)): ?>
+	<?php $row_verificacion_correo = mysqli_fetch_array($result_verificacion_correo); ?>
+
+	<?php
+	// Eliminamos la cuenta del profesor si no es corporativa
+	$result_verificacion_correo_profesor = mysqli_query($db_con, "SELECT `idprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$_SESSION['profi']."' LIMIT 1");
+	$result_verificacion_correo_esProfesor = (mysqli_num_rows($result_verificacion_correo_profesor)) ? 1 : 0;
+	if ($result_verificacion_correo_esProfesor && (strpos($row_verificacion_correo['correo'], '@'.'juntadeandalucia.es') === false && strpos($row_verificacion_correo['correo'], '@'.$_SERVER['SERVER_NAME']) === false)) {
+		mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '', `correo_verificado` = 0 WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+	}
+	?>
+
+	<?php if (empty($row_verificacion_correo['correo'])): ?>
+<div class="alert alert-warning">
+	<h4>Acción requerida:</h4>
+	<p>Registre una cuenta de correo electrónico corporativa para recibir comunicaciones. <a href="https://iesantoniomachado.es/intranet/usuario.php?tab=cuenta&pane=email" class="alert-link">Registrar ahora</a></p>
+</div>
+	<?php elseif (empty($row_verificacion_correo['correo_verificado']) || $row_verificacion_correo['correo_verificado'] == 0): ?>
+<div class="alert alert-warning">
+	<h4>Acción requerida:</h4>
+	<p>Verifique su cuenta de correo electrónico <strong><?php echo $row_verificacion_correo['correo']; ?></strong> para poder recibir comunicaciones. <a href="https://iesantoniomachado.es/intranet/index.php?action=reenviarEmail" class="alert-link">Reenviar correo de verificación</a></p>
+	<?php if (isset($pendientes_reenviarEmail) && $pendientes_reenviarEmail == 1): ?>
+	<p>Le hemos enviado un correo electrónico, compruebe su buzón de correo o buzón de SPAM.</p>
+	<?php endif; ?>
+</div>
+	<?php endif; ?>
+<?php endif; ?>
+
 <?php
 
 // Comprobar actividades en elcalendario

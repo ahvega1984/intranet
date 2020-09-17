@@ -188,7 +188,7 @@ include("menu.php");
 				<br>
 
 				<div class="panel-group" id="departamentos">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' AND departamento <> 'Servicio Técnico y/o Mantenimiento' AND departamento <> '' ORDER BY departamento ASC"); ?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT `departamento` FROM `departamentos` WHERE `departamento` <> 'Admin' AND `departamento` <> 'Administracion' AND `departamento` <> 'Conserjeria' AND `departamento` <> 'Servicio Técnico y/o Mantenimiento' AND `departamento` <> '' ORDER BY `departamento` ASC"); ?>
 					<?php $i = 0; ?>
 					<?php while ($departamento = mysqli_fetch_array($result)): ?>
 				  <div class="panel panel-default">
@@ -202,7 +202,7 @@ include("menu.php");
 				    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
 				      <div class="panel-body">
 
-				      <?php $profesores = mysqli_query($db_con, "SELECT distinct profesor, c_profes.idea, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND profesor <> 'Administrador' AND correo IS NOT NULL ORDER BY profesor"); ?>
+				      <?php $profesores = mysqli_query($db_con, "SELECT distinct `c_profes`.`profesor`, `c_profes`.`idea`, `c_profes`.`dni`, `correo`, `cargo` FROM `c_profes`, `departamentos` WHERE `c_profes`.`correo_verificado` = 1 AND `departamentos`.`idea` = `c_profes`.`idea` AND `departamento`= '$departamento[0]' AND `profesor` <> 'Administrador' AND `c_profes`.`correo` IS NOT NULL ORDER BY `c_profes`.`profesor`"); ?>
 				      <?php if(mysqli_num_rows($profesores)>0): ?>
 
 			        <?php while($profesor = mysqli_fetch_array($profesores)): ?>

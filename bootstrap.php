@@ -70,8 +70,19 @@ unset($server_name);
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>");
 mysqli_query($db_con,"SET NAMES 'utf8'");
 
-
-if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/loginSeneca.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/lib/google-authenticator/totp_validacion.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
+if ($_SERVER['SCRIPT_NAME'] == '/intranet/validarCorreo.php' ) {
+	if (! isset($_GET['verificar'])) {
+		if (isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
+		  header('Location:'.'https://'.$config['dominio'].'/intranet/index.php');
+		  exit();
+		}
+		else {
+			header('Location:'.'http://'.$config['dominio'].'/intranet/index.php');
+			exit();
+		}
+	}
+}
+elseif($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/loginSeneca.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/logout.php') {
 
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['intranet_auth'] != 1) {
@@ -177,11 +188,13 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] !
 
 	}
 
+	// Variable del cargo del Profesor
+	$pr = $_SESSION['profi']; // Nombre
+	$carg = $_SESSION['cargo']; // Perfil
+	$dpto = $_SESSION['dpt']; // Departamento
+	$idea = $_SESSION['ide']; // Usuario iDea de Séneca
+	$n_curso = $_SESSION['n_cursos']; // Tiene Horario
+
 }
 
-// Variable del cargo del Profesor
-$pr = $_SESSION['profi']; // Nombre
-$carg = $_SESSION['cargo']; // Perfil
-$dpto = $_SESSION['dpt']; // Departamento
-$idea = $_SESSION['ide']; // Usuario iDea de Séneca
-$n_curso = $_SESSION['n_cursos']; // Tiene Horario
+// ¡No escribir código aquí!

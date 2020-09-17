@@ -12,7 +12,8 @@ if (isset($_POST['registrarCorreo'])) {
 			$cmp_correo = limpiarInput(trim($_POST['email']), 'alphanumericspecial');
 			if (filter_var($cmp_correo, FILTER_VALIDATE_EMAIL)) {
 				if (! $esProfesor || ($esProfesor && (strpos($cmp_correo, '@'.'juntadeandalucia.es') !== false || strpos($cmp_correo, '@'.$_SERVER['SERVER_NAME']) !== false))) {
-					mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."' WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+					mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."', `correo_verificado` = 0 WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
+					correoValidacion();
 				}
 				else {
 					$msg_email_error = "Debe introducir una dirección de correo electrónico @juntadeandalucia.es o @".$_SERVER['SERVER_NAME'];
