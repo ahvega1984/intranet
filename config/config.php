@@ -186,6 +186,7 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['mod_documentos']\t\t= $modulo_documentos;\r\n");
 		fwrite($file, "\$config['mod_documentos_dir']\t= '$modulo_documentos_dir';\r\n");
 		fwrite($file, "\$config['mod_documentos_biblioteca']\t= '$mod_documentos_biblioteca';\r\n");
+		fwrite($file, "\$config['mod_documentos_recursos']\t= '$mod_documentos_recursos';\r\n");
 		fwrite($file, "\$config['mod_documentos_departamentos']\t= '$mod_documentos_departamentos';\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: SMS\r\n");
@@ -731,6 +732,14 @@ include('../menu.php');
 							    		<label for="mod_documentos_dir">Directorio público</label>
 							    	    <input type="text" class="form-control" id="mod_documentos_dir" name="mod_documentos_dir" value="<?php echo $config['mod_documentos_dir']; ?>">
 							    	</div>
+
+							    	<div class="checkbox">
+			    			    		<label>
+			    			    			<input type="checkbox" name="mod_documentos_recursos" value="1" <?php echo (isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) ? 'checked' : ''; ?>>
+			    			    			<strong>Recursos</strong>
+			    			    			<p class="help-block">Creará una carpeta por cada unidad del Centro para que el profesorado pueda almacenar recursos educativos, visibles desde la <em>Página del Centro</em>.</p>
+			    			    		</label>
+			    			    	</div>
 
 							    	<div class="checkbox">
 							    		<label>

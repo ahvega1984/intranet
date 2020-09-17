@@ -10,35 +10,50 @@ function ft_settings_external_load() {
 
   # Settings - Change as appropriate. See online documentation for explanations. #
   $intranet_directorios = array('publico', 'interno', 'privado');
-  if (isset($_GET['index']) && in_array($_GET['index'], $intranet_directorios)) {
-    $index = $_GET['index'];
-    switch ($_GET['index']) {
-      default :
-      case 'publico':
-        $ft["settings"]["DIR"] = rtrim($config['mod_documentos_dir'], '/');
-        break;
-      case 'interno':
-        if (! file_exists("../varios/internos")) mkdir("../varios/internos", 0777);
-        if (! file_exists("../varios/internos/Proteccion de Datos")) mkdir("../varios/internos/Proteccion de Datos", 0777);
-        if (! file_exists("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos")) mkdir("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos", 0777);
-        if (! file_exists("../varios/internos/Proteccion de Datos/Control horario y seguimiento del personal")) mkdir("../varios/internos/Proteccion de Datos/Control horario y seguimiento del personal", 0777);
-        if (! file_exists("../varios/internos/Proteccion de Datos/Videovigilancia")) mkdir("../varios/internos/Proteccion de Datos/Videovigilancia", 0777);
 
-        if (! file_exists("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos/Autorizacion para la publicacion de imagenes de los alumnos.odt")) {
-          include('autorizacionImagenes.php');
+  $index = ((isset($_GET['index']) && in_array($_GET['index'], $intranet_directorios)) ? $_GET['index'] : 'publico');
+
+  switch ($_GET['index']) {
+    default :
+    case 'publico':
+      $ft["settings"]["DIR"] = rtrim($config['mod_documentos_dir'], '/');
+
+      if (isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos'] == 1) {
+
+        $dir_recuros = $ft["settings"]["DIR"].'/Recursos';
+
+        if (! file_exists($ft["settings"]["DIR"].'/Recursos')) mkdir($ft["settings"]["DIR"].'/Recursos', 0777);
+
+        $result_unidades = mysqli_query($db_con, "SELECT `nomunidad` FROM `unidades` ORDER BY `nomunidad` ASC");
+
+        while ($row_unidad = mysqli_fetch_array($result_unidades)) {
+          $dir_recursos_unidad = $dir_recuros . '/' . $row_unidad['nomunidad'];
+
+          if (! file_exists($dir_recursos_unidad)) mkdir($dir_recursos_unidad, 0777);
         }
+        
+        
+      }
+      break;
+    case 'interno':
+      if (! file_exists("../varios/internos")) mkdir("../varios/internos", 0777);
+      if (! file_exists("../varios/internos/Proteccion de Datos")) mkdir("../varios/internos/Proteccion de Datos", 0777);
+      if (! file_exists("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos")) mkdir("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos", 0777);
+      if (! file_exists("../varios/internos/Proteccion de Datos/Control horario y seguimiento del personal")) mkdir("../varios/internos/Proteccion de Datos/Control horario y seguimiento del personal", 0777);
+      if (! file_exists("../varios/internos/Proteccion de Datos/Videovigilancia")) mkdir("../varios/internos/Proteccion de Datos/Videovigilancia", 0777);
 
-        $ft["settings"]["DIR"] = "../varios/internos";
-        break;
-      case 'privado':
-        if (! file_exists("../varios/".$_SESSION['ide'])) mkdir("../varios/".$_SESSION['ide'], 0777);
-        $ft["settings"]["DIR"] = "../varios/".$_SESSION['ide'];
-        break;
-    }
+      if (! file_exists("../varios/internos/Proteccion de Datos/Contenido audiovisual de las actividades de los centros y servicios publicos/Autorizacion para la publicacion de imagenes de los alumnos.odt")) {
+        include('autorizacionImagenes.php');
+      }
+
+      $ft["settings"]["DIR"] = "../varios/internos";
+      break;
+    case 'privado':
+      if (! file_exists("../varios/".$_SESSION['ide'])) mkdir("../varios/".$_SESSION['ide'], 0777);
+      $ft["settings"]["DIR"] = "../varios/".$_SESSION['ide'];
+      break;
   }
-  else {
-    $ft["settings"]["DIR"] = rtrim($config['mod_documentos_dir'], '/'); // Your default directory. Do NOT include a trailing slash!
-  }
+
 
   $caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'á', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
   $caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
