@@ -216,7 +216,7 @@ if (isset($_POST['enviar'])) {
 				$result_tprofesores = mysqli_query($db_con,"SELECT * FROM `profesores` WHERE `nivel` = '$curso_asignatura' AND `materia` = '$nomasignatura' AND `profesor` = '$profesor' AND `grupo` = '$unidad'");
 				if (! mysqli_num_rows($result_tprofesores)) {
 					if (! empty($curso_asignatura) && ! empty($unidad) != "") {
-						mysqli_query($db_con, "INSERT INTO `profesores` (`nivel`, `materia`, `profesor`, `grupo`) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')") or die (mysqli_error());
+						mysqli_query($db_con, "INSERT INTO `profesores` (`nivel`, `materia`, `profesor`, `grupo`) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')") or die (mysqli_error($db_con));
 					}
 				}
 
