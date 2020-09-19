@@ -1015,3 +1015,16 @@ if (! mysqli_num_rows($actua)) {
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tablas de informes extraordinaria', NOW())");
 }
+
+/*
+  @descripcion: Modificación campo nombre de la tabla departamentos y c_profes
+  @fecha: 19 de septiembre de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación campo nombre de la tabla departamentos y c_profes'");
+if (! mysqli_num_rows($actua)) {
+
+    mysqli_query($db_con, "ALTER TABLE `departamentos` CHANGE `NOMBRE` `NOMBRE` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+    mysqli_query($db_con, "ALTER TABLE `c_profes` CHANGE `PROFESOR` `PROFESOR` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+    
+    mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo nombre de la tabla departamentos y c_profes', NOW())");
+}
