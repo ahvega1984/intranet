@@ -31,7 +31,6 @@ switch ($config['centro_provincia']) {
 //	de acceso que el item padre.
 //
 
-
 $menu = array(
 	array(
 		'menu_id' => 'direccion',

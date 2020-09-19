@@ -93,10 +93,8 @@ include ("../menu.php");
 		$head = '<thead>
 			<tr>
 			<th>Profesor</th>';
-			if ($_SESSION['ide'] == "admin") {
-			$head .= '<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>';
-			}
-			$head .= '<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
+			$head .= '<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
+			<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
 			<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
 			<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
 			<th><span data-bs="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
@@ -144,7 +142,7 @@ include ("../menu.php");
 				echo $head;
 			}
 			?>
-		<tr<?php echo ($idea == 'admin' && $_SESSION['ide'] != 'admin') ? ' style="display: none;"' : ''; ?>>
+		<tr>
 				<td nowrap><small><?php
 			echo $pro;
 			?></small>
