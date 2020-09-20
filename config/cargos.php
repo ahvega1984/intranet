@@ -92,8 +92,8 @@ include ("../menu.php");
 		<?php
 		$head = '<thead>
 			<tr>
-			<th>Profesor</th>';
-			$head .= '<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
+			<th>Profesor</th>
+			<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
 			<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
 			<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
 			<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
