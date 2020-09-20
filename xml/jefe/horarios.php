@@ -74,14 +74,14 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 }
 
 // Eliminamos el Recreo como 4Âª Hora.
-$recreo = "update horw set hora = 'R' WHERE hora ='4'";
+/*$recreo = "update horw set hora = 'R' WHERE hora ='4'";
 mysqli_query($db_con,$recreo);
 $hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
 mysqli_query($db_con,$hora4);
 $hora5 = "UPDATE  horw SET  hora =  '5' WHERE  hora = '6'";
 mysqli_query($db_con,$hora5);
 $hora6 = "UPDATE  horw SET  hora =  '6' WHERE  hora = '7'";
-mysqli_query($db_con,$hora6);
+mysqli_query($db_con,$hora6);*/
 mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
 
 // Quitamos las S del codigo de las Actividades

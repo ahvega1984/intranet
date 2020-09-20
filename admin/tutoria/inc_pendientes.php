@@ -176,7 +176,7 @@ $count_fech=1;
 	<form method="post" action="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
 		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
-		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsión</button>
+		<!--<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsión</button>-->
 	</form>
 	<?php endif; ?>
 </div>
@@ -206,7 +206,7 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación 
 	<form method="post" action="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
 		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
-		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestación escrita</button>
+		<!--<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestación escrita</button>-->
 	</form>
 	
 	<?php endif; ?>

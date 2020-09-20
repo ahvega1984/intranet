@@ -30,7 +30,7 @@ if (mysqli_num_rows($hay_algo)) {
 }
 
 if ($algo) {
-	echo '<tr><th>'.$nombre.'</th>';
+	echo '<tr><td><span class="badge">'.$n_hora.'</span><br><small class="text-muted">'.$nombre.'</small></td>';
 
 	//Días
 	for($z = 1; $z < 6; $z ++) {

@@ -579,7 +579,7 @@ include("../../../menu.php");
 					<?php $i_sep = 1; ?>
 					<?php $jornada_aux = ""; ?>
 					<?php $thoras = array(); ?>
-					<?php $result_horas = mysqli_query($db_con,"SELECT `hora`, `hora_inicio`, `hora_fin`, `idjornada` FROM `tramos` ORDER BY `idjornada` ASC, `horini` ASC"); ?>
+					<?php $result_horas = mysqli_query($db_con,"SELECT `hora`, `hora_inicio`, `hora_fin`, `idjornada` FROM `tramos` ORDER BY `idjornada` ASC, `hora_inicio` ASC"); ?>
 					<?php while ($row = mysqli_fetch_array($result_horas)): ?>
 					<?php array_push($thoras, $row); ?>
 					<?php endwhile; ?>
@@ -591,9 +591,9 @@ include("../../../menu.php");
 						<tr>
 						<?php endif; ?>
 							<th>
-							<?php echo ($thora['hora'] != 'R' && $thora['hora'] != 'Rn') ? $thora['hora'].'ª' : $thora['hora']; ?>
-							<hr style="margin: 5px 0;">
-							<small><?php echo substr($thora['hora_inicio'], 0, 5); ?><br><?php echo substr($thora['hora_fin'], 0, 5); ?></small>
+							<?php //echo ($thora['hora'] != 'R' && $thora['hora'] != 'Rn') ? $thora['hora'].'ª' : $thora['hora']; ?>
+							<!--<hr style="margin: 5px 0;">-->
+							<?php echo $thora['hora']." "; ?><small><?php echo substr($thora['hora_inicio'], 0, 5); ?><br><?php echo substr($thora['hora_fin'], 0, 5); ?></small>
 							</th>
 							<?php for($i = 1; $i < 6; $i++): ?>
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT `a_asig`, `asig`, `c_asig`, `a_grupo`, `a_aula`, `n_aula`, `idactividad` FROM `horw` WHERE `prof` = '$profesor' AND `dia` = '$i' AND `hora` = '".$thora['hora']."'"); ?>
