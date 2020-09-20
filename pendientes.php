@@ -56,12 +56,12 @@ $result_verificacion_correo = mysqli_query($db_con, "SELECT `correo`, `correo_ve
 	<?php if (empty($row_verificacion_correo['correo'])): ?>
 <div class="alert alert-warning">
 	<h4>Acción requerida:</h4>
-	<p>Registre una cuenta de correo electrónico corporativa para recibir comunicaciones. <a href="https://iesantoniomachado.es/intranet/usuario.php?tab=cuenta&pane=email" class="alert-link">Registrar ahora</a></p>
+	<p>Registre una cuenta de correo electrónico corporativa para recibir comunicaciones. <a href="https://<?php echo $config['dominio']; ?>/intranet/usuario.php?tab=cuenta&pane=email" class="alert-link">Registrar ahora</a></p>
 </div>
 	<?php elseif (empty($row_verificacion_correo['correo_verificado']) || $row_verificacion_correo['correo_verificado'] == 0): ?>
 <div class="alert alert-warning">
 	<h4>Acción requerida:</h4>
-	<p>Verifique su cuenta de correo electrónico <strong><?php echo $row_verificacion_correo['correo']; ?></strong> para poder recibir comunicaciones. <a href="https://iesantoniomachado.es/intranet/index.php?action=reenviarEmail" class="alert-link">Reenviar correo de verificación</a></p>
+	<p>Verifique su cuenta de correo electrónico <strong><?php echo $row_verificacion_correo['correo']; ?></strong> para poder recibir comunicaciones. <a href="https://<?php echo $config['dominio']; ?>/intranet/index.php?action=reenviarEmail" class="alert-link">Reenviar correo de verificación</a></p>
 	<?php if (isset($pendientes_reenviarEmail) && $pendientes_reenviarEmail == 1): ?>
 	<p>Le hemos enviado un correo electrónico, compruebe su buzón de correo o buzón de SPAM.</p>
 	<?php endif; ?>
