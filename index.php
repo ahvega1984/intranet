@@ -34,18 +34,7 @@ include("menu.php");
 			<div class="col-md-3">
 
 				<div id="bs-tour-menulateral">
-				<?php
-				foreach (glob("menu_lateral_*.php") as $ml_centro) {
-					$menu_lateral_centro = $ml_centro;
-					continue;
-				}
-				if (isset($menu_lateral_centro) && file_exists($menu_lateral_centro)) {
-					include($menu_lateral_centro);
-				}
-				else {
-					include("menu_lateral.php");
-				}
-				?>
+				<?php include("menu_lateral.php"); ?>
 				</div>
 
 				<div id="bs-tour-ausencias">

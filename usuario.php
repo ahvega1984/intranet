@@ -5,18 +5,39 @@ require("bootstrap.php");
 $result_profesor = mysqli_query($db_con, "SELECT `idprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$_SESSION['profi']."' LIMIT 1");
 $esProfesor = (mysqli_num_rows($result_profesor)) ? 1 : 0;
 
+// Comprobamos los dominios permitidos para registrar el correo electrónico
+if (isset($config['mod_notificaciones_dominios']) && ! empty($config['mod_notificaciones_dominios'])) {
+	$listaDominiosPermitidosCorreos = '';
+
+	$correos_dominios_permitidos = explode(',', $config['mod_notificaciones_dominios']);
+	foreach ($correos_dominios_permitidos as $correo_dominio_permitido) {
+		$listaDominiosPermitidosCorreos .= '@'.trim($correo_dominio_permitido).', ';
+	}
+	$listaDominiosPermitidosCorreos = rtrim($listaDominiosPermitidosCorreos, ', ');
+}
+
 // Envío de formularios
 if (isset($_POST['registrarCorreo'])) {
 	if (checkToken()) {
 		if (isset($_POST['email']) && ! empty($_POST['email'])) {
 			$cmp_correo = limpiarInput(trim($_POST['email']), 'alphanumericspecial');
 			if (filter_var($cmp_correo, FILTER_VALIDATE_EMAIL)) {
-				if (! $esProfesor || ($esProfesor && (strpos($cmp_correo, '@'.'juntadeandalucia.es') !== false || strpos($cmp_correo, '@'.$_SERVER['SERVER_NAME']) !== false))) {
+
+				$esDominioPermitido = false;
+				if (isset($config['mod_notificaciones_dominios']) && ! empty($config['mod_notificaciones_dominios'])) {
+					foreach ($correos_dominios_permitidos as $correo_dominio_permitido) {
+						if (strpos($cmp_correo, '@'.trim($correo_dominio_permitido)) !== false) {
+							$esDominioPermitido = true;
+						}
+					}
+				}
+
+				if (! $esProfesor || ($esProfesor && (strpos($cmp_correo, '@'.'juntadeandalucia.es') !== false || strpos($cmp_correo, '@'.$_SERVER['SERVER_NAME']) !== false || $esDominioPermitido !== false))) {
 					mysqli_query($db_con, "UPDATE `c_profes` SET `correo` = '".$cmp_correo."', `correo_verificado` = 0 WHERE `idea` = '".$_SESSION['ide']."' LIMIT 1");
 					correoValidacion();
 				}
 				else {
-					$msg_email_error = "Debe introducir una dirección de correo electrónico @juntadeandalucia.es o @".$_SERVER['SERVER_NAME'];
+					$msg_email_error = "Debe introducir una dirección de correo electrónico @juntadeandalucia.es".((isset($listaDominiosPermitidosCorreos) && ! empty($listaDominiosPermitidosCorreos)) ? ", ".$listaDominiosPermitidosCorreos : "")." o @".$_SERVER['SERVER_NAME'];
 				}
 			}
 			else {
@@ -347,7 +368,7 @@ include("menu.php");
 				    <div id="cuentaCollapseEmail" class="panel-collapse collapse" role="tabpanel" aria-labelledby="cuentaHeadingOne">
 				      <div class="panel-body">
 				      	<?php if ($esProfesor): ?>
-				      	<p class="help-block">Por motivos de seguridad y en cumplimiento al derecho a la desconexión digital en el ámbito laboral regulado en la <a href="https://www.boe.es/eli/es/lo/2018/12/05/3/con#a8-10" target="_blank">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos y garantía de los derechos digitales (LOPDGDD)</a>, utilice el correo corporativo de la Consejería de Educación de la Junta de Andalucía <strong>edu@juntadeandalucia.es</strong> que puede solicitar en la aplicación Séneca, pantalla Utilidades, Correo corporativo. También puede usar una dirección de correo electrónico <strong>@<?php echo $_SERVER['SERVER_NAME']; ?></strong>, si el Centro se la ha proporcionado.</p>
+				      	<p class="help-block">Por motivos de seguridad y en cumplimiento al derecho a la desconexión digital en el ámbito laboral regulado en la <a href="https://www.boe.es/eli/es/lo/2018/12/05/3/con#a8-10" target="_blank">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos y garantía de los derechos digitales (LOPDGDD)</a>, utilice el correo corporativo de la Consejería de Educación de la Junta de Andalucía <strong>edu@juntadeandalucia.es</strong> que puede solicitar en la aplicación Séneca, pantalla Utilidades, Correo corporativo. También puede usar una dirección de correo electrónico <strong><?php echo ((isset($listaDominiosPermitidosCorreos) && ! empty($listaDominiosPermitidosCorreos)) ? $listaDominiosPermitidosCorreos." o " : ""); ?>@<?php echo $_SERVER['SERVER_NAME']; ?></strong>, si el Centro se la ha proporcionado.</p>
 				      	<?php endif; ?>
 
 				      	<br>

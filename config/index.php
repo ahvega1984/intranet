@@ -129,6 +129,15 @@ if (isset($_POST['instalar']))
 
 	(isset($_POST['mod_notificaciones'])) ? $modulo_notificaciones = 1 : $modulo_notificaciones = 0;
 
+	$modulo_notificaciones_dominios = '';
+	if (isset($_POST['mod_notificaciones_dominios'])) {
+		$_modulo_notificaciones_dominios = explode(',', limpiar_string($_POST['mod_notificaciones_dominios']));
+		foreach ($_modulo_notificaciones_dominios as $_dominios_permitidos) {
+			$modulo_notificaciones_dominios .= trim($_dominios_permitidos).', ';
+		}
+		$modulo_notificaciones_dominios = rtrim($modulo_notificaciones_dominios, ', ');
+	}
+
 	(isset($_POST['mod_asistencia'])) ? $modulo_asistencia = 1 : $modulo_asistencia = 0;
 
 	(isset($_POST['mod_horarios'])) ? $modulo_horarios = 1 : $modulo_horarios = 0;
@@ -219,6 +228,7 @@ if (isset($_POST['instalar']))
 
 		fwrite($file, "\r\n// MÓDULO: NOTIFICACIONES\r\n");
 		fwrite($file, "\$config['mod_notificaciones']\t= $modulo_notificaciones;\r\n");
+		fwrite($file, "\$config['mod_notificaciones_dominios']\t= '$modulo_notificaciones_dominios';\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
 		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
@@ -940,6 +950,11 @@ if (isset($_POST['instalar']))
 				    			        		</label>
 				    			        	</div>
 				    			        </div>
+
+				    			         <div class="form-group">
+								        	<label for="mod_notificaciones_dominios">Lista de dominios permitidos (separados por coma)</label>
+								    	    <input type="text" class="form-control" id="mod_notificaciones_dominios" name="mod_notificaciones_dominios" value="">
+								        </div>
 
 				    			    </div>
 

@@ -94,6 +94,15 @@ if (isset($_POST['config']))
 	$modulo_sms_pass	= limpiar_string($_POST['mod_sms_pass']);
 
 	$modulo_notificaciones = (isset($_POST['mod_notificaciones'])) ? 1 : 0;
+	
+	$modulo_notificaciones_dominios = '';
+	if (isset($_POST['mod_notificaciones_dominios'])) {
+		$_modulo_notificaciones_dominios = explode(',', limpiar_string($_POST['mod_notificaciones_dominios']));
+		foreach ($_modulo_notificaciones_dominios as $_dominios_permitidos) {
+			$modulo_notificaciones_dominios .= trim($_dominios_permitidos).', ';
+		}
+		$modulo_notificaciones_dominios = rtrim($modulo_notificaciones_dominios, ', ');
+	}
 
 	$modulo_asistencia = (isset($_POST['mod_asistencia'])) ? 1 : 0;
 
@@ -197,6 +206,7 @@ if (isset($_POST['config']))
 
 		fwrite($file, "\r\n// MÓDULO: NOTIFICACIONES\r\n");
 		fwrite($file, "\$config['mod_notificaciones']\t= $modulo_notificaciones;\r\n");
+		fwrite($file, "\$config['mod_notificaciones_dominios']\t= '$modulo_notificaciones_dominios';\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
 		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
@@ -802,6 +812,11 @@ include('../menu.php');
 							        			<p class="help-block">Pone en funcionamiento el envío de SMS o correo electrónico a los profesores que no hayan accedido a la aplicación hace más de 4 días o tengan tareas pendientes: más de 25 mensajes sin leer, informes de tareas o tutoría sin rellenar.</p>
 							        		</label>
 							        	</div>
+							        </div>
+
+							        <div class="form-group">
+							        	<label for="mod_notificaciones_dominios">Lista de dominios permitidos (separados por coma)</label>
+							    	    <input type="text" class="form-control" id="mod_notificaciones_dominios" name="mod_notificaciones_dominios" value="<?php echo $config['mod_notificaciones_dominios']; ?>">
 							        </div>
 
 							    </div>
