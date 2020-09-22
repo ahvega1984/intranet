@@ -17,6 +17,13 @@ if (isset($_GET['hora3'])) {$hora3 = $_GET['hora3'];}elseif (isset($_POST['hora3
 if (isset($_GET['hora4'])) {$hora4 = $_GET['hora4'];}elseif (isset($_POST['hora4'])) {$hora4 = $_POST['hora4'];}else{$hora4="";}
 if (isset($_GET['hora5'])) {$hora5 = $_GET['hora5'];}elseif (isset($_POST['hora5'])) {$hora5 = $_POST['hora5'];}else{$hora5="";}
 if (isset($_GET['hora6'])) {$hora6 = $_GET['hora6'];}elseif (isset($_POST['hora6'])) {$hora6 = $_POST['hora6'];}else{$hora6="";}
+if (isset($_GET['hora7'])) {$hora7 = $_GET['hora7'];}elseif (isset($_POST['hora7'])) {$hora7 = $_POST['hora7'];}else{$hora7="";}
+if (isset($_GET['hora8'])) {$hora8 = $_GET['hora8'];}elseif (isset($_POST['hora8'])) {$hora8 = $_POST['hora8'];}else{$hora8="";}
+if (isset($_GET['hora9'])) {$hora9 = $_GET['hora9'];}elseif (isset($_POST['hora9'])) {$hora9 = $_POST['hora9'];}else{$hora9="";}
+if (isset($_GET['hora10'])) {$hora10 = $_GET['hora10'];}elseif (isset($_POST['hora10'])) {$hora10 = $_POST['hora10'];}else{$hora10="";}
+if (isset($_GET['hora11'])) {$hora11 = $_GET['hora11'];}elseif (isset($_POST['hora11'])) {$hora11 = $_POST['hora11'];}else{$hora11="";}
+if (isset($_GET['hora12'])) {$hora11 = $_GET['hora12'];}elseif (isset($_POST['hora12'])) {$hora12 = $_POST['hora12'];}else{$hora12="";}
+if (isset($_GET['hora13'])) {$hora11 = $_GET['hora13'];}elseif (isset($_POST['hora13'])) {$hora13 = $_POST['hora13'];}else{$hora13="";}
 
 $PLUGIN_DATATABLES = 1;
 
@@ -216,10 +223,15 @@ include("menu.php");
 
 				    <div class="form-group">
 				        <label>Horas sueltas</label><br>
+
+				        <div class="row">
 				        <?php
-				        for ($i = 1;$i < 7;$i++)
+				        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+				        $total_tramos = mysqli_num_rows($result_tramos);
+
+				        while ($row = mysqli_fetch_array($result_tramos))
                         {
-				            $hor = mysqli_query($db_con,"select horas from ausencias where inicio='$inicio1' and fin='$fin1' and profesor='$profesor' and horas like '%$i%'");
+				            $hor = mysqli_query($db_con,"select horas from ausencias where inicio='$inicio1' and fin='$fin1' and profesor='$profesor' and horas like '%".$row['hora']."%'");
 				            $hori = mysqli_fetch_array($hor);
 				            if (strlen($hori[0]) > 0) {
 						        $extra_hor=" checked";
@@ -229,13 +241,18 @@ include("menu.php");
 						        $extra_hor="";
 					        }
 				        ?>
-				            <div class="checkbox-inline">
-                                <label><input name="<?php echo "hora".$i;?>" type="checkbox" value="<?php echo $i;?>" <?php echo $extra_hor;?>>
-                                <?php
-                                echo "".$i."</label> </div>&nbsp;";
-				        }
-				                ?>
+				        	<div class="col-sm-6">
+				            <div class="checkbox">
+                                <label>
+                                	<input name="<?php echo "hora".$row['hora'];?>" type="checkbox" value="<?php echo $row['hora'];?>" <?php echo $extra_hor;?>>
+                                	<?php echo "<span class=\"label label-default\">".$row['hora']."</span> - ".substr($row['hora_inicio'], 0, 5)." a ".substr($row['hora_fin'],0 , 5); ?>
+				            	</label>
 				            </div>
+				            </div>
+				        <?php } ?>
+				        </div>
+				        <br>
+
 				        <div class="form-group">
 					        <label for="observaciones">Tipo y/o Razón de la Ausencia.</label>
 					        <textarea class="form-control" id="observaciones" name="observaciones" rows="6" placeholder="ATENCIÓN: La información registrada en este campo sólo es visible para el Equipo Directivo."><?php echo $observaciones;?></textarea>
@@ -258,6 +275,7 @@ include("menu.php");
 			    </form>
 			</div>
 		</div>
+	</div>
 
 		<div class="col-sm-7">
 			<legend>Historial de ausencias del profesorado</legend>

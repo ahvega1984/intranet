@@ -67,7 +67,7 @@
 						echo "<span class='label label-success' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
 					}
 					else{
-						echo "<span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span>";
+						echo "<a href=\"//".$config['dominio']."/intranet/admin/guardias/index.php?diasem=$z&hora=$n_hora\"><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span></a>";
 					}
 				}
 				// Recorremos los grupos a los que da en ese hora.

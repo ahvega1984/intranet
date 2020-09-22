@@ -136,9 +136,15 @@ include 'menu.php';
 					    		<div class="form-group">
 					    			<label for="hora_guardia">Hora:</label> 
 					    			<select class="form-control" id="hora_guardia" name="hora_guardia" required>
-					    				<?php for ($i = 1; $i < 7; $i++): ?>
-					    				<option value="<?php echo $i; ?>" <?php echo ($i == $hora) ? 'selected' : ''; ?>><?php echo $i; ?>ª hora</option>
-					    				<?php endfor; ?>
+					    				<?php $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` ORDER BY `tramo` ASC"); ?>
+					    				<?php $total_tramos = mysqli_num_rows($result_tramos); ?>
+					    				<?php $i = 0; ?>
+					    				<?php while ($tramo = mysqli_fetch_array($result_tramos)): ?>
+					    				<?php $i++; ?>
+					    				<?php if (strpos('R', $tramo['hora']) === false && strpos('Rn', $tramo['hora']) === false): ?>
+					    				<option value="<?php echo $i; ?>" <?php echo ($i == $hora) ? 'selected' : ''; ?>><?php echo $tramo['hora']; ?>ª hora - De <?php echo substr($tramo['hora_inicio'], 0, 5); ?> a <?php echo substr($tramo['hora_fin'], 0, 5); ?></option><
+					    				<?php endif; ?>
+					    				<?php endwhile; ?>
 					    			</select>
 					    		</div>
 					    		

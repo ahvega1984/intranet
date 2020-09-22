@@ -174,7 +174,7 @@
 
 				// Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
 				$crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO";
-				mysqli_query($db_con, $crear);
+				mysqli_query($db_con, $crear) or die ("Error al importar materias en tabla asignaturas: ".mysqli_error($db_con));
 
 				// Añadimos excepciones
 				mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES

@@ -39,7 +39,9 @@ else {
 
 	<div class="container hidden-print">
 		<ul class="nav nav-tabs">
+			<?php if (isset($_GET['diasem']) && isset($_GET['hora'])): ?>
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/index.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">Registrar guardia</a></li>
+			<?php endif; ?>
 			<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">Histórico de guardias</a></li>
 		</ul>
 	</div>
