@@ -136,7 +136,7 @@ include 'menu.php';
 					    		<div class="form-group">
 					    			<label for="hora_guardia">Hora:</label> 
 					    			<select class="form-control" id="hora_guardia" name="hora_guardia" required>
-					    				<?php for ($i = 1; $i < 7; $i++): ?>
+					    				<?php for ($i = 1; $i < 9; $i++): ?>
 					    				<option value="<?php echo $i; ?>" <?php echo ($i == $hora) ? 'selected' : ''; ?>><?php echo $i; ?>ª hora</option>
 					    				<?php endfor; ?>
 					    			</select>

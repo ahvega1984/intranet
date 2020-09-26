@@ -79,7 +79,7 @@ $dia="";
 while ($fl = mysqli_fetch_array($prof_flt)) {
   $hr[]=$fl[0];
 }
-  for ($i=1; $i < 7; $i++) { 
+  for ($i=1; $i < 9; $i++) { 
 
     if (in_array($i,$hr)) { 
       }
