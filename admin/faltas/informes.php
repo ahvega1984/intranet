@@ -253,7 +253,7 @@ $row = mysqli_fetch_array($result);
             <thead>
               <tr>
                 <th>Fecha</th>
-                <?php for ($i = 1; $i < 7; $i++): ?>
+                <?php for ($i = 1; $i < 9; $i++): ?>
                 <th><?php echo $i; ?>ª hora</th>
                 <?php endfor; ?>
               </tr>
@@ -265,7 +265,7 @@ $row = mysqli_fetch_array($result);
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
-				<?php for ($i = 1; $i < 7; $i++): ?>
+				<?php for ($i = 1; $i < 9; $i++): ?>
           <?php
   				$faltas_tramo = array();
   				$result_falta = mysqli_query($db_con, "SELECT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'");

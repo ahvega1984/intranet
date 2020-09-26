@@ -64,7 +64,7 @@ $fecha0="";
             <thead>
               <tr>
                 <th>Alumno</th>
-                <?php for ($i = 1; $i < 7; $i++): ?>
+                <?php for ($i = 1; $i < 9; $i++): ?>
                 <th><?php echo $i; ?>ª hora</th>
                 <?php endfor; ?>
               </tr>
@@ -83,7 +83,7 @@ $fecha0="";
       ?>
 			<tr>
 				<th><abbr><?php echo $nc.". ".$row['apellidos']." ".$row['nombre']; ?></abbr></th>
-				<?php for ($i = 1; $i < 7; $i++): ?>
+				<?php for ($i = 1; $i < 9; $i++): ?>
 				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '$fecha0' AND hora = '$i'");?>
 				<?php $row_falta = mysqli_fetch_array($result_falta); ?>
 				<?php $result_asig = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre FROM asignaturas WHERE asignaturas.codigo = '".$row_falta['codasi']."' and abrev not like '%\_%'"); ?>

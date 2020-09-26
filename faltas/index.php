@@ -113,7 +113,7 @@ if($mensaje){
 	?>
 	<select	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
-	for ($i = 1; $i < 7; $i++) {
+	for ($i = 1; $i < 9; $i++) {
 		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where requnidadactividad = 'N' AND idactividad <> 25) ORDER BY a_grupo ASC");
 		if (mysqli_num_rows($gr_hora)>0) {
 
