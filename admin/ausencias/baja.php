@@ -2,8 +2,6 @@
 require('../../bootstrap.php');
 
 include("../../menu.php");
-include("menu.php");
-
 if (isset($_GET['id']))
     $id = $_GET['id'];
 elseif (isset($_POST['id']))
@@ -27,7 +25,7 @@ $pr_trozos=explode(", ",$profe_baja);
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-1">
+            <div class="col-sm-5">
                 <div align="left">
                     <?php
                     echo "<h3 align=center>Datos de la ausencia</h3><br />";
@@ -62,14 +60,29 @@ $pr_trozos=explode(", ",$profe_baja);
         <div class="col-sm-7">
             <?php	
 	        echo "<h3>Horario del Profesor hoy</h3><br />";
-	        echo "<table class='table table-striped table-bordered' style='width:auto'><tr><th>1ª Hora</th><th>2ª Hora</th><th>3ª Hora</th><th>4ª Hora</th><th>5ª Hora</th><th>6ª Hora</th><th>7ª Hora</th><th>8ª Hora</th></tr>";
+	        echo "<table class='table table-striped table-bordered' style='width:auto'>";
+	        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+	        $total_tramos = mysqli_num_rows($result_tramos);
+
+	        echo "<thead>";
+	        $n_cols = 0;
+	        while ($row_tramos = mysqli_fetch_array($result_tramos)) {
+	        	echo "<th>".$row_tramos['hora']."ª Hora<br>".substr($row_tramos['hora_inicio'], 0, 5)." - ".substr($row_tramos['hora_fin'], 0, 5)."</th>";
+	        	$n_cols++;
+	        }
+	        echo "</thead><tbody>";
+
 	            echo "<tr>";
 
 	            $ndia = date ( "w" );
-	            for ($i=1;$i<9;$i++)
+	            
+	            $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+	            $total_tramos = mysqli_num_rows($result_tramos);
+
+	            while ($row_tramos = mysqli_fetch_array($result_tramos))
                 {
 	                echo "<td align='center'>";	
-    	            $hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula, c_asig from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+    	            $hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula, c_asig from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '".$row_tramos['hora']."'");
 	                //echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
     	            $hor_asig = mysqli_fetch_array($hor);
     	            if (mysqli_num_rows($hor) > '0')
@@ -80,7 +93,7 @@ $pr_trozos=explode(", ",$profe_baja);
 
 	                    if (strlen($hor_asig[1]) > '1' and $hor_asig[3] != "25")
                         {
-		                    $hor2 = mysqli_query($db_con, "select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+		                    $hor2 = mysqli_query($db_con, "select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '".$row_tramos['hora']."'");
 		                    echo "Grupos<div style='color:#08c'>";
                             while ($hor_bj = mysqli_fetch_array($hor2))
 	                            echo "<span style='font-weight:normal;'>".$hor_bj[0]."</div><br /> ";

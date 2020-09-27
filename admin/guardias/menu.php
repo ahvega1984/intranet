@@ -1,5 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
+if (acl_permiso($_SESSION['cargo'], array(1))) {
+
 	$activo1="";
 	$activo2="";
 	$activo3="";
@@ -24,3 +26,25 @@
 			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/informe_guardias.php?menu=guardias">Informe sobre las Guardias</a></li>
 		</ul>
 	</div>
+<?php
+}
+else {
+
+	$activo1="";
+	$activo2="";
+
+	if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
+	if (strstr($_SERVER['REQUEST_URI'],'consulta_profesores.php')==TRUE) {$activo2 = ' class="active" ';}
+?>
+
+	<div class="container hidden-print">
+		<ul class="nav nav-tabs">
+			<?php if (isset($_GET['diasem']) && isset($_GET['hora'])): ?>
+			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/index.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">Registrar guardia</a></li>
+			<?php endif; ?>
+			<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php?diasem=<?php echo $_GET['diasem']; ?>&hora=<?php echo $_GET['hora']; ?>">Histórico de guardias</a></li>
+		</ul>
+	</div>
+<?php
+}
+?>
