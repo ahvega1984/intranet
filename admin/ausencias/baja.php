@@ -61,7 +61,7 @@ $pr_trozos=explode(", ",$profe_baja);
             <?php	
 	        echo "<h3>Horario del Profesor hoy</h3><br />";
 	        echo "<table class='table table-striped table-bordered' style='width:auto'>";
-	        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+	        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `horini` ASC");
 	        $total_tramos = mysqli_num_rows($result_tramos);
 
 	        echo "<thead>";
@@ -76,7 +76,7 @@ $pr_trozos=explode(", ",$profe_baja);
 
 	            $ndia = date ( "w" );
 	            
-	            $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+	            $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `horini` ASC");
 	            $total_tramos = mysqli_num_rows($result_tramos);
 
 	            while ($row_tramos = mysqli_fetch_array($result_tramos))

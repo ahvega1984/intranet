@@ -226,7 +226,7 @@ include("menu.php");
 
 				        <div class="row">
 				        <?php
-				        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+				        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `horini` ASC");
 				        $total_tramos = mysqli_num_rows($result_tramos);
 
 				        while ($row = mysqli_fetch_array($result_tramos))

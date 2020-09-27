@@ -136,7 +136,7 @@ include 'menu.php';
 					    		<div class="form-group">
 					    			<label for="hora_guardia">Hora:</label> 
 					    			<select class="form-control" id="hora_guardia" name="hora_guardia" required>
-					    				<?php $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` ORDER BY `tramo` ASC"); ?>
+					    				<?php $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` ORDER BY `horini` ASC"); ?>
 					    				<?php $total_tramos = mysqli_num_rows($result_tramos); ?>
 					    				<?php $i = 0; ?>
 					    				<?php while ($tramo = mysqli_fetch_array($result_tramos)): ?>
