@@ -154,7 +154,7 @@ if($alumno == $alumno1){echo " checked";}
 
 echo " value = '$clave1' onclick=submit()>";
 
-echo "$filanivelgrupo1[2]. $completo1 </label>
+echo "$completo1 </label>
 </div>";
 } 
 		        	echo "</div>";
@@ -172,7 +172,7 @@ if($alumno == $alumno2){echo " checked";}
 
 echo " value = '$clave2' onclick=submit()>";
 
-echo "$filanivelgrupo[2]. $completo2 </label>
+echo "$completo2 </label>
 </div>";
 
 

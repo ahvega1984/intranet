@@ -128,7 +128,7 @@ if (isset($config['mod_centrotic']) && $config['mod_centrotic'] && isset($_GET['
 			$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre, correo FROM alma ORDER BY unidad ASC, apellidos ASC, nombre ASC");
 
 			while ($row = mysqli_fetch_array($result)) {
-				$correo_electronico = mb_strtolower('alumno.'.$row['claveal'].'@'.$config['dominio'], 'UTF-8');
+				$correo_electronico = mb_strtolower('al.'.$row['claveal'].'@'.$config['dominio'], 'UTF-8');
 
 				fwrite($fp, $row['claveal'].";".substr(sha1($row['claveal']),0,8).";".$row['nombre'].";".$row['apellidos'].";".$correo_electronico.";".$config['centro_localidad'].";ES;alumnos\r\n");
 			}

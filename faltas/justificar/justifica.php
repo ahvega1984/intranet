@@ -103,7 +103,7 @@ else
             <button type="button" class="close" data-dismiss="alert">&times;</button>Parece que tenemos un problema: no has seleccionado el Grupo, Alumno o Día para justificar las Faltas de Asistencia. Si lo has hecho, quizás deberías buscar ayuda si este mensaje aparece de nuevo.</div></div>';
 			}
 			else {
-				for ($i=1;$i<7;$i++)
+				for ($i=1;$i<9;$i++)
 				{
 					?>
 					<?php

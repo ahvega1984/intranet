@@ -605,7 +605,7 @@ if(stristr($carg,'2') == TRUE)
 	if(mysqli_num_rows($men2) > 0)
 	{
 		$count_mpadres =  1;
-		echo '<div id="alert_mensajes_familias" class="alert alert-success">
+		echo '<div id="alert_mensajes_familias" class="alert alert-danger">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p class="lead"><span class="far fa-comments fa-fw"></span> Mensajes de Familias y alumnos</p>
 	<br>
