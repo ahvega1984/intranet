@@ -51,7 +51,7 @@ $result_verificacion_correo = mysqli_query($db_con, "SELECT `correo`, `correo_ve
 	if (isset($config['mod_notificaciones_dominios'])) {
 		$correos_dominios_permitidos = explode(',', $config['mod_notificaciones_dominios']);
 		foreach ($correos_dominios_permitidos as $correo_dominio_permitido) {
-			if (strpos($cmp_correo, '@'.trim($correo_dominio_permitido)) !== false) {
+			if (strpos($row_verificacion_correo['correo'], '@'.trim($correo_dominio_permitido)) !== false) {
 				$esDominioPermitido = true;
 			}
 		}
