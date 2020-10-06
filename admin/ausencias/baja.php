@@ -83,13 +83,14 @@ $pr_trozos=explode(", ",$profe_baja);
                 {
 	                echo "<td align='center'>";	
     	            $hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula, c_asig from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '".$row_tramos['hora']."'");
-	                //echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
+	                //echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '".$row_tramos['hora']."'<br>";
     	            $hor_asig = mysqli_fetch_array($hor);
-    	            if (mysqli_num_rows($hor) > '0')
+    	            if (mysqli_num_rows($hor))
                     {
 	                    echo "Actividad<div style='color:#46a546;'><span style='font-weight:normal;'>$hor_asig[0]</div><br/>";
-	                    if (strlen($hor_asig[2] > '1'))
+	                    if (! empty($hor_asig[2])) {
 	                        echo "Aula<div style='color:#9d261d'><span style='font-weight:normal;'>$hor_asig[2]</div><br />";
+	                    }
 
 	                    if (strlen($hor_asig[1]) > '1' and $hor_asig[3] != "25")
                         {

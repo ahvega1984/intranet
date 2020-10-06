@@ -31,6 +31,10 @@ $cod.=$codigo;
 }
 $cod.="', claveal1 = '$clave1' where claveal = '$clave3'";
 mysqli_query($db_con, $cod);
+
+unset($codigos);
+unset($codigo);
+unset($cod);
 }   	       
   }
    }
