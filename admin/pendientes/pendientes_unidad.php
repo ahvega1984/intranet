@@ -148,10 +148,10 @@ while ($pendi = mysqli_fetch_array($pend)) {
 			$rep='';
 		}
 	echo "<tr><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2] </a><span class='text-warning'>$rep</span></td><td>";
-		$sql = "SELECT alma.claveal, apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso
+		$sql = "SELECT DISTINCT alma.claveal, apellidos, alma.nombre, alma.curso, abrev
 FROM alma,  pendientes , asignaturas
 WHERE alma.claveal='".$pendi[0]."' and alma.claveal = pendientes.claveal
-AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' and alma.unidad not like '%P-%' ORDER BY Apellidos, Nombre";
+AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' and alma.unidad not like '%P-%' ORDER BY Apellidos ASC, Nombre ASC";
 			//echo $sql."<br>";
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 		if (mysqli_num_rows($Recordset1)>0) {
