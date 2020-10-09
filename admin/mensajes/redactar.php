@@ -255,13 +255,13 @@ $page_header = "Redactar mensaje";
               		</div>
               	</div>
 
-              	<div class="form-group">
+              	<!--<div class="form-group">
               		<div class="checkbox">
               			<label>
               				<input id="direccion" name="direccion" type="checkbox" value="1" <?php if($direccion=='1' and !$claustro) echo 'checked'; ?>> Equipo directivo
               			</label>
               		</div>
-              	</div>
+              	</div>-->
 
 								<div class="form-group">
 									<div class="checkbox">
@@ -510,7 +510,7 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Claustro de profesores</legend>
 
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY `nombre` ASC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos where departamento not like 'Administracion' and departamento not like 'Admin' and departamento not like 'Conserjeria' ORDER BY `nombre` ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
 							<?php while($row = mysqli_fetch_array($result)): ?>

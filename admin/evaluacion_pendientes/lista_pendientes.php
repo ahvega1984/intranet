@@ -127,7 +127,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		echo "<td><input type='number' step='1' min='0' max='10' name='$i-$claveal-$asig_pendiente-$abrev_pendiente' value='$nota_evaluacion' style='max-width:40px;'></td>";
 	}
 	
-	if (date('m')>'05' and date('m')<'09') {
+	//if (date('m')>'05' and date('m')<'09') {
 
 	echo"<td>";
 
@@ -140,10 +140,10 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 
 		if (mysqli_num_rows($ya_informe) > 0){ $extra_inf = "<span class='text-success far fa-edit fa-fw fa-lg'> </span>"; } else { $extra_inf = "<span class='text-danger far fa-edit fa-fw fa-lg'> </span>"; }
 
-			echo "<a href='//".$config['dominio']."/intranet/admin/informes/extraordinaria/alumnado_pendientes.php?claveal=".$salida['claveal']."&id_informe=".$pendiente['id_informe']."&curso_pendiente=".$curso_pendiente."' target='_blank'  data-bs='tooltip' title='Redactar informe de la materia para la prueba extraordinaria de septiembre'> ".$extra_inf." </a>";
+			echo "<a href='//".$config['dominio']."/intranet/admin/informes/extraordinaria/alumnado_pendientes.php?claveal=".$salida['claveal']."&id_informe=".$pendiente['id_informe']."&curso_pendiente=".$curso_pendiente."' target='_blank'  data-bs='tooltip' title='Redactar informe de la materia para la evaluación del alumno'> ".$extra_inf." </a>";
 		}
 		echo "</td>";
-	}
+	//}
 	echo "</tr>";
 }
 

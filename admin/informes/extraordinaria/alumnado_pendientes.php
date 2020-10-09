@@ -46,7 +46,7 @@ include("menu.php");
 	<div class="container">
 		
 		<div class="page-header">
-			<h2>Informe individual para la evaluación extraordinaria <small> <br>Alumnos con materias pendientes</small></h2>
+			<h2>Informe individual para la evaluación del alumno <small> <br>Alumnos con materias pendientes</small></h2>
 		</div>
 
 		<?php if(isset($msg_error) && $msg_error): ?>
@@ -63,7 +63,7 @@ include("menu.php");
 		<div class="row">
 			
 			<div class="col-sm-12">
-				<p class="help-block">Marca las casillas de los contenidos (<em>UNIDADES</em>) que el alumno debe preparar para la evaluación extraordinaria. <br>Si necesitas personalizar las actividades y tareas de un alumno, puedes añadir información únuca para él en el campo de <em>observaciones individuales</em>.</p>
+				<p class="help-block">Marca las casillas de los contenidos (<em>UNIDADES</em>) que el alumno debe preparar para la evaluación. <br>Si necesitas personalizar las actividades y tareas de un alumno, puedes añadir información única para él en el campo de <em>observaciones individuales</em>.</p>
 				<br>
 				<table class="table table-striped table-bordered table-condensed">
 					<thead>
@@ -107,6 +107,8 @@ include("menu.php");
 									
 								}
 							}
+							$candidadto = 1;
+							
 							if ($candidato==1) { 
 								$al_reg = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$alumnos['claveal']."'");
 								while($reg = mysqli_fetch_array($al_reg)){

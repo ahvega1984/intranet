@@ -389,7 +389,7 @@ foreach ($array_unidades as $hora2) {
 					echo '</td>';
 
 					// Código para eliminar el curso 2019
-					if ($config['mod_matriculacion']==1 and $asignat=='141346') {
+					if ($config['mod_matriculacion']==1 and stristr($curso, "4")==TRUE and ($asignat=='141346' OR $asignat=='141332')) {
 						$extra_tic="";
 						$result_tic = mysqli_query($db_con, "SELECT optativa1, exencion FROM `matriculas` WHERE (`claveal` = '".$row['CLAVEAL']."' or (apellidos='$row[2]' and nombre='$row[3]')) and optativa1 = '3' LIMIT 1");
 						if (mysqli_num_rows($result_tic)>0) {
