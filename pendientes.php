@@ -51,7 +51,7 @@ $result_verificacion_correo = mysqli_query($db_con, "SELECT `correo`, `correo_ve
 	if (isset($config['mod_notificaciones_dominios'])) {
 		$correos_dominios_permitidos = explode(',', $config['mod_notificaciones_dominios']);
 		foreach ($correos_dominios_permitidos as $correo_dominio_permitido) {
-			if (strpos($row_verificacion_correo['correo'], '@'.trim($correo_dominio_permitido)) !== false) {
+			if (strpos($cmp_correo, '@'.trim($correo_dominio_permitido)) !== false) {
 				$esDominioPermitido = true;
 			}
 		}
@@ -307,7 +307,7 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 
 // Informes de Tareas
 $count0=0;
-$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tut%'";
+$SQLcurso = "select distinct grupo, materia from profesores where profesor = '$pr' and materia not like '%Tut%'";
 $resultcurso = mysqli_query($db_con, $SQLcurso);
 while($rowcurso = mysqli_fetch_array($resultcurso))
 {

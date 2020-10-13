@@ -50,7 +50,7 @@ $data[]=array(
 			'num'=>'',
 			'nombre'=>utf8_decode($firma)
 			);
-for($i=1;$i<7;$i++){
+for($i=1;$i<9;$i++){
 $curso0 = $unidad;
 $rowasignaturas1="";
 ${'a'.$i}="";
