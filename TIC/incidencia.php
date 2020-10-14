@@ -190,7 +190,7 @@ include("menu.php");
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="solicitante">Solicitante <span class="text-danger">(*)</span></label>
-                                        <?php if ($pr == 'Administrador'): ?>
+                                        <?php if (acl_permiso($_SESSION['cargo'], array('1')) || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador']) || $_SESSION['dpt'] == 'Servicio Técnico y/o Mantenimiento'): ?>
                                         <select class="form-control" id="solicitante" name="solicitante">
                                             <?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
                                             <?php while ($row = mysqli_fetch_array($result)): ?>
@@ -207,7 +207,7 @@ include("menu.php");
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label for="dependencia">Aula o dependencia <span class="text-danger">(*)</span></label>
-																				<?php $result = mysqli_query($db_con, "SELECT nomdependencia FROM dependencias WHERE nomdependencia NOT LIKE '%Aseo%' AND nomdependencia NOT LIKE '%Almac_n%' AND nomdependencia NOT LIKE '%Pista%' AND nomdependencia NOT LIKE '%Pasillo%' ORDER BY nomdependencia ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT nomdependencia FROM dependencias WHERE nomdependencia NOT LIKE '%Aseo%' AND nomdependencia NOT LIKE '%Almac_n%' AND nomdependencia NOT LIKE '%Pista%' AND nomdependencia NOT LIKE '%Pasillo%' ORDER BY nomdependencia ASC"); ?>
                                         <?php if (mysqli_num_rows($result)): ?>
                                         <select class="form-control" id="dependencia" name="dependencia"<?php echo ($pr == 'Administrador' || (isset($config['tic']['coordinador']) && $pr == $config['tic']['coordinador'])) ? ' onchange="submit()"' : ''; ?>>
                                             <option value=""></option>
