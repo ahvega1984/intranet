@@ -26,7 +26,7 @@ $nom_prof = utf8_decode($profe2[0]);
 
 $no_prof+=1;
 $profes = "<b>FALTAS DE ASISTENCIA</b>    -    <b>$no_prof</b> => $nom_prof     Semana de ................... a ...................";
-$horas=array(1=>"1ª Hora",2=>"2ª Hora",3=>"3ª Hora",4=>"4ª Hora",5=>"5ª Hora",6=>"6ª Hora");
+$horas=array(1=>"1ª Hora",2=>"2ª Hora",3=>"3ª Hora",4=>"4ª Hora",5=>"5ª Hora",6=>"6ª Hora",7=>"7ª Hora",8=>"8 ª Hora");
 foreach($horas as $n_hora => $nombre) 
 {
 for($i=1;$i<6;$i++) 

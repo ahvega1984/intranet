@@ -90,7 +90,7 @@ include("menu.php");
     	$inicio1 = "$fech1[2]-$fech1[1]-$fech1[0]";
     	$fin1 = "$fech2[2]-$fech2[1]-$fech2[0]";
     	//Horas
-    	for ($i=1;$i<7;$i++)
+    	for ($i=1;$i<9;$i++)
     		$horas .= ${hora.$i};
 
 	    // Comprobamos datos enviados
