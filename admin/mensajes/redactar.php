@@ -203,7 +203,7 @@ $page_header = "Redactar mensaje";
 
 				<?php $result_profesores_diurnos = mysqli_query($db_con, "SELECT DISTINCT `prof` FROM `horw` WHERE `hora` < 8 AND (`idactividad` = 1 OR `idactividad` = 636 OR `idactividad` = 476) AND `prof` <> '' ORDER BY `prof` ASC"); ?>
 				<?php $existeProfesoresDiurnos = (mysqli_num_rows($result_profesores_diurnos)) ? 1 : 0; ?>
-				<?php if ($existeProfesoresDiurnos): ?>
+				<?php if ($existeProfesoresNocturnos && $existeProfesoresDiurnos): ?>
 				<div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -255,21 +255,21 @@ $page_header = "Redactar mensaje";
               		</div>
               	</div>
 
-              	<!--<div class="form-group">
+              	<div class="form-group">
               		<div class="checkbox">
               			<label>
               				<input id="direccion" name="direccion" type="checkbox" value="1" <?php if($direccion=='1' and !$claustro) echo 'checked'; ?>> Equipo directivo
               			</label>
               		</div>
-              	</div>-->
+              	</div>
 
-								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input id="pas" name="pas" type="checkbox" value="1" <?php if($pas=='1' and !$claustro) echo 'checked'; ?>> Administración
-										</label>
-									</div>
-								</div>
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input id="pas" name="pas" type="checkbox" value="1" <?php if($pas=='1' and !$claustro) echo 'checked'; ?>> Administración
+						</label>
+					</div>
+				</div>
 
               	<div class="form-group">
               		<div class="checkbox">
@@ -309,25 +309,25 @@ $page_header = "Redactar mensaje";
                 </div>
                 <?php endif; ?>
 
-								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input id="dfeie" name="dfeie" type="checkbox" value="1" <?php if($dfeie=='1' and !$claustro) echo 'checked'; ?>> DFEIE
-										</label>
-									</div>
-								</div>
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input id="dfeie" name="dfeie" type="checkbox" value="1" <?php if($dfeie=='1' and !$claustro) echo 'checked'; ?>> DFEIE
+						</label>
+					</div>
+				</div>
 
-								<?php $result_mantenimiento = mysqli_query($db_con, "SELECT `departamento` FROM `departamentos` WHERE `departamento` = 'Servicio Técnico y/o Mantenimiento'"); ?>
-								<?php $existeDeptoMantenimiento = (mysqli_num_rows($result_mantenimiento)) ? 1 : 0; ?>
-								<?php if ($existeDeptoMantenimiento): ?>
-								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input id="mantenimiento" name="mantenimiento" type="checkbox" value="1" <?php if($mantenimiento=='1' and !$claustro) echo 'checked'; ?>> Servicio Técnico y/o Mantenimiento
-										</label>
-									</div>
-								</div>
-								<?php endif; ?>
+				<?php $result_mantenimiento = mysqli_query($db_con, "SELECT `departamento` FROM `departamentos` WHERE `departamento` = 'Servicio Técnico y/o Mantenimiento'"); ?>
+				<?php $existeDeptoMantenimiento = (mysqli_num_rows($result_mantenimiento)) ? 1 : 0; ?>
+				<?php if ($existeDeptoMantenimiento): ?>
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input id="mantenimiento" name="mantenimiento" type="checkbox" value="1" <?php if($mantenimiento=='1' and !$claustro) echo 'checked'; ?>> Servicio Técnico y/o Mantenimiento
+						</label>
+					</div>
+				</div>
+				<?php endif; ?>
 
               </div>
       		</fieldset>
