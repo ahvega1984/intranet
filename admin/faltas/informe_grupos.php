@@ -65,8 +65,14 @@ $idcurso=$curs[1];
   
 <?php
 $grupo="";
+$f_navidad="";
+$j_navidad="";
 $total_navidad="";
+$f_santa="";
+$j_santa="";
 $total_santa="";
+$f_verano="";
+$j_verano="";
 $total_verano="";
 
 $unidades = mysqli_query($db_con, "select nomunidad from unidades where idcurso = '$idcurso' order by idcurso");
@@ -75,21 +81,21 @@ while ($grp = mysqli_fetch_array($unidades)) {
 
   $unidad = $grp[0];
   
-  $navidadF = mysqli_query($db_con,"select * from FALTAS where falta='F' and unidad = '$unidad' and date(fecha) < (select fecha from festivos where nombre like '% Navidad' limit 1)");
+  $navidadF = mysqli_query($db_con,"select id from FALTAS where falta='F' and unidad = '$unidad' and date(fecha) < (select fecha from festivos where nombre like '% Navidad' limit 1)");
   $num_navidadF = mysqli_num_rows($navidadF);
-  $navidadJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and unidad = '$unidad' and date(fecha) < (select fecha from festivos where nombre like '% Navidad' limit 1)");
+  $navidadJ = mysqli_query($db_con,"select id from FALTAS where falta='J' and unidad = '$unidad' and date(fecha) < (select fecha from festivos where nombre like '% Navidad' limit 1)");
   $num_navidadJ = mysqli_num_rows($navidadJ);
   $total_navidad = $num_navidadF+$num_navidadJ;
 
-  $santaF = mysqli_query($db_con,"select * from FALTAS where falta='F' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '% Semana Santa' limit 1)");
+  $santaF = mysqli_query($db_con,"select id from FALTAS where falta='F' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '% Semana Santa' limit 1)");
   $num_santaF = mysqli_num_rows($santaF);
-  $santaJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '% Semana Santa' limit 1)");
+  $santaJ = mysqli_query($db_con,"select id from FALTAS where falta='J' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '% Semana Santa' limit 1)");
   $num_santaJ = mysqli_num_rows($santaJ);
   $total_santa = $num_santaF+$num_santaJ;
 
-  $veranoF = mysqli_query($db_con,"select * from FALTAS where falta='F' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
+  $veranoF = mysqli_query($db_con,"select id from FALTAS where falta='F' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
   $num_veranoF = mysqli_num_rows($veranoF);
-  $veranoJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
+  $veranoJ = mysqli_query($db_con,"select id from FALTAS where falta='J' and unidad = '$unidad' and date(fecha) > (select fecha from festivos where nombre like '% Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
   $num_veranoJ = mysqli_num_rows($veranoJ);
   $total_verano = $num_veranoF+$num_veranoJ;
 ?>
