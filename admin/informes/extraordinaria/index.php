@@ -11,7 +11,6 @@ if (isset($_GET['borrar']) AND $_GET['borrar'] == 1) {
 		}
 }
 
-
 // MARCAR PLANTILLA
 if (isset($_GET['plantilla']) AND $_GET['plantilla'] == 1) {
 	$plant = mysqli_fetch_array(mysqli_query($db_con,"select * from informe_extraordinaria where id_informe = '".$_GET['id_informe']."'"));
@@ -36,9 +35,21 @@ if (isset($_GET['id_informe'])) {
 	$modalidad = limpiarInput($edicion['modalidad'], 'alphanumericspecial');	
 }
 
+$extra_dep="";
+$extra_prof="";
+
+// Si es jefe de departamento
+if (stristr($_SESSION['cargo'],"4")) {
+	$dep0 = mysqli_query($db_con, "SELECT distinct idea, nombre from departamentos where departamento like '".$_SESSION['dpt']."'");
+	while ($row_dep = mysqli_fetch_array($dep0)) {
+		$extra_dep.=" OR profesor like '$row_dep[0]'";
+		$extra_prof.=" OR profesor = '$row_dep[1]'";
+	}
+}
+
 // OBTENEMOS LAS UNIDADES DONDE IMPARTE MATERIA EL PROFESOR
 $unidades = array();
-$result = mysqli_query($db_con, "SELECT DISTINCT `grupo` FROM `profesores` WHERE `profesor` = '".$_SESSION['profi']."' ORDER BY `grupo` ASC");
+$result = mysqli_query($db_con, "SELECT DISTINCT `grupo` FROM `profesores`, unidades WHERE nomunidad=grupo and (`profesor` = '".$_SESSION['profi']."' $extra_prof) order by idcurso, idunidad ASC");
 while ($row = mysqli_fetch_array($result)) {
 	array_push($unidades, $row['grupo']);
 }
@@ -51,10 +62,10 @@ if (isset($_POST['unidad']) && in_array($_POST['unidad'], $unidades)) {
 // OBTENEMOS LAS MATERIAS QUE IMPARTE EL PROFESOR
 $materias = array();
 if (isset($unidad)) {
-	$result = mysqli_query($db_con, "SELECT distinct `materia`, `nivel` FROM `profesores` WHERE `profesor` = '".$_SESSION['profi']."' AND `grupo` = '".$unidad."'");
+	$result = mysqli_query($db_con, "SELECT distinct `materia`, `nivel` FROM `profesores` WHERE (`profesor` = '".$_SESSION['profi']."' $extra_prof) AND `grupo` = '".$unidad."'");
 }
 else {
-	$result = mysqli_query($db_con, "SELECT distinct `materia`, `nivel` FROM `profesores` WHERE `profesor` = '".$_SESSION['profi']."'");
+	$result = mysqli_query($db_con, "SELECT distinct `materia`, `nivel` FROM `profesores` WHERE (`profesor` = '".$_SESSION['profi']."' $extra_prof)");
 }
 while ($row = mysqli_fetch_array($result)) {
 	array_push($materias, $row['materia']);
@@ -138,9 +149,10 @@ include("menu.php");
 			<div class="col-sm-7">
 				
 				<?php 
+				
 				// OBTENEMOS LAS UNIDADES DONDE IMPARTE MATERIA EL PROFESOR
 				$informes = array();
-				$result = mysqli_query($db_con, "SELECT `id_informe`, `asignatura`, `unidad`, `fecha`, `modalidad`, `plantilla` FROM `informe_extraordinaria` WHERE `profesor` = '".$_SESSION['ide']."' ORDER BY `id_informe` ASC");
+				$result = mysqli_query($db_con, "SELECT `id_informe`, `asignatura`, `unidad`, `fecha`, `modalidad`, `plantilla` FROM `informe_extraordinaria`, unidades WHERE nomunidad=unidad and (`profesor` = '".$_SESSION['ide']."' $extra_dep) ORDER BY idcurso, idunidad ASC");
 				while ($row = mysqli_fetch_array($result)) {
 					$informe = array(
 						'id_informe' => $row['id_informe'],
@@ -181,9 +193,19 @@ include("menu.php");
 							<td><?php echo $extra_mod; ?> &nbsp;<a href="index.php?id_informe=<?php echo $informe['id_informe']; ?>&grupo=<?php echo $informe['unidad']; ?>"  data-bs="tooltip" title="Editar los datos de este informe."  style="text-decoration: none;"><?php echo $informe['asignatura']; ?></a></td>
 							<td><?php echo $informe['unidad']; ?></td>
 							<td><?php echo $informe['fecha']; ?></td>
+							<?php
+								if (date('m')>'4' and date('m')<'9') {
+									$extra_al = "alumnado.php";
+									$extra_pendientes = 1;
+								}
+								else{
+									$extra_al = "alumnado_pendientes.php";
+								}
+							?>
 							<td class="pull-right" nowrap="nowrap">
-								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/alumnado.php?id_informe=<?php echo $informe['id_informe']; ?>&grupo=<?php echo $informe['unidad']; ?>" data-bs="tooltip" title="Seleccionar alumnos para este informe."><span class="fas fa-user-friends fa-fw fa-lg"></span></a>&nbsp;
-								
+								<?php if($extra_pendientes == 1):?>
+								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/<?php echo $extra_al ; ?>?id_informe=<?php echo $informe['id_informe']; ?>&grupo=<?php echo $informe['unidad']; ?>" data-bs="tooltip" title="Seleccionar alumnos para este informe."><span class="fas fa-user-friends fa-fw fa-lg"></span></a>&nbsp;
+								<?php endif;?>
 								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/contenidos.php?id_informe=<?php echo $informe['id_informe']; ?>" data-bs="tooltip" title="Modificar los contenidos y actividades de este informe."><span class="text-info fas fa-edit fa-fw fa-lg"></span></a>&nbsp;
 								
 								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/index.php?plantilla=1&id_informe=<?php echo $informe['id_informe']; ?>" data-bs="tooltip" title="Haz clck sobre el icono para convertir este informe en plantilla de la asignatura para este nivel."><?php if ($informe['plantilla'] == 1) {?><span class="text-success far fa-check-square fa-fw fa-lg"></span><?php } else {?><span class="text-success far fa-square fa-fw fa-lg"></span><?php }?></a>&nbsp;																															

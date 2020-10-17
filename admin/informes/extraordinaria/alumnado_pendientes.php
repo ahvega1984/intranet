@@ -80,36 +80,7 @@ include("menu.php");
 
 						$alumno = mysqli_query($db_con,"select claveal, claveal1, unidad, curso, concat(nombre,' ',apellidos) as nombre_alumno from alma where claveal = '".$claveal."'");
 						while($alumnos = mysqli_fetch_array($alumno)):
-							
-							$candidato="";
 
-							$nota = mysqli_query($db_con, "select notas1, notas2, notas3 from notas where claveal = '".$alumnos['claveal1']."'");
-
-							$notas = mysqli_fetch_array($nota);
-							for ($i=1; $i < 4 ; $i++) { 
-								${tr_.$i} = explode(";", $notas['notas'.$i]);
-								foreach (${tr_.$i} as $val) {
-									$nota_asig = explode(":",$val);
-									$asignatura_al = $nota_asig[0];
-									$nota_al = $nota_asig[1];
-									if (stristr($alumnos['curso'], "E.S.O")==TRUE) {
-										if ($asignatura_al == $codigo and $nota_al < "347" and $nota_al !== '339') {
-										$candidato = 1;
-									}
-									}
-									elseif (stristr($alumnos['curso'], "Bachillerato")==TRUE) {
-										$bach = mysqli_fetch_array(mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo like '$asignatura_al' and abrev not like '%\_%') and codigo not like '$asignatura_al'"));
-										$asignatura_bach = $bach['codigo'];
-										if (($asignatura_al == $codigo OR $asignatura_bach == $codigo) and $nota_al < "427") {
-										$candidato = 1;
-									}
-									}
-									
-								}
-							}
-							$candidadto = 1;
-							
-							if ($candidato==1) { 
 								$al_reg = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$alumnos['claveal']."'");
 								while($reg = mysqli_fetch_array($al_reg)){
 								$reg_informe = $reg['id_informe'];
@@ -139,7 +110,7 @@ include("menu.php");
 									  </label>
 									</div>
 
-								<?php }?>	
+								<?php } ?>	
 								</div>								
 								</td>
 								<td>
@@ -153,7 +124,6 @@ include("menu.php");
 									?>
 									<textarea class="form-control" name="<?php echo $alumnos['claveal']."-".$id_informe."-0";?>" rows="8"><?php echo $actividad['actividades'];?></textarea></td>
 							</tr>
-							<?php }	?>
 						
 							<?php endwhile; ?>
 							<tr><td colspan="3">  
