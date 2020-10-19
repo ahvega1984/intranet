@@ -300,10 +300,6 @@ $menu_alumnos = array(
 						'href'   => 'admin/evaluacion_pendientes/index.php',
 						'titulo' => 'Evaluación de pendientes',
 					),
-					array(
-						'href'   => 'admin/pendientes/index.php',
-						'titulo' => 'Alumnos con materias pendientes'
-					),
 				),
 				array(
 						'href'   => 'admin/informes/evaluaciones/index.php',

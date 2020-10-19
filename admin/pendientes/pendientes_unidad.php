@@ -100,9 +100,10 @@ if ($_POST['pdf']==1) {
 	exit();
 }
 else{
-	include "../../menu.php";
 	
-	include("../informes/menu_alumno.php");
+include "../../menu.php";
+	
+include("../informes/pendientes/menu.php");
 	
 	foreach($_POST["select1"] as  $val) {
 		$grupos.=$val.";";

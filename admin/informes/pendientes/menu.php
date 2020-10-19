@@ -30,7 +30,8 @@
 	</div>
 
 	<ul class="nav nav-tabs">
-		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'evaluacion_pendientes/index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/evaluacion_pendientes/index.php">Evaluación de alumnos con materias pendientes</a></li>
+		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'evaluacion_pendientes/index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/evaluacion_pendientes/index.php">Evaluación de alumnos con pendientes</a></li>
+		<li<?php if (strstr($_SERVER['REQUEST_URI'],'admin/pendientes/')==TRUE) echo ' class="active"'; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/pendientes/index.php">Consulta de alumnos con pendientes</a></li>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'/pendientes/index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/pendientes/index.php">Mis informes</a></li>
 		<?php if (stristr($_SESSION['cargo'], "1") OR stristr($_SESSION['cargo'], "2") OR stristr($_SESSION['cargo'], "4")) { ?>
 		<li<?php echo (strstr($_SERVER['REQUEST_URI'],'/pendientes/admin.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/pendientes/admin.php">Administrar informes</a></li>

@@ -1,192 +1,192 @@
 <?php
 require('../../bootstrap.php');
 
-include "../../menu.php";
-include "menu.php";
-?>
-<style>
-input[type=number]::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-}
 
-input[type=number] {
-	-moz-appearance: textfield;
-}
-</style>
-
-<br />
-
-<div class="container">
-<div class="page-header">
-		<h2>Evaluación de Pendientes <small>Alumnos con la asignatura pendiente</small></h2>
-</div>
-<div class="row">
-<div class="col-sm-10 col-sm-offset-1">
-<?php
-if(isset($_POST['enviar'])){
+if ($_POST['pdf'] == 1) {
 	
-	foreach ($_POST as $clave=>$valor){
-		if ($clave!=="enviar" and $clave!=="select") {
-			
-			$eval="";
-			$clave_eval="";
-			$asig_eval="";
-			$abrev_eval="";
-			$nota_eval="";
-			
-			$datos=explode("-",$clave);
-			$eval=$datos[0];
-			$clave_eval=$datos[1];
-			$asig_eval=$datos[2];
-			
-			$nota_eval=$valor;
-			if(is_numeric($nota_eval)){
-			
-			$cod_asig = mysqli_query($db_con,"select abrev from asignaturas where codigo='$asig_eval' AND abrev LIKE  '%\_%'");
-			$cod_asignatura = mysqli_fetch_array($cod_asig);
-			$abrev_eval=$cod_asignatura[0];
-			
-			$check2=mysqli_query($db_con,"select id from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval' and materia='$abrev_eval'");
-				if (mysqli_num_rows($check2)==1) {
-					$ya = mysqli_fetch_array($check2);
-					if($nota_eval!==""){
-					mysqli_query($db_con,"update evalua_pendientes set nota='$nota_eval' where id='$ya[0]'");
-					}
-				}
-				else{
-					if($nota_eval!==""){
-					mysqli_query($db_con,"insert into evalua_pendientes VALUES ('','$eval','$clave_eval','$asig_eval','$abrev_eval','$nota_eval')");
-					}
-				}				
-			}
-			else{
-				mysqli_query($db_con,"delete from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval'");
-			}
-
-			
+	require("../../pdf/mc_table.php");
+	
+	class GranPDF extends PDF_MC_Table {
+		function SetFontSpacing($size) {
+			$size = ($size / 100);
+		    if($this->FontSpacingPt==$size)
+		        return;
+		    $this->FontSpacingPt = $size;
+		    $this->FontSpacing = $size/$this->k;
+		    if ($this->page>0)
+		        $this->_out(sprintf('BT %.3f Tc ET', $size));
 		}
-	}	
-}
 
-$asig_pendiente=$_POST["select"];
-$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$asig_pendiente' order by nombre");
-$asignatur = mysqli_fetch_row($asig);
-$asignatura = $asignatur[0];
-$curso = $asignatur[1];
+		function Header() {
+			global $config;
 
-$profe_dep = $_SESSION ['profi'];
+			$this->SetTextColor(48, 46, 43);
+			$this->SetFontSpacing(-10);
+			$this->SetY(14);
+			$this->SetFont('Noto Sans HK Bold','',16);
+			$this->Cell(80,5,'Junta de Andalucía',0,1);
+			$this->SetY(15);
+			$this->Cell(75);
+			$this->SetFontSpacing(0);
+			$this->SetFont('Noto Sans HK','',10);
+			$this->MultiCell(170,5,'Consejería de Educación y Deporte',0,'R',0);
+			$this->Ln(15);
 
-echo '<legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';
-echo '<form action="lista_pendientes.php" method="POST">';
-echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Curso</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th><th></th><thead><tbody>";
+		}
+		function Footer() {
+			global $config;
 
-if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
-$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
-FROM pendientes, asignaturas, alma
-WHERE asignaturas.codigo = pendientes.codigo
-AND alma.claveal = pendientes.claveal
-AND asignaturas.codigo =  "'.$asig_pendiente.'" 
-AND abrev LIKE  "%\_%"
-ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre';
+			$this->SetTextColor(53, 110, 59);
+			$this->Image( '../../img/pie.jpg', 0, 165, 24, '', 'jpg' );
+		}
+	}
+	
+	$MiPDF = new GranPDF('L', 'mm', 'A4');
+	$MiPDF->AddFont('Noto Sans HK Bold','','NotoSansHK-Bold.php');
+	$MiPDF->AddFont('Noto Sans HK Bold','B','NotoSansHK-Bold.php');
+	$MiPDF->AddFont('Noto Sans HK','','NotoSansHK-Regular.php');
+	$MiPDF->AddFont('Noto Sans HK','B','NotoSansHK-Bold.php');
+
+	$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
+	$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
+	$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
+	$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
+	$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
+	$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
+	
+	$MiPDF->SetMargins(25, 20, 20);
+	$MiPDF->SetDisplayMode('fullpage');
+	
+	$titulo = "Listado de alumnos con asignaturas pendientes";
+	
+	$grupos=substr($_POST['grupos'],0,-1);
+	$tr_gr = explode(";",$grupos);
+	
+	foreach($tr_gr as  $valor) {
+		$MiPDF->Addpage();
+		
+		$MiPDF->SetFont('Noto Sans HK', 'B', 10);
+		$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'UTF-8'), 0, 'C', 0 );
+		$MiPDF->Ln(5);
+		
+		
+		$MiPDF->SetFont('Noto Sans HK', '', 10);
+		
+		
+		// INFORMACION
+		$result = mysqli_query($db_con, "SELECT DISTINCT nombre, curso FROM asignaturas WHERE codigo='$valor' ORDER BY nombre ASC");
+		
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+		$MiPDF->SetFont('Noto Sans HK', 'B', 10);
+		$MiPDF->Cell(25, 5, 'Asignatura: ', 0, 0, 'L', 0);
+		$MiPDF->SetFont('Noto Sans HK', '', 10);
+		$MiPDF->Cell(100, 5, $row['nombre'].' ('.$row['curso'].')', 0, 1, 'L', 0 );
+		
+		$MiPDF->Ln(5);
+		
+		mysqli_free_result($result);
+		
+		
+		// INFORME
+		
+		$MiPDF->SetWidths(array(20, 90, 30, 105));
+		$MiPDF->SetFont('Noto Sans HK', 'B', 10);
+		$MiPDF->SetTextColor(255, 255, 255);
+		$MiPDF->SetFillColor(61, 61, 61);
+		
+		$MiPDF->Row(array('Unidad', 'Alumno/a', 'Asignatura', 'Observaciones'), 0, 6);	
+		
+		$result = mysqli_query($db_con, "SELECT DISTINCT alma.unidad, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, alma.matriculas, asignaturas.abrev FROM pendientes, asignaturas, alma WHERE asignaturas.codigo = pendientes.codigo AND alma.claveal = pendientes.claveal AND alma.unidad NOT LIKE '%p-%' AND asignaturas.codigo = '$valor' and alma.unidad not like '1%' AND abrev LIKE  '%\_%' ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre");
+		
+		$MiPDF->SetTextColor(0, 0, 0);
+		$MiPDF->SetFont('Noto Sans HK', '', 10);
+		
+		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		
+			$observaciones = ($row['matriculas']>1) ? 'Repetidor/a' : '';
+			
+			$MiPDF->Row(array($row['unidad'], $row['alumno'], $row['abrev'], $observaciones), 1, 6);	
+		}
+		
+		mysqli_free_result($result);
+	}
+	
+	
+	// SALIDA
+	
+	$MiPDF->Output();
+	exit();
 }
 else{
-$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, pendientes.claveal, alma.matriculas
+	include "../../menu.php";
+
+	include("../informes/pendientes/menu.php");
+	
+	foreach($_POST["select"] as  $val) {
+		$grupos.=$val.";";
+	}
+	
+	echo '
+<div class="container">
+
+	<div class="page-header">
+	  <h2 style="display: inline;">Alumnos y Grupos <small>Lista de Alumnos con asignaturas pendientes</small></h2>';
+	 echo "<form class=\"pull-right\" action='lista_pendientes.php' method='post'>";	
+	 echo "<input type='hidden' name='grupos' value='".$grupos."' />";
+	 echo "<input type='hidden' name='pdf' value='1' />";
+	 echo "<button class='btn btn-primary' name='submit10' type='submit' formtarget='_blank'><i class='fas fa-print fa-fw'></i> Imprimir</button>";
+	 echo "</form>";
+	echo '	  
+	</div>
+
+	<div class="row">
+	<div class="col-sm-8 col-sm-offset-2">';
+
+foreach($_POST["select"] as  $valor) {
+	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$valor' order by nombre");
+	$asignatur = mysqli_fetch_row($asig);
+	$asignatura = $asignatur[0];
+	$curso = $asignatur[1];
+echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend><hr />';	
+echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
+
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, alma.matriculas,  pendientes.claveal, alma.matriculas
 FROM pendientes, asignaturas, alma
 WHERE asignaturas.codigo = pendientes.codigo
 AND alma.claveal = pendientes.claveal
-AND asignaturas.codigo =  "'.$asig_pendiente.'" 
+AND alma.unidad NOT LIKE  "%p-%" 
+AND asignaturas.codigo =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
-AND pendientes.grupo in (select distinct grupo from profesores where profesor = "'.$profe_dep.'")
-ORDER BY alma.curso ASC, alma.unidad ASC, alma.apellidos ASC, alma.nombre ASC';
-}
-//echo $sql."<br><br>";
-$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
-while ($salida = mysqli_fetch_array($Recordset1)){
-	$claveal=$salida['claveal'];
-	$abrev_pendiente=$salida['abrev'];
-	//$asig_pendiente=$salida[3];
-	$val_nivel=substr($pendi[5],0,1);
-	$c_unidad = substr($salida['unidad'],0,1);
-	$c_curso = substr($salida['curso'],-2,1);
-	if ($salida['matriculas']>1) {
-		$rep = "(Rep.)";
-	}
-	else{
-		$rep='';
-	}
-	$n1+=1;
-	echo "<tr><td>".$salida['unidad']."</td><td>".$salida['curso']."</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=".$salida['claveal']."&todos=Ver Informe Completo del Alumno'>".$salida['apellidos'].", ".$salida[1]."</a> <span class='text-warning'>$rep</span></td>";
-	
-	for ($i = 1; $i < 5; $i++) {
-		$nota_evaluacion="";
-		$datos=mysqli_query($db_con,"select nota from evalua_pendientes where evaluacion='$i' and claveal='$claveal' and codigo='$asig_pendiente' and materia='$abrev_pendiente'");
-
-		$datos2=mysqli_fetch_array($datos);
-		$nota_evaluacion=$datos2[0];
-		if(strlen($nota_evaluacion)>0) {}else{$nota_evaluacion="";}
-		echo "<td><input type='number' step='1' min='0' max='10' name='$i-$claveal-$asig_pendiente-$abrev_pendiente' value='$nota_evaluacion' style='max-width:40px;'></td>";
-	}
-	
-	//if (date('m')>'05' and date('m')<'09') {
-
-	echo"<td>";
-
-	$curso_pendiente = substr($curso,0,10);
-	
-	$pendiente = mysqli_fetch_array(mysqli_query($db_con,"select id_informe from informe_extraordinaria where asignatura='$asignatura' and curso like '$curso_pendiente%' and plantilla='1' limit 1"));
-	if (!empty($pendiente['id_informe'])){
-		$extra_inf="";
-		$ya_informe = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal ='".$salida['claveal']."' and id_informe='".$pendiente['id_informe']."'");
-
-		if (mysqli_num_rows($ya_informe) > 0){ $extra_inf = "<span class='text-success far fa-edit fa-fw fa-lg'> </span>"; } else { $extra_inf = "<span class='text-danger far fa-edit fa-fw fa-lg'> </span>"; }
-
-			echo "<a href='//".$config['dominio']."/intranet/admin/informes/extraordinaria/alumnado_pendientes.php?claveal=".$salida['claveal']."&id_informe=".$pendiente['id_informe']."&curso_pendiente=".$curso_pendiente."' target='_blank'  data-bs='tooltip' title='Redactar informe de la materia para la evaluación del alumno'> ".$extra_inf." </a>";
+ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre';
+		//echo $sql."<br><br>";
+		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
+		while ($salida = mysqli_fetch_array($Recordset1)){
+		$val_nivel=substr($pendi[5],0,1);
+		$c_unidad = substr($salida[2],0,1);
+		$c_curso = substr($salida[4],-2,1);
+		if ($salida[8]>1) {
+			$rep = "(Rep.)";
 		}
-		echo "</td>";
-	//}
-	echo "</tr>";
-}
+		else{
+			$rep='';
+		}
+		$n1+=1;	
+		echo "<tr><td>$salida[2]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td><td>$salida[4] </td></tr>";
 
-echo "</tbody></table>";
-echo "<input type='hidden' name='select' value='$asig_pendiente' />";
-echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary' />";
-echo '<a href="index.php" class="btn btn-default pull-right">Volver a la página de Pendientes</a>';
-echo "</form>";
+		}
+//}
+
+		echo "</tbody></table>";
+
+	}
+}
 
 ?>
-
 </div>
 </div>
 </div>
-<?php include("../../pie.php"); ?>
-<script type="text/javascript">
 
-/*Desactivar rueda del ratón en campos numéricos*/
-
-$('form').on('focus', 'input[type=number]', function (e) {
-$(this).on('mousewheel.disableScroll', function (e) {
-e.preventDefault()
-})
-})
-$('form').on('blur', 'input[type=number]', function (e) {
-$(this).off('mousewheel.disableScroll')
-})	
-</script>
-
-<script type="text/javascript">
-
-/*Modificar función de la tecla Intro para desplazarse por columna de datos*/
-
-$('table input').keypress(function(e) {
-    if (e.keyCode == 13) {
-        var $this = $(this),
-            index = $this.closest('td').index();
-
-        $this.closest('tr').next().find('td').eq(index).find('input').focus();
-        $this.closest('tr').next().find('td').eq(index).find('input').select();
-        e.preventDefault();
-    }
-});
-</script>
+	<?php include("../../pie.php"); ?>
 </body>
 </html>
