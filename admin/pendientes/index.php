@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 include("../../menu.php"); 
 
-include("../informes/menu_alumno.php");
+include("../informes/pendientes/menu.php");
 
 
 $query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by codigo";

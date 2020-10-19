@@ -18,7 +18,7 @@ include("menu.php");
 	        $result = mysqli_query($db_con, "select inicio, fin, tareas, id, profesor, horas from ausencias  where  date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
 	        echo '<br /><table class="table table-striped table-bordered" style="width:100%;">';	
 
-	        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+	        $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `horini` ASC");
 	        $total_tramos = mysqli_num_rows($result_tramos);
 
 	        echo "<thead>";
@@ -40,7 +40,7 @@ include("menu.php");
 		        echo "</th></tr><tr>";
 	            $ndia = date ( "w" );
 
-	            $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `tramo` ASC");
+	            $result_tramos = mysqli_query($db_con, "SELECT `hora`, `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` <> 'R' AND `hora` <> 'Rn' ORDER BY `horini` ASC");
 	            $total_tramos = mysqli_num_rows($result_tramos);
 
 	            while ($row_tramos = mysqli_fetch_array($result_tramos))

@@ -4,7 +4,7 @@ require('../../../bootstrap.php');
 //PROCESAR DATOS ENVIADOS
 if (isset($_POST['enviar_datos'])) {
 	$id_informe = $_POST['id_informe'];
-	mysqli_query($db_con,"delete from informe_extraordinaria_alumnos where id_informe = '".$id_informe."' and claveal='".$_POST['claveal']."'");
+	mysqli_query($db_con,"delete from informe_pendientes_alumnos where id_informe = '".$id_informe."' and claveal='".$_POST['claveal']."'");
 	foreach ($_POST as $clave => $val) {
 		unset($observaciones);
 		if (!empty($val) and $clave !== 'enviar_datos' and $clave !== 'grupo' and $clave !== 'id_informe') {	
@@ -15,17 +15,20 @@ if (isset($_POST['enviar_datos'])) {
 				$observaciones = $val;
 			}
 
-		$result = mysqli_query($db_con,"INSERT into informe_extraordinaria_alumnos (id_informe,id_contenido,claveal,actividades) VALUES ('$id_informe','$id_contenido','$claveal','$observaciones')");
+			if ($claveal !== "claveal") {
+				$result = mysqli_query($db_con,"INSERT into informe_pendientes_alumnos (id_informe,id_contenido,claveal,actividades) VALUES ('$id_informe','$id_contenido','$claveal','$observaciones')");
 
-			if (! $result) {
-				$msg_error = "No se ha podido guardar algún elemento del informe. O bien has borrado todos los datos de un alumno e informe";
+				if (! $result) {
+					$msg_error = "No se ha podido guardar algún elemento del informe. O bien has borrado todos los datos de un alumno e informe";
+				}
+				else{
+					$msg_acierto = "Se han actualizado correctamente los datos del informe";
+				}
 			}
-			else{
-				$msg_acierto = "Se han actualizado correctamente los datos del informe";
-			}
+		
 		}
 	}
-		$id_informe = $_POST['id_informe'];
+	$id_informe = $_POST['id_informe'];
 }
 
 // COMPROBAMOS SI SE HA SELECCIONADO LA UNIDAD
@@ -33,7 +36,7 @@ if (isset($_GET['curso_pendiente'])) {	$curso_pendiente = $_GET['curso_pendiente
 if (isset($_GET['id_informe'])) {	$id_informe = $_GET['id_informe'];}
 if (isset($_GET['claveal'])) {	$claveal = $_GET['claveal'];}
 
-$materias = mysqli_query($db_con,"select codigo, nombre from asignaturas where curso like '$curso_pendiente%' and nombre = (select asignatura from informe_extraordinaria where id_informe = '$id_informe' and plantilla='1') and abrev not like '%\_%'");
+$materias = mysqli_query($db_con,"select codigo, nombre from asignaturas where curso like '$curso_pendiente%' and nombre = (select asignatura from informe_pendientes where id_informe = '$id_informe' and plantilla='1') and abrev not like '%\_%'");
 
 $materia_informe = mysqli_fetch_array($materias);
 $codigo = $materia_informe['codigo'];
@@ -46,7 +49,7 @@ include("menu.php");
 	<div class="container">
 		
 		<div class="page-header">
-			<h2>Informe individual para la evaluación del alumno <small> <br>Alumnos con materias pendientes</small></h2>
+			<h2>Informe individual para alumnos con materias pendientes <small> <br>Informe de los alumnos</small></h2>
 		</div>
 
 		<?php if(isset($msg_error) && $msg_error): ?>
@@ -81,7 +84,7 @@ include("menu.php");
 						$alumno = mysqli_query($db_con,"select claveal, claveal1, unidad, curso, concat(nombre,' ',apellidos) as nombre_alumno from alma where claveal = '".$claveal."'");
 						while($alumnos = mysqli_fetch_array($alumno)):
 
-								$al_reg = mysqli_query($db_con,"select * from informe_extraordinaria_alumnos where claveal = '".$alumnos['claveal']."'");
+								$al_reg = mysqli_query($db_con,"select * from informe_pendientes_alumnos where claveal = '".$alumnos['claveal']."'");
 								while($reg = mysqli_fetch_array($al_reg)){
 								$reg_informe = $reg['id_informe'];
 								$reg_contenido = $reg['id_contenido'];
@@ -93,7 +96,7 @@ include("menu.php");
 							<tr>
 								<td class="text-danger" style="width:260px; vertical-align:middle; font-weight:bold; "><?php echo $alumnos['nombre_alumno']; ?></td>
 								<td><div class="form-group"><?php 
-								$tema = mysqli_query($db_con,"select id_contenido, unidad, titulo from informe_extraordinaria_contenidos where id_informe = '".$id_informe."' order by id_contenido");
+								$tema = mysqli_query($db_con,"select id_contenido, unidad, titulo from informe_pendientes_contenidos where id_informe = '".$id_informe."' order by id_contenido");
 								while($temas = mysqli_fetch_array($tema)) { 
 									$sel = "";
 									if (in_array($alumnos['claveal']."-".$id_informe."-".$temas['id_contenido'], $ya_datos)) {
@@ -116,7 +119,7 @@ include("menu.php");
 								<td>
 									<?php
 									unset($actividad);
-									$al_act = mysqli_query($db_con,"select actividades from informe_extraordinaria_alumnos where claveal = '".$alumnos['claveal']."' and id_informe = '$id_informe' and id_contenido='0'");
+									$al_act = mysqli_query($db_con,"select actividades from informe_pendientes_alumnos where claveal = '".$alumnos['claveal']."' and id_informe = '$id_informe' and id_contenido='0'");
 									if (mysqli_num_rows($al_act)>0) {
 										$actividad = mysqli_fetch_array($al_act);
 									}

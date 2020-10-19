@@ -4,8 +4,8 @@ require('../../../bootstrap.php');
 
 // BORRAR INFORMES
 if (isset($_GET['borrar']) AND $_GET['borrar'] == 1) {
-	$result = mysqli_query($db_con,"delete from informe_extraordinaria where id_informe= '".$_GET['id_informe']."'");
-	$result2 = mysqli_query($db_con,"delete from informe_extraordinaria_contenidos where id_informe= '".$_GET['id_informe']."'");
+	$result = mysqli_query($db_con,"delete from informe_pendientes where id_informe= '".$_GET['id_informe']."'");
+	$result2 = mysqli_query($db_con,"delete from informe_pendientes_contenidos where id_informe= '".$_GET['id_informe']."'");
 	if (! $result) {
 		$msg_error = "No se ha podido eliminar el informe. Error: ".mysqli_error($db_con);
 		}
@@ -13,10 +13,10 @@ if (isset($_GET['borrar']) AND $_GET['borrar'] == 1) {
 
 // MARCAR PLANTILLA
 if (isset($_GET['plantilla']) AND $_GET['plantilla'] == 1) {
-	$plant = mysqli_fetch_array(mysqli_query($db_con,"select * from informe_extraordinaria where id_informe = '".$_GET['id_informe']."'"));
+	$plant = mysqli_fetch_array(mysqli_query($db_con,"select * from informe_pendientes where id_informe = '".$_GET['id_informe']."'"));
 	$curso_corto = substr($plant['curso'],0,19);
-	mysqli_query($db_con,"update informe_extraordinaria set plantilla = '0' where asignatura like '".$plant['asignatura']."' and curso like '".$curso_corto."%'");
-	$result = mysqli_query($db_con,"update informe_extraordinaria set plantilla = '1' where id_informe= '".$_GET['id_informe']."'");
+	mysqli_query($db_con,"update informe_pendientes set plantilla = '0' where asignatura like '".$plant['asignatura']."' and curso like '".$curso_corto."%'");
+	$result = mysqli_query($db_con,"update informe_pendientes set plantilla = '1' where id_informe= '".$_GET['id_informe']."'");
 	if (! $result) {
 		$msg_error = "No se ha podido crear la plantilla del informe. Error: ".mysqli_error($db_con);
 		}
@@ -25,7 +25,7 @@ if (isset($_GET['plantilla']) AND $_GET['plantilla'] == 1) {
 // COMPROBAMOS SI SE HA SELECCIONADO LA UNIDAD
 if (isset($_GET['id_informe'])) {
 	$id_informe = $_GET['id_informe'];
-	$edicion  = mysqli_fetch_array(mysqli_query($db_con, "select * from informe_extraordinaria where id_informe = '$id_informe'"));
+	$edicion  = mysqli_fetch_array(mysqli_query($db_con, "select * from informe_pendientes where id_informe = '$id_informe'"));
 	$edita = 1;
 	$unidad = limpiarInput($edicion['unidad'], 'alphanumericspecial');
 	$materia = limpiarInput($edicion['asignatura'], 'alphanumericspecial');
@@ -98,11 +98,11 @@ if (isset($_POST['crear_informe'])) {
 	$nivel_grupo = mysqli_fetch_array(mysqli_query($db_con,"select distinct nivel from profesores where grupo='$unidad'"));
 	$curso = $nivel_grupo['nivel'];
 
-	$hay_informe  = mysqli_query($db_con, "select * from informe_extraordinaria where profesor = '$profesor' and asignatura = '$materia' and unidad = '$unidad'");
+	$hay_informe  = mysqli_query($db_con, "select * from informe_pendientes where profesor = '$profesor' and asignatura = '$materia' and unidad = '$unidad'");
 	if (mysqli_num_rows($hay_informe)>0) {
 		$id_inf = mysqli_fetch_array($hay_informe);
 		$id_informe = $id_inf['id_informe'];
-		$result = mysqli_query($db_con, "update `informe_extraordinaria` set fecha='".$fecha_sql."', modalidad='".$modalidad."' where id_informe = '".$id_informe."'");
+		$result = mysqli_query($db_con, "update `informe_pendientes` set fecha='".$fecha_sql."', modalidad='".$modalidad."' where id_informe = '".$id_informe."'");
 		if (! $result) {
 			$msg_error = "No se ha podido actualizar el informe. Error: ".mysqli_error($db_con);
 		}
@@ -111,7 +111,7 @@ if (isset($_POST['crear_informe'])) {
 		}
 	}	
 	else{
-		$result = mysqli_query($db_con, "INSERT INTO `informe_extraordinaria` (`profesor`, `asignatura`, `unidad`, `fecha`, `modalidad`, `curso`) VALUES ('".$profesor."', '".$materia."', '".$unidad."', '".$fecha_sql."', '".$modalidad."', '".$curso."')");
+		$result = mysqli_query($db_con, "INSERT INTO `informe_pendientes` (`profesor`, `asignatura`, `unidad`, `fecha`, `modalidad`, `curso`) VALUES ('".$profesor."', '".$materia."', '".$unidad."', '".$fecha_sql."', '".$modalidad."', '".$curso."')");
 		if (! $result) {
 			$msg_error = "No se ha podido crear el informe. Error: ".mysqli_error($db_con);
 		}
@@ -130,7 +130,7 @@ include("menu.php");
 	<div class="container">
 		
 		<div class="page-header">
-			<h2>Informe individual para la evaluación extraordinaria <small> <br>Mis informes</small></h2>
+			<h2>Informe individual para alumnos con materias pendientes <small> <br>Mis informes</small></h2>
 		</div>
 
 		<?php if(isset($msg_error) && $msg_error): ?>
@@ -152,7 +152,7 @@ include("menu.php");
 				
 				// OBTENEMOS LAS UNIDADES DONDE IMPARTE MATERIA EL PROFESOR
 				$informes = array();
-				$result = mysqli_query($db_con, "SELECT `id_informe`, `asignatura`, `unidad`, `fecha`, `modalidad`, `plantilla` FROM `informe_extraordinaria`, unidades WHERE nomunidad=unidad and (`profesor` = '".$_SESSION['ide']."' $extra_dep) ORDER BY idcurso, idunidad ASC");
+				$result = mysqli_query($db_con, "SELECT `id_informe`, `asignatura`, `unidad`, `fecha`, `modalidad`, `plantilla` FROM `informe_pendientes`, unidades WHERE nomunidad=unidad and (`profesor` = '".$_SESSION['ide']."' $extra_dep) ORDER BY idcurso, idunidad ASC");
 				while ($row = mysqli_fetch_array($result)) {
 					$informe = array(
 						'id_informe' => $row['id_informe'],
@@ -193,23 +193,13 @@ include("menu.php");
 							<td><?php echo $extra_mod; ?> &nbsp;<a href="index.php?id_informe=<?php echo $informe['id_informe']; ?>&grupo=<?php echo $informe['unidad']; ?>"  data-bs="tooltip" title="Editar los datos de este informe."  style="text-decoration: none;"><?php echo $informe['asignatura']; ?></a></td>
 							<td><?php echo $informe['unidad']; ?></td>
 							<td><?php echo $informe['fecha']; ?></td>
-							<?php
-								if (date('m')>'4' and date('m')<'9') {
-									$extra_al = "alumnado.php";
-									$extra_pendientes = 1;
-								}
-								else{
-									$extra_al = "alumnado_pendientes.php";
-								}
-							?>
 							<td class="pull-right" nowrap="nowrap">
-								<?php if($extra_pendientes == 1):?>
-								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/<?php echo $extra_al ; ?>?id_informe=<?php echo $informe['id_informe']; ?>&grupo=<?php echo $informe['unidad']; ?>" data-bs="tooltip" title="Seleccionar alumnos para este informe."><span class="fas fa-user-friends fa-fw fa-lg"></span></a>&nbsp;
-								<?php endif;?>
-								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/contenidos.php?id_informe=<?php echo $informe['id_informe']; ?>" data-bs="tooltip" title="Modificar los contenidos y actividades de este informe."><span class="text-info fas fa-edit fa-fw fa-lg"></span></a>&nbsp;
 								
-								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/index.php?plantilla=1&id_informe=<?php echo $informe['id_informe']; ?>" data-bs="tooltip" title="Haz clck sobre el icono para convertir este informe en plantilla de la asignatura para este nivel."><?php if ($informe['plantilla'] == 1) {?><span class="text-success far fa-check-square fa-fw fa-lg"></span><?php } else {?><span class="text-success far fa-square fa-fw fa-lg"></span><?php }?></a>&nbsp;																															
-								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/extraordinaria/index.php?borrar=1&id_informe=<?php echo $informe['id_informe']; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar este informe"><span class="text-danger far fa-trash-alt fa-fw fa-lg"></span></a>
+								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/pendientes/contenidos.php?id_informe=<?php echo $informe['id_informe']; ?>" data-bs="tooltip" title="Modificar los contenidos y actividades de este informe."><span class="text-info fas fa-edit fa-fw fa-lg"></span></a>&nbsp;
+								
+								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/pendientes/index.php?plantilla=1&id_informe=<?php echo $informe['id_informe']; ?>" data-bs="tooltip" title="Haz clck sobre el icono para convertir este informe en plantilla de la asignatura para este nivel."><?php if ($informe['plantilla'] == 1) {?><span class="text-success far fa-check-square fa-fw fa-lg"></span><?php } else {?><span class="text-success far fa-square fa-fw fa-lg"></span><?php }?></a>&nbsp;																															
+								<a href="//<?php echo $config['dominio']; ?>/intranet/admin/informes/pendientes/index.php?borrar=1&id_informe=<?php echo $informe['id_informe']; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar este informe"><span class="text-danger far fa-trash-alt fa-fw fa-lg"></span></a>
+								
 							</td>
 						</tr>
 						<?php endforeach; ?>

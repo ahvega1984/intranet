@@ -121,7 +121,7 @@ if ($_POST['pdf'] == 1) {
 else{
 	include "../../menu.php";
 
-	include("../informes/menu_alumno.php");
+	include("../informes/pendientes/menu.php");
 	
 	foreach($_POST["select"] as  $val) {
 		$grupos.=$val.";";

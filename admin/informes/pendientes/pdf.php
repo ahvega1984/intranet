@@ -43,7 +43,7 @@ define("DOMPDF_ENABLE_PHP", true);
 	$html .= "
 	<body>";
 
-	$html.="<h2 align='center'><u>Informe de materias pendientes para la evaluación extraordinaria</u></h2>";
+	$html.="<h2 align='center'><u>Informe de evaluación de alumnos con materias pendientes</u></h2>";
 
 	$alum = mysqli_fetch_array(mysqli_query($db_con,"select concat(nombre,' ',apellidos) as nombre_al, curso, unidad from alma where claveal='".$claveal."'"));
 
@@ -52,7 +52,7 @@ define("DOMPDF_ENABLE_PHP", true);
 	$html.="<p style='border: solid 1px #ccc; padding: 10px 10px; text-align: justify; color:#444'>Este documento presenta los <b>contenidos y actividades</b> que el alumno deberá preparar y realizar para superar la prueba en aquellas asignaturas que tenga pendientes de cursos anteriores o bien no haya superado en la evaluación ordinaria de junio. También contiene la <b>fecha</b> en la que habrá de realizarse el examen de la evaluación, si ese fuera el método de recuperación requerido por el profesor y la materia corespondientes; o bien las instrucciones para presentar las actividades encomendadas si ese fuera el método elegido para su evaluación.</p>";
 
 
-	$materias = mysqli_query($db_con, "SELECT distinct informe_extraordinaria.asignatura, informe_extraordinaria.id_informe, informe_extraordinaria.fecha, informe_extraordinaria.curso FROM informe_extraordinaria, informe_extraordinaria_alumnos WHERE informe_extraordinaria.id_informe = informe_extraordinaria_alumnos.id_informe and claveal = '$claveal'");
+	$materias = mysqli_query($db_con, "SELECT distinct informe_pendientes.asignatura, informe_pendientes.id_informe, informe_pendientes.fecha, informe_pendientes.curso FROM informe_pendientes, informe_pendientes_alumnos WHERE informe_pendientes.id_informe = informe_pendientes_alumnos.id_informe and claveal = '$claveal'");
 	$num_informes = mysqli_num_rows($materias);
 	while($materia_curso = mysqli_fetch_array($materias)){
 
@@ -79,14 +79,14 @@ define("DOMPDF_ENABLE_PHP", true);
 		
 		$act_personal="";
 		
-		$query_id= mysqli_query($db_con, "SELECT distinct id_informe, id_contenido, actividades FROM informe_extraordinaria_alumnos WHERE claveal = '$claveal' and id_informe = '$id_informe' order by id_informe, id_contenido");
+		$query_id= mysqli_query($db_con, "SELECT distinct id_informe, id_contenido, actividades FROM informe_pendientes_alumnos WHERE claveal = '$claveal' and id_informe = '$id_informe' order by id_informe, id_contenido");
 		while ($informe = mysqli_fetch_array($query_id)) {
 			if (strlen($informe['actividades'])>0) {
 				$act_personal = $informe['actividades'];
 			}
 			
 			
-			$content = mysqli_query($db_con,"select unidad, titulo, contenidos, actividades from informe_extraordinaria_contenidos where id_informe = ".$informe['id_informe']." and id_contenido = '".$informe['id_contenido']."'");
+			$content = mysqli_query($db_con,"select unidad, titulo, contenidos, actividades from informe_pendientes_contenidos where id_informe = ".$informe['id_informe']." and id_contenido = '".$informe['id_contenido']."'");
 			
 			while($datos = mysqli_fetch_array($content)){
 				$html.="<tr><td><u><b>".$datos['unidad']."</b>: ".$datos['titulo']."</u><br><br>".$datos['contenidos']."</td><td>".$datos['actividades']."</td></tr>";

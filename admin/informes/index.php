@@ -12,7 +12,7 @@ if (isset($_POST['enviar_datos'])) {
 		${$nombre} = $valor;
 	}
 
-mysqli_query($db_con, "update alma set DNI='$DNI', fecha='$fecha', domicilio='$domicilio', localidad='$localidad', provinciaresidencia='$provinciaresidencia', telefono='$telefono', padre='$padre', telefonourgencia='$telefonourgencia', paisnacimiento='$paisnacimiento', correo='$correo', nacionalidad='$nacionalidad', unidad='$unidad', dnitutor='$dnitutor', dnitutor2='$dnitutor', nsegsocial='$nsegsocial' where claveal='$claveal'");
+mysqli_query($db_con, "update alma set DNI='$DNI', fecha='$fecha', domicilio='$domicilio', localidad='$localidad', provinciaresidencia='$provinciaresidencia', telefono='$telefono', padre='$padre', telefonourgencia='$telefonourgencia', paisnacimiento='$paisnacimiento', correo='$correo', nacionalidad='nacionalidad', unidad='$unidad', dnitutor='$dnitutor', dnitutor2='$dnitutor', nsegsocial='$nsegsocial' where claveal='$claveal'");
 	
 	$mensaje1 = 1;
 

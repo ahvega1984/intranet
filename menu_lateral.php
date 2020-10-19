@@ -300,10 +300,6 @@ $menu_alumnos = array(
 						'href'   => 'admin/evaluacion_pendientes/index.php',
 						'titulo' => 'Evaluación de pendientes',
 					),
-					array(
-						'href'   => 'admin/pendientes/index.php',
-						'titulo' => 'Alumnos con materias pendientes'
-					),
 				),
 				array(
 						'href'   => 'admin/informes/evaluaciones/index.php',
@@ -325,7 +321,8 @@ $menu_alumnos = array(
 					),
 					array(
 						'href'   => 'admin/informes/extraordinaria/index.php',
-						'titulo' => 'Informes de materias pendientes',
+						'titulo' => 'Informes de evaluación extraordinaria',
+						'meses'	 => array(5, 6),
 					),
 					array(
 						'href'   => 'admin/departamento/adaptaciones/index.php',

@@ -1028,3 +1028,17 @@ if (! mysqli_num_rows($actua)) {
     
     mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo nombre de la tabla departamentos y c_profes', NOW())");
 }
+
+/*
+  @descripcion: Creación de las tablas del módulo de informes de pendientes
+  @fecha: 18 de octubre de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tablas para informes de pendientes'");
+if (! mysqli_num_rows($actua)) {
+
+    mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes select * from informe_extraordinaria");
+    mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes_alumnos select * from informe_extraordinaria_alumnos");
+    mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes_contenidos select * from informe_extraordinaria_contenidos");
+    
+   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tablas para informes de pendientes', NOW())");
+}
