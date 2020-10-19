@@ -40,14 +40,15 @@ if(mysqli_num_rows($ocul)>0){
 <select class="form-control" name="servicio_aula" onchange="submit()">
 	<option value=""></option>
 <?php
-$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'GU' AND a_aula NOT LIKE 'GUCON' AND a_aula NOT LIKE '' $extra_ocultas1 ORDER BY n_aula ASC";
+//$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'GU' AND a_aula NOT LIKE 'GUCON' AND a_aula NOT LIKE '' $extra_ocultas1 ORDER BY n_aula ASC";
+$aula_res = "SELECT `nomdependencia` FROM `dependencias` ORDER BY `nomdependencia` ASC";
 $result = mysqli_query($db_con,$aula_res);
 ?>
 <?php if(mysqli_num_rows($result)>0): ?>
   <optgroup label="Aulas del Horario">
 	<?php while ($row = mysqli_fetch_array($result)):?>
-	<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
-	<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
+	<?php $value = $row['nomdependencia'].' ==> '.$row['nomdependencia']; ?>
+	<option value="<?php echo $value; ?>"><?php echo $row['nomdependencia']; ?></option>
 	<?php endwhile; ?>
 	</optgroup>
 	<?php endif; ?>
