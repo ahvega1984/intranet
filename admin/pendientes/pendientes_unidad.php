@@ -136,19 +136,19 @@ Parece que estás intentando ver la lista de asignaturas pendientes de los alumn
 		else{	
 echo "<table class='table table-striped' align='center'><thead><th>Alumno</th><th>Pendientes</th></thead><tbody>";
 $val_nivel=substr($valor,0,1);
-$pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, matriculas from pendientes, alma where pendientes.claveal=alma.claveal and alma.unidad = '$valor' order by apellidos, nombre");
+$pend = mysqli_query($db_con, "SELECT DISTINCT alma.claveal, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, matriculas FROM alma, pendientes WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal ORDER BY alumno ASC");
 $n1="";
 while ($pendi = mysqli_fetch_array($pend)) {
-	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%143727%' or combasi like '%143733%')");
-	if (mysqli_num_rows($uni)>0) {}
-			else{
-	if ($pendi[3]>1) {
-			$rep = " (Rep.)";
-		}
-		else{
-			$rep='';
-		}
-	echo "<tr><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2] </a><span class='text-warning'>$rep</span></td><td>";
+	
+	if ($pendi[2]>1) {
+		$rep = " (Rep.)";
+	}
+	else{
+		$rep='';
+	}
+
+	echo "
+	<tr><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1]</a><span class='text-warning'>$rep</span></td><td>";
 		$sql = "SELECT DISTINCT alma.claveal, apellidos, alma.nombre, alma.curso, abrev
 FROM alma,  pendientes , asignaturas
 WHERE alma.claveal='".$pendi[0]."' and alma.claveal = pendientes.claveal
@@ -156,13 +156,12 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 			//echo $sql."<br>";
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 		if (mysqli_num_rows($Recordset1)>0) {
+		$text_asigpend = "";
 		while ($salida = mysqli_fetch_array($Recordset1)){	
-						
-			echo " $salida[4]|  ";
-							
+			$text_asigpend .= $salida[4] . " | ";		
 		}
-		}
-		echo "</td></tr>";
+		$text_asigpend = rtrim($text_asigpend, " | ");
+		echo "$text_asigpend</td></tr>";
 }
 }
 		echo "</tbody></table>";		
