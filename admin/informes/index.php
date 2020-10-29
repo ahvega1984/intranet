@@ -405,7 +405,7 @@ if (!$claveal) {
 				  <li <?php echo ($tab5) ? 'class="active"' : ''; ?>><a href="#horario" role="tab" data-toggle="tab">Horario</a></li>
 				  <?php endif; ?>
 				  <?php if (!($act_tutoria == "" && $todos == "")): ?>
-				  <?php if(acl_permiso($_SESSION['cargo'], array(1)) || (acl_permiso($_SESSION['cargo'], array(2)) && $esTutor)): ?>
+				  <?php if(acl_permiso($_SESSION['cargo'], array(1)) || (acl_permiso($_SESSION['cargo'], array(2)) && $esTutor) || acl_permiso($_SESSION['cargo'], array(8))): ?>
 				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3) && !isset($tab4) && !isset($tab5)) $tab6 = 1; ?>
 				  <li <?php echo ($tab6) ? 'class="active"' : ''; ?>><a href="#intervenciones" role="tab" data-toggle="tab">Intervenciones</a></li>
 				  <?php endif; ?>
@@ -452,7 +452,7 @@ if (!$claveal) {
 				  <div class="tab-pane <?php echo ($tab5) ? 'active' : ''; ?>" id="horario">
 				  <?php if (!($horarios== "" and $todos == "")) include("horarios.php"); ?>
 				  </div>
-				  <?php if(acl_permiso($_SESSION['cargo'], array(1)) || (acl_permiso($_SESSION['cargo'], array(2)) && $esTutor)): ?>
+				  <?php if(acl_permiso($_SESSION['cargo'], array(1)) || (acl_permiso($_SESSION['cargo'], array(2)) && $esTutor) || acl_permiso($_SESSION['cargo'], array(8))): ?>
 				  <div class="tab-pane <?php echo ($tab6) ? 'active' : ''; ?>" id="intervenciones">
 				  <?php if (!($act_tutoria== "" and $todos == ""))include("act_tutoria.php"); ?>
 				  </div>
