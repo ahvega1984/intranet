@@ -28,195 +28,203 @@ if (isset($_SESSION['profi'])) {
 
 // Entramos
 if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST['CLAVE']) < 6)) {
-	$cmp_idea = limpiarInput(trim($_POST['USUARIO']), 'alphanumericspecial');
-	$cmp_clave = limpiarInput($_POST['CLAVE'], 'alphanumericspecial');
-	$hash_clave_sha1 = sha1($cmp_clave);
-	$hash_clave_bcrypt = intranet_password_hash($cmp_clave);
-	$cmp_clavecifrada = limpiarInput(trim($_POST['CLAVECIFRADA']), 'alphanumeric');
+	if (checkToken()) {
+		$cmp_idea = limpiarInput(trim($_POST['USUARIO']), 'alphanumericspecial');
+		$cmp_clave = limpiarInput($_POST['CLAVE'], 'alphanumericspecial');
+		$hash_clave_sha1 = sha1($cmp_clave);
+		$hash_clave_bcrypt = intranet_password_hash($cmp_clave);
+		$cmp_clavecifrada = limpiarInput(trim($_POST['CLAVECIFRADA']), 'alphanumeric');
 
-	$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret`, `departamentos`.`nombre` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
-	$usuarioExiste = mysqli_num_rows($result_usuario);
+		$result_usuario = mysqli_query($db_con, "SELECT `c_profes`.`pass`, `c_profes`.`profesor`, `departamentos`.`dni`, `c_profes`.`estado`, `c_profes`.`correo`, `c_profes`.`telefono`, `c_profes`.`totp_secret`, `departamentos`.`nombre` FROM `c_profes` JOIN `departamentos` ON `c_profes`.`profesor` = `departamentos`.`nombre` WHERE `c_profes`.`idea` = '".$cmp_idea."' LIMIT 1");
+		$usuarioExiste = mysqli_num_rows($result_usuario);
 
-	if ($usuarioExiste) {
-		$sesionIntranet = 0;
-		$usuarioBloqueado = 0;
-		$_SESSION['session_seneca'] = 0;
+		if ($usuarioExiste) {
+			$sesionIntranet = 0;
+			$usuarioBloqueado = 0;
+			$_SESSION['session_seneca'] = 0;
 
-		$datosIntranet = mysqli_fetch_array($result_usuario);
+			$datosIntranet = mysqli_fetch_array($result_usuario);
 
-		// Cualquier usuario diferente del Administrador de la Intranet o personal no docente debe poder acceder a Séneca
-		$result_profesor = mysqli_query($db_con,"SELECT `departamentos`.`departamento` FROM `departamentos` WHERE `departamentos`.`idea` = '".$cmp_idea."' AND `departamentos`.`nombre` IN (SELECT `nomprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$datosIntranet['nombre']."')");
-		$usuarioProfesor = mysqli_num_rows($result_profesor);
+			// Cualquier usuario diferente del Administrador de la Intranet o personal no docente debe poder acceder a Séneca
+			$result_profesor = mysqli_query($db_con,"SELECT `departamentos`.`departamento` FROM `departamentos` WHERE `departamentos`.`idea` = '".$cmp_idea."' AND `departamentos`.`nombre` IN (SELECT `nomprofesor` FROM `profesores_seneca` WHERE `nomprofesor` = '".$datosIntranet['nombre']."')");
+			$usuarioProfesor = mysqli_num_rows($result_profesor);
 
-		if ($usuarioProfesor) {
+			if ($usuarioProfesor) {
 
-			// ESTABLECEMOS CONEXIÓN CON SÉNECA
-			$LOGIN_NV = "NV_" . intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) );
-			$LOGIN_RNDVAL = intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
-			$LOGIN_C_INTERFAZ = "SENECA";
+				// ESTABLECEMOS CONEXIÓN CON SÉNECA
+				$LOGIN_NV = "NV_" . intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+				$LOGIN_RNDVAL = intval( rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+				$LOGIN_C_INTERFAZ = "SENECA";
 
-			$ch = curl_init();
-			$post = [
-				'N_V_' => $LOGIN_NV,
-				'rndval' => $LOGIN_RNDVAL,
-				'CLAVECIFRADA'   => $cmp_clavecifrada,
-				'USUARIO' => $cmp_idea,
-				'C_INTERFAZ' => $LOGIN_C_INTERFAZ
-			];
+				$ch = curl_init();
+				$post = [
+					'N_V_' => $LOGIN_NV,
+					'rndval' => $LOGIN_RNDVAL,
+					'CLAVECIFRADA'   => $cmp_clavecifrada,
+					'USUARIO' => $cmp_idea,
+					'C_INTERFAZ' => $LOGIN_C_INTERFAZ
+				];
 
-			curl_setopt($ch, CURLOPT_URL, 'https://www.juntadeandalucia.es/educacion/senecav2/seneca/jsp/ComprobarUsuarioExt.jsp');
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			$server_output = curl_exec($ch);
+				curl_setopt($ch, CURLOPT_URL, 'https://www.juntadeandalucia.es/educacion/senecav2/seneca/jsp/ComprobarUsuarioExt.jsp');
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$server_output = curl_exec($ch);
 
-			// COMPROBAMOS EL CÓDIGO HTTP DE LA PETICIÓN
-			switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-				case '200' :
-					$xml = simplexml_load_string($server_output);
-					$json = json_encode($xml);
-					$response = json_decode($json, true);
+				// COMPROBAMOS EL CÓDIGO HTTP DE LA PETICIÓN
+				switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+					case '200' :
+						$xml = simplexml_load_string($server_output);
+						$json = json_encode($xml);
+						$response = json_decode($json, true);
 
-					if ($response['correcto'] == "NO") {
-						$sesionIntranet = 0;
-						$msg_error = $response['mensaje'];
-						
-						if ($response['mensaje'] == "Usuario bloqueado") {
-							mysqli_query($db_con, "UPDATE `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+						if ($response['correcto'] == "NO") {
+							$sesionIntranet = 0;
+							$msg_error = $response['mensaje'];
+							
+							if ($response['mensaje'] == "Usuario bloqueado") {
+								mysqli_query($db_con, "UPDATE `c_profes` SET `estado` = 1 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+							}
 						}
-					}
-					elseif ($response['correcto'] == "SI") {
-						$_SESSION['session_seneca'] = 1;
+						elseif ($response['correcto'] == "SI") {
+							$_SESSION['session_seneca'] = 1;
 
-						mysqli_query($db_con, "UPDATE `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+							mysqli_query($db_con, "UPDATE `c_profes` SET `estado` = 0 WHERE `idea` = '".$cmp_idea."' LIMIT 1");
 
-						// Actualizamos la contraseña de la Intranet con la de Séneca
-						mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
-						$sesionIntranet = 1;
-					}
-					else {
+							// Actualizamos la contraseña de la Intranet con la de Séneca
+							mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+							$sesionIntranet = 1;
+						}
+						else {
+							// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
+							if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
+								$sesionIntranet = 1;
+							}
+							break;
+						}
+
+						break;
+
+					// Si no es posible conectar con Séneca, pasa a inicio de sesión local
+					default :
 						// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
 						if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 							$sesionIntranet = 1;
 						}
 						break;
-					}
-
-					break;
-
-				// Si no es posible conectar con Séneca, pasa a inicio de sesión local
-				default :
-					// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-					if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
-						$sesionIntranet = 1;
-					}
-					break;
+				}
 			}
-		}
-		// Si el usuario es el Administrador de la Intranet o personal no docente
-		else {
-			// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
-			if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
+			// Si el usuario es el Administrador de la Intranet o personal no docente
+			else {
+				// USUARIO Y CONTRASEÑA CORRECTOS EN LOCAL
+				if ($datosIntranet['pass'] == $hash_clave_sha1 || password_verify($cmp_clave, $datosIntranet['pass'])) {
 
-				// Actualizamos la contraseña a BCRYPT
-				if ($datosIntranet['pass'] == $hash_clave_sha1) {
-					mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+					// Actualizamos la contraseña a BCRYPT
+					if ($datosIntranet['pass'] == $hash_clave_sha1) {
+						mysqli_query($db_con, "UPDATE `c_profes` SET `pass` = '".$hash_clave_bcrypt."' WHERE `idea` = '".$cmp_idea."' LIMIT 1");
+					}
+
+					$sesionIntranet = 1;
+				}
+			}
+
+			// CONSTRUIMOS LA SESIÓN EN LA INTRANET
+			if ($sesionIntranet) {
+				$_SESSION['intranet_auth'] = 1;
+
+				if (file_exists('../alumnado/login.php')) {
+					$_SESSION['pagina_centro'] = 1;
+				}
+				else {
+					$_SESSION['pagina_centro'] = 0;
 				}
 
-				$sesionIntranet = 1;
-			}
-		}
+				$_SESSION['profi'] = $datosIntranet['profesor'];
+				$profe = $_SESSION['profi'];
 
-		// CONSTRUIMOS LA SESIÓN EN LA INTRANET
-		if ($sesionIntranet) {
-			$_SESSION['intranet_auth'] = 1;
+				// Variables de sesión del cargo del Profesor
+				$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
+				$cargo1 = mysqli_fetch_array($cargo0);
+				$_SESSION['cargo'] = $cargo1[0];
+				$carg = $_SESSION['cargo'];
+				$_SESSION['dpt'] = $cargo1[1];
+				$_SESSION['ide'] = $cargo1[2];
 
-			if (file_exists('../alumnado/login.php')) {
-				$_SESSION['pagina_centro'] = 1;
+				// Si es tutor
+				if (stristr ( $_SESSION['cargo'], '2' ) == TRUE) {
+					$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$profe'" );
+					$row = mysqli_fetch_array ( $result );
+					$_SESSION['mod_tutoria']['tutor'] = $profe;
+					$_SESSION['mod_tutoria']['unidad'] = $row [0];
+				}
+
+				// Si tiene Horario
+				$cur0 = mysqli_query($db_con, "SELECT distinct profesor FROM profesores where profesor = '$profe'" );
+				$cur00 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$profe'" );
+				$cur1 = mysqli_num_rows ( $cur0 );
+				$cur11 = mysqli_num_rows ( $cur00 );
+				if ($cur1>0 or $cur11>0) {
+					$_SESSION['n_cursos'] = 1;
+				}
+
+				// Si tiene tema personalizado
+				$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );
+				if (mysqli_num_rows($res)>0) {
+					$ro = mysqli_fetch_array ( $res );
+					$_SESSION['tema'] = $ro[0];
+					$_SESSION['fondo'] = $ro[1];
+				}
+				else{
+					$_SESSION['tema']="bootstrap.min.css";
+					$_SESSION['fondo'] = "navbar-default";
+				}
+
+				// Obtenemos los datos de navegación del usuario
+				$direccionIP = getRealIP();
+				$useragent = limpiarInput($_SERVER['HTTP_USER_AGENT'], 'alphanumericspecial');
+				
+				// Registramos la sesión
+				mysqli_query($db_con, "INSERT INTO reg_intranet (profesor, fecha, ip, useragent) VALUES ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','".$direccionIP."', '".$useragent."')");
+				$id_reg = mysqli_query($db_con, "SELECT id FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' ORDER BY id DESC LIMIT 1" );
+				$id_reg0 = mysqli_fetch_array ( $id_reg );
+				$_SESSION['id_pag'] = $id_reg0[0];
+
+				session_regenerate_id(true);
+
+				if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $hash_clave_sha1) {
+					$_SESSION['cambiar_clave'] = 1;
+					header("location:usuario.php?tab=cuenta&pane=password");
+					exit();
+				}
+				else {
+					header("location:index.php");
+					exit();
+				}
+
 			}
+			// Cualquier problema que impida crear la sesión
 			else {
-				$_SESSION['pagina_centro'] = 0;
-			}
-
-			$_SESSION['profi'] = $datosIntranet['profesor'];
-			$profe = $_SESSION['profi'];
-
-			// Variables de sesión del cargo del Profesor
-			$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
-			$cargo1 = mysqli_fetch_array($cargo0);
-			$_SESSION['cargo'] = $cargo1[0];
-			$carg = $_SESSION['cargo'];
-			$_SESSION['dpt'] = $cargo1[1];
-			$_SESSION['ide'] = $cargo1[2];
-
-			// Si es tutor
-			if (stristr ( $_SESSION['cargo'], '2' ) == TRUE) {
-				$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$profe'" );
-				$row = mysqli_fetch_array ( $result );
-				$_SESSION['mod_tutoria']['tutor'] = $profe;
-				$_SESSION['mod_tutoria']['unidad'] = $row [0];
-			}
-
-			// Si tiene Horario
-			$cur0 = mysqli_query($db_con, "SELECT distinct profesor FROM profesores where profesor = '$profe'" );
-			$cur00 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$profe'" );
-			$cur1 = mysqli_num_rows ( $cur0 );
-			$cur11 = mysqli_num_rows ( $cur00 );
-			if ($cur1>0 or $cur11>0) {
-				$_SESSION['n_cursos'] = 1;
-			}
-
-			// Si tiene tema personalizado
-			$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );
-			if (mysqli_num_rows($res)>0) {
-				$ro = mysqli_fetch_array ( $res );
-				$_SESSION['tema'] = $ro[0];
-				$_SESSION['fondo'] = $ro[1];
-			}
-			else{
-				$_SESSION['tema']="bootstrap.min.css";
-				$_SESSION['fondo'] = "navbar-default";
-			}
-
-			// Obtenemos los datos de navegación del usuario
-			$direccionIP = getRealIP();
-			$useragent = limpiarInput($_SERVER['HTTP_USER_AGENT'], 'alphanumericspecial');
-			
-			// Registramos la sesión
-			mysqli_query($db_con, "INSERT INTO reg_intranet (profesor, fecha, ip, useragent) VALUES ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','".$direccionIP."', '".$useragent."')");
-			$id_reg = mysqli_query($db_con, "SELECT id FROM reg_intranet WHERE profesor = '".$_SESSION['ide']."' ORDER BY id DESC LIMIT 1" );
-			$id_reg0 = mysqli_fetch_array ( $id_reg );
-			$_SESSION['id_pag'] = $id_reg0[0];
-
-			session_regenerate_id(true);
-
-			if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $hash_clave_sha1) {
-				$_SESSION['cambiar_clave'] = 1;
-				header("location:usuario.php?tab=cuenta&pane=password");
-				exit();
-			}
-			else {
-				header("location:index.php");
-				exit();
+				if (! isset($msg_error)) {
+					$msg_error = "Usuario incorrecto";
+				}
 			}
 
 		}
-		// Cualquier problema que impida crear la sesión
-		else {
-			if (! isset($msg_error)) {
-				$msg_error = "Usuario incorrecto";
-			}
+		// El usuario no existe o no es de este centro educativo
+		if (! isset($msg_error)) {
+			$msg_error = "Usuario incorrecto";
 		}
-
 	}
-	// El usuario no existe o no es de este centro educativo
-	if (! isset($msg_error)) {
+	else {
 		$msg_error = "Usuario incorrecto";
 	}
 }
 
 include('control_acceso.php');
+
+// Generamos token CSRF
+$html_token = outputToken();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -255,7 +263,7 @@ include('control_acceso.php');
 				<h4>Inicia sesión para acceder</h4>
 			</div>
 
-	        <form class="form-signin" method="post" autocomplete="off">
+	        <form name="login" class="form-signin" method="post" autocomplete="off">
 				<?php if($msg_error): ?>
 				<p class="text-error text-danger"><?php echo $msg_error; ?></p>
 				<?php endif; ?>
@@ -263,10 +271,13 @@ include('control_acceso.php');
 				<div class="form-group">
 					<input type="text" id="USUARIO" name="USUARIO" class="form-control" placeholder="Nombre de usuario" required autofocus>
 				</div>
+
 				<div class="form-group">
 					<input type="password" id="CLAVE" name="CLAVE" class="form-control" placeholder="Contraseña" required>
 					<input type="hidden" id="CLAVECIFRADA" name="CLAVECIFRADA" value="">
 				</div>
+
+				<?php echo $html_token; ?>
 
 	            <button type="submit" class="btn btn-primary btn-block btn-signin" name="submit">Iniciar sesión</button>
 
