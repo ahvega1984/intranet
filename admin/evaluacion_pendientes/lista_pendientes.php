@@ -127,23 +127,20 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		echo "<td><input type='number' step='1' min='0' max='10' name='$i-$claveal-$asig_pendiente-$abrev_pendiente' value='$nota_evaluacion' style='max-width:40px;'></td>";
 	}
 	
-	//if (date('m')>'05' and date('m')<'09') {
-
 	echo"<td>";
 
 	$curso_pendiente = substr($curso,0,10);
 	
-	$pendiente = mysqli_fetch_array(mysqli_query($db_con,"select id_informe from informe_pendientes where asignatura='$asignatura' and curso like '$curso_pendiente%' and profesor in (select idea from departamentos) limit 1"));
+	$pendiente = mysqli_fetch_array(mysqli_query($db_con,"select id_informe from informe_pendientes where asignatura='$asignatura' and curso like '$curso_pendiente%' limit 1"));
 		if (!empty($pendiente['id_informe'])){
 		$extra_inf="";
-		$ya_informe = mysqli_query($db_con,"select * from informe_pendientes_alumnos where claveal ='".$salida['claveal']."' and plantilla='1' and id_informe='".$pendiente['id_informe']."'");
+		$ya_informe = mysqli_query($db_con,"select * from informe_pendientes_alumnos where claveal ='".$salida['claveal']."' and id_informe='".$pendiente['id_informe']."'");
 
 		if (mysqli_num_rows($ya_informe) > 0){ $extra_inf = "<span class='text-success far fa-edit fa-fw fa-lg'> </span>"; } else { $extra_inf = "<span class='text-danger far fa-edit fa-fw fa-lg'> </span>"; }
 
 			echo "<a href='//".$config['dominio']."/intranet/admin/informes/pendientes/alumnado_pendientes.php?claveal=".$salida['claveal']."&id_informe=".$pendiente['id_informe']."&curso_pendiente=".$curso_pendiente."&asig_pendiente=".$asig_pendiente."' target='_blank'  data-bs='tooltip' title='Redactar informe de la materia para la evaluación del alumno'> ".$extra_inf." </a>";
 		}
 		echo "</td>";
-	//}
 	echo "</tr>";
 }
 
