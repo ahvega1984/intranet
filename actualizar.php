@@ -1023,10 +1023,10 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación campo nombre de la tabla departamentos y c_profes'");
 if (! mysqli_num_rows($actua)) {
 
-    mysqli_query($db_con, "ALTER TABLE `departamentos` CHANGE `NOMBRE` `NOMBRE` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
-    mysqli_query($db_con, "ALTER TABLE `c_profes` CHANGE `PROFESOR` `PROFESOR` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
-    
-    mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo nombre de la tabla departamentos y c_profes', NOW())");
+  mysqli_query($db_con, "ALTER TABLE `departamentos` CHANGE `NOMBRE` `NOMBRE` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+  mysqli_query($db_con, "ALTER TABLE `c_profes` CHANGE `PROFESOR` `PROFESOR` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+  
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo nombre de la tabla departamentos y c_profes', NOW())");
 }
 
 /*
@@ -1036,9 +1036,21 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tablas para informes de pendientes'");
 if (! mysqli_num_rows($actua)) {
 
-    mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes select * from informe_extraordinaria");
-    mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes_alumnos select * from informe_extraordinaria_alumnos");
-    mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes_contenidos select * from informe_extraordinaria_contenidos");
+  mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes select * from informe_extraordinaria");
+  mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes_alumnos select * from informe_extraordinaria_alumnos");
+  mysqli_query($db_con, "create table IF NOT EXISTS informe_pendientes_contenidos select * from informe_extraordinaria_contenidos");
     
-   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tablas para informes de pendientes', NOW())");
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tablas para informes de pendientes', NOW())");
+}
+
+
+/*
+  @descripcion: Modificación campo dni en tabla mensajes
+  @fecha: 04 de noviembre de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación campo dni en tabla mensajes'");
+if (! mysqli_num_rows($actua)) {
+  mysqli_quyer($db_con, "ALTER TABLE `mensajes` CHANGE `dni` `dni` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
+
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo dni en tabla mensajes', NOW())");
 }
