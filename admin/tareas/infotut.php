@@ -62,7 +62,7 @@ echo "<OPTION></OPTION>";
 if ($unidad == ""){ echo "<OPTION></OPTION>";}
 else
 {
-	$alumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
+	$alumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad = '$unidad' ORDER BY APELLIDOS ASC, NOMBRE ASC");
 	while($falumno = mysqli_fetch_array($alumno))
 	{
 	 echo '<option value="'.$falumno[1].', '.$falumno[2].' --> '.$falumno[0].'">'.$falumno[1].', '.$falumno[2].'</option>';

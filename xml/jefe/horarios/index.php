@@ -99,7 +99,7 @@ if (isset($_POST['unidad'])) {
 	$unidad = $exp_unidad[0];
 	$curso = $exp_unidad[1];
 }
-elseif (isset($_GET['unidad']) && $_GET['asignatura'] !== '25' and $_POST['unidad']=="") {
+elseif (isset($_GET['unidad']) && $_GET['asignatura'] !== '25' and $_GET['asignatura'] !== '25C' and $_POST['unidad']=="") {
 	$unidad = limpiarInput(urldecode($_GET['unidad']), 'alphanumericspecial');
 
 	// A partir del código de la asignatura y la unidad, descubrimos el curso...
@@ -181,7 +181,11 @@ if (isset($_POST['enviar'])) {
 		}
 	}
 
-	if ($codasignatura == "25") $unidad = "GU";
+	if ($codasignatura == "25") $unidad = "GU"; // Servicio de Guardia
+	if ($codasignatura == "25C") {
+		$codasignatura = "25";
+		$unidad = "GUC"; // Servicio de Guardia (Aula de Convivencia)
+	}
 
 	// Comprobamos si es Docencia Bilingüe (código de actividad: 636) o Docencia (código de actividad: 1)
 	if (isset($_POST['docencia_bilingue'])) {
@@ -270,7 +274,11 @@ if (isset($_POST['actualizar'])) {
 		}
 	}
 
-	if ($codasignatura == "25") $unidad = "GU";
+	if ($codasignatura == "25") $unidad = "GU"; // Servicio de Guardia
+	if ($codasignatura == "25C") {
+		$codasignatura = "25";
+		$unidad = "GUC"; // Servicio de Guardia (Aula de Convivencia)
+	}
 
 	// Comprobamos si es Docencia Bilingüe (código de actividad: 636) o Docencia (código de actividad: 1)
 	if (isset($_POST['docencia_bilingue'])) {
@@ -445,7 +453,7 @@ include("../../../menu.php");
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
 							  	<?php endwhile; ?>
 							  	<?php if (!$unidad): ?>
-							  	<option value="GUC">Servicio de Guardia (Aula de Convivencia)</option>
+							  	<option value="25C">Servicio de Guardia (Aula de Convivencia)</option>
 							  	<?php endif; ?>
 						  	</optgroup>
 						  </select>
