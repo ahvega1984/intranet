@@ -1604,7 +1604,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `fechapub` datetime NOT NULL,
   `fechafin` date DEFAULT NULL,
   `categoria` varchar(200) NOT NULL,
-  `vistas` INT UNSIGNED NOT NULL DEFAULT '0'
+  `vistas` INT UNSIGNED NOT NULL DEFAULT '0',
   `pagina` char(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
