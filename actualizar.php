@@ -1050,7 +1050,7 @@ if (! mysqli_num_rows($actua)) {
 */
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación campo dni en tabla mensajes'");
 if (! mysqli_num_rows($actua)) {
-  mysqli_quyer($db_con, "ALTER TABLE `mensajes` CHANGE `dni` `dni` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
+  mysqli_query($db_con, "ALTER TABLE `mensajes` CHANGE `dni` `dni` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo dni en tabla mensajes', NOW())");
 }
@@ -1061,8 +1061,8 @@ if (! mysqli_num_rows($actua)) {
 */
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Nuevos campos correo tutores legales en tabla alma'");
 if (! mysqli_num_rows($actua)) {
-  mysqli_quyer($db_con, "ALTER TABLE `alma` ADD `CORREOTUTOR` VARCHAR(255) NULL AFTER `NOMBRETUTOR`;");
-  mysqli_quyer($db_con, "ALTER TABLE `alma` ADD `CORREOTUTOR2` VARCHAR(255) NULL AFTER `SEGUNDOAPELLIDOTUTOR2`;");
+  mysqli_query($db_con, "ALTER TABLE `alma` ADD `CORREOTUTOR` VARCHAR(255) NULL AFTER `NOMBRETUTOR`;");
+  mysqli_query($db_con, "ALTER TABLE `alma` ADD `CORREOTUTOR2` VARCHAR(255) NULL AFTER `SEGUNDOAPELLIDOTUTOR2`;");
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevos campos correo tutores legales en tabla alma', NOW())");
 }
