@@ -1054,3 +1054,15 @@ if (! mysqli_num_rows($actua)) {
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo dni en tabla mensajes', NOW())");
 }
+
+/*
+  @descripcion: Nuevos campos correo tutores legales en tabla alma
+  @fecha: 12 de noviembre de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Modificación campo dni en tabla mensajes'");
+if (! mysqli_num_rows($actua)) {
+  mysqli_quyer($db_con, "ALTER TABLE `alma` ADD `CORREOTUTOR` VARCHAR(255) NULL AFTER `NOMBRETUTOR`;");
+  mysqli_quyer($db_con, "ALTER TABLE `alma` ADD `CORREOTUTOR2` VARCHAR(255) NULL AFTER `SEGUNDOAPELLIDOTUTOR2`;");
+
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Modificación campo dni en tabla mensajes', NOW())");
+}

@@ -88,7 +88,7 @@ include("../../menu.php");
 
 					// Creación de la tabla alma
 					$alumnos = "CREATE TABLE  `alma` (
-			`Alumno/a` varchar( 255 ) default NULL ,
+			 `Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
 			 `CLAVEAL` varchar( 12 ) ,
 			 `DNI` varchar( 10 ) default NULL ,
@@ -110,14 +110,16 @@ include("../../menu.php");
 			 `PRIMERAPELLIDOTUTOR` varchar( 255 ) default NULL ,
 			 `SEGUNDOAPELLIDOTUTOR` varchar( 255 ) default NULL ,
 			 `NOMBRETUTOR` varchar( 255 ) default NULL ,
+			 `CORREOTUTOR` varchar( 255 ) default NULL ,
 			 `TELEFONOTUTOR` char( 9 ) default NULL ,
 			 `SEXOPRIMERTUTOR` varchar( 255 ) default NULL ,
 			 `DNITUTOR2` varchar( 255 ) default NULL ,
 			 `PRIMERAPELLIDOTUTOR2` varchar( 255 ) default NULL ,
 			 `SEGUNDOAPELLIDOTUTOR2` varchar( 255 ) default NULL ,
+			 `CORREOTUTOR2` varchar( 255 ) default NULL ,
 			 `NOMBRETUTOR2` varchar( 255 ) default NULL ,
-			 `TELEFONOTUTOR2` char( 9 ) default NULL ,
 			 `SEXOTUTOR2` varchar( 255 ) default NULL ,
+			 `TELEFONOTUTOR2` char( 9 ) default NULL ,
 			 `LOCALIDADNACIMIENTO` varchar( 255 ) default NULL ,
 			 `ANOMATRICULA` varchar( 4 ) default NULL ,
 			 `MATRICULAS` varchar( 255 ) default NULL ,
