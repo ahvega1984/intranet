@@ -1,7 +1,7 @@
 <?php
 require('../../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
+acl_acceso($_SESSION['cargo'], array('1','4','9'));
 
 if (file_exists('config.php')) {
 	include('config.php');
@@ -11,9 +11,12 @@ $verTodas = 0;
 if (isset($_GET['verTodas']) && $_GET['verTodas'] == 1) {
 	$verTodas = 1;
 }
-
+if(stristr($_SESSION['cargo'], '1')){
 $organos = array('Claustro de Profesores','DFEIE', 'Equipo directivo', 'ETCP', 'Coord. Enseñanzas Bilingües', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
-
+}
+else{
+	$organos = array('Claustro de Profesores','DFEIE', 'ETCP', 'Área Artística', 'Área Científico-Tecnológica', 'Área Social-Lingüística', 'Área Formación Profesional');
+}
 // ELIMINAR ACTAS
 if (isset($_GET['eliminar_depto'])) {
 
@@ -56,7 +59,9 @@ include ("menu.php");
 						<th class="col-sm-4">Secretario / Coordinador</th>
 						<th class="col-sm-2 text-center">Nº Actas / Impresas</th>
 						<th class="col-sm-2">Consultar acta</th>
+						<?php if(stristr($_SESSION['cargo'], '1')): ?>
 						<th class="col-sm-1">Opciones</th>
+						<?php endif; ?>
 					</tr>
 				</thead>
 				<tbody>
@@ -116,10 +121,12 @@ include ("menu.php");
 								<?php endif; ?>
 							</div>
 						</td>
-						<td>
+						<?php if(stristr($_SESSION['cargo'], '1')): ?>
+						<td>							
 							<a href="pdf.php?depto=<?php echo $organo; ?>" data-bs="tooltip" title="Imprimir actas" data-bb="confirm-print"><span class="fas fa-print fa-fw fa-lg"></span></a>
-							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete2"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>
+							<a href="<?php echo $uri; ?>eliminar_depto=<?php echo $organo; ?>" data-bs="tooltip" title="Eliminar actas" data-bb="confirm-delete2"><span class="far fa-trash-alt fa-fw fa-lg"></span></a>						
 						</td>
+						<?php endif; ?>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -128,6 +135,7 @@ include ("menu.php");
 			<br>
 			<hr>
 
+			<?php if(stristr($_SESSION['cargo'], '1')): ?>
 			<h3>Departamentos del Centro</h3>
 
 			<table class="table table-bordered table-hover">
@@ -206,6 +214,7 @@ include ("menu.php");
 					<?php endwhile; ?>
 				</tbody>
 			</table>
+		<?php endif; ?>
 
 			<?php if ($mostrar_alerta): ?>
 			<div class="alert alert-warning">

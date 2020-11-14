@@ -2,7 +2,7 @@
 <div class="container hidden-print">
 	
 	<ul class="nav nav-tabs">
-		<?php if (acl_permiso($_SESSION['cargo'], array('1'))){ ?>
+		<?php if (acl_permiso($_SESSION['cargo'], array('1','4','9'))){ ?>
 		<li role="presentation" class="dropdown">
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 	      Actas <span class="caret"></span>

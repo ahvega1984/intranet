@@ -464,7 +464,7 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 	}
 }
 
-if (count($menu_actas['items'])>0 AND acl_permiso($_SESSION['cargo'], array(1,f,9,a))) {
+if (count($menu_actas['items'])>0 AND acl_permiso($_SESSION['cargo'], array(1,4,f,9,a))) {
 	array_push($menu_profesores[0]['items'], $menu_actas);
 }
 
