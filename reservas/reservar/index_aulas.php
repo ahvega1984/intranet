@@ -109,7 +109,7 @@ if (isset($_POST['permanente'])) {
 	mysqli_query($db_con,"delete from reservas_hor where dia='$numero_dia' and servicio = '$servicio'");
 
 	//INSERT
-	for ($i = 1; $i < 8; $i++) {
+	for ($i = 1; $i < 15; $i++) {
 		if (strstr($_POST['day_event'.$i],"Horario")==TRUE) {
 			$_POST['day_event'.$i]="";
 		}
@@ -405,7 +405,18 @@ a_grupo not like 'G%'";
 		// El profesor es del Equipo Directivo o es un aula de informática y es Coordinador TIC
 		if(stristr($_SESSION['cargo'],'1') == TRUE || $esTIC)
 		{
-			echo "<label>".$i."ª hora</label>";
+
+			$result_hora_tramo = mysqli_query($db_con, "SELECT `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` = '".$i."' LIMIT 1");
+			if (mysqli_num_rows($result_hora_tramo)) {
+				$row_hora_tramo = mysqli_fetch_array($result_hora_tramo);
+
+				$hora_tramo = substr($row_hora_tramo['hora_inicio'], 0, 5) . " a " . substr($row_hora_tramo['hora_fin'], 0, 5) ." horas";
+			}
+			else {
+				$hora_tramo = "";
+			}
+
+			echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label>";
 		if (strlen($grupo_aula)>0) {
 			if ($esTIC) {
 				echo "<select name=\"day_event$i\" class='form-control' disabled>";
