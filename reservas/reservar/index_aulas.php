@@ -508,8 +508,7 @@ name=\"enviar\" value=\"Reservar\">";
 
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" class=\"btn
-btn-danger\" id=\"formsubmit1\" name=\"permanente\" value=\"Reservar todo el
-Curso\">";;
+btn-danger\" id=\"formsubmit1\" name=\"permanente\" value=\"Reservar todo el curso\">";;
 }
 
 echo "</form>";
