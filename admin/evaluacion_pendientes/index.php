@@ -34,21 +34,33 @@ $profe_dep = $_SESSION ['profi'];
 						
 						<div class="form-group">
 						  <select class="form-control" name="select">
-<?php 
+							<?php 
 
-$query_Recordset1 = "SELECT distinct pendientes.codigo, unidades.idcurso FROM pendientes, unidades where grupo=nomunidad order by idcurso";
+							$query_pendientes = "SELECT DISTINCT `codigo`, `curso`, `nombre`, `abrev` FROM `asignaturas` WHERE `abrev` LIKE '%\_%' AND `curso` NOT LIKE '1º %' ORDER BY `curso` ASC, `nombre` ASC";
+							$result_pendientes = mysqli_query($db_con, $query_pendientes);
 
-$Recordset1 = mysqli_query($db_con, $query_Recordset1);
-while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) { 
-	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$row_Recordset1[0]' and abrev like '%\_%' order by curso, nombre limit 1");
-	$asignatur = mysqli_fetch_row($asig);
-	$asignatura = $asignatur[0];
-	$curso = $asignatur[1];
-?>
-    <option value='<?php  echo $row_Recordset1[0];?>'><?php  echo $curso." => ".$asignatura;?></option>
-    <?php 
-}
-?>
+							$curso_aux = "";
+							$i = 0;
+
+							while ($row_pendientes = mysqli_fetch_array($result_pendientes)) { 
+								if ($curso_aux != $row_pendientes['curso']) {
+									if ($i > 0) {
+										echo '</optgroup>';
+									}
+									echo '<optgroup label="'.$row_pendientes['curso'].'">';
+								}
+
+								$result_alumnos_pendientes = mysqli_query($db_con, "SELECT `claveal` FROM `pendientes` WHERE `codigo` = '".$row_pendientes['codigo']."'");
+								if (mysqli_num_rows($result_alumnos_pendientes)) {
+									echo '<option value="'.$row_pendientes['codigo'].'">'.str_pad($row_pendientes['codigo'], 6, 0, STR_PAD_LEFT).' - '.$row_pendientes['nombre'].' ('.$row_pendientes['abrev'].')</option>';
+								}
+							    								
+								$curso_aux = $row_pendientes['curso'];
+								$i++;
+							}
+							unset($aux);
+							unset($i);
+							?>
 						  </select>
 						</div>
 					  
