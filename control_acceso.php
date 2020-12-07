@@ -79,7 +79,32 @@ if ($config['mod_notificaciones']) {
 					}
 				}
 			}
+			
+			// Mensaje a Profesores que llevan más de 2 dias sin poner faltas
+
+			if ($config['mod_asistencia']==1) {
+
+			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('".date('Y-m-d')."', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias > 1 ORDER BY `numdias` DESC");
+
+				while ($row = mysqli_fetch_array($result)) {
+					$profe_ya = mysqli_query($db_con,"select idea from departamentos where nombre like (select nomprofesor from profesores_seneca where idprofesor = '".$row['profesor']."')");
+					$profe_ya_q = mysqli_fetch_array($profe_ya);
+
+					$profe_ultima = $profe_ya_q['idea'];
+					
+					$ultima = $row['ultima'];
+					$dias = $row['numdias'];
+						
+					if ($dias > 1) {
+						$repite = mysqli_query($db_con,"select distinct profesor from acceso where profesor='$profe_ultima' and fecha='$hoy' and clase='6' and observaciones='$ultima'");
+						if (!mysqli_num_rows($repite)>0) {
+						$num++;
+						mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$profe_ultima', '$hoy', '6', '$ultima')");		
+					}
+				}
+			}	
 		}
+	}
 
 
 	if ($fiesta != 1) {
@@ -281,6 +306,7 @@ if ($config['mod_notificaciones']) {
 		$text_3 = " tienes que presentar hoy informes de tareas;";
 		$text_4 = " tienes que presentar hoy informes de tutoría.";
 		$text_5 = " hoy es la fecha límite para presentar los informes de absentismo de tus alumnos.";
+		$text_6 = " hace varios días que no registras en la Intranet las faltas de asistencia de tus alumnos. Contacta con Jefatura si estás teniendo algún problema para hacerlo.";
 
 		$texto = $text_0;
 
@@ -289,6 +315,7 @@ if ($config['mod_notificaciones']) {
 		if (strstr($clase,"3")==TRUE) { $texto.= $text_3; }
 		if (strstr($clase,"4")==TRUE) { $texto.= $text_4; }
 		if (strstr($clase,"5")==TRUE) { $texto.= $text_5; }
+		if (strstr($clase,"6")==TRUE) { $texto.= $text_6; }
 
 		$texto_ies = "; ".substr($config['centro_denominacion'],0,4);
 		$nombre_ies = ". ".substr($config['centro_denominacion'],0,4);

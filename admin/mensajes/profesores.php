@@ -266,10 +266,85 @@ if(isset($_POST['submit1'])) {
 				$query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$nombre."')";
 				mysqli_query($db_con, $query1);
 				$t_nombres.=$nombre."; ";
+
+				$hay_mail = mysqli_query($db_con,"select correo, telefono, telefonourgencia, apellidos, nombre, tutor from alma, FTUTORES where FTUTORES.unidad = alma.unidad and claveal = '$nombre'");
+				$q_mail = mysqli_fetch_array($hay_mail);
+				$direccion = $q_mail['correo'];
+				$nombre_al = $q_mail['nombre']." ".$q_mail['apellidos'];
+				$nombre_profe = $nombre_al;
+				$tutor = $q_mail['tutor'];
+				$texto = "IES Monterroso le informa de que tiene nuevos mensajes para su hijo/a $nombre_al en la página web del centro. Puede consultarlos aquí: https://iesmonterroso.org/alumnado/";
+
+
+				if (!empty($q_mail['correo'])) {
+
+				require_once(INTRANET_DIRECTORY."/lib/phpmailer/PHPMailerAutoload.php");
+				$mail = new PHPMailer();
+				if (isset($config['email_smtp']['isSMTP']) && $config['email_smtp']['isSMTP']) {
+					$mail->isSMTP();
+					$mail->Host = $config['email_smtp']['hostname'];
+					$mail->SMTPAuth = $config['email_smtp']['smtp_auth'];
+					$mail->Port = $config['email_smtp']['port'];
+					$mail->SMTPSecure = $config['email_smtp']['smtp_secure'];
+					$mail->Username = $config['email_smtp']['username'];
+					$mail->Password = $config['email_smtp']['password'];
+
+					$mail->setFrom($config['email_smtp']['username'], utf8_decode($config['centro_denominacion']));
+					}
+					else {
+						$mail->Host = "localhost";
+						$mail->setFrom('no-reply@'.$config['dominio'], utf8_decode($config['centro_denominacion']));
+					}
+					$mail->IsHTML(true);
+
+					$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+					$message = str_replace('{{dominio}}', $config['dominio'], $message);
+					$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+					$message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+					$message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+					$message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+					$message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+					$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+					$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+					$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+					$message = str_replace('{{centro_email}}', $config['centro_email'], $message);
+					$message = str_replace('{{titulo}}', 'Nuevo mensaje del tutor de su hijo/a en la página web del centro', $message);
+					$message = str_replace('{{contenido}}', $texto, $message);
+					$message = str_replace('{{autor}}', $tutor, $message);
+
+					$mail->msgHTML(utf8_decode($message));
+					$mail->Subject = utf8_decode('Nuevo mensaje del tutor de su hijo/a en la página web del centro');
+					$mail->AltBody = utf8_decode($texto);
+					$mail->AddAddress($direccion, utf8_decode($nombre_al));
+					$mail->Send();			
+				}
+				elseif ($config['mod_sms']==1 AND (substr($q_mail['telefono'],0,1)==6 OR substr($q_mail['telefonourgencia'],0,1)==6 OR substr($q_mail['telefono'],0,1)==7 OR substr($q_mail['telefonourgencia'],0,1)==7)) {
+					if (substr($q_mail['telefono'],0,1)==6 OR substr($q_mail['telefono'],0,1)==7) {
+						$movil = $q_mail['telefono'];
+					}
+					else{
+						$movil = $q_mail['telefonourgencia'];
+					}
+
+					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+					include_once(INTRANET_DIRECTORY . '/lib/trendoo/config.php');
+			        $sms = new Trendoo_SMS();
+			        $sms->sms_type = SMSTYPE_GOLD_PLUS;
+			        $sms->add_recipient('+34'.$movil);
+			        $sms->message = $texto;
+			        $sms->sender = $config['mod_sms_id'];
+			        $sms->set_immediate();
+
+					if ($sms->validate()){
+				        $sms->send();
+				    	}
+
+				   }
 				}
 				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");
 				$ok=1;
-				}
+				} mysqli_query($db_con, "INSERT INTO sms (fecha, telefono, mensaje, profesor) values (NOW(), '$movil', '$texto', '$tutor')");
+					
 
 			if($ok) {
 				header('Location:'.'index.php?inbox=recibidos&action=send');

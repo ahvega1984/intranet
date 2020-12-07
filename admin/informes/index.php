@@ -12,7 +12,7 @@ if (isset($_POST['enviar_datos'])) {
 		${$nombre} = $valor;
 	}
 
-mysqli_query($db_con, "update alma set DNI='$DNI', fecha='$fecha', domicilio='$domicilio', localidad='$localidad', provinciaresidencia='$provinciaresidencia', telefono='$telefono', padre='$padre', telefonourgencia='$telefonourgencia', paisnacimiento='$paisnacimiento', correo='$correo', nacionalidad='nacionalidad', unidad='$unidad', dnitutor='$dnitutor', dnitutor2='$dnitutor', nsegsocial='$nsegsocial' where claveal='$claveal'");
+mysqli_query($db_con, "update alma set DNI='$DNI', fecha='$fecha', domicilio='$domicilio', localidad='$localidad', provinciaresidencia='$provinciaresidencia', telefono='$telefono', padre='$padre', telefonourgencia='$telefonourgencia', paisnacimiento='$paisnacimiento', correo='$correo', nacionalidad='nacionalidad', unidad='$unidad', dnitutor='$dnitutor', dnitutor2='$dnitutor2', nsegsocial='$nsegsocial' where claveal='$claveal'");
 	
 	$mensaje1 = 1;
 
@@ -143,7 +143,7 @@ if (!$claveal) {
 			<div align="center">
 				<div class="alert alert-info alert-block fade in">
             	<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<p class="text-left">Los datos del alumno se han modificado correctamente en la base de datos de la Intranet. No olvides actualizar los mismos datos en <strong>Séneca</strong> para que <em>la próxima actualización de alumnos registre los cambios permanentemente</em>.</p>
+					<p class="text-left">Los datos del alumno se han modificado correctamente en la base de datos de la Intranet. No olvides comunicar los cambios en la Administración del centro para actualizar los mismos datos en <strong>Séneca</strong>. Sólo entonces <em>la próxima actualización de alumnos registrará los cambios permanentemente</em>.</p>
 				</div>
 			</div>
 		<?php } ?>

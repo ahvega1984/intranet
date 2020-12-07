@@ -279,7 +279,7 @@ $result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad
 	if (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) {
 	?>
 
-    <div class="well"><h4>Expulsión del alumno</h4><br>
+    <div class="well"><h4>Expulsión/Ausencia del alumno</h4><br>
     <form id="form1" name="form1" method="post" action="detfechorias.php" class="">
       <div class="form-group">
 	<label> N&ordm; de D&iacute;as:</label>

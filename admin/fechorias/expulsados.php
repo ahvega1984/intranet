@@ -30,7 +30,7 @@ include("menu.php");
   alma.claveal, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
   alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.fin = '$ayer'
   order by Fechoria.fecha ");
-echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsión</legend>";
+echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsión o ausencia</legend>";
      if ($row = mysqli_fetch_array($result))
         {
 
