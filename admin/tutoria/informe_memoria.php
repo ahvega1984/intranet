@@ -138,7 +138,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar 
 
  // Alumnos que promocionan en Junio
  $SQL1 = "SELECT  * FROM `alma` where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and (estadomatricula like 'Promociona%' OR estadomatricula like 'Obtiene tít%')";
- echo $SQL1;
+ //echo $SQL1;
  $result_promo = mysqli_query($db_con, $SQL1);
  $num_promocionan = mysqli_num_rows($result_promo);
 
