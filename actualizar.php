@@ -1075,7 +1075,7 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminar profesores con usuario IdEA incorrecto'");
 if (! mysqli_num_rows($actua)) {
 
-  $actualiza_res = mysqli_query($db_con, "SELECT `profesor`, `idea` FROM `c_profes` WHERE `idea` LIKE '6%' OR `idea` LIKE '7%';");
+  $actualiza_res = mysqli_query($db_con, "SELECT `profesor`, `idea` FROM `c_profes` WHERE `idea` LIKE '6%' OR `idea` LIKE '7%' OR `idea` = '';");
 
   if (mysqli_num_rows($actualiza_res)) {
     while ($actualiza_row = mysqli_fetch_array($actualiza_res)) {
