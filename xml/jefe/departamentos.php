@@ -29,14 +29,14 @@ include("../../menu.php");
 
 				 //  Estructura de tabla para la tabla `departamento_temp`
 				mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamento_temp` (
-				  `nombre` varchar(48) NOT NULL default '',
-				  `dni` varchar(10) NOT NULL default '',
-				  `departamento` varchar(48) NOT NULL default '',
-				  `cargo` varchar(16) default NULL,
-				  `idea` varchar(12) NOT NULL default '',
-					`fechatoma` DATE NOT NULL,
-					`fechacese` DATE NULL,
-				   PRIMARY KEY (`dni`)
+				`nombre` varchar(48) NOT NULL default '',
+				`dni` varchar(10) NOT NULL default '',
+				`departamento` varchar(48) NOT NULL default '',
+				`cargo` varchar(16) default NULL,
+				`idea` varchar(12) NOT NULL default '',
+				`fechatoma` DATE NOT NULL,
+				`fechacese` DATE NULL,
+				PRIMARY KEY (`dni`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci ");
 				if(isset($_POST['actualizar'])){
 				}
@@ -81,7 +81,7 @@ include("../../menu.php");
 							$fechacese = "0000-00-00";
 						}
 
-						$datos1 = "INSERT INTO `departamento_temp` (`nombre`, `dni`, `departamento`, `idea`, `fechatoma`, `fechacese`) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[5])) . "\",\"". $fechatoma . "\",\"". $fechacese . "\")";
+						$datos1 = "INSERT INTO `departamento_temp` (`nombre`, `dni`, `departamento`, `idea`, `fechatoma`, `fechacese`) VALUES (\"". trim(utf8_encode($data1[0])) . "\",\"". trim(utf8_encode($data1[1])) . "\",\"". $dep_mod . "\",\"". trim(utf8_encode($data1[6])) . "\",\"". $fechatoma . "\",\"". $fechacese . "\")";
 						mysqli_query($db_con, $datos1);
 					}
 				}
@@ -133,7 +133,7 @@ include("../../menu.php");
 				$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" );
 				while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) {
 
-					$usridea = trim(utf8_encode($data1[5]));
+					$usridea = trim(utf8_encode($data1[6]));
 					$fechatoma_exp = explode('/', trim(utf8_encode($data1[3])));
 					$fechatoma = $fechatoma_exp[2].'-'.$fechatoma_exp[1].'-'.$fechatoma_exp[0];
 					$fechacese_exp = explode('/', trim(utf8_encode($data1[4])));
