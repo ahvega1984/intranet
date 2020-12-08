@@ -54,7 +54,7 @@ include("../../menu.php");
 										$pas_nombre			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[0])));
 										$pas_dni			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[1])));
 										$pas_departamento	= mysqli_real_escape_string($db_con, trim(utf8_encode($row[2])));
-										$pas_idea			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[5])));
+										$pas_idea			= mysqli_real_escape_string($db_con, trim(utf8_encode($row[6])));
 
 										$pas_tomaposesion_exp = explode('/', trim(utf8_encode($row[3])));
 										$pas_tomaposesion = $pas_tomaposesion_exp[2].'-'.$pas_tomaposesion_exp[1].'-'.$pas_tomaposesion_exp[0];

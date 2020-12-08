@@ -1066,3 +1066,42 @@ if (! mysqli_num_rows($actua)) {
 
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Nuevos campos correo tutores legales en tabla alma', NOW())");
 }
+
+
+/*
+  @descripcion: Eliminar profesores con usuario IdEA incorrecto
+  @fecha: 08 de diciembre de 2020
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Eliminar profesores con usuario IdEA incorrecto'");
+if (! mysqli_num_rows($actua)) {
+
+  $actualiza_res = mysqli_query($db_con, "SELECT `profesor`, `idea` FROM `c_profes` WHERE `idea` LIKE '6%' OR `idea` LIKE '7%';");
+
+  if (mysqli_num_rows($actualiza_res)) {
+    while ($actualiza_row = mysqli_fetch_array($actualiza_res)) {
+
+    $asunto = "[IMPORTANTE] Se ha eliminado un empleado de la base de datos";
+    $texto = "Se ha eliminado a <strong>".$actualiza_row['profesor']."</strong> de la base de datos debido a que no se importaron los datos correctamente en la última actualización. Por favor, actualice el Profesorado del Centro y/o Personal no docente.";
+
+    $result_msg = mysqli_query($db_con, "INSERT INTO mens_texto (asunto, texto, origen) VALUES ('".$asunto."','".$texto."','admin')");
+    $id_msg = mysqli_insert_id($db_con);
+
+    $dir0 = mysqli_query($db_con, "SELECT DISTINCT `idea` FROM `departamentos` WHERE `cargo` LIKE '%1%'");
+    while ($dir1 = mysqli_fetch_array($dir0)) {
+      $rep0 = mysqli_query($db_con, "SELECT * FROM `mens_profes` WHERE `id_texto` = '$id_msg' AND `profesor` = '$dir1[0]'");
+      $num0 = mysqli_fetch_row($rep0);
+      if (strlen($num0[0]) < 1) {
+        mysqli_query($db_con, "INSERT INTO `mens_profes` (`id_texto`, `profesor`) VALUES ('".$id_msg."','".$dir1[0]."')");
+      }
+    }
+    mysqli_query($db_con, "UPDATE `mens_texto` SET `destino` = 'Equipo Directivo' WHERE `id` = '$id_msg'");
+
+    mysqli_query($db_con, "DELETE FROM `c_profes` WHERE `idea` = '".$actualiza_row['idea']."' LIMIT 1;");
+    mysqli_query($db_con, "DELETE FROM `departamentos` WHERE `idea` = '".$actualiza_row['idea']."' LIMIT 1;");
+    mysqli_query($db_con, "DELETE FROM `calendario_categorias` WHERE `idea` = '".$actualiza_row['idea']."' LIMIT 1;");
+    }
+
+  }
+  
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar profesores con usuario IdEA incorrecto', NOW())");
+}
