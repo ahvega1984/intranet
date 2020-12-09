@@ -298,6 +298,9 @@ include("menu.php");
 						  		  	<option value="Problemas de convivencia" <?php echo (isset($causa) && $causa == 'Problemas de convivencia') ? 'selected' : ''; ?>>Problemas de convivencia</option>
 						  		  	<option value="Llamada por Enfermedad" <?php echo (isset($causa) && $causa == 'Llamada por Enfermedad') ? 'selected' : ''; ?>>Llamada por Enfermedad</option>
 						  		  	<option value="Robo, hurto" <?php echo (isset($causa) && $causa == 'Robo, hurto') ? 'selected' : ''; ?>>Robo, hurto</option>
+						  		  	<?php if ($_SERVER['SERVER_NAME'] == "iesmonterroso.org"): ?>
+						  		  	<option value="Préstamo de ordenador (COVID)" <?php echo (isset($causa) && $causa == 'Préstamo de ordenador (COVID)') ? 'selected' : ''; ?>>Préstamo de ordenador (COVID)</option>
+						  		  	<?php endif; ?>
 						  		  	<option value="Otras" <?php echo (isset($causa) && $causa == 'Otras') ? 'selected' : ''; ?>>Otras</option>
 						  		  	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') { ?>
 									<option value="Compromiso de convivencia-asistencia"
