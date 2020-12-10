@@ -87,7 +87,6 @@ if ($config['mod_notificaciones']) {
 			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('".date('Y-m-d')."', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias > 2 ORDER BY `numdias` DESC");
 
 				while ($row = mysqli_fetch_array($result)) {
-					$curso 
 					$profe_ya = mysqli_query($db_con,"select idea from departamentos where nombre like (select nomprofesor from profesores_seneca where idprofesor = '".$row['profesor']."')");
 					$profe_ya_q = mysqli_fetch_array($profe_ya);
 
