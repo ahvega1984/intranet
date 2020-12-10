@@ -382,6 +382,16 @@ if($aula){
 		$num_aula_hor=0;
 		$num_hor=0;
 
+		$result_hora_tramo = mysqli_query($db_con, "SELECT `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` = '".$i."' LIMIT 1");
+		if (mysqli_num_rows($result_hora_tramo)) {
+			$row_hora_tramo = mysqli_fetch_array($result_hora_tramo);
+
+			$hora_tramo = substr($row_hora_tramo['hora_inicio'], 0, 5) . " a " . substr($row_hora_tramo['hora_fin'], 0, 5) ." horas";
+		}
+		else {
+			$hora_tramo = "";
+		}
+
 		echo '<div class="form-group">';
 
 		// Comprobamos reserva definitiva del aula
@@ -405,16 +415,6 @@ a_grupo not like 'G%'";
 		// El profesor es del Equipo Directivo o es un aula de informática y es Coordinador TIC
 		if(stristr($_SESSION['cargo'],'1') == TRUE || $esTIC)
 		{
-
-			$result_hora_tramo = mysqli_query($db_con, "SELECT `hora_inicio`, `hora_fin` FROM `tramos` WHERE `hora` = '".$i."' LIMIT 1");
-			if (mysqli_num_rows($result_hora_tramo)) {
-				$row_hora_tramo = mysqli_fetch_array($result_hora_tramo);
-
-				$hora_tramo = substr($row_hora_tramo['hora_inicio'], 0, 5) . " a " . substr($row_hora_tramo['hora_fin'], 0, 5) ." horas";
-			}
-			else {
-				$hora_tramo = "";
-			}
 
 			echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label>";
 		if (strlen($grupo_aula)>0) {
@@ -452,7 +452,7 @@ a_grupo not like 'G%'";
 	else{
 
 		if (strlen($num_hor[0])>0) {
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p
+			echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label> &nbsp;&nbsp; <p
 class=\"help-block text-info\">Asignada por horario</p>";
 		}
 		elseif (strlen($num_aula_hor[0])>0) {
@@ -469,7 +469,7 @@ class=\"help-block text-danger\">Asignada por Dirección";
 		else
 		{
 			if (${event_event.$i}  == "") {
-				echo "<label>".$i."ª hora</label> &nbsp;&nbsp;
+				echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label> &nbsp;&nbsp;
 <select name=\"day_event$i\" class='form-control'>";
 				echo "<option value=\"\"></option>";
 				$result1 = mysqli_query($db_con, $SQL);
@@ -482,12 +482,12 @@ class=\"help-block text-danger\">Asignada por Dirección";
 			else {
 				if(mb_strtolower($pr) ==
 mb_strtolower(${event_event.$i})) {
-					echo "<label>".$i."ª hora</label>
+					echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label>
 &nbsp;&nbsp; <input class='form-control' type='text' name=\"day_event$i\"
 value=\"${event_event.$i}\">";
 			}
 				else{
-				echo "<label>".$i."ª hora</label> &nbsp;&nbsp;
+				echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label> &nbsp;&nbsp;
 <input disabled class='form-control' type='text'
 value='${event_event.$i}'><input type=\"hidden\" value=\"${event_event.$i}\"
 name=\"day_event$i\">";
