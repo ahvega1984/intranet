@@ -100,7 +100,7 @@ if (isset($_POST['departamento']) || isset($_GET['organo'])) {
 
 	// COMPROBAMOS SI SE HA ASIGNADO EL PERFIL DE SECRETARIO DEL ETCP
 	if ($departamento == 'ETCP') {
-		acl_acceso($_SESSION['cargo'], array('1','9'));
+		acl_acceso($_SESSION['cargo'], array('1','9','4'));
 
 		if (! isset($config['actas_depto']['secretario_etcp']) || $config['actas_depto']['secretario_etcp'] == "") {
 			$msg_alerta = "No se ha definido al secretario del Equipo Técnico de Coordinación Pedagógica en la configuración de la aplicación ni en las preferencias del módulo.";

@@ -244,6 +244,11 @@ $menu_centro = array(
 				'titulo' => 'Biblioteca',
 				'ncargos' => array('c'),
 			),
+			array(
+				'href'   => 'admin/fotos/profes.php',
+				'titulo' => 'Fotos de los profesores',
+				'cargos' => array('6','7')
+			),
 			
 		)
 	)
@@ -392,7 +397,7 @@ $menu_actas = array(
 		array(
 			'href'   => 'admin/departamento/actas/index.php?organo=ETCP',
 			'titulo' => 'Actas del ETCP',
-			'cargos'  => array('9')
+			'cargos'  => array('9','4')
 		),
 		array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Equipo directivo',
@@ -407,7 +412,7 @@ $menu_actas = array(
 		array(
 			'href'   => 'admin/departamento/actas/administracion.php',
 			'titulo' => 'Administrar actas',
-			'cargos'  => array('1')
+			'cargos'  => array('1','4')
 		)
 	)
 );
@@ -427,7 +432,7 @@ if (file_exists('./admin/departamento/actas/config.php')) {
 		$menu_actas_aca = array(
 			'href'   => 'admin/departamento/actas/index.php?organo=Área Artística',
 			'titulo' => 'Actas del Área Ártística',
-			'ncargos'  => array('1')
+			'ncargos'  => array('1',)
 		);
 
 		array_push($menu_actas['items'], $menu_actas_aca);

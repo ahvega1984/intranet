@@ -49,9 +49,6 @@ define("DOMPDF_ENABLE_PHP", true);
 
 	$html.="<br><h2 align='center'>".$alum['nombre_al']." <small>(".$alum['unidad'].")</small></h2><br>";
 
-	$html.="<p style='border: solid 1px #ccc; padding: 10px 10px; text-align: justify; color:#444'>Este documento presenta los <b>contenidos y actividades</b> que el alumno deberá preparar y realizar para superar la prueba en aquellas asignaturas que tenga pendientes de cursos anteriores o bien no haya superado en la evaluación ordinaria de junio. También contiene la <b>fecha</b> en la que habrá de realizarse el examen de la evaluación, si ese fuera el método de recuperación requerido por el profesor y la materia corespondientes; o bien las instrucciones para presentar las actividades encomendadas si ese fuera el método elegido para su evaluación.</p>";
-
-
 	$materias = mysqli_query($db_con, "SELECT distinct informe_pendientes.asignatura, informe_pendientes.id_informe, informe_pendientes.fecha, informe_pendientes.curso FROM informe_pendientes, informe_pendientes_alumnos WHERE informe_pendientes.id_informe = informe_pendientes_alumnos.id_informe and claveal = '$claveal'");
 	$num_informes = mysqli_num_rows($materias);
 	while($materia_curso = mysqli_fetch_array($materias)){
