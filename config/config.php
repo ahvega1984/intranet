@@ -104,6 +104,8 @@ if (isset($_POST['config']))
 		$modulo_notificaciones_dominios = rtrim($modulo_notificaciones_dominios, ', ');
 	}
 
+	$modulo_notificaciones_asistencia = (isset($_POST['mod_notificaciones_asistencia'])) ? 1 : 0;
+
 	$modulo_asistencia = (isset($_POST['mod_asistencia'])) ? 1 : 0;
 
 	$modulo_horarios = (isset($_POST['mod_horarios'])) ? 1 : 0;
@@ -207,6 +209,7 @@ if (isset($_POST['config']))
 		fwrite($file, "\r\n// MÓDULO: NOTIFICACIONES\r\n");
 		fwrite($file, "\$config['mod_notificaciones']\t= $modulo_notificaciones;\r\n");
 		fwrite($file, "\$config['mod_notificaciones_dominios']\t= '$modulo_notificaciones_dominios';\r\n");
+		fwrite($file, "\$config['mod_notificaciones_asistencia']\t= $modulo_notificaciones_asistencia;\r\n");
 
 		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
 		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
@@ -817,6 +820,15 @@ include('../menu.php');
 							        <div class="form-group">
 							        	<label for="mod_notificaciones_dominios">Lista de dominios permitidos (separados por coma)</label>
 							    	    <input type="text" class="form-control" id="mod_notificaciones_dominios" name="mod_notificaciones_dominios" value="<?php echo $config['mod_notificaciones_dominios']; ?>">
+							        </div>
+
+							        <div class="form-group">
+							        	<div class="checkbox">
+							        		<label>
+							        			<input type="checkbox" name="mod_notificaciones_asistencia" value="1" <?php echo (isset($config['mod_notificaciones_asistencia']) && $config['mod_notificaciones_asistencia']) ? 'checked' : ''; ?>>
+							        			<strong>Notificar a los profesores si no registran faltas de asistencia en más de 2 días</strong>
+							        		</label>
+							        	</div>
 							        </div>
 
 							    </div>

@@ -82,7 +82,7 @@ if ($config['mod_notificaciones']) {
 			
 			// Mensaje a Profesores que llevan más de 2 dias sin poner faltas
 
-			if ($config['mod_asistencia']==1) {
+			if ($config['mod_asistencia']==1 && isset($config['mod_notificaciones_asistencia']) && $config['mod_notificaciones_asistencia'] == 1) {
 
 			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('".date('Y-m-d')."', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias > 2 ORDER BY `numdias` DESC");
 
