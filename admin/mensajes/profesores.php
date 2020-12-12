@@ -273,7 +273,7 @@ if(isset($_POST['submit1'])) {
 				$nombre_al = $q_mail['nombre']." ".$q_mail['apellidos'];
 				$nombre_profe = $nombre_al;
 				$tutor = $q_mail['tutor'];
-				$texto = "IES Monterroso le informa de que tiene nuevos mensajes para su hijo/a $nombre_al en la página web del centro. Puede consultarlos aquí: https://iesmonterroso.org/alumnado/";
+				$texto = $config['centro_denominacion']" le informa de que tiene nuevos mensajes para su hijo/a $nombre_al en la página web del centro. Puede consultarlos aquí: https://".$config['dominio']."/alumnado/";
 
 
 				if (!empty($q_mail['correo'])) {
