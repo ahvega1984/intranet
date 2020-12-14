@@ -34,8 +34,15 @@ if ($config['mod_notificaciones']) {
 		if (date('N')>5) {
 			$fiesta = 1;
 		}
-		if (date('N')==1) {
+		elseif (date('N')==1) {
 			$suma_dias = 1;
+			$dias_faltas+=3;
+		}
+		elseif (date('N')==2) {
+			$dias_faltas+=4;
+		}
+		elseif (date('N')>2 AND date('N')<6) {
+			$dias_faltas+=2;
 		}
 
 		// Fiestas y Vacaciones
@@ -52,12 +59,15 @@ if ($config['mod_notificaciones']) {
 			}
 			elseif ($ayer==$festivo) {
 				$fiesta = 1;
+				$dias_faltas++;
 			}
 			elseif ($antesdeayer==$festivo and (stristr($nombre_fiesta, "Semana Blanca")==TRUE OR stristr($fnombre_fiesta, "Semana Santa")==TRUE OR stristr($nombre_fiesta, "Navidad")==TRUE)) {
 				$fiesta2 = 1;
+				$dias_faltas++;
 			}
 			elseif ($uno_antesdeayer==$festivo and (stristr($nombre_fiesta, "Semana Blanca")==TRUE OR stristr($nombre_fiesta, "Semana Santa")==TRUE OR stristr($nombre_fiesta, "Navidad")==TRUE)) {
 				$fiesta2 = 1;
+				$dias_faltas++;
 			}
 		}
 
@@ -84,7 +94,7 @@ if ($config['mod_notificaciones']) {
 
 			if ($config['mod_asistencia']==1 && isset($config['mod_notificaciones_asistencia']) && $config['mod_notificaciones_asistencia'] == 1) {
 
-			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('".date('Y-m-d')."', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias > 2 ORDER BY `numdias` DESC");
+			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('$hoy', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias >'$dias_faltas' ORDER BY `numdias` DESC");
 
 				while ($row = mysqli_fetch_array($result)) {
 					$profe_ya = mysqli_query($db_con,"select idea from departamentos where nombre like (select nomprofesor from profesores_seneca where idprofesor = '".$row['profesor']."')");
@@ -96,10 +106,14 @@ if ($config['mod_notificaciones']) {
 					$dias = $row['numdias'];
 						
 					if ($dias > 2) {
-						$repite = mysqli_query($db_con,"select distinct profesor from acceso where profesor='$profe_ultima' and fecha='$hoy' and clase='6'");
+
+						$ayer_f = date("Y-m-d",strtotime($hoy."- 1 day")); 
+						$antesdeayer_f = date("Y-m-d",strtotime($hoy."- 2 day"));
+
+						$repite = mysqli_query($db_con,"select distinct profesor from acceso where profesor='$profe_ultima' and (fecha='$hoy' OR fecha = '$ayer_f' OR fecha = '$antesdeayer_f') and clase='6'");
 						if (!mysqli_num_rows($repite)>0) {
 						$num++;
-						mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$profe_ultima', '$hoy', '6', '$ultima')");		
+						mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$nombre_profe', '$hoy', '6', '$ultima')");
 					}
 				}
 			}	
