@@ -150,7 +150,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		<li <?php echo $activo5;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/justificar/index.php">Justificar</a></li>
 		<?php endif; ?>
 		<li <?php echo $activo6;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/index.php">Consultar</a></li>
-		<?php if (stristr($_SESSION['cargo'],'1') == TRUE): ?>
+		<?php if (stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'8') == TRUE  OR stristr($_SESSION['cargo'],'2') == TRUE): ?>
 		<li <?php echo $activo7;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/absentismo/">Alumnos Absentistas</a></li>
 		<?php endif; ?>
 		<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre asistencia</a></li>
