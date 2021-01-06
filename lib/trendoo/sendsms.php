@@ -21,7 +21,7 @@ class Trendoo_SMS {
 
 	var $problem;
 
-	function Trendoo_SMS() {
+	function __construct() {
 		$this->sms_type = SMSTYPE_GOLD;
 		$this->scheduled_delivery = null;
 		$this->order_id = null;

@@ -29,11 +29,11 @@ class Trendoo_LOOKUP_RESULT {
 	var $nationName;
 	var $operator;
 	
-	function Trendoo_LOOKUP_RESULT($order_id) {
+	function __construct($order_id) {
 		$this->order_id = $order_id;
 		$this->valid = false;
 	}
-	function Trendoo_LOOKUP_RESULT($order_id,$phone_num,$nation,$nationName,$operator) {
+	function __construct($order_id,$phone_num,$nation,$nationName,$operator) {
 		$this->valid = true;
 		$this->order_id = $order_id;
 		$this->phone_num = $phone_num;

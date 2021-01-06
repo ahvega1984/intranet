@@ -35,7 +35,7 @@ class Trendoo_SENT_SMS {
 	var $recipients_count;
 	var $scheduled_send;
 
-	function Trendoo_SENT_SMS($order_id, $create_time, $sms_type, $sender, $recipients_count, $scheduled_send) {
+	function __construct($order_id, $create_time, $sms_type, $sender, $recipients_count, $scheduled_send) {
 		$this->order_id = $order_id;
 		$this->create_time = $create_time;
 		$this->sms_type = $sms_type;

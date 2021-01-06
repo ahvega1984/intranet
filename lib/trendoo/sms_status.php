@@ -26,7 +26,7 @@ class Trendoo_SMS_STATUS {
 	var $status;
 	var $dt_received;
 
-	function Trendoo_SMS_STATUS($recipient, $status, $dt_received) {
+	function __construct($recipient, $status, $dt_received) {
 		$this->recipient = $recipient;
 		$this->status = $status;
 		$this->dt_received = $dt_received;

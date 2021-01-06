@@ -17,7 +17,7 @@ class Trendoo_POST {
 	var $params;
 	var $result;
 
-	function Trendoo_POST() {
+	function __construct() {
 		$this->params['login'] = TRENDOO_USERNAME;
 		$this->params['password'] = TRENDOO_PASSWORD;
 	}
@@ -76,7 +76,7 @@ class Trendoo_response_parser {
 	var $errcode;
 	var $errmsg;
 	
-	function Trendoo_response_parser($response) {
+	function __construct($response) {
 		$this->response = $response;
 		$this->cursor = 0;
 		if (strlen($response) >= 2) {

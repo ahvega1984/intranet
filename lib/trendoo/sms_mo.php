@@ -44,7 +44,7 @@ class Trendoo_SMS_MO {
 	var $sms_sender;
 	var $sms_recipient;
 	
-	function Trendoo_SMS_MO($id_message, $sms_recipient, $sms_sender, $message, $send_date, $keyword) {
+	function __construct($id_message, $sms_recipient, $sms_sender, $message, $send_date, $keyword) {
 		$this->id_message = $id_message;
 		$this->sms_recipient = $sms_recipient;
 		$this->sms_sender = $sms_sender;

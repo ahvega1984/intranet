@@ -96,7 +96,7 @@ class Trendoo_CREDIT_MOVEMENT {
 		$post->do_post(TRENDOO_SUBACCOUNTS_REQUEST);
 		
 	}
-	function Trendoo_CREDIT_MOVEMENT() {
+	function __construct() {
 		$this->is_donation = false;
 	}
 }

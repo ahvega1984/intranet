@@ -104,7 +104,7 @@ class Trendoo_SUBACCOUNT {
 		$this->active = true;
 	}
 
-	function Trendoo_SUBACCOUNT() {
+	function __construct() {
 		$this->subaccount_type = SUBACCOUNT_TYPE_COMPANY;
 	}
 }

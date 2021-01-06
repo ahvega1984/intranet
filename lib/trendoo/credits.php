@@ -26,7 +26,7 @@ class Trendoo_CREDIT {
 	var $nation;
 	var $availability;
 	
-	function Trendoo_CREDIT($credit_type, $nation, $availability) {
+	function __construct($credit_type, $nation, $availability) {
 		$this->credit_type = $credit_type;
 		$this->nation = $nation;
 		$this->availability = $availability;
