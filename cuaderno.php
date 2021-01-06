@@ -60,16 +60,6 @@ elseif (isset($_POST['clave'])) {
 	$clave = limpiarInput($_POST['clave']);
 }
 
-if (isset($_GET['seleccionar'])) {
-	$seleccionar = limpiarInput($_GET['seleccionar']);
-}
-elseif (isset($_POST['seleccionar'])) {
-	$seleccionar = limpiarInput($_POST['seleccionar']);
-}
-else{
-	$seleccionar = "";
-}
-
 if (isset($_GET['foto'])) {
 	$foto = limpiarInput($_GET['foto'], 'alphanumericspecial');
 }
@@ -221,7 +211,6 @@ include("cuaderno/menu_cuaderno.php");
 						}
 					}
 
-					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
 						$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
 						//echo $hay0."<br>";
@@ -237,7 +226,7 @@ include("cuaderno/menu_cuaderno.php");
 								$todos = substr($todos, 0, -2);
 								$todos .= ")";
 							}
-						}
+
 					// Alumnos para presentar que tengan esa asignatura en combasi
 					$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and ";
 					//Alumnos de 2º de Bachillerato
@@ -356,20 +345,14 @@ include("cuaderno/menu_cuaderno.php");
 
 					for ($i=$n_columnas; $i < 4; $i++) {
 									if (${num_ev.$i}>0 and $asignatura!=="2") {
-									if ($i == 0) {
+
 										echo "<td nowrap>
-									<div style='width:40px;height:104px;'>
-									<div class='Rotate-90'><span style='font-weight:bold'>Eval. Inic. Séneca</span></div>
-									</div> </td>";
-										}
-									else{
-										echo "<td nowrap>
-									<div style='width:40px;height:104px;'>
-									<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
-									</div> </td>";
-										}
+										<div style='width:40px;height:104px;'>
+										<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
+										</div> </td>";
 
 									${extra_sen.$i} = "1";
+
 									}
 								}
 
@@ -392,8 +375,6 @@ include("cuaderno/menu_cuaderno.php");
 						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "";}
 						$icon_eye="";
 						$nombre_col="";
-						$col2=mysqli_query($db_con, "select distinct id from datos where id = '$col20[0]' ");
-						$cols2 += mysqli_num_rows($col2); //echo $cols2;
 						$ident= $col20[2];
 						$nombre_col = $col20[1];
 						$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
@@ -438,13 +419,6 @@ include("cuaderno/menu_cuaderno.php");
 						}
 					}
 
-					if($seleccionar == 1){
-						echo "<td nowrap class='warning'>
-<div style='width:40px;height:104px;'>
-<div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
-</div> </td>";
-					}
-
 					echo "</tr>";
 					// Tabla para cada Grupo
 					$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo";
@@ -476,13 +450,6 @@ include("cuaderno/menu_cuaderno.php");
 							}
 						}
 
-						if($seleccionar=="1"){	$num_col += 1;	}
-
-						// Seleccionar alumnos
-						if($seleccionar=="1"){
-							// Si seleccionamos alumnos, se lo indicamos a poner_notas.php
-							echo '<input name=seleccionar type=hidden value="1" />';
-						}
 						// Codigo Curso
 						echo '<input name=curso type=hidden value="';
 						echo $curs0;
@@ -497,7 +464,6 @@ include("cuaderno/menu_cuaderno.php");
 						echo '" />';
 
 
-						if (empty($seleccionar)) {
 							if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
 							mysqli_select_db($db_con, $db);
 							$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
@@ -514,8 +480,6 @@ include("cuaderno/menu_cuaderno.php");
 									$todos = substr($todos, 0, -2);
 									$todos .= " )";
 								    					}
-
-						}
 
 						// Alumnos para presentar que tengan esa asignatura en combasi
 						$resul = "select distinctrow alma.CLAVEAL, alma.matriculas, alma.APELLIDOS, alma.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from alma WHERE alma.unidad = '$curso' and ";
@@ -564,18 +528,10 @@ include("cuaderno/menu_cuaderno.php");
 
 								for ($i=$n_columnas; $i < 4; $i++) {
 									if (${num_ev.$i}>0) {
-										if ($i == 0) {
-										echo "<td nowrap>
-									<div style='width:40px;height:90px;'>
-									<div class='Rotate-corto'>Ev. Inic. Séneca</div>
-									</div> </td>";
-										}
-									else{
 										echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
 									<div class='Rotate-corto'>".$i."ª Ev. Séneca</div>
 									</div> </td>";
-										}
 									}
 								}
 
@@ -594,25 +550,18 @@ include("cuaderno/menu_cuaderno.php");
 									}
 
 									echo "<td nowrap>
-<div style='width:40px;height:90px;'>
-<div class='Rotate-corto'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
-</div> </td>";
+										<div style='width:40px;height:90px;'>
+										<div class='Rotate-corto'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
+										</div> </td>";
 
 								}
-								if($seleccionar == 1){
-									echo "<td nowrap class='warning'>
-<div style='width:40px;height:90px;'>
-<div class='Rotate-corto'></div>
-</div> </td>";
-								}
-
 								echo "</tr>";
 							}
 
 							$claveal = $row[0];
 							$nombre_al =   $row[3];
 							$apellidos =   $row[2];
-							$nc =   $claveal;
+							$nc =  $claveal;
 							$grupo_simple =  $row[6];
 							if ($row[5] == "") {}
 							else
@@ -662,6 +611,7 @@ include("cuaderno/menu_cuaderno.php");
 
 					// Si hay datos escritos rellenamos la casilla correspondiente
 					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and (asignatura = '$asignatura' $extra_asig) and oculto = '0' order by orden";
+					//echo $colu10."<br>";
 					$colu20 = mysqli_query($db_con, $colu10);
 					while($colus10 = mysqli_fetch_array($colu20)){
 						$id = $colus10[0];
@@ -673,6 +623,7 @@ include("cuaderno/menu_cuaderno.php");
 						$pond_extra="";
 
 						$dato0 = mysqli_query($db_con, "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
+						//echo "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'<br>";
 						$dato1 = mysqli_fetch_array($dato0);
 
 						if (stristr($t_dato,"Casilla")==TRUE) {
@@ -699,34 +650,11 @@ include("cuaderno/menu_cuaderno.php");
 
 						echo "<td id='$id' style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;height:74px !important;background-color:$color_dato' $pond_extra>$tipo_dato</td>";
 
-					}
 							}
+						}
 							// Casilla para seleccionar alumnos
-							if($seleccionar == "1")
-							{
-								if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $grupo_simple;}
-								$grupos2 = "select alumnos from grupos where profesor = '$pr' and curso = '$curso_orig' and (asignatura = '$asignatura' $extra_asig)";
-								$marcado = "";
-								$grupos0 = mysqli_query($db_con, $grupos2);
-								$grupos1 = mysqli_fetch_array($grupos0);
-								$sel = explode(",",$grupos1[0]);
-								foreach($sel as $nc_sel){if($nc_sel == $nc)
-								{
-									$marcado = "1";
-								}
-								}
-								if(!(empty($div))){$curso = $div;}
-								?>
-					<td  class='warning'
-						style="vertical-align: middle; text-align: center; height: 74px !important;">
-					<div class="checkbox"><input
-						name="select#<?php echo $row[1]."#".$curso;?>" type="checkbox"
-						id="selal" <?php if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
-					</td>
-					<?php
-							}
 
-							echo "</tr>";
+						echo "</tr>";
 						}
 					}
 					$num_col+=1;
@@ -760,11 +688,8 @@ include("cuaderno/menu_cuaderno.php");
 <div align="center" class="hidden-print"><input name="enviar"
 	type="submit" value="Enviar datos" class="btn btn-primary" /></div>
 </FORM>
-					<?php
 
-					$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig) order by orden asc";
-					$colu = mysqli_query($db_con, $colum24);
-					?></div>
+</div>
 </div>
 </div>
 </div>

@@ -12,18 +12,18 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> Alumnos Absentistas</small></h2>
 </div>
 <br />
+<?php
+      if(stristr($_SESSION['cargo'],'1') == TRUE)
+      {
+?>
 <div class="col-sm-5 col-sm-offset-1">
 <div class="well well-large" style="text-align:left;">
-<?php
-	  if(stristr($_SESSION['cargo'],'1') == TRUE)
-	  {
-?>
 <form enctype='multipart/form-data' action='lista.php' method='post' role="form">
 <legend> Consulta por Mes y Número de Faltas.</legend>
-<fieldset>		
+<fieldset>      
                     <div class="form-group ">
 <label class="control-label">Mes </label>
-	
+    
                     <select name='mes' type='text' class="form-control">
                     <option></option>
                     <option>Septiembre</option>
@@ -43,19 +43,19 @@ include("../menu.php");
                     <INPUT name="numero" type="text" id="numero" size="3" maxlength="3" class="form-control">
                     </div>
                     <br /> 
-			              <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary"> 
+                          <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary"> 
 </fieldset>
 </form>
+</div>
+</div>
 <?php
-	  }
+      }
 ?>
-</div>
-</div>
 <div class="col-sm-5">
 <div class="well well-large" style="text-align:left;">
 <form enctype='multipart/form-data' action='index2.php' method='post'>
 <legend> Consulta de Absentismo por mes.</legend>
-<fieldset>		
+<fieldset>      
                     <div class="form-group ">
                     <label>Mes</label>
                     <select name='mes' type='text' class="form-control">
