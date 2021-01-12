@@ -91,14 +91,14 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 				$falta_F.=$h_f[0].",";
 				}
 				
-		$eventQuery = "SELECT FALTA, hora FROM FALTAS, alma WHERE alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
+		$eventQuery = "SELECT FALTA, hora, curso FROM FALTAS, alma WHERE alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
 		//echo $eventQuery;
 		$eventExec = mysqli_query($db_con, $eventQuery);		
 		if($row = mysqli_fetch_array($eventExec)) {
+			$curso_al = $row[2];
 			if (strlen($row[0]) > 0) {
 				if ($row[0] == "F" or strstr($falta_F,"F")==TRUE) {						
 				echo "<td style=\"background-color:#9d261d;\">";	
-				
 			?>
 					
 <!-- Button trigger modal -->
@@ -129,13 +129,31 @@ las Horas para Justificar: <span class='text-success'> <?php echo "$zz-$month-$y
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"1")==TRUE){ echo "checked"; }?>
 	name="1<?php echo "_".$zz;?>" value="1">1ª</label> <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"2")==TRUE){ echo "checked"; }?>
-	name="2<?php echo "_".$zz;?>" value="2">2ª</label> <label
+	name="2<?php echo "_".$zz;?>" value="2">2ª</label> 
+	<?php 
+	// COVID
+	if(stristr($curso_al,'1º de E') OR stristr($curso_al,'2º de E')){
+	?>
+	<label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"3")==TRUE){ echo "checked"; }?>
-	name="3<?php echo "_".$zz;?>" value="3">3ª</label> <label
+	name="3<?php echo "_".$zz;?>" value="3">3ª</label> 
+	<?php 
+	}
+	?>
+	<label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"4")==TRUE){ echo "checked"; }?>
-	name="4<?php echo "_".$zz;?>" value="4">4ª</label> <label
+	name="4<?php echo "_".$zz;?>" value="4">4ª</label> 
+	<?php 
+	// COVID
+	if(stristr($curso_al,'1º de E') == FALSE AND stristr($curso_al,'2º de E')==FALSE){
+	?>
+	<label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"5")==TRUE){ echo "checked"; }?>
-	name="5<?php echo "_".$zz;?>" value="5">5ª</label> <label
+	name="5<?php echo "_".$zz;?>" value="5">5ª</label>
+	<?php 
+	}
+	?>
+	 <label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"6")==TRUE){ echo "checked"; }?>
 	name="6<?php echo "_".$zz;?>" value="6">6ª</label><label
 	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"7")==TRUE){ echo "checked"; }?>
