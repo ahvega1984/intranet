@@ -87,7 +87,7 @@ GROUP BY profesor
 ORDER BY  `numero` DESC ";
 
 $sql_rec = "SELECT prof, count(*) as numero
-FROM  `horw` where prof not like '' and hora = 'R' and c_asig = '353'
+FROM  `horw` where prof not like '' and c_asig = '353'
 group by prof ORDER BY  prof ASC";
 ?>
 
@@ -151,13 +151,30 @@ var myChart = new Chart(ctx, {
 	            }
             }]
         },
+        events: false,
         legend: {
-            display: false,
+            display: false
+        },
+        tooltips: {
+            enabled: false
         },
         animation: {
-            animateScale: true,
-            animateRotate: true
-        }
+            duration: 0,
+            onComplete: function () {
+            var chartInstance = this.chart;
+            var ctx2 = chartInstance.ctx;
+            console.log(chartInstance);
+            var height = chartInstance.controller.boxes[0].bottom;
+            ctx2.textAlign = "center";
+            ctx2.fillStyle = "#FFFFFF";
+            Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+              var meta = chartInstance.controller.getDatasetMeta(i);
+              Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x-12, height - ((height - bar._model.y)-4));
+              }),this)
+            }),this);                               
+            }
+        },        
     }
 });
 </script>
@@ -224,6 +241,30 @@ var myChart = new Chart(ctx, {
     },
     options: {
         responsive: true,
+        events: false,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        animation: {
+            duration: 0,
+            onComplete: function () {
+            var chartInstance = this.chart;
+            var ctx2 = chartInstance.ctx;
+            console.log(chartInstance);
+            var height = chartInstance.controller.boxes[0].bottom;
+            ctx2.textAlign = "center";
+            ctx2.fillStyle = "#FFFFFF";
+            Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+              var meta = chartInstance.controller.getDatasetMeta(i);
+              Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x-15, height - ((height - bar._model.y)-5));
+              }),this)
+            }),this);                               
+            }
+        },
         scales: {
             xAxes: [{
                 position: 'top',
@@ -232,13 +273,6 @@ var myChart = new Chart(ctx, {
 	                stepSize: 1
 	            }
             }]
-        },
-        legend: {
-            display: false,
-        },
-        animation: {
-            animateScale: true,
-            animateRotate: true
         }
     }
 });

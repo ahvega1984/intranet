@@ -94,29 +94,30 @@ if ($config['mod_notificaciones']) {
 
 			if ($config['mod_asistencia']==1 && isset($config['mod_notificaciones_asistencia']) && $config['mod_notificaciones_asistencia'] == 1) {
 
-			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('$hoy', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria') GROUP BY profesor HAVING numdias >'$dias_faltas' ORDER BY `numdias` DESC");
+			$result = mysqli_query($db_con, "SELECT DISTINCT FALTAS.profesor, MAX(DATE(fecha)) AS ultima, DATEDIFF('$hoy', MAX(fecha)) AS numdias FROM FALTAS WHERE FALTAS.profesor IN (SELECT idprofesor FROM profesores_seneca, departamentos where profesores_seneca.nomprofesor = departamentos.nombre AND departamentos.departamento not like 'Admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' and departamentos.cargo not like '%1%') and FALTAS. profesor in (select distinct c_prof from horw_faltas) GROUP BY profesor HAVING numdias >'$dias_faltas' ORDER BY `numdias` DESC");
 
 				while ($row = mysqli_fetch_array($result)) {
-					$profe_ya = mysqli_query($db_con,"select idea from departamentos where nombre like (select nomprofesor from profesores_seneca where idprofesor = '".$row['profesor']."')");
-					$profe_ya_q = mysqli_fetch_array($profe_ya);
-
-					$profe_ultima = $profe_ya_q['idea'];
-					
-					$ultima = $row['ultima'];
-					$dias = $row['numdias'];
+					$profe_horw = mysqli_query($db_con,"select distinct c_prof from horw_faltas where c_prof = '".$row['profesor']."')");
+					if (mysqli_num_rows($profe_horw)>0) {
+						$profe_ya = mysqli_query($db_con,"select idea from departamentos where nombre like (select nomprofesor from profesores_seneca where idprofesor = '".$row['profesor']."')");
+						$profe_ya_q = mysqli_fetch_array($profe_ya);
+						$profe_ultima = $profe_ya_q['idea'];
 						
-					if ($dias > 2) {
+						$ultima = $row['ultima'];
+						$dias = $row['numdias'];
+							
+						if ($dias > 2) {
+							$ayer_f = date("Y-m-d",strtotime($hoy."- 1 day")); 
+							$antesdeayer_f = date("Y-m-d",strtotime($hoy."- 2 day"));
 
-						$ayer_f = date("Y-m-d",strtotime($hoy."- 1 day")); 
-						$antesdeayer_f = date("Y-m-d",strtotime($hoy."- 2 day"));
-
-						$repite = mysqli_query($db_con,"select distinct profesor from acceso where profesor='$profe_ultima' and (fecha='$hoy' OR fecha = '$ayer_f' OR fecha = '$antesdeayer_f') and clase='6'");
-						if (!mysqli_num_rows($repite)>0) {
-						$num++;
-						mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$nombre_profe', '$hoy', '6', '$ultima')");
+							$repite = mysqli_query($db_con,"select distinct profesor from acceso where profesor='$profe_ultima' and (fecha='$hoy' OR fecha = '$ayer_f' OR fecha = '$antesdeayer_f') and clase='6'");
+							if (!mysqli_num_rows($repite)>0) {
+							$num++;
+							mysqli_query($db_con,"INSERT INTO acceso (profesor, fecha, clase, observaciones) VALUES ('$profe_ultima', '$hoy', '6', '$ultima')");
+						}
 					}
 				}
-			}	
+			}
 		}
 	}
 
@@ -298,7 +299,7 @@ if ($config['mod_notificaciones']) {
 
 	// ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES
 
-	$pr_sms = mysqli_query($db_con,"SELECT DISTINCT profesor FROM acceso WHERE DATE( fecha ) =  '$hoy' and profesor not in (select idea from ausencias, departamentos where nombre=profesor and date(inicio)<='$hoy' and date(fin)>='$hoy')");
+	$pr_sms = mysqli_query($db_con,"SELECT DISTINCT profesor FROM acceso WHERE DATE( fecha ) =  '$hoy' and profesor not in (select idea from departamentos where departamento like 'Administracion') and profesor not in (select idea from ausencias, departamentos where nombre=profesor and date(inicio)<='$hoy' and date(fin)>='$hoy')");
 
 	while ($p_sms = mysqli_fetch_array($pr_sms)){
 
@@ -417,6 +418,10 @@ if ($config['mod_notificaciones']) {
 				$mail->AddAddress($direccion, utf8_decode($nombre_profe));
 				$mail->Send();
 
+				$correo_ya = mysqli_query($db_con,"select * from correos where correo = '$direccion' and texto = '$texto' and date(fecha) = '$hoy'");
+				if (!mysqli_num_rows($correo_ya)>0) {
+					mysqli_query($db_con,"INSERT INTO correos (destino, correo, fecha, texto) VALUES ('$nombre', '$direccion', NOW(), '$texto')");
+					}			
 				}
 			}
 

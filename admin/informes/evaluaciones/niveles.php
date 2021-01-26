@@ -384,7 +384,7 @@ if ($existenNotas) {
 							    this.data.datasets.forEach(function (dataset) {
 							        for (var i = 0; i < dataset.data.length; i++) {
 							            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-							            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+							            if(dataset.data[i]>0) ctx.fillText(dataset.data[i], model.x, model.y);
 							        }
 							    });
 							}
@@ -503,7 +503,7 @@ if ($existenNotas) {
 											    this.data.datasets.forEach(function (dataset) {
 											        for (var i = 0; i < dataset.data.length; i++) {
 											            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-											            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+											            if(dataset.data[i]>0) ctx.fillText(dataset.data[i], model.x, model.y);
 											        }
 											    });
 											}
@@ -620,7 +620,7 @@ if ($existenNotas) {
 									    this.data.datasets.forEach(function (dataset) {
 									        for (var i = 0; i < dataset.data.length; i++) {
 									            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-									            ctx.fillText(dataset.data[i], model.x, model.y - 5);
+									            if(dataset.data[i]>0) ctx.fillText(dataset.data[i], model.x, model.y);
 									        }
 									    });
 									}

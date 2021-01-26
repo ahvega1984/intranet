@@ -96,19 +96,19 @@ while ($grp = mysqli_fetch_array($unidades)) {
   $num_navidadF = mysqli_num_rows($navidadF);
   $navidadJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) < (select fecha from festivos where nombre like '% Navidad' limit 1)");
   $num_navidadJ = mysqli_num_rows($navidadJ);
-  $total_navidad = ($num_navidadF+$num_navidadJ)/$num_asig;
+  $total_navidad = round(($num_navidadF+$num_navidadJ)/$num_asig);
 
   $santaF = mysqli_query($db_con,"select * from FALTAS where falta='F' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '%Semana Santa' limit 1)");
   $num_santaF = mysqli_num_rows($santaF);
   $santaJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '% Navidad' limit 1) and date(fecha) < (select fecha from festivos where nombre like '%Semana Santa' limit 1)");
   $num_santaJ = mysqli_num_rows($santaJ);
-  $total_santa = ($num_santaF+$num_santaJ)/$num_asig;
+  $total_santa = round(($num_santaF+$num_santaJ)/$num_asig);
 
   $veranoF = mysqli_query($db_con,"select * from FALTAS where falta='F' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '%Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
   $num_veranoF = mysqli_num_rows($veranoF);
   $veranoJ = mysqli_query($db_con,"select * from FALTAS where falta='J' and codasi = '$cod_asig' and date(fecha) > (select fecha from festivos where nombre like '%Semana Santa' limit 1) and date(fecha) < '".$config['curso_fin']."'");
   $num_veranoJ = mysqli_num_rows($veranoJ);
-  $total_verano = ($num_veranoF+$num_veranoJ)/$num_asig;
+  $total_verano = round(($num_veranoF+$num_veranoJ)/$num_asig);
 ?>
 
 <?php if ($num_asig > 0): ?>
@@ -209,11 +209,14 @@ while ($grp = mysqli_fetch_array($unidades)) {
     }]
   },
       options: {
-        tooltips: {
-          mode: 'nearest',
-          intersect: false
-        },
         responsive: true,
+        events: false,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: true
+        },
         scales: {
           xAxes: [{
             stacked: true,
@@ -222,7 +225,25 @@ while ($grp = mysqli_fetch_array($unidades)) {
           yAxes: [{
             stacked: true
           }]
-        }
+        },
+         animation: {
+              duration: 0,
+              onComplete: function () {
+                  // render the value of the chart above the bar
+                  var ctx = this.chart.ctx;
+                  ctx.font = "11px Helvetica";
+                  ctx.fillStyle = "#FFFFFF";;
+                  ctx.textAlign = 'center';
+                  ctx.textBaseline = 'bottom';
+                  ctx.fontColor = 'white';
+                  this.data.datasets.forEach(function (dataset) {
+                      for (var i = 0; i < dataset.data.length; i++) {
+                          var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                          ctx.fillText(dataset.data[i], model.x - 10, model.y + 5);
+                      }
+                  });
+              }
+            } 
       }
     });
 

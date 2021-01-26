@@ -68,7 +68,7 @@
 		<h5 class="text-center">
 			<a href="#" style="text-decoration: none;" data-toggle="modal" data-target="#expulsiones">
 				<span class="lead"><span id="stats-expulsados"></span> / <span id="stats-reingresos"></span></span><br>
-				<small class="text-uppercase text-muted">Expulsiones Reingresos</small>
+				<small class="text-uppercase text-muted">Expulsiones, Ausencias y Reingresos</small>
 			</a>
 		</h5>
 
@@ -78,7 +78,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-						<h4 class="modal-title">Expulsiones y reingresos</h4>
+						<h4 class="modal-title">Expulsiones, ausencias y reingresos</h4>
 					</div>
 
 					<div class="modal-body">

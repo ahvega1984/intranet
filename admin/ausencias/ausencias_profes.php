@@ -84,7 +84,7 @@ window.chartColors = {
 		<?php } ?>
 
 <?php $chart_n++; ?>
-<canvas id="chart_<?php echo $chart_n; ?>" width="200" height="460"></canvas>
+<canvas id="chart_<?php echo $chart_n; ?>" width="200" height="300"></canvas>
 <script>
     var ctx = document.getElementById('chart_<?php echo $chart_n; ?>').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -107,7 +107,7 @@ window.chartColors = {
       ]
     }, {
       label: 'Nº de horas',
-      backgroundColor: window.chartColors.yellow,
+      backgroundColor: window.chartColors.teal,
       stack: 'Stack 0',
       data: [
         <?php echo $num_horas_a; ?>
@@ -115,11 +115,31 @@ window.chartColors = {
     }]
   },
       options: {
-        tooltips: {
-          mode: 'index',
-          intersect: false
-        },
         responsive: true,
+        events: false,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        animation: {
+            duration: 0,
+            onComplete: function () {
+            var chartInstance = this.chart;
+            var ctx2 = chartInstance.ctx;
+            console.log(chartInstance);
+            var height = chartInstance.controller.boxes[0].bottom;
+            ctx2.textAlign = "center";
+            ctx2.fillStyle = "#FFFFFF";
+            Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+              var meta = chartInstance.controller.getDatasetMeta(i);
+              Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x-15, height - ((height - bar._model.y)-5));
+              }),this)
+            }),this);                               
+            }
+        },
         scales: {
           xAxes: [{
             stacked: true,

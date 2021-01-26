@@ -1105,3 +1105,23 @@ if (! mysqli_num_rows($actua)) {
   
   mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Eliminar profesores con usuario IdEA incorrecto', NOW())");
 }
+
+
+/*
+  @descripcion: Tabla para registrar correos
+  @fecha: 23 de enero de 2021
+*/
+$actua = mysqli_query($db_con, "SELECT `modulo` FROM `actualizacion` WHERE `modulo` = 'Tabla para registrar correos'");
+if (! mysqli_num_rows($actua)) {
+
+  mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `correos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `destino` varchar(72) NOT NULL,
+  `correo` varchar(72) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `texto` tinytext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;");
+
+  mysqli_query($db_con, "INSERT INTO `actualizacion` (`modulo`, `fecha`) VALUES ('Tabla para registrar correos', NOW())");
+}

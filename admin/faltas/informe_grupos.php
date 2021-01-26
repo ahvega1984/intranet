@@ -145,7 +145,7 @@ while ($grp = mysqli_fetch_array($unidades)) {
       ]
     }, {
       label: '2Tr. Justificadas',
-      backgroundColor: window.chartColors.yellow,
+      backgroundColor: window.chartColors.purple,
       stack: 'Stack 1',
       data: [
         <?php echo $j_santa; ?>
@@ -179,7 +179,25 @@ while ($grp = mysqli_fetch_array($unidades)) {
           yAxes: [{
             stacked: true
           }]
-        }
+        },
+        animation: {
+              duration: 0,
+              onComplete: function () {
+                  // render the value of the chart above the bar
+                  var ctx = this.chart.ctx;
+                  ctx.font = "10px Helvetica";
+                  ctx.fillStyle = "#FFFFFF";;
+                  ctx.textAlign = 'center';
+                  ctx.textBaseline = 'bottom';
+                  ctx.fontColor = 'white';
+                  this.data.datasets.forEach(function (dataset) {
+                      for (var i = 0; i < dataset.data.length; i++) {
+                          var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                          ctx.fillText(dataset.data[i], model.x, model.y + 13);
+                      }
+                  });
+              }
+              }        
       }
     });
 

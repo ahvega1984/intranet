@@ -337,6 +337,10 @@ window.chartColors = {
                                         }]
                                     },
                                     options: {
+                                        events: false,
+                                        legend: {
+                                            display: false
+                                        },
                                         scales: {
                                             xAxes: [{
                                                 position: 'top',
@@ -347,6 +351,23 @@ window.chartColors = {
                                             yAxes: [{
                                                 
                                             }]
+                                        },
+                                    animation: {
+                                            animateScale: true,
+                                            animateRotate: true,
+                                            onComplete: function () {
+                                                var chartInstance = this.chart;
+                                                var ctx2 = chartInstance.ctx;
+                                                console.log(chartInstance);
+                                                var height = chartInstance.controller.boxes[0].bottom;
+                                                ctx2.textAlign = "center";
+                                                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                                                  var meta = chartInstance.controller.getDatasetMeta(i);
+                                                  Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                                                    if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x+12, height - ((height - bar._model.y)-4));
+                                                  }),this)
+                                                }),this);
+                                            }
                                         }
                                     }
                                 });
@@ -449,6 +470,7 @@ window.chartColors = {
                                             //echo $SQL."<br>";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
                                             $num_conv1 = $result['total'];
+
                                             
                                             $SQL = "select count(*) as total from Fechoria inner join alma on alma.claveal = Fechoria.claveal where alma.curso = '$nivel' and Fechoria.fecha >= '$maxNavidad' and Fechoria.fecha <= '$minSanta'";
                                             $result = mysqli_fetch_assoc(mysqli_query($db_con, $SQL));
@@ -596,7 +618,7 @@ window.chartColors = {
                                 <div class="col-sm-6">
                                     <h4 class="badge badge-success"><?php echo $nivel; ?></h4>
                                             <br>
-                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $idcurso; ?>" width="200" height="140"></canvas>
+                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $idcurso; ?>" width="200" height="260"></canvas>
                                 <script>
                                 var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $idcurso; ?>");
                                 
@@ -627,7 +649,7 @@ window.chartColors = {
                                             backgroundColor: window.chartColors.red,
                                             data: [
                                                 <?php echo $num_faltas; ?>,
-                                                <?php echo $num_conv1; ?>, 
+                                                <?php if($num_conv1>0){echo $num_conv1;}else{echo "";} ?>, 
                                                 <?php echo $num_leves1; ?>, 
                                                 <?php echo $num_graves1; ?>, 
                                                 <?php echo $num_muygraves1; ?>, 
@@ -670,6 +692,10 @@ window.chartColors = {
                                         }]
                                     },
                                     options: {
+                                        events: false,
+                                        legend: {
+                                            display: false
+                                        },
                                         scales: {
                                             xAxes: [{
                                                 position: 'top',
@@ -680,7 +706,24 @@ window.chartColors = {
                                             yAxes: [{
                                                 
                                             }]
-                                        }
+                                        },
+                                    animation: {
+                                            animateScale: true,
+                                            animateRotate: true,
+                                            onComplete: function () {
+                                                var chartInstance = this.chart;
+                                                var ctx2 = chartInstance.ctx;
+                                                console.log(chartInstance);
+                                                var height = chartInstance.controller.boxes[0].bottom;
+                                                ctx2.textAlign = "center";
+                                                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                                                  var meta = chartInstance.controller.getDatasetMeta(i);
+                                                  Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                                                    if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x+12, height - ((height - bar._model.y)-4));
+                                                  }),this)
+                                                }),this);
+                                            }
+                                        }                                        
                                     }
                                 });
                                 </script>
@@ -881,7 +924,7 @@ window.chartColors = {
 
                         <?php $chart_n++; ?>
 
-                        <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $grupo; ?>" width="200" height="80"></canvas>
+                        <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $grupo; ?>" width="200" height="100"></canvas>
                         <script>
                         var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_<?php echo $grupo; ?>");
                         
@@ -955,6 +998,27 @@ window.chartColors = {
                                 }]
                             },
                             options: {
+                                events: false,
+                                legend: {
+                                    display: false
+                                },
+                                animation: {
+                                            animateScale: true,
+                                            animateRotate: true,
+                                            onComplete: function () {
+                                                var chartInstance = this.chart;
+                                                var ctx2 = chartInstance.ctx;
+                                                console.log(chartInstance);
+                                                var height = chartInstance.controller.boxes[0].bottom;
+                                                ctx2.textAlign = "center";
+                                                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                                                  var meta = chartInstance.controller.getDatasetMeta(i);
+                                                  Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                                                    if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x+12, height - ((height - bar._model.y)-4));
+                                                  }),this)
+                                                }),this);
+                                            }
+                                        },                               
                                 scales: {
                                     xAxes: [{
                                         position: 'top',
@@ -1109,7 +1173,7 @@ window.chartColors = {
                                         <?php } ?>
                                                <?php $chart_n++; ?>
 
-                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_prof" width="200" height="400"></canvas>
+                                <canvas id="chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_prof" width="100" height="120"></canvas>
                                 <script>
                                 var ctx = document.getElementById("chart_<?php echo $chart_n; ?>_<?php echo $anio_escolar; ?>_prof");
                                 
@@ -1134,12 +1198,26 @@ window.chartColors = {
                                                 position: 'top'
                                             }]
                                         },
+                                        events: false,
                                         legend: {
                                             display: false,
                                         },
                                         animation: {
                                             animateScale: true,
-                                            animateRotate: true
+                                            animateRotate: true,
+                                            onComplete: function () {
+                                                var chartInstance = this.chart;
+                                                var ctx2 = chartInstance.ctx;
+                                                console.log(chartInstance);
+                                                var height = chartInstance.controller.boxes[0].bottom;
+                                                ctx2.textAlign = "center";
+                                                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                                                  var meta = chartInstance.controller.getDatasetMeta(i);
+                                                  Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                                                     if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x+12, height - ((height - bar._model.y)-4));
+                                                  }),this)
+                                                }),this);
+                                            }
                                         }
                                     }
                                 });
@@ -1275,12 +1353,26 @@ window.chartColors = {
                                                 position: 'top'
                                             }]
                                         },
+                                        events: false,
                                         legend: {
                                             display: false,
                                         },
                                         animation: {
                                             animateScale: true,
-                                            animateRotate: true
+                                            animateRotate: true,
+                                            onComplete: function () {
+                                                var chartInstance = this.chart;
+                                                var ctx2 = chartInstance.ctx;
+                                                console.log(chartInstance);
+                                                var height = chartInstance.controller.boxes[0].bottom;
+                                                ctx2.textAlign = "center";
+                                                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                                                  var meta = chartInstance.controller.getDatasetMeta(i);
+                                                  Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                                                     if(dataset.data[index]>0) ctx2.fillText(dataset.data[index], bar._model.x+15, height - ((height - bar._model.y)-3));
+                                                  }),this)
+                                                }),this);
+                                            }
                                         }
                                     }
                                 });
