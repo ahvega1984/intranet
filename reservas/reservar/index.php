@@ -372,19 +372,33 @@ for ($i=1; $i < 15; $i++) {
         echo "<label><small>Observaciones</small></label>";
         echo "<textarea class=\"form-control\" name=\"day_event".$i."_obs\" rows=\"2\" maxlength=\"190\">${event_event.$i._observacion}</textarea>";
         echo "</div>";
-    }
-    else{
-      echo "<label>".$i."ª Hora - <span class=\"text-muted\">".$hora_tramo."</span></label>";
-      echo "<div class=\"form-group\">";
-      echo "<input disabled class=\"form-control\" type=\"text\"  value='${event_event.$i._profesor}'></div>";
-      if (isset(${event_event.$i._observacion})){
-        echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">${event_event.$i._observacion}</textarea>";
       }
-      echo "<input type=\"hidden\" value=\"${event_event.$i._profesor}\" name=\"day_event1\">";
+      elseif (acl_permiso($_SESSION['cargo'], array('1'))) {
+        echo "<label>".$i."ª hora - <span class=\"text-muted\">".$hora_tramo."</span></label>";
+        echo "<div class=\"form-group\">";
+        echo "<select name=\"day_event".$i."\" class=\"form-control\"><option></option>";
+        $result1 = mysqli_query($db_con, $SQL);
+        while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
+          echo "<option value=\"".$profesor."\" ".((${event_event.$i._profesor} == $profesor) ? 'selected' : '').">" . $profesor . "</option>";
+        } 
+        echo "</select>";
+        echo "<label><small>Observaciones</small></label>";
+        echo "<textarea class=\"form-control\" name=\"day_event".$i."_obs\" rows=\"2\" maxlength=\"190\">${event_event.$i._observacion}</textarea>";
+        echo "</div>";
+      }
+      else{
+        echo "<label>".$i."ª Hora - <span class=\"text-muted\">".$hora_tramo."</span></label>";
+        echo "<div class=\"form-group\">";
+        echo "<input disabled class=\"form-control\" type=\"text\"  value='${event_event.$i._profesor}'></div>";
+        if (isset(${event_event.$i._observacion})){
+          echo "<textarea disabled class=\"form-control\" rows=\"2\" maxlength=\"190\">${event_event.$i._observacion}</textarea>";
+        }
+        echo "</div>";
+        echo "<input type=\"hidden\" value=\"${event_event.$i._profesor}\" name=\"day_event".$i."\">";
+      }
     }
+    echo "</div>";
   }
-  echo '</div>';
-}
 }
 }
 
