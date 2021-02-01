@@ -248,7 +248,10 @@ include("../../menu.php");
 					$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%F.P.B%') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%' and ESTADOMATRICULA not like 'Pendiente de confirma%' and ESTADOMATRICULA not like 'Traslad%') or (COMBASI IS NULL and ESTADOMATRICULA like 'Traslad%')";
 					$result6 = mysqli_query($db_con, $SQL6);
 
-					
+					// Elñiminamos alumnos de FPB o Ciclos que obtuenen título o matrícuña anulada
+
+					$SQL7 = "DELETE FROM alma WHERE (curso not like '%E.S.O.%' and curso not like '%Bach%') and (ESTADOMATRICULA like 'Obtiene T%' or ESTADOMATRICULA like 'Baja de of%' or ESTADOMATRICULA like 'Baja de of%')";
+					$result7 = mysqli_query($db_con, $SQL7);
 
 					// Buscamos asignaturas en backup o bien creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 
@@ -342,7 +345,7 @@ include("../../menu.php");
 			// Si se ha creado la tabla matriculas_bach y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas_bach.
 				$matr = mysqli_query($db_con, "select * from matriculas_bach");
 				if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<13)) {
-					$pro = mysqli_query($db_con, "select claveal,	apellidos, nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas_bach where curso like '%BACH%'");
+					$pro = mysqli_query($db_con, "select claveal, apellidos, nombre, provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas_bach where curso like '%BACH%'");
 					while ($prf = mysqli_fetch_array($pro)) {
 
 						$pap = explode(", ",$prf[7]);
