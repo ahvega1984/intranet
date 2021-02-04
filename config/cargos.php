@@ -160,7 +160,7 @@ include ("../menu.php");
 			</td>
 
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_z" value="z" <?php echo (! empty($car) && strpos('z', $car) !== false) ? "checked" : ""; ?> <?php echo ($idea == "admin") ? "checked disabled" : ""; ?>  />
+				<input type="checkbox" name="<?php echo $dni; ?>_z" value="z" <?php echo (! empty($car) && strpos($car, 'z') !== false) ? "checked" : ""; ?> <?php echo ($idea == "admin") ? "checked disabled" : ""; ?>  />
 			</td>
 
 			<td class="text-center">
@@ -168,11 +168,11 @@ include ("../menu.php");
 				<input type="checkbox" name="" value="1" <?php echo ($idea == "admin") ? "checked disabled" : ""; ?> />
 				<input type="hidden" name="<?php echo $dni; ?>_1" value="1">
 				<?php else: ?>
-				<input type="checkbox" name="<?php echo $dni; ?>_1" value="1" <?php echo (! empty($car) && strpos('1', $car) !== false) ? "checked" : ""; ?> <?php echo ($idea == "admin") ? "checked disabled" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_1" value="1" <?php echo (! empty($car) && strpos($car, '1') !== false) ? "checked" : ""; ?> <?php echo ($idea == "admin") ? "checked disabled" : ""; ?> />
 				<?php endif; ?>
 			</td>
 			<td class="form-inline" nowrap>
-				<input type="checkbox" name="<?php echo $dni; ?>_2" value="2" <?php echo (! empty($car) && strpos('2', $car) !== false) ? "checked" : ""; ?> /> 
+				<input type="checkbox" name="<?php echo $dni; ?>_2" value="2" <?php echo (! empty($car) && strpos($car, '2') !== false) ? "checked" : ""; ?> /> 
 				<select class="form-control input-sm" style="width: auto;" name="<?php echo $dni; ?>_2t">
 					<option value=""></option>
 					<?php
@@ -188,47 +188,47 @@ include ("../menu.php");
 		  		</select>
 		  	</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_4" value="4" <?php echo (! empty($car) && strpos('4', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_4" value="4" <?php echo (! empty($car) && strpos($car, '4') !== false) ? "checked" : ""; ?> />
 			</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_15" value="9" <?php echo (! empty($car) && strpos('9', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_15" value="9" <?php echo (! empty($car) && strpos($car, '9') !== false) ? "checked" : ""; ?> />
 			</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_5" value="5" <?php echo (! empty($car) && strpos('5', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_5" value="5" <?php echo (! empty($car) && strpos($car, '5') !== false) ? "checked" : ""; ?> />
 			</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_6" value="6" <?php echo (! empty($car) && strpos('6', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_6" value="6" <?php echo (! empty($car) && strpos($car, '6') !== false) ? "checked" : ""; ?> />
 			</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_7" value="7" <?php echo (! empty($car) && strpos('7', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_7" value="7" <?php echo (! empty($car) && strpos($car, '7') !== false) ? "checked" : ""; ?> />
 			</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_8" value="8" <?php echo (! empty($car) && strpos('8', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_8" value="8" <?php echo (! empty($car) && strpos($car, '8') !== false) ? "checked" : ""; ?> />
 			</td>
 
 			<?php if (isset($config['mod_bilingue']) && $config['mod_bilingue'] == 1): ?>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_9" value="a" <?php echo (! empty($car) && strpos('a', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_9" value="a" <?php echo (! empty($car) && strpos($car, 'a') !== false) ? "checked" : ""; ?> />
 			</td>
 			<?php endif; ?>
 
 			<?php if (isset($config['mod_convivencia']) && $config['mod_convivencia'] == 1): ?>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_10" value="b" <?php echo (! empty($car) && strpos('b', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_10" value="b" <?php echo (! empty($car) && strpos($car, 'b') !== false) ? "checked" : ""; ?> />
 			</td>
 			<?php endif; ?>
 
 			<?php if (isset($config['mod_biblioteca']) && $config['mod_biblioteca'] == 1): ?>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_11" value="c" <?php echo (! empty($car) && strpos('c', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_11" value="c" <?php echo (! empty($car) && strpos($car, 'c') !== false) ? "checked" : ""; ?> />
 			</td>
 			<?php endif; ?>
 
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_12" value="d" <?php echo (! empty($car) && strpos('d', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_12" value="d" <?php echo (! empty($car) && strpos($car, 'd') !== false) ? "checked" : ""; ?> />
 			</td>
 			<td class="text-center">
-				<input type="checkbox" name="<?php echo $dni; ?>_13" value="f" <?php echo (! empty($car) && strpos('f', $car) !== false) ? "checked" : ""; ?> />
+				<input type="checkbox" name="<?php echo $dni; ?>_13" value="f" <?php echo (! empty($car) && strpos($car, 'f') !== false) ? "checked" : ""; ?> />
 			</td>
 
 			<td class="text-center">
