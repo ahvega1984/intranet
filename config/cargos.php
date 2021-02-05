@@ -35,7 +35,7 @@ include ("../menu.php");
 		// Backup de c_profes
 		mysqli_query($db_con, "drop table c_profes_seg" );
 		mysqli_query($db_con, "create table c_profes_seg select * from c_profes" );
-		mysqli_query($db_con, "update c_profes set telefono = ''" );
+		//mysqli_query($db_con, "update c_profes set telefono = ''" );
 
 		mysqli_query($db_con, "truncate table cargos" );
 
