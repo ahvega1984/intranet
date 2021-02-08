@@ -64,7 +64,7 @@ else{
 		if ($todos < '1') {
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
 		}
 		while($row1 = mysqli_fetch_array($result1)){

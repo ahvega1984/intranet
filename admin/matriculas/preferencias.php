@@ -1635,7 +1635,7 @@ include("menu.php");
 							<label for="opt24_4" class="col-sm-5 control-label">Optativa 5</label>
 							<div class="input-group col-sm-5">
 							<input name="opt24_4" type="text"
-								class="form-control" value="<?php echo (isset($ar_opt24[4])) ? $ar_opt24[4] : 'Fundamentos de Administracción y Gestión 4'; ?>" id="opt24_4">
+								class="form-control" value="<?php echo (isset($ar_opt24[4])) ? $ar_opt24[4] : 'Fundamentos de Administración y Gestión 4'; ?>" id="opt24_4">
 							</div>
 						</div>
 						<div class="form-group">
