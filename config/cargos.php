@@ -98,17 +98,17 @@ include ("../menu.php");
 			<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
 			<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
 			<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
-			<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
+			<th><span data-bs="tooltip" title="Jefes de los distintos Departamentos didácticos">JD</span></th>
 			<th><span data-bs="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
-			<th><span data-bs="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
-			<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Conserjes.">Conserje</span></th>
-			<th><span data-bs="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
+			<th><span data-bs="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares">DACE</span></th>
+			<th><span data-bs="tooltip" title="Miembros del personal de Administración y Servicios: Conserjes">Conserje</span></th>
+			<th><span data-bs="tooltip" title="Miembros del personal de Administración y Servicios: Administrativos">Administ.</span></th>
 			<th><span data-bs="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
 		if (isset($config['mod_bilingue']) && $config['mod_bilingue'] == 1) {
-			$head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
+			$head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bilingüismo">Bilingüe</span></th>';
 		}
 		if (isset($config['mod_convivencia']) && $config['mod_convivencia'] == 1) {
-			$head .= '<th><span data-bs="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
+			$head .= '<th><span data-bs="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia">Conv.</span></th>';
 		}
 		if (isset($config['mod_biblioteca']) && $config['mod_biblioteca'] == 1) {
 			$head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
