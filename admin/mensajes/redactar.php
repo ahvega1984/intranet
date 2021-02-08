@@ -510,7 +510,7 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Claustro de profesores</legend>
 
-						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos where departamento not like 'Administracion' and departamento not like 'Admin' and departamento not like 'Conserjeria' ORDER BY `nombre` ASC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT `nombre` FROM `departamentos` WHERE `departamento` <> 'Administracion' AND `departamento` <> 'Admin' AND `departamento` <> 'Conserjeria' ORDER BY `nombre` ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
 							<?php while($row = mysqli_fetch_array($result)): ?>
