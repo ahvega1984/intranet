@@ -192,7 +192,7 @@ if (isset($_POST['submit']) && ! (strlen($_POST['USUARIO']) < 5 || strlen($_POST
 
 				session_regenerate_id(true);
 
-				if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $hash_clave_sha1) {
+				if (! $_SESSION['session_seneca'] && $datosIntranet['dni'] == $cmp_clave) {
 					$_SESSION['cambiar_clave'] = 1;
 					header("location:usuario.php?tab=cuenta&pane=password");
 					exit();
