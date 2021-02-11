@@ -666,6 +666,11 @@ $menu = array_merge($menu, $menu_centro, $menu_alumnos, $menu_profesores, $menu_
 				<span class="fas fa-key fa-2x"></span><br>
 				<small>Reservas</small></a>
 		</div>
+		<div class="col-xs-3 text-center padmobile">
+			<a href="matricula-coche/index.php">
+				<span class="fa fa-car fa-2x"></span><br>
+				<small>Matrícula Coche</small></a>
+		</div>
 		<div class="col-xs-3 text-center padmobile hidden-sm hidden-md hidden-lg">
 			<a href="#" id="toggleMenu">
 				<span class="fas fa-ellipsis-v fa-2x"></span><br>

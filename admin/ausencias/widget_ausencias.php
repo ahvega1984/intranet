@@ -11,7 +11,8 @@ $hora_act = mysqli_fetch_array($hor);
 $hora_actual = $hora_act[0];
 //echo $hora_actual;
 ?>
-<?php $result = mysqli_query($db_con, "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."' and (horas like '%$hora_actual%' or horas = '0')"); 
+<?php 
+	$result = mysqli_query($db_con, "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."'"); 
 ?>
 <?php if (mysqli_num_rows($result)): ?>
 
